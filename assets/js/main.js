@@ -24,13 +24,14 @@ function calculateMatiereAverage(modules, matiereModules) {
 
         let note = 0;
 
-        // Calculate based on module type
-        if (module.evaluations.includes("TD") && module.evaluations.includes("Examen")) {
-            note = (noteTD * 0.4 + noteExamen * 0.6);
-        } else if (module.evaluations.includes("TP")) {
-            note = noteTP; // TP only
+        // Calculate based on the evaluation criteria
+        if (module.evaluations.includes("TD (60%)") && module.evaluations.includes("Examen (40%)")) {
+            note = (noteTD * 0.6) + (noteExamen * 0.4);
+        } else if (module.evaluations.includes("TD (50%)") && module.evaluations.includes("Examen (50%)")) {
+            note = (noteTD * 0.5) + (noteExamen * 0.5);
         } else {
-            note = noteExamen; // Exam only
+            // Default calculation for TD and Examen
+            note = (noteTD * 0.4) + (noteExamen * 0.6);
         }
 
         // Store module mark for display
@@ -116,61 +117,65 @@ function updateModules() {
     const modulesDiv = document.getElementById('modulesContainer');
     modulesDiv.innerHTML = '';
 
-    modules.forEach(module => {
-        const moduleId = `${annee}_${specialite}_${semestre}_${module.matiere.replace(/\s+/g, "")}_${module.module.replace(/\s+/g, "")}`;
-        
-        // Détermine les types d'évaluation basés sur le module
-        const hasTD = module.evaluations.includes("TD");
-        const hasTP = module.evaluations.includes("TP");
-        const hasExam = module.evaluations.includes("Examen");
+    if (modules && modules.length > 0) {
+        modules.forEach(module => {
+            const moduleId = `${annee}_${specialite}_${semestre}_${module.matiere.replace(/\s+/g, "")}_${module.module.replace(/\s+/g, "")}`;
+            
+            // Determine evaluation types based on the module
+            const hasTD = module.evaluations.some(evaluation => evaluation.includes("TD"));
+            const hasTP = module.evaluations.includes("TP");
+            const hasExam = module.evaluations.some(evaluation => evaluation.includes("Examen"));
 
-        let html = `
-            <div class="mb-6 p-4 border rounded glass-card">
-                <h3 class="font-bold mb-2">${module.matiere}</h3>
-                <p class="text-sm text-gray-600 mb-3">Module: ${module.module} | Coefficient: ${module.coefficient}</p>
-                <div class="grid grid-cols-1 md:grid-cols-${(hasTD ? 1 : 0) + (hasTP ? 1 : 0) + (hasExam ? 1 : 0)} gap-4">
-        `;
+            let html = `
+                <div class="mb-6 p-4 border rounded glass-card">
+                    <h3 class="font-bold mb-2">${module.matiere}</h3>
+                    <p class="text-sm text-gray-600 mb-3">Module: ${module.module} | Coefficient: ${module.coefficient}</p>
+                    <div class="grid grid-cols-1 md:grid-cols-${(hasTD ? 1 : 0) + (hasTP ? 1 : 0) + (hasExam ? 1 : 0)} gap-4">
+            `;
 
-        // Ajoute le champ TD si nécessaire
-        if (hasTD) {
+            // Add TD input if necessary
+            if (hasTD) {
+                html += `
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Note TD</label>
+                        <input type="number" min="0" max="20" step="0.01" id="${moduleId}_TD" 
+                               class="custom-input w-full" placeholder="Note /20">
+                    </div>
+                `;
+            }
+
+            // Add TP input if necessary
+            if (hasTP) {
+                html += `
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Note TP</label>
+                        <input type="number" min="0" max="20" step="0.01" id="${moduleId}_TP" 
+                               class="custom-input w-full" placeholder="Note /20">
+                    </div>
+                `;
+            }
+
+            // Always add Exam input
+            if (hasExam) {
+                html += `
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Note Examen</label>
+                        <input type="number" min="0" max="20" step="0.01" id="${moduleId}_EX" 
+                               class="custom-input w-full" placeholder="Note /20">
+                    </div>
+                `;
+            }
+
             html += `
-                <div>
-                    <label class="block text-sm font-medium mb-1">Note TD</label>
-                    <input type="number" min="0" max="20" step="0.01" id="${moduleId}_TD" 
-                           class="custom-input w-full" placeholder="Note /20">
+                    </div>
                 </div>
             `;
-        }
 
-        // Ajoute le champ TP si nécessaire
-        if (hasTP) {
-            html += `
-                <div>
-                    <label class="block text-sm font-medium mb-1">Note TP</label>
-                    <input type="number" min="0" max="20" step="0.01" id="${moduleId}_TP" 
-                           class="custom-input w-full" placeholder="Note /20">
-                </div>
-            `;
-        }
-
-        // Ajoute toujours le champ Examen
-        if (hasExam) {
-            html += `
-                <div>
-                    <label class="block text-sm font-medium mb-1">Note Examen</label>
-                    <input type="number" min="0" max="20" step="0.01" id="${moduleId}_EX" 
-                           class="custom-input w-full" placeholder="Note /20">
-                </div>
-            `;
-        }
-
-        html += `
-                </div>
-            </div>
-        `;
-
-        modulesDiv.innerHTML += html;
-    });
+            modulesDiv.innerHTML += html;
+        });
+    } else {
+        modulesDiv.innerHTML = '<p>Aucun module disponible pour ce semestre.</p>';
+    }
 }
 
 function calculerMoyenne() {
@@ -199,7 +204,22 @@ function calculerMoyenne() {
         const color = module.validated ? 'text-green-500' : 'text-red-500';
         detailedResults += `<div class="mb-1 ${color}">${module.name} (Coef: ${module.coefficient}): ${module.mark}/20</div>`;
     });
-    detailedResults += `<div class="mt-4 font-bold">Moyenne Générale: ${result.moyenne.toFixed(2)}/20</div>`;
+
+    // Final average display
+    const finalAverageColor = result.moyenne >= 10 ? 'text-green-500' : 'text-red-500';
+    const finalStatusText = result.moyenne >= 10 ? 'admis' : 'ajourner/rattrapage';
+    detailedResults += `
+        <div class="mt-4 font-bold ${finalAverageColor} text-2xl">Moyenne Générale: ${result.moyenne.toFixed(2)}/20</div>
+        <div class="mt-2 ${finalAverageColor} text-lg">${finalStatusText}</div>
+    `;
+    
+    // Add the "made by" box with enhanced styling
+    detailedResults += `
+        <div class="mt-4 p-4 border rounded-lg bg-gradient-to-r from-green-400 to-blue-500 text-white animate-fade-in">
+            <p class="text-center">made by @spot_campuselkseur</p>
+        </div>
+    `;
+    
     detailedResults += '</div>';
 
     resultat.innerHTML = detailedResults;

@@ -486,3 +486,61 @@ textarea {
         gap: 1rem;
     }
 }
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in {
+    animation: fade-in 0.5s ease-in-out;
+}
+
+/* Additional styles for the "made by" box */
+.made-by-box {
+    background: linear-gradient(135deg, #3b82f6, #60a5fa);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    color: white;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s;
+}
+
+.made-by-box:hover {
+    transform: scale(1.05);
+}
+
+/* Animation for the welcome box */
+@keyframes fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in {
+    animation: fade-in 0.5s ease-in-out;
+}
+
+/* Styles for the welcome box */
+.welcome-box {
+    background: rgba(59, 130, 246, 0.7); /* Adjusted to a semi-transparent blue */
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s;
+}
+
+.welcome-box:hover {
+    transform: scale(1.05);
+}

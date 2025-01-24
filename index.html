@@ -24,12 +24,14 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico">
     <link rel="stylesheet" href="assets/css/floating-menu.css">
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-EQKL1PB4JE"></script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4QK3R858YJ"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-        gtag('config', 'G-EQKL1PB4JE');
+        gtag('config', 'G-4QK3R858YJ');
     </script>
 </head>
 <body class="flex flex-col min-h-screen" data-aos-easing="ease-out-cubic">
@@ -43,9 +45,11 @@
         </header>
 
         <div class="welcome-section text-center py-16" data-aos="fade-up">
-            <h1 class="text-4xl font-bold text-gray-800 mb-4 animate-fade-in">Bienvenue sur le Portail Étudiant</h1>
-            <p class="text-xl text-gray-600 mb-6 animate-fade-in-delay">Université de Béjaïa - Campus El-Kseur</p>
-            <p class="text-lg text-gray-600 animate-fade-in-delay-2">Votre plateforme pour gérer votre parcours académique, accéder aux ressources éducatives et bien plus encore.</p>
+            <div class="welcome-box p-6 rounded-lg shadow-lg bg-gradient-to-r from-blue-400 to-blue-600 text-white animate-fade-in">
+                <h1 class="text-4xl font-bold mb-4">Bienvenue sur le Portail Étudiant</h1>
+                <p class="text-xl mb-4">Université de Béjaïa - Campus El-Kseur</p>
+                <p class="text-lg">Votre plateforme pour gérer votre parcours académique, accéder aux ressources éducatives et bien plus encore.</p>
+            </div>
         </div>
 
         <div class="services-grid grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -83,5 +87,7 @@
     <script>
         AOS.init({ duration: 1000, once: true });
     </script>
+    <script src="assets/js/data.js"></script>
+    <script src="assets/js/main.js"></script>
 </body>
 </html>
