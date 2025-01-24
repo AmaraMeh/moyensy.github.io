@@ -25,22 +25,30 @@ function calculateMatiereAverage(modules, matiereModules) {
         let note = 0;
 
         // Calculate based on the evaluation criteria
-        if (module.evaluations.includes("TD (60%)") && module.evaluations.includes("Examen (40%)")) {
-            note = (noteTD * 0.6) + (noteExamen * 0.4);
-        } else if (module.evaluations.includes("TD (50%)") && module.evaluations.includes("Examen (50%)")) {
-            note = (noteTD * 0.5) + (noteExamen * 0.5);
-        } else if (module.evaluations.includes("Examen") && !module.evaluations.includes("TD")) {
-            // Only Examen
-            note = noteExamen; // Only the exam score is considered
-        } else if (module.evaluations.includes("TP") && !module.evaluations.includes("TD") && !module.evaluations.includes("Examen")) {
-            // Only TP
-            note = noteTP; // Only the TP score is considered
-        } else if (module.evaluations.includes("TP") && module.evaluations.includes("Examen")) {
-            // TP and Examen
-            note = (noteTP + noteExamen) / 2; // Average of TP and Exam
+        if (module.matiere.includes("Biologie")) {
+            // Biologie calculation
+            if (module.evaluations.includes("TD") && module.evaluations.includes("Examen")) {
+                note = (noteTD * 2 + (noteExamen * 3)) / 5; // TD + Examen
+            } else if (module.evaluations.includes("TP") && module.evaluations.includes("Examen")) {
+                note = (noteTP * 2 + (noteExamen * 3)) / 5; // TP + Examen
+            } else if (module.evaluations.includes("TD") && module.evaluations.includes("TP") && module.evaluations.includes("Examen")) {
+                note = (noteTD + noteTP + (noteExamen * 3)) / 5; // TD + TP + Examen
+            } else if (module.evaluations.includes("Examen")) {
+                note = noteExamen; // Only Examen
+            }
         } else {
-            // Default calculation for TD and Examen
-            note = (noteTD * 0.4) + (noteExamen * 0.6);
+            // Other fields calculation
+            if (module.evaluations.includes("TD") && module.evaluations.includes("Examen")) {
+                note = (noteTD * 0.4) + (noteExamen * 0.6); // Default: 40% TD + 60% Examen
+            } else if (module.evaluations.includes("TP") && module.evaluations.includes("Examen")) {
+                note = (noteTP * 2 + (noteExamen * 3)) / 5; // TP + Examen
+            } else if (module.evaluations.includes("TD (60%)") && module.evaluations.includes("Examen (40%)")) {
+                note = (noteTD * 0.6) + (noteExamen * 0.4); // 60% TD + 40% Examen
+            } else if (module.evaluations.includes("TD (50%)") && module.evaluations.includes("Examen (50%)")) {
+                note = (noteTD * 0.5) + (noteExamen * 0.5); // 50% TD + 50% Examen
+            } else if (module.evaluations.includes("Examen")) {
+                note = noteExamen; // Only Examen
+            }
         }
 
         // Store module mark for display
