@@ -51,6 +51,12 @@ function calculateMatiereAverage(modules, matiereModules) {
             }
         }
 
+        if (module.matiere.includes("Biologie cellulaire")) {
+            console.log(`TD: ${noteTD}, TP: ${noteTP}, Exam: ${noteExamen}`);
+            note = (noteTD + noteTP + (noteExamen * 3)) / 5;
+            console.log(`Calculated Average: ${note}`);
+        }
+
         // Store module mark for display
         moduleMarks.push({
             name: module.matiere,
