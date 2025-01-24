@@ -29,12 +29,15 @@ function calculateMatiereAverage(modules, matiereModules) {
             note = (noteTD * 0.6) + (noteExamen * 0.4);
         } else if (module.evaluations.includes("TD (50%)") && module.evaluations.includes("Examen (50%)")) {
             note = (noteTD * 0.5) + (noteExamen * 0.5);
-        } else if (module.evaluations.includes("Examen")) {
+        } else if (module.evaluations.includes("Examen") && !module.evaluations.includes("TD")) {
             // Only Examen
             note = noteExamen; // Only the exam score is considered
-        } else if (module.evaluations.includes("TP")) {
+        } else if (module.evaluations.includes("TP") && !module.evaluations.includes("TD") && !module.evaluations.includes("Examen")) {
             // Only TP
             note = noteTP; // Only the TP score is considered
+        } else if (module.evaluations.includes("TP") && module.evaluations.includes("Examen")) {
+            // TP and Examen
+            note = (noteTP + noteExamen) / 2; // Average of TP and Exam
         } else {
             // Default calculation for TD and Examen
             note = (noteTD * 0.4) + (noteExamen * 0.6);
