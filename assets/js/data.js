@@ -2,16 +2,16 @@ const isetComData = {
   "1ere Année Licence": {
       "Science et Technologie LMD": {
           "Semestre 1": [
-              { matiere: "Mathématique 1", module: "UEF 1.1 (TD)", coefficient: 3, credits: 6, evaluations: ["TD", "Examen"] },
+              { matiere: "Mathématique 1", module: "UEF 1.1", coefficient: 3, credits: 6, evaluations: ["TD", "Examen"] },
               { matiere: "Physique 1", module: "UEF 1.1", coefficient: 3, credits: 6, evaluations: ["TD", "Examen"] },
-              { matiere: "Structure de la matière", module: "UEF 1.1", coefficient: 3, credits: 6, evaluations: ["TD", "Examen"] },
-              { matiere: "Informatique", module: "UEM 1.1", coefficient: 2, credits: 4, evaluations: ["TD", "Examen"] },
+              { matiere: "Chimie 1", module: "UEF 1.1", coefficient: 3, credits: 6, evaluations: ["TD", "Examen"] },
+              { matiere: "Informatique 1", module: "UEM 1.1", coefficient: 2, credits: 4, evaluations: ["TD", "Examen"] },
               { matiere: "TP Physique 1", module: "UEM 1.1", coefficient: 1, credits: 2, evaluations: ["TP"] },
               { matiere: "TP Chimie 1", module: "UEM 1.1", coefficient: 1, credits: 2, evaluations: ["TP"] },
-              { matiere: "Méthodologie de la rédaction", module: "UED 1.1", coefficient: 1, credits: 1, evaluations: ["Examen"] },
-              { matiere: "Les métiers en sciences et technologies 1", module: "UED 1.1", coefficient: 1, credits: 1, evaluations: ["Examen"] },
-              { matiere: "Langue étrangère 1 (Anglais)", module: "UET 1.1", coefficient: 1, credits: 2, evaluations: ["Examen"] },
-              { matiere: "DED", module: "DED (Examen)", coefficient: 1, credits: 2, evaluations: ["Examen"] }
+              { matiere: "MR", module: "UEM 1.1", coefficient: 1, credits: 2, evaluations: ["Examen"] },
+              { matiere: "MST", module: "UED 1.1", coefficient: 1, credits: 1, evaluations: ["Examen"] },
+              { matiere: "Langue Anglaise", module: "UET 1.1", coefficient: 1, credits: 1, evaluations: ["Examen"] },
+              { matiere: "DED", module: "UET 1.1", coefficient: 1, credits: 1, evaluations: ["Examen"] }
           ],
           "Semestre 2": [
               { matiere: "Mathématique 2", module: "UEF 1.2", coefficient: 3, credits: 6, evaluations: ["TD", "Examen"] },

@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', function() {
     if(document.getElementById('map')) {
         // Initialize map
