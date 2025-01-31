@@ -26,38 +26,30 @@ const isetComData = {
           ]
     
       },
+      
       "Informatique LMD": {
           "Semestre 1": [
-              { matiere: "Analyse 1", module: "UEF 1.1", coefficient: 4, credits: 6, evaluations: ["TD", "Examen"] },
-              { matiere: "Algèbre 1", module: "UEF 1.2", coefficient: 3, credits: 5, evaluations: ["TD", "Examen"] },
-              { matiere: "Algorithme et Structure de Données", module: "UEF 1.3", coefficient: 4, credits: 6, evaluations: ["TD", "TP", "Examen"] },
-              { matiere: "Structure Machine", module: "UEF 1.4", coefficient: 3, credits: 5, evaluations: ["TD", "Examen"] },
-              { matiere: "Système d'Exploitation", module: "UEF 1.5", coefficient: 3, credits: 4, evaluations: ["TD", "Examen"] },
-              { matiere: "Électronique Fondamentale", module: "UEF 1.6", coefficient: 1, credits: 3, evaluations: ["Examen"] },
-              { matiere: "Langue Étrangère (Anglais)", module: "UED 1.1", coefficient: 1, credits: 2, evaluations: ["TD", "Examen"] }
+              { matiere: "Analyse 1", module: "UE Fondamentale 1", coefficient: 4, credits: 6, evaluations: ["TD", "Examen"] },
+              { matiere: "Algèbre 1", module: "UE Fondamentale 1", coefficient: 3, credits: 5, evaluations: ["TD", "Examen"] },
+              { matiere: "Algorithmes et Structure de Données 1", module: "UE Fondamentale 2", coefficient: 4, credits: 6, evaluations: ["TD", "TP", "Examen"] },
+              { matiere: "Structure Machine 1", module: "UE Fondamentale 2", coefficient: 3, credits: 5, evaluations: ["TD", "Examen"] },
+              { matiere: "Terminologie Scientifique et expression écrite", module: "UE Méthodologie", coefficient: 1, credits: 2, evaluations: ["Examen"] },
+              { matiere: "Langue étrangère 1", module: "UE Méthodologie", coefficient: 1, credits: 2, evaluations: ["Examen"] },
+              { matiere: "Physique 1 (mécanique du point)", module: "UE Découverte", coefficient: 2, credits: 4, evaluations: ["TD", "Examen"] }
           ],
           "Semestre 2": []
-      },
-      "Informatique Ing": {
-          "Semestre 1": [
-              { matiere: "Algorithme et Structure de Données", module: "UEF 2.1", coefficient: 5, credits: 6, evaluations: ["TD", "TP", "Examen"] },
-              { matiere: "Structure Machine", module: "UEF 2.2", coefficient: 4, credits: 6, evaluations: ["TD", "Examen"] },
-              { matiere: "Système d'Exploitation", module: "UEF 2.3", coefficient: 3, credits: 4, evaluations: ["TD", "Examen"] },
-              { matiere: "Électronique Fondamentale", module: "UEF 2.4", coefficient: 1, credits: 3, evaluations: ["Examen"] },
-              { matiere: "Analyse", module: "UEF 2.5", coefficient: 3, credits: 6, evaluations: ["TD", "Examen"] },
-              { matiere: "Algèbre", module: "UEF 2.6", coefficient: 3, credits: 3, evaluations: ["TD", "Examen"] },
-              { matiere: "Technique d'Expression et Bureautique", module: "UED 2.1", coefficient: 1, credits: 2, evaluations: ["TD", "Examen"] }
-          ],
-          "Semestre 2": [
-              // Add modules for Semester 2 if needed
-          ]
       },
       "Architecture": {
-          "Semestre 1": [],
-          "Semestre 2": []
-      },
-      "Science de la Matière": {
-          "Semestre 1": [],
+          "Semestre 1": [
+              { matiere: "Atelier", module: "Atelier", coefficient: 4, credits: 8, evaluations: ["TD"], noteEliminatoire: 10 },
+              { matiere: "HCA", module: "HCA", coefficient: 2, credits: 4, evaluations: ["TD", "Examen"], noteEliminatoire: 7 },
+              { matiere: "GDP", module: "GDP", coefficient: 2, credits: 4, evaluations: ["TD", "Examen"], noteEliminatoire: 5 },
+              { matiere: "TMC", module: "TMC", coefficient: 2, credits: 4, evaluations: ["TP", "Examen"], noteEliminatoire: 5 },
+              { matiere: "THP", module: "THP", coefficient: 2, credits: 4, evaluations: ["Examen"], noteEliminatoire: 7 },
+              { matiere: "Expression orale", module: "Expression orale", coefficient: 1, credits: 2, evaluations: ["TD"], noteEliminatoire: 5 },
+              { matiere: "Stage et découverte", module: "Stage", coefficient: 1, credits: 2, evaluations: ["TD"], noteEliminatoire: 5 },
+              { matiere: "Mathématiques", module: "Math", coefficient: 2, credits: 4, evaluations: ["TD", "Examen"], noteEliminatoire: 5 }
+          ],
           "Semestre 2": []
       },
       "Biologie": {
@@ -80,40 +72,99 @@ const isetComData = {
               { matiere: "MTT II", module: "MTT II (TD)", coefficient: 1, credits: 1, evaluations: ["TD", "Examen"] }
           ]
       },
-      "Science et Technologie ING": {
+      "Science et Technologie Ingénieur": {
           "Semestre 1": [
-              { matiere: "Analyse 1", module: "UEF 1.1", coefficient: 3, credits: 6, evaluations: ["TD", "Examen"] },
-              { matiere: "Algèbre 1", module: "UEF 1.2", coefficient: 2, credits: 4, evaluations: ["TD", "Examen"] },
-              { matiere: "Physique 1", module: "UEF 1.3", coefficient: 4, credits: 7, evaluations: ["TD", "Examen"] },
-              { matiere: "Structure de la matière", module: "UEF 1.4", coefficient: 4, credits: 7, evaluations: ["TD", "Examen"] },
-              { matiere: "Probabilités et Statistiques", module: "UEM 1.1", coefficient: 2, credits: 2, evaluations: ["TD", "Examen"] },
-              { matiere: "Structure Ordinateur", module: "UEM 1.2", coefficient: 2, credits: 2, evaluations: ["TP"] },
-              { matiere: "DED", module: "DED (Examen)", coefficient: 1, credits: 1, evaluations: ["Examen"] },
-              { matiere: "Anglais 1", module: "UED 1.1", coefficient: 1, credits: 1, evaluations: ["Examen"] }
+              {
+                  matiere: "Analyse 1",
+                  code: "IST 1.1",
+                  credits: 6,
+                  coefficient: 3,
+                  evaluations: ["TD", "Examen"],
+                  volume: {
+                      cours: "1h30",
+                      td: "3h00"
+                  }
+              },
+              {
+                  matiere: "Algèbre 1",
+                  code: "IST 1.2",
+                  credits: 4,
+                  coefficient: 2,
+                  evaluations: ["TD", "Examen"],
+                  volume: {
+                      cours: "1h30",
+                      td: "1h30"
+                  }
+              },
+              {
+                  matiere: "Éléments de Mécanique (Physique 1)",
+                  code: "IST 1.3",
+                  credits: 7,
+                  coefficient: 4,
+                  evaluations: ["TD", "TP", "Examen"],
+                  volume: {
+                      cours: "1h30",
+                      td: "3h00",
+                      tp: "1h30"
+                  }
+              },
+              {
+                  matiere: "Éléments de Chimie (structure de la matière)",
+                  code: "IST 1.4",
+                  credits: 7,
+                  coefficient: 4,
+                  evaluations: ["TD", "TP", "Examen"],
+                  volume: {
+                      cours: "1h30",
+                      td: "3h00",
+                      tp: "1h30"
+                  }
+              },
+              {
+                  matiere: "Probabilités et statistiques",
+                  code: "IST 1.5",
+                  credits: 2,
+                  coefficient: 2,
+                  evaluations: ["TD", "Examen"],
+                  volume: {
+                      cours: "1h30",
+                      td: "1h30"
+                  }
+              },
+              {
+                  matiere: "Structure des ordinateurs et applications",
+                  code: "IST 1.6",
+                  credits: 2,
+                  coefficient: 2,
+                  evaluations: ["TP"],
+                  volume: {
+                      tp: "3h00"
+                  }
+              },
+              {
+                  matiere: "Dimension éthique et déontologique (Les fondements)",
+                  code: "IST 1.7",
+                  credits: 1,
+                  coefficient: 1,
+                  evaluations: ["Examen"],
+                  volume: {
+                      cours: "1h30"
+                  }
+              },
+              {
+                  matiere: "Langue étrangère 1 (Français ou Anglais)",
+                  code: "IST 1.8",
+                  credits: 1,
+                  coefficient: 1,
+                  evaluations: ["TD"],
+                  volume: {
+                      td: "1h30"
+                  }
+              }
           ],
           "Semestre 2": [
               // Add modules for Semester 2 if needed
           ]
       }
-  },
-  "2eme Année Licence": {
-      "Informatique Ing": {
-          "Semestre 1": [
-              { matiere: "Algorithme et Structure de Données", module: "UEF 2.1", coefficient: 5, credits: 6, evaluations: ["Examen", "TD"] },
-              { matiere: "Structure Machine", module: "UEF 2.2", coefficient: 4, credits: 6, evaluations: ["Examen", "TD"] },
-              { matiere: "Système d'Exploitation", module: "UEF 2.3", coefficient: 3, credits: 4, evaluations: ["TD (60%)", "Examen (40%)"] },
-              { matiere: "Analyse", module: "UEF 2.4", coefficient: 3, credits: 6, evaluations: ["TD", "Examen"] },
-              { matiere: "Algèbre", module: "UEF 2.5", coefficient: 3, credits: 3, evaluations: ["TD", "Examen"] },
-              { matiere: "Électronique Fondamentale", module: "UEF 2.6", coefficient: 1, credits: 3, evaluations: ["Examen"] },
-              { matiere: "Technique d'Expression et Bureautique", module: "UED 2.1", coefficient: 1, credits: 2, evaluations: ["TD (50%)", "Examen (50%)"] }
-          ],
-          "Semestre 2": [
-              // Add modules for Semester 2 if needed
-          ]
-      },
-      // ... other specializations ...
-  },
-  "3eme Année Licence": {
-      // Add specializations and their modules for the 3eme Année here...
-  }
-};
+    }
+}

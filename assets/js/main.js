@@ -1,3 +1,52 @@
+document.addEventListener('DOMContentLoaded', function() {
+    // Check if we're on library or guide pages
+    if (window.location.pathname.includes('bib.html') || 
+        window.location.pathname.includes('guide.html')) {
+        window.location.href = 'maintenance.html';
+        return;
+    }
+
+    // Initialize calculator form if we're on the calculator page
+    const anneeSelect = document.getElementById('anneeSelect');
+    const specialiteSelect = document.getElementById('specialiteSelect');
+    const semestreSelect = document.getElementById('semestreSelect');
+
+    if (anneeSelect && specialiteSelect && semestreSelect) {
+        // Event listeners
+        anneeSelect.addEventListener('change', function() {
+            console.log('Année sélectionnée:', this.value);
+            updateSpecialiteOptions();
+            updateSemestreOptions();
+        });
+
+        specialiteSelect.addEventListener('change', function() {
+            console.log('Spécialité sélectionnée:', this.value);
+            updateSemestreOptions();
+            if (this.value && anneeSelect.value && semestreSelect.value) {
+                afficherFormulaire(anneeSelect.value, this.value, semestreSelect.value);
+            }
+        });
+
+        semestreSelect.addEventListener('change', function() {
+            console.log('Semestre sélectionné:', this.value);
+            if (this.value && anneeSelect.value && specialiteSelect.value) {
+                afficherFormulaire(anneeSelect.value, specialiteSelect.value, this.value);
+            }
+        });
+
+        // Initial load
+        updateSpecialiteOptions();
+    }
+});
+
+// Update maintenance redirect
+document.addEventListener('DOMContentLoaded', function() {
+    const currentPage = window.location.pathname;
+    if (currentPage.includes('maintenance.html')) {
+        window.location.href = 'calculator.html';
+    }
+});
+
 'use strict';
 
 let annee, specialite, semestre;
@@ -78,285 +127,232 @@ function groupModulesByMatiere(modules) {
     return matiereGroups;
 }
 
-function updateSpecialities() {
-    const annee = document.getElementById('anneeSelect').value;
-    console.log("Selected Année:", annee);
-
+function updateSpecialiteOptions() {
+    const anneeSelect = document.getElementById('anneeSelect');
     const specialiteSelect = document.getElementById('specialiteSelect');
+    
+    // Clear current options
     specialiteSelect.innerHTML = '<option value="">--Sélectionnez--</option>';
-
-    if (annee && isetComData[annee]) {
-        const specialities = Object.keys(isetComData[annee]);
-        console.log("Available Specialities:", specialities);
-
-        specialities.forEach(s => {
-            specialiteSelect.innerHTML += `<option value="${s}">${s}</option>`;
+    
+    const selectedAnnee = anneeSelect.value;
+    console.log('Updating specialties for year:', selectedAnnee);
+    
+    if (selectedAnnee && isetComData[selectedAnnee]) {
+        const specialites = Object.keys(isetComData[selectedAnnee]);
+        console.log('Available specialties:', specialites);
+        
+        specialites.forEach(specialite => {
+            const option = document.createElement('option');
+            option.value = specialite;
+            option.textContent = specialite;
+            specialiteSelect.appendChild(option);
         });
-    } else {
-        console.log("No specialities found for the selected année.");
     }
-
-    updateSemesters();
 }
 
-function updateSemesters() {
-    const annee = document.getElementById('anneeSelect').value;
-    const specialite = document.getElementById('specialiteSelect').value;
-    console.log("Selected Specialité:", specialite);
-
-    // Redirect to maintenance page if not ST LMD
-    if (specialite && specialite !== "Science et Technologie LMD") {
-        window.location.href = 'maintenance.html';
-        return;
-    }
-
+function updateSemestreOptions() {
+    const anneeSelect = document.getElementById('anneeSelect');
+    const specialiteSelect = document.getElementById('specialiteSelect');
     const semestreSelect = document.getElementById('semestreSelect');
+    
     semestreSelect.innerHTML = '<option value="">--Sélectionnez--</option>';
-
-    if (annee && specialite && isetComData[annee][specialite]) {
-        const semestres = Object.keys(isetComData[annee][specialite]);
-        console.log("Available Semestres:", semestres);
-
-        semestres.forEach(s => {
-            semestreSelect.innerHTML += `<option value="${s}">${s}</option>`;
+    
+    const selectedAnnee = anneeSelect.value;
+    const selectedSpecialite = specialiteSelect.value;
+    
+    if (selectedAnnee && selectedSpecialite && 
+        isetComData[selectedAnnee] && 
+        isetComData[selectedAnnee][selectedSpecialite]) {
+        
+        const semestres = Object.keys(isetComData[selectedAnnee][selectedSpecialite]);
+        console.log('Available semesters:', semestres);
+        
+        semestres.forEach(semestre => {
+            const option = document.createElement('option');
+            option.value = semestre;
+            option.textContent = semestre;
+            semestreSelect.appendChild(option);
         });
     }
-
-    updateModules();
 }
 
-function updateModules() {
-    const annee = document.getElementById('anneeSelect').value;
-    const specialite = document.getElementById('specialiteSelect').value;
-    const semestre = document.getElementById('semestreSelect').value;
-    const modulesContainer = document.getElementById('modulesContainer');
-    
-    modulesContainer.innerHTML = '';
-    
-    if (!annee || !specialite || !semestre) return;
-    
-    const modules = isetComData[annee][specialite][semestre];
-    if (!modules) return;
-    
-    // Group modules by their UE type
-    const modulesByUE = {};
-    modules.forEach(module => {
-        const ueType = module.module.split(' ')[0]; // Get UEF, UEM, etc.
-        if (!modulesByUE[ueType]) {
-            modulesByUE[ueType] = [];
-        }
-        modulesByUE[ueType].push(module);
-    });
-    
-    // Create HTML for each UE group
-    Object.entries(modulesByUE).forEach(([ueType, ueModules]) => {
-        const ueSection = document.createElement('div');
-        ueSection.className = 'mb-6';
-        ueSection.innerHTML = `<h3 class="text-xl font-semibold mb-4">${ueType}</h3>`;
-        
-        const moduleGrid = document.createElement('div');
-        moduleGrid.className = 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4';
-        
-        ueModules.forEach(module => {
-            const moduleId = `${annee}_${specialite}_${semestre}_${module.matiere.replace(/\s+/g, "_")}`;
-            
-            const moduleCard = document.createElement('div');
-            moduleCard.className = 'bg-white p-4 rounded-lg shadow';
-            moduleCard.innerHTML = `
-                <h4 class="font-semibold mb-2">${module.matiere}</h4>
-                <p class="text-sm text-gray-600 mb-2">Coefficient: ${module.coefficient}</p>
-                <div class="space-y-2">
-                    ${module.evaluations.includes("TD") ? 
-                        `<div>
-                            <label class="block text-sm">Note TD:</label>
-                            <input type="number" min="0" max="20" step="0.01" id="${moduleId}_TD" class="custom-input w-full">
-                        </div>` : ''}
-                    ${module.evaluations.includes("TP") ? 
-                        `<div>
-                            <label class="block text-sm">Note TP:</label>
-                            <input type="number" min="0" max="20" step="0.01" id="${moduleId}_TP" class="custom-input w-full">
-                        </div>` : ''}
-                    ${module.evaluations.includes("Examen") ? 
-                        `<div>
-                            <label class="block text-sm">Note Examen:</label>
-                            <input type="number" min="0" max="20" step="0.01" id="${moduleId}_EX" class="custom-input w-full">
-                        </div>` : ''}
-                </div>
-            `;
-            
-            moduleGrid.appendChild(moduleCard);
-        });
-        
-        ueSection.appendChild(moduleGrid);
-        modulesContainer.appendChild(ueSection);
-    });
-}
+function afficherFormulaire(annee, specialite, semestre) {
+    const formContainer = document.getElementById('noteForm');
+    if (!formContainer) return;
 
-function calculerMoyenne() {
-    const annee = document.getElementById('anneeSelect').value;
-    const specialite = document.getElementById('specialiteSelect').value;
-    const semestre = document.getElementById('semestreSelect').value;
+    const matieres = isetComData[annee][specialite][semestre];
+    let formHTML = '';
 
-    if (!annee || !specialite || !semestre) {
-        alert('Veuillez sélectionner tous les champs');
-        return;
-    }
-
-    const modules = isetComData[annee][specialite][semestre];
-    const matiereModules = modules.map(module => {
-        return `${annee}_${specialite}_${semestre}_${module.matiere.replace(/\s+/g, "_")}`;
-    });
-
-    // Initialize UE sums and coefficients
-    let sumUEF = 0, coeffUEF = 0;
-    let sumUEM = 0, coeffUEM = 0;
-    let sumUED = 0, coeffUED = 0;
-    let sumUET = 0, coeffUET = 0;
-
-    // Store module grades
-    const moduleGrades = [];
-
-    // Calculate for each module
-    modules.forEach((module, index) => {
-        const moduleId = matiereModules[index];
-        
-        // Get input values
-        const tdInput = document.getElementById(`${moduleId}_TD`);
-        const tpInput = document.getElementById(`${moduleId}_TP`);
-        const exInput = document.getElementById(`${moduleId}_EX`);
-
-        const noteTD = tdInput ? parseFloat(tdInput.value) || 0 : 0;
-        const noteTP = tpInput ? parseFloat(tpInput.value) || 0 : 0;
-        const noteExamen = exInput ? parseFloat(exInput.value) || 0 : 0;
-
-        let note = 0;
-
-        // Calculate note based on evaluation type
-        if (module.evaluations.includes("TD") && module.evaluations.includes("Examen")) {
-            note = (noteTD * 2 + noteExamen * 3) / 5;
-        } else if (module.evaluations.includes("TP")) {
-            note = noteTP;
-        } else if (module.evaluations.includes("Examen")) {
-            note = noteExamen;
-        }
-
-        // Store module grade
-        moduleGrades.push({
-            name: module.matiere,
-            noteTD: noteTD,
-            noteTP: noteTP,
-            noteExamen: noteExamen,
-            note: note,
-            coefficient: module.coefficient,
-            ueType: module.module.split(' ')[0]
-        });
-
-        // Add to appropriate UE sum
-        const ueType = module.module.split(' ')[0];
-        switch(ueType) {
-            case 'UEF':
-                sumUEF += note * module.coefficient;
-                coeffUEF += module.coefficient;
-                break;
-            case 'UEM':
-                sumUEM += note * module.coefficient;
-                coeffUEM += module.coefficient;
-                break;
-            case 'UED':
-                sumUED += note * module.coefficient;
-                coeffUED += module.coefficient;
-                break;
-            case 'UET':
-                sumUET += note * module.coefficient;
-                coeffUET += module.coefficient;
-                break;
-        }
-    });
-
-    // Calculate UE averages
-    const moyUEF = coeffUEF > 0 ? sumUEF / coeffUEF : 0;
-    const moyUEM = coeffUEM > 0 ? sumUEM / coeffUEM : 0;
-    const moyUED = coeffUED > 0 ? sumUED / coeffUED : 0;
-    const moyUET = coeffUET > 0 ? sumUET / coeffUET : 0;
-
-    // Calculate general average
-    const moyenneGenerale = (moyUEF * 9 + moyUEM * 5 + moyUED * 1 + moyUET * 2) / 17;
-
-    // Group modules by UE type
-    const modulesByUE = moduleGrades.reduce((acc, module) => {
-        if (!acc[module.ueType]) {
-            acc[module.ueType] = [];
-        }
-        acc[module.ueType].push(module);
-        return acc;
-    }, {});
-
-    // Display results
-    const resultatDiv = document.getElementById('resultat');
-    let resultsHTML = `
-        <div class="bg-white rounded-lg p-6 shadow-lg">
-            <h2 class="text-2xl font-bold mb-4">Résultats</h2>
-            <div class="grid grid-cols-1 gap-6">
-    `;
-
-    // Add module grades grouped by UE
-    const ueNames = {
-        'UEF': 'Unité d\'Enseignement Fondamental',
-        'UEM': 'Unité d\'Enseignement Méthodologique',
-        'UED': 'Unité d\'Enseignement Découverte',
-        'UET': 'Unité d\'Enseignement Transversale'
-    };
-
-    Object.entries(modulesByUE).forEach(([ueType, modules]) => {
-        resultsHTML += `
-            <div class="mb-4">
-                <h3 class="text-xl font-semibold mb-3">${ueType} - ${ueNames[ueType]}</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        `;
-
-        modules.forEach(module => {
-            const isValidated = module.note >= 10;
-            resultsHTML += `
-                <div class="p-4 rounded-lg ${isValidated ? 'bg-green-50' : 'bg-red-50'} border ${isValidated ? 'border-green-200' : 'border-red-200'}">
-                    <h4 class="font-medium mb-2">${module.name}</h4>
-                    <div class="space-y-1 mb-3">
-                        ${module.noteTD > 0 ? 
-                            `<p class="text-sm text-gray-600">TD: ${module.noteTD.toFixed(2)}/20</p>` : ''}
-                        ${module.noteTP > 0 ? 
-                            `<p class="text-sm text-gray-600">TP: ${module.noteTP.toFixed(2)}/20</p>` : ''}
-                        ${module.noteExamen > 0 ? 
-                            `<p class="text-sm text-gray-600">Examen: ${module.noteExamen.toFixed(2)}/20</p>` : ''}
-                    </div>
-                    <p class="text-lg ${isValidated ? 'text-green-600' : 'text-red-600'} font-bold">
-                        Moyenne: ${module.note.toFixed(2)}/20
-                    </p>
-                    <p class="text-sm text-gray-600 mt-1">Coefficient: ${module.coefficient}</p>
-                </div>
-            `;
-        });
-
-        resultsHTML += `
+    formHTML += matieres.map((matiere, index) => `
+        <div class="module-card p-4 bg-white rounded-lg shadow-md" data-matiere-index="${index}" data-coefficient="${matiere.coefficient}">
+            <div class="module-header mb-4">
+                <h3 class="module-title text-lg font-semibold">${matiere.matiere}</h3>
+                <div class="text-sm text-gray-600">
+                    <span>Coefficient: ${matiere.coefficient}</span>
+                    ${matiere.credits ? `<span class="ml-2">Credits: ${matiere.credits}</span>` : ''}
                 </div>
             </div>
-        `;
-    });
-
-    // Add final average
-    resultsHTML += `
-            <div class="mt-6 pt-6 border-t">
-                <div class="text-center">
-                    <h3 class="text-xl font-semibold mb-2">Moyenne Générale</h3>
-                    <p class="text-3xl font-bold ${moyenneGenerale >= 10 ? 'text-green-600' : 'text-red-600'}">
-                        ${moyenneGenerale.toFixed(2)}/20
-                    </p>
-                    <p class="mt-2 text-lg ${moyenneGenerale >= 10 ? 'text-green-600' : 'text-red-600'}">
-                        ${moyenneGenerale >= 10 ? 'Admis' : 'Ajourné'}
-                    </p>
-                </div>
+            <div class="note-inputs grid grid-cols-1 sm:grid-cols-2 gap-4">
+                ${matiere.evaluations.map(type => `
+                    <div class="note-field">
+                        <label for="matiere_${index}_${type}" class="block text-sm font-medium text-gray-700 mb-1">${type}</label>
+                        <input type="number" 
+                            id="matiere_${index}_${type}"
+                            data-type="${type}" 
+                            min="0" 
+                            max="20" 
+                            step="0.25"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                `).join('')}
             </div>
         </div>
-    </div>
-    `;
+    `).join('');
 
-    resultatDiv.innerHTML = resultsHTML;
+    formContainer.innerHTML = formHTML;
+}
+
+function calculerMoyenneMatiere(matiereIndex) {
+    const matiere = document.querySelector(`[data-matiere-index="${matiereIndex}"]`);
+    if (!matiere) return null;
+
+    const inputs = matiere.querySelectorAll('input[type="number"]');
+    let notes = {
+        TD: [],
+        TP: [],
+        Examen: null
+    };
+
+    inputs.forEach(input => {
+        const value = parseFloat(input.value);
+        const type = input.dataset.type;
+        
+        if (!isNaN(value) && value >= 0 && value <= 20) {
+            if (type === 'Examen') {
+                notes.Examen = value;
+            } else if (type === 'TD') {
+                notes.TD.push(value);
+            } else if (type === 'TP') {
+                notes.TP.push(value);
+            }
+        }
+    });
+
+    const tdAverage = notes.TD.length > 0 ? notes.TD.reduce((a, b) => a + b) / notes.TD.length : null;
+    const tpAverage = notes.TP.length > 0 ? notes.TP.reduce((a, b) => a + b) / notes.TP.length : null;
+
+    let moyenne = null;
+    if (notes.Examen !== null) {
+        if (tdAverage !== null && tpAverage !== null) {
+            moyenne = tdAverage * 0.2 + tpAverage * 0.2 + notes.Examen * 0.6;
+        } else if (tdAverage !== null) {
+            moyenne = tdAverage * 0.4 + notes.Examen * 0.6;
+        } else if (tpAverage !== null) {
+            moyenne = tpAverage * 0.4 + notes.Examen * 0.6;
+        } else {
+            moyenne = notes.Examen;
+        }
+    } else if (tdAverage !== null && tpAverage !== null) {
+        moyenne = tdAverage * 0.5 + tpAverage * 0.5;
+    } else if (tdAverage !== null) {
+        moyenne = tdAverage;
+    } else if (tpAverage !== null) {
+        moyenne = tpAverage;
+    }
+
+    return {
+        moyenne: moyenne,
+        nom: matiere.querySelector('.module-title').textContent,
+        coefficient: parseFloat(matiere.dataset.coefficient)
+    };
+}
+
+function calculerMoyenneGenerale() {
+    const moduleCards = document.querySelectorAll('.module-card');
+    const resultatsDiv = document.getElementById('resultats');
+    const modulesResultsDiv = document.getElementById('modules-results');
+    
+    let totalCoefficients = 0; // Now we'll calculate total coefficients dynamically
+    let sommeProduits = 0;
+    let resultsHTML = '';
+
+    // First pass: calculate total coefficients
+    moduleCards.forEach((card) => {
+        totalCoefficients += parseFloat(card.dataset.coefficient);
+    });
+
+    moduleCards.forEach((_, index) => {
+        const result = calculerMoyenneMatiere(index);
+        if (result && result.moyenne !== null) {
+            // For module display, show the actual average
+            const color = result.moyenne >= 10 ? 'text-green-600' : 'text-red-600';
+            resultsHTML += `
+                <div class="p-4 ${result.moyenne >= 10 ? 'bg-green-50' : 'bg-red-50'} rounded-lg">
+                    <h3 class="font-semibold mb-2">${result.nom}</h3>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-gray-600">Coefficient: ${result.coefficient}</span>
+                        <span class="font-bold ${color}">${result.moyenne.toFixed(2)}/20</span>
+                    </div>
+                </div>
+            `;
+
+            // For general average, multiply by coefficient
+            sommeProduits += result.moyenne * result.coefficient;
+        }
+    });
+
+    if (sommeProduits > 0) {
+        // Calculate general average by dividing by total coefficients
+        const moyenneGenerale = sommeProduits / totalCoefficients;
+        resultatsDiv.style.display = 'block';
+        modulesResultsDiv.innerHTML = resultsHTML;
+        
+        const moyenneGeneraleElement = resultatsDiv.querySelector('.moyenne-generale div');
+        moyenneGeneraleElement.textContent = `${moyenneGenerale.toFixed(2)}/20`;
+        moyenneGeneraleElement.className = `text-3xl font-bold ${moyenneGenerale >= 10 ? 'text-green-600' : 'text-red-600'}`;
+    }
+}
+
+function getCurrentMatiere(index) {
+    const annee = document.getElementById('anneeSelect').value;
+    const specialite = document.getElementById('specialiteSelect').value;
+    const semestre = document.getElementById('semestreSelect').value;
+    return isetComData[annee][specialite][semestre][index];
+}
+
+function calculerMoyenne(notes, coefficients) {
+    if (notes.length !== coefficients.length) return 0;
+    let somme = 0;
+    let sommeCoef = 0;
+    
+    for (let i = 0; i < notes.length; i++) {
+        if (notes[i] !== null && !isNaN(notes[i])) {
+            somme += notes[i] * coefficients[i];
+            sommeCoef += coefficients[i];
+        }
+    }
+    
+    return sommeCoef > 0 ? (somme / sommeCoef).toFixed(2) : 0;
+}
+
+function verifierNoteEliminatoire(moyenne, matiere, specialite) {
+    if (specialite === "Architecture") {
+        const noteEliminatoire = matiere.noteEliminatoire || 0;
+        return moyenne < noteEliminatoire;
+    }
+    return false;
+}
+
+function updateMoyenneUI(moyenne, tdElement, matiere, specialite) {
+    tdElement.textContent = moyenne;
+    if (specialite === "Architecture") {
+        const hasEliminatoryNote = verifierNoteEliminatoire(parseFloat(moyenne), matiere, specialite);
+        if (hasEliminatoryNote) {
+            tdElement.classList.add('bg-red-100');
+            tdElement.setAttribute('title', 'Note éliminatoire');
+        } else {
+            tdElement.classList.remove('bg-red-100');
+            tdElement.removeAttribute('title');
+        }
+    }
 }

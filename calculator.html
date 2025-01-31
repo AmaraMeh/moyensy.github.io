@@ -3,82 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calcul de Moyenne ISET'Com</title>
-    <meta name="description" content="Calcul de Moyenne ISET'Com">
-    <meta name="author" content="Saleh Eddine Touil">
-    <meta name="keywords" content="ISET'Com, Moyenne, Calcul, ISETCOM">
-    <!-- Mêmes liens CSS que index.html -->
+    <title>Calculer la moyenne - Université de Bejaia</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
-<body class="flex flex-col min-h-screen">
-    <div class="container mx-auto px-4 max-w-5xl flex-grow">
-        <!-- Header avec bouton retour -->
-        <header class="mb-12 mt-12 relative" data-aos="fade-down">
+<body class="flex flex-col min-h-screen bg-gray-50">
+    <div class="container mx-auto px-4 max-w-6xl flex-grow">
+        <header class="mb-12 mt-8" data-aos="fade-down">
             <div class="header-container">
-                <a href="index.html" class="back-button">
+                <a href="index.html" class="back-button hover:scale-110 transform transition-all duration-300">
                     <i class="fas fa-arrow-left"></i>
-                    Retour à l'accueil
+                    Retour
                 </a>
-                <img src="assets/img/LOGO.png" alt="ISET'Com" class="max-w-[200px]">
+                <img src="assets/img/LOGO.png" alt="Université de Bejaia" class="max-w-[200px]">
             </div>
         </header>
 
         <div class="glass-card" data-aos="fade-up">
-            <h1 class="text-3xl font-bold mb-6 text-center">Calcul de Moyenne</h1>
+            <h1 class="text-3xl font-bold mb-8 text-center text-gray-800">Calculer la moyenne</h1>
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                 <div>
-                    <label class="block mb-2">Année:</label>
-                    <select id="anneeSelect" class="custom-input w-full" onchange="updateSpecialities()">
+                    <label for="anneeSelect" class="block text-sm font-medium text-gray-700 mb-2">Année</label>
+                    <select id="anneeSelect" class="selection-input">
                         <option value="">--Sélectionnez--</option>
-                        <option value="1ere Année Licence">1ère Année</option>
-                        <option value="2eme Année Licence">2ème Année</option>
-                        <option value="3eme Année Licence">3ème Année</option>
+                        <option value="1ere Année Licence">1ère Année Licence</option>
+                        <option value="2eme Année Licence">2ème Année Licence</option>
+                        <option value="3eme Année Licence">3ème Année Licence</option>
                     </select>
                 </div>
-                
                 <div>
-                    <label class="block mb-2">Spécialité:</label>
-                    <select id="specialiteSelect" class="custom-input w-full" onchange="updateSemesters()">
+                    <label for="specialiteSelect" class="block text-sm font-medium text-gray-700 mb-2">Spécialité</label>
+                    <select id="specialiteSelect" class="form-select">
                         <option value="">--Sélectionnez--</option>
                     </select>
                 </div>
-                
                 <div>
-                    <label class="block mb-2">Semestre:</label>
-                    <select id="semestreSelect" class="custom-input w-full" onchange="updateModules()">
+                    <label for="semestreSelect" class="block text-sm font-medium text-gray-700 mb-2">Semestre</label>
+                    <select id="semestreSelect" class="form-select">
                         <option value="">--Sélectionnez--</option>
                     </select>
                 </div>
             </div>
 
-            <div id="modulesContainer"></div>
+            <div id="noteForm" class="space-y-6">
+                <!-- Module cards will be dynamically added here -->
+            </div>
 
-            <div class="text-center mt-6">
-                <button onclick="calculerMoyenne()" class="custom-button">
+            <div class="text-center mt-8">
+                <button onclick="calculerMoyenneGenerale()" class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transform hover:scale-105 transition-all duration-300 shadow-lg">
+                    <i class="fas fa-calculator mr-2"></i>
                     Calculer la moyenne
                 </button>
             </div>
 
-            <div id="resultat" class="mt-6 p-4 rounded-lg"></div>
+            <div id="resultats" class="mt-8 p-6 rounded-lg bg-white shadow-lg" style="display: none;">
+                <h2 class="text-2xl font-bold mb-6">Résultats</h2>
+                <div id="modules-results" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <!-- Module results will be added here -->
+                </div>
+                <div class="moyenne-generale mt-8 p-4 bg-gray-50 rounded-lg text-center">
+                    <h3 class="text-xl font-semibold mb-2">Moyenne Générale</h3>
+                    <div class="text-3xl font-bold text-blue-600">--</div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <footer class="text-center text-gray-600 text-sm mt-auto py-4">
-        <div>© <script>document.write(new Date().getFullYear());</script> <a href="mailto:mehdi.amara@icloud.com" class="text-blue-500 hover:text-blue-700">Amara Mehdi</a>. Tous droits réservés.</div>
+    <footer class="text-center text-gray-600 text-sm py-4">
+        <div>&copy; 2025 Université de Bejaia. Développé par <a href="mailto:mehdi.amara@icloud.com" class="text-blue-500 hover:text-blue-700">Amara Mehdi</a></div>
     </footer>
 
-    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="assets/js/data.js"></script>
     <script src="assets/js/main.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ duration: 1000, once: true });
+        AOS.init({
+            duration: 800,
+            once: true
+        });
     </script>
 </body>
 </html>
-
