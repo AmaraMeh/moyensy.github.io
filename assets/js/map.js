@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         // Parse KML and add markers
-        fetch('files/isetcom.kml')
+        fetch('files/universitebejaiamap.kml')
             .then(response => response.text())
             .then(kmlText => {
                 const parser = new DOMParser();
