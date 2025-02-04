@@ -49,8 +49,7 @@
                     <label for="semestreSelect" class="block text-sm font-medium text-gray-700 mb-2">Semestre</label>
                     <select id="semestreSelect" class="selection-input">
                         <option value="">--Sélectionnez--</option>
-                        <option value="Semestre 1">Semestre 1</option>
-                        <option value="Semestre 2">Semestre 2</option>
+                        <!-- Semesters will be dynamically added here -->
                     </select>
                 </div>
             </div>
@@ -90,6 +89,22 @@
         AOS.init({
             duration: 800,
             once: true
+        });
+
+        document.getElementById('specialiteSelect').addEventListener('change', function() {
+            const specialite = this.value;
+            const semestreSelect = document.getElementById('semestreSelect');
+            semestreSelect.innerHTML = '<option value="">--Sélectionnez--</option>';
+
+            if (specialite && universiteBejaiaData["1ere Année Licence"][specialite]) {
+                const semesters = Object.keys(universiteBejaiaData["1ere Année Licence"][specialite]);
+                semesters.forEach(semester => {
+                    const option = document.createElement('option');
+                    option.value = semester;
+                    option.textContent = semester;
+                    semestreSelect.appendChild(option);
+                });
+            }
         });
     </script>
 </body>

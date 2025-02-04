@@ -1,0 +1,198 @@
+.profile-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(135deg, #e0f7fa 0%, #80deea 100%);
+}
+
+.profile-header {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 1rem 0;
+}
+
+.profile-logo {
+    width: 200px;
+    height: auto;
+    animation: pulse 2s infinite;
+}
+
+.profile-actions {
+    display: flex;
+    gap: 1rem;
+}
+
+.profile-action-button {
+    background: #00897b;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.75rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: none;
+}
+
+.profile-action-button:hover {
+    background: #00695c;
+    transform: translateY(-2px);
+}
+
+.profile-main {
+    flex-grow: 1;
+    padding: 2rem 0;
+}
+
+.profile-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 1.5rem;
+    padding: 2rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    animation: fadeIn 1s ease-out;
+}
+
+.profile-info {
+    margin-bottom: 2rem;
+}
+
+.profile-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 1rem;
+}
+
+.profile-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #333;
+}
+
+.profile-email {
+    font-size: 1rem;
+    color: #666;
+}
+
+.profile-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+}
+
+.feature-card {
+    background: white;
+    border-radius: 1rem;
+    padding: 1rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 1s ease-out;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.feature-icon {
+    font-size: 2rem;
+    color: #00897b;
+    margin-bottom: 0.5rem;
+}
+
+.feature-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.feature-description {
+    font-size: 0.875rem;
+    color: #666;
+}
+
+/* Navigation Bar */
+.profile-nav {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-around;
+    padding: 1rem 0;
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #00897b;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.nav-item i {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.nav-item:hover {
+    color: #00695c;
+}
+
+/* Animations */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.02);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in {
+    animation: fadeIn 1s ease-out;
+}
+
+.animate-fade-in-delay {
+    animation: fadeIn 1s ease-out 0.5s forwards;
+    opacity: 0;
+}
+
+.animate-fade-in-delay-2 {
+    animation: fadeIn 1s ease-out 1s forwards;
+    opacity: 0;
+}
+
+.animate-fade-in-delay-3 {
+    animation: fadeIn 1s ease-out 1.5s forwards;
+    opacity: 0;
+}
+
+.animate-fade-in-delay-4 {
+    animation: fadeIn 1s ease-out 2s forwards;
+    opacity: 0;
+}

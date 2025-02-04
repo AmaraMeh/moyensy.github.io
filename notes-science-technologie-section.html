@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes - Science et Technologie LMD - Section</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="flex flex-col min-h-screen bg-gray-50">
+    <div class="container mx-auto px-4 max-w-7xl flex-grow">
+        <header class="mb-12 mt-8" data-aos="fade-down">
+            <div class="header-container">
+                <a href="notes-science-technologie.html" class="back-button hover:scale-110 transform transition-all duration-300">
+                    <i class="fas fa-arrow-left"></i>
+                    Retour
+                </a>
+                <img src="assets/img/LOGO.png" alt="Université de Bejaia" class="max-w-[200px]">
+            </div>
+        </header>
+
+        <div class="glass-card mb-8" data-aos="fade-up">
+            <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">Science et Technologie LMD - Section <span id="sectionName"></span></h2>
+            <div class="services-grid grid grid-cols-1 md:grid-cols-3 gap-6">
+                <a href="notes-science-technologie-group.html?section=A&group=A1" class="service-card">
+                    <div class="service-icon text-blue-600">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold">Groupe A1</h3>
+                </a>
+                <a href="notes-science-technologie-group.html?section=A&group=A2" class="service-card">
+                    <div class="service-icon text-green-600">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold">Groupe A2</h3>
+                </a>
+                <a href="notes-science-technologie-group.html?section=A&group=A3" class="service-card">
+                    <div class="service-icon text-purple-600">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold">Groupe A3</h3>
+                </a>
+                <a href="notes-science-technologie-group.html?section=A&group=A4" class="service-card">
+                    <div class="service-icon text-red-600">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold">Groupe A4</h3>
+                </a>
+                <a href="notes-science-technologie-group.html?section=A&group=A5" class="service-card">
+                    <div class="service-icon text-yellow-600">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold">Groupe A5</h3>
+                </a>
+                <a href="notes-science-technologie-group.html?section=A&group=A6" class="service-card">
+                    <div class="service-icon text-indigo-600">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold">Groupe A6</h3>
+                </a>
+                <a href="notes-science-technologie-group.html?section=A&group=A7" class="service-card">
+                    <div class="service-icon text-pink-600">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold">Groupe A7</h3>
+                </a>
+                <a href="notes-science-technologie-group.html?section=A&group=A8" class="service-card">
+                    <div class="service-icon text-teal-600">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold">Groupe A8</h3>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <footer class="text-center text-gray-600 text-sm py-4">
+        <div>&copy; 2025 Université de Bejaia. Développé par <a href="mailto:mehdi.amara@icloud.com" class="text-blue-500 hover:text-blue-700">Amara Mehdi</a></div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true
+        });
+
+        // Get section from URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const section = urlParams.get('section');
+        document.getElementById('sectionName').textContent = section;
+    </script>
+</body>
+</html>

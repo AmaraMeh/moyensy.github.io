@@ -90,6 +90,54 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+document.addEventListener('DOMContentLoaded', function() {
+    // Check if the user is logged in
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+
+    if (isLoggedIn) {
+        // Redirect to profile page if logged in
+        if (window.location.pathname.includes('auth.html') || window.location.pathname.includes('signin.html')) {
+            window.location.href = 'profile.html';
+        }
+
+        // Replace "Connexion" and "Créer un compte" buttons with "Profile" button
+        const authButtons = document.querySelector('.welcome-box .flex');
+        if (authButtons) {
+            authButtons.innerHTML = `
+                <a href="profile.html" class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transform hover:scale-105 transition-all duration-300 shadow-lg">
+                    <i class="fas fa-user mr-2"></i>
+                    Profile
+                </a>
+            `;
+        }
+    }
+});
+
+// Function to handle login
+function handleLogin(event) {
+    event.preventDefault();
+    const email = document.getElementById('loginEmail').value;
+    const password = document.getElementById('loginPassword').value;
+
+    // Test credentials
+    if (email === 'djamal@campuselkseur.com' && password === 'vivelethon') {
+        localStorage.setItem('isLoggedIn', 'true');
+        window.location.href = 'profile.html';
+    } else {
+        alert('Invalid credentials');
+    }
+}
+
+// Function to handle logout
+function handleLogout() {
+    localStorage.removeItem('isLoggedIn');
+    window.location.href = 'index.html';
+}
+
+// Attach event listeners for login and logout
+document.getElementById('loginForm')?.addEventListener('submit', handleLogin);
+document.querySelector('.profile-action-button')?.addEventListener('click', handleLogout);
+
 'use strict';
 
 let annee, specialite, semestre;
