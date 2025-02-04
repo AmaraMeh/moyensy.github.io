@@ -1,4 +1,47 @@
-document.addEventListener('DOMContentLoaded', function() {
+function afficherFormulaire(specialty, semester) {
+    const moduleContainer = document.getElementById('moduleContainer');
+    const specialtyData = universiteBejaiaData[anneeSelect.value];
+    
+    if (!specialtyData || !specialtyData[specialty] || !specialtyData[specialty][semester]) {
+        moduleContainer.innerHTML = '';
+        return;
+    }
+
+    let html = '';
+    specialtyData[specialty][semester].forEach((module, index) => {
+        html += `
+            <div class="module-card bg-white shadow-md rounded-lg p-6 mb-4" data-matiere-index="${index}" data-coefficient="${module.coefficient}">
+                <h3 class="module-name text-lg font-semibold mb-4">${module.matiere}</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    ${module.evaluations.includes('TD') ? `
+                        <div class="form-group">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Note TD</label>
+                            <input type="number" class="td-note form-input" min="0" max="20" step="0.01">
+                        </div>
+                    ` : ''}
+                    ${module.evaluations.includes('TP') ? `
+                        <div class="form-group">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Note TP</label>
+                            <input type="number" class="tp-note form-input" min="0" max="20" step="0.01">
+                        </div>
+                    ` : ''}
+                    ${module.evaluations.includes('Examen') ? `
+                        <div class="form-group">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Note Examen</label>
+                            <input type="number" class="examen-note form-input" min="0" max="20" step="0.01">
+                        </div>
+                    ` : ''}
+                </div>
+                <div class="mt-4 text-right">
+                    <span class="font-medium">Coefficient: ${module.coefficient}</span>
+                    <span class="ml-4">Moyenne: <span class="moyenne-display font-bold">-</span>/20</span>
+                </div>
+            </div>
+        `;
+    });
+
+    moduleContainer.innerHTML = html;
+}document.addEventListener('DOMContentLoaded', function() {
     // Check if we're on library or guide pages
     if (window.location.pathname.includes('bib.html') || 
         window.location.pathname.includes('guide.html')) {
@@ -76,22 +119,19 @@ function calculateMatiereAverage(modules, matiereModules) {
         // Calculate based on the evaluation criteria
         if (module.evaluations.includes("TP")) {
             if (module.evaluations.includes("TD") && module.evaluations.includes("Examen")) {
-                note = (noteTD + noteTP + (noteExamen * 3)) / 5; // TD + TP + Examen
+                note = (noteTD * 0.2) + (noteTP * 0.2) + (noteExamen * 0.6);
             } else if (module.evaluations.includes("TP") && module.evaluations.includes("Examen")) {
-                note = (noteTP * 2 + (noteExamen * 3)) / 5; // TP + Examen
+                note = (noteTP * 0.4) + (noteExamen * 0.6);
             } else if (module.evaluations.includes("Examen")) {
-                note = noteExamen; // Only Examen
+                note = noteExamen;
             }
         } else {
-            // Other fields calculation
             if (module.evaluations.includes("TD") && module.evaluations.includes("Examen")) {
-                note = (noteTD * 0.4) + (noteExamen * 0.6); // Default: 40% TD + 60% Examen
-            } else if (module.evaluations.includes("TP") && module.evaluations.includes("Examen")) {
-                note = (noteTP * 2 + (noteExamen * 3)) / 5; // TP + Examen
-            } else if (module.evaluations.includes("TD") && module.evaluations.includes("TP")) {
-                note = (noteTD + noteTP + (noteExamen * 3)) / 5; // TD + TP + Examen
+                note = (noteTD * 0.4) + (noteExamen * 0.6);
+            } else if (module.evaluations.includes("TD")) {
+                note = noteTD;
             } else if (module.evaluations.includes("Examen")) {
-                note = noteExamen; // Only Examen
+                note = noteExamen;
             }
         }
 
@@ -102,7 +142,7 @@ function calculateMatiereAverage(modules, matiereModules) {
             name: module.matiere,
             mark: note.toFixed(2),
             coefficient: module.coefficient,
-            validated: note >= 10 // Check if the module is validated
+            validated: note >= module.noteEliminatoire // Check if the module is validated
         });
 
         sommeNotes += note * module.coefficient;
@@ -174,51 +214,6 @@ function updateSemestreOptions() {
             semestreSelect.appendChild(option);
         });
     }
-}
-
-function afficherFormulaire(specialty, semester) {
-    const moduleContainer = document.getElementById('moduleContainer');
-    const specialtyData = universiteBejaiaData[anneeSelect.value];
-    
-    if (!specialtyData || !specialtyData[specialty] || !specialtyData[specialty][semester]) {
-        moduleContainer.innerHTML = '';
-        return;
-    }
-
-    let html = '';
-    specialtyData[specialty][semester].forEach((module, index) => {
-        html += `
-            <div class="module-card bg-white shadow-md rounded-lg p-6 mb-4" data-matiere-index="${index}" data-coefficient="${module.coefficient}">
-                <h3 class="module-name text-lg font-semibold mb-4">${module.matiere}</h3>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    ${module.evaluations.includes('TD') ? `
-                        <div class="form-group">
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Note TD</label>
-                            <input type="number" class="td-note form-input" min="0" max="20" step="0.01">
-                        </div>
-                    ` : ''}
-                    ${module.evaluations.includes('TP') ? `
-                        <div class="form-group">
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Note TP</label>
-                            <input type="number" class="tp-note form-input" min="0" max="20" step="0.01">
-                        </div>
-                    ` : ''}
-                    ${module.evaluations.includes('Examen') ? `
-                        <div class="form-group">
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Note Examen</label>
-                            <input type="number" class="examen-note form-input" min="0" max="20" step="0.01">
-                        </div>
-                    ` : ''}
-                </div>
-                <div class="mt-4 text-right">
-                    <span class="font-medium">Coefficient: ${module.coefficient}</span>
-                    <span class="ml-4">Moyenne: <span class="moyenne-display font-bold">-</span>/20</span>
-                </div>
-            </div>
-        `;
-    });
-
-    moduleContainer.innerHTML = html;
 }
 
 // Event listeners for form updates

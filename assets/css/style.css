@@ -11,17 +11,20 @@ body {
     flex-direction: column; /* Align content vertically */
   }
   .glass-card {
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(10px);
     border-radius: 1rem;
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 2rem;
     margin-bottom: 2rem;
     transition: background-color 0.3s ease, transform 0.3s ease;
+    transition: transform 0.3s, box-shadow 0.3s;
   }
   .glass-card:hover {
     background-color: rgba(245, 245, 245, 0.9);
     transform: translateY(-2px);
+    transform: scale(1.02);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
   }
   .custom-input {
     border: 2px solid #ccc;
@@ -32,11 +35,20 @@ body {
     appearance: none;
     background-color: #fff;
     font-size: 16px; /* Prevents iOS zoom on focus */
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.375rem;
+    background-color: #f9fafb;
+    transition: border-color 0.3s, box-shadow 0.3s;
   }
   .custom-input:focus {
     border-color: #00897b;
     outline: none; /* Remove default focus outline */
     box-shadow: 0 0 0 0.2rem rgba(0, 137, 123, 0.2);
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+    outline: none;
   }
   .custom-button {
     background-color: #3b82f6;
@@ -1011,18 +1023,6 @@ textarea {
         transform: translate3d(0, 0, 0);
     }
 }
-
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translate3d(0, 40px, 0);
-    }
-    to {
-        opacity: 1;
-        transform: translate3d(0, 0, 0);
-    }
-}
-
 /* Module Moyenne */
 .module-moyenne {
     margin-top: 1rem;
@@ -1176,4 +1176,56 @@ textarea {
     border-top: 2px solid #e5e7eb;
     margin-top: 2rem;
     padding-top: 2rem;
+}
+
+/* Custom styles for input fields and tabs */
+.custom-input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.375rem;
+    background-color: #f9fafb;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.custom-input:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+    outline: none;
+}
+
+.selection-input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.375rem;
+    background-color: #f9fafb;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.selection-input:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+    outline: none;
+}
+
+.tab-button {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    background-color: #e5e7eb;
+    color: #374151;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.tab-button.active {
+    background-color: #3b82f6;
+    color: #ffffff;
+}
+
+.tab-button:hover {
+    background-color: #3b82f6;
+    color: #ffffff;
+    transform: scale(1.05);
 }

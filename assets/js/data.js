@@ -203,6 +203,21 @@ const universiteBejaiaData = {
                     evaluations: ["TD", "Examen"]
                 }
             ]
+        },
+        "Architecture": {
+            "Semestre 1": [
+                { matiere: "Atelier", coefficient: 4, evaluations: ["TD"], noteEliminatoire: 10 },
+                { matiere: "HCA", coefficient: 2, evaluations: ["TD", "Examen"], noteEliminatoire: 7 },
+                { matiere: "GDP", coefficient: 2, evaluations: ["TD", "Examen"], noteEliminatoire: 5 },
+                { matiere: "TMC", coefficient: 2, evaluations: ["TP", "Examen"], noteEliminatoire: 5 },
+                { matiere: "THP (theorie)", coefficient: 2, evaluations: ["Examen"], noteEliminatoire: 7 },
+                { matiere: "Expression orale", coefficient: 1, evaluations: ["TD"], noteEliminatoire: 5 },
+                { matiere: "Stage et découverte", coefficient: 1, evaluations: ["TD"], noteEliminatoire: 5 },
+                { matiere: "Math", coefficient: 2, evaluations: ["TD", "Examen"], noteEliminatoire: 5 }
+            ],
+            "Semestre 2": [
+                // Add modules for Semester 2 if needed
+            ]
         }
     }
 };

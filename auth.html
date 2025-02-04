@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentification - ISET'COM</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/auth.css">
+</head>
+<body class="auth-container">
+    <div class="auth-card">
+        <header class="auth-header">
+            <a href="index.html" class="back-button hover:scale-110 transform transition-all duration-300">
+                <i class="fas fa-arrow-left"></i>
+                Retour
+            </a>
+            <img src="assets/img/LOGO.png" alt="ISET'COM" class="auth-logo">
+        </header>
+
+        <div class="tabs">
+            <button id="loginTab" class="tab-btn active">Connexion</button>
+            <button id="signupTab" class="tab-btn">Inscription</button>
+        </div>
+
+        <div id="loginForm" class="tab-content active">
+            <div class="form-group input-icon">
+                <input type="email" id="loginEmail" class="auth-input" placeholder="Email" required>
+                <i class="fas fa-envelope"></i>
+            </div>
+            <div class="form-group input-icon">
+                <input type="password" id="loginPassword" class="auth-input" placeholder="Mot de passe" required>
+                <i class="fas fa-lock"></i>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="auth-button">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Se connecter
+                </button>
+            </div>
+        </div>
+
+        <div id="signupForm" class="tab-content">
+            <div class="form-group input-icon">
+                <input type="text" id="fullName" class="auth-input" placeholder="Nom complet" required>
+                <i class="fas fa-user"></i>
+            </div>
+            <div class="form-group input-icon">
+                <input type="date" id="dob" class="auth-input" required>
+                <i class="fas fa-calendar"></i>
+            </div>
+            <div class="form-group input-icon">
+                <input type="email" id="signupEmail" class="auth-input" placeholder="Email" required>
+                <i class="fas fa-envelope"></i>
+            </div>
+            <div class="form-group input-icon">
+                <input type="password" id="signupPassword" class="auth-input" placeholder="Mot de passe" required>
+                <i class="fas fa-lock"></i>
+            </div>
+            <div class="form-group">
+                <select id="specialite" class="auth-input" required>
+                    <option value="">--Sélectionnez--</option>
+                    <option value="Science et Technologie LMD">Science et Technologie LMD</option>
+                    <option value="Mathématiques">Mathématiques</option>
+                    <option value="Science de la matière">Science de la matière</option>
+                    <option value="Informatique LMD">Informatique LMD</option>
+                    <option value="Science et Technologie Ingénieur">Science et Technologie Ingénieur</option>
+                    <option value="Informatique ING">Informatique ING</option>
+                    <option value="Biologie">Biologie</option>
+                    <option value="Architecture">Architecture</option>
+                </select>
+            </div>
+            <div class="form-group input-icon">
+                <input type="text" id="section" class="auth-input" placeholder="Section" required>
+                <i class="fas fa-building"></i>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="auth-button">
+                    <i class="fas fa-user-plus"></i>
+                    S'inscrire
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true
+        });
+
+        document.getElementById('loginTab').addEventListener('click', function() {
+            document.getElementById('loginForm').classList.add('active');
+            document.getElementById('signupForm').classList.remove('active');
+            this.classList.add('active');
+            document.getElementById('signupTab').classList.remove('active');
+        });
+
+        document.getElementById('signupTab').addEventListener('click', function() {
+            document.getElementById('signupForm').classList.add('active');
+            document.getElementById('loginForm').classList.remove('active');
+            this.classList.add('active');
+            document.getElementById('loginTab').classList.remove('active');
+        });
+    </script>
+</body>
+</html>
