@@ -3,31 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bibliothèque - En Maintenance</title>
+    <title>Bibliothèque - ISET'COM</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
-<body class="bg-gray-50 flex flex-col min-h-screen">
-    <div class="container mx-auto px-4 py-8 flex-grow flex items-center justify-center">
-        <div class="text-center">
-            <div class="text-6xl text-blue-500 mb-8">
-                <i class="fas fa-tools"></i>
+<body class="flex flex-col min-h-screen bg-gray-50">
+    <div class="container mx-auto px-4 max-w-6xl flex-grow">
+        <header class="mb-12 mt-8" data-aos="fade-down">
+            <div class="header-container">
+                <a href="index.html" class="back-button hover:scale-110 transform transition-all duration-300">
+                    <i class="fas fa-arrow-left"></i>
+                    Retour
+                </a>
+                <img src="assets/img/LOGO.png" alt="ISET'COM" class="max-w-[200px]">
             </div>
-            <h1 class="text-4xl font-bold mb-4 text-gray-800">En Maintenance</h1>
-            <p class="text-xl text-gray-600 mb-8">
-                Cette section est actuellement en maintenance.<br>
-                Nous travaillons pour améliorer votre expérience.
-            </p>
-            <a href="index.html" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
-                <i class="fas fa-home mr-2"></i>
-                Retour à l'accueil
-            </a>
+        </header>
+
+        <div class="glass-card" data-aos="fade-up">
+            <h1 class="text-3xl font-bold mb-8 text-center text-gray-800">Bibliothèque</h1>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                <a href="specialite-science-technologie.html" class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-flask text-4xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Science et Technologie LMD</h3>
+                </a>
+                <a href="specialite-mathematiques.html" class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-square-root-alt text-4xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Mathématiques</h3>
+                </a>
+                <a href="specialite-science-matiere.html" class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-atom text-4xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Science de la matière</h3>
+                </a>
+                <a href="specialite-informatique-lmd.html" class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-laptop-code text-4xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Informatique LMD</h3>
+                </a>
+                <a href="specialite-science-technologie-ingenieur.html" class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-cogs text-4xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Science et Technologie Ingénieur</h3>
+                </a>
+                <a href="specialite-informatique-ing.html" class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-desktop text-4xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Informatique ING</h3>
+                </a>
+                <a href="specialite-biologie.html" class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-dna text-4xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Biologie</h3>
+                </a>
+                <a href="specialite-architecture.html" class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-building text-4xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Architecture</h3>
+                </a>
+            </div>
         </div>
     </div>
 
     <footer class="text-center text-gray-600 text-sm py-4">
-        <div> 2025 Université de Bejaia - Campus El Kseur | Créé par Amara Mehdi <a href="mailto:mehdi.amara@tech.univ-bejaia.dz" class="text-blue-500 hover:text-blue-700">Saleh Eddine Touil</a></div>
+        <div>&copy; 2025 Université de Bejaia. Développé par Amara Mehdi <a href="mailto:mehdi.amara@tech.univ-bejaia.dz" class="text-blue-500 hover:text-blue-700">Amara Mehdi</a></div>
     </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true
+        });
+    </script>
 </body>
 </html>

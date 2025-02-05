@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Science et Technologie LMD - Semestre 2 - ISET'COM</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="flex flex-col min-h-screen bg-gray-50">
+    <div class="container mx-auto px-4 max-w-6xl flex-grow">
+        <header class="mb-12 mt-8" data-aos="fade-down">
+            <div class="header-container">
+                <a href="specialite-science-technologie.html" class="back-button hover:scale-110 transform transition-all duration-300">
+                    <i class="fas fa-arrow-left"></i>
+                    Retour
+                </a>
+                <img src="assets/img/LOGO.png" alt="ISET'COM" class="max-w-[200px]">
+            </div>
+        </header>
+
+        <div class="glass-card" data-aos="fade-up">
+            <h1 class="text-3xl font-bold mb-8 text-center text-gray-800">Science et Technologie LMD - Semestre 2</h1>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                <div class="module-card">
+                    <h3 class="text-xl font-semibold mb-2">Mathématique 2</h3>
+                    <p>Coefficient: 3</p>
+                    <p>Crédits: 6</p>
+                    <p>Évaluations: TD, Examen</p>
+                    <div class="flex space-x-4 mt-4">
+                        <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" onclick="showContent('tdtp')">TD+TP</button>
+                        <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700" onclick="showContent('examen')">Examen</button>
+                        <button class="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-700" onclick="showContent('cours')">Cours</button>
+                    </div>
+                </div>
+                <div class="module-card">
+                    <h3 class="text-xl font-semibold mb-2">Physique 2</h3>
+                    <p>Coefficient: 3</p>
+                    <p>Crédits: 6</p>
+                    <p>Évaluations: TD, Examen</p>
+                    <div class="flex space-x-4 mt-4">
+                        <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" onclick="showContent('tdtp')">TD+TP</button>
+                        <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700" onclick="showContent('examen')">Examen</button>
+                        <button class="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-700" onclick="showContent('cours')">Cours</button>
+                    </div>
+                </div>
+                <div class="module-card">
+                    <h3 class="text-xl font-semibold mb-2">Thermodynamique</h3>
+                    <p>Coefficient: 3</p>
+                    <p>Crédits: 6</p>
+                    <p>Évaluations: TD, Examen</p>
+                    <div class="flex space-x-4 mt-4">
+                        <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" onclick="showContent('tdtp')">TD+TP</button>
+                        <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700" onclick="showContent('examen')">Examen</button>
+                        <button class="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-700" onclick="showContent('cours')">Cours</button>
+                    </div>
+                </div>
+                <div class="module-card">
+                    <h3 class="text-xl font-semibold mb-2">Informatique 2</h3>
+                    <p>Coefficient: 2</p>
+                    <p>Crédits: 4</p>
+                    <p>Évaluations: TD, Examen</p>
+                    <div class="flex space-x-4 mt-4">
+                        <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" onclick="showContent('tdtp')">TD+TP</button>
+                        <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700" onclick="showContent('examen')">Examen</button>
+                        <button class="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-700" onclick="showContent('cours')">Cours</button>
+                    </div>
+                </div>
+                <div class="module-card">
+                    <h3 class="text-xl font-semibold mb-2">TP Physique 2</h3>
+                    <p>Coefficient: 1</p>
+                    <p>Crédits: 2</p>
+                    <p>Évaluations: TP</p>
+                    <div class="flex space-x-4 mt-4">
+                        <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" onclick="showContent('tdtp')">TD+TP</button>
+                        <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700" onclick="showContent('examen')">Examen</button>
+                        <button class="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-700" onclick="showContent('cours')">Cours</button>
+                    </div>
+                </div>
+                <div class="module-card">
+                    <h3 class="text-xl font-semibold mb-2">TP Chimie 2</h3>
+                    <p>Coefficient: 1</p>
+                    <p>Crédits: 2</p>
+                    <p>Évaluations: TP</p>
+                    <div class="flex space-x-4 mt-4">
+                        <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" onclick="showContent('tdtp')">TD+TP</button>
+                        <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700" onclick="showContent('examen')">Examen</button>
+                        <button class="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-700" onclick="showContent('cours')">Cours</button>
+                    </div>
+                </div>
+                <div class="module-card">
+                    <h3 class="text-xl font-semibold mb-2">Méthodologie de la présentation</h3>
+                    <p>Coefficient: 1</p>
+                    <p>Crédits: 1</p>
+                    <p>Évaluations: Examen</p>
+                    <div class="flex space-x-4 mt-4">
+                        <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" onclick="showContent('tdtp')">TD+TP</button>
+                        <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700" onclick="showContent('examen')">Examen</button>
+                        <button class="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-700" onclick="showContent('cours')">Cours</button>
+                    </div>
+                </div>
+                <div class="module-card">
+                    <h3 class="text-xl font-semibold mb-2">Les métiers en sciences et technologies 2</h3>
+                    <p>Coefficient: 1</p>
+                    <p>Crédits: 1</p>
+                    <p>Évaluations: Examen</p>
+                    <div class="flex space-x-4 mt-4">
+                        <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" onclick="showContent('tdtp')">TD+TP</button>
+                        <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700" onclick="showContent('examen')">Examen</button>
+                        <button class="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-700" onclick="showContent('cours')">Cours</button>
+                    </div>
+                </div>
+                <div class="module-card">
+                    <h3 class="text-xl font-semibold mb-2">Langue étrangère 2 (français et/ou anglais)</h3>
+                    <p>Coefficient: 2</p>
+                    <p>Crédits: 2</p>
+                    <p>Évaluations: Examen</p>
+                    <div class="flex space-x-4 mt-4">
+                        <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" onclick="showContent('tdtp')">TD+TP</button>
+                        <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700" onclick="showContent('examen')">Examen</button>
+                        <button class="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-700" onclick="showContent('cours')">Cours</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="text-center text-gray-600 text-sm py-4">
+        <div>&copy; 2025 Université de Bejaia. Développé par Amara Mehdi <a href="mailto:mehdi.amara@tech.univ-bejaia.dz" class="text-blue-500 hover:text-blue-700">Amara Mehdi</a></div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true
+        });
+
+        function showContent(type) {
+            // Logic to show content based on type
+            alert('Showing ' + type + ' content');
+            // Redirect to the appropriate link
+            // window.location.href = 'link-to-' + type;
+        }
+    </script>
+</body>
+</html>

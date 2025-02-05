@@ -104,8 +104,97 @@
                     option.textContent = semester;
                     semestreSelect.appendChild(option);
                 });
+            } else if (specialite === 'Biologie') {
+                semestreSelect.innerHTML = `
+                    <option value="semestre1">Semestre 1</option>
+                    <option value="semestre2">Semestre 2</option>
+                `;
             }
         });
+
+        function showSemesters() {
+            const speciality = document.getElementById('speciality').value;
+            const semesterContainer = document.getElementById('semester-container');
+            const semesterSelect = document.getElementById('semester');
+
+            if (speciality === 'biologie') {
+                semesterContainer.classList.remove('hidden');
+                semesterSelect.innerHTML = `
+                    <option value="semestre1">Semestre 1</option>
+                    <option value="semestre2">Semestre 2</option>
+                `;
+            } else if (speciality === 'informatique') {
+                semesterContainer.classList.remove('hidden');
+                semesterSelect.innerHTML = `
+                    <option value="semestre1">Semestre 1</option>
+                    <option value="semestre2">Semestre 2</option>
+                `;
+            } else if (speciality === 'science-technologie') {
+                semesterContainer.classList.remove('hidden');
+                semesterSelect.innerHTML = `
+                    <option value="semestre1">Semestre 1</option>
+                    <option value="semestre2">Semestre 2</option>
+                `;
+            } else {
+                semesterContainer.classList.add('hidden');
+                semesterSelect.innerHTML = '';
+                document.getElementById('modules-container').classList.add('hidden');
+            }
+        }
+
+        function showModules() {
+            const semester = document.getElementById('semester').value;
+            const modulesContainer = document.getElementById('modules-container');
+
+            if (semester) {
+                modulesContainer.classList.remove('hidden');
+                modulesContainer.innerHTML = '';
+
+                const modules = {
+                    'biologie': {
+                        'semestre1': ['Module 1', 'Module 2', 'Module 3'],
+                        'semestre2': ['Module 4', 'Module 5', 'Module 6']
+                    },
+                    'informatique': {
+                        'semestre1': ['Module 1', 'Module 2', 'Module 3'],
+                        'semestre2': ['Module 4', 'Module 5', 'Module 6']
+                    },
+                    'science-technologie': {
+                        'semestre1': ['Module 1', 'Module 2', 'Module 3'],
+                        'semestre2': ['Module 4', 'Module 5', 'Module 6']
+                    }
+                };
+
+                const speciality = document.getElementById('speciality').value;
+                const selectedModules = modules[speciality][semester];
+
+                selectedModules.forEach(module => {
+                    const moduleCard = document.createElement('div');
+                    moduleCard.className = 'module-card';
+                    moduleCard.innerHTML = `
+                        <h3 class="text-xl font-semibold mb-2">${module}</h3>
+                        <div class="note-inputs">
+                            <div class="note-field">
+                                <label for="${module}-td" class="block text-gray-700 font-bold mb-2">TD</label>
+                                <input type="number" id="${module}-td" name="${module}-td" class="custom-input" min="0" max="20">
+                            </div>
+                            <div class="note-field">
+                                <label for="${module}-tp" class="block text-gray-700 font-bold mb-2">TP</label>
+                                <input type="number" id="${module}-tp" name="${module}-tp" class="custom-input" min="0" max="20">
+                            </div>
+                            <div class="note-field">
+                                <label for="${module}-exam" class="block text-gray-700 font-bold mb-2">Examen</label>
+                                <input type="number" id="${module}-exam" name="${module}-exam" class="custom-input" min="0" max="20">
+                            </div>
+                        </div>
+                    `;
+                    modulesContainer.appendChild(moduleCard);
+                });
+            } else {
+                modulesContainer.classList.add('hidden');
+                modulesContainer.innerHTML = '';
+            }
+        }
     </script>
 </body>
 </html>
