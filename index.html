@@ -36,6 +36,16 @@
         gtag('js', new Date());
         gtag('config', 'G-4QK3R858YJ');
     </script>
+    <style>
+        .warning-box {
+            background-color: #ffcc00; /* Couleur de fond différente */
+            color: #000; /* Couleur du texte */
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+            text-align: center;
+        }
+    </style>
 </head>
 <body class="flex flex-col min-h-screen bg-gray-50" data-aos-easing="ease-out-cubic">
     <div class="container mx-auto px-4 max-w-7xl flex-grow">
@@ -59,9 +69,15 @@
                         <i class="fas fa-user-plus mr-2"></i>
                         Créer un compte
                     </a>
+                    <a href="bib.html" class="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transform hover:scale-105 transition-all duration-300 shadow-lg">
+                        <i class="fas fa-book mr-2"></i>
+                        Espace Cours
+                    </a>
                 </div>
             </div>
-            
+            <div class="warning-box">
+                Avertissement: Le site n'est pas affilié avec l'université de Béjaïa et c'est un projet étudiant.
+            </div>
             <div class="countdown-container glass-card mt-8 p-6 transform hover:scale-105 transition-all duration-300">
                 <h2 class="text-2xl font-bold text-gray-800 mb-4">Début des TD 2ème semestre</h2>
                 <div class="flex justify-center space-x-8">
@@ -86,6 +102,14 @@
         </div>
 
         <div class="services-grid grid grid-cols-1 md:grid-cols-3 gap-8">
+            <a href="bib.html" class="service-card" data-aos="fade-up" data-aos-delay="400">
+                <div class="service-icon text-indigo-600">
+                    <i class="fas fa-book-open text-4xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-800">Bibliothèque</h3>
+                <p class="text-gray-600">Accédez aux ressources académiques</p>
+            </a>
+
             <a href="calculator.html" class="service-card" data-aos="fade-up">
                 <div class="service-icon">
                     <i class="fas fa-calculator text-4xl text-blue-600"></i>
@@ -110,12 +134,12 @@
                 <p class="text-gray-600">Consultez les emplois du temps</p>
             </a>
 
-            <a href="departements.html" class="service-card" data-aos="fade-up">
+            <a href="facultes/facultes.html" class="service-card" data-aos="fade-up">
                 <div class="service-icon">
                     <i class="fas fa-building text-4xl text-blue-600"></i>
                 </div>
-                <h3 class="text-xl font-bold text-gray-800">Départements</h3>
-                <p class="text-gray-600">Découvrez nos départements par campus</p>
+                <h3 class="text-xl font-bold text-gray-800">Facultés</h3>
+                <p class="text-gray-600">Découvrez nos facultés par campus</p>
             </a>
 
             <a href="maintenance.html" class="service-card" data-aos="fade-up" data-aos-delay="300">
@@ -124,14 +148,6 @@
                 </div>
                 <h3 class="text-xl font-bold text-gray-800">Guide</h3>
                 <p class="text-gray-600">Guide d'utilisation et informations</p>
-            </a>
-
-            <a href="maintenance.html" class="service-card" data-aos="fade-up" data-aos-delay="400">
-                <div class="service-icon text-indigo-600">
-                    <i class="fas fa-book-open text-4xl"></i>
-                </div>
-                <h3 class="text-xl font-bold text-gray-800">Bibliothèque</h3>
-                <p class="text-gray-600">Accédez aux ressources académiques</p>
             </a>
         </div>
 

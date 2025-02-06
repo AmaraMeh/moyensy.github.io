@@ -24,55 +24,8 @@
 
         <div class="glass-card mb-8" data-aos="fade-up">
             <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">Science et Technologie LMD - Section <span id="sectionName"></span></h2>
-            <div class="services-grid grid grid-cols-1 md:grid-cols-3 gap-6">
-                <a href="notes-science-technologie-group.html?section=A&group=A1" class="service-card">
-                    <div class="service-icon text-blue-600">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold">Groupe A1</h3>
-                </a>
-                <a href="notes-science-technologie-group.html?section=A&group=A2" class="service-card">
-                    <div class="service-icon text-green-600">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold">Groupe A2</h3>
-                </a>
-                <a href="notes-science-technologie-group.html?section=A&group=A3" class="service-card">
-                    <div class="service-icon text-purple-600">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold">Groupe A3</h3>
-                </a>
-                <a href="notes-science-technologie-group.html?section=A&group=A4" class="service-card">
-                    <div class="service-icon text-red-600">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold">Groupe A4</h3>
-                </a>
-                <a href="notes-science-technologie-group.html?section=A&group=A5" class="service-card">
-                    <div class="service-icon text-yellow-600">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold">Groupe A5</h3>
-                </a>
-                <a href="notes-science-technologie-group.html?section=A&group=A6" class="service-card">
-                    <div class="service-icon text-indigo-600">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold">Groupe A6</h3>
-                </a>
-                <a href="notes-science-technologie-group.html?section=A&group=A7" class="service-card">
-                    <div class="service-icon text-pink-600">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold">Groupe A7</h3>
-                </a>
-                <a href="notes-science-technologie-group.html?section=A&group=A8" class="service-card">
-                    <div class="service-icon text-teal-600">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold">Groupe A8</h3>
-                </a>
+            <div class="services-grid grid grid-cols-1 md:grid-cols-3 gap-6" id="groupsContainer">
+                <!-- Groups will be dynamically added here -->
             </div>
         </div>
     </div>
@@ -92,6 +45,43 @@
         const urlParams = new URLSearchParams(window.location.search);
         const section = urlParams.get('section');
         document.getElementById('sectionName').textContent = section;
+
+        // Generate groups based on section
+        const groupsContainer = document.getElementById('groupsContainer');
+        const groupsCount = {
+            'A': 8,
+            'B': 8,
+            'C': 8,
+            'D': 8,
+            'E': 8,
+            'F': 8,
+            'G': 8,
+            'H': 8
+        };
+
+        const colors = [
+            'text-blue-600',
+            'text-green-600',
+            'text-purple-600',
+            'text-red-600',
+            'text-yellow-600',
+            'text-indigo-600',
+            'text-pink-600',
+            'text-teal-600'
+        ];
+
+        const count = groupsCount[section] || 8;
+        for(let i = 1; i <= count; i++) {
+            const colorClass = colors[(i-1) % colors.length];
+            groupsContainer.innerHTML += `
+                <a href="notes-science-technologie-group.html?section=${section}&group=${section}${i}" class="service-card">
+                    <div class="service-icon ${colorClass}">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold">Groupe ${section}${i}</h3>
+                </a>
+            `;
+        }
     </script>
 </body>
 </html>

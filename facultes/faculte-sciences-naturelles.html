@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <!-- ...existing code... -->
+    <title>Faculté des Sciences de la Nature et de la Vie - Université de Bejaia</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="flex flex-col min-h-screen bg-gray-50">
+    <div class="container mx-auto px-4 max-w-7xl flex-grow">
+        <header class="mb-12 mt-8" data-aos="fade-down">
+            <div class="header-container">
+                <a href="facultes.html" class="back-button hover:scale-110 transform transition-all duration-300">
+                    <i class="fas fa-arrow-left"></i>
+                    Retour
+                </a>
+                <img src="assets/img/LOGO.png" alt="Université de Bejaia" class="max-w-[200px]">
+            </div>
+        </header>
+
+        <div class="welcome-section text-center py-8" data-aos="fade-up">
+            <div class="welcome-box p-6 rounded-lg shadow-lg bg-gradient-to-r from-teal-400 to-teal-600 text-white">
+                <h1 class="text-4xl font-bold mb-4">Faculté des Sciences de la Nature et de la Vie</h1>
+                <p class="text-xl">Formation en sciences de la nature et de la vie</p>
+            </div>
+        </div>
+
+        <div class="stats-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 my-8" data-aos="fade-up" data-aos-delay="200">
+            <div class="stat-card text-center">
+                <i class="fas fa-user-graduate text-blue-600"></i>
+                <div class="stat-number counter" data-target="4000">0</div>
+                <div class="stat-label">Étudiants en Graduation</div>
+            </div>
+            <div class="stat-card text-center">
+                <i class="fas fa-user-md text-green-600"></i>
+                <div class="stat-number counter" data-target="150">0</div>
+                <div class="stat-label">En Post-Graduation</div>
+            </div>
+            <div class="stat-card text-center">
+                <i class="fas fa-chalkboard-teacher text-purple-600"></i>
+                <div class="stat-number counter" data-target="200">0</div>
+                <div class="stat-label">Enseignants</div>
+            </div>
+            <div class="stat-card text-center">
+                <i class="fas fa-user-tie text-red-600"></i>
+                <div class="stat-number counter" data-target="80">0</div>
+                <div class="stat-label">Personnel ATS</div>
+            </div>
+        </div>
+
+        <div class="glass-card mt-8" data-aos="fade-up">
+            <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">Départements</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="department-card">
+                    <div class="department-icon text-blue-600">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h3 class="department-name">Biologie</h3>
+                </div>
+                <div class="department-card">
+                    <div class="department-icon text-green-600">
+                        <i class="fas fa-seedling"></i>
+                    </div>
+                    <h3 class="department-name">Écologie</h3>
+                </div>
+                <div class="department-card">
+                    <div class="department-icon text-purple-600">
+                        <i class="fas fa-flask"></i>
+                    </div>
+                    <h3 class="department-name">Biochimie</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="contact-section" data-aos="fade-up" data-aos-delay="400">
+            <h2 class="text-2xl font-bold mb-4 text-gray-800">Contact</h2>
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <p class="text-gray-600 mb-2"><i class="fas fa-map-marker-alt mr-2 text-blue-600"></i>Adresse: Campus Targa Ouzemour</p>
+                <p class="text-gray-600"><i class="fas fa-phone mr-2 text-blue-600"></i>Téléphone: 034813713</p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="text-center text-gray-600 text-sm py-4">
+        <div>&copy; 2025 Université de Bejaia. Développé par <a href="mailto:mehdi.amara@icloud.com" class="text-blue-500 hover:text-blue-700">Amara Mehdi</a></div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true
+        });
+
+        // Counter animation
+        const counters = document.querySelectorAll('.counter');
+        counters.forEach(counter => {
+            const target = parseInt(counter.getAttribute('data-target'));
+            const duration = 2000; // 2 seconds
+            const increment = target / (duration / 16); // 60fps
+            let current = 0;
+
+            const updateCounter = () => {
+                if (current < target) {
+                    current += increment;
+                    counter.textContent = Math.ceil(current);
+                    requestAnimationFrame(updateCounter);
+                } else {
+                    counter.textContent = target;
+                }
+            };
+
+            updateCounter();
+        });
+    </script>
+</body>
+</html>
