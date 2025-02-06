@@ -48,6 +48,17 @@
                     </div>
                 </div>
                 <div class="module-card">
+                    <h3 class="text-xl font-semibold mb-2">Probabilités et Statistiques</h3>
+                    <p>Coefficient: 3</p>
+                    <p>Crédits: 5</p>
+                    <p>Évaluations: TD, Examen</p>
+                    <div class="flex space-x-4 mt-4">
+                        <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" onclick="showContent('probastat', 'cours')">Cours</button>
+                        <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700" onclick="showContent('probastat', 'td')">TD</button>
+                        <button class="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-700" onclick="showContent('probastat', 'examen')">Examen</button>
+                    </div>
+                </div>
+                <div class="module-card">
                     <h3 class="text-xl font-semibold mb-2">Algorithmique et Structure de Données 2</h3>
                     <p>Coefficient: 4</p>
                     <p>Crédits: 6</p>
@@ -70,36 +81,14 @@
                     </div>
                 </div>
                 <div class="module-card">
-                    <h3 class="text-xl font-semibold mb-2">Terminologie Scientifique et expression écrite 2</h3>
-                    <p>Coefficient: 1</p>
-                    <p>Crédits: 2</p>
-                    <p>Évaluations: Examen</p>
-                    <div class="flex space-x-4 mt-4">
-                        <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" onclick="showContent('terminologie2', 'cours')">Cours</button>
-                        <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700" onclick="showContent('terminologie2', 'td')">TD</button>
-                        <button class="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-700" onclick="showContent('terminologie2', 'examen')">Examen</button>
-                    </div>
-                </div>
-                <div class="module-card">
-                    <h3 class="text-xl font-semibold mb-2">Langue étrangère 2</h3>
-                    <p>Coefficient: 1</p>
-                    <p>Crédits: 2</p>
-                    <p>Évaluations: Examen</p>
-                    <div class="flex space-x-4 mt-4">
-                        <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" onclick="showContent('langue2', 'cours')">Cours</button>
-                        <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700" onclick="showContent('langue2', 'td')">TD</button>
-                        <button class="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-700" onclick="showContent('langue2', 'examen')">Examen</button>
-                    </div>
-                </div>
-                <div class="module-card">
-                    <h3 class="text-xl font-semibold mb-2">Physique 2 (mécanique du point)</h3>
+                    <h3 class="text-xl font-semibold mb-2">Électricité</h3>
                     <p>Coefficient: 2</p>
                     <p>Crédits: 4</p>
                     <p>Évaluations: TD, Examen</p>
                     <div class="flex space-x-4 mt-4">
-                        <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" onclick="showContent('physique2', 'cours')">Cours</button>
-                        <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700" onclick="showContent('physique2', 'td')">TD</button>
-                        <button class="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-700" onclick="showContent('physique2', 'examen')">Examen</button>
+                        <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" onclick="showContent('electricite', 'cours')">Cours</button>
+                        <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700" onclick="showContent('electricite', 'td')">TD</button>
+                        <button class="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-700" onclick="showContent('electricite', 'examen')">Examen</button>
                     </div>
                 </div>
             </div>
@@ -110,13 +99,16 @@
         <div>&copy; 2025 Université de Bejaia. Développé par Amara Mehdi <a href="mailto:mehdi.amara@tech.univ-bejaia.dz" class="text-blue-500 hover:text-blue-700">Amara Mehdi</a></div>
     </footer>
 
-    <div id="popupModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
-        <div class="bg-white rounded-lg shadow-lg p-6 max-w-lg w-full glass-card">
-            <h2 id="popupTitle" class="text-2xl font-bold mb-4">Title</h2>
-            <ul id="popupLinks" class="list-disc pl-5">
+    <div id="popupModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm hidden">
+        <div class="bg-white bg-opacity-95 backdrop-filter backdrop-blur-md rounded-xl shadow-2xl p-8 max-w-lg w-full transform transition-all duration-300 scale-95">
+            <div class="flex justify-between items-center mb-6">
+                <h2 id="popupTitle" class="text-2xl font-bold text-gray-800">Title</h2>
+                <button onclick="closePopup()" class="text-gray-600 hover:text-gray-800 text-3xl">&times;</button>
+            </div>
+            <ul id="popupLinks" class="divide-y divide-gray-200 text-gray-700 space-y-2">
                 <!-- Links will be dynamically added here -->
             </ul>
-            <button class="mt-4 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700" onclick="closePopup()">Fermer</button>
+            <button class="mt-6 w-full px-4 py-3 bg-blue-500 text-white rounded-md hover:bg-blue-700 transform hover:scale-105 transition-all duration-300 shadow-md" onclick="closePopup()">Fermer</button>
         </div>
     </div>
 
@@ -136,27 +128,140 @@
                 if (type === 'cours') {
                     popupTitle.textContent = 'Cours Analyse 2';
                     popupLinks.innerHTML = `
-                        <li><a href="https://drive.google.com/drive/folders/1yZHZijWGcIV_LDaKcX2UmDVosLPbC5Dv?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Cours Analyse 2</a></li>
+                        <li><a href="https://drive.google.com/open?id=1IiLC-uTcJthHbz2591CSbqIYt4CT2pyb" target="_blank" class="text-blue-500 hover:underline">Développement de limite - Cours 1</a></li>
+                        <li><a href="https://drive.google.com/open?id=19eMyWoFy2QwXMSpmd339LvCICtFr4tjz" target="_blank" class="text-blue-500 hover:underline">Développement de limite - Cours 2</a></li>
+                        <li><a href="https://drive.google.com/open?id=1keu0bLdA2cOpECp0L0k_a06zlwqvdDc3" target="_blank" class="text-blue-500 hover:underline">Développement de limite - Cours 3</a></li>
+                        <li><a href="https://drive.google.com/open?id=1MM5VGxAepfAM8FWNHrKsFSCzyjKrWRdD" target="_blank" class="text-blue-500 hover:underline">Développement de limite - Cours 4</a></li>
+                        <li><a href="https://drive.google.com/open?id=1HvzVOjcHg3aSnXn4maTz_W85eyVCv5tL" target="_blank" class="text-blue-500 hover:underline">Développement de limite - Cours 5</a></li>
+                        <li><a href="https://drive.google.com/open?id=14ZjLDb0iXcuRsc4548TCyBw5MiIZHGH1" target="_blank" class="text-blue-500 hover:underline">Intégrales définies, primitives - Cours 1</a></li>
+                        <li><a href="https://drive.google.com/open?id=12OLYn-6uqJFlM3ena14l0IGuIvudMtml" target="_blank" class="text-blue-500 hover:underline">Intégrales définies, primitives - Cours 2</a></li>
+                        <li><a href="https://drive.google.com/open?id=128QMgbktZwzKsg7vOzdW6-o1-QZdyqWk" target="_blank" class="text-blue-500 hover:underline">Intégrales définies, primitives - Cours 3</a></li>
+                        <li><a href="https://drive.google.com/open?id=12Cusd3xzX3rQ596ajkQ52_6BOV7fIJdk" target="_blank" class="text-blue-500 hover:underline">Intégrales définies, primitives - Cours 4</a></li>
                     `;
                 } else if (type === 'td') {
                     popupTitle.textContent = 'TD Analyse 2';
                     popupLinks.innerHTML = `
-                        <li><a href="https://drive.google.com/drive/folders/1Pq1zyfTnRtGczbH1kfn1-Nk9zbweMczh?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">TD Analyse 2</a></li>
+                        <li><a href="https://drive.google.com/drive/folders/1-EjGqluREQs_1k-UBp_uPQ26OLQL70Dq?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">TD Intégrales définies, primitives</a></li>
+                        <li><a href="https://drive.google.com/drive/folders/1-U_IZEbQG9FlRgcCujm4sTAzc6nE7AU9?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">TD Équations différentielles</a></li>
                     `;
                 } else if (type === 'examen') {
-                    popupTitle.textContent = 'Examen Algorithme';
+                    popupTitle.textContent = 'Examen Analyse 2';
                     popupLinks.innerHTML = `
-                        <li><a href="https://drive.google.com/drive/folders/1gpBiCGYoe21DLOoPmEecBGkcr9bGRJa0?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Examen Algorithme</a></li>
+                        <!-- Links will be added here -->
+                    `;
+                }
+            } else if (module === 'algebre2') {
+                if (type === 'cours') {
+                    popupTitle.textContent = 'Cours Algèbre 2';
+                    popupLinks.innerHTML = `
+                        <li><a href="https://drive.google.com/drive/folders/1-XTl8IiFbB_pUBDYD9bOMgLQYmJMIG8c?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Matrice - Cours Chapitre 1</a></li>
+                        <li><a href="https://drive.google.com/drive/folders/1Nua-DT4lBrWJo4dHgCq5phHSvwwp9P6T?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Espace vectoriel - Cours Chapitre 2</a></li>
+                        <li><a href="https://drive.google.com/drive/folders/1rML05b0a_6u-pC6hy45DDCudbMYVQz63?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Application linéaire - Cours Chapitre 3</a></li>
+                    `;
+                } else if (type === 'td') {
+                    popupTitle.textContent = 'TD Algèbre 2';
+                    popupLinks.innerHTML = `
+                        <li><a href="https://drive.google.com/drive/folders/1-X8vDQoPYLxUg3D1LL1_0w1aqV7TO3u6?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Matrice - TD Chapitre 1</a></li>
+                        <li><a href="https://drive.google.com/drive/folders/19FDoAYIqmN64dX3ubL-PEbWyU2EQZoBs?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Espace vectoriel - TD Chapitre 2</a></li>
+                        <li><a href="https://drive.google.com/drive/folders/1UgBr5bKXnGUiE-L0tssLBDWOtt6h8tbw?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Application linéaire - TD Chapitre 3</a></li>
+                    `;
+                } else if (type === 'examen') {
+                    popupTitle.textContent = 'Examen Algèbre 2';
+                    popupLinks.innerHTML = `
+                        <!-- Links will be added here -->
+                    `;
+                }
+            } else if (module === 'probastat') {
+                if (type === 'cours') {
+                    popupTitle.textContent = 'Cours Probabilités et Statistiques';
+                    popupLinks.innerHTML = `
+                        <li><a href="https://drive.google.com/drive/folders/1-apC8fYO-xlrASkUw_84gJeCYBld7qMM?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Cours Probabilités</a></li>
+                        <li><a href="https://drive.google.com/drive/folders/1-ji9PYmYRGVok2K8PDfpX21TpmgbZkMc?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Cours + TD Statistiques</a></li>
+                    `;
+                } else if (type === 'td') {
+                    popupTitle.textContent = 'TD Probabilités et Statistiques';
+                    popupLinks.innerHTML = `
+                        <!-- Links will be added here -->
+                    `;
+                } else if (type === 'examen') {
+                    popupTitle.textContent = 'Examen Probabilités et Statistiques';
+                    popupLinks.innerHTML = `
+                        <!-- Links will be added here -->
+                    `;
+                }
+            } else if (module === 'algo2') {
+                if (type === 'cours') {
+                    popupTitle.textContent = 'Cours Algorithmique et Structure de Données 2';
+                    popupLinks.innerHTML = `
+                        <li><a href="https://drive.google.com/drive/folders/1qq9xakUwt0pQdxRtiietyMRUwSUTbI4X?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Actions Paramétrées - Cours Chapitre 1</a></li>
+                        <li><a href="https://drive.google.com/drive/folders/1G87IBxzgD89vIEyWgrCFjAGcJ4laQB5g?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Enregistrement - Cours Chapitre 2</a></li>
+                        <li><a href="https://drive.google.com/drive/folders/1Eou-U9Jx8Y4ziQwFAd7cj7mGODfAFyhz?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Fichiers - Cours Chapitre 3</a></li>
+                        <li><a href="https://drive.google.com/drive/folders/1cbh7ksya3br2qM3PMhmVKKlNBgrKlSVg?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Listes Chaînées - Cours Chapitre 4</a></li>
+                    `;
+                } else if (type === 'td') {
+                    popupTitle.textContent = 'TD Algorithmique et Structure de Données 2';
+                    popupLinks.innerHTML = `
+                        <li><a href="https://drive.google.com/drive/folders/1MaRofycMV2cxC_gzYMEd41yErLIfqE1i?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Actions Paramétrées - TD Chapitre 1</a></li>
+                        <li><a href="https://drive.google.com/drive/folders/1yzEQY2iw0RKajLIygj2odcuAZXl370w1?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Enregistrement - TD Chapitre 2</a></li>
+                        <li><a href="https://drive.google.com/drive/folders/1o5m5N2BzZ3IFWISyduLHc7zU5E6D3xVr?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Fichiers - TD Chapitre 3</a></li>
+                        <li><a href="https://drive.google.com/drive/folders/1ijmHM_oNdwGkiLPvCv3FeCBpqhuP9K3W?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Listes Chaînées - TD Chapitre 4</a></li>
+                    `;
+                } else if (type === 'examen') {
+                    popupTitle.textContent = 'Examen Algorithmique et Structure de Données 2';
+                    popupLinks.innerHTML = `
+                        <!-- Links will be added here -->
+                    `;
+                }
+            } else if (module === 'structure2') {
+                if (type === 'cours') {
+                    popupTitle.textContent = 'Cours Structure Machine 2';
+                    popupLinks.innerHTML = `
+                        <li><a href="https://drive.google.com/drive/folders/1v399wsY567q1OW8k8Br-6fO_peFn1nal?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Les mémoires - Cours</a></li>
+                        <li><a href="https://drive.google.com/drive/folders/11AU3IUnp9trIrgiTQ2EoBgGOMDToy6IZ?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Structure et fonctionnement d'un ordinateur de base - Cours</a></li>
+                        <li><a href="https://drive.google.com/drive/folders/17S_U-DtWZhrPj1_gOmeNepo8O-omuY4E?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Circuits séquentiels - Cours</a></li>
+                    `;
+                } else if (type === 'td') {
+                    popupTitle.textContent = 'TD Structure Machine 2';
+                    popupLinks.innerHTML = `
+                        <li><a href="https://drive.google.com/drive/folders/1lWtveZ5mA6En7JPRkaD4znpyyUuYmnfw?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Les mémoires - TD</a></li>
+                        <li><a href="https://drive.google.com/drive/folders/1En0mbyDT-IxlZVzYtVw6hvawqxpl9KVV?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Structure et fonctionnement d'un ordinateur de base - TD</a></li>
+                        <li><a href="https://drive.google.com/drive/folders/1kAK7EJ6NSYDtKz-FtqPC0kPh-qIr3cGk?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Circuits séquentiels - TD</a></li>
+                    `;
+                } else if (type === 'examen') {
+                    popupTitle.textContent = 'Examen Structure Machine 2';
+                    popupLinks.innerHTML = `
+                        <!-- Links will be added here -->
+                    `;
+                }
+            } else if (module === 'electricite') {
+                if (type === 'cours') {
+                    popupTitle.textContent = 'Cours Électricité';
+                    popupLinks.innerHTML = `
+                        <li><a href="https://drive.google.com/file/d/1q_-LAqpITFnJ1aUBxsFh0JG9gJQ8fNf9/view?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Chapitre 1</a></li>
+                        <li><a href="https://drive.google.com/file/d/1i348uRnaGl4IPmcgiGn38wnmWXJZRGof/view?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Chapitre 2</a></li>
+                        <li><a href="https://drive.google.com/file/d/1WdDNy2kK1xitpiIHB4R7de3AwdHjZRm_/view?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Chapitre 2 Part 2</a></li>
+                        <li><a href="https://drive.google.com/file/d/1uAl0ar5InJ5Q5eY3yKW-KkBQfuTuPHvn/view?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Chapitre 2 Version Finale</a></li>
+                    `;
+                } else if (type === 'td') {
+                    popupTitle.textContent = 'TD Électricité';
+                    popupLinks.innerHTML = `
+                        <li><a href="https://drive.google.com/file/d/1_-Sn2nRz6cYubGYSDajJz-YgYOJwjXE5/view?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">TD</a></li>
+                    `;
+                } else if (type === 'examen') {
+                    popupTitle.textContent = 'Examen Électricité';
+                    popupLinks.innerHTML = `
+                        <!-- Links will be added here -->
                     `;
                 }
             }
-            // Add more conditions for other modules and types
 
             document.getElementById('popupModal').classList.remove('hidden');
+            document.querySelector('.glass-card').classList.add('scale-100');
         }
 
         function closePopup() {
             document.getElementById('popupModal').classList.add('hidden');
+            document.querySelector('.glass-card').classList.remove('scale-100');
         }
     </script>
 </body>
