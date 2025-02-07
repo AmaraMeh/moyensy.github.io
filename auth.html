@@ -7,156 +7,182 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/auth.css">
 </head>
-<body class="auth-container">
-    <div class="auth-card">
-        <header class="auth-header">
-            <a href="index.html" class="back-button">
+<body class="flex flex-col min-h-screen bg-gray-50">
+    <header class="mb-12 mt-8" data-aos="fade-down">
+        <div class="header-container flex justify-between items-center px-4">
+            <a href="index.html" class="back-button hover:scale-110 transform transition-all duration-300">
                 <i class="fas fa-arrow-left"></i>
                 Retour
             </a>
-            <img src="assets/img/LOGO.png" alt="ISET'COM" class="auth-logo">
-        </header>
-
-        <div class="tabs">
-            <button id="loginTab" class="tab-btn active">Connexion</button>
-            <button id="signupTab" class="tab-btn">Inscription</button>
+            <img src="assets/img/LOGO.png" alt="ISET'COM" class="max-w-[200px]">
         </div>
+    </header>
 
-        <div id="loginForm" class="tab-content active">
-            <form onsubmit="handleLogin(event)">
-                <div class="form-group input-icon">
-                    <input type="email" id="loginEmail" class="auth-input" placeholder="Email" required>
-                    <i class="fas fa-envelope"></i>
-                </div>
-                <div class="form-group input-icon">
-                    <input type="password" id="loginPassword" class="auth-input" placeholder="Mot de passe" required>
-                    <i class="fas fa-lock"></i>
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="auth-button">
-                        <i class="fas fa-sign-in-alt"></i>
-                        Se connecter
-                    </button>
-                </div>
-            </form>
+    <div class="container mx-auto px-4 max-w-6xl flex-grow flex justify-center items-center">
+        <div class="glass-card w-full max-w-md p-8 rounded-lg shadow-lg" data-aos="fade-up">
+            <div class="tabs flex justify-center mb-6">
+                <button class="tab-btn active" data-tab="login">Connexion</button>
+                <button class="tab-btn" data-tab="register">Inscription</button>
+            </div>
+            <div id="login" class="tab-content active">
+                <h1 class="text-3xl font-bold mb-8 text-center text-gray-800">Connexion</h1>
+                <form id="loginForm" class="space-y-6">
+                    <div>
+                        <label for="numeroImmatriculationLogin" class="block text-sm font-medium text-gray-700 mb-2">Numéro d'immatriculation</label>
+                        <input type="text" id="numeroImmatriculationLogin" class="custom-input" required>
+                    </div>
+                    <div>
+                        <label for="passwordLogin" class="block text-sm font-medium text-gray-700 mb-2">Mot de passe</label>
+                        <input type="password" id="passwordLogin" class="custom-input" required>
+                    </div>
+                    <div class="text-center mt-8">
+                        <button type="submit" class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transform hover:scale-105 transition-all duration-300 shadow-lg">
+                            <i class="fas fa-sign-in-alt mr-2"></i>
+                            Se connecter
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div id="register" class="tab-content">
+                <h1 class="text-3xl font-bold mb-8 text-center text-gray-800">Inscription</h1>
+                <form id="registerForm" class="space-y-6">
+                    <div>
+                        <label for="numeroImmatriculationRegister" class="block text-sm font-medium text-gray-700 mb-2">Numéro d'immatriculation</label>
+                        <input type="text" id="numeroImmatriculationRegister" class="custom-input" required>
+                    </div>
+                    <div>
+                        <label for="emailRegister" class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                        <input type="email" id="emailRegister" class="custom-input" required>
+                    </div>
+                    <div>
+                        <label for="passwordRegister" class="block text-sm font-medium text-gray-700 mb-2">Mot de passe</label>
+                        <input type="password" id="passwordRegister" class="custom-input" required>
+                    </div>
+                    <div class="text-center mt-8">
+                        <button type="submit" class="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transform hover:scale-105 transition-all duration-300 shadow-lg">
+                            <i class="fas fa-user-plus mr-2"></i>
+                            S'inscrire
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
+    </div>
 
-        <div id="signupForm" class="tab-content">
-            <form onsubmit="handleSignup(event)">
-                <div class="form-group input-icon">
-                    <input type="text" id="fullName" class="auth-input" placeholder="Nom complet" required>
-                    <i class="fas fa-user"></i>
-                </div>
-                <div class="form-group input-icon">
-                    <input type="date" id="dob" class="auth-input" required>
-                    <i class="fas fa-calendar"></i>
-                </div>
-                <div class="form-group input-icon">
-                    <input type="email" id="signupEmail" class="auth-input" placeholder="Email" required>
-                    <i class="fas fa-envelope"></i>
-                </div>
-                <div class="form-group input-icon">
-                    <input type="password" id="signupPassword" class="auth-input" placeholder="Mot de passe" required>
-                    <i class="fas fa-lock"></i>
-                </div>
-                <div class="form-group">
-                    <select id="specialite" class="auth-input" required>
-                        <option value="">--Sélectionnez--</option>
-                        <option value="Science et Technologie LMD">Science et Technologie LMD</option>
-                        <option value="Mathématiques">Mathématiques</option>
-                        <option value="Science de la matière">Science de la matière</option>
-                        <option value="Informatique LMD">Informatique LMD</option>
-                        <option value="Science et Technologie Ingénieur">Science et Technologie Ingénieur</option>
-                        <option value="Informatique ING">Informatique ING</option>
-                        <option value="Biologie">Biologie</option>
-                        <option value="Architecture">Architecture</option>
-                    </select>
-                </div>
-                <div class="form-group input-icon">
-                    <input type="text" id="section" class="auth-input" placeholder="Section" required>
-                    <i class="fas fa-building"></i>
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="auth-button">
-                        <i class="fas fa-user-plus"></i>
-                        S'inscrire
-                    </button>
-                </div>
-            </form>
+    <footer class="text-center text-gray-600 text-sm py-4">
+        <div>&copy; 2025 Université de Bejaia. Développé par <a href="mailto:mehdi.amara@tech.univ-bejaia.dz" class="text-blue-500 hover:text-blue-700">Amara Mehdi</a></div>
+    </footer>
+
+    <!-- Popup Box -->
+    <div id="popupBox" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+        <div class="glass-card w-full max-w-md p-8 rounded-lg shadow-lg text-center">
+            <h2 class="text-2xl font-bold mb-4">Bienvenue sur notre plateforme</h2>
+            <div class="space-y-4">
+                <button id="homeButton" class="w-full px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transform hover:scale-105 transition-all duration-300 shadow-lg">Accédez écran accueil</button>
+                <button id="coursesButton" class="w-full px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transform hover:scale-105 transition-all duration-300 shadow-lg">Espace cours</button>
+                <button id="profileButton" class="w-full px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transform hover:scale-105 transition-all duration-300 shadow-lg">Profil</button>
+            </div>
         </div>
     </div>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="assets/js/main.js"></script>
     <script>
         AOS.init({
             duration: 800,
             once: true
         });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabs = document.querySelectorAll('.tab-btn');
+            const contents = document.querySelectorAll('.tab-content');
 
-        document.getElementById('loginTab').addEventListener('click', function() {
-            document.getElementById('loginForm').classList.add('active');
-            document.getElementById('signupForm').classList.remove('active');
-            this.classList.add('active');
-            document.getElementById('signupTab').classList.remove('active');
-        });
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    contents.forEach(c => c.classList.remove('active'));
 
-        document.getElementById('signupTab').addEventListener('click', function() {
-            document.getElementById('signupForm').classList.add('active');
-            document.getElementById('loginForm').classList.remove('active');
-            this.classList.add('active');
-            document.getElementById('loginTab').classList.remove('active');
-        });
-
-        async function handleSignup(event) {
-            event.preventDefault();
-            const fullName = document.getElementById('fullName').value;
-            const dob = document.getElementById('dob').value;
-            const email = document.getElementById('signupEmail').value;
-            const password = document.getElementById('signupPassword').value;
-            const specialite = document.getElementById('specialite').value;
-            const section = document.getElementById('section').value;
-
-            const response = await fetch('/api/signup', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ fullName, dob, email, password, specialite, section })
+                    tab.classList.add('active');
+                    document.getElementById(tab.dataset.tab).classList.add('active');
+                });
             });
 
-            const result = await response.json();
-            if (result.success) {
-                alert('Inscription réussie !');
-                window.location.href = 'auth.html';
-            } else {
-                alert('Erreur lors de l\'inscription : ' + result.message);
-            }
-        }
+            const backendUrl = 'https://your-app-name.onrender.com'; // Replace with your Render app URL
 
-        async function handleLogin(event) {
-            event.preventDefault();
-            const email = document.getElementById('loginEmail').value;
-            const password = document.getElementById('loginPassword').value;
+            // Handle registration form submission
+            document.getElementById('registerForm').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const numeroImmatriculation = document.getElementById('numeroImmatriculationRegister').value;
+                const email = document.getElementById('emailRegister').value;
+                const password = document.getElementById('passwordRegister').value;
 
-            const response = await fetch('/api/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ email, password })
+                try {
+                    const response = await fetch(`${backendUrl}/register`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ numeroImmatriculation, email, password })
+                    });
+
+                    const data = await response.json();
+                    if (data.success) {
+                        alert('Registration successful');
+                    } else {
+                        alert('Registration failed: ' + data.message);
+                    }
+                } catch (error) {
+                    console.error('Error during registration:', error);
+                    alert('An error occurred during registration');
+                }
             });
 
-            const result = await response.json();
-            if (result.success) {
-                localStorage.setItem('isLoggedIn', 'true');
+            // Handle login form submission
+            document.getElementById('loginForm').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const numeroImmatriculation = document.getElementById('numeroImmatriculationLogin').value;
+                const password = document.getElementById('passwordLogin').value;
+
+                try {
+                    const response = await fetch(`${backendUrl}/login`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ numeroImmatriculation, password })
+                    });
+
+                    const data = await response.json();
+                    if (data.success) {
+                        alert('Login successful');
+                        // Redirect to profile page or home page
+                        window.location.href = 'profile.html';
+                    } else {
+                        alert('Login failed: ' + data.message);
+                    }
+                } catch (error) {
+                    console.error('Error during login:', error);
+                    alert('An error occurred during login');
+                }
+            });
+
+            // Handle popup buttons
+            document.getElementById('homeButton').addEventListener('click', () => {
+                window.location.href = 'index.html';
+            });
+
+            document.getElementById('coursesButton').addEventListener('click', () => {
+                window.location.href = 'courses.html';
+            });
+
+            document.getElementById('profileButton').addEventListener('click', () => {
                 window.location.href = 'profile.html';
-            } else {
-                alert('Erreur lors de la connexion : ' + result.message);
-            }
-        }
+            });
+        });
     </script>
 </body>
 </html>

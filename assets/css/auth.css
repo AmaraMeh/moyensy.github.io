@@ -21,14 +21,12 @@
 .auth-header {
     text-align: center;
     margin-bottom: 1.5rem;
-    padding: 0.5rem;
 }
 
 .auth-logo {
-    width: 250px;
-    max-width: 90%;
+    width: 150px;
     height: auto;
-    margin: 0 auto 1rem;
+    margin: 0 auto;
     object-fit: contain;
     animation: pulse 2s infinite;
 }
@@ -112,48 +110,12 @@
     display: none;
 }
 
-/* Animations */
-@keyframes slideUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes pulse {
-    0% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.02);
-    }
-    100% {
-        transform: scale(1);
-    }
-}
-
-/* Optional: Add a subtle transition when hovering over the logo */
-.auth-logo:hover {
-    transform: scale(1.05);
-    transition: transform 0.3s ease;
-}
-
-/* Responsive */
-@media (max-width: 640px) {
-    .auth-card {
-        padding: 2rem;
-        margin: 1rem;
-    }
-}
-
+/* Tabs */
 .tabs {
     display: flex;
+    justify-content: center;
     gap: 1rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
 }
 
 .tab-btn {
@@ -187,19 +149,11 @@
     transform: translateY(0);
 }
 
-/* Smooth transition for tab switching */
-.tab-content {
-    animation: fadeOut 0.3s ease;
-}
-
-.tab-content.active {
-    animation: fadeIn 0.3s ease;
-}
-
-@keyframes fadeIn {
+/* Animations */
+@keyframes slideUp {
     from {
         opacity: 0;
-        transform: translateY(10px);
+        transform: translateY(20px);
     }
     to {
         opacity: 1;
@@ -207,61 +161,103 @@
     }
 }
 
-@keyframes fadeOut {
-    from {
-        opacity: 1;
-        transform: translateY(0);
+@keyframes pulse {
+    0% {
+        transform: scale(1);
     }
-    to {
-        opacity: 0;
-        transform: translateY(-10px);
+    50% {
+        transform: scale(1.02);
+    }
+    100% {
+        transform: scale(1);
     }
 }
 
-.auth-buttons {
+/* Responsive */
+@media (max-width: 640px) {
+    .auth-card {
+        padding: 2rem;
+        margin: 1rem;
+    }
+}
+
+/* Centering and styling the auth box */
+.flex-grow {
     display: flex;
-    gap: 1rem;
+    justify-content: center;
     align-items: center;
 }
 
-.auth-buttons.hidden {
-    display: none;
+.glass-card {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
 }
 
-.user-menu.hidden {
-    display: none;
+/* Custom input styles */
+.custom-input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 0.75rem;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: white;
 }
 
-/* Optional: Style for non-authenticated state */
-.public-view {
-    opacity: 0.9;
+.custom-input:focus {
+    border-color: #00897b;
+    box-shadow: 0 0 0 3px rgba(0, 137, 123, 0.1);
 }
 
-/* Styles for the enhanced "Retour" button */
-.back-button {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.75rem 1.5rem;
+/* Button styles */
+button[type="submit"] {
+    width: 100%;
+    padding: 0.875rem;
     background: #00897b;
     color: white;
+    border: none;
     border-radius: 0.75rem;
-    font-weight: 500;
+    font-size: 1rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    text-decoration: none;
 }
 
-.back-button:hover {
-    background: #00695c;
-    transform: translateX(-5px);
-    box-shadow: 0 6px 15px rgba(0, 137, 123, 0.2);
+button[type="submit"]:hover {
+    background: #00796b;
+    transform: translateY(-2px);
 }
 
-.back-button i {
-    transition: transform 0.3s ease;
+/* Popup styles */
+#popupBox {
+    display: none;
 }
 
-.back-button:hover i {
-    transform: translateX(-3px);
+#popupBox .glass-card {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+    .glass-card {
+        padding: 2rem;
+        margin: 1rem;
+    }
 }
