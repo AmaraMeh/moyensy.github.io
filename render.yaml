@@ -14,3 +14,4 @@ services:
         value: production
       - key: PORT
         value: "5000"
+    nodeVersion: "18" # or "16" or "14"
