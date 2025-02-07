@@ -1,17 +1,12 @@
 services:
   - type: web
     name: moyensy-backend
-    env: node
+    runtime: node
     buildCommand: npm install
     startCommand: node server.js
-    sourceDir: .
-    envVars:
-      - key: MONGODB_URI
-        value: mongodb+srv://Amaramehdi2:Legocity20@cluster0.2m66m.mongodb.net/moyenne-isetcom?retryWrites=true&w=majority
-      - key: JWT_SECRET
-        value: UnNouveauSecretTresSecurise2024
-      - key: NODE_ENV
-        value: production
-      - key: PORT
-        value: "5000"
-    nodeVersion: "18" # or "16" or "14"
+sourceDir: .
+nodeVersion: "18"
+envVars:
+  MONGODB_URI: mongodb+srv://Amaramehdi2:Legocity20@cluster0.2m66m.mongodb.net/moyenne-isetcom?retryWrites=true&w=majority
+  JWT_SECRET: UnNouveauSecretTresSecurise2024
+  NODE_ENV: production
