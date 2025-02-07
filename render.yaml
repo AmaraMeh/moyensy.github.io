@@ -2,9 +2,8 @@ services:
   - type: web
     name: moyensy-backend
     env: node
-    plan: free
-    buildCommand: 'npm install'
-    startCommand: 'node server.js'
+    buildCommand: npm install
+    startCommand: node server.js
     envVars:
       - key: MONGODB_URI
         value: mongodb+srv://Amaramehdi2:Legocity20@cluster0.2m66m.mongodb.net/moyenne-isetcom?retryWrites=true&w=majority
@@ -12,5 +11,3 @@ services:
         value: UnNouveauSecretTresSecurise2024
       - key: NODE_ENV
         value: production
-      - key: CORS_ORIGIN
-        value: https://moyensy-github-io.onrender.com

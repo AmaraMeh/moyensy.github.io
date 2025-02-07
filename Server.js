@@ -39,16 +39,9 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
-mongoose.connect(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-})
-.then(() => {
-    console.log('Connected to MongoDB Atlas');
-})
-.catch((error) => {
-    console.error('MongoDB connection error:', error.message);
-});
+mongoose.connect(process.env.MONGODB_URI)
+    .then(() => console.log('Connected to MongoDB'))
+    .catch(err => console.log('connection error:', err));
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -182,5 +175,5 @@ app.post('/profile/avatar', verifyToken, upload.single('avatar'), async (req, re
 });
 
 app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+    console.log(`Server running on port ${PORT}`);
 });
