@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: moyensy.github.io
+    env: node
+    plan: free
+    buildCommand: 'npm install'
+    startCommand: 'node server.js'
+    envVars:
+      - key: MONGODB_URI
+        value: mongodb://Amaramehdi1:u6q55DhztS6UpcKd-00-00.2m66m.mongodb.net:27017,cluster0-shard-00-01.2m66m.mongodb.net:27017,cluster0-shard-00-02.2m66m.mongodb.net:27017/?ssl=true&replicaSet=atlas-y0doi1-shard-0&authSource=admin&retryWrites=true&w=majority&appName=Cluster0
+      - key: JWT_SECRET
+        value: UnNouveauSecretTresSecurise2024
+      - key: NODE_ENV
+        value: production
+      - key: CORS_ORIGIN
+        value: https://amarameh.github.io

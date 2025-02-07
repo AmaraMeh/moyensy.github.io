@@ -7,14 +7,17 @@ const jwt = require('jsonwebtoken');
 const cors = require('cors'); // Import the cors middleware
 const multer = require('multer'); // Import multer for file uploads
 const bodyParser = require('body-parser');
-const authRoutes = require('./server/routes/auth'); // Use relative path
+const authRoutes = require('./routes/auth'); // Use relative path
+const Student = require('./models/Student');
 require('dotenv').config(); // Load environment variables
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(bodyParser.json());
-app.use(cors()); // Use the cors middleware
+app.use(cors({
+    origin: process.env.CORS_ORIGIN
+})); // Use the cors middleware
 app.use('/auth', authRoutes);
 
 // Configure multer for file uploads
@@ -28,18 +31,16 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
-const mongoURI = process.env.MONGODB_URI;
-if (!mongoURI) {
-    console.error('MongoDB URI is not defined in environment variables');
-    process.exit(1);
-}
-
-// Connect to MongoDB Atlas
-mongoose.connect(mongoURI, {
+mongoose.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
-    useUnifiedTopology: true
-}).then(() => console.log('MongoDB connected'))
-    .catch(err => console.log(err));
+    useUnifiedTopology: true,
+})
+.then(() => {
+    console.log('Connected to MongoDB Atlas');
+})
+.catch((error) => {
+    console.error('MongoDB connection error:', error.message);
+});
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -173,5 +174,5 @@ app.post('/profile/avatar', verifyToken, upload.single('avatar'), async (req, re
 });
 
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+    console.log(`Server is running on port ${PORT}`);
 });
