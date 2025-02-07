@@ -15,9 +15,17 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(bodyParser.json());
-app.use(cors({
-    origin: process.env.CORS_ORIGIN
-})); // Use the cors middleware
+
+const corsOptions = {
+    origin: [
+        'http://localhost:3000',
+        'https://moyensy-github-io.onrender.com'
+    ],
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
+};
+
+app.use(cors(corsOptions)); // Use the cors middleware
 app.use('/auth', authRoutes);
 
 // Configure multer for file uploads
