@@ -1,37 +1,125 @@
 const express = require('express');
 const router = express.Router();
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const Student = require('../models/Student');
+const User = require('../models/User');
+const mongoose = require('mongoose');
 
+// Route d'inscription
 router.post('/register', async (req, res) => {
+    console.log('Début de la route /register');
     try {
-        const { name, email, password } = req.body;
-        const hashedPassword = await bcrypt.hash(password, 10);
-        const student = new Student({ name, email, password: hashedPassword });
-        await student.save();
-        res.json({ success: true, message: 'Registration successful' });
+        console.log('Données reçues:', req.body);
+        
+        // Vérification de la connexion MongoDB
+        if (mongoose.connection.readyState !== 1) {
+            console.error('MongoDB non connecté');
+            return res.status(500).json({ message: 'Erreur de base de données' });
+        }
+
+        const { fullName, email, studentId, password } = req.body;
+        
+        // Validation plus détaillée
+        if (!fullName) return res.status(400).json({ message: 'Nom complet requis' });
+        if (!email) return res.status(400).json({ message: 'Email requis' });
+        if (!studentId) return res.status(400).json({ message: 'ID Étudiant requis' });
+        if (!password) return res.status(400).json({ message: 'Mot de passe requis' });
+
+        console.log('Validation des champs OK');
+
+        // Vérification de l'email
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            console.log('Email déjà utilisé:', email);
+            return res.status(400).json({ message: 'Cet email est déjà utilisé' });
+        }
+
+        console.log('Vérification email OK');
+
+        // Hash du mot de passe
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+
+        console.log('Hash du mot de passe OK');
+
+        // Création de l'utilisateur
+        const user = new User({
+            fullName,
+            email,
+            studentId,
+            password: hashedPassword
+        });
+
+        console.log('Utilisateur créé, avant sauvegarde');
+
+        // Sauvegarde
+        await user.save();
+        console.log('Utilisateur sauvegardé avec succès');
+
+        // Création du token
+        const token = jwt.sign(
+            { userId: user._id },
+            process.env.JWT_SECRET,
+            { expiresIn: '24h' }
+        );
+
+        console.log('Token créé avec succès');
+
+        // Réponse
+        res.status(201).json({
+            message: 'Utilisateur créé avec succès',
+            token
+        });
+
     } catch (error) {
-        res.status(500).json({ success: false, message: error.message });
+        console.error('Erreur complète:', error);
+        res.status(500).json({ 
+            message: 'Erreur serveur', 
+            error: error.message,
+            stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
+        });
     }
 });
 
+// Route de connexion
 router.post('/login', async (req, res) => {
     try {
         const { email, password } = req.body;
-        const student = await Student.findOne({ email });
-        if (!student) {
-            return res.status(401).json({ success: false, message: 'Invalid credentials' });
+
+        // Vérifier si l'utilisateur existe
+        let user = await User.findOne({ email });
+        if (!user) {
+            return res.status(400).json({ message: 'Email ou mot de passe incorrect' });
         }
-        const validPassword = await bcrypt.compare(password, student.password);
-        if (!validPassword) {
-            return res.status(401).json({ success: false, message: 'Invalid credentials' });
+
+        // Vérifier le mot de passe
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
+            return res.status(400).json({ message: 'Email ou mot de passe incorrect' });
         }
-        const token = jwt.sign({ studentId: student._id }, process.env.JWT_SECRET);
-        res.json({ success: true, token });
-    } catch (error) {
-        res.status(500).json({ success: false, message: error.message });
+
+        // Créer et retourner le token JWT
+        const payload = {
+            user: {
+                id: user.id,
+                role: user.role
+            }
+        };
+
+        jwt.sign(
+            payload,
+            process.env.JWT_SECRET,
+            { expiresIn: '24h' },
+            (err, token) => {
+                if (err) throw err;
+                res.json({ token });
+            }
+        );
+
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).json({ message: 'Erreur serveur' });
     }
 });
 
-module.exports = router;
+module.exports = router; 
