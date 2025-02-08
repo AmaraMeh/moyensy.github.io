@@ -11,8 +11,19 @@
     
     <!-- RichAds Script -->
     <script src="https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=959531&siteid=357365" async></script>
+    
+    <!-- AutoTag Library -->
+    <script id="aclib" type="text/javascript" src="//acscdn.com/script/aclib.js"></script>
 </head>
 <body class="flex flex-col min-h-screen bg-gray-50">
+    <!-- Add banner div after body opening tag -->
+    <div>
+        <script type="text/javascript">
+            aclib.runBanner({
+                zoneId: '9521434',
+            });
+        </script>
+    </div>
     <div class="container mx-auto px-4 max-w-6xl flex-grow">
         <header class="mb-12 mt-8" data-aos="fade-down">
             <div class="header-container">
