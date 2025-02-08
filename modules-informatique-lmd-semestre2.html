@@ -115,21 +115,54 @@
         <div>&copy; 2025 Université de Bejaia. Développé par Amara Mehdi <a href="mailto:mehdi.amara@tech.univ-bejaia.dz" class="text-blue-500 hover:text-blue-700">Amara Mehdi</a></div>
     </footer>
 
-    <div id="popupModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm hidden">
+    <div id="popup-cours" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
         <div class="bg-white bg-opacity-95 backdrop-filter backdrop-blur-md rounded-xl shadow-2xl p-8 max-w-lg w-full transform transition-all duration-300 scale-95">
             <div class="flex justify-between items-center mb-4">
-                <h2 id="popup-title-[type]" class="text-2xl font-bold text-gray-800"></h2>
+                <h2 id="popup-title-cours" class="text-2xl font-bold text-gray-800"></h2>
                 <div class="flex space-x-4">
-                    <button onclick="window.history.back()" class="text-gray-600 hover:text-gray-800 px-3 py-1 rounded border border-gray-300 hover:bg-gray-100">
-                        <i class="fas fa-arrow-left mr-2"></i>Retour
+                    <button onclick="closePopup('cours')" class="text-gray-600 hover:text-gray-800 px-3 py-1 rounded border border-red-500 hover:bg-red-100 text-red-500">
+                        <i class="fas fa-times mr-2"></i>Fermer
                     </button>
-                    <button onclick="closePopup('[type]')" class="text-gray-600 hover:text-gray-800">&times;</button>
+                    <button onclick="closePopup('cours')" class="text-gray-600 hover:text-gray-800">&times;</button>
                 </div>
             </div>
-            <ul id="popupLinks" class="divide-y divide-gray-200 text-gray-700 space-y-2">
-                <!-- Links will be dynamically added here -->
-            </ul>
-            <button class="mt-6 w-full px-4 py-3 bg-blue-500 text-white rounded-md hover:bg-blue-700 transform hover:scale-105 transition-all duration-300 shadow-md" onclick="closePopup()">Fermer</button>
+            <div id="popup-content-cours" class="space-y-4">
+                <!-- Dynamic content will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <div id="popup-td" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
+        <div class="bg-white bg-opacity-95 backdrop-filter backdrop-blur-md rounded-xl shadow-2xl p-8 max-w-lg w-full transform transition-all duration-300 scale-95">
+            <div class="flex justify-between items-center mb-4">
+                <h2 id="popup-title-td" class="text-2xl font-bold text-gray-800"></h2>
+                <div class="flex space-x-4">
+                    <button onclick="closePopup('td')" class="text-gray-600 hover:text-gray-800 px-3 py-1 rounded border border-red-500 hover:bg-red-100 text-red-500">
+                        <i class="fas fa-times mr-2"></i>Fermer
+                    </button>
+                    <button onclick="closePopup('td')" class="text-gray-600 hover:text-gray-800">&times;</button>
+                </div>
+            </div>
+            <div id="popup-content-td" class="space-y-4">
+                <!-- Dynamic content will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <div id="popup-examen" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
+        <div class="bg-white bg-opacity-95 backdrop-filter backdrop-blur-md rounded-xl shadow-2xl p-8 max-w-lg w-full transform transition-all duration-300 scale-95">
+            <div class="flex justify-between items-center mb-4">
+                <h2 id="popup-title-examen" class="text-2xl font-bold text-gray-800"></h2>
+                <div class="flex space-x-4">
+                    <button onclick="closePopup('examen')" class="text-gray-600 hover:text-gray-800 px-3 py-1 rounded border border-red-500 hover:bg-red-100 text-red-500">
+                        <i class="fas fa-times mr-2"></i>Fermer
+                    </button>
+                    <button onclick="closePopup('examen')" class="text-gray-600 hover:text-gray-800">&times;</button>
+                </div>
+            </div>
+            <div id="popup-content-examen" class="space-y-4">
+                <!-- Dynamic content will be inserted here -->
+            </div>
         </div>
     </div>
 
@@ -141,9 +174,12 @@
         });
 
         function showContent(module, type) {
-            const popupTitle = document.getElementById('popupTitle');
-            const popupLinks = document.getElementById('popupLinks');
-            popupLinks.innerHTML = '';
+            const popup = document.getElementById(`popup-${type}`);
+            const popupTitle = document.getElementById(`popup-title-${type}`);
+            const popupContent = document.getElementById(`popup-content-${type}`);
+
+            popupTitle.textContent = `${module} - ${type.toUpperCase()}`;
+            popupContent.innerHTML = '';
 
             // Template for Bejaia University section
             const bejaiaSection = `
@@ -180,7 +216,7 @@
                     switch(type) {
                         case 'cours':
                             popupTitle.textContent = 'Cours Analyse 2';
-                            popupLinks.innerHTML = `
+                            popupContent.innerHTML = `
                                 <div class="university-section mb-6 transform transition-all duration-300 hover:scale-105">
                                     <h3 class="text-xl font-bold mb-3 text-red-600">Université d'Alger 1</h3>
                                     <div class="pl-4 space-y-2">
@@ -193,7 +229,7 @@
                             break;
                         case 'td':
                             popupTitle.textContent = 'TD Analyse 2';
-                            popupLinks.innerHTML = `
+                            popupContent.innerHTML = `
                                 <div class="university-section mb-6 transform transition-all duration-300 hover:scale-105">
                                     <h3 class="text-xl font-bold mb-3 text-red-600">Université d'Alger 1</h3>
                                     <div class="pl-4 space-y-2">
@@ -208,7 +244,7 @@
                             break;
                         case 'examen':
                             popupTitle.textContent = 'Examens Analyse 2';
-                            popupLinks.innerHTML = `${comingSoonSection}${bejaiaSection}${usthbContent}`;
+                            popupContent.innerHTML = `${comingSoonSection}${bejaiaSection}${usthbContent}`;
                             break;
                     }
                     break;
@@ -217,7 +253,7 @@
                     switch(type) {
                         case 'cours':
                             popupTitle.textContent = 'Cours Algèbre 2';
-                            popupLinks.innerHTML = `
+                            popupContent.innerHTML = `
                                 <div class="university-section mb-6 transform transition-all duration-300 hover:scale-105">
                                     <h3 class="text-xl font-bold mb-3 text-red-600">Université d'Alger 1</h3>
                                     <div class="pl-4 space-y-2">
@@ -230,7 +266,7 @@
                             break;
                         case 'td':
                             popupTitle.textContent = 'TD Algèbre 2';
-                            popupLinks.innerHTML = `
+                            popupContent.innerHTML = `
                                 <div class="university-section mb-6 transform transition-all duration-300 hover:scale-105">
                                     <h3 class="text-xl font-bold mb-3 text-red-600">Université d'Alger 1</h3>
                                     <div class="pl-4 space-y-2">
@@ -243,7 +279,7 @@
                             break;
                         case 'examen':
                             popupTitle.textContent = 'Examens Algèbre 2';
-                            popupLinks.innerHTML = `${comingSoonSection}${bejaiaSection}${usthbContent}`;
+                            popupContent.innerHTML = `${comingSoonSection}${bejaiaSection}${usthbContent}`;
                             break;
                     }
                     break;
@@ -252,15 +288,15 @@
                     switch(type) {
                         case 'cours':
                             popupTitle.textContent = 'Cours Structure Machine 2';
-                            popupLinks.innerHTML = `${comingSoonSection}${bejaiaSection}${usthbContent}`;
+                            popupContent.innerHTML = `${comingSoonSection}${bejaiaSection}${usthbContent}`;
                             break;
                         case 'td':
                             popupTitle.textContent = 'TD Structure Machine 2';
-                            popupLinks.innerHTML = `${comingSoonSection}${bejaiaSection}${usthbContent}`;
+                            popupContent.innerHTML = `${comingSoonSection}${bejaiaSection}${usthbContent}`;
                             break;
                         case 'examen':
                             popupTitle.textContent = 'Examens Structure Machine 2';
-                            popupLinks.innerHTML = `${comingSoonSection}${bejaiaSection}${usthbContent}`;
+                            popupContent.innerHTML = `${comingSoonSection}${bejaiaSection}${usthbContent}`;
                             break;
                     }
                     break;
@@ -269,11 +305,11 @@
                     switch(type) {
                         case 'cours':
                             popupTitle.textContent = 'Cours Algorithmique 2';
-                            popupLinks.innerHTML = `${comingSoonSection}${bejaiaSection}${usthbContent}`;
+                            popupContent.innerHTML = `${comingSoonSection}${bejaiaSection}${usthbContent}`;
                             break;
                         case 'td':
                             popupTitle.textContent = 'TD Algorithmique 2';
-                            popupLinks.innerHTML = `
+                            popupContent.innerHTML = `
                                 <div class="university-section mb-6 transform transition-all duration-300 hover:scale-105">
                                     <h3 class="text-xl font-bold mb-3 text-red-600">Université d'Alger 1</h3>
                                     <div class="pl-4 space-y-2">
@@ -287,7 +323,7 @@
                             break;
                         case 'examen':
                             popupTitle.textContent = 'Examens Algorithmique 2';
-                            popupLinks.innerHTML = `${comingSoonSection}${bejaiaSection}${usthbContent}`;
+                            popupContent.innerHTML = `${comingSoonSection}${bejaiaSection}${usthbContent}`;
                             break;
                     }
                     break;
@@ -296,15 +332,15 @@
                     switch(type) {
                         case 'cours':
                             popupTitle.textContent = 'Cours Électricité';
-                            popupLinks.innerHTML = `${comingSoonSection}${bejaiaSection}${usthbContent}`;
+                            popupContent.innerHTML = `${comingSoonSection}${bejaiaSection}${usthbContent}`;
                             break;
                         case 'td':
                             popupTitle.textContent = 'TD Électricité';
-                            popupLinks.innerHTML = `${comingSoonSection}${bejaiaSection}${usthbContent}`;
+                            popupContent.innerHTML = `${comingSoonSection}${bejaiaSection}${usthbContent}`;
                             break;
                         case 'examen':
                             popupTitle.textContent = 'Examens Électricité';
-                            popupLinks.innerHTML = `${comingSoonSection}${bejaiaSection}${usthbContent}`;
+                            popupContent.innerHTML = `${comingSoonSection}${bejaiaSection}${usthbContent}`;
                             break;
                     }
                     break;
@@ -313,21 +349,21 @@
                     switch(type) {
                         case 'cours':
                             popupTitle.textContent = 'Cours Probabilités et Statistiques';
-                            popupLinks.innerHTML = `${comingSoonSection}${bejaiaSection}${usthbContent}`;
+                            popupContent.innerHTML = `${comingSoonSection}${bejaiaSection}${usthbContent}`;
                             break;
                         case 'td':
                             popupTitle.textContent = 'TD Probabilités et Statistiques';
-                            popupLinks.innerHTML = `${comingSoonSection}${bejaiaSection}${usthbContent}`;
+                            popupContent.innerHTML = `${comingSoonSection}${bejaiaSection}${usthbContent}`;
                             break;
                         case 'examen':
                             popupTitle.textContent = 'Examens Probabilités et Statistiques';
-                            popupLinks.innerHTML = `${comingSoonSection}${bejaiaSection}${usthbContent}`;
+                            popupContent.innerHTML = `${comingSoonSection}${bejaiaSection}${usthbContent}`;
                             break;
                     }
                     break;
             }
 
-            document.getElementById('popupModal').classList.remove('hidden');
+            popup.classList.remove('hidden');
             
             // Add hover effects and animations to links
             const links = document.querySelectorAll('.university-section a');
@@ -341,9 +377,8 @@
             });
         }
 
-        function closePopup() {
-            document.getElementById('popupModal').classList.add('hidden');
-            document.querySelector('.glass-card').classList.remove('scale-100');
+        function closePopup(type) {
+            document.getElementById(`popup-${type}`).classList.add('hidden');
         }
 
         function getContentForUSHB(module, type) {
