@@ -1,0 +1,3 @@
+[build]
+  command = "npm run build"  # Your build command
+  publish = "dist"           # Directory with static assets

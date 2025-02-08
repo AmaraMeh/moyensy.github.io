@@ -166,86 +166,154 @@
         });
 
         function showContent(module, type) {
+            const popup = document.getElementById(`popup-${type}`);
             const popupTitle = document.getElementById(`popup-title-${type}`);
             const popupContent = document.getElementById(`popup-content-${type}`);
-            popupContent.innerHTML = ''; // Clear previous links
 
-            if (module === 'biologie-animale' && type === 'cours') {
-                popupTitle.textContent = 'Cours Biologie Animale';
-                popupContent.innerHTML = `
-                    <li><a href="https://drive.google.com/file/d/1NzHbbArAqS3PK3j-Q5EnEsQ4ZaaPTsqr/view?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Cours 1</a></li>
-                    <li><a href="https://drive.google.com/file/d/15yAHC89wz_2XBogQLjWNrrWEzvFBs_L1/view?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Cours 2</a></li>
-                    <li><a href="https://drive.google.com/file/d/15zbFhM_XvKa6zunqAaZTL5LHBCVupEty/view?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Cours 4</a></li>
-                    <li><a href="https://drive.google.com/file/d/163oLhNijzWk8ds2YXJCFhrs5DYemtBNP/view?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Cours 5</a></li>
-                `;
-            } else if (module === 'biologie-animale' && type === 'tdtp') {
-                popupTitle.textContent = 'TD+TP Biologie Animale';
-                popupContent.innerHTML = `
-                    <li><a href="https://drive.google.com/drive/folders/16RD5wq7FV1rHtIXI0mjfHJaonaPKWSyu?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">TP</a></li>
-                `;
-            } else if (module === 'biologie-vegetale' && type === 'cours') {
-                popupTitle.textContent = 'Cours Biologie Végétale';
-                popupContent.innerHTML = `
-                    <li><a href="https://drive.google.com/drive/folders/1Iy-KyRZVLZxfn_o997WUDjumCDCjdHZs?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Cours en français</a></li>
-                    <li><a href="https://drive.google.com/drive/folders/1joQ0HU34g0W6wiVhOZSTC5LHGTssOQfh?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Cours en anglais</a></li>
-                    <li><a href="https://drive.google.com/drive/folders/1Agrfmp6QTUXvxcEWPW29F3_PYSQuGhYQ?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Cours général</a></li>
-                `;
-            } else if (module === 'biologie-vegetale' && type === 'tdtp') {
-                popupTitle.textContent = 'TD+TP Biologie Végétale';
-                popupContent.innerHTML = `
-                    <li><a href="https://drive.google.com/drive/folders/16k3AHGxj_2zpZZrE3qg6uhccYLCeOZ_6?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">TP</a></li>
-                `;
-            } else if (module === 'svis' && type === 'cours') {
-                popupTitle.textContent = 'Cours SVIS';
-                popupContent.innerHTML = `
-                    <li><a href="https://drive.google.com/drive/folders/1jtvMzBkJq9pqYfxPazf6-Ji5eJKuP2jt?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Cours en français</a></li>
-                    <li><a href="https://drive.google.com/drive/folders/1k7rO_36HIGI1k4wDkAxaAEX3nK2J_uOP?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Cours en anglais</a></li>
-                `;
-            } else if (module === 'svis' && type === 'tdtp') {
-                popupTitle.textContent = 'TD+TP SVIS';
-                popupContent.innerHTML = `
-                    <li><a href="https://drive.google.com/drive/folders/1CaWIFTyTbBTWzZICtaMRYMfpC9ze5H7e?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">TD SVIS</a></li>
-                `;
-            } else if (module === 'mtt-2' && type === 'cours') {
-                popupTitle.textContent = 'Cours MTT 2';
-                popupContent.innerHTML = `
-                    <li><a href="https://drive.google.com/file/d/1JMEN2q_ZnYff0T_TVDzQerxITTq8IwL2/view?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Chapitre 1</a></li>
-                    <li><a href="https://drive.google.com/file/d/1JOvlmj12utOpAnx0SlZLkkXuOK9nORQu/view?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Chapitre 2</a></li>
-                    <li><a href="https://drive.google.com/file/d/1JWPCAot9IlHpab8K88zEDEQWaHpcOwA-/view?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Chapitre 3</a></li>
-                    <li><a href="https://drive.google.com/file/d/1JZC7L1_fuUk3BgBf6TXKznblMQ3ynuVQ/view?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Chapitre 4</a></li>
-                `;
-            } else if (module === 'chimie-2' && type === 'cours') {
-                popupTitle.textContent = 'Cours Chimie 2';
-                popupContent.innerHTML = `
-                    <li><a href="https://drive.google.com/file/d/1K6oKcO5auDDoYAwV747jSnymPunTbe_o/view?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Cours 1</a></li>
-                    <li><a href="https://drive.google.com/file/d/1KAgrfEPuXwdVSsl0JdFJTWeUuYXT_BPf/view?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Cours 2</a></li>
-                    <li><a href="https://drive.google.com/file/d/1KATpBwgI5OYqBvVwp2BqI2HfWQWReZGL/view?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Cours 3</a></li>
-                    <li><a href="https://drive.google.com/file/d/1KBvMcijw2HvX22Byns4QTApz2JGOgcp3/view?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Cours 4</a></li>
-                `;
-            } else if (module === 'chimie-2' && type === 'tdtp') {
-                popupTitle.textContent = 'TD+TP Chimie 2';
-                popupContent.innerHTML = `
-                    <li><a href="https://drive.google.com/drive/folders/18dW4froJEygkH3nW2PLMwn3wPOiQiPi7?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">TP</a></li>
-                    <li><a href="https://drive.google.com/drive/folders/1KERK9vQlDkDKBsvJ_t6OrA6btRQIotP4?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">TD</a></li>
-                `;
-            } else if (module === 'geologie' && type === 'cours') {
-                popupTitle.textContent = 'Cours Géologie';
-                popupContent.innerHTML = `
-                    <li><a href="https://drive.google.com/drive/folders/18B6n6gQlNEn_igYw1jBPkuMVQw1i9UGb?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Tous les cours</a></li>
-                `;
-            } else if (module === 'geologie' && type === 'tdtp') {
-                popupTitle.textContent = 'TD+TP Géologie';
-                popupContent.innerHTML = `
-                    <li><a href="https://drive.google.com/drive/folders/1JcRSrleZ51MPgbl3h1ggTc2mznuGBvrh?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">TP</a></li>
-                `;
+            popupTitle.textContent = `${module} - ${type.toUpperCase()}`;
+            popupContent.innerHTML = '';
+
+            // USTHB content
+            const usthbContent = `
+                <div class="university-section mb-6 transform transition-all duration-300 hover:scale-105 border-l-4 border-blue-600">
+                    <h3 class="text-xl font-bold mb-3 text-blue-600">Université des Sciences et de la Technologie Houari Boumediene</h3>
+                    <div class="pl-4 space-y-2">
+                        ${getContentForUSHB(module, type)}
+                    </div>
+                </div>
+            `;
+
+            // Add content to popup
+            popupContent.innerHTML = usthbContent;
+
+            // Show popup
+            popup.classList.remove('hidden');
+        }
+
+        function getContentForUSHB(module, type) {
+            const content = {
+                'biologie-animale': {
+                    'cours': [
+                        { title: 'Cours 1', url: 'https://drive.google.com/file/d/1NzHbbArAqS3PK3j-Q5EnEsQ4ZaaPTsqr/view?usp=drive_link' },
+                        { title: 'Cours 2', url: 'https://drive.google.com/file/d/15yAHC89wz_2XBogQLjWNrrWEzvFBs_L1/view?usp=drive_link' },
+                        { title: 'Cours 4', url: 'https://drive.google.com/file/d/15zbFhM_XvKa6zunqAaZTL5LHBCVupEty/view?usp=drive_link' },
+                        { title: 'Cours 5', url: 'https://drive.google.com/file/d/163oLhNijzWk8ds2YXJCFhrs5DYemtBNP/view?usp=drive_link' }
+                    ],
+                    'tdtp': [
+                        { title: 'TP', url: 'https://drive.google.com/drive/folders/16RD5wq7FV1rHtIXI0mjfHJaonaPKWSyu?usp=drive_link' }
+                    ]
+                },
+                'biologie-vegetale': {
+                    'cours': [
+                        { title: 'Cours en français', url: 'https://drive.google.com/drive/folders/1Iy-KyRZVLZxfn_o997WUDjumCDCjdHZs?usp=drive_link' },
+                        { title: 'Cours en anglais', url: 'https://drive.google.com/drive/folders/1joQ0HU34g0W6wiVhOZSTC5LHGTssOQfh?usp=drive_link' },
+                        { title: 'Cours général', url: 'https://drive.google.com/drive/folders/1Agrfmp6QTUXvxcEWPW29F3_PYSQuGhYQ?usp=drive_link' }
+                    ],
+                    'tdtp': [
+                        { title: 'TP', url: 'https://drive.google.com/drive/folders/16k3AHGxj_2zpZZrE3qg6uhccYLCeOZ_6?usp=drive_link' }
+                    ]
+                },
+                'svis': {
+                    'cours': [
+                        { title: 'Cours en français', url: 'https://drive.google.com/drive/folders/1jtvMzBkJq9pqYfxPazf6-Ji5eJKuP2jt?usp=drive_link' },
+                        { title: 'Cours en anglais', url: 'https://drive.google.com/drive/folders/1k7rO_36HIGI1k4wDkAxaAEX3nK2J_uOP?usp=drive_link' }
+                    ],
+                    'tdtp': [
+                        { title: 'TD SVIS', url: 'https://drive.google.com/drive/folders/1CaWIFTyTbBTWzZICtaMRYMfpC9ze5H7e?usp=drive_link' }
+                    ]
+                }
+            };
+
+            if (content[module] && content[module][type]) {
+                return content[module][type]
+                    .map(item => `<a href="${item.url}" class="text-blue-500 hover:underline flex items-center" target="_blank">
+                        <i class="fas fa-file-pdf mr-2"></i>${item.title}</a>`)
+                    .join('');
             }
-
-            document.getElementById(`popup-${type}`).classList.remove('hidden');
+            return '<p class="text-gray-500 italic">Contenu à venir...</p>';
         }
 
         function closePopup(type) {
             document.getElementById(`popup-${type}`).classList.add('hidden');
         }
+
+        // Add this new CSS
+        const newStyles = `
+        <style>
+            .university-section {
+                background: rgba(255, 255, 255, 0.9);
+                border-radius: 10px;
+                padding: 1rem;
+                margin-bottom: 1rem;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                transition: all 0.3s ease;
+            }
+
+            .university-section:hover {
+                transform: translateX(5px);
+                box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+            }
+
+            .university-section h3 {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+
+            .university-section h3::before {
+                content: '';
+                width: 4px;
+                height: 1.5rem;
+                background-color: currentColor;
+                border-radius: 2px;
+            }
+
+            .university-section a {
+                transition: all 0.3s ease;
+                display: flex;
+                align-items: center;
+                padding: 0.5rem;
+                border-radius: 5px;
+                text-decoration: none;
+            }
+
+            .university-section a:hover {
+                background: rgba(59, 130, 246, 0.1);
+                transform: translateX(10px);
+            }
+        </style>
+        `;
+
+        // Add the new styles to the document
+        document.head.insertAdjacentHTML('beforeend', newStyles);
     </script>
+
+    <style>
+        .popup-content {
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+
+        .university-section {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .university-section a {
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            padding: 0.5rem;
+            border-radius: 5px;
+        }
+
+        .university-section a:hover {
+            background: rgba(59, 130, 246, 0.1);
+            transform: translateX(10px);
+        }
+    </style>
 </body>
 </html>

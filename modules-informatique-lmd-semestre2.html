@@ -122,147 +122,348 @@
         function showContent(module, type) {
             const popupTitle = document.getElementById('popupTitle');
             const popupLinks = document.getElementById('popupLinks');
-            popupLinks.innerHTML = ''; // Clear previous links
+            popupLinks.innerHTML = '';
 
-            if (module === 'analyse2') {
-                if (type === 'cours') {
-                    popupTitle.textContent = 'Cours Analyse 2';
-                    popupLinks.innerHTML = `
-                        <li><a href="https://drive.google.com/open?id=1IiLC-uTcJthHbz2591CSbqIYt4CT2pyb" target="_blank" class="text-blue-500 hover:underline">Développement de limite - Cours 1</a></li>
-                        <li><a href="https://drive.google.com/open?id=19eMyWoFy2QwXMSpmd339LvCICtFr4tjz" target="_blank" class="text-blue-500 hover:underline">Développement de limite - Cours 2</a></li>
-                        <li><a href="https://drive.google.com/open?id=1keu0bLdA2cOpECp0L0k_a06zlwqvdDc3" target="_blank" class="text-blue-500 hover:underline">Développement de limite - Cours 3</a></li>
-                        <li><a href="https://drive.google.com/open?id=1MM5VGxAepfAM8FWNHrKsFSCzyjKrWRdD" target="_blank" class="text-blue-500 hover:underline">Développement de limite - Cours 4</a></li>
-                        <li><a href="https://drive.google.com/open?id=1HvzVOjcHg3aSnXn4maTz_W85eyVCv5tL" target="_blank" class="text-blue-500 hover:underline">Développement de limite - Cours 5</a></li>
-                        <li><a href="https://drive.google.com/open?id=14ZjLDb0iXcuRsc4548TCyBw5MiIZHGH1" target="_blank" class="text-blue-500 hover:underline">Intégrales définies, primitives - Cours 1</a></li>
-                        <li><a href="https://drive.google.com/open?id=12OLYn-6uqJFlM3ena14l0IGuIvudMtml" target="_blank" class="text-blue-500 hover:underline">Intégrales définies, primitives - Cours 2</a></li>
-                        <li><a href="https://drive.google.com/open?id=128QMgbktZwzKsg7vOzdW6-o1-QZdyqWk" target="_blank" class="text-blue-500 hover:underline">Intégrales définies, primitives - Cours 3</a></li>
-                        <li><a href="https://drive.google.com/open?id=12Cusd3xzX3rQ596ajkQ52_6BOV7fIJdk" target="_blank" class="text-blue-500 hover:underline">Intégrales définies, primitives - Cours 4</a></li>
-                    `;
-                } else if (type === 'td') {
-                    popupTitle.textContent = 'TD Analyse 2';
-                    popupLinks.innerHTML = `
-                        <li><a href="https://drive.google.com/drive/folders/1-EjGqluREQs_1k-UBp_uPQ26OLQL70Dq?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">TD Intégrales définies, primitives</a></li>
-                        <li><a href="https://drive.google.com/drive/folders/1-U_IZEbQG9FlRgcCujm4sTAzc6nE7AU9?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">TD Équations différentielles</a></li>
-                    `;
-                } else if (type === 'examen') {
-                    popupTitle.textContent = 'Examen Analyse 2';
-                    popupLinks.innerHTML = `
-                        <!-- Links will be added here -->
-                    `;
-                }
-            } else if (module === 'algebre2') {
-                if (type === 'cours') {
-                    popupTitle.textContent = 'Cours Algèbre 2';
-                    popupLinks.innerHTML = `
-                        <li><a href="https://drive.google.com/drive/folders/1-XTl8IiFbB_pUBDYD9bOMgLQYmJMIG8c?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Matrice - Cours Chapitre 1</a></li>
-                        <li><a href="https://drive.google.com/drive/folders/1Nua-DT4lBrWJo4dHgCq5phHSvwwp9P6T?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Espace vectoriel - Cours Chapitre 2</a></li>
-                        <li><a href="https://drive.google.com/drive/folders/1rML05b0a_6u-pC6hy45DDCudbMYVQz63?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Application linéaire - Cours Chapitre 3</a></li>
-                    `;
-                } else if (type === 'td') {
-                    popupTitle.textContent = 'TD Algèbre 2';
-                    popupLinks.innerHTML = `
-                        <li><a href="https://drive.google.com/drive/folders/1-X8vDQoPYLxUg3D1LL1_0w1aqV7TO3u6?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Matrice - TD Chapitre 1</a></li>
-                        <li><a href="https://drive.google.com/drive/folders/19FDoAYIqmN64dX3ubL-PEbWyU2EQZoBs?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Espace vectoriel - TD Chapitre 2</a></li>
-                        <li><a href="https://drive.google.com/drive/folders/1UgBr5bKXnGUiE-L0tssLBDWOtt6h8tbw?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Application linéaire - TD Chapitre 3</a></li>
-                    `;
-                } else if (type === 'examen') {
-                    popupTitle.textContent = 'Examen Algèbre 2';
-                    popupLinks.innerHTML = `
-                        <!-- Links will be added here -->
-                    `;
-                }
-            } else if (module === 'probastat') {
-                if (type === 'cours') {
-                    popupTitle.textContent = 'Cours Probabilités et Statistiques';
-                    popupLinks.innerHTML = `
-                        <li><a href="https://drive.google.com/drive/folders/1-apC8fYO-xlrASkUw_84gJeCYBld7qMM?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Cours Probabilités</a></li>
-                        <li><a href="https://drive.google.com/drive/folders/1-ji9PYmYRGVok2K8PDfpX21TpmgbZkMc?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Cours + TD Statistiques</a></li>
-                    `;
-                } else if (type === 'td') {
-                    popupTitle.textContent = 'TD Probabilités et Statistiques';
-                    popupLinks.innerHTML = `
-                        <!-- Links will be added here -->
-                    `;
-                } else if (type === 'examen') {
-                    popupTitle.textContent = 'Examen Probabilités et Statistiques';
-                    popupLinks.innerHTML = `
-                        <!-- Links will be added here -->
-                    `;
-                }
-            } else if (module === 'algo2') {
-                if (type === 'cours') {
-                    popupTitle.textContent = 'Cours Algorithmique et Structure de Données 2';
-                    popupLinks.innerHTML = `
-                        <li><a href="https://drive.google.com/drive/folders/1qq9xakUwt0pQdxRtiietyMRUwSUTbI4X?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Actions Paramétrées - Cours Chapitre 1</a></li>
-                        <li><a href="https://drive.google.com/drive/folders/1G87IBxzgD89vIEyWgrCFjAGcJ4laQB5g?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Enregistrement - Cours Chapitre 2</a></li>
-                        <li><a href="https://drive.google.com/drive/folders/1Eou-U9Jx8Y4ziQwFAd7cj7mGODfAFyhz?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Fichiers - Cours Chapitre 3</a></li>
-                        <li><a href="https://drive.google.com/drive/folders/1cbh7ksya3br2qM3PMhmVKKlNBgrKlSVg?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Listes Chaînées - Cours Chapitre 4</a></li>
-                    `;
-                } else if (type === 'td') {
-                    popupTitle.textContent = 'TD Algorithmique et Structure de Données 2';
-                    popupLinks.innerHTML = `
-                        <li><a href="https://drive.google.com/drive/folders/1MaRofycMV2cxC_gzYMEd41yErLIfqE1i?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Actions Paramétrées - TD Chapitre 1</a></li>
-                        <li><a href="https://drive.google.com/drive/folders/1yzEQY2iw0RKajLIygj2odcuAZXl370w1?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Enregistrement - TD Chapitre 2</a></li>
-                        <li><a href="https://drive.google.com/drive/folders/1o5m5N2BzZ3IFWISyduLHc7zU5E6D3xVr?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Fichiers - TD Chapitre 3</a></li>
-                        <li><a href="https://drive.google.com/drive/folders/1ijmHM_oNdwGkiLPvCv3FeCBpqhuP9K3W?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Listes Chaînées - TD Chapitre 4</a></li>
-                    `;
-                } else if (type === 'examen') {
-                    popupTitle.textContent = 'Examen Algorithmique et Structure de Données 2';
-                    popupLinks.innerHTML = `
-                        <!-- Links will be added here -->
-                    `;
-                }
-            } else if (module === 'structure2') {
-                if (type === 'cours') {
-                    popupTitle.textContent = 'Cours Structure Machine 2';
-                    popupLinks.innerHTML = `
-                        <li><a href="https://drive.google.com/drive/folders/1v399wsY567q1OW8k8Br-6fO_peFn1nal?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Les mémoires - Cours</a></li>
-                        <li><a href="https://drive.google.com/drive/folders/11AU3IUnp9trIrgiTQ2EoBgGOMDToy6IZ?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Structure et fonctionnement d'un ordinateur de base - Cours</a></li>
-                        <li><a href="https://drive.google.com/drive/folders/17S_U-DtWZhrPj1_gOmeNepo8O-omuY4E?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Circuits séquentiels - Cours</a></li>
-                    `;
-                } else if (type === 'td') {
-                    popupTitle.textContent = 'TD Structure Machine 2';
-                    popupLinks.innerHTML = `
-                        <li><a href="https://drive.google.com/drive/folders/1lWtveZ5mA6En7JPRkaD4znpyyUuYmnfw?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Les mémoires - TD</a></li>
-                        <li><a href="https://drive.google.com/drive/folders/1En0mbyDT-IxlZVzYtVw6hvawqxpl9KVV?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Structure et fonctionnement d'un ordinateur de base - TD</a></li>
-                        <li><a href="https://drive.google.com/drive/folders/1kAK7EJ6NSYDtKz-FtqPC0kPh-qIr3cGk?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Circuits séquentiels - TD</a></li>
-                    `;
-                } else if (type === 'examen') {
-                    popupTitle.textContent = 'Examen Structure Machine 2';
-                    popupLinks.innerHTML = `
-                        <!-- Links will be added here -->
-                    `;
-                }
-            } else if (module === 'electricite') {
-                if (type === 'cours') {
-                    popupTitle.textContent = 'Cours Électricité';
-                    popupLinks.innerHTML = `
-                        <li><a href="https://drive.google.com/file/d/1q_-LAqpITFnJ1aUBxsFh0JG9gJQ8fNf9/view?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Chapitre 1</a></li>
-                        <li><a href="https://drive.google.com/file/d/1i348uRnaGl4IPmcgiGn38wnmWXJZRGof/view?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Chapitre 2</a></li>
-                        <li><a href="https://drive.google.com/file/d/1WdDNy2kK1xitpiIHB4R7de3AwdHjZRm_/view?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Chapitre 2 Part 2</a></li>
-                        <li><a href="https://drive.google.com/file/d/1uAl0ar5InJ5Q5eY3yKW-KkBQfuTuPHvn/view?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">Chapitre 2 Version Finale</a></li>
-                    `;
-                } else if (type === 'td') {
-                    popupTitle.textContent = 'TD Électricité';
-                    popupLinks.innerHTML = `
-                        <li><a href="https://drive.google.com/file/d/1_-Sn2nRz6cYubGYSDajJz-YgYOJwjXE5/view?usp=drive_link" target="_blank" class="text-blue-500 hover:underline">TD</a></li>
-                    `;
-                } else if (type === 'examen') {
-                    popupTitle.textContent = 'Examen Électricité';
-                    popupLinks.innerHTML = `
-                        <!-- Links will be added here -->
-                    `;
-                }
+            // Template for Bejaia University section
+            const bejaiaSection = `
+                <div class="university-section mb-6 transform transition-all duration-300 hover:scale-105">
+                    <h3 class="text-xl font-bold mb-3 text-green-600">Université de Béjaia</h3>
+                    <div class="pl-4 space-y-2">
+                        <p class="text-gray-500 italic">Contenu à venir...</p>
+                    </div>
+                </div>
+            `;
+
+            // Template for "Contenu à venir" section
+            const comingSoonSection = `
+                <div class="university-section mb-6 transform transition-all duration-300 hover:scale-105">
+                    <h3 class="text-xl font-bold mb-3 text-red-600">Université d'Alger 1</h3>
+                    <div class="pl-4 space-y-2">
+                        <p class="text-gray-500 italic">Contenu à venir...</p>
+                    </div>
+                </div>
+            `;
+
+            // USTHB content
+            const usthbContent = `
+                <div class="university-section mb-6 transform transition-all duration-300 hover:scale-105 border-l-4 border-blue-600">
+                    <h3 class="text-xl font-bold mb-3 text-blue-600">Université des Sciences et de la Technologie Houari Boumediene</h3>
+                    <div class="pl-4 space-y-2">
+                        ${getContentForUSHB(module, type)}
+                    </div>
+                </div>
+            `;
+
+            switch(module) {
+                case 'analyse2':
+                    switch(type) {
+                        case 'cours':
+                            popupTitle.textContent = 'Cours Analyse 2';
+                            popupLinks.innerHTML = `
+                                <div class="university-section mb-6 transform transition-all duration-300 hover:scale-105">
+                                    <h3 class="text-xl font-bold mb-3 text-red-600">Université d'Alger 1</h3>
+                                    <div class="pl-4 space-y-2">
+                                        <li><a href="https://drive.google.com/drive/folders/1U21dbonduePA5KNI8-g99cg8GauWVV5V?usp=drive_link" class="text-blue-500 hover:underline flex items-center"><i class="fas fa-file-pdf mr-2"></i>Cours Analyse 2</a></li>
+                                    </div>
+                                </div>
+                                ${bejaiaSection}
+                                ${usthbContent}
+                            `;
+                            break;
+                        case 'td':
+                            popupTitle.textContent = 'TD Analyse 2';
+                            popupLinks.innerHTML = `
+                                <div class="university-section mb-6 transform transition-all duration-300 hover:scale-105">
+                                    <h3 class="text-xl font-bold mb-3 text-red-600">Université d'Alger 1</h3>
+                                    <div class="pl-4 space-y-2">
+                                        <li><a href="https://drive.google.com/drive/folders/1cjXfT_l4MYX8VmpYI59JLO2IIxkmn-2E?usp=drive_link" class="text-blue-500 hover:underline flex items-center"><i class="fas fa-file-pdf mr-2"></i>TD Université d'Alger</a></li>
+                                        <li><a href="https://drive.google.com/drive/folders/1emc9ZiCNYtC6uZvkM6-N-tv5Nsjodf7S?usp=drive_link" class="text-blue-500 hover:underline flex items-center"><i class="fas fa-file-pdf mr-2"></i>TD ESI Alger</a></li>
+                                        <li><a href="https://drive.google.com/drive/folders/1DSDlPN4LyqprMc1EKYF0213qHJWQAa4h?usp=drive_link" class="text-blue-500 hover:underline flex items-center"><i class="fas fa-file-pdf mr-2"></i>Exercices</a></li>
+                                    </div>
+                                </div>
+                                ${bejaiaSection}
+                                ${usthbContent}
+                            `;
+                            break;
+                        case 'examen':
+                            popupTitle.textContent = 'Examens Analyse 2';
+                            popupLinks.innerHTML = `${comingSoonSection}${bejaiaSection}${usthbContent}`;
+                            break;
+                    }
+                    break;
+
+                case 'algebre2':
+                    switch(type) {
+                        case 'cours':
+                            popupTitle.textContent = 'Cours Algèbre 2';
+                            popupLinks.innerHTML = `
+                                <div class="university-section mb-6 transform transition-all duration-300 hover:scale-105">
+                                    <h3 class="text-xl font-bold mb-3 text-red-600">Université d'Alger 1</h3>
+                                    <div class="pl-4 space-y-2">
+                                        <li><a href="https://drive.google.com/drive/folders/1cpZuacBqf922_Yf-tRm1YaErFOzWD46z?usp=drive_link" class="text-blue-500 hover:underline flex items-center"><i class="fas fa-file-pdf mr-2"></i>Cours Algèbre 2</a></li>
+                                    </div>
+                                </div>
+                                ${bejaiaSection}
+                                ${usthbContent}
+                            `;
+                            break;
+                        case 'td':
+                            popupTitle.textContent = 'TD Algèbre 2';
+                            popupLinks.innerHTML = `
+                                <div class="university-section mb-6 transform transition-all duration-300 hover:scale-105">
+                                    <h3 class="text-xl font-bold mb-3 text-red-600">Université d'Alger 1</h3>
+                                    <div class="pl-4 space-y-2">
+                                        <li><a href="https://drive.google.com/drive/folders/10TZu7cB-PA2Yng0iXYDqzqbw_N-UWx6S?usp=drive_link" class="text-blue-500 hover:underline flex items-center"><i class="fas fa-file-pdf mr-2"></i>TD Alger</a></li>
+                                    </div>
+                                </div>
+                                ${bejaiaSection}
+                                ${usthbContent}
+                            `;
+                            break;
+                        case 'examen':
+                            popupTitle.textContent = 'Examens Algèbre 2';
+                            popupLinks.innerHTML = `${comingSoonSection}${bejaiaSection}${usthbContent}`;
+                            break;
+                    }
+                    break;
+
+                case 'structure2':
+                    switch(type) {
+                        case 'cours':
+                            popupTitle.textContent = 'Cours Structure Machine 2';
+                            popupLinks.innerHTML = `${comingSoonSection}${bejaiaSection}${usthbContent}`;
+                            break;
+                        case 'td':
+                            popupTitle.textContent = 'TD Structure Machine 2';
+                            popupLinks.innerHTML = `${comingSoonSection}${bejaiaSection}${usthbContent}`;
+                            break;
+                        case 'examen':
+                            popupTitle.textContent = 'Examens Structure Machine 2';
+                            popupLinks.innerHTML = `${comingSoonSection}${bejaiaSection}${usthbContent}`;
+                            break;
+                    }
+                    break;
+
+                case 'algo2':
+                    switch(type) {
+                        case 'cours':
+                            popupTitle.textContent = 'Cours Algorithmique 2';
+                            popupLinks.innerHTML = `${comingSoonSection}${bejaiaSection}${usthbContent}`;
+                            break;
+                        case 'td':
+                            popupTitle.textContent = 'TD Algorithmique 2';
+                            popupLinks.innerHTML = `
+                                <div class="university-section mb-6 transform transition-all duration-300 hover:scale-105">
+                                    <h3 class="text-xl font-bold mb-3 text-red-600">Université d'Alger 1</h3>
+                                    <div class="pl-4 space-y-2">
+                                        <li><a href="https://drive.google.com/drive/folders/1Lu7GNWd7CnO7MbvjuVan_oHBLup2RrXA?usp=drive_link" class="text-blue-500 hover:underline flex items-center"><i class="fas fa-file-pdf mr-2"></i>TD Université d'Alger</a></li>
+                                        <li><a href="https://drive.google.com/drive/folders/1nz4LGshL8Cn09wTJEC3SUEJ2izL69yG6?usp=drive_link" class="text-blue-500 hover:underline flex items-center"><i class="fas fa-file-pdf mr-2"></i>Exercices (TD)</a></li>
+                                    </div>
+                                </div>
+                                ${bejaiaSection}
+                                ${usthbContent}
+                            `;
+                            break;
+                        case 'examen':
+                            popupTitle.textContent = 'Examens Algorithmique 2';
+                            popupLinks.innerHTML = `${comingSoonSection}${bejaiaSection}${usthbContent}`;
+                            break;
+                    }
+                    break;
+
+                case 'electricite':
+                    switch(type) {
+                        case 'cours':
+                            popupTitle.textContent = 'Cours Électricité';
+                            popupLinks.innerHTML = `${comingSoonSection}${bejaiaSection}${usthbContent}`;
+                            break;
+                        case 'td':
+                            popupTitle.textContent = 'TD Électricité';
+                            popupLinks.innerHTML = `${comingSoonSection}${bejaiaSection}${usthbContent}`;
+                            break;
+                        case 'examen':
+                            popupTitle.textContent = 'Examens Électricité';
+                            popupLinks.innerHTML = `${comingSoonSection}${bejaiaSection}${usthbContent}`;
+                            break;
+                    }
+                    break;
+
+                case 'probastat':
+                    switch(type) {
+                        case 'cours':
+                            popupTitle.textContent = 'Cours Probabilités et Statistiques';
+                            popupLinks.innerHTML = `${comingSoonSection}${bejaiaSection}${usthbContent}`;
+                            break;
+                        case 'td':
+                            popupTitle.textContent = 'TD Probabilités et Statistiques';
+                            popupLinks.innerHTML = `${comingSoonSection}${bejaiaSection}${usthbContent}`;
+                            break;
+                        case 'examen':
+                            popupTitle.textContent = 'Examens Probabilités et Statistiques';
+                            popupLinks.innerHTML = `${comingSoonSection}${bejaiaSection}${usthbContent}`;
+                            break;
+                    }
+                    break;
             }
 
             document.getElementById('popupModal').classList.remove('hidden');
-            document.querySelector('.glass-card').classList.add('scale-100');
+            
+            // Add hover effects and animations to links
+            const links = document.querySelectorAll('.university-section a');
+            links.forEach(link => {
+                link.addEventListener('mouseenter', e => {
+                    e.target.style.transform = 'translateX(10px)';
+                });
+                link.addEventListener('mouseleave', e => {
+                    e.target.style.transform = 'translateX(0)';
+                });
+            });
         }
 
         function closePopup() {
             document.getElementById('popupModal').classList.add('hidden');
             document.querySelector('.glass-card').classList.remove('scale-100');
         }
+
+        function getContentForUSHB(module, type) {
+            const content = {
+                'analyse2': {
+                    'cours': [
+                        { title: '1-Développement de limite - Cours 1', url: 'https://drive.google.com/open?id=1IiLC-uTcJthHbz2591CSbqIYt4CT2pyb' },
+                        { title: '1-Développement de limite - Cours 2', url: 'https://drive.google.com/open?id=19eMyWoFy2QwXMSpmd339LvCICtFr4tjz' },
+                        { title: '1-Développement de limite - Cours 3', url: 'https://drive.google.com/open?id=1keu0bLdA2cOpECp0L0k_a06zlwqvdDc3' },
+                        { title: '1-Développement de limite - Cours 4', url: 'https://drive.google.com/open?id=1MM5VGxAepfAM8FWNHrKsFSCzyjKrWRdD' },
+                        { title: '1-Développement de limite - Cours 5', url: 'https://drive.google.com/open?id=1HvzVOjcHg3aSnXn4maTz_W85eyVCv5tL' },
+                        { title: '2-Intégrales définies - Cours 1', url: 'https://drive.google.com/open?id=14ZjLDb0iXcuRsc4548TCyBw5MiIZHGH1' },
+                        { title: '2-Intégrales définies - Cours 2', url: 'https://drive.google.com/open?id=12OLYn-6uqJFlM3ena14l0IGuIvudMtml' },
+                        { title: '2-Intégrales définies - Cours 3', url: 'https://drive.google.com/open?id=128QMgbktZwzKsg7vOzdW6-o1-QZdyqWk' },
+                        { title: '2-Intégrales définies - Cours 4', url: 'https://drive.google.com/open?id=12Cusd3xzX3rQ596ajkQ52_6BOV7fIJdk' }
+                    ],
+                    'td': [
+                        { title: 'TD Équations différentielles', url: 'https://drive.google.com/drive/folders/1-U_IZEbQG9FlRgcCujm4sTAzc6nE7AU9?usp=drive_link' },
+                        { title: 'TD Intégrales', url: 'https://drive.google.com/drive/folders/1-EjGqluREQs_1k-UBp_uPQ26OLQL70Dq?usp=drive_link' },
+                        { title: 'Exercice 1', url: 'https://drive.google.com/open?id=1c4X0GNHYUvxu-e2RwILVBrZbCKDvqDqS' },
+                        { title: 'Exercice 2', url: 'http://laroche.lycee.free.fr/telecharger/TS/exercices/exercices_calcul_integral_corriges.pdf' }
+                    ]
+                },
+                'algebre2': {
+                    'cours': [
+                        { title: 'Matrices - Chapitre 1', url: 'https://drive.google.com/drive/folders/1-XTl8IiFbB_pUBDYD9bOMgLQYmJMIG8c?usp=drive_link' },
+                        { title: 'Espaces Vectoriels - Chapitre 2', url: 'https://drive.google.com/drive/folders/1Nua-DT4lBrWJo4dHgCq5phHSvwwp9P6T?usp=drive_link' },
+                        { title: 'Applications Linéaires - Chapitre 3', url: 'https://drive.google.com/drive/folders/1rML05b0a_6u-pC6hy45DDCudbMYVQz63?usp=drive_link' }
+                    ],
+                    'td': [
+                        { title: 'TD Matrices - Chapitre 1', url: 'https://drive.google.com/drive/folders/1-X8vDQoPYLxUg3D1LL1_0w1aqV7TO3u6?usp=drive_link' },
+                        { title: 'TD Espaces Vectoriels - Chapitre 2', url: 'https://drive.google.com/drive/folders/19FDoAYIqmN64dX3ubL-PEbWyU2EQZoBs?usp=drive_link' },
+                        { title: 'TD Applications Linéaires - Chapitre 3', url: 'https://drive.google.com/drive/folders/1UgBr5bKXnGUiE-L0tssLBDWOtt6h8tbw?usp=drive_link' }
+                    ]
+                },
+                'algo2': {
+                    'cours': [
+                        { title: 'Chapitre 1 - Actions Paramétrées', url: 'https://drive.google.com/drive/folders/1qq9xakUwt0pQdxRtiietyMRUwSUTbI4X?usp=drive_link' },
+                        { title: 'Chapitre 2 - Enregistrement', url: 'https://drive.google.com/drive/folders/1G87IBxzgD89vIEyWgrCFjAGcJ4laQB5g?usp=drive_link' },
+                        { title: 'Chapitre 3 - Fichiers', url: 'https://drive.google.com/drive/folders/1Eou-U9Jx8Y4ziQwFAd7cj7mGODfAFyhz?usp=drive_link' },
+                        { title: 'Chapitre 4 - Listes Chaînées', url: 'https://drive.google.com/drive/folders/1cbh7ksya3br2qM3PMhmVKKlNBgrKlSVg?usp=drive_link' }
+                    ],
+                    'td': [
+                        { title: 'TD Chapitre 1 - Actions Paramétrées', url: 'https://drive.google.com/drive/folders/1MaRofycMV2cxC_gzYMEd41yErLIfqE1i?usp=drive_link' },
+                        { title: 'TD Chapitre 2 - Enregistrement', url: 'https://drive.google.com/drive/folders/1yzEQY2iw0RKajLIygj2odcuAZXl370w1?usp=drive_link' },
+                        { title: 'TD Chapitre 3 - Fichiers', url: 'https://drive.google.com/drive/folders/1o5m5N2BzZ3IFWISyduLHc7zU5E6D3xVr?usp=drive_link' },
+                        { title: 'TD Chapitre 4 - Listes Chaînées', url: 'https://drive.google.com/drive/folders/1ijmHM_oNdwGkiLPvCv3FeCBpqhuP9K3W?usp=drive_link' }
+                    ]
+                },
+                'structure2': {
+                    'cours': [
+                        { title: '1-Les mémoires', url: 'https://drive.google.com/drive/folders/1v399wsY567q1OW8k8Br-6fO_peFn1nal?usp=drive_link' },
+                        { title: '2-Structure et fonctionnement', url: 'https://drive.google.com/drive/folders/11AU3IUnp9trIrgiTQ2EoBgGOMDToy6IZ?usp=drive_link' },
+                        { title: '3-Circuits séquentiels', url: 'https://drive.google.com/drive/folders/17S_U-DtWZhrPj1_gOmeNepo8O-omuY4E?usp=drive_link' }
+                    ],
+                    'td': [
+                        { title: 'TD Les mémoires', url: 'https://drive.google.com/drive/folders/1lWtveZ5mA6En7JPRkaD4znpyyUuYmnfw?usp=drive_link' },
+                        { title: 'TD Structure et fonctionnement', url: 'https://drive.google.com/drive/folders/1En0mbyDT-IxlZVzYtVw6hvawqxpl9KVV?usp=drive_link' },
+                        { title: 'TD Circuits séquentiels', url: 'https://drive.google.com/drive/folders/1kAK7EJ6NSYDtKz-FtqPC0kPh-qIr3cGk?usp=drive_link' }
+                    ]
+                },
+                'electricite': {
+                    'cours': [
+                        { title: 'Chapitre 1', url: 'https://drive.google.com/file/d/1q_-LAqpITFnJ1aUBxsFh0JG9gJQ8fNf9/view?usp=drive_link' },
+                        { title: 'Chapitre 2', url: 'https://drive.google.com/file/d/1i348uRnaGl4IPmcgiGn38wnmWXJZRGof/view?usp=drive_link' },
+                        { title: 'Chapitre 2 partie 2', url: 'https://drive.google.com/file/d/1WdDNy2kK1xitpiIHB4R7de3AwdHjZRm_/view?usp=drive_link' },
+                        { title: 'Chapitre 2 version finale', url: 'https://drive.google.com/file/d/1uAl0ar5InJ5Q5eY3yKW-KkBQfuTuPHvn/view?usp=drive_link' }
+                    ],
+                    'td': [
+                        { title: 'TD Électricité', url: 'https://drive.google.com/file/d/1_-Sn2nRz6cYubGYSDajJz-YgYOJwjXE5/view?usp=drive_link' }
+                    ]
+                },
+                'probastat': {
+                    'cours': [
+                        { title: 'Cours Probabilités', url: 'https://drive.google.com/drive/folders/1-apC8fYO-xlrASkUw_84gJeCYBld7qMM?usp=drive_link' },
+                        { title: 'Cours Statistiques', url: 'https://drive.google.com/drive/folders/1-ji9PYmYRGVok2K8PDfpX21TpmgbZkMc?usp=drive_link' }
+                    ],
+                    'td': [
+                        { title: 'TD Statistiques', url: 'https://drive.google.com/drive/folders/1-ji9PYmYRGVok2K8PDfpX21TpmgbZkMc?usp=drive_link' }
+                    ]
+                },
+                'tic': {
+                    'cours': [
+                        { title: 'Chapitre 1', url: 'https://drive.google.com/file/d/1qqIeQTLT8j5L-qupowhFFxV2jbB3wwlp/view?usp=drive_link' },
+                        { title: 'Chapitre 2', url: 'https://drive.google.com/file/d/1aKfM9ejppapO4wWIXc0UjXHY9Ir4q7o2/view?usp=drive_link' }
+                    ]
+                }
+            };
+
+            if (content[module] && content[module][type]) {
+                return content[module][type]
+                    .map(item => `<a href="${item.url}" class="text-blue-500 hover:underline flex items-center" target="_blank">
+                        <i class="fas fa-file-pdf mr-2"></i>${item.title}</a>`)
+                    .join('');
+            }
+            return '<p class="text-gray-500 italic">Contenu à venir...</p>';
+        }
     </script>
+
+    <style>
+        .university-section {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .university-section:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+        }
+
+        .university-section h3 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .university-section h3::before {
+            content: '';
+            width: 4px;
+            height: 1.5rem;
+            background-color: currentColor;
+            border-radius: 2px;
+        }
+
+        .university-section a {
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            padding: 0.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .university-section a:hover {
+            background: rgba(59, 130, 246, 0.1);
+            transform: translateX(10px);
+        }
+    </style>
 </body>
 </html>
