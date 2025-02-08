@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Science et Technologie Ingénieur et TM</title>
+    <!-- Include Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50">
+    <header class="bg-blue-500 text-white p-4">
+        <h1 class="text-center text-3xl font-bold">Science et Technologie Ingénieur et TM</h1>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        <p class="mb-6 text-lg">Veuillez choisir le semestre pour accéder aux modules:</p>
+        <button onclick="openSemesterModal()"
+                class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700">
+            Choisir le semestre
+        </button>
+    </main>
+
+    <!-- Semester selection modal -->
+    <div id="semesterModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center">
+        <div class="bg-white p-6 rounded-lg shadow-lg">
+            <h2 class="text-xl font-bold mb-4">Choisissez le semestre</h2>
+            <div class="flex flex-col space-y-4">
+                <button onclick="window.location.href='modules-science-technologie-ingenieur-semestre1.html'"
+                        class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700">
+                    Semestre 1
+                </button>
+                <button onclick="window.location.href='modules-science-technologie-ingenieur-semestre2.html'"
+                        class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700">
+                    Semestre 2
+                </button>
+            </div>
+            <button onclick="closeSemesterModal()"
+                    class="mt-4 text-gray-600 hover:text-gray-800">Annuler</button>
+        </div>
+    </div>
+
+    <script>
+        function openSemesterModal() {
+            document.getElementById('semesterModal').classList.remove('hidden');
+        }
+
+        function closeSemesterModal() {
+            document.getElementById('semesterModal').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>

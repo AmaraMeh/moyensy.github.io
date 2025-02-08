@@ -30,11 +30,23 @@
                 <div class="year-section">
                     <h2 class="text-2xl font-bold mb-4 text-gray-800">1ère année</h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                        <a href="javascript:void(0);" onclick="redirectSpecialty('science-technologie-lmd')" class="service-card">
+                        <a href="specialite-science-technologie.html" class="service-card">
                             <div class="service-icon">
                                 <i class="fas fa-flask text-4xl text-blue-600"></i>
                             </div>
                             <h3 class="text-xl font-semibold mb-2">Science et Technologie LMD</h3>
+                        </a>
+                        <a href="specialite-informatique-lmd.html" class="service-card">
+                            <div class="service-icon">
+                                <i class="fas fa-laptop-code text-4xl text-blue-600"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-2">Informatique LMD</h3>
+                        </a>
+                        <a href="specialite-biologie.html" class="service-card">
+                            <div class="service-icon">
+                                <i class="fas fa-dna text-4xl text-blue-600"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-2">Biologie</h3>
                         </a>
                         <a href="javascript:void(0);" onclick="redirectSpecialty('mathematiques')" class="service-card">
                             <div class="service-icon">
@@ -48,13 +60,7 @@
                             </div>
                             <h3 class="text-xl font-semibold mb-2">Science de la matière</h3>
                         </a>
-                        <a href="javascript:void(0);" onclick="redirectSpecialty('informatique-lmd')" class="service-card">
-                            <div class="service-icon">
-                                <i class="fas fa-laptop-code text-4xl text-blue-600"></i>
-                            </div>
-                            <h3 class="text-xl font-semibold mb-2">Informatique LMD</h3>
-                        </a>
-                        <a href="javascript:void(0);" onclick="redirectSpecialty('science-technologie-ingenieur')" class="service-card">
+                        <a href="javascript:void(0);" onclick="openModal()" class="service-card">
                             <div class="service-icon">
                                 <i class="fas fa-cogs text-4xl text-blue-600"></i>
                             </div>
@@ -65,12 +71,6 @@
                                 <i class="fas fa-desktop text-4xl text-blue-600"></i>
                             </div>
                             <h3 class="text-xl font-semibold mb-2">Informatique ING</h3>
-                        </a>
-                        <a href="javascript:void(0);" onclick="redirectSpecialty('biologie')" class="service-card">
-                            <div class="service-icon">
-                                <i class="fas fa-dna text-4xl text-blue-600"></i>
-                            </div>
-                            <h3 class="text-xl font-semibold mb-2">Biologie</h3>
                         </a>
                         <a href="javascript:void(0);" onclick="redirectSpecialty('architecture')" class="service-card">
                             <div class="service-icon">
@@ -170,6 +170,18 @@
         </div>
     </div>
 
+    <!-- Add a modal for semester selection -->
+    <div id="semesterModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center">
+        <div class="bg-white p-6 rounded-lg shadow-lg">
+            <h2 class="text-xl font-bold mb-4">Choisissez le semestre</h2>
+            <div class="flex flex-col space-y-4">
+                <button onclick="redirectToSemester('science-technologie-ingenieur', 1)" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700">Semestre 1</button>
+                <button onclick="redirectToSemester('science-technologie-ingenieur', 2)" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700">Semestre 2</button>
+            </div>
+            <button onclick="closeModal()" class="mt-4 text-gray-600 hover:text-gray-800">Annuler</button>
+        </div>
+    </div>
+
     <footer class="text-center text-gray-600 text-sm py-4">
         <div>&copy; 2025 Université de Bejaia. Développé par Amara Mehdi <a href="mailto:mehdi.amara@tech.univ-bejaia.dz" class="text-blue-500 hover:text-blue-700">Amara Mehdi</a></div>
     </footer>
@@ -182,15 +194,35 @@
         });
 
         function redirectSpecialty(specialty) {
-            if (specialty === 'science-technologie-lmd') {
-                window.location.href = 'specialite-science-technologie.html';
-            } else if (specialty === 'biologie') {
-                window.location.href = 'specialite-biologie.html';
-            } else if (specialty === 'informatique-lmd') {
-                window.location.href = 'specialite-informatique-lmd.html';
-            } else {
-                window.location.href = 'coming-soon.html';
+            switch(specialty) {
+                case 'science-technologie-lmd':
+                    window.location.href = 'specialite-science-technologie.html';
+                    break;
+                case 'biologie':
+                    window.location.href = 'specialite-biologie.html';
+                    break;
+                case 'informatique-lmd':
+                    window.location.href = 'specialite-informatique-lmd.html';
+                    break;
+                case 'science-technologie-ingenieur':
+                    // Redirect to the specialty page where the semester selection is available
+                    window.location.href = 'specialite-science-technologie-ingenieur.html';
+                    break;
+                default:
+                    window.location.href = 'coming-soon.html';
             }
+        }
+
+        function openModal() {
+            document.getElementById('semesterModal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('semesterModal').classList.add('hidden');
+        }
+
+        function redirectToSemester(specialty, semester) {
+            window.location.href = `modules-${specialty}-semestre${semester}.html`;
         }
     </script>
 </body>

@@ -1,38 +1,867 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <!-- ...existing code... -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Science et Technologie LMD - Semestre 2 - ISET'COM</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script src="https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=959531&siteid=357365" async></script>
+    <script id="aclib" type="text/javascript" src="//acscdn.com/script/aclib.js"></script>
+    <script type="text/javascript">
+        aclib.runAutoTag({
+            zoneId: '1hqerebunb',
+        });
+    </script>
 </head>
 <body class="flex flex-col min-h-screen bg-gray-50">
+    <div>
+        <script type="text/javascript">
+            aclib.runBanner({
+                zoneId: '9521434',
+            });
+        </script>
+    </div>
     <div class="container mx-auto px-4 max-w-6xl flex-grow">
-        <!-- ...existing code... -->
+        <header class="mb-12 mt-8" data-aos="fade-down">
+            <div class="header-container">
+                <a href="specialite-science-technologie.html" class="back-button hover:scale-110 transform transition-all duration-300">
+                    <i class="fas fa-arrow-left"></i>
+                    Retour
+                </a>
+                <img src="assets/img/LOGO.png" alt="ISET'COM" class="max-w-[200px]">
+            </div>
+        </header>
+
         <div class="glass-card" data-aos="fade-up">
-            <h1 class="text-3xl font-bold mb-8 text-center text-gray-800">Science et Technologie Ingénieur - Semestre 2</h1>
+            <h1 class="text-3xl font-bold mb-8 text-center text-gray-800">Science et Technologie ING et TM - Semestre 2</h1>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                <div class="module-card">
-                    <h3 class="text-xl font-semibold mb-2">Module Name</h3>
-                    <p>Coefficient: 3</p>
-                    <p>Crédits: 6</p>
-                    <p>Évaluations: TD, Examen</p>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                <div class="module-card flex flex-col items-center justify-center p-6 hover:scale-105 transition-all duration-300">
+                    <i class="fas fa-square-root-alt text-4xl text-purple-600 mb-4"></i>
+                    <h3 class="text-xl font-semibold text-center">Algebre 2</h3>
                     <div class="flex space-x-4 mt-4">
-                        <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" onclick="showContent('tdtp')">TD+TP</button>
-                        <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700" onclick="showContent('examen')">Examen</button>
-                        <button class="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-700" onclick="showContent('cours')">Cours</button>
+                        <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" onclick="showContent('Algebre 2', 'tdtp')">TD</button>
+                        <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700" onclick="showContent('Algebre 2', 'examen')">Examen</button>
+                        <button class="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-700" onclick="showContent('Algebre 2', 'cours')">Cours</button>
                     </div>
                 </div>
-                <!-- ...repeat for other modules... -->
+
+                <div class="module-card flex flex-col items-center justify-center p-6 hover:scale-105 transition-all duration-300">
+                    <i class="fas fa-function text-4xl text-blue-600 mb-4"></i>
+                    <h3 class="text-xl font-semibold text-center">Analyse 2</h3>
+                    <div class="flex space-x-4 mt-4">
+                        <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" onclick="showContent('Analyse 2', 'tdtp')">TD</button>
+                        <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700" onclick="showContent('Analyse 2', 'examen')">Examen</button>
+                        <button class="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-700" onclick="showContent('Analyse 2', 'cours')">Cours</button>
+                    </div>
+                </div>
+                
+                <div class="module-card flex flex-col items-center justify-center p-6 hover:scale-105 transition-all duration-300">
+                    <i class="fas fa-flask text-4xl text-pink-600 mb-4"></i>
+                    <h3 class="text-xl font-semibold text-center">Chimie 2</h3>
+                    <div class="flex space-x-4 mt-4">
+                        <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" onclick="showContent('Chimie 2', 'tdtp')">TD</button>
+                        <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700" onclick="showContent('Chimie 2', 'examen')">Examen</button>
+                        <button class="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-700" onclick="showContent('Chimie 2', 'cours')">Cours</button>
+                    </div>
+                </div>
+
+                <div class="module-card flex flex-col items-center justify-center p-6 hover:scale-105 transition-all duration-300">
+                    <i class="fas fa-atom text-4xl text-orange-600 mb-4"></i>
+                    <h3 class="text-xl font-semibold text-center">Physique 2</h3>
+                    <div class="flex space-x-4 mt-4">
+                        <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" onclick="showContent('Physique 2', 'tdtp')">TD</button>
+                        <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700" onclick="showContent('Physique 2', 'examen')">Examen</button>
+                        <button class="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-700" onclick="showContent('Physique 2', 'cours')">Cours</button>
+                    </div>
+                </div>
             </div>
         </div>
-        <!-- ...existing code... -->
     </div>
+
+    <div id="popup-tdtp" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg shadow-lg p-6 max-w-3xl w-full glass-card">
+            <div class="flex justify-between items-center mb-4">
+                <h2 id="popup-title-tdtp" class="text-2xl font-bold text-gray-800"></h2>
+                <button type="button" class="close-popup-btn px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700 transform transition-all duration-300">
+                    <i class="fas fa-times mr-2"></i>Fermer
+                </button>
+            </div>
+            <div id="popup-content-tdtp" class="space-y-4 popup-content">
+                <!-- Dynamic content will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <div id="popup-examen" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg shadow-lg p-6 max-w-3xl w-full glass-card">
+            <div class="flex justify-between items-center mb-4">
+                <h2 id="popup-title-examen" class="text-2xl font-bold text-gray-800"></h2>
+                <button type="button" class="close-popup-btn px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700 transform transition-all duration-300">
+                    <i class="fas fa-times mr-2"></i>Fermer
+                </button>
+            </div>
+            <div id="popup-content-examen" class="space-y-4 popup-content">
+                <!-- Dynamic content will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <div id="popup-cours" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg shadow-lg p-6 max-w-3xl w-full glass-card">
+            <div class="flex justify-between items-center mb-4">
+                <h2 id="popup-title-cours" class="text-2xl font-bold text-gray-800"></h2>
+                <button type="button" class="close-popup-btn px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700 transform transition-all duration-300">
+                    <i class="fas fa-times mr-2"></i>Fermer
+                </button>
+            </div>
+            <div id="popup-content-cours" class="space-y-4 popup-content">
+                <!-- Dynamic content will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <div id="popup-compterendu" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg shadow-lg p-6 max-w-3xl w-full glass-card">
+            <div class="flex justify-between items-center mb-4">
+                <h2 id="popup-title-compterendu" class="text-2xl font-bold text-gray-800"></h2>
+                <button type="button" class="close-popup-btn px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700 transform transition-all duration-300">
+                    <i class="fas fa-times mr-2"></i>Fermer
+                </button>
+            </div>
+            <div id="popup-content-compterendu" class="space-y-4 popup-content">
+                <!-- Dynamic content will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <footer class="text-center text-gray-600 text-sm py-4">
+        <div>&copy; 2025 Université de Bejaia. Développé par Amara Mehdi <a href="mailto:mehdi.amara@tech.univ-bejaia.dz" class="text-blue-500 hover:text-blue-700">Amara Mehdi</a></div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        function showContent(type) {
-            // Logic to show content based on type
-            alert('Showing ' + type + ' content');
-            // Redirect to the appropriate link
-            // window.location.href = 'link-to-' + type;
+        AOS.init({
+            duration: 800,
+            once: true
+        });
+
+        function showContent(module, type) {
+            const popup = document.getElementById(`popup-${type}`);
+            const popupTitle = document.getElementById(`popup-title-${type}`);
+            const popupContent = document.getElementById(`popup-content-${type}`);
+
+            popupTitle.textContent = `${module} - ${type.toUpperCase()}`;
+            popupContent.innerHTML = '';
+
+            // Template for Bejaia University section (Primary) - Always show this
+            const bejaiaContent = `
+                <div class="university-section mb-6 transform transition-all duration-300 hover:scale-105 border-l-4 border-green-600">
+                    <h3 class="text-xl font-bold mb-3 text-green-600">Université de Béjaia</h3>
+                    <div class="pl-4 space-y-2">
+                        ${getBejaiaContent(module, type)}
+                    </div>
+                </div>
+            `;
+
+            // Only add other universities section if there's specific content for them
+            let otherContent = '';
+            
+            // Check if there's specific content for other universities (you can add conditions here)
+            const hasOtherContent = false; // Set to true when you have content for other universities
+            
+            if (hasOtherContent) {
+                // Template for USTHB (Secondary)
+                otherContent += `
+                    <div class="university-section mb-6 transform transition-all duration-300 hover:scale-105 border-l-4 border-blue-600">
+                        <h3 class="text-xl font-bold mb-3 text-blue-600">Université des Sciences et de la Technologie Houari Boumediene</h3>
+                        <div class="pl-4 space-y-2">
+                            <p class="text-gray-500 italic">Contenu à venir...</p>
+                        </div>
+                    </div>
+                `;
+
+                // Template for other universities
+                const otherUniversities = [
+                    {
+                        name: "Université de Sétif",
+                        color: "red-600"
+                    },
+                    {
+                        name: "Université de Tizi Ouzou",
+                        color: "purple-600"
+                    },
+                    {
+                        name: "Université de Boumerdes",
+                        color: "yellow-600"
+                    },
+                    {
+                        name: "Autres Universités",
+                        color: "gray-600"
+                    }
+                ];
+
+                otherContent += otherUniversities.map(univ => `
+                    <div class="university-section mb-6 transform transition-all duration-300 hover:scale-105 border-l-4 border-${univ.color}">
+                        <h3 class="text-xl font-bold mb-3 text-${univ.color}">${univ.name}</h3>
+                        <div class="pl-4 space-y-2">
+                            <p class="text-gray-500 italic">Contenu à venir...</p>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            // Add all sections to popup content
+            popupContent.innerHTML = bejaiaContent + otherContent;
+
+            // Show popup
+            popup.classList.remove('hidden');
         }
+
+        function getBejaiaContent(module, type) {
+            const content = {
+                'Algebre 2': {
+                    'cours': {
+                        resume: [
+                            { 
+                                title: 'Résumé 1',
+                                url: 'https://drive.google.com/file/d/1aKAkxylqAV6AqwwpcI7a0frO-W9mYSzE/view?usp=drive_link',
+                                exclusive: true
+                            },
+                            { 
+                                title: 'Résumé 2',
+                                url: 'https://drive.google.com/file/d/1TdSXBehvBKiYXg-e8ZXfyGNyOPgYUm9k/view?usp=drive_link',
+                                exclusive: true
+                            },
+                            { 
+                                title: 'Résumé 3',
+                                url: 'https://drive.google.com/file/d/13-QMbUhs40yoQgxzVzwdcNqCwUX0vY3O/view?usp=drive_link',
+                                exclusive: true
+                            }
+                        ],
+                        regular: [
+                            { title: 'Chapitre 1', url: 'https://drive.google.com/file/d/1ujWIuGWDs41iQWr8o9CwEcN-SNe6fpp2/view?usp=drive_link' },
+                            { title: 'Chapitre 2', url: 'https://drive.google.com/file/d/1ovYgPulZ5duT2EyCaQuItC0-y4zkdENC/view?usp=drive_link' },
+                            { title: 'Chapitre 3', url: 'https://drive.google.com/file/d/1PyIEH74cR0b-f7dlALhMADGgQ4z29mD9/view?usp=drive_link' },
+                            { title: 'Chapitre 4', url: 'https://drive.google.com/file/d/1CirHCgY3uTwL2f_stYoTkSFdN2K7EqbZ/view?usp=drive_link' }
+                        ]
+                    },
+                    'tdtp': [
+                        { title: 'TD 1', url: 'https://drive.google.com/file/d/1StyJEqYugZrIeraoQ1dHhnoTum1ExXli/view?usp=drive_link' },
+                        { title: 'Corrigé TD 1', url: 'https://drive.google.com/file/d/1ppX3PTi5bzqIuvHpg9gD1zs4o5x_7XQq/view?usp=drive_link' },
+                        { title: 'TD 2', url: 'https://drive.google.com/file/d/1Tq9oSzvtlad0jpq21Xd9_P8rfGX8_U3k/view?usp=drive_link' },
+                        { title: 'Corrigé TD 2', url: 'https://drive.google.com/file/d/1ZS_bIL1Ja_UYrRHPUmUQ8ejL3pdJlYgh/view?usp=drive_link' },
+                        { title: 'TD 3', url: 'https://drive.google.com/file/d/1ZW5-_tdD2yia3HsV2-I31J9b0b4bDQoJ/view?usp=drive_link' },
+                        { title: 'Corrigé TD 3', url: 'https://drive.google.com/file/d/1pPxTtca2ahI3HtzNOVPet2KPyKxji7q2/view?usp=drive_link' }
+                    ],
+                    'examen': [
+                        { title: 'Examen 1', url: 'https://drive.google.com/file/d/1v4HS-Rf7PSfjT-krUjbImgBZ-a-HE_zx/view?usp=drive_link' },
+                        { title: 'Examen 2', url: 'https://drive.google.com/file/d/1ESknlfX86CL5ibs0z6nLR6aS5mu-FgXf/view?usp=drive_link' },
+                        { title: 'Examen 3', url: 'https://drive.google.com/file/d/1G-DSNBztGcLKRZQvc9L4FIDLjeg0rh0H/view?usp=drive_link' },
+                        { title: 'Examen 4', url: 'https://drive.google.com/file/d/1HH8QAXbiQU9gw8cFXbac_xtnnizihnH2/view?usp=drive_link' },
+                        { title: 'Examen 5', url: 'https://drive.google.com/file/d/1mLJxiPn5gcDn9Fc0wepnfXvoNHPjeBAF/view?usp=drive_link' },
+                        { title: 'Examen 6', url: 'https://drive.google.com/file/d/1DAziPWHVUWsebUQi1N45mEuZcid0DfKV/view?usp=drive_link' },
+                        { title: 'Examen 7', url: 'https://drive.google.com/file/d/1-4YOjc7kSfaq4SRg1rceXzYjyb0mwS4J/view?usp=drive_link' }
+                    ]
+                },
+                'Analyse 2': {
+                    'cours': {
+                        resume: [
+                            { 
+                                title: 'Résumé Complet',
+                                url: 'https://drive.google.com/file/d/1Dn6jptoYFOiVbbPjnD5U1IkUwfE7rDut/view?usp=drive_link',
+                                exclusive: true
+                            }
+                        ],
+                        regular: [
+                            { title: 'Chapitre 1', url: 'https://drive.google.com/file/d/1l9lly5ouTKB9S_eMlEoD9fjxLUMm6lv5/view?usp=drive_link' },
+                            { title: 'Chapitre 2', url: 'https://drive.google.com/file/d/1RenqnOPldXRV_EVfgL8HzU0JCvSeUaGq/view?usp=drive_link' },
+                            { title: 'Chapitre 3', url: 'https://drive.google.com/file/d/1QuWloC6oSXdG_Ucsu4hN3qfjLNubW64x/view?usp=drive_link' },
+                            { title: 'Chapitre 4', url: 'https://drive.google.com/file/d/1LKjvKX0pDqdyX4M6Cp54XcskecymxxFC/view?usp=drive_link' }
+                        ]
+                    },
+                    'tdtp': [
+                        { title: 'TD 1', url: 'https://drive.google.com/file/d/1OwDV69T_PRHi0vL3ZwtGdmhwLgOqSwu3/view?usp=drive_link' },
+                        { title: 'Solution TD 1', url: 'https://drive.google.com/file/d/1t020_SbIsA8b4zOrW2qt8Sav5klXeVSh/view?usp=drive_link' },
+                        { title: 'TD 2', url: 'https://drive.google.com/file/d/1q8qNBKl6YJw5KPoNJZ4S1XdLTC3qXXfx/view?usp=drive_link' },
+                        { title: 'Solution TD 2', url: 'https://drive.google.com/file/d/1VG0RYhUCTpn2TdQiMuh4n9NUhDxSA9KX/view?usp=drive_link' }
+                    ],
+                    'examen': {
+                        anciens: [
+                            { title: 'Examen 1', url: 'https://drive.google.com/file/d/12hCTOzxuMJvmtROtPtI_gFPKnckN2Qz8/view?usp=drive_link' },
+                            { title: 'Examen 2', url: 'https://drive.google.com/file/d/14F01QwUP86PvGbwGd1kMLh7W0qAjSJAF/view?usp=drive_link' },
+                            { title: 'Examen 3', url: 'https://drive.google.com/file/d/1-1mw4roYM7f2nN4CpN7Ik4eUlVk0m5V3/view?usp=drive_link' },
+                            { title: 'Examen 4', url: 'https://drive.google.com/file/d/1DDrltQUW4dfFOiwKQvwUBptCdu7jBU8k/view?usp=drive_link' },
+                            { title: 'Examen 5', url: 'https://drive.google.com/file/d/1E-A0UK51uQp4ZDYPPJlkZCUxaQ_NYYzC/view?usp=drive_link' },
+                            { title: 'Examen 6', url: 'https://drive.google.com/file/d/1NG6jg6HftCtLDKp3OEImxCXoZozFFDvP/view?usp=drive_link' },
+                            { title: 'Examen 7', url: 'https://drive.google.com/file/d/1NkSJTpLyJ3f_lO9niyi2_hv9bLSFq9Ad/view?usp=drive_link' },
+                            { title: 'Examen 8', url: 'https://drive.google.com/file/d/1Py6SvhQHQoFW04_IGFLmLFcqQ9ujgJ4y/view?usp=drive_link' },
+                            { title: 'Examen 9', url: 'https://drive.google.com/file/d/1QZwKHTKX9_3cMkSnpqVkR-1830gc6vZe/view?usp=drive_link' },
+                            { title: 'Examen 10', url: 'https://drive.google.com/file/d/1bkRQJIay9WWA4iZSjYHWY5tMWv2xjd8H/view?usp=drive_link' },
+                            { title: 'Examen 11', url: 'https://drive.google.com/file/d/1dJ8Cler1-xbLbIfUWwyej0SWyDZ5VBak/view?usp=drive_link' },
+                            { title: 'Examen 12', url: 'https://drive.google.com/file/d/1fnryMKAdMQQMlrQ85Qq4z8jxFNdrpnWR/view?usp=drive_link' },
+                            { title: 'Examen 13', url: 'https://drive.google.com/file/d/1jqLYH97oDlJGhdcUPxzyntZrvzG8rnm8/view?usp=drive_link' },
+                            { title: 'Examen 14', url: 'https://drive.google.com/file/d/1l8GBQkewMHKnkmKM9VbvoM6qdaQUKTfG/view?usp=drive_link' },
+                            { title: 'Examen 15', url: 'https://drive.google.com/file/d/1lKQH9-8STp37XU3G335kMrC8kRL9UBu1/view?usp=drive_link' },
+                            { title: 'Examen 16', url: 'https://drive.google.com/file/d/1vo6ZIchRDlALS_hviWiK_Uy4c4YXE9YL/view?usp=drive_link' }
+                        ],
+                        '2023': [
+                            { title: 'Examen 2023-1', url: 'https://drive.google.com/file/d/1zY0-ZQbux0SYD0RGOPDikuuVVMBywU9z/view?usp=drive_link' },
+                            { title: 'Examen 2023-2', url: 'https://drive.google.com/file/d/1d1t1pKWU77bosmF-LA4xBJGm1won2Kug/view?usp=drive_link' },
+                            { title: 'Examen 2023-3', url: 'https://drive.google.com/file/d/1n8bVYWcqaAg3f2TEiO-hJwU9D9HjY6hH/view?usp=drive_link' },
+                            { title: 'Examen 2023-4', url: 'https://drive.google.com/file/d/1onP2b5qpP_UJPyei7AFS3uF52e61NWte/view?usp=drive_link' },
+                            { title: 'Examen 2023-5', url: 'https://drive.google.com/file/d/1paHV442q3iZfkRA0UhwyV9ncHr97RThI/view?usp=drive_link' },
+                            { title: 'Examen 2023-6', url: 'https://drive.google.com/file/d/1EmDvKuUJEuI9QEEWQfMJ-fgftcXgSJzU/view?usp=drive_link' },
+                            { title: 'Examen 2023-7', url: 'https://drive.google.com/file/d/1O8TBiWiMNkh8fv6gR8mAMY_T-KkNJiTf/view?usp=drive_link' },
+                            { title: 'Examen 2023-8', url: 'https://drive.google.com/file/d/1VmJWf9k_fTCbgC2HQ7AjxpM6bBb2G5co/view?usp=drive_link' },
+                            { title: 'Examen 2023-9', url: 'https://drive.google.com/file/d/1_uW__Kb0MuifLwL0j2jk4h6kkblCHVDv/view?usp=drive_link' }
+                        ],
+                        '2024': [
+                            { 
+                                title: 'Examen 2024', 
+                                url: 'https://drive.google.com/file/d/1bB9DL_lNDGhaEczMAM8QvPywgL391rMM/view?usp=drive_link',
+                                exclusive: true
+                            }
+                        ]
+                    }
+                },
+                'Chimie 2': {
+                    'cours': {
+                        resume: [
+                            { title: 'Résumé 1', url: 'https://drive.google.com/file/d/1oMUag83eIkmroJ9ifCGp5aB9YwuRqUud/view?usp=drive_link', exclusive: true },
+                            { title: 'Résumé 2', url: 'https://drive.google.com/file/d/1-a3P1lNOwTFgYxn77N8BSqXGHZL8RA7s/view?usp=drive_link', exclusive: true },
+                            { title: 'Résumé 3', url: 'https://drive.google.com/file/d/1d9pQuDK0du5NIfBkIBbT-chrVxRnKdnN/view?usp=drive_link', exclusive: true },
+                            { title: 'Résumé 4', url: 'https://drive.google.com/file/d/1-7NqFCNzDHvD4GiLWdHslSpJdTOCrlW3/view?usp=drive_link', exclusive: true },
+                            { title: 'Résumé 5', url: 'https://drive.google.com/file/d/1ibpombcUHdCO1Zbt8zBtGEdp0D0nFGFp/view?usp=drive_link', exclusive: true },
+                            { title: 'Résumé 6', url: 'https://drive.google.com/file/d/1do5CWIV7ODvnViRfTwODaKzRDlEyqHKc/view?usp=drive_link', exclusive: true }
+                        ],
+                        regular: [
+                            { title: 'Chapitre 1', url: 'https://drive.google.com/file/d/1E0Mg18EuLpQLznI5r4X0ryW12Y9BTcib/view?usp=drive_link' },
+                            { title: 'Chapitre 2', url: 'https://drive.google.com/file/d/1AR956T15R-Dfg5HPpXhvUPIP7jO0wIAX/view?usp=drive_link' },
+                            { title: 'Chapitre 3', url: 'https://drive.google.com/file/d/1nYzWRe-lyu0Zi9RiWjAq5Qq4Vv8IISXI/view?usp=drive_link' },
+                            { title: 'Chapitre 4', url: 'https://drive.google.com/file/d/1f6EDgGxui4MS2UBOIcrORxcbL7syXXx7/view?usp=drive_link' },
+                            { title: 'Chapitre 5', url: 'https://drive.google.com/file/d/1cIFhnVT8ZpZkJmBMbc1RzjIM58uEbSre/view?usp=drive_link' }
+                        ]
+                    },
+                    'tdtp': [
+                        { title: 'TD 1', url: 'https://drive.google.com/file/d/1cRDoK4BB_UebPHCCw85VVFg_Gz-wv_Cn/view?usp=drive_link' },
+                        { title: 'Solution TD 1', url: 'https://drive.google.com/file/d/1WDC7rzJr_w9pF1Kp2RNU9bSDWmmdL8K2/view?usp=drive_link' },
+                        { title: 'TD 2', url: 'https://drive.google.com/file/d/1BOpiKk_388sIhtvsLeAiGeB7QuN5u1mI/view?usp=drive_link' },
+                        { title: 'Solution TD 2', url: 'https://drive.google.com/file/d/1QlKxjZ4xG1iDP4GQH5agNfYz-GVtwj3W/view?usp=drive_link' },
+                        { title: 'TD 3', url: 'https://drive.google.com/file/d/1dhRsNCxwkXnW327TnMMvB5xs270nIQlt/view?usp=drive_link' },
+                        { title: 'Solution TD 3', url: 'https://drive.google.com/file/d/14G6zCjqDm9MreR5f0kVhSd0c71Delg0W/view?usp=drive_link' },
+                        { title: 'TD 4', url: 'https://drive.google.com/file/d/1yT3uCATjyzZYwZFZCR_5viBDEyBZNxuU/view?usp=drive_link' },
+                        { title: 'Solution TD 4', url: 'https://drive.google.com/file/d/1ah4pgbO3PykHMHcZMj47uClMEpZyr1xl/view?usp=drive_link' }
+                    ],
+                    'examen': {
+                        bejaia: [
+                            { title: 'Examen Bejaia 1', url: 'https://drive.google.com/file/d/1VqyYQLnLm_e-D3FnCh7UpG8asorShgwd/view?usp=drive_link' },
+                            { title: 'Examen Bejaia 2', url: 'https://drive.google.com/file/d/1wfxFcwtQllj2og5PBWFKJ-uXRrdet43N/view?usp=drive_link' },
+                            { title: 'Examen Bejaia 3', url: 'https://drive.google.com/file/d/16Q_mZ0hdm8q-w7c2PlwVMEvUDGdDLgi4/view?usp=drive_link' },
+                            { title: 'Examen Bejaia 4', url: 'https://drive.google.com/file/d/1l2T982P6OXCH9cFtla7t8QZ8zHrmTIfe/view?usp=drive_link' },
+                            { title: 'Examen Bejaia 5', url: 'https://drive.google.com/file/d/1QytabHb8iWU6fR370NOcP0SfOJDoa7dL/view?usp=drive_link' },
+                            { title: 'Examen Bejaia 6', url: 'https://drive.google.com/file/d/1AJSMlWuAO0V1Ep51YZGgzAH34V02u50T/view?usp=drive_link' },
+                            { title: 'Examen Bejaia 7', url: 'https://drive.google.com/file/d/1WrLC4YhEIf5RI824mxC2BDEiBMtaLaQB/view?usp=drive_link' },
+                            { title: 'Examen Bejaia 8', url: 'https://drive.google.com/file/d/1CT6Xqkgv6WVx6lMyGo-nDD1PYM-6NJtF/view?usp=drive_link' },
+                            { title: 'Examen Bejaia 9', url: 'https://drive.google.com/file/d/1toF5RwLOCbFc1Vx7V6P_t86ysvj7Rhay/view?usp=drive_link' }
+                        ],
+                        '2024': [
+                            { title: 'Examen 2024', url: 'https://drive.google.com/file/d/1rJimplGof0CsoB-NEG29qH_K5AUTMyeD/view?usp=drive_link', exclusive: true }
+                        ],
+                        '2023': [
+                            { title: 'Examen 2023-1', url: 'https://drive.google.com/file/d/1Dv6FFN1Cj4WuhSMJeidvj11Zw_SturhK/view?usp=drive_link' },
+                            { title: 'Examen 2023-2', url: 'https://drive.google.com/file/d/18llqrwya5R0c4l93PdQs9SzI98P0PaEd/view?usp=drive_link' },
+                            { title: 'Examen 2023-3', url: 'https://drive.google.com/file/d/1r0PZhEByY8ZVXoPH83m7gczNuhv_r7XD/view?usp=drive_link' },
+                            { title: 'Examen 2023-4', url: 'https://drive.google.com/file/d/1pYILeH37jAc14QN2QEqhgZI5RvNyCWZB/view?usp=drive_link' },
+                            { title: 'Examen 2023-5', url: 'https://drive.google.com/file/d/1vIPjOGvhGVeX6b1Y5FIrsDc6NclE06N-/view?usp=drive_link' },
+                            { title: 'Examen 2023-6', url: 'https://drive.google.com/file/d/1NcRkLLc2G78svMvl9KQX7yjCXnJ97VcW/view?usp=drive_link' },
+                            { title: 'Examen 2023-7', url: 'https://drive.google.com/file/d/1tL8fRjvQksLZUtcxjDu_wu7d2DHNhdL2/view?usp=drive_link' },
+                            { title: 'Examen 2023-8', url: 'https://drive.google.com/file/d/1ZNDxcVjn9nleIyp-JRw4NckAIPrShZ9O/view?usp=drive_link' },
+                            { title: 'Examen 2023-9', url: 'https://drive.google.com/file/d/1GvoqyIbCgwIT_Ssq7LbxfUUdfCToe3Gn/view?usp=drive_link' },
+                            { title: 'Examen 2023-10', url: 'https://drive.google.com/file/d/1E9OOuSPxRT09PF_oULS_wyXdej3Ml5UG/view?usp=drive_link' }
+                        ],
+                        '2022': [
+                            { title: 'Examen 2022-1', url: 'https://drive.google.com/file/d/1n3lpxZvxMW3x2fiyX2sHdxB4-fR6ZbhL/view?usp=drive_link' },
+                            { title: 'Examen 2022-2', url: 'https://drive.google.com/file/d/15CXkbKH9lvcyFz4KvmFLXYwoVI6Jwz2g/view?usp=drive_link' },
+                            { title: 'Examen 2022-3', url: 'https://drive.google.com/file/d/1kfiNQWvgynpdVeTYJk0WtmP78bm3CJCB/view?usp=drive_link' },
+                            { title: 'Examen 2022-4', url: 'https://drive.google.com/file/d/1wk-RlQzpC7j22pgd7JDIslmTMfSQkNGV/view?usp=drive_link' }
+                        ],
+                        '2021': [
+                            { title: 'Examen 2021', url: 'https://drive.google.com/file/d/18KLVZ50BdgcFZbLDg-dACzVLMiPoZvk2/view?usp=drive_link' }
+                        ]
+                    }
+                },
+                'Physique 2': {
+                    'cours': {
+                        resume: [
+                            { title: 'Résumé Chapitre 1', url: 'https://drive.google.com/file/d/1zMXCjWrGUglydXNE4mbaQClt1jmxTo1a/view?usp=drive_link', exclusive: true },
+                            { title: 'Résumé Chapitre 2', url: 'https://drive.google.com/file/d/1q5wCohdW0rvtj7s4LWyQPUtuwtk7Oimr/view?usp=drive_link', exclusive: true },
+                            { title: 'Résumé Chapitre 3', url: 'https://drive.google.com/file/d/1314Fn_ICh8JAZErhEPZ9somoNXeFZzsM/view?usp=drive_link', exclusive: true },
+                            { title: 'Résumé Chapitre 4', url: 'https://drive.google.com/file/d/16CvMqFmmk34YKdH2aSYuobptDv83er96/view?usp=drive_link', exclusive: true },
+                            { title: 'Résumé Chapitre 5', url: 'https://drive.google.com/file/d/1NWjB3tovu-8ibh5Sg4K0NIrlbDXzBQSh/view?usp=drive_link', exclusive: true },
+                            { title: 'Résumé Chapitre 6', url: 'https://drive.google.com/file/d/1Qa9NMvMmEZwhquP8PcPJDa5rWSjcUYRJ/view?usp=drive_link', exclusive: true }
+                        ],
+                        regular: [
+                            { title: 'Chapitre 1', url: 'https://drive.google.com/file/d/1df-i9KJ_4UKoGLtSD2qRgnnymtYG1vJl/view?usp=drive_link' },
+                            { title: 'Chapitre 2', url: 'https://drive.google.com/file/d/1fqk4jTqONrcSoOAWaCRRfnA9AJjWhFHO/view?usp=drive_link' },
+                            { title: 'Chapitre 3', url: 'https://drive.google.com/file/d/140RWMxeJIRnYz7nrfjmHugv38YzshYI_/view?usp=drive_link' },
+                            { title: 'Chapitre 4', url: 'https://drive.google.com/file/d/1XfMgfV_JReteno5KeVRo6SzHytsFDJBh/view?usp=drive_link' },
+                            { title: 'Chapitre 5', url: 'https://drive.google.com/file/d/1rU0dZoqY5GLENO64zF11GJP3IkpNUIA9/view?usp=drive_link' },
+                            { title: 'Chapitre 6', url: 'https://drive.google.com/file/d/1L3w_rsn3XNUXQJ5DbK4sdQL19e93tkQK/view?usp=drive_link' },
+                            { title: 'Chapitre 7', url: 'https://drive.google.com/file/d/1K3FlUYZ2dF3Vx7POfTdbrU4TEJWNcGOR/view?usp=drive_link' }
+                        ]
+                    },
+                    'tdtp': [
+                        { title: 'Série TD 1', url: 'https://drive.google.com/file/d/1HuApDlHM941ocq7APkaVcLN6lCdNXk9p/view?usp=drive_link' },
+                        { title: 'Série TD 2', url: 'https://drive.google.com/file/d/1aGUGmGBhn8X2sObt9OKvZuMrsb6AZdsB/view?usp=drive_link' },
+                        { title: 'Série TD 3', url: 'https://drive.google.com/file/d/1_bKo8mn9lOKKXlYAkYWhHeUModLlIQ21/view?usp=drive_link' },
+                        { title: 'Série TD 4', url: 'https://drive.google.com/file/d/1vcjK0Gw-qpcU2vmIYtc4Pi2TQHcy_IVZ/view?usp=drive_link' },
+                        { title: 'Série TD 5', url: 'https://drive.google.com/file/d/1B8u_egiB3SJ1lHn0Jank6VkWensRIIUv/view?usp=drive_link' },
+                        { title: 'Série TD 6', url: 'https://drive.google.com/file/d/1MvFSKabbYuc4Pl4HUtOyddT0inKYJMke/view?usp=drive_link' }
+                    ],
+                    'examen': {
+                        'bejaia': [
+                            { title: 'Examen Bejaia 1', url: 'https://drive.google.com/file/d/1k-Q9C7UC5t6KcxS5dgStWy8lUMyLb5nl/view?usp=drive_link' },
+                            { title: 'Examen Bejaia 2', url: 'https://drive.google.com/file/d/1_WVtBbIU2KyVNZZdG18Es5KfmHtcjWg7/view?usp=drive_link' },
+                            { title: 'Examen Bejaia 3', url: 'https://drive.google.com/file/d/1BJje9rgN-App4JKD_uqnj31scP8AbQIS/view?usp=drive_link' },
+                            { title: 'Examen Bejaia 4', url: 'https://drive.google.com/file/d/14NA_us1Yb-AHcXxUpDAhnD0dVEKGQHxI/view?usp=drive_link' },
+                            { title: 'Examen Bejaia 5', url: 'https://drive.google.com/file/d/1PAtN8G2E6EAUi2Jwxf-lMcsBeWm63TTT/view?usp=drive_link' },
+                            { title: 'Examen Bejaia 6', url: 'https://drive.google.com/file/d/13UotzMbP-WvE0mJrXQ7pMU_VcYZALy0W/view?usp=drive_link' },
+                            { title: 'Examen Bejaia 7', url: 'https://drive.google.com/file/d/1K7ljQL4pYp42LrmHbkDxLGWfzOIuEelA/view?usp=drive_link' },
+                            { title: 'Examen Bejaia 8', url: 'https://drive.google.com/file/d/1hQBXn8YzU-3uV5LevfnwfqA7QR9BudcC/view?usp=drive_link' },
+                            { title: 'Examen Bejaia 9', url: 'https://drive.google.com/file/d/1TSM-IaFRDIoCc4jV760GNU6mmLxX7UAM/view?usp=drive_link' }
+                        ],
+                        '2024': [
+                            { 
+                                title: 'Examen 2024',
+                                url: 'https://drive.google.com/file/d/1Q2xW3Xq73Liad2MKGEQv5U6eiFb6kSxo/view?usp=drive_link',
+                                exclusive: true
+                            }
+                        ],
+                        '2023': [
+                            { title: 'Examen 2023-1', url: 'https://drive.google.com/file/d/1wEMDY6_UVQt3KY-n76VKenasObAuPgxt/view?usp=drive_link' },
+                            { title: 'Examen 2023-2', url: 'https://drive.google.com/file/d/1nzo-78FgGwdDf-P3tz8Dibs8R6IMlX4U/view?usp=drive_link' },
+                            { title: 'Examen 2023-3', url: 'https://drive.google.com/file/d/1pUsJ6sGfr8E9aoq6Td49mesz1z_4vUu3/view?usp=drive_link' },
+                            { title: 'Examen 2023-4', url: 'https://drive.google.com/file/d/19xTu4J0tMu54H9f5cQRzOQesT_rnYRq6/view?usp=drive_link' },
+                            { title: 'Examen 2023-5', url: 'https://drive.google.com/file/d/1YzLQQZk7nmyIg559PpaYhUC_2MkVsFUJ/view?usp=drive_link' },
+                            { title: 'Examen 2023-6', url: 'https://drive.google.com/file/d/1pQFC1JiCbN3Yrjizs2tNqDK-ksbugbk0/view?usp=drive_link' },
+                            { title: 'Examen 2023-7', url: 'https://drive.google.com/file/d/17Z2HXCE-_tzgCw7fwwTCdIOwSQ8LrOLb/view?usp=drive_link' },
+                            { title: 'Examen 2023-8', url: 'https://drive.google.com/file/d/1RIGB30vobIfN5S8PZmo_SjtiIx2mapmr/view?usp=drive_link' },
+                            { title: 'Examen 2023-9', url: 'https://drive.google.com/file/d/1VLJ-atfLkUwI0G-_YU581mQYF-kGRDKN/view?usp=drive_link' }
+                        ],
+                        '2022': [
+                            { title: 'Examen 2022-1', url: 'https://drive.google.com/file/d/1HuAJRvQve-4Jmulj5xt9-IuKH4yH_4bB/view?usp=drive_link' },
+                            { title: 'Examen 2022-2', url: 'https://drive.google.com/file/d/1O8gnlmTbnRDX9iyQHtUmn8oand8jcwfZ/view?usp=drive_link' },
+                            { title: 'Examen 2022-3', url: 'https://drive.google.com/file/d/1NI4kjjz9if0sfVOxK3SZmdYA92RDqAKm/view?usp=drive_link' },
+                            { title: 'Examen 2022-4', url: 'https://drive.google.com/file/d/1Vj2pMyTatxSNVCce834ux-V3CCtHZ9Ss/view?usp=drive_link' },
+                            { title: 'Examen 2022-5', url: 'https://drive.google.com/file/d/1KD6SfHDzVD-cY_0UKEl3VkSTcHpcud-0/view?usp=drive_link' },
+                            { title: 'Examen 2022-6', url: 'https://drive.google.com/file/d/1sGWAkYYFPZ1ZeiyQSht1dyp4pUmeMVwZ/view?usp=drive_link' },
+                            { title: 'Examen 2022-7', url: 'https://drive.google.com/file/d/1AsCAMVVBv0Z_GkvN7rgcd-yHTQmalhMH/view?usp=drive_link' },
+                            { title: 'Examen 2022-8', url: 'https://drive.google.com/file/d/1IFYVUBu3h7JtbdNzZjDrO8zkwN1y2tn-/view?usp=drive_link' }
+                        ]
+                    }
+                }
+            };
+
+            if (content[module] && content[module][type]) {
+                let html = '';
+                
+                if (type === 'cours') {
+                    const coursContent = content[module][type];
+                    
+                    // Add resume section if it exists
+                    if (coursContent.resume && coursContent.resume.length > 0) {
+                        html += `
+                            <div class="exclusive-content mb-8">
+                                <h4 class="text-xl font-bold text-red-600 mb-3 flex items-center">
+                                    <span class="bg-red-600 text-white px-3 py-1 rounded-lg mr-2">
+                                        <i class="fas fa-star"></i> EXCLUSIF
+                                    </span>
+                                    Résumés du Module
+                                </h4>
+                                <div class="bg-red-50 border-2 border-red-200 rounded-lg p-4 space-y-2">
+                                    ${coursContent.resume.map(item => `
+                                        <a href="${item.url}" 
+                                           class="exclusive-link flex items-center justify-between bg-white p-3 rounded-lg hover:bg-red-100 transition-all duration-300 transform hover:scale-102 border border-red-300"
+                                           target="_blank">
+                                            <span class="flex items-center">
+                                                <i class="fas fa-book-open text-red-500 mr-2"></i>
+                                                ${item.title}
+                                            </span>
+                                            <i class="fas fa-download text-red-600"></i>
+                                        </a>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        `;
+                    }
+
+                    // Add regular course content
+                    if (coursContent.regular && coursContent.regular.length > 0) {
+                        html += `
+                            <div class="regular-content">
+                                <h4 class="text-xl font-bold text-gray-800 mb-3">Chapitres du Cours</h4>
+                                <div class="space-y-2">
+                                    ${coursContent.regular.map(item => `
+                                        <a href="${item.url}" 
+                                           class="text-blue-500 hover:underline flex items-center" 
+                                           target="_blank">
+                                            <i class="fas fa-file-pdf mr-2"></i>${item.title}
+                                        </a>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        `;
+                    }
+                } else if (type === 'examen' && (module === 'Chimie 2' || module === 'Analyse 2' || module === 'Physique 2')) {
+                    const examContent = content[module][type];
+                    
+                    // 2024 Exams (Exclusive)
+                    if (examContent['2024']) {
+                        html += `
+                            <div class="exclusive-content mb-8">
+                                <h4 class="text-xl font-bold text-red-600 mb-3 flex items-center">
+                                    <span class="bg-red-600 text-white px-3 py-1 rounded-lg mr-2">
+                                        <i class="fas fa-star"></i> 2024
+                                    </span>
+                                    Examens Récents
+                                </h4>
+                                <div class="bg-red-50 border-2 border-red-200 rounded-lg p-4 space-y-2">
+                                    ${examContent['2024'].map(item => `
+                                        <a href="${item.url}" 
+                                           class="exclusive-link flex items-center justify-between bg-white p-3 rounded-lg hover:bg-red-100 transition-all duration-300 transform hover:scale-102 border border-red-300"
+                                           target="_blank">
+                                            <span class="flex items-center">
+                                                <i class="fas fa-file-alt text-red-500 mr-2"></i>
+                                                ${item.title}
+                                            </span>
+                                            <i class="fas fa-download text-red-600"></i>
+                                        </a>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        `;
+                    }
+
+                    // Bejaia Exclusive Exams (if exists)
+                    if (examContent.bejaia) {
+                        html += `
+                            <div class="exclusive-content mb-8">
+                                <h4 class="text-xl font-bold text-green-600 mb-3 flex items-center">
+                                    <span class="bg-green-600 text-white px-3 py-1 rounded-lg mr-2">
+                                        <i class="fas fa-star"></i> EXCLUSIF
+                                    </span>
+                                    Examens Université de Bejaia
+                                </h4>
+                                <div class="bg-green-50 border-2 border-green-200 rounded-lg p-4 space-y-2">
+                                    ${examContent.bejaia.map(item => `
+                                        <a href="${item.url}" 
+                                           class="exclusive-link flex items-center justify-between bg-white p-3 rounded-lg hover:bg-green-100 transition-all duration-300 transform hover:scale-102 border border-green-300"
+                                           target="_blank">
+                                            <span class="flex items-center">
+                                                <i class="fas fa-file-alt text-green-500 mr-2"></i>
+                                                ${item.title}
+                                            </span>
+                                            <i class="fas fa-download text-green-600"></i>
+                                        </a>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        `;
+                    }
+
+                    // 2023 Exams
+                    if (examContent['2023']) {
+                        html += `
+                            <div class="mb-8">
+                                <h4 class="text-xl font-bold text-gray-800 mb-3">Examens 2023</h4>
+                                <div class="space-y-2">
+                                    ${examContent['2023'].map(item => `
+                                        <a href="${item.url}" 
+                                           class="text-blue-500 hover:underline flex items-center" 
+                                           target="_blank">
+                                            <i class="fas fa-file-pdf mr-2"></i>${item.title}
+                                        </a>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        `;
+                    }
+
+                    // 2022 Exams
+                    if (examContent['2022']) {
+                        html += `
+                            <div class="mb-8">
+                                <h4 class="text-xl font-bold text-gray-800 mb-3">Examens 2022</h4>
+                                <div class="space-y-2">
+                                    ${examContent['2022'].map(item => `
+                                        <a href="${item.url}" 
+                                           class="text-blue-500 hover:underline flex items-center" 
+                                           target="_blank">
+                                            <i class="fas fa-file-pdf mr-2"></i>${item.title}
+                                        </a>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        `;
+                    }
+
+                    // 2021 Exams
+                    if (examContent['2021']) {
+                        html += `
+                            <div class="mb-8">
+                                <h4 class="text-xl font-bold text-gray-800 mb-3">Examens 2021</h4>
+                                <div class="space-y-2">
+                                    ${examContent['2021'].map(item => `
+                                        <a href="${item.url}" 
+                                           class="text-blue-500 hover:underline flex items-center" 
+                                           target="_blank">
+                                            <i class="fas fa-file-pdf mr-2"></i>${item.title}
+                                        </a>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        `;
+                    }
+                } else {
+                    // Handle other types (tdtp)
+                    html = content[module][type].map(item => `
+                        <a href="${item.url}" 
+                           class="text-blue-500 hover:underline flex items-center" 
+                           target="_blank">
+                            <i class="fas fa-file-pdf mr-2"></i>${item.title}
+                        </a>
+                    `).join('');
+                }
+
+                return html;
+            }
+            return '<p class="text-gray-500 italic">Contenu à venir...</p>';
+        }
+
+        function closePopup(type) {
+            const popup = document.getElementById(`popup-${type}`);
+            if (popup) {
+                popup.classList.add('hidden');
+            }
+        }
+
+        // Add event listeners for popup clicks
+        document.addEventListener('DOMContentLoaded', function() {
+            ['tdtp', 'examen', 'cours', 'compterendu'].forEach(type => {
+                const popup = document.getElementById(`popup-${type}`);
+                if (popup) {
+                    popup.addEventListener('click', function(e) {
+                        if (e.target === this) {
+                            closePopup(type);
+                        }
+                    });
+                }
+            });
+        });
+
+        // Add this new CSS
+        const newStyles = `
+        <style>
+            .university-section {
+                background: rgba(255, 255, 255, 0.9);
+                border-radius: 10px;
+                padding: 1rem;
+                margin-bottom: 1rem;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                transition: all 0.3s ease;
+            }
+
+            .university-section:hover {
+                transform: translateX(5px);
+                box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+            }
+
+            .university-section h3 {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+
+            .university-section h3::before {
+                content: '';
+                width: 4px;
+                height: 1.5rem;
+                background-color: currentColor;
+                border-radius: 2px;
+            }
+
+            .university-section a {
+                transition: all 0.3s ease;
+                display: flex;
+                align-items: center;
+                padding: 0.5rem;
+                border-radius: 5px;
+                text-decoration: none;
+            }
+
+            .university-section a:hover {
+                background: rgba(59, 130, 246, 0.1);
+                transform: translateX(10px);
+            }
+
+            /* Add these new styles to your existing style section */
+            .exclusive-2025 {
+                animation: glow 2s ease-in-out infinite alternate;
+            }
+
+            .exclusive-link {
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+
+            .exclusive-link:hover {
+                box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            }
+
+            @keyframes glow {
+                from {
+                    box-shadow: 0 0 5px rgba(34, 197, 94, 0.2);
+                }
+                to {
+                    box-shadow: 0 0 20px rgba(34, 197, 94, 0.4);
+                }
+            }
+
+            .recommended-content {
+                animation: pulse 2s ease-in-out infinite;
+            }
+
+            .recommended-link {
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+
+            .recommended-link:hover {
+                box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            }
+
+            @keyframes pulse {
+                0% {
+                    transform: scale(1);
+                }
+                50% {
+                    transform: scale(1.02);
+                }
+                100% {
+                    transform: scale(1);
+                }
+            }
+
+            .exclusive-2025 {
+                animation: glowRed 2s ease-in-out infinite alternate;
+            }
+
+            @keyframes glowRed {
+                from {
+                    box-shadow: 0 0 5px rgba(239, 68, 68, 0.2);
+                }
+                to {
+                    box-shadow: 0 0 20px rgba(239, 68, 68, 0.4);
+                }
+            }
+        </style>
+        `;
+
+        // Add the new styles to the document
+        document.head.insertAdjacentHTML('beforeend', newStyles);
+    </script>
+
+    <style>
+        .popup-content {
+            max-height: 80vh;
+            overflow-y: auto;
+            padding-right: 10px; /* Add padding for scrollbar */
+        }
+
+        /* Add custom scrollbar styling */
+        .popup-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .popup-content::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .popup-content::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
+        }
+
+        .popup-content::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        .university-section {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .university-section a {
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            padding: 0.5rem;
+            border-radius: 5px;
+        }
+
+        .university-section a:hover {
+            background: rgba(59, 130, 246, 0.1);
+            transform: translateX(10px);
+        }
+
+        .module-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .module-card:hover {
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+        }
+    </style>
+    <script src="https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=959531&siteid=357365" async></script>
+    <script type="text/javascript">
+        aclib.runAutoTag({
+            zoneId: '1hqerebunb',
+        });
+    </script>
+    <script>
+        // Nouvelle fonction de fermeture des popups
+        document.addEventListener('DOMContentLoaded', function() {
+            // Ajouter les listeners pour tous les boutons de fermeture
+            const closeButtons = document.querySelectorAll('.close-popup-btn');
+            closeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const popup = this.closest('[id^="popup-"]');
+                    if (popup) {
+                        popup.classList.add('hidden');
+                    }
+                });
+            });
+
+            // Fermer le popup en cliquant en dehors
+            const popups = document.querySelectorAll('[id^="popup-"]');
+            popups.forEach(popup => {
+                popup.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        this.classList.add('hidden');
+                    }
+                });
+            });
+        });
     </script>
 </body>
 </html>
