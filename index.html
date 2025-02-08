@@ -34,13 +34,8 @@
     <!-- RichAds Script -->
     <script src="https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=959531&siteid=357365" async></script>
     
-    <!-- AutoTag Library -->
+    <!-- AdTerra Script -->
     <script id="aclib" type="text/javascript" src="//acscdn.com/script/aclib.js"></script>
-    <script type="text/javascript">
-        aclib.runAutoTag({
-            zoneId: '1hqerebunb',
-        });
-    </script>
     
     <style>
         .warning-box {
@@ -54,6 +49,13 @@
     </style>
 </head>
 <body class="flex flex-col min-h-screen bg-gray-50" data-aos-easing="ease-out-cubic">
+    <div>
+        <script type="text/javascript">
+            aclib.runBanner({
+                zoneId: '9521434',
+            });
+        </script>
+    </div>
     <div class="container mx-auto px-4 max-w-7xl flex-grow">
         <header class="mb-12 mt-8" data-aos="fade-down">
             <div class="header-container">
@@ -179,14 +181,13 @@
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="assets/js/countdown.js"></script>
     <script>
         AOS.init({
             duration: 800,
             once: true
         });
-    </script>
-    <script src="assets/js/countdown.js"></script>
-    <script>
+
         function checkProfileAccess(event) {
             event.preventDefault();
             const token = localStorage.getItem('token');
