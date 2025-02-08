@@ -106,18 +106,16 @@
                     <i class="fas fa-atom text-4xl text-indigo-600 mb-4"></i>
                     <h3 class="text-xl font-semibold text-center">TP Physique 2</h3>
                     <div class="flex space-x-4 mt-4">
-                        <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" onclick="showContent('TP Physique 2', 'tdtp')">TD+TP</button>
-                        <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700" onclick="showContent('TP Physique 2', 'examen')">Examen</button>
-                        <button class="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-700" onclick="showContent('TP Physique 2', 'cours')">Cours</button>
+                        <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" onclick="showContent('TP Physique 2', 'tdtp')">TP</button>
+                        <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700" onclick="showContent('TP Physique 2', 'compterendu')">Compte rendu</button>
                     </div>
                 </div>
                 <div class="module-card flex flex-col items-center justify-center p-6 hover:scale-105 transition-all duration-300">
                     <i class="fas fa-flask-vial text-4xl text-orange-600 mb-4"></i>
                     <h3 class="text-xl font-semibold text-center">TP Chimie 2</h3>
                     <div class="flex space-x-4 mt-4">
-                        <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" onclick="showContent('TP Chimie 2', 'tdtp')">TD+TP</button>
-                        <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700" onclick="showContent('TP Chimie 2', 'examen')">Examen</button>
-                        <button class="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-700" onclick="showContent('TP Chimie 2', 'cours')">Cours</button>
+                        <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" onclick="showContent('TP Chimie 2', 'tdtp')">TP</button>
+                        <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700" onclick="showContent('TP Chimie 2', 'compterendu')">Compte rendu</button>
                     </div>
                 </div>
             </div>
@@ -129,12 +127,9 @@
         <div class="bg-white rounded-lg shadow-lg p-6 max-w-3xl w-full glass-card">
             <div class="flex justify-between items-center mb-4">
                 <h2 id="popup-title-tdtp" class="text-2xl font-bold text-gray-800"></h2>
-                <div class="flex space-x-4">
-                    <button onclick="closePopup('tdtp')" class="text-gray-600 hover:text-gray-800 px-3 py-1 rounded border border-red-500 hover:bg-red-100 text-red-500">
-                        <i class="fas fa-times mr-2"></i>Fermer
-                    </button>
-                    <button onclick="closePopup('tdtp')" class="text-gray-600 hover:text-gray-800">&times;</button>
-                </div>
+                <button type="button" class="close-popup-btn px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700 transform transition-all duration-300">
+                    <i class="fas fa-times mr-2"></i>Fermer
+                </button>
             </div>
             <div id="popup-content-tdtp" class="space-y-4">
                 <!-- Dynamic content will be inserted here -->
@@ -146,12 +141,9 @@
         <div class="bg-white rounded-lg shadow-lg p-6 max-w-3xl w-full glass-card">
             <div class="flex justify-between items-center mb-4">
                 <h2 id="popup-title-examen" class="text-2xl font-bold text-gray-800"></h2>
-                <div class="flex space-x-4">
-                    <button onclick="closePopup('examen')" class="text-gray-600 hover:text-gray-800 px-3 py-1 rounded border border-red-500 hover:bg-red-100 text-red-500">
-                        <i class="fas fa-times mr-2"></i>Fermer
-                    </button>
-                    <button onclick="closePopup('examen')" class="text-gray-600 hover:text-gray-800">&times;</button>
-                </div>
+                <button type="button" class="close-popup-btn px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700 transform transition-all duration-300">
+                    <i class="fas fa-times mr-2"></i>Fermer
+                </button>
             </div>
             <div id="popup-content-examen" class="space-y-4">
                 <!-- Dynamic content will be inserted here -->
@@ -163,14 +155,25 @@
         <div class="bg-white rounded-lg shadow-lg p-6 max-w-3xl w-full glass-card">
             <div class="flex justify-between items-center mb-4">
                 <h2 id="popup-title-cours" class="text-2xl font-bold text-gray-800"></h2>
-                <div class="flex space-x-4">
-                    <button onclick="closePopup('cours')" class="text-gray-600 hover:text-gray-800 px-3 py-1 rounded border border-red-500 hover:bg-red-100 text-red-500">
-                        <i class="fas fa-times mr-2"></i>Fermer
-                    </button>
-                    <button onclick="closePopup('cours')" class="text-gray-600 hover:text-gray-800">&times;</button>
-                </div>
+                <button type="button" class="close-popup-btn px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700 transform transition-all duration-300">
+                    <i class="fas fa-times mr-2"></i>Fermer
+                </button>
             </div>
             <div id="popup-content-cours" class="space-y-4">
+                <!-- Dynamic content will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <div id="popup-compterendu" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg shadow-lg p-6 max-w-3xl w-full glass-card">
+            <div class="flex justify-between items-center mb-4">
+                <h2 id="popup-title-compterendu" class="text-2xl font-bold text-gray-800"></h2>
+                <button type="button" class="close-popup-btn px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700 transform transition-all duration-300">
+                    <i class="fas fa-times mr-2"></i>Fermer
+                </button>
+            </div>
+            <div id="popup-content-compterendu" class="space-y-4">
                 <!-- Dynamic content will be inserted here -->
             </div>
         </div>
@@ -334,6 +337,20 @@
                     ],
                     'examen': [
                         { title: 'Examens', url: 'https://drive.google.com/drive/folders/11MQFzD-TvI1ElMiNp_dO6KY8aqgm9iwb?usp=drive_link' }
+                    ],
+                    'compterendu': [
+                        { 
+                            title: 'Compte rendu TP1', 
+                            url: 'https://docs.google.com/document/d/1ACxXtmtPljmDXnpgRCjB6xIXQ_Dcu1MF/edit?usp=sharing&ouid=113138810463504494362&rtpof=true&sd=true' 
+                        },
+                        { 
+                            title: 'Compte rendu TP2', 
+                            url: 'https://docs.google.com/document/d/1Wtx_4GnkG_gceB4o9F4aVH5uBicIl2-i/edit?usp=sharing&ouid=113138810463504494362&rtpof=true&sd=true' 
+                        },
+                        { 
+                            title: 'Compte rendu TP3', 
+                            url: 'https://docs.google.com/document/d/1yqwNKog4wOCHqpX6Fu8uVxeSTldRkh2T/edit?usp=sharing&ouid=113138810463504494362&rtpof=true&sd=true' 
+                        }
                     ]
                 },
                 'Informatique 2': {
@@ -366,6 +383,34 @@
                         { title: 'Cours 2', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/512869/mod_folder/content/0/02%20-%20Lecture%202.pdf?forcedownload=1' },
                         { title: 'Cours 3', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/512869/mod_folder/content/0/03%20-%20Lecture%203.pdf?forcedownload=1' },
                         { title: 'Cours 4', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/512869/mod_folder/content/0/04%20-%20Lecture%204.pdf?forcedownload=1' }
+                    ]
+                },
+                'TP Chimie 2': {
+                    'tdtp': [
+                        // 2025 Exclusive content
+                        {
+                            exclusive: true,
+                            files: [
+                                { 
+                                    title: 'Polycopié TP Chimie 2', 
+                                    url: 'https://drive.google.com/file/d/1BNxQrhTbsb3l2FJKbpyiAmjq6z3CzhXj/view?usp=sharing' 
+                                }
+                            ]
+                        }
+                    ],
+                    'compterendu': [
+                        { 
+                            title: 'Compte rendu TP1', 
+                            url: 'https://docs.google.com/document/d/1ACxXtmtPljmDXnpgRCjB6xIXQ_Dcu1MF/edit?usp=sharing&ouid=113138810463504494362&rtpof=true&sd=true' 
+                        },
+                        { 
+                            title: 'Compte rendu TP2', 
+                            url: 'https://docs.google.com/document/d/1Wtx_4GnkG_gceB4o9F4aVH5uBicIl2-i/edit?usp=sharing&ouid=113138810463504494362&rtpof=true&sd=true' 
+                        },
+                        { 
+                            title: 'Compte rendu TP3', 
+                            url: 'https://docs.google.com/document/d/1yqwNKog4wOCHqpX6Fu8uVxeSTldRkh2T/edit?usp=sharing&ouid=113138810463504494362&rtpof=true&sd=true' 
+                        }
                     ]
                 }
             };
@@ -445,8 +490,25 @@
         }
 
         function closePopup(type) {
-            document.getElementById(`popup-${type}`).classList.add('hidden');
+            const popup = document.getElementById(`popup-${type}`);
+            if (popup) {
+                popup.classList.add('hidden');
+            }
         }
+
+        // Add event listeners for popup clicks
+        document.addEventListener('DOMContentLoaded', function() {
+            ['tdtp', 'examen', 'cours', 'compterendu'].forEach(type => {
+                const popup = document.getElementById(`popup-${type}`);
+                if (popup) {
+                    popup.addEventListener('click', function(e) {
+                        if (e.target === this) {
+                            closePopup(type);
+                        }
+                    });
+                }
+            });
+        });
 
         // Add this new CSS
         const newStyles = `
@@ -588,6 +650,31 @@
     <script type="text/javascript">
         aclib.runAutoTag({
             zoneId: '1hqerebunb',
+        });
+    </script>
+    <script>
+        // Nouvelle fonction de fermeture des popups
+        document.addEventListener('DOMContentLoaded', function() {
+            // Ajouter les listeners pour tous les boutons de fermeture
+            const closeButtons = document.querySelectorAll('.close-popup-btn');
+            closeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const popup = this.closest('[id^="popup-"]');
+                    if (popup) {
+                        popup.classList.add('hidden');
+                    }
+                });
+            });
+
+            // Fermer le popup en cliquant en dehors
+            const popups = document.querySelectorAll('[id^="popup-"]');
+            popups.forEach(popup => {
+                popup.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        this.classList.add('hidden');
+                    }
+                });
+            });
         });
     </script>
 </body>
