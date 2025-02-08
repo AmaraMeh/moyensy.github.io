@@ -56,8 +56,8 @@ const universiteBejaiaData = {
                 { matiere: "Mathématiques 1 / Analyse & Algèbre 1", module: "UEF11", coefficient: 3, credits: 6, evaluations: ["TD", "Examen"] },
                 { matiere: "Physique 1 / Mécanique du point", module: "UEF11", coefficient: 3, credits: 6, evaluations: ["TD", "Examen"] },
                 { matiere: "Chimie 1 / Structure de la matière", module: "UEF11", coefficient: 3, credits: 6, evaluations: ["TD", "Examen"] },
-                { matiere: "TP Mécanique", module: "UEM11", coefficient: 1, credits: 2, evaluations: ["TP", "Examen"] },
-                { matiere: "TP Chimie 1", module: "UEM11", coefficient: 1, credits: 2, evaluations: ["TP", "Examen"] },
+                { matiere: "TP Mécanique", module: "UEM11", coefficient: 1, credits: 2, evaluations: ["Examen"] },
+                { matiere: "TP Chimie 1", module: "UEM11", coefficient: 1, credits: 2, evaluations: ["Examen"] },
                 { matiere: "Informatique 1 / Bureau. & Techn. Web + Introduction à l'Algorithmique", module: "UEM11", coefficient: 2, credits: 4, evaluations: ["TP", "Examen"] },
                 { matiere: "Découverte des Méthodes du Travail Universitaire", module: "UED11", coefficient: 1, credits: 2, evaluations: ["Examen"] },
                 { matiere: "Langues étrangères 1", module: "UET11", coefficient: 1, credits: 2, evaluations: ["Examen"] }
