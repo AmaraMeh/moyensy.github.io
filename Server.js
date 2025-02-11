@@ -31,8 +31,8 @@ run().catch(console.dir);
 
 // Import des routes
 const authRoutes = require('./routes/auth');
-const surveysRoutes = require('./routes/surveys');
-const supportRoutes = require('./routes/support');
+// const surveysRoutes = require('./routes/surveys'); // Commented out as the file does not exist
+// const supportRoutes = require('./routes/support'); // Commented out as the file does not exist
 
 const app = express();
 
@@ -80,8 +80,8 @@ app.use((req, res, next) => {
 
 // Routes
 app.use('/api/auth', authRoutes);
-app.use('/api/surveys', surveysRoutes);
-app.use('/api/support', supportRoutes);
+// app.use('/api/surveys', surveysRoutes); // Commented out as the file does not exist
+// app.use('/api/support', supportRoutes); // Commented out as the file does not exist
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
