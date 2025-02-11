@@ -43,8 +43,8 @@
                 <h1 class="text-3xl font-bold mb-8 text-center text-gray-800">Connexion</h1>
                 <form id="loginForm" class="space-y-6">
                     <div>
-                        <label for="numeroImmatriculationLogin" class="block text-sm font-medium text-gray-700 mb-2">Numéro d'immatriculation</label>
-                        <input type="text" id="numeroImmatriculationLogin" class="custom-input" required>
+                        <label for="emailLogin" class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                        <input type="email" id="emailLogin" class="custom-input" required>
                     </div>
                     <div>
                         <label for="passwordLogin" class="block text-sm font-medium text-gray-700 mb-2">Mot de passe</label>
@@ -62,8 +62,8 @@
                 <h1 class="text-3xl font-bold mb-8 text-center text-gray-800">Inscription</h1>
                 <form id="registerForm" class="space-y-6">
                     <div>
-                        <label for="numeroImmatriculationRegister" class="block text-sm font-medium text-gray-700 mb-2">Numéro d'immatriculation</label>
-                        <input type="text" id="numeroImmatriculationRegister" class="custom-input" required>
+                        <label for="fullNameRegister" class="block text-sm font-medium text-gray-700 mb-2">Nom complet</label>
+                        <input type="text" id="fullNameRegister" class="custom-input" required>
                     </div>
                     <div>
                         <label for="emailRegister" class="block text-sm font-medium text-gray-700 mb-2">Email</label>
@@ -72,6 +72,10 @@
                     <div>
                         <label for="passwordRegister" class="block text-sm font-medium text-gray-700 mb-2">Mot de passe</label>
                         <input type="password" id="passwordRegister" class="custom-input" required>
+                    </div>
+                    <div>
+                        <label for="phoneNumberRegister" class="block text-sm font-medium text-gray-700 mb-2">Numéro de téléphone (sans +213)</label>
+                        <input type="text" id="phoneNumberRegister" class="custom-input" required>
                     </div>
                     <div class="text-center mt-8">
                         <button type="submit" class="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transform hover:scale-105 transition-all duration-300 shadow-lg">
@@ -131,14 +135,15 @@
                 });
             });
 
-            const backendUrl = 'https://your-app-name.onrender.com'; // Replace with your Render app URL
+            const backendUrl = 'https://moyensy-github-io.onrender.com'; // Replace with your Render app URL
 
             // Handle registration form submission
             document.getElementById('registerForm').addEventListener('submit', async (e) => {
                 e.preventDefault();
-                const numeroImmatriculation = document.getElementById('numeroImmatriculationRegister').value;
+                const fullName = document.getElementById('fullNameRegister').value;
                 const email = document.getElementById('emailRegister').value;
                 const password = document.getElementById('passwordRegister').value;
+                const phoneNumber = document.getElementById('phoneNumberRegister').value;
 
                 try {
                     const response = await fetch(`${backendUrl}/register`, {
@@ -146,7 +151,7 @@
                         headers: {
                             'Content-Type': 'application/json'
                         },
-                        body: JSON.stringify({ numeroImmatriculation, email, password })
+                        body: JSON.stringify({ fullName, email, password, phoneNumber })
                     });
 
                     const data = await response.json();
@@ -164,7 +169,7 @@
             // Handle login form submission
             document.getElementById('loginForm').addEventListener('submit', async (e) => {
                 e.preventDefault();
-                const numeroImmatriculation = document.getElementById('numeroImmatriculationLogin').value;
+                const email = document.getElementById('emailLogin').value;
                 const password = document.getElementById('passwordLogin').value;
 
                 try {
@@ -173,7 +178,7 @@
                         headers: {
                             'Content-Type': 'application/json'
                         },
-                        body: JSON.stringify({ numeroImmatriculation, password })
+                        body: JSON.stringify({ email, password })
                     });
 
                     const data = await response.json();

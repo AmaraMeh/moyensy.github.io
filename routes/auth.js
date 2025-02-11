@@ -17,13 +17,13 @@ router.post('/register', async (req, res) => {
             return res.status(500).json({ message: 'Erreur de base de données' });
         }
 
-        const { fullName, email, studentId, password } = req.body;
+        const { fullName, email, password, phoneNumber } = req.body;
         
         // Validation plus détaillée
         if (!fullName) return res.status(400).json({ message: 'Nom complet requis' });
         if (!email) return res.status(400).json({ message: 'Email requis' });
-        if (!studentId) return res.status(400).json({ message: 'ID Étudiant requis' });
         if (!password) return res.status(400).json({ message: 'Mot de passe requis' });
+        if (!phoneNumber || !/^0[5-7][0-9]{8}$/.test(phoneNumber)) return res.status(400).json({ message: 'Numéro de téléphone algérien requis' });
 
         console.log('Validation des champs OK');
 
@@ -46,8 +46,8 @@ router.post('/register', async (req, res) => {
         const user = new User({
             fullName,
             email,
-            studentId,
-            password: hashedPassword
+            password: hashedPassword,
+            phoneNumber
         });
 
         console.log('Utilisateur créé, avant sauvegarde');
@@ -122,4 +122,4 @@ router.post('/login', async (req, res) => {
     }
 });
 
-module.exports = router; 
+module.exports = router;

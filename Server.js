@@ -3,6 +3,32 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv').config();
 
+const { MongoClient, ServerApiVersion } = require('mongodb');
+const uri = process.env.MONGODB_URI;
+
+// Create a MongoClient with a MongoClientOptions object to set the Stable API version
+const client = new MongoClient(uri, {
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+  }
+});
+
+async function run() {
+  try {
+    // Connect the client to the server (optional starting in v4.7)
+    await client.connect();
+    // Send a ping to confirm a successful connection
+    await client.db("admin").command({ ping: 1 });
+    console.log("Pinged your deployment. You successfully connected to MongoDB!");
+  } finally {
+    // Ensures that the client will close when you finish/error
+    await client.close();
+  }
+}
+run().catch(console.dir);
+
 // Import des routes
 const authRoutes = require('./routes/auth');
 const surveysRoutes = require('./routes/surveys');
@@ -57,18 +83,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/surveys', surveysRoutes);
 app.use('/api/support', supportRoutes);
 
-// Test de connexion MongoDB
-mongoose.set('strictQuery', false);
-mongoose.connect(process.env.MONGODB_URI)
-    .then(() => {
-        console.log('✅ Connecté à MongoDB avec succès');
-        console.log('URI utilisé:', process.env.MONGODB_URI);
-    })
-    .catch(err => {
-        console.error('❌ Erreur de connexion MongoDB:', err);
-    });
-
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`🚀 Serveur démarré sur le port ${PORT}`);
-}); 
+});
