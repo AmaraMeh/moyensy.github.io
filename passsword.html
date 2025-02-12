@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Authentification</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/auth.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Exemple de style similaire à celui d'index.html */
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: #f7f7f7;
+    }
+    .auth-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background-color: rgba(0,0,0,0.8);
+    }
+    .auth-box {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+    }
+    .auth-box h2 {
+      margin-bottom: 1.5rem;
+    }
+    .auth-box input[type="password"] {
+      width: 100%;
+      padding: 0.75rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      margin-bottom: 1.5rem;
+    }
+    .auth-box button {
+      width: 100%;
+      padding: 0.75rem;
+      font-size: 1rem;
+      background: #007BFF;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .auth-box p {
+      color: red;
+      display: none;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="auth-container">
+    <div class="auth-box">
+      <h2>Entrez le mot de passe</h2>
+      <input type="password" id="authPasswordInput" placeholder="Mot de passe">
+      <button onclick="checkAuthPassword()">Connexion</button>
+      <p id="authLoginError">Mot de passe incorrect.</p>
+    </div>
+  </div>
+
+  <script>
+    function checkAuthPassword() {
+      const input = document.getElementById('authPasswordInput').value;
+      const errorMsg = document.getElementById('authLoginError');
+      const correctPassword = 'Berchiche1234';
+      if (input === correctPassword) {
+        // Preserve URL parameters before redirection
+        const params = window.location.search;
+        window.location.href = 'st.marks.html' + params;
+      } else {
+        errorMsg.style.display = 'block';
+      }
+    }
+  </script>
+</body>
+</html>

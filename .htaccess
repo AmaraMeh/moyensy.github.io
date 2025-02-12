@@ -1,0 +1,26 @@
+# Enable CORS
+Header set Access-Control-Allow-Origin "*"
+Header set Access-Control-Allow-Methods "GET, OPTIONS"
+Header set Access-Control-Allow-Headers "Content-Type"
+
+# Set proper MIME type for JSON
+AddType application/json .json
+
+# Enable rewriting
+RewriteEngine On
+
+# Ensure proper directory handling
+Options +FollowSymLinks
+Options -MultiViews
+
+# Base directory path
+RewriteBase /
+
+# Handle JSON file requests
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^data/marks\.json$ /data/marks.json [L]
+
+# Debug logging
+RewriteLog "/var/log/apache2/rewrite.log"
+RewriteLogLevel 3
