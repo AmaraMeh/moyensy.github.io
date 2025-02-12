@@ -107,72 +107,79 @@
   <script>
     let marksData = [];
 
-    // Get the base URL for GitHub Pages
-    const getBaseUrl = () => {
+    // Replace the existing getBaseUrl function
+    function getBaseUrl() {
         const currentUrl = window.location.href;
-        // Check if running on GitHub Pages
-        if (currentUrl.includes('github.io')) {
-            // Extract repository name from URL
-            const pathSegments = currentUrl.split('/');
-            const repoName = pathSegments[pathSegments.length - 2];
-            return `/${repoName}/`;
-        }
-        return '/'; // Local development
-    };
+        // Since we're using a custom domain, we'll use the root path
+        return '/';
+    }
 
-    // Construct the correct path to marks.json
-    const jsonPath = `${getBaseUrl()}marks.json`;
-    console.log('Attempting to load from:', jsonPath);
+    // Add this right after your first script tag
+    console.log('Environment:', {
+        currentUrl: window.location.href,
+        baseUrl: getBaseUrl(),
+        fullPath: getBaseUrl() + 'data/marks.json',
+        hostname: window.location.hostname,
+        pathname: window.location.pathname
+    });
 
-    fetch(jsonPath)
-        .then(res => {
-            if (!res.ok) {
-                console.error('Response status:', res.status);
-                throw new Error(`HTTP error! status: ${res.status}`);
+    // Update the loadData function with better error handling
+    async function loadData() {
+        try {
+            // Use a direct path from the root
+            const fullUrl = '/marks.json';
+            console.log('Attempting to load data from:', fullUrl);
+
+            const response = await fetch(fullUrl, {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json',
+                    'Cache-Control': 'no-cache'
+                }
+            });
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}, URL: ${fullUrl}`);
             }
-            return res.json();
-        })
-        .then(data => {
-            console.log('Data loaded:', data);
+
+            const data = await response.json();
+            console.log('Data loaded successfully:', data);
+            
             if (!Array.isArray(data)) {
                 throw new Error('Invalid data format: expected array');
             }
-            
+
             marksData = data.filter(item => item.hasOwnProperty("N°"));
-            console.log('Filtered data count:', marksData.length);
-            
+            console.log('Filtered data:', marksData.length, 'records');
+
             // Get URL parameters
             const urlParams = new URLSearchParams(window.location.search);
             const section = urlParams.get('section');
             const group = urlParams.get('group');
-            
-            // Set select values if parameters exist
-            if (section) {
-                document.getElementById('sectionSelect').value = section;
-            }
-            if (group) {
-                document.getElementById('groupSelect').value = group;
-            }
-            
-            // Apply filters if parameters exist
+
+            // Apply filters and render
             if (section || group) {
                 applyFilters();
             } else {
                 renderTable(marksData);
             }
-        })
-        .catch(err => {
-            console.error('Error loading or processing data:', err);
+
+        } catch (error) {
+            console.error('Error loading data:', error);
             const tbody = document.querySelector('#marksTable tbody');
             tbody.innerHTML = `
                 <tr>
                     <td colspan="11" class="text-center py-4 text-red-600">
                         <i class="fas fa-exclamation-triangle mr-2"></i>
-                        Error loading data: ${err.message}
+                        Error loading data: ${error.message}
                     </td>
                 </tr>
             `;
-        });
+        }
+    }
+
+    // Initialize the page
+    document.addEventListener('DOMContentLoaded', loadData);
 
     document.getElementById('sectionSelect').addEventListener('change', applyFilters);
     document.getElementById('groupSelect').addEventListener('change', applyFilters);
@@ -315,6 +322,19 @@
           window.location.href = 'notes-science-technologie.html';
       }
     }
+  </script>
+
+  <script>
+    // Debug info
+    console.log('Current URL:', window.location.href);
+    console.log('Hostname:', window.location.hostname);
+    console.log('Pathname:', window.location.pathname);
+    
+    // Initialize page
+    document.addEventListener('DOMContentLoaded', () => {
+        console.log('Page loaded, starting data fetch...');
+        loadData();
+    });
   </script>
 </body>
 </html>
