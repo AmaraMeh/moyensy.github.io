@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Marks - ST LMD</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/auth.css">
+  <link rel="stylesheet" href="assets/css/st.marks.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="assets/css/animations.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-gray-50 flex flex-col min-h-screen">
+  <header class="header-section">
+    <div class="logo-wrapper">
+      <img src="assets/img/LOGO.png" alt="ISET'COM Logo" class="logo-image fade-in" />
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div class="filters-container fade-in">
+      <h1 class="page-title">Science et Technologie LMD - Notes</h1>
+      
+      <div class="filters-content">
+        <div class="filters-grid">
+          <div class="filter-group">
+            <label for="sectionSelect" class="filter-label">Section:</label>
+            <select id="sectionSelect" class="filter-select">
+              <option value="">Toutes</option>
+              <option>A</option>
+              <option>B</option>
+              <option>C</option>
+              <option>D</option>
+              <option>E</option>
+              <option>F</option>
+              <option>G</option>
+              <option>H</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label for="groupSelect" class="filter-label">Groupe:</label>
+            <select id="groupSelect" class="filter-select">
+              <option value="">Tous</option>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+              <option>6</option>
+              <option>7</option>
+              <option>8</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      
+      <div class="text-center mt-4">
+        <a href="#" class="return-button" onclick="goBack()">
+          <i class="fas fa-arrow-left"></i>
+          <span>Retour</span>
+        </a>
+      </div>
+    </div>
+    
+    <div class="table-wrapper">
+      <div class="table-scroll">
+        <table id="marksTable">
+          <thead>
+            <tr>
+              <th class="name-column sticky-header">Nom et Prénom</th>
+              <th class="sticky-header">Matricule</th>
+              <th class="sticky-header">Groupe</th>
+              <th class="grade-column sticky-header sortable" onclick="sortTable('Maths 1')">
+                Maths 1 <span class="sort-indicator"></span>
+              </th>
+              <th class="grade-column sticky-header sortable" onclick="sortTable('Phys1')">
+                Phys1 <span class="sort-indicator"></span>
+              </th>
+              <th class="grade-column sticky-header sortable" onclick="sortTable('Chimie 1')">
+                Chimie 1 <span class="sort-indicator"></span>
+              </th>
+              <th class="grade-column sticky-header sortable" onclick="sortTable('Info 1')">
+                Info 1 <span class="sort-indicator"></span>
+              </th>
+              <th class="grade-column sticky-header sortable" onclick="sortTable('MR')">
+                MR <span class="sort-indicator"></span>
+              </th>
+              <th class="grade-column sticky-header sortable" onclick="sortTable('MST1')">
+                MST1 <span class="sort-indicator"></span>
+              </th>
+              <th class="grade-column sticky-header sortable" onclick="sortTable('DED')">
+                DED <span class="sort-indicator"></span>
+              </th>
+              <th class="grade-column sticky-header sortable" onclick="sortTable('Angl 1')">
+                Angl 1 <span class="sort-indicator"></span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Table body will be populated by JavaScript -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    let marksData = [];
+
+    fetch('marks.json')
+      .then(res => res.json())
+      .then(data => {
+        marksData = data.filter(item => item.hasOwnProperty("N°"));
+        
+        // Get URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const section = urlParams.get('section');
+        const group = urlParams.get('group');
+        
+        // Set select values if parameters exist
+        if (section) {
+            document.getElementById('sectionSelect').value = section;
+        }
+        if (group) {
+            document.getElementById('groupSelect').value = group;
+        }
+        
+        // Apply filters if parameters exist
+        if (section || group) {
+            applyFilters();
+        } else {
+            renderTable(marksData);
+        }
+      })
+      .catch(err => console.error('Error loading JSON:', err));
+
+    document.getElementById('sectionSelect').addEventListener('change', applyFilters);
+    document.getElementById('groupSelect').addEventListener('change', applyFilters);
+
+    function applyFilters() {
+      const section = document.getElementById('sectionSelect').value;
+      const group = document.getElementById('groupSelect').value;
+      const filtered = marksData.filter(item => {
+        const rowGroup = item["Group"] || "";
+        const matchesSection = section ? rowGroup.startsWith(section) : true;
+        const matchesGroup = group ? rowGroup.endsWith(group) : true;
+        return matchesSection && matchesGroup;
+      });
+      
+      if (currentSort.column) {
+        const sortedData = [...filtered];
+        sortedData.sort((a, b) => {
+            let aVal = parseFloat(a[currentSort.column]) || -1;
+            let bVal = parseFloat(b[currentSort.column]) || -1;
+            return currentSort.direction === 'asc' ? aVal - bVal : bVal - aVal;
+        });
+        renderTable(sortedData);
+      } else {
+        renderTable(filtered);
+      }
+    }
+
+    // Update the renderTable function to include special styling for the founder
+    function renderTable(data) {
+      const tbody = document.querySelector('#marksTable tbody');
+      tbody.innerHTML = '';
+      
+      data.forEach(item => {
+        const tr = document.createElement('tr');
+        
+        // Check if this is the founder (AMARA MEHDI)
+        const isFounder = item["N°"] === "942" && 
+                         item["Nom"] === "AMARA" && 
+                         item["Prénom"] === "MEHDI";
+        
+        // Add founder class if applicable
+        if (isFounder) {
+          tr.classList.add('founder-row');
+        }
+        
+        const nameCell = `
+          <td class="name-cell">
+            ${item["Nom"]} ${item["Prénom"]}
+            ${isFounder ? '<span class="founder-badge">👑 Founder</span>' : ''}
+          </td>
+        `;
+
+        const rowHtml = `
+          ${nameCell}
+          <td class="text-cell">${item["Matricule"] || ""}</td>
+          <td class="text-cell">${item["Group"] || ""}</td>
+          <td class="grade-cell ${colorMark(item["Maths 1"])}">${item["Maths 1"] || ""}</td>
+          <td class="grade-cell ${colorMark(item["Phys1"])}">${item["Phys1"] || ""}</td>
+          <td class="grade-cell ${colorMark(item["Chimie 1"])}">${item["Chimie 1"] || ""}</td>
+          <td class="grade-cell ${colorMark(item["Info 1"])}">${item["Info 1"] || ""}</td>
+          <td class="grade-cell ${colorMark(item["MR"])}">${item["MR"] || ""}</td>
+          <td class="grade-cell ${colorMark(item["MST1"])}">${item["MST1"] || ""}</td>
+          <td class="grade-cell ${colorMark(item["DED"])}">${item["DED"] || ""}</td>
+          <td class="grade-cell ${colorMark(item["Angl 1"])}">${item["Angl 1"] || ""}</td>
+        `;
+
+        tr.innerHTML = rowHtml;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function colorMark(mark) {
+      const num = parseFloat(mark);
+      if (isNaN(num)) return '';
+      return num < 10 ? 'grade-failing' : 'grade-passing';
+    }
+
+    let currentSort = {
+      column: '',
+      direction: 'asc'
+    };
+
+    function sortTable(column) {
+      const moduleColumns = ['Maths 1', 'Phys1', 'Chimie 1', 'Info 1', 'MR', 'MST1', 'DED', 'Angl 1'];
+      if (!moduleColumns.includes(column)) return;
+
+      const data = [...marksData];
+      
+      if (currentSort.column === column) {
+        currentSort.direction = currentSort.direction === 'asc' ? 'desc' : 'asc';
+      } else {
+        currentSort.column = column;
+        currentSort.direction = 'asc';
+      }
+
+      data.sort((a, b) => {
+        let aVal = parseFloat(a[column]) || -1;
+        let bVal = parseFloat(b[column]) || -1;
+
+        if (currentSort.direction === 'asc') {
+          return aVal - bVal;
+        } else {
+          return bVal - aVal;
+        }
+      });
+
+      updateSortIndicators(column);
+      
+      renderTable(data);
+    }
+
+    function getColumnIndex(columnName) {
+      const headers = document.querySelectorAll('#marksTable th');
+      for (let i = 0; i < headers.length; i++) {
+        if (headers[i].textContent.trim() === columnName) {
+          return i + 1;
+        }
+      }
+      return 1;
+    }
+
+    function updateSortIndicators(column) {
+      document.querySelectorAll('.sort-indicator').forEach(indicator => {
+        indicator.classList.remove('sort-asc', 'sort-desc');
+      });
+
+      const th = document.querySelector(`th[onclick="sortTable('${column}')"]`);
+      if (th) {
+        const indicator = th.querySelector('.sort-indicator');
+        indicator.classList.add(currentSort.direction === 'asc' ? 'sort-asc' : 'sort-desc');
+      }
+    }
+
+    function goBack() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const section = urlParams.get('section');
+      if (section) {
+          window.location.href = `notes-science-technologie-section.html?section=${section}`;
+      } else {
+          window.location.href = 'notes-science-technologie.html';
+      }
+    }
+  </script>
+</body>
+</html>
