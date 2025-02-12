@@ -9,6 +9,63 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <link rel="stylesheet" href="assets/css/animations.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Insert this style block inside the <head> section or within a dedicated CSS file -->
+  <style>
+    .auth-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.8);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      z-index: 1000;
+    }
+    
+    .auth-box {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+      font-family: 'Poppins', sans-serif;
+    }
+    
+    .auth-box h2 {
+      margin-bottom: 1.5rem;
+    }
+    
+    .auth-box input[type="password"] {
+      width: 100%;
+      padding: 0.75rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      margin-bottom: 1.5rem;
+    }
+    
+    .auth-box button {
+      width: 100%;
+      padding: 0.75rem;
+      font-size: 1rem;
+      background: #007BFF;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    
+    .auth-box .login-error {
+      display: none;
+      color: red;
+      margin-top: 1rem;
+    }
+  </style>
 </head>
 <body class="bg-gray-50 flex flex-col min-h-screen">
   <header class="header-section">
@@ -104,12 +161,12 @@
     </div>
   </main>
 
-  <div id="loginOverlay" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.9); z-index: 1000; display: flex; align-items: center; justify-content: center;">
-    <div style="background: #fff; padding: 2rem; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.5); width: 90%; max-width: 400px; text-align: center; font-family: 'Poppins', sans-serif;">
-      <h2 style="margin-bottom: 1.5rem;">Entrez le mot de passe</h2>
-      <input type="password" id="passwordInput" placeholder="Mot de passe" style="width: 100%; padding: 0.75rem; font-size: 1rem; border: 1px solid #ccc; border-radius: 4px; margin-bottom: 1.5rem;">
-      <button onclick="checkPassword()" style="width: 100%; padding: 0.75rem; font-size: 1rem; background: #007BFF; color: #fff; border: none; border-radius: 4px;">Connexion</button>
-      <p id="loginError" style="display: none; color: red; margin-top: 1rem;">Mot de passe incorrect.</p>
+  <div id="loginOverlay" class="auth-container">
+    <div class="auth-box">
+      <h2>Entrez le mot de passe</h2>
+      <input type="password" id="passwordInput" placeholder="Mot de passe">
+      <button onclick="checkPassword()">Connexion</button>
+      <p id="loginError" class="login-error">Mot de passe incorrect.</p>
     </div>
   </div>
 
@@ -332,7 +389,7 @@
         const errorMsg = document.getElementById('loginError');
         const correctPassword = 'Berchiche1234';
         if (input === correctPassword) {
-            // Masquer l'overlay de connexion
+            // Hide the login overlay and allow access
             document.getElementById('loginOverlay').style.display = 'none';
         } else {
             errorMsg.style.display = 'block';

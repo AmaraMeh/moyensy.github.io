@@ -18,7 +18,12 @@
       align-items: center;
       justify-content: center;
       height: 100vh;
-      background-color: rgba(0,0,0,0.8);
+      background-color: rgba(0, 0, 0, 0.8);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      z-index: 1000;
     }
     .auth-box {
       background: #fff;
@@ -28,6 +33,7 @@
       width: 90%;
       max-width: 400px;
       text-align: center;
+      font-family: 'Poppins', sans-serif;
     }
     .auth-box h2 {
       margin-bottom: 1.5rem;
@@ -50,9 +56,9 @@
       border-radius: 4px;
       cursor: pointer;
     }
-    .auth-box p {
-      color: red;
+    .auth-box .login-error {
       display: none;
+      color: red;
       margin-top: 1rem;
     }
   </style>
