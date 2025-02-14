@@ -176,79 +176,375 @@
 
                 <!-- 2ème année -->
                 <div class="bg-white p-6 rounded-lg shadow-lg mb-8">
-                    <div class="year-section">
-                        <h2 class="text-2xl font-bold mb-4 text-gray-800">2ème année</h2>
-                        
-                        <!-- Campus Targa Ouzemour -->
-                        <div class="campus-section bg-blue-100 p-6 rounded-lg shadow-lg mb-8">
-                            <h3 class="text-xl font-semibold mb-4 text-blue-800 cursor-pointer" onclick="toggleCollapse('collapse-2eme-targa')">
-                                Campus Targa Ouzemour
-                            </h3>
-                            <div id="collapse-2eme-targa" class="overflow-hidden transition-all duration-500 ease-in-out" style="max-height: 0;">
-                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                    <!-- Specialty cards remain unchanged -->
-                                    <a href="javascript:void(0);" class="service-card" onclick="openSpecialtyModules('genie-procedes')">
-                                        <div class="service-icon">
-                                            <i class="fas fa-industry text-4xl text-blue-600"></i>
-                                        </div>
-                                        <h3 class="text-xl font-semibold mb-2">Génie des Procédés</h3>
-                                    </a>
-                                    <!-- ...other specialty cards... -->
-                                </div>
-                            </div>
-                        </div>
+    <div class="year-section">
+        <h2 class="text-2xl font-bold mb-4 text-gray-800">2ème année</h2>
         
-                        <!-- Campus Aboudaou -->
-                        <div class="campus-section bg-green-100 p-6 rounded-lg shadow-lg mb-8">
-                            <h3 class="text-xl font-semibold mb-4 text-green-800 cursor-pointer" onclick="toggleCollapse('collapse-2eme-aboudaou')">
-                                Campus Aboudaou
-                            </h3>
-                            <div id="collapse-2eme-aboudaou" class="overflow-hidden transition-all duration-500 ease-in-out" style="max-height: 0;">
-                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                    <!-- No specialties for Campus Aboudaou -->
-                                </div>
-                            </div>
+        <!-- Campus Targa Ouzemour -->
+        <div class="campus-section bg-blue-100 p-6 rounded-lg shadow-lg mb-8">
+            <h3 class="text-xl font-semibold mb-4 text-blue-800 cursor-pointer" onclick="toggleCollapse('collapse-2eme-targa')">
+                Campus Targa Ouzemour
+            </h3>
+            <button class="text-xl font-semibold text-blue-800 bg-transparent border border-blue-800 px-4 py-2 rounded mt-2 hover:bg-blue-800 hover:text-white transition-all duration-300" onclick="toggleCollapse('collapse-2eme-targa')">
+                Voir les spécialités
+            </button>
+            <div id="collapse-2eme-targa" class="overflow-hidden transition-all duration-500 ease-in-out" style="max-height: 0;">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Specialty cards remain unchanged -->
+                    <a href="javascript:void(0);" class="service-card" onclick="openSpecialtyModules('genie-procedes')">
+                        <div class="service-icon">
+                            <i class="fas fa-industry text-4xl text-blue-600"></i>
                         </div>
+                        <h3 class="text-xl font-semibold mb-2">Génie des Procédés</h3>
+                    </a>
+                    <a href="javascript:void(0);" class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-robot text-4xl text-blue-600"></i>
                     </div>
+                    <h3 class="text-xl font-semibold mb-2">Automatique</h3>
+                </a>
+                <a href="javascript:void(0);" class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-mountain text-4xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Exploitation des mines</h3>
+                </a>
+                <a href="javascript:void(0);" class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-building text-4xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Génie Civil</h3>
+                </a>
+                <a href="javascript:void(0);" class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-wifi text-4xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Télécommunications</h3>
+                </a>
+                <a href="javascript:void(0);" class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-gem text-4xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Valorisation des ressources minérales</h3>
+                </a>
+                <a href="javascript:void(0);" class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-microchip text-4xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Électronique</h3>
+                </a>
+                <a href="javascript:void(0);" class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-cube text-4xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Génie des matériaux</h3>
+                </a>
+                <a href="javascript:void(0);" class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-toolbox text-4xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Maintenance industrielle</h3>
+                </a>
+                <a href="javascript:void(0);" class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-cog text-4xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Électromécanique</h3>
+                </a>
+                <a href="javascript:void(0);" class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-wrench text-4xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Construction mécanique</h3>
+                </a>
+                <a href="javascript:void(0);" class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-bolt text-4xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Électrotechnique</h3>
+                </a>
+                <a href="javascript:void(0);" class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-fire text-4xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Énergétique</h3>
+                </a>
+                <a href="javascript:void(0);" class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-flask text-4xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Chimie</h3>
+                </a>
+                <a href="javascript:void(0);" class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-atom text-4xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Physique</h3>
+                </a>
+                <a href="javascript:void(0);" class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-square-root-alt text-4xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Mathématiques appliquées</h3>
+                </a>
+                <a href="javascript:void(0);" class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-laptop-code text-4xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Informatique</h3>
+                </a>
+                <a href="javascript:void(0);" class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-dna text-4xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Sciences biologiques</h3>
+                </a>
+                <a href="javascript:void(0);" class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-leaf text-4xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Ecologie et environnement</h3>
+                </a>
+                <a href="javascript:void(0);" class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-apple-alt text-4xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Sciences alimentaires</h3>
+                </a>
+                <a href="javascript:void(0);" class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-dna text-4xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Biotechnologies</h3>
+                </a>
+                <a href="javascript:void(0);" class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-water text-4xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Hydrobiologie marine et continentale</h3>
+                </a>
+                <!-- Chimie fondamentale -->
+                <a href="javascript:void(0);" class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-flask text-4xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Chimie fondamentale</h3>
+                </a>
+                <!-- Physique fondamentale -->
+                <a href="javascript:void(0);" class="service-card">
+                    <div class="service-icon">
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Physique fondamentale</h3>
+                </a>
+                <!-- Mathématiques Statistiques et traitement informatique des données -->
+                <a href="javascript:void(0);" class="service-card">
+                    <div class="service-icon">
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">
+                        Mathématiques Statistiques et traitement informatique des données
+                    </h3>
+                </a>
+                <!-- Systèmes informatiques -->
+                <a href="javascript:void(0);" class="service-card">
+                    <div class="service-icon">
+                    </div>
+                </a>
+                <!-- Biochimie -->
+                <a href="javascript:void(0);" class="service-card">
+                </a>
+                <!-- Microbiologie -->
+                <a href="javascript:void(0);" class="service-card">
+                </a>
+                <!-- Biologie et physiologie animale -->
+                <a href="javascript:void(0);" class="service-card">
+                </a>
+                <!-- Biologie et physiologie végétale -->
+                <a href="javascript:void(0);" class="service-card">
+                </a>
                 </div>
+            </div>
+        </div>
+
+
+        <!-- Campus Aboudaou -->
+        <div class="campus-section bg-green-100 p-6 rounded-lg shadow-lg mb-8">
+            <h3 class="text-xl font-semibold mb-4 text-green-800 cursor-pointer" onclick="toggleCollapse('collapse-2eme-aboudaou')">
+                Campus Aboudaou
+            </h3>
+            <button class="text-xl font-semibold text-green-800 bg-transparent border border-green-800 px-4 py-2 rounded mt-2 hover:bg-green-800 hover:text-white transition-all duration-300" onclick="toggleCollapse('collapse-2eme-aboudaou')">
+                Voir les spécialités
+            </button>
+            <div id="collapse-2eme-aboudaou" class="overflow-hidden transition-all duration-500 ease-in-out" style="max-height: 0;">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- No specialties for Campus Aboudaou -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
                 <!-- 3ème année -->
                 <div class="bg-white p-6 rounded-lg shadow-lg mb-8">
-                    <div class="year-section">
-                        <h2 class="text-2xl font-bold mb-4 text-gray-800">3ème année</h2>
-                        
-                        <!-- Campus Targa Ouzemour -->
-                        <div class="campus-section bg-blue-100 p-6 rounded-lg shadow-lg mb-8">
-                            <h3 class="text-xl font-semibold mb-4 text-blue-800 cursor-pointer" onclick="toggleCollapse('collapse-3eme-targa')">
-                                Campus Targa Ouzemour
-                            </h3>
-                            <div id="collapse-3eme-targa" class="overflow-hidden transition-all duration-500 ease-in-out" style="max-height: 0;">
-                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                    <!-- Specialty cards remain unchanged -->
-                                    <a href="javascript:void(0);" class="service-card" onclick="openSpecialtyModules('genie-procedes')">
-                                        <div class="service-icon">
-                                            <i class="fas fa-industry text-4xl text-blue-600"></i>
-                                        </div>
-                                        <h3 class="text-xl font-semibold mb-2">Génie des Procédés</h3>
-                                    </a>
-                                    <!-- ...other specialty cards... -->
-                                </div>
-                            </div>
+    <div class="year-section">
+        <h2 class="text-2xl font-bold mb-4 text-gray-800">3ème année</h2>
+        
+        <!-- Campus Targa Ouzemour -->
+        <div class="campus-section bg-blue-100 p-6 rounded-lg shadow-lg mb-8">
+            <h3 class="text-xl font-semibold mb-4 text-blue-800 cursor-pointer" onclick="toggleCollapse('collapse-3eme-targa')">
+                Campus Targa Ouzemour
+            </h3>
+            <div id="collapse-3eme-targa" class="overflow-hidden transition-all duration-500 ease-in-out" style="max-height: 0;">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Specialty cards remain unchanged -->
+                    <a href="javascript:void(0);" class="service-card" onclick="openSpecialtyModules('genie-procedes')">
+                        <div class="service-icon">
+                            <i class="fas fa-industry text-4xl text-blue-600"></i>
                         </div>
-
-                        <!-- Campus Aboudaou -->
-                        <div class="campus-section bg-green-100 p-6 rounded-lg shadow-lg mb-8">
-                            <h3 class="text-xl font-semibold mb-4 text-green-800 cursor-pointer" onclick="toggleCollapse('collapse-3eme-aboudaou')">
-                                Campus Aboudaou
-                            </h3>
-                            <div id="collapse-3eme-aboudaou" class="overflow-hidden transition-all duration-500 ease-in-out" style="max-height: 0;">
-                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                    <!-- No specialties for Campus Aboudaou -->
-                                </div>
-                            </div>
-                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Génie des Procédés</h3>
+                    </a>
+                    <a href="javascript:void(0);" class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-robot text-4xl text-blue-600"></i>
                     </div>
+                    <h3 class="text-xl font-semibold mb-2">Automatique</h3>
+                </a>
+                <a href="javascript:void(0);" class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-mountain text-4xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Exploitation des mines</h3>
+                </a>
+                <a href="javascript:void(0);" class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-building text-4xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Génie Civil</h3>
+                </a>
+                <a href="javascript:void(0);" class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-wifi text-4xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Télécommunications</h3>
+                </a>
+                <a href="javascript:void(0);" class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-gem text-4xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Valorisation des ressources minérales</h3>
+                </a>
+                <a href="javascript:void(0);" class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-microchip text-4xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Électronique</h3>
+                </a>
+                <a href="javascript:void(0);" class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-cube text-4xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Génie des matériaux</h3>
+                </a>
+                <a href="javascript:void(0);" class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-toolbox text-4xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Maintenance industrielle</h3>
+                </a>
+                <a href="javascript:void(0);" class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-cog text-4xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Électromécanique</h3>
+                </a>
+                <a href="javascript:void(0);" class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-wrench text-4xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Construction mécanique</h3>
+                </a>
+                <a href="javascript:void(0);" class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-bolt text-4xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Électrotechnique</h3>
+                </a>
+                <a href="javascript:void(0);" class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-fire text-4xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Énergétique</h3>
+                </a>
+                <a href="javascript:void(0);" class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-flask text-4xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Chimie</h3>
+                </a>
+                <a href="javascript:void(0);" class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-atom text-4xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Physique</h3>
+                </a>
+                <a href="javascript:void(0);" class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-square-root-alt text-4xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Mathématiques appliquées</h3>
+                </a>
+                <a href="javascript:void(0);" class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-laptop-code text-4xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Informatique</h3>
+                </a>
+                <a href="javascript:void(0);" class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-dna text-4xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Sciences biologiques</h3>
+                </a>
+                <a href="javascript:void(0);" class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-leaf text-4xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Ecologie et environnement</h3>
+                </a>
+                <a href="javascript:void(0);" class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-apple-alt text-4xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Sciences alimentaires</h3>
+                </a>
+                <a href="javascript:void(0);" class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-dna text-4xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Biotechnologies</h3>
+                </a>
+                <a href="javascript:void(0);" class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-water text-4xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Hydrobiologie marine et continentale</h3>
+                </a>
+                <!-- Continuez avec les autres spécialités existantes -->
                 </div>
+            </div>
+        </div>
+
+        <!-- Campus Aboudaou -->
+        <div class="campus-section bg-green-100 p-6 rounded-lg shadow-lg mb-8">
+            <h3 class="text-xl font-semibold mb-4 text-green-800 cursor-pointer" onclick="toggleCollapse('collapse-3eme-aboudaou')">
+                Campus Aboudaou
+            </h3>
+            <div id="collapse-3eme-aboudaou" class="overflow-hidden transition-all duration-500 ease-in-out" style="max-height: 0;">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- No specialties for Campus Aboudaou -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
                 <!-- 4ème année (Master 1) -->
                 <div class="year-section">
