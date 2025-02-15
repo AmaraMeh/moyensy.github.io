@@ -195,17 +195,24 @@
                 const password = document.getElementById('passwordLogin').value;
 
                 try {
-                    await auth.signInWithEmailAndPassword(email, password);
+                    const userCredential = await auth.signInWithEmailAndPassword(email, password);
                     
-                    // Show success popup with green text
-                    const popupBox = document.getElementById('popupBox');
-                    const popupTitle = popupBox.querySelector('h2');
-                    popupTitle.classList.add('text-green-600');
-                    popupTitle.textContent = 'Connexion réussie!';
-                    
-                    // Show the popup with navigation buttons
-                    popupBox.classList.remove('hidden');
+                    if (userCredential.user) {
+                        // Show success popup with green text
+                        const popupBox = document.getElementById('popupBox');
+                        const popupTitle = popupBox.querySelector('h2');
+                        popupTitle.classList.add('text-green-600');
+                        popupTitle.textContent = 'Connexion réussie!';
+                        
+                        // Make sure popup is visible
+                        popupBox.style.display = 'flex';
+                        popupBox.classList.remove('hidden');
+                        
+                        // Clear login form
+                        document.getElementById('loginForm').reset();
+                    }
                 } catch (error) {
+                    console.error('Login error:', error);
                     handleAuthError(error);
                 }
             });
@@ -256,6 +263,14 @@
                 }
                 alert(message);
             }
+
+            // Add this to ensure popup can be closed
+            document.addEventListener('click', (e) => {
+                const popupBox = document.getElementById('popupBox');
+                if (e.target === popupBox) {
+                    popupBox.classList.add('hidden');
+                }
+            });
         });
     </script>
 </body>
