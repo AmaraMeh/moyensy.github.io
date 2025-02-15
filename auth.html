@@ -72,6 +72,27 @@
                         <input type="text" id="fullNameRegister" class="custom-input" required>
                     </div>
                     <div>
+                        <label for="matriculeRegister" class="block text-sm font-medium text-gray-700 mb-2">Numéro d'immatriculation</label>
+                        <input type="text" id="matriculeRegister" class="custom-input" required>
+                    </div>
+                    <div>
+                        <label for="yearRegister" class="block text-sm font-medium text-gray-700 mb-2">Année d'étude</label>
+                        <select id="yearRegister" class="custom-input" required onchange="updateSpecialities()">
+                            <option value="">Sélectionnez votre année</option>
+                            <option value="1">1ère année</option>
+                            <option value="2">2ème année</option>
+                            <option value="3">3ème année</option>
+                            <option value="4">4ème année (Master 1)</option>
+                            <option value="5">5ème année (Master 2)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="specialityRegister" class="block text-sm font-medium text-gray-700 mb-2">Spécialité</label>
+                        <select id="specialityRegister" class="custom-input" required>
+                            <option value="">Sélectionnez d'abord une année</option>
+                        </select>
+                    </div>
+                    <div>
                         <label for="emailRegister" class="block text-sm font-medium text-gray-700 mb-2">Email</label>
                         <input type="email" id="emailRegister" class="custom-input" required>
                     </div>
@@ -143,6 +164,60 @@
         const auth = firebase.auth();
         const db = firebase.firestore();
 
+        // Add this after your existing Firebase configuration
+        const specialities = {
+            1: [
+                "Science et Technologie LMD",
+                "Informatique LMD",
+                "Biologie",
+                "Mathématiques",
+                "Science de la matière",
+                "Science et Technologie Ingénieur",
+                "Informatique ING",
+                "Architecture",
+                "Médecine",
+                "Pharmacie",
+                "Droit",
+                "SEGC",
+                "Langue Française",
+                "Langue Arabe",
+                "Langue Tamazight",
+                "Langue Anglaise",
+                "Science Sociale",
+                "Traduction"
+            ],
+            2: [
+                "Génie des Procédés",
+                "Automatique",
+                "Exploitation des mines",
+                // ... add all 2nd year specialties
+            ],
+            3: [
+                "Génie des Procédés",
+                "Automatique",
+                "Exploitation des mines",
+                // ... add all 3rd year specialties
+            ]
+        };
+
+        function updateSpecialities() {
+            const yearSelect = document.getElementById('yearRegister');
+            const specialitySelect = document.getElementById('specialityRegister');
+            const year = yearSelect.value;
+
+            // Clear current options
+            specialitySelect.innerHTML = '<option value="">Sélectionnez votre spécialité</option>';
+
+            if (year && specialities[year]) {
+                specialities[year].forEach(speciality => {
+                    const option = document.createElement('option');
+                    option.value = speciality;
+                    option.textContent = speciality;
+                    specialitySelect.appendChild(option);
+                });
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             // Tab Handling
             const tabs = document.querySelectorAll('.tab-btn');
@@ -164,6 +239,9 @@
                 const password = document.getElementById('passwordRegister').value;
                 const fullName = document.getElementById('fullNameRegister').value;
                 const phoneNumber = document.getElementById('phoneNumberRegister').value;
+                const matricule = document.getElementById('matriculeRegister').value;
+                const year = document.getElementById('yearRegister').value;
+                const speciality = document.getElementById('specialityRegister').value;
 
                 try {
                     const userCredential = await auth.createUserWithEmailAndPassword(email, password);
@@ -172,16 +250,15 @@
                         fullName,
                         email,
                         phoneNumber,
+                        matricule,
+                        year,
+                        speciality,
                         createdAt: firebase.firestore.FieldValue.serverTimestamp()
                     });
 
-                    // Show success message
+                    // Show success message and redirect to login
                     alert('Inscription réussie! Vous pouvez maintenant vous connecter.');
-                    
-                    // Switch to login tab
                     document.querySelector('[data-tab="login"]').click();
-                    
-                    // Clear registration form
                     document.getElementById('registerForm').reset();
                 } catch (error) {
                     handleAuthError(error);
@@ -198,18 +275,22 @@
                     const userCredential = await auth.signInWithEmailAndPassword(email, password);
                     
                     if (userCredential.user) {
-                        // Show success popup with green text
-                        const popupBox = document.getElementById('popupBox');
-                        const popupTitle = popupBox.querySelector('h2');
-                        popupTitle.classList.add('text-green-600');
-                        popupTitle.textContent = 'Connexion réussie!';
-                        
-                        // Make sure popup is visible
-                        popupBox.style.display = 'flex';
-                        popupBox.classList.remove('hidden');
-                        
-                        // Clear login form
-                        document.getElementById('loginForm').reset();
+                        // Get user data from Firestore
+                        const userDoc = await db.collection('users').doc(userCredential.user.uid).get();
+                        if (userDoc.exists) {
+                            // Store user data in localStorage
+                            localStorage.setItem('userData', JSON.stringify(userDoc.data()));
+                            localStorage.setItem('userId', userCredential.user.uid);
+                            localStorage.setItem('token', await userCredential.user.getIdToken());
+
+                            // Show success popup
+                            const popupBox = document.getElementById('popupBox');
+                            const popupTitle = popupBox.querySelector('h2');
+                            popupTitle.classList.add('text-green-600');
+                            popupTitle.textContent = 'Connexion réussie!';
+                            popupBox.style.display = 'flex';
+                            popupBox.classList.remove('hidden');
+                        }
                     }
                 } catch (error) {
                     console.error('Login error:', error);
