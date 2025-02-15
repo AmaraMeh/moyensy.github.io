@@ -168,7 +168,6 @@
                 try {
                     const userCredential = await auth.createUserWithEmailAndPassword(email, password);
                     
-                    // Save additional user data to Firestore
                     await db.collection('users').doc(userCredential.user.uid).set({
                         fullName,
                         email,
@@ -176,8 +175,14 @@
                         createdAt: firebase.firestore.FieldValue.serverTimestamp()
                     });
 
-                    // Show success popup
-                    document.getElementById('popupBox').classList.remove('hidden');
+                    // Show success message
+                    alert('Inscription réussie! Vous pouvez maintenant vous connecter.');
+                    
+                    // Switch to login tab
+                    document.querySelector('[data-tab="login"]').click();
+                    
+                    // Clear registration form
+                    document.getElementById('registerForm').reset();
                 } catch (error) {
                     handleAuthError(error);
                 }
@@ -191,7 +196,15 @@
 
                 try {
                     await auth.signInWithEmailAndPassword(email, password);
-                    document.getElementById('popupBox').classList.remove('hidden');
+                    
+                    // Show success popup with green text
+                    const popupBox = document.getElementById('popupBox');
+                    const popupTitle = popupBox.querySelector('h2');
+                    popupTitle.classList.add('text-green-600');
+                    popupTitle.textContent = 'Connexion réussie!';
+                    
+                    // Show the popup with navigation buttons
+                    popupBox.classList.remove('hidden');
                 } catch (error) {
                     handleAuthError(error);
                 }
