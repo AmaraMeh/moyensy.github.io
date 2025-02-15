@@ -1,0 +1,191 @@
+<!-- This file is intentionally left blank. --><!DOCTYPE html>
+<html lang="fr">
+    <head>
+      <meta charset="UTF-8" />
+      <title>Example - Semestre 1</title>
+      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+      <link rel="stylesheet" href="../assets/css/style.css" />
+    </head>
+    <body class="flex flex-col min-h-screen bg-gray-50">
+      <div class="container mx-auto px-4 max-w-6xl flex-grow">
+        <header class="mb-12 mt-8">
+          <div class="header-container">
+            <a href="example.html" class="back-button hover:scale-110 transform transition-all duration-300">
+              <i class="fas fa-arrow-left"></i> Retour
+            </a>
+            <img src="../assets/img/LOGO.png" alt="ISET'COM" class="max-w-[200px]" />
+          </div>
+        </header>
+    
+        <div class="developer-box bg-gradient-to-r from-blue-500 to-purple-500 text-white text-center py-3 px-6 rounded-lg shadow-lg mb-8">
+          <p class="text-xl font-bold">Example - 1ère Année, Semestre 2</p>
+          <p class="text-lg font-semibold mt-1">Développé par Amara Mehdi</p>
+        </div>
+    
+        <!-- Adaptez le contenu suivant en fonction des modules de Example, semestre 1 -->
+        <div class="glass-card">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            <!-- Exemple de Module -->
+            <div class="module-card flex flex-col items-center justify-center p-6 hover:scale-105 transition-all duration-300">
+              <i class="fas fa-pills text-4xl text-indigo-600 mb-4"></i>
+              <h3 class="text-xl font-semibold text-center">Module 1 (Example)</h3>
+              <div class="flex space-x-2 mt-4">
+                <button class="px-3 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-700" onclick="showContent('Module 1', 'examen')">
+                  Examen
+                </button>
+                <button class="px-3 py-1 bg-green-600 text-white rounded-md hover:bg-green-700" onclick="showContent('Module 1', 'tdtp')">
+                  TD+TP
+                </button>
+                <button class="px-3 py-1 bg-purple-600 text-white rounded-md hover:bg-purple-700" onclick="showContent('Module 1', 'cours')">
+                  Cours
+                </button>
+              </div>
+            </div>
+            <!-- Ajoutez autant de modules que nécessaire -->
+          </div>
+        </div>
+      </div>
+    
+      <footer class="bg-gray-800 text-gray-200 text-center text-xs py-6 mt-10 border-t border-gray-700">
+        <p>&copy; 2025 Université de Bejaia. Tous droits réservés.</p>
+        <p class="mt-2 font-semibold italic">
+          Développé par <a href="mailto:mehdi.amara@tech.univ-bejaia.dz" class="text-blue-400 hover:text-blue-500">Amara Mehdi</a>
+        </p>
+      </footer>
+    
+      <!-- Popup Structure -->
+      <div id="popup-tdtp" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg shadow-lg p-6 max-w-3xl w-full glass-card">
+            <div class="flex justify-between items-center mb-4">
+                <h2 id="popup-title-tdtp" class="text-2xl font-bold text-gray-800"></h2>
+                <button type="button" class="close-popup-btn px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700 transform transition-all duration-300">
+                    <i class="fas fa-times mr-2"></i>Fermer
+                </button>
+            </div>
+            <div id="popup-content-tdtp" class="space-y-4 popup-content"></div>
+        </div>
+      </div>
+    
+      <style>
+        /* Popup Design */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 20px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            backdrop-filter: blur(8px);
+            padding: 2rem;
+        }
+    
+        .popup-content {
+            max-height: 70vh;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(34, 197, 94, 0.5) rgba(229, 231, 235, 0.5);
+        }
+    
+        .popup-content::-webkit-scrollbar {
+            width: 8px;
+        }
+    
+        .popup-content::-webkit-scrollbar-track {
+            background: rgba(229, 231, 235, 0.5);
+            border-radius: 4px;
+        }
+    
+        .popup-content::-webkit-scrollbar-thumb {
+            background: rgba(34, 197, 94, 0.5);
+            border-radius: 4px;
+        }
+    
+        /* University Exclusive Section */
+        .university-section {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+    
+        .section-header {
+            background: rgba(229, 231, 235, 0.3);
+            border-radius: 8px 8px 0 0;
+        }
+    
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+    
+        .content-item {
+            background: white;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+            padding: 1rem;
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+    
+        .icon-wrapper {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(34, 197, 94, 0.1);
+        }
+    
+        .download-btn {
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            background: rgba(34, 197, 94, 0.1);
+            color: #22c55e;
+        }
+    
+        /* Animations */
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    
+        .content-item {
+            animation: slideIn 0.3s ease-out forwards;
+        }
+      </style>
+    
+      <script>
+        // Popup Control Logic
+        function showContent(module, type) {
+            const popup = document.getElementById(`popup-${type}`);
+            const popupTitle = document.getElementById(`popup-title-${type}`);
+            const popupContent = document.getElementById(`popup-content-${type}`);
+    
+            popupTitle.textContent = `${module} - ${type.toUpperCase()}`;
+            popupContent.innerHTML = `
+                <div class="university-section mb-6 transform transition-all duration-300 hover:scale-105 border-l-4 border-green-600">
+                    <div class="section-header bg-green-50 p-4 rounded-t-lg border-b-2 border-green-200">
+                        <h3 class="text-xl font-bold text-green-600 flex items-center gap-2">
+                            <i class="fas fa-university"></i>
+                            Université de Béjaia
+                        </h3>
+                    </div>
+                    <div class="content-grid grid gap-4 p-4">
+                        ${/* Dynamic content items would be inserted here */''}
+                    </div>
+                </div>
+            `;
+            popup.classList.remove('hidden');
+        }
+    
+        // Close Popups
+        document.querySelectorAll('.close-popup-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                btn.closest('[id^="popup-"]').classList.add('hidden');
+            });
+        });
+      </script>
+    </body>
+    </html>

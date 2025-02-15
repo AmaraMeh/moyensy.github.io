@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>SEGC - Semestre 2</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+<body class="flex flex-col min-h-screen bg-gray-50">
+  <div class="container mx-auto px-4 max-w-6xl flex-grow">
+    <header class="mb-12 mt-8">
+      <div class="header-container">
+        <a href="segc.html" class="back-button hover:scale-110 transform transition-all duration-300">
+          <i class="fas fa-arrow-left"></i> Retour
+        </a>
+        <img src="../assets/img/LOGO.png" alt="ISET'COM" class="max-w-[200px]" />
+      </div>
+    </header>
+
+    <div class="developer-box bg-gradient-to-r from-blue-500 to-purple-500 text-white text-center py-3 px-6 rounded-lg shadow-lg mb-8">
+      <p class="text-xl font-bold">SEGC - 1ère Année, Semestre 2</p>
+      <p class="text-lg font-semibold mt-1">Développé par Amara Mehdi</p>
+    </div>
+
+    <div class="glass-card">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        <!-- Langue Etrangère II -->
+        <div class="module-card flex flex-col items-center justify-center p-6 hover:scale-105 transition-all duration-300">
+          <i class="fas fa-book text-4xl text-indigo-600 mb-4"></i>
+          <h3 class="text-xl font-semibold text-center">Langue Etrangère II</h3>
+          <div class="flex space-x-2 mt-4">
+            <button class="px-3 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-700" onclick="openModal('examen')">
+              Examen
+            </button>
+            <button class="px-3 py-1 bg-green-600 text-white rounded-md hover:bg-green-700" onclick="openModal('tdtp')">
+              TD+TP
+            </button>
+            <button class="px-3 py-1 bg-purple-600 text-white rounded-md hover:bg-purple-700" onclick="openModal('cours')">
+              Cours
+            </button>
+          </div>
+        </div>
+
+        <!-- Droit Commercial -->
+        <div class="module-card flex flex-col items-center justify-center p-6 hover:scale-105 transition-all duration-300">
+          <i class="fas fa-gavel text-4xl text-indigo-600 mb-4"></i>
+          <h3 class="text-xl font-semibold text-center">Droit Commercial</h3>
+          <div class="flex space-x-2 mt-4">
+            <button class="px-3 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-700" onclick="openModal('examen')">
+              Examen
+            </button>
+            <button class="px-3 py-1 bg-green-600 text-white rounded-md hover:bg-green-700" onclick="openModal('tdtp')">
+              TD+TP
+            </button>
+            <button class="px-3 py-1 bg-purple-600 text-white rounded-md hover:bg-purple-700" onclick="openModal('cours')">
+              Cours
+            </button>
+          </div>
+        </div>
+
+        <!-- Sociologie des Organisations -->
+        <div class="module-card flex flex-col items-center justify-center p-6 hover:scale-105 transition-all duration-300">
+          <i class="fas fa-users text-4xl text-indigo-600 mb-4"></i>
+          <h3 class="text-xl font-semibold text-center">Sociologie des Organisations</h3>
+          <div class="flex space-x-2 mt-4">
+            <button class="px-3 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-700" onclick="openModal('examen')">
+              Examen
+            </button>
+            <button class="px-3 py-1 bg-green-600 text-white rounded-md hover:bg-green-700" onclick="openModal('tdtp')">
+              TD+TP
+            </button>
+            <button class="px-3 py-1 bg-purple-600 text-white rounded-md hover:bg-purple-700" onclick="openModal('cours')">
+              Cours
+            </button>
+          </div>
+        </div>
+
+        <!-- Informatique I -->
+        <div class="module-card flex flex-col items-center justify-center p-6 hover:scale-105 transition-all duration-300">
+          <i class="fas fa-desktop text-4xl text-indigo-600 mb-4"></i>
+          <h3 class="text-xl font-semibold text-center">Informatique I</h3>
+          <div class="flex space-x-2 mt-4">
+            <button class="px-3 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-700" onclick="openModal('examen')">
+              Examen
+            </button>
+            <button class="px-3 py-1 bg-green-600 text-white rounded-md hover:bg-green-700" onclick="openModal('tdtp')">
+              TD+TP
+            </button>
+            <button class="px-3 py-1 bg-purple-600 text-white rounded-md hover:bg-purple-700" onclick="openModal('cours')">
+              Cours
+            </button>
+          </div>
+        </div>
+
+        <!-- Mathématiques II -->
+        <div class="module-card flex flex-col items-center justify-center p-6 hover:scale-105 transition-all duration-300">
+          <i class="fas fa-calculator text-4xl text-indigo-600 mb-4"></i>
+          <h3 class="text-xl font-semibold text-center">Mathématiques II</h3>
+          <div class="flex space-x-2 mt-4">
+            <button class="px-3 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-700" onclick="openModal('examen')">
+              Examen
+            </button>
+            <button class="px-3 py-1 bg-green-600 text-white rounded-md hover:bg-green-700" onclick="openModal('tdtp')">
+              TD+TP
+            </button>
+            <button class="px-3 py-1 bg-purple-600 text-white rounded-md hover:bg-purple-700" onclick="openModal('cours')">
+              Cours
+            </button>
+          </div>
+        </div>
+
+        <!-- Comptabilité Générale II -->
+        <div class="module-card flex flex-col items-center justify-center p-6 hover:scale-105 transition-all duration-300">
+          <i class="fas fa-chart-line text-4xl text-indigo-600 mb-4"></i>
+          <h3 class="text-xl font-semibold text-center">Comptabilité Générale II</h3>
+          <div class="flex space-x-2 mt-4">
+            <button class="px-3 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-700" onclick="openModal('examen')">
+              Examen
+            </button>
+            <button class="px-3 py-1 bg-green-600 text-white rounded-md hover:bg-green-700" onclick="openModal('tdtp')">
+              TD+TP
+            </button>
+            <button class="px-3 py-1 bg-purple-600 text-white rounded-md hover:bg-purple-700" onclick="openModal('cours')">
+              Cours
+            </button>
+          </div>
+        </div>
+
+        <!-- Introduction au Management -->
+        <div class="module-card flex flex-col items-center justify-center p-6 hover:scale-105 transition-all duration-300">
+          <i class="fas fa-briefcase text-4xl text-indigo-600 mb-4"></i>
+          <h3 class="text-xl font-semibold text-center">Introduction au Management</h3>
+          <div class="flex space-x-2 mt-4">
+            <button class="px-3 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-700" onclick="openModal('examen')">
+              Examen
+            </button>
+            <button class="px-3 py-1 bg-green-600 text-white rounded-md hover:bg-green-700" onclick="openModal('tdtp')">
+              TD+TP
+            </button>
+            <button class="px-3 py-1 bg-purple-600 text-white rounded-md hover:bg-purple-700" onclick="openModal('cours')">
+              Cours
+            </button>
+          </div>
+        </div>
+
+        <!-- Microéconomie II -->
+        <div class="module-card flex flex-col items-center justify-center p-6 hover:scale-105 transition-all duration-300">
+          <i class="fas fa-chart-bar text-4xl text-indigo-600 mb-4"></i>
+          <h3 class="text-xl font-semibold text-center">Microéconomie II</h3>
+          <div class="flex space-x-2 mt-4">
+            <button class="px-3 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-700" onclick="openModal('examen')">
+              Examen
+            </button>
+            <button class="px-3 py-1 bg-green-600 text-white rounded-md hover:bg-green-700" onclick="openModal('tdtp')">
+              TD+TP
+            </button>
+            <button class="px-3 py-1 bg-purple-600 text-white rounded-md hover:bg-purple-700" onclick="openModal('cours')">
+              Cours
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Popup: Examen -->
+  <div id="popup-examen" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
+    <div class="bg-white rounded-lg shadow-lg p-6 max-w-3xl w-full glass-card">
+      <div class="flex justify-between items-center mb-4">
+        <h2 id="popup-title-examen" class="text-2xl font-bold text-gray-800"></h2>
+        <button type="button" class="close-popup-btn px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700 transform transition-all duration-300">
+          <i class="fas fa-times mr-2"></i>Fermer
+        </button>
+      </div>
+      <div id="popup-content-examen" class="space-y-4 popup-content"></div>
+    </div>
+  </div>
+
+  <!-- Popup: TD+TP -->
+  <div id="popup-tdtp" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
+    <div class="bg-white rounded-lg shadow-lg p-6 max-w-3xl w-full glass-card">
+      <div class="flex justify-between items-center mb-4">
+        <h2 id="popup-title-tdtp" class="text-2xl font-bold text-gray-800"></h2>
+        <button type="button" class="close-popup-btn px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700 transform transition-all duration-300">
+          <i class="fas fa-times mr-2"></i>Fermer
+        </button>
+      </div>
+      <div id="popup-content-tdtp" class="space-y-4 popup-content"></div>
+    </div>
+  </div>
+
+  <!-- Popup: Cours -->
+  <div id="popup-cours" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
+    <div class="bg-white rounded-lg shadow-lg p-6 max-w-3xl w-full glass-card">
+      <div class="flex justify-between items-center mb-4">
+        <h2 id="popup-title-cours" class="text-2xl font-bold text-gray-800"></h2>
+        <button type="button" class="close-popup-btn px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700 transform transition-all duration-300">
+          <i class="fas fa-times mr-2"></i>Fermer
+        </button>
+      </div>
+      <div id="popup-content-cours" class="space-y-4 popup-content"></div>
+    </div>
+  </div>
+
+  <!-- Ensure this script is placed after all popups in the HTML -->
+  <script>
+    const modules = {
+      'Langue Etrangère II': {
+        'cours': [
+          { title: 'Lesson 1', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=392485', description: 'Lesson 1', university: 'bejaia' },
+          { title: 'Exercise Lesson 1', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=392485', description: 'Exercise Lesson 1', university: 'bejaia' },
+          { title: 'Lesson 2', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=392486', description: 'Lesson 2', university: 'bejaia' },
+          { title: 'Exercise Lesson 2', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=396380', description: 'Exercise Lesson 2', university: 'bejaia' },
+          { title: 'Lesson 3', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=392487', description: 'Lesson 3', university: 'bejaia' },
+          { title: 'Exercise Lesson 3', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=396381', description: 'Exercise Lesson 3', university: 'bejaia' },
+          { title: 'Lesson 4', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=392488', description: 'Lesson 4', university: 'bejaia' },
+          { title: 'Exercise Lesson 4', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=396382', description: 'Exercise Lesson 4', university: 'bejaia' },
+          { title: 'Correction Tout Les Exercices', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=404158', description: 'Correction Tout Les Exercices', university: 'bejaia' }
+        ]
+      },
+      'Microéconomie II': {
+        'cours': [
+          // Bejaia content
+          { 
+            title: 'Fonction de Production', 
+            url: 'https://elearning.univ-bejaia.dz/mod/url/view.php?id=378656', 
+            description: 'Fonction de Production', 
+            university: 'bejaia' 
+          },
+          { 
+            title: 'Livre', 
+            url: 'https://elearning.univ-bejaia.dz/mod/folder/view.php?id=180097', 
+            description: 'Livre', 
+            university: 'bejaia' 
+          },
+          { 
+            title: 'Cours Hyper Complet avec des Exercices (Recommender)', 
+            url: 'https://www.youtube.com/watch?v=1fDD3zkcyTw&ab_channel=Elkhader', 
+            description: 'Cours Hyper Complet avec des Exercices', 
+            university: 'bejaia' 
+          },
+          { 
+            title: 'Cours Recommender', 
+            url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=253878', 
+            description: 'Cours Recommender', 
+            university: 'bejaia' 
+          },
+          // Tizi content
+          {
+            title: 'Chapitre 4',
+            url: 'https://teleensm.ummto.dz/mod/resource/view.php?id=34526',
+            description: 'Chapitre 4 - Université de Tizi Ouzou',
+            university: 'tizi'
+          },
+          {
+            title: 'Chapitre 5',
+            url: 'https://teleensm.ummto.dz/mod/resource/view.php?id=34527',
+            description: 'Chapitre 5 - Université de Tizi Ouzou',
+            university: 'tizi'
+          },
+          {
+            title: 'Chapitre 6',
+            url: 'https://teleensm.ummto.dz/mod/resource/view.php?id=34528',
+            description: 'Chapitre 6 - Université de Tizi Ouzou',
+            university: 'tizi'
+          },
+          {
+            title: 'Chapitre 7',
+            url: 'https://teleensm.ummto.dz/mod/resource/view.php?id=34529',
+            description: 'Chapitre 7 - Université de Tizi Ouzou',
+            university: 'tizi'
+          }
+        ],
+        'td': [
+          // Bejaia content
+          { 
+            title: 'TD1', 
+            url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=378228', 
+            description: 'TD1', 
+            university: 'bejaia' 
+          },
+          { 
+            title: 'TD (Interrogation avec Solution)', 
+            url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=341030', 
+            description: 'TD (Interrogation avec Solution)', 
+            university: 'bejaia' 
+          },
+          { 
+            title: 'TD1 (Recommender)', 
+            url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=154790', 
+            description: 'TD1 (Recommender)', 
+            university: 'bejaia' 
+          },
+          { 
+            title: 'TD1 (Recommender 2)', 
+            url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=378213', 
+            description: 'TD1 (Recommender 2)', 
+            university: 'bejaia' 
+          }
+        ],
+        'examen': [
+          {
+            title: 'Examen S2',
+            url: 'https://teleensm.ummto.dz/mod/resource/view.php?id=36748',
+            description: 'Examen Semestre 2 - Université de Tizi Ouzou',
+            university: 'tizi'
+          }
+        ]
+      },
+      'Sociologie des Organisations': {
+        'cours': [
+          // Bejaia content first
+          { 
+            title: 'Version Complet', 
+            url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=439151', 
+            description: 'Version Complet', 
+            university: 'bejaia' 
+          },
+          { 
+            title: 'Cours Version Anglais', 
+            url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=443977', 
+            description: 'Cours Version Anglais', 
+            university: 'bejaia' 
+          },
+          // Tizi content
+          {
+            title: 'Chapitre Introductif',
+            url: 'https://teleensm.ummto.dz/mod/resource/view.php?id=25109',
+            description: 'Chapitre Introductif - Université de Tizi Ouzou',
+            university: 'tizi'
+          },
+          {
+            title: 'Chapitre 1',
+            url: 'https://teleensm.ummto.dz/mod/resource/view.php?id=28448',
+            description: 'Chapitre 1 - Université de Tizi Ouzou',
+            university: 'tizi'
+          },
+          {
+            title: 'Chapitre 2',
+            url: 'https://teleensm.ummto.dz/mod/resource/view.php?id=33049',
+            description: 'Chapitre 2 - Université de Tizi Ouzou',
+            university: 'tizi'
+          },
+          {
+            title: 'Chapitre 3',
+            url: 'https://teleensm.ummto.dz/mod/resource/view.php?id=33726',
+            description: 'Chapitre 3 - Université de Tizi Ouzou',
+            university: 'tizi'
+          },
+          {
+            title: 'Chapitre 4',
+            url: 'https://teleensm.ummto.dz/mod/resource/view.php?id=34193',
+            description: 'Chapitre 4 - Université de Tizi Ouzou',
+            university: 'tizi'
+          }
+        ]
+      },
+      'Comptabilité Générale II': {
+        'cours': [
+          {
+            title: 'Chapitre 5',
+            url: 'https://teleensm.ummto.dz/mod/resource/view.php?id=23105',
+            description: 'Chapitre 5 - Université de Tizi Ouzou',
+            university: 'tizi'
+          },
+          {
+            title: 'Chapitre 6',
+            url: 'https://teleensm.ummto.dz/mod/resource/view.php?id=23612',
+            description: 'Chapitre 6 - Université de Tizi Ouzou',
+            university: 'tizi'
+          },
+          {
+            title: 'Chapitre 7',
+            url: 'https://teleensm.ummto.dz/mod/resource/view.php?id=26783',
+            description: 'Chapitre 7 - Université de Tizi Ouzou',
+            university: 'tizi'
+          }
+        ],
+        'td': [
+          // Bejaia content first
+          { 
+            title: 'TD1', 
+            url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=212673', 
+            description: 'TD1', 
+            university: 'bejaia' 
+          },
+          { 
+            title: 'Corriger TD1', 
+            url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=212674', 
+            description: 'Corriger TD1', 
+            university: 'bejaia' 
+          },
+          { 
+            title: 'TD2', 
+            url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=271853', 
+            description: 'TD2', 
+            university: 'bejaia' 
+          },
+          { 
+            title: 'Correction TD2 Premier Exercise', 
+            url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=212676', 
+            description: 'Correction TD2 Premier Exercise', 
+            university: 'bejaia' 
+          },
+          { 
+            title: 'Correction TD2', 
+            url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=222296', 
+            description: 'Correction TD2', 
+            university: 'bejaia' 
+          },
+          { 
+            title: 'TD3', 
+            url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=222293', 
+            description: 'TD3', 
+            university: 'bejaia' 
+          },
+          { 
+            title: 'Corriger TD3', 
+            url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=222293', 
+            description: 'Corriger TD3', 
+            university: 'bejaia' 
+          },
+          { 
+            title: 'Resueme Module', 
+            url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=282960', 
+            description: 'Resueme Module', 
+            university: 'bejaia' 
+          },
+          // Tizi content
+          {
+            title: 'TD 5',
+            url: 'https://teleensm.ummto.dz/mod/resource/view.php?id=23108',
+            description: 'TD Chapitre 5 - Université de Tizi Ouzou',
+            university: 'tizi'
+          },
+          {
+            title: 'Correction TD 5',
+            url: 'https://teleensm.ummto.dz/mod/resource/view.php?id=23131',
+            description: 'Correction TD Chapitre 5 - Université de Tizi Ouzou',
+            university: 'tizi'
+          },
+          {
+            title: 'TD 6',
+            url: 'https://teleensm.ummto.dz/mod/resource/view.php?id=23613',
+            description: 'TD Chapitre 6 - Université de Tizi Ouzou',
+            university: 'tizi'
+          },
+          {
+            title: 'Correction TD 6',
+            url: 'https://teleensm.ummto.dz/mod/resource/view.php?id=23615',
+            description: 'Correction TD Chapitre 6 - Université de Tizi Ouzou',
+            university: 'tizi'
+          },
+          {
+            title: 'TD 7',
+            url: 'https://teleensm.ummto.dz/mod/resource/view.php?id=26784',
+            description: 'TD Chapitre 7 - Université de Tizi Ouzou',
+            university: 'tizi'
+          },
+          {
+            title: 'Correction TD 7',
+            url: 'https://teleensm.ummto.dz/mod/resource/view.php?id=26785',
+            description: 'Correction TD Chapitre 7 - Université de Tizi Ouzou',
+            university: 'tizi'
+          }
+        ]
+      },
+      'Introduction au Management': {
+        'cours': [
+          { title: 'Cours Recommender', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=119432', description: 'Cours Recommender', university: 'bejaia' }
+        ]
+      },
+      'Mathématiques II': {
+        'cours': [
+          {
+            title: 'Chapitre 4',
+            url: 'https://teleensm.ummto.dz/mod/resource/view.php?id=34526',
+            description: 'Chapitre 4 - Université de Tizi Ouzou',
+            university: 'tizi'
+          },
+          {
+            title: 'Chapitre 5',
+            url: 'https://teleensm.ummto.dz/mod/resource/view.php?id=34527',
+            description: 'Chapitre 5 - Université de Tizi Ouzou',
+            university: 'tizi'
+          },
+          {
+            title: 'Chapitre 6',
+            url: 'https://teleensm.ummto.dz/mod/resource/view.php?id=34528',
+            description: 'Chapitre 6 - Université de Tizi Ouzou',
+            university: 'tizi'
+          },
+          {
+            title: 'Chapitre 7',
+            url: 'https://teleensm.ummto.dz/mod/resource/view.php?id=34529',
+            description: 'Chapitre 7 - Université de Tizi Ouzou',
+            university: 'tizi'
+          },
+          {
+            title: 'Examen S2',
+            url: 'https://teleensm.ummto.dz/mod/resource/view.php?id=36748',
+            description: 'Examen Semestre 2 - Université de Tizi Ouzou',
+            university: 'tizi'
+          }
+        ]
+      }
+    };
+
+    function showContent(moduleName, type) {
+      const popup = document.getElementById(`popup-${type}`);
+      const popupTitle = document.getElementById(`popup-title-${type}`);
+      const popupContent = document.getElementById(`popup-content-${type}`);
+
+      popupTitle.textContent = `${moduleName} - ${type.toUpperCase()}`;
+
+      const moduleData = Object.entries(modules).find(([name]) =>
+        name.toLowerCase() === moduleName.toLowerCase()
+      );
+
+      let bejaiaContent = '';
+      let tiziContent = '';
+      const key = type === 'tdtp' ? 'td' : type;
+
+      if (moduleData && moduleData[1][key]) {
+        // Sort items by university
+        const sortedItems = [...moduleData[1][key]].sort((a, b) => {
+          if (a.university === 'bejaia' && b.university !== 'bejaia') return -1;
+          if (a.university !== 'bejaia' && b.university === 'bejaia') return 1;
+          return 0;
+        });
+
+        sortedItems.forEach(item => {
+          const contentHtml = `
+            <div class="content-item p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+              <h4 class="text-lg font-semibold mb-2">${item.title}</h4>
+              <p class="text-gray-700 mb-2">${item.description}</p>
+              <a href="${item.url}" target="_blank" class="text-blue-500 hover:underline">
+                <span class="download-btn inline-flex items-center">
+                  <i class="fas fa-download mr-2"></i> Télécharger
+                </span>
+              </a>
+            </div>
+          `;
+
+          if (item.university === 'bejaia') {
+            bejaiaContent += contentHtml;
+          } else {
+            tiziContent += contentHtml;
+          }
+        });
+      }
+
+      // Combine content in a single popup with university sections
+      popupContent.innerHTML = `
+        ${bejaiaContent ? `
+          <div class="university-section mb-6">
+            <div class="section-header bg-green-50 p-4 rounded-t-lg border-b-2 border-green-200">
+              <h3 class="text-xl font-bold text-green-600">Université de Bejaia</h3>
+            </div>
+            <div class="section-content p-4 bg-white rounded-b-lg">
+              ${bejaiaContent}
+            </div>
+          </div>
+        ` : ''}
+        ${tiziContent ? `
+          <div class="university-section mb-6">
+            <div class="section-header bg-blue-50 p-4 rounded-t-lg border-b-2 border-blue-200">
+              <h3 class="text-xl font-bold text-blue-600">Université de Tizi Ouzou</h3>
+            </div>
+            <div class="section-content p-4 bg-white rounded-b-lg">
+              ${tiziContent}
+            </div>
+          </div>
+        ` : ''}
+      `;
+
+      popup.classList.remove('hidden');
+    }
+
+    function openModal(type) {
+      const moduleElement = event.target.closest('.module-card');
+      const moduleName = moduleElement.querySelector('h3').textContent;
+      showContent(moduleName, type);
+    }
+
+    // Attach event listeners for closing popups
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.close-popup-btn').forEach(btn => {
+        btn.addEventListener('click', event => {
+          event.preventDefault();
+          const popup = btn.closest('[id^="popup-"]');
+          if (popup) {
+            popup.classList.add('hidden');
+          }
+        });
+      });
+    });
+  </script>
+
+  <style>
+    /* Popup Design */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.5);
+      border-radius: 20px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+      backdrop-filter: blur(8px);
+      padding: 2rem;
+    }
+
+    .popup-content {
+      max-height: 70vh;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(34, 197, 94, 0.5) rgba(229, 231, 235, 0.5);
+    }
+
+    .popup-content::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .popup-content::-webkit-scrollbar-track {
+      background: rgba(229, 231, 235, 0.5);
+      border-radius: 4px;
+    }
+
+    .popup-content::-webkit-scrollbar-thumb {
+      background: rgba(34, 197, 94, 0.5);
+      border-radius: 4px;
+    }
+
+    .download-btn {
+      transition: all 0.3s ease;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      background: #22c55e; /* Solid green */
+      color: white;
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    .download-btn:hover {
+      background: #16a34a; /* Darker green on hover */
+      transform: scale(1.05);
+    }
+  </style>
+</body>
+</html>
