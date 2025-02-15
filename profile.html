@@ -10,6 +10,9 @@
     <link rel="stylesheet" href="assets/css/profile.css">
     <link rel="stylesheet" href="assets/css/auth.css">
     <link rel="stylesheet" href="assets/css/style.css">
+    <meta name="theme-color" content="#0f172a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <style>
         .glass-card {
             background: rgba(17, 24, 39, 0.3);
@@ -70,6 +73,77 @@
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
+        /* Mobile optimizations */
+        @media (max-width: 768px) {
+            .grid-cols-3 {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-section {
+                margin-bottom: 2rem;
+            }
+
+            .profile-photo-wrapper {
+                width: 120px;
+                height: 120px;
+            }
+
+            .info-item {
+                padding: 0.75rem;
+                background: rgba(255, 255, 255, 0.05);
+                border-radius: 0.5rem;
+                margin-bottom: 0.75rem;
+            }
+
+            .social-links {
+                padding-top: 1rem;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+            }
+        }
+
+        /* Fix white flash on mobile tap */
+        * {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .profile-card, 
+        .glass-card,
+        button,
+        a {
+            touch-action: manipulation;
+        }
+
+        /* Improve touch feedback */
+        .profile-card:active,
+        .glass-card:active,
+        button:active,
+        a:active {
+            background: rgba(255, 255, 255, 0.05);
+            transform: scale(0.98);
+        }
+
+        /* Enhance mobile buttons */
+        @media (max-width: 768px) {
+            .custom-button,
+            .auth-button,
+            button {
+                min-height: 44px; /* Better touch target */
+                padding: 0.75rem 1rem;
+            }
+
+            .profile-card {
+                padding: 1rem;
+            }
+
+            .info-item {
+                transition: transform 0.2s ease;
+            }
+
+            .info-item:active {
+                transform: scale(0.98);
+            }
+        }
     </style>
 </head>
 <body class="flex flex-col min-h-screen bg-gradient-to-r from-cyan-900 to-blue-900 text-white">
@@ -86,8 +160,8 @@
         </div>
     </header>
 
-    <main class="container mx-auto px-4 flex-grow flex justify-center items-center">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full">
+    <main class="container mx-auto px-4 py-8 flex-grow">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 w-full">
             <!-- Profile Section -->
             <div class="profile-section glass-card col-span-1" data-aos="fade-up">
                 <div class="profile-header">
