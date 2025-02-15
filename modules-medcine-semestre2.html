@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medcine - Semestre 2 - ISET'COM</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/popup.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css"/>
+</head>
+<body class="flex flex-col min-h-screen bg-gray-50">
+    <div class="container mx-auto px-4 max-w-6xl flex-grow">
+        <header class="mb-12 mt-8" data-aos="fade-down">
+            <div class="header-container">
+                <a href="index.html" class="back-button hover:scale-110 transform transition-all duration-300">
+                    <i class="fas fa-arrow-left"></i>
+                    Retour
+                </a>
+                <img src="../assets/img/LOGO.png" alt="ISET'COM" class="max-w-[200px]">
+            </div>
+        </header>
+
+        <!-- Boîte exclusive pour le développeur -->
+        <div class="developer-box bg-gradient-to-r from-blue-500 to-purple-500 text-white text-center py-3 px-6 rounded-lg shadow-lg mb-8">
+            <p class="text-xl font-bold">1er annes medcine</p>
+            <p class="text-lg font-semibold mt-1">Développé par Amara Mehdi</p>
+        </div>
+
+        <!-- Contenu principal sans le titre 1ère Année Médecine - Semestre 2 -->
+        <div class="glass-card" data-aos="fade-up">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                <!-- Module 1: Anatomie -->
+                <div class="module-card flex flex-col items-center justify-center p-6 hover:scale-105 transition-all duration-300">
+                    <i class="fas fa-user text-4xl text-blue-600 mb-4"></i>
+                    <h3 class="text-xl font-semibold text-center">Anatomie</h3>
+                    <div class="flex space-x-2 mt-4">
+                        <button class="px-3 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-700" onclick="showContent('Anatomie','examen')">
+                            Examen
+                        </button>
+                        <button class="px-3 py-1 bg-green-600 text-white rounded-md hover:bg-green-700" onclick="showContent('Anatomie','tdtp')">
+                            TD+TP
+                        </button>
+                        <button class="px-3 py-1 bg-purple-600 text-white rounded-md hover:bg-purple-700" onclick="showContent('Anatomie','cours')">
+                            Cours
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Module 2: Biochimie -->
+                <div class="module-card flex flex-col items-center justify-center p-6 hover:scale-105 transition-all duration-300">
+                    <i class="fas fa-flask text-4xl text-green-600 mb-4"></i>
+                    <h3 class="text-xl font-semibold text-center">Biochimie</h3>
+                    <div class="flex space-x-2 mt-4">
+                        <button class="px-3 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-700" onclick="showContent('Biochimie','examen')">
+                            Examen
+                        </button>
+                        <button class="px-3 py-1 bg-green-600 text-white rounded-md hover:bg-green-700" onclick="showContent('Biochimie','tdtp')">
+                            TD+TP
+                        </button>
+                        <button class="px-3 py-1 bg-purple-600 text-white rounded-md hover:bg-purple-700" onclick="showContent('Biochimie','cours')">
+                            Cours
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Module 3: Biophysique -->
+                <div class="module-card flex flex-col items-center justify-center p-6 hover:scale-105 transition-all duration-300">
+                    <i class="fas fa-atom text-4xl text-purple-600 mb-4"></i>
+                    <h3 class="text-xl font-semibold text-center">Biophysique</h3>
+                    <div class="flex space-x-2 mt-4">
+                        <button class="px-3 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-700" onclick="showContent('Biophysique','examen')">
+                            Examen
+                        </button>
+                        <button class="px-3 py-1 bg-green-600 text-white rounded-md hover:bg-green-700" onclick="showContent('Biophysique','tdtp')">
+                            TD+TP
+                        </button>
+                        <button class="px-3 py-1 bg-purple-600 text-white rounded-md hover:bg-purple-700" onclick="showContent('Biophysique','cours')">
+                            Cours
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Module 4: Biostatistique -->
+                <div class="module-card flex flex-col items-center justify-center p-6 hover:scale-105 transition-all duration-300">
+                    <i class="fas fa-chart-bar text-4xl text-red-600 mb-4"></i>
+                    <h3 class="text-xl font-semibold text-center">Biostatistique</h3>
+                    <div class="flex space-x-2 mt-4">
+                        <button class="px-3 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-700" onclick="showContent('Biostatistique','examen')">
+                            Examen
+                        </button>
+                        <button class="px-3 py-1 bg-green-600 text-white rounded-md hover:bg-green-700" onclick="showContent('Biostatistique','tdtp')">
+                            TD+TP
+                        </button>
+                        <button class="px-3 py-1 bg-purple-600 text-white rounded-md hover:bg-purple-700" onclick="showContent('Biostatistique','cours')">
+                            Cours
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Module 5: Informatique -->
+                <div class="module-card flex flex-col items-center justify-center p-6 hover:scale-105 transition-all duration-300">
+                    <i class="fas fa-laptop-code text-4xl text-yellow-600 mb-4"></i>
+                    <h3 class="text-xl font-semibold text-center">Informatique</h3>
+                    <div class="flex space-x-2 mt-4">
+                        <button class="px-3 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-700" onclick="showContent('Informatique','examen')">
+                            Examen
+                        </button>
+                        <button class="px-3 py-1 bg-green-600 text-white rounded-md hover:bg-green-700" onclick="showContent('Informatique','tdtp')">
+                            TD+TP
+                        </button>
+                        <button class="px-3 py-1 bg-purple-600 text-white rounded-md hover:bg-purple-700" onclick="showContent('Informatique','cours')">
+                            Cours
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Module 6: Chimie Générale -->
+                <div class="module-card flex flex-col items-center justify-center p-6 hover:scale-105 transition-all duration-300">
+                    <i class="fas fa-flask text-4xl text-pink-600 mb-4"></i>
+                    <h3 class="text-xl font-semibold text-center">Chimie Générale</h3>
+                    <div class="flex space-x-2 mt-4">
+                        <button class="px-3 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-700" onclick="showContent('Chimie Générale','examen')">
+                            Examen
+                        </button>
+                        <button class="px-3 py-1 bg-green-600 text-white rounded-md hover:bg-green-700" onclick="showContent('Chimie Générale','tdtp')">
+                            TD+TP
+                        </button>
+                        <button class="px-3 py-1 bg-purple-600 text-white rounded-md hover:bg-purple-700" onclick="showContent('Chimie Générale','cours')">
+                            Cours
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Module 7: Chimie Organique -->
+                <div class="module-card flex flex-col items-center justify-center p-6 hover:scale-105 transition-all duration-300">
+                    <i class="fas fa-vials text-4xl text-indigo-600 mb-4"></i>
+                    <h3 class="text-xl font-semibold text-center">Chimie Organique</h3>
+                    <div class="flex space-x-2 mt-4">
+                        <button class="px-3 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-700" onclick="showContent('Chimie Organique','examen')">
+                            Examen
+                        </button>
+                        <button class="px-3 py-1 bg-green-600 text-white rounded-md hover:bg-green-700" onclick="showContent('Chimie Organique','tdtp')">
+                            TD+TP
+                        </button>
+                        <button class="px-3 py-1 bg-purple-600 text-white rounded-md hover:bg-purple-700" onclick="showContent('Chimie Organique','cours')">
+                            Cours
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Module 8: Cytologie -->
+                <div class="module-card flex flex-col items-center justify-center p-6 hover:scale-105 transition-all duration-300">
+                    <i class="fas fa-microscope text-4xl text-teal-600 mb-4"></i>
+                    <h3 class="text-xl font-semibold text-center">Cytologie</h3>
+                    <div class="flex space-x-2 mt-4">
+                        <button class="px-3 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-700" onclick="showContent('Cytologie','examen')">
+                            Examen
+                        </button>
+                        <button class="px-3 py-1 bg-green-600 text-white rounded-md hover:bg-green-700" onclick="showContent('Cytologie','tdtp')">
+                            TD+TP
+                        </button>
+                        <button class="px-3 py-1 bg-purple-600 text-white rounded-md hover:bg-purple-700" onclick="showContent('Cytologie','cours')">
+                            Cours
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Module 9: Histologie -->
+                <div class="module-card flex flex-col items-center justify-center p-6 hover:scale-105 transition-all duration-300">
+                    <i class="fas fa-eye-dropper text-4xl text-orange-600 mb-4"></i>
+                    <h3 class="text-xl font-semibold text-center">Histologie</h3>
+                    <div class="flex space-x-2 mt-4">
+                        <button class="px-3 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-700" onclick="showContent('Histologie','examen')">
+                            Examen
+                        </button>
+                        <button class="px-3 py-1 bg-green-600 text-white rounded-md hover:bg-green-700" onclick="showContent('Histologie','tdtp')">
+                            TD+TP
+                        </button>
+                        <button class="px-3 py-1 bg-purple-600 text-white rounded-md hover:bg-purple-700" onclick="showContent('Histologie','cours')">
+                            Cours
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Module 10: Physiologie -->
+                <div class="module-card flex flex-col items-center justify-center p-6 hover:scale-105 transition-all duration-300">
+                    <i class="fas fa-heartbeat text-4xl text-red-500 mb-4"></i>
+                    <h3 class="text-xl font-semibold text-center">Physiologie</h3>
+                    <div class="flex space-x-2 mt-4">
+                        <button class="px-3 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-700" onclick="showContent('Physiologie','examen')">
+                            Examen
+                        </button>
+                        <button class="px-3 py-1 bg-green-600 text-white rounded-md hover:bg-green-700" onclick="showContent('Physiologie','tdtp')">
+                            TD+TP
+                        </button>
+                        <button class="px-3 py-1 bg-purple-600 text-white rounded-md hover:bg-purple-700" onclick="showContent('Physiologie','cours')">
+                            Cours
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="popup-tdtp" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg shadow-lg p-6 max-w-3xl w-full glass-card">
+            <div class="flex justify-between items-center mb-4">
+                <h2 id="popup-title-tdtp" class="text-2xl font-bold text-gray-800"></h2>
+                <button type="button" class="close-popup-btn px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700 transform transition-all duration-300">
+                    <i class="fas fa-times mr-2"></i>Fermer
+                </button>
+            </div>
+            <div id="popup-content-tdtp" class="space-y-4 popup-content"></div>
+        </div>
+    </div>
+
+    <div id="popup-examen" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg shadow-lg p-6 max-w-3xl w-full glass-card">
+            <div class="flex justify-between items-center mb-4">
+                <h2 id="popup-title-examen" class="text-2xl font-bold text-gray-800"></h2>
+                <button type="button" class="close-popup-btn px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700 transform transition-all duration-300">
+                    <i class="fas fa-times mr-2"></i>Fermer
+                </button>
+            </div>
+            <div id="popup-content-examen" class="space-y-4 popup-content"></div>
+        </div>
+    </div>
+
+    <div id="popup-cours" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg shadow-lg p-6 max-w-3xl w-full glass-card">
+            <div class="flex justify-between items-center mb-4">
+                <h2 id="popup-title-cours" class="text-2xl font-bold text-gray-800"></h2>
+                <button type="button" class="close-popup-btn px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700 transform transition-all duration-300">
+                    <i class="fas fa-times mr-2"></i>Fermer
+                </button>
+            </div>
+            <div id="popup-content-cours" class="space-y-4 popup-content"></div>
+        </div>
+    </div>
+
+    <div id="popup-compterendu" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg shadow-lg p-6 max-w-3xl w-full glass-card">
+            <div class="flex justify-between items-center mb-4">
+                <h2 id="popup-title-compterendu" class="text-2xl font-bold text-gray-800"></h2>
+                <button type="button" class="close-popup-btn px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700 transform transition-all duration-300">
+                    <i class="fas fa-times mr-2"></i>Fermer
+                </button>
+            </div>
+            <div id="popup-content-compterendu" class="space-y-4 popup-content"></div>
+        </div>
+    </div>
+
+    <footer class="bg-gray-800 text-gray-200 text-center text-xs py-6 mt-10 border-t border-gray-700">
+        <p>&copy; 2025 Université de Bejaia. Tous droits réservés.</p>
+        <p class="mt-2 font-semibold italic">
+            Développé par <a href="mailto:mehdi.amara@tech.univ-bejaia.dz" class="text-blue-400 hover:text-blue-500">Amara Mehdi</a>
+        </p>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 800, once: true });
+
+        const moduleContent = {
+            'Anatomie': {
+                'tdtp': [
+                    {
+                        title: 'TP Anatomie',
+                        url: 'https://drive.google.com/drive/mobile/folders/1kiDC21fNmc5TlIdjCtieDisgfRa8FdS3',
+                        description: 'Travaux Pratiques du module Anatomie'
+                    }
+                ],
+                'examen': [
+                    {
+                        title: 'Correction examen 2024',
+                        url: 'https://drive.google.com/file/d/11_KCq-j6nCAgRcyitwYYje0kDCP0pA45/view',
+                        description: 'Correction de l\'examen d\'Anatomie 2024'
+                    }
+                ]
+            },
+            'Biochimie': {
+                'tdtp': [
+                    {
+                        title: 'TD 1',
+                        url: 'https://drive.google.com/file/d/1kvA8Z9iPp2bCGfCI0UBpxW7kuG-Yq9ZI/view',
+                        description: 'TD Biochimie - Partie 1'
+                    },
+                    {
+                        title: 'TD 2',
+                        url: 'https://docs.google.com/document/d/1LbgHKuKjtChDtLvTcONn4EtOOAgtr5V4/edit',
+                        description: 'TD Biochimie - Partie 2'
+                    },
+                    {
+                        title: 'TD 3',
+                        url: 'https://docs.google.com/document/d/1GNbqObcz-2YkUqi0KvvRaOKjUUtITmf4/edit',
+                        description: 'TD Biochimie - Partie 3'
+                    },
+                    {
+                        title: 'Correction TD 1',
+                        url: 'https://drive.google.com/file/d/1M_4ufY5fe4UXzORSjx4pRR8sX-HRGlbd/view',
+                        description: 'Correction du TD 1'
+                    },
+                    {
+                        title: 'Correction TD 2',
+                        url: 'https://drive.google.com/file/d/1MRnJdmxOt8yzoNCXSNPWiT0i5EggDaPD/view',
+                        description: 'Correction du TD 2'
+                    }
+                ],
+                'cours': [
+                    {
+                        title: 'Les protides - Polycopié 1',
+                        url: 'https://drive.google.com/file/d/137GYztoZUufqqgLQWpPLzUee6HZFSTpy/view',
+                        description: 'Cours sur les protides - Première partie'
+                    },
+                    {
+                        title: 'Les protides - Polycopié 2',
+                        url: 'https://drive.google.com/file/d/132EYy7uuxKtIwYPDGobpo7g7kwh5Hp6Q/view',
+                        description: 'Cours sur les protides - Deuxième partie'
+                    },
+                    {
+                        title: 'Les protides - Diapos 1',
+                        url: 'https://drive.google.com/drive/folders/1i1_w5ZnfNZo_1man4C24bkkFMQQ9Kryl',
+                        description: 'Présentation sur les protides - Partie 1'
+                    },
+                    {
+                        title: 'Les protides - Diapos 2',
+                        url: 'https://drive.google.com/drive/folders/12kle6D-1F0IxPF_Z-tnEZO3P98a6gpHd',
+                        description: 'Présentation sur les protides - Partie 2'
+                    },
+                    {
+                        title: 'Les lipides - Structure',
+                        url: 'https://drive.google.com/file/d/1W8I3Qgk636WL35rBGReg9RbWn9jzJ2jG/view',
+                        description: 'Cours sur la structure des lipides'
+                    },
+                    {
+                        title: 'Enzymologie - Polycopié',
+                        url: 'https://drive.google.com/file/d/1Htqd7vvIjbqvlA0n771v5lviCN5rBY3x/view',
+                        description: 'Cours d\'enzymologie'
+                    }
+                ]
+            },
+            'Biophysique': {
+                'cours': [
+                    {
+                        title: 'Chapitre 2 - Séance 1',
+                        url: 'https://drive.google.com/file/d/1RaP8-vWRXW7co5I_4pO-vrMP8SYZIBoG/view',
+                        description: 'Première séance du chapitre 2'
+                    },
+                    {
+                        title: 'Chapitre 2 - Séance 2',
+                        url: 'https://drive.google.com/file/d/1L6MoN2HO585yWgKuxjT1WNFc22Jn3Njx/view',
+                        description: 'Deuxième séance du chapitre 2'
+                    }
+                ],
+                'tdtp': [
+                    {
+                        title: 'TD Électricité 1',
+                        url: 'https://drive.google.com/file/d/1P0M0CX9ew9rL70goEOXJJj5m1D6rjvv9/view',
+                        description: 'TD sur les phénomènes bioélectriques'
+                    },
+                    {
+                        title: 'TD Électricité 2',
+                        url: 'https://drive.google.com/file/d/1zYqeUwBDkavo38rBsfcKV9OI8clRXqLu/view',
+                        description: 'Suite des TD sur les phénomènes bioélectriques'
+                    }
+                ],
+                'examen': [
+                    {
+                        title: 'Examen 1',
+                        url: 'https://drive.google.com/file/d/17qkDRpZ3mLnR_AhkrYQS3fWQE9DgSMbE/view',
+                        description: 'Premier examen de Biophysique'
+                    },
+                    {
+                        title: 'Examen 2',
+                        url: 'https://drive.google.com/file/d/17osMqjN7Csvjs4JTUx4caeRHPiuPLqTx/view',
+                        description: 'Deuxième examen de Biophysique'
+                    }
+                ]
+            },
+            'Biostatistique': {
+                'cours': [
+                    {
+                        title: 'Chapitre 1',
+                        url: 'https://drive.google.com/drive/folders/1nnHjY5ArmsAWU7kgoOugioyXjKbq2LH-',
+                        description: 'Introduction à la biostatistique'
+                    },
+                    {
+                        title: 'Chapitre 2',
+                        url: 'https://drive.google.com/drive/folders/1Qh4jRPLmY-pw7aSWReDN-6DXXINvP_Bm',
+                        description: 'Statistiques descriptives'
+                    },
+                    {
+                        title: 'Chapitre 3',
+                        url: 'https://drive.google.com/drive/folders/1RwI9GBWF9aitx3UJGenHSyklHrVDJxf_',
+                        description: 'Probabilités et distributions'
+                    },
+                    {
+                        title: 'Chapitre 4',
+                        url: 'https://drive.google.com/drive/folders/1eCGAHg5BHm3euVAxDx0bpcEliTyWOc3v',
+                        description: 'Tests statistiques'
+                    },
+                    {
+                        title: 'Chapitre 5',
+                        url: 'https://drive.google.com/drive/folders/1m83C_DKgkm5EvPLCOyA-ENbmqW_aSZGq',
+                        description: 'Analyse de variance'
+                    },
+                    {
+                        title: 'Chapitre 6',
+                        url: 'https://drive.google.com/drive/folders/1mKzGWOauSJalMULMc7Q6wFMWf8d3fHaI',
+                        description: 'Régression et corrélation'
+                    },
+                    {
+                        title: 'Chapitre 7',
+                        url: 'https://drive.google.com/drive/folders/1mQAwyqvVuMzjphzB8MYiLgDJqZ5h7MmP',
+                        description: 'Méthodes avancées'
+                    }
+                ],
+                'examen': [
+                    {
+                        title: 'Examen et correction 2024',
+                        url: 'https://drive.google.com/file/d/1v0790GolUD3ERsrGIfHq8Gzh688vWMX1/view',
+                        description: 'Examen avec corrigé détaillé'
+                    }
+                ],
+                'tdtp': [
+                    {
+                        title: 'TD 1',
+                        url: 'https://drive.google.com/file/d/1Z2sJM_tCPEkYwVsDbFND5hD22XrrRfNW/view',
+                        description: 'Exercices de base'
+                    },
+                    {
+                        title: 'TD 2',
+                        url: 'https://drive.google.com/file/d/1W9fw8CZ0f7brfBv8mTt581dzrJEtWQBL/view',
+                        description: 'Exercices avancés'
+                    },
+                    {
+                        title: 'Corrections TD',
+                        url: 'https://drive.google.com/drive/folders/1jPFfMtivwdVtH76NzXrDwSuGCQucv2EH',
+                        description: 'Corrigés des TD'
+                    }
+                ]
+            },
+
+            'Informatique': {
+                'tdtp': [
+                    {
+                        title: 'Excel - Exercice 1',
+                        url: 'https://docs.google.com/spreadsheets/d/15d8u3r8oYaL3plG_KNbiYX5elpmqDDrI/edit',
+                        description: 'Pratique Excel - Niveau débutant'
+                    },
+                    {
+                        title: 'Excel - Exercice 2',
+                        url: 'https://docs.google.com/spreadsheets/d/15ZyNpq8ZRPx-bWCWXSae_qH0znDH6fBd/edit',
+                        description: 'Pratique Excel - Niveau intermédiaire'
+                    }
+                ]
+            },
+
+            'Chimie Générale': {
+                'cours': [
+                    {
+                        title: 'Chapitre 6',
+                        url: 'https://drive.google.com/drive/folders/1NwXD8aeUcH4t5WA_RQdUUPg9E5V7FxyW',
+                        description: 'Cours complet du chapitre 6'
+                    },
+                    {
+                        title: 'Chapitre 7',
+                        url: 'https://drive.google.com/drive/folders/1kwwAj1Aq2yvBA4oJ7zlHwYdpZt8cN6TN',
+                        description: 'Cours complet du chapitre 7'
+                    },
+                    {
+                        title: 'Chapitre 8',
+                        url: 'https://drive.google.com/drive/folders/1uA3vuHJg0Q6Zx0Y0AZsgKwdF-CUQ3u5P',
+                        description: 'Cours complet du chapitre 8'
+                    }
+                ],
+                'tdtp': [
+                    {
+                        title: 'TD 6',
+                        url: 'https://drive.google.com/file/d/1fLAB2ASfewaKjDSpLjooNp9bLJWH6lGV/view',
+                        description: 'Exercices du chapitre 6'
+                    },
+                    {
+                        title: 'TD 7',
+                        url: 'https://drive.google.com/file/d/10DnzlIb_wvFQYd4U4wp0pWXF1nf4CKcf/view',
+                        description: 'Exercices du chapitre 7'
+                    },
+                    {
+                        title: 'TD 8',
+                        url: 'https://drive.google.com/file/d/1lOoDU63oinrQeZC3S25GIC5LRB3umi6Y/view',
+                        description: 'Exercices du chapitre 8'
+                    },
+                    {
+                        title: 'TD 9',
+                        url: 'https://drive.google.com/file/d/1lJ0Wv-RBBKb9_vPBU0JQIcPyzAVjIdbP/view',
+                        description: 'Exercices du chapitre 9'
+                    }
+                ],
+                'examen': [
+                    {
+                        title: 'Examen 1',
+                        url: 'https://drive.google.com/file/d/1Wxo3c_yN8upRYYmgY653QKuyq6jGpHd2/view',
+                        description: 'Premier examen'
+                    },
+                    {
+                        title: 'Examen 2',
+                        url: 'https://drive.google.com/file/d/1UeF-3EaTV-JOqXrqdEv-KbvrSW2pWgir/view',
+                        description: 'Deuxième examen'
+                    }
+                ]
+            },
+
+            'Chimie Organique': {
+                'tdtp': [
+                    {
+                        title: 'TD 2',
+                        url: 'https://drive.google.com/file/d/1LELeQvvQ9aRdcy376hU_A9rD8c0vC2W2/view',
+                        description: 'Exercices de chimie organique'
+                    }
+                ]
+            },
+
+            'Cytologie': {
+                'cours': [
+                    {
+                        title: 'Chapitre 1',
+                        url: 'https://drive.google.com/file/d/1rKBAW3uOBPExOR6P-jocYytywA5AU9Xz/view',
+                        description: 'Introduction à la cytologie'
+                    },
+                    {
+                        title: 'Chapitre 2',
+                        url: 'https://drive.google.com/file/d/19iaXuDP77Wt01zUIIp4lEv-y17yFKPSa/view',
+                        description: 'Structure cellulaire'
+                    },
+                    {
+                        title: 'Chapitre 3',
+                        url: 'https://drive.google.com/file/d/1GyCHrD8_kJ-8QoiR5cefeFoxha47lKL5/view',
+                        description: 'Organites cellulaires'
+                    },
+                    {
+                        title: 'Chapitre 4',
+                        url: 'https://drive.google.com/file/d/1zSoLvs51t6cj-SnYX0rE7O1p-e74ejBS/view',
+                        description: 'Membrane plasmique'
+                    },
+                    {
+                        title: 'Chapitre 5',
+                        url: 'https://drive.google.com/file/d/14ZAlMnfVKKYpB2Zk-7whHfGw0WgeNa3t/view',
+                        description: 'Division cellulaire'
+                    }
+                ],
+                'tdtp': [
+                    {
+                        title: 'TD 1',
+                        url: 'https://docs.google.com/document/d/1bUsK_lZ7KffS-PcWB5clcEZGRDo35Cs6/edit',
+                        description: 'Exercices de base'
+                    },
+                    {
+                        title: 'TD 2',
+                        url: 'https://docs.google.com/document/d/1bbM_933qYIbrAPhS9lkmsId7woWF6AC5/edit',
+                        description: 'Exercices avancés'
+                    }
+                ]
+            },
+
+            'Histologie': {
+                'cours': [
+                    {
+                        title: 'Leçon 1',
+                        url: 'https://drive.google.com/drive/folders/1jZs39dWMJJd_J0WXvx5O0ahAwwIr_Vjm',
+                        description: 'Introduction à l\'histologie'
+                    },
+                    {
+                        title: 'Leçon 2',
+                        url: 'https://drive.google.com/drive/folders/1-vvYdYRnONdfmZ7GIcj8H-7DxwmvXDBA',
+                        description: 'Tissus épithéliaux'
+                    },
+                    {
+                        title: 'Leçon 3',
+                        url: 'https://drive.google.com/drive/folders/1-xx4WZHvyfZG_4IIWugtVulWIzNQpxTP',
+                        description: 'Tissus conjonctifs'
+                    },
+                    {
+                        title: 'Leçon 4',
+                        url: 'https://drive.google.com/drive/folders/19pnM4XAww10X2vBb-gkegwiiH049hypH',
+                        description: 'Tissus musculaires'
+                    },
+                    {
+                        title: 'Leçon 5',
+                        url: 'https://drive.google.com/drive/folders/1v8w5XmnDWxQh437rDj-o8-Ho0Sov9vz2',
+                        description: 'Tissus nerveux'
+                    },
+                    {
+                        title: 'Leçon 6',
+                        url: 'https://drive.google.com/drive/folders/1wGo441yA40WC7kD8Y-80pD1O-c6S0fsU',
+                        description: 'Système cardiovasculaire'
+                    },
+                    {
+                        title: 'Leçon 7',
+                        url: 'https://drive.google.com/drive/folders/1-ue-JQydznzwcIcV7gIUoHl3p0ISl1AH',
+                        description: 'Système respiratoire'
+                    },
+                    {
+                        title: 'Leçon 8',
+                        url: 'https://drive.google.com/drive/folders/1VXm9GjVvGw-XD216xwbc0W0TUuKiFdVN',
+                        description: 'Système digestif'
+                    },
+                    {
+                        title: 'Leçon 9',
+                        url: 'https://drive.google.com/drive/folders/1ntG_Z2UVm2lc-axP8r2gSJoPGXhtabpz',
+                        description: 'Système urinaire'
+                    }
+                ]
+            },
+
+            'Physiologie': {
+                'cours': [
+                    {
+                        title: 'Leçon 1',
+                        url: 'https://drive.google.com/drive/folders/1oyzKS95Q1oyvDs2NPglehdEsjfBk9OME',
+                        description: 'Introduction à la physiologie'
+                    },
+                    {
+                        title: 'Leçon 2',
+                        url: 'https://drive.google.com/drive/folders/1gPmXnjUjXI1mgYS0ziQZ4qJULOxEaKKI',
+                        description: 'Physiologie cellulaire'
+                    },
+                    {
+                        title: 'Leçon 3',
+                        url: 'https://drive.google.com/drive/folders/1pvPHe8RssGfPVQoZYWqL1SWlhMkJmOWq',
+                        description: 'Système nerveux'
+                    },
+                    {
+                        title: 'Leçon 4',
+                        url: 'https://drive.google.com/drive/folders/1P0IgpBnoA-gAqqgqNQb-FPMTDo0HxXpf',
+                        description: 'Système endocrinien'
+                    },
+                    {
+                        title: 'Leçon 5',
+                        url: 'https://drive.google.com/drive/folders/1DgflWUtD0VvjJUq47IOpmvqUGtjR84Ar',
+                        description: 'Système cardiovasculaire'
+                    },
+                    {
+                        title: 'Leçon 6',
+                        url: 'https://drive.google.com/drive/folders/1Lj3PyeBr-kphS-T7J_FRYNU0Lb967kvh',
+                        description: 'Système respiratoire'
+                    },
+                    {
+                        title: 'Leçon 7',
+                        url: 'https://drive.google.com/drive/folders/17JF3e3Ao14DroLwse-4MUQ8YtU2lY1ms',
+                        description: 'Système digestif'
+                    },
+                    {
+                        title: 'Leçon 8',
+                        url: 'https://drive.google.com/drive/folders/1dCCO8lCK65TWdcM7BFOAEJHmxPNzgmva',
+                        description: 'Système urinaire'
+                    }
+                ]
+            }
+        };
+
+        function showContent(module, type) {
+            const popup = document.getElementById(`popup-${type}`);
+            const popupTitle = document.getElementById(`popup-title-${type}`);
+            const popupContent = document.getElementById(`popup-content-${type}`);
+
+            popupTitle.textContent = `${module} - ${type.toUpperCase()}`;
+            popupContent.innerHTML = '';
+
+            // Section exclusive Université de Béjaia
+            const bejaiaSection = `
+                <div class="university-section mb-6 transform transition-all duration-300 hover:scale-105 border-l-4 border-green-600">
+                    <div class="section-header bg-green-50 p-4 rounded-t-lg border-b-2 border-green-200">
+                        <h3 class="text-xl font-bold text-green-600 flex items-center gap-2">
+                            <i class="fas fa-university"></i>
+                            Université de Béjaia
+                        </h3>
+                    </div>
+                    <div class="content-grid grid gap-4 p-4">
+                        ${moduleContent[module] && moduleContent[module][type] ? 
+                            moduleContent[module][type].map(item => `
+                                <div class="content-item bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 transform hover:scale-102 border border-gray-100">
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center gap-3">
+                                            <div class="icon-wrapper text-green-500">
+                                                <i class="fas ${getIconByType(type)} text-xl"></i>
+                                            </div>
+                                            <div class="text-content">
+                                                <h4 class="font-semibold text-gray-800">${item.title}</h4>
+                                                ${item.description ? `<p class="text-sm text-gray-500">${item.description}</p>` : ''}
+                                            </div>
+                                        </div>
+                                        <a href="${item.url}" target="_blank" 
+                                           class="download-btn bg-green-50 hover:bg-green-100 text-green-600 px-4 py-2 rounded-full flex items-center gap-2 transition-all duration-300">
+                                            <span class="text-sm">Télécharger</span>
+                                            <i class="fas fa-download"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            `).join('') 
+                            : '<p class="text-gray-500 italic p-4">Contenu à venir...</p>'
+                        }
+                    </div>
+                </div>
+            `;
+
+            popupContent.innerHTML = bejaiaSection;
+            popup.classList.remove('hidden');
+        }
+
+        // Helper function to get appropriate icon based on content type
+        function getIconByType(type) {
+            const icons = {
+                'cours': 'fa-book',
+                'tdtp': 'fa-pencil-alt',
+                'examen': 'fa-file-alt',
+                'compterendu': 'fa-clipboard'
+            };
+            return icons[type] || 'fa-file';
+        }
+
+        // Close popup when clicking the close button
+        document.querySelectorAll('.close-popup-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                btn.closest('[id^="popup-"]').classList.add('hidden');
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Ajouter les listeners pour tous les boutons de fermeture
+            const closeButtons = document.querySelectorAll('.close-popup-btn');
+            closeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const popup = this.closest('[id^="popup-"]');
+                    if (popup) {
+                        popup.classList.add('hidden');
+                    }
+                });
+            });
+
+            // Fermer le popup en cliquant en dehors
+            const popups = document.querySelectorAll('[id^="popup-"]');
+            popups.forEach(popup => {
+                popup.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        this.classList.add('hidden');
+                    }
+                });
+            });
+        });
+    </script>
+
+    <style>
+        .module-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .module-card:hover {
+            box-shadow: 0 8px 12px rgba(0,0,0,0.15);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 20px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            backdrop-filter: blur(8px);
+            padding: 2rem;
+        }
+        .close-popup-btn:hover {
+            transform: scale(1.05);
+        }
+        .popup-content {
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+
+        .university-section {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .university-section:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+        }
+
+        .university-section h3 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .university-section h3::before {
+            content: '';
+            width: 4px;
+            height: 1.5rem;
+            background-color: currentColor;
+            border-radius: 2px;
+        }
+
+        .university-section a {
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            padding: 0.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .university-section a:hover {
+            background: rgba(59, 130, 246, 0.1);
+            transform: translateX(10px);
+        }
+
+        .exclusive-2025 {
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        .exclusive-link {
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .exclusive-link:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        @keyframes glow {
+            from {
+                box-shadow: 0 0 5px rgba(34, 197, 94, 0.2);
+            }
+            to {
+                box-shadow: 0 0 20px rgba(34, 197, 94, 0.4);
+            }
+        }
+
+        .recommended-content {
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .recommended-link {
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .recommended-link:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.02);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+
+        .content-item {
+            background: white;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .content-item:hover {
+            transform: translateY(-2px);
+        }
+
+        .icon-wrapper {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(34, 197, 94, 0.1);
+        }
+
+        .download-btn {
+            font-size: 0.875rem;
+            transition: all 0.3s ease;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-1px);
+        }
+
+        /* Animations */
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .content-item {
+            animation: slideIn 0.3s ease-out forwards;
+        }
+
+        /* Scroll styling */
+        .popup-content {
+            scrollbar-width: thin;
+            scrollbar-color: rgba(34, 197, 94, 0.5) rgba(229, 231, 235, 0.5);
+        }
+
+        .popup-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .popup-content::-webkit-scrollbar-track {
+            background: rgba(229, 231, 235, 0.5);
+            border-radius: 4px;
+        }
+
+        .popup-content::-webkit-scrollbar-thumb {
+            background: rgba(34, 197, 94, 0.5);
+            border-radius: 4px;
+        }
+
+        .popup-content::-webkit-scrollbar-thumb:hover {
+            background: rgba(34, 197, 94, 0.7);
+        }
+    </style>
+</body>
+</html>
