@@ -6,6 +6,8 @@
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <link rel="stylesheet" href="../assets/css/style.css" />
+  <!-- Add viewport meta tag for proper mobile rendering -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 </head>
 <body class="flex flex-col min-h-screen bg-gray-50">
   <div class="container mx-auto px-4 max-w-6xl flex-grow">
@@ -596,6 +598,37 @@
         });
       });
     });
+
+    // Add to your existing JavaScript
+    document.addEventListener('DOMContentLoaded', () => {
+      // Prevent zoom on double tap
+      let lastTouchEnd = 0;
+      document.addEventListener('touchend', (event) => {
+        const now = Date.now();
+        if (now - lastTouchEnd <= 300) {
+          event.preventDefault();
+        }
+        lastTouchEnd = now;
+      }, false);
+
+      // Add loading state to download buttons
+      document.addEventListener('click', (e) => {
+        if (e.target.closest('.download-btn')) {
+          const btn = e.target.closest('.download-btn');
+          btn.classList.add('loading');
+          setTimeout(() => btn.classList.remove('loading'), 2000);
+        }
+      });
+
+      // Close popup on backdrop click
+      document.querySelectorAll('[id^="popup-"]').forEach(popup => {
+        popup.addEventListener('click', (e) => {
+          if (e.target === popup) {
+            popup.classList.add('hidden');
+          }
+        });
+      });
+    });
   </script>
 
   <style>
@@ -643,6 +676,133 @@
     .download-btn:hover {
       background: #16a34a; /* Darker green on hover */
       transform: scale(1.05);
+    }
+
+    /* Add these mobile-specific styles */
+    @media (max-width: 768px) {
+      .container {
+        padding: 0.5rem;
+      }
+
+      .header-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .back-button {
+        position: absolute;
+        left: 1rem;
+        top: 1rem;
+      }
+
+      .module-card {
+        padding: 1rem;
+      }
+
+      .module-card .flex {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .module-card button {
+        width: 100%;
+        padding: 0.75rem;
+      }
+
+      .glass-card {
+        padding: 1rem;
+      }
+
+      .popup-content {
+        max-height: 80vh;
+      }
+
+      .content-item {
+        padding: 1rem;
+      }
+
+      .download-btn {
+        width: 100%;
+        justify-content: center;
+        margin-top: 0.5rem;
+      }
+
+      /* Improve popup layout on mobile */
+      .bg-white.rounded-lg {
+        width: 95%;
+        margin: 1rem;
+        max-height: 90vh;
+      }
+
+      /* Adjust text sizes for mobile */
+      .text-2xl {
+        font-size: 1.25rem;
+      }
+
+      .text-xl {
+        font-size: 1.1rem;
+      }
+
+      /* Make close button more accessible on mobile */
+      .close-popup-btn {
+        padding: 0.5rem 1rem;
+      }
+
+      /* Improve spacing in popup content */
+      .section-header {
+        padding: 0.75rem;
+      }
+
+      .section-content {
+        padding: 0.75rem;
+      }
+
+      /* Fix university section headers on mobile */
+      .university-section {
+        margin-bottom: 1rem;
+      }
+
+      /* Adjust developer box for mobile */
+      .developer-box {
+        margin: 0.5rem;
+        padding: 0.75rem;
+      }
+
+      /* Make icons smaller on mobile */
+      .text-4xl {
+        font-size: 1.75rem;
+      }
+    }
+
+    /* Add touch-friendly styles */
+    @media (hover: none) {
+      .module-card:hover {
+        transform: none;
+      }
+
+      .download-btn:hover {
+        transform: none;
+      }
+
+      .download-btn:active {
+        background: #16a34a;
+      }
+
+      button:active {
+        transform: scale(0.98);
+      }
+    }
+
+    /* Improve scrolling on mobile */
+    .popup-content {
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* Add loading state for downloads */
+    .download-btn.loading {
+      opacity: 0.7;
+      cursor: wait;
     }
   </style>
 </body>
