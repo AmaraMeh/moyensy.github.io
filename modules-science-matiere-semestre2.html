@@ -3,137 +3,449 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Science de la matière - Semestre 2 - ISET'COM</title>
+    <title>Science de La matiere - Semestre 2 - ISET'COM</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/popup.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css"/>
 </head>
 <body class="flex flex-col min-h-screen bg-gray-50">
     <div class="container mx-auto px-4 max-w-6xl flex-grow">
         <header class="mb-12 mt-8" data-aos="fade-down">
             <div class="header-container">
-                <a href="specialite-science-matiere.html" class="back-button hover:scale-110 transform transition-all duration-300">
+                <a href="bib.html" class="back-button hover:scale-110 transform transition-all duration-300">
                     <i class="fas fa-arrow-left"></i>
                     Retour
                 </a>
-                <img src="assets/img/LOGO.png" alt="ISET'COM" class="max-w-[200px]">
+                <img src="../assets/img/LOGO.png" alt="ISET'COM" class="max-w-[200px]">
             </div>
         </header>
 
+        <!-- Boîte exclusive pour le développeur -->
+        <div class="developer-box bg-gradient-to-r from-blue-500 to-purple-500 text-white text-center py-3 px-6 rounded-lg shadow-lg mb-8">
+            <p class="text-xl font-bold">1ère année Science de La matiere</p>
+            <p class="text-lg font-semibold mt-1">Développé par Amara Mehdi</p>
+        </div>
+
+        <!-- Contenu principal -->
         <div class="glass-card" data-aos="fade-up">
-            <h1 class="text-3xl font-bold mb-8 text-center text-gray-800">Science de la matière - Semestre 2</h1>
-            
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                <div class="module-card bg-white shadow-lg rounded-lg p-6 hover:shadow-xl transition-shadow duration-300">
-                    <h3 class="text-xl font-semibold mb-2">Mathématiques 2 / Analyse & Algèbre 2</h3>
-                    <p>Coefficient: 3</p>
-                    <p>Crédits: 6</p>
-                    <p>Évaluations: TD, Examen</p>
-                    <div class="flex space-x-4 mt-4">
-                        <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" onclick="showContent('tdtp')">TD+TP</button>
-                        <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700" onclick="showContent('examen')">Examen</button>
-                        <button class="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-700" onclick="showContent('cours')">Cours</button>
+                <!-- Math 2 -->
+                <div class="module-card flex flex-col items-center justify-center p-6 hover:scale-105 transition-all duration-300">
+                    <i class="fas fa-calculator text-4xl text-blue-600 mb-4"></i>
+                    <h3 class="text-xl font-semibold text-center">Math 2</h3>
+                    <div class="flex space-x-2 mt-4">
+                        <button class="px-3 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-700" onclick="showContent('Math 2', 'examen')">Examen</button>
+                        <button class="px-3 py-1 bg-green-600 text-white rounded-md hover:bg-green-700" onclick="showContent('Math 2', 'tdtp')">TD</button>
+                        <button class="px-3 py-1 bg-purple-600 text-white rounded-md hover:bg-purple-700" onclick="showContent('Math 2', 'cours')">Cours</button>
                     </div>
                 </div>
-                <div class="module-card bg-white shadow-lg rounded-lg p-6 hover:shadow-xl transition-shadow duration-300">
-                    <h3 class="text-xl font-semibold mb-2">Physique 2 / Électromagnétisme</h3>
-                    <p>Coefficient: 3</p>
-                    <p>Crédits: 6</p>
-                    <p>Évaluations: TD, Examen</p>
-                    <div class="flex space-x-4 mt-4">
-                        <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" onclick="showContent('tdtp')">TD+TP</button>
-                        <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700" onclick="showContent('examen')">Examen</button>
-                        <button class="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-700" onclick="showContent('cours')">Cours</button>
+
+                <!-- Chimie 2 -->
+                <div class="module-card flex flex-col items-center justify-center p-6 hover:scale-105 transition-all duration-300">
+                    <i class="fas fa-flask text-4xl text-green-600 mb-4"></i>
+                    <h3 class="text-xl font-semibold text-center">Chimie 2</h3>
+                    <div class="flex space-x-2 mt-4">
+                        <button class="px-3 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-700" onclick="showContent('Chimie 2', 'examen')">Examen</button>
+                        <button class="px-3 py-1 bg-green-600 text-white rounded-md hover:bg-green-700" onclick="showContent('Chimie 2', 'tdtp')">TD</button>
+                        <button class="px-3 py-1 bg-purple-600 text-white rounded-md hover:bg-purple-700" onclick="showContent('Chimie 2', 'cours')">Cours</button>
                     </div>
                 </div>
-                <div class="module-card bg-white shadow-lg rounded-lg p-6 hover:shadow-xl transition-shadow duration-300">
-                    <h3 class="text-xl font-semibold mb-2">Chimie 2 / Thermodynamique</h3>
-                    <p>Coefficient: 3</p>
-                    <p>Crédits: 6</p>
-                    <p>Évaluations: TD, Examen</p>
-                    <div class="flex space-x-4 mt-4">
-                        <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" onclick="showContent('tdtp')">TD+TP</button>
-                        <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700" onclick="showContent('examen')">Examen</button>
-                        <button class="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-700" onclick="showContent('cours')">Cours</button>
+
+                <!-- Physique 2 -->
+                <div class="module-card flex flex-col items-center justify-center p-6 hover:scale-105 transition-all duration-300">
+                    <i class="fas fa-atom text-4xl text-red-600 mb-4"></i>
+                    <h3 class="text-xl font-semibold text-center">Physique 2</h3>
+                    <div class="flex space-x-2 mt-4">
+                        <button class="px-3 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-700" onclick="showContent('Physique 2', 'examen')">Examen</button>
+                        <button class="px-3 py-1 bg-green-600 text-white rounded-md hover:bg-green-700" onclick="showContent('Physique 2', 'tdtp')">TD</button>
+                        <button class="px-3 py-1 bg-purple-600 text-white rounded-md hover:bg-purple-700" onclick="showContent('Physique 2', 'cours')">Cours</button>
                     </div>
                 </div>
-                <div class="module-card bg-white shadow-lg rounded-lg p-6 hover:shadow-xl transition-shadow duration-300">
-                    <h3 class="text-xl font-semibold mb-2">TP Électromagnétisme</h3>
-                    <p>Coefficient: 1</p>
-                    <p>Crédits: 2</p>
-                    <p>Évaluations: TP, Examen</p>
-                    <div class="flex space-x-4 mt-4">
-                        <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" onclick="showContent('tdtp')">TD+TP</button>
-                        <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700" onclick="showContent('examen')">Examen</button>
-                        <button class="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-700" onclick="showContent('cours')">Cours</button>
+
+                <!-- TP Physique 2 -->
+                <div class="module-card flex flex-col items-center justify-center p-6 hover:scale-105 transition-all duration-300">
+                    <i class="fas fa-microscope text-4xl text-purple-600 mb-4"></i>
+                    <h3 class="text-xl font-semibold text-center">TP Physique 2</h3>
+                    <div class="flex space-x-2 mt-4">
+                        <button class="px-3 py-1 bg-green-600 text-white rounded-md hover:bg-green-700" onclick="showContent('TP Physique 2', 'tdtp')">TP</button>
                     </div>
                 </div>
-                <div class="module-card bg-white shadow-lg rounded-lg p-6 hover:shadow-xl transition-shadow duration-300">
-                    <h3 class="text-xl font-semibold mb-2">TP Chimie 2</h3>
-                    <p>Coefficient: 1</p>
-                    <p>Crédits: 2</p>
-                    <p>Évaluations: TP, Examen</p>
-                    <div class="flex space-x-4 mt-4">
-                        <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" onclick="showContent('tdtp')">TD+TP</button>
-                        <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700" onclick="showContent('examen')">Examen</button>
-                        <button class="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-700" onclick="showContent('cours')">Cours</button>
-                    </div>
-                </div>
-                <div class="module-card bg-white shadow-lg rounded-lg p-6 hover:shadow-xl transition-shadow duration-300">
-                    <h3 class="text-xl font-semibold mb-2">Informatique 2 / Programmation</h3>
-                    <p>Coefficient: 2</p>
-                    <p>Crédits: 4</p>
-                    <p>Évaluations: TP, Examen</p>
-                    <div class="flex space-x-4 mt-4">
-                        <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" onclick="showContent('tdtp')">TD+TP</button>
-                        <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700" onclick="showContent('examen')">Examen</button>
-                        <button class="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-700" onclick="showContent('cours')">Cours</button>
-                    </div>
-                </div>
-                <div class="module-card bg-white shadow-lg rounded-lg p-6 hover:shadow-xl transition-shadow duration-300">
-                    <h3 class="text-xl font-semibold mb-2">Projet Tutoré</h3>
-                    <p>Coefficient: 1</p>
-                    <p>Crédits: 2</p>
-                    <p>Évaluations: Examen</p>
-                    <div class="flex space-x-4 mt-4">
-                        <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" onclick="showContent('tdtp')">TD+TP</button>
-                        <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700" onclick="showContent('examen')">Examen</button>
-                        <button class="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-700" onclick="showContent('cours')">Cours</button>
-                    </div>
-                </div>
-                <div class="module-card bg-white shadow-lg rounded-lg p-6 hover:shadow-xl transition-shadow duration-300">
-                    <h3 class="text-xl font-semibold mb-2">Langues étrangères 2</h3>
-                    <p>Coefficient: 1</p>
-                    <p>Crédits: 2</p>
-                    <p>Évaluations: Examen</p>
-                    <div class="flex space-x-4 mt-4">
-                        <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" onclick="showContent('tdtp')">TD+TP</button>
-                        <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700" onclick="showContent('examen')">Examen</button>
-                        <button class="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-700" onclick="showContent('cours')">Cours</button>
+
+                <!-- TP Chimie 2 -->
+                <div class="module-card flex flex-col items-center justify-center p-6 hover:scale-105 transition-all duration-300">
+                    <i class="fas fa-vial text-4xl text-yellow-600 mb-4"></i>
+                    <h3 class="text-xl font-semibold text-center">TP Chimie 2</h3>
+                    <div class="flex space-x-2 mt-4">
+                        <button class="px-3 py-1 bg-green-600 text-white rounded-md hover:bg-green-700" onclick="showContent('TP Chimie 2', 'tdtp')">TP</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <footer class="text-center text-gray-600 text-sm py-4">
-        <div>&copy; 2025 Université de Bejaia. Développé par Amara Mehdi <a href="mailto:mehdi.amara@tech.univ-bejaia.dz" class="text-blue-500 hover:text-blue-700">Amara Mehdi</a></div>
+    <footer class="bg-gray-800 text-gray-200 text-center text-xs py-6 mt-10 border-t border-gray-700">
+        <p>&copy; 2025 Université de Bejaia. Tous droits réservés.</p>
+        <p class="mt-2 font-semibold italic">
+            Développé par <a href="mailto:mehdi.amara@tech.univ-bejaia.dz" class="text-blue-400 hover:text-blue-500">Amara Mehdi</a>
+        </p>
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({
-            duration: 800,
-            once: true
+        AOS.init({ duration: 800, once: true });
+    </script>
+
+    <style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 20px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            backdrop-filter: blur(8px);
+            padding: 2rem;
+        }
+        
+        .developer-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .back-button {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .glass-card {
+                padding: 1rem;
+            }
+        }
+
+        .module-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .module-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        #popup {
+            z-index: 1000;
+        }
+
+        #popup-content {
+            scrollbar-width: thin;
+            scrollbar-color: rgba(156, 163, 175, 0.5) transparent;
+        }
+
+        #popup-content::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        #popup-content::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        #popup-content::-webkit-scrollbar-thumb {
+            background-color: rgba(156, 163, 175, 0.5);
+            border-radius: 3px;
+        }
+
+        .popup-content {
+            max-height: 70vh;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(34, 197, 94, 0.5) rgba(229, 231, 235, 0.5);
+        }
+
+        .close-popup-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .university-section {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+    </style>
+
+    <!-- Replace the existing popup div with these new popup divs -->
+    <div id="popup-tdtp" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg shadow-lg p-6 max-w-3xl w-full glass-card">
+            <div class="flex justify-between items-center mb-4">
+                <h2 id="popup-title-tdtp" class="text-2xl font-bold text-gray-800"></h2>
+                <button type="button" class="close-popup-btn px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700 transform transition-all duration-300">
+                    <i class="fas fa-times mr-2"></i>Fermer
+                </button>
+            </div>
+            <div id="popup-content-tdtp" class="space-y-4 popup-content"></div>
+        </div>
+    </div>
+
+    <!-- Add the other popup divs for examen, cours, and compterendu -->
+    <div id="popup-examen" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg shadow-lg p-6 max-w-3xl w-full glass-card">
+            <div class="flex justify-between items-center mb-4">
+                <h2 id="popup-title-examen" class="text-2xl font-bold text-gray-800"></h2>
+                <button type="button" class="close-popup-btn px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700 transform transition-all duration-300">
+                    <i class="fas fa-times mr-2"></i>Fermer
+                </button>
+            </div>
+            <div id="popup-content-examen" class="space-y-4 popup-content"></div>
+        </div>
+    </div>
+
+    <div id="popup-cours" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg shadow-lg p-6 max-w-3xl w-full glass-card">
+            <div class="flex justify-between items-center mb-4">
+                <h2 id="popup-title-cours" class="text-2xl font-bold text-gray-800"></h2>
+                <button type="button" class="close-popup-btn px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700 transform transition-all duration-300">
+                    <i class="fas fa-times mr-2"></i>Fermer
+                </button>
+            </div>
+            <div id="popup-content-cours" class="space-y-4 popup-content"></div>
+        </div>
+    </div>
+
+    <div id="popup-compterendu" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg shadow-lg p-6 max-w-3xl w-full glass-card">
+            <div class="flex justify-between items-center mb-4">
+                <h2 id="popup-title-compterendu" class="text-2xl font-bold text-gray-800"></h2>
+                <button type="button" class="close-popup-btn px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700 transform transition-all duration-300">
+                    <i class="fas fa-times mr-2"></i>Fermer
+                </button>
+            </div>
+            <div id="popup-content-compterendu" class="space-y-4 popup-content"></div>
+        </div>
+    </div>
+
+    <script>
+        const moduleContent = {
+            'Math 2': {
+                'examen': [
+                    // Bejaia Exams
+                    {title: 'Examen Béjaia 1', url: 'https://drive.google.com/file/d/1o7L7xf7D1s3koJK3CBk96f0DWK1xRjLf/view'},
+                    {title: 'Examen Béjaia 2', url: 'https://drive.google.com/file/d/1lnGPSv6wEgVEi5Q4ThwQzmrGxAlxzvR1/view'},
+                    // Boumerdes Exams
+                    {title: 'Examen Boumerdes 1', url: 'https://drive.google.com/file/d/1rGBBw5br7fm_sHahfAWgYQLYN5AmsYON/view'},
+                    {title: 'Examen Boumerdes 2', url: 'https://drive.google.com/file/d/15X0o8eOYRp4lW5B7ftlAdAsbs3SOlqUp/view'},
+                    {title: 'Examen Boumerdes 3', url: 'https://drive.google.com/file/d/1Ffo2tToqUSkZ5ttZobbkc-ySd1BZ4Y66/view'},
+                    {title: 'Examen Boumerdes 4', url: 'https://drive.google.com/file/d/18KQdQxu1ShFd14Fo_umMR7jOen5-CbNf/view'},
+                    {title: 'Examen Boumerdes 5', url: 'https://drive.google.com/file/d/14xCCVHnjhuWeU6NMxiknGPUDwa5lwkWk/view'},
+                    {title: 'Examen Boumerdes 6', url: 'https://drive.google.com/file/d/1j-qzjWTRt0nchcmr7LF5Fpt0UiUncs10/view'},
+                    {title: 'Examen Boumerdes 7', url: 'https://drive.google.com/file/d/1AWtVMNvLxM9aGZnlzayG1LInmpYLa6s4/view'},
+                    {title: 'Examen Boumerdes 8', url: 'https://drive.google.com/file/d/1QP8dAZpuzFbzpbKQPOUWlxm89Sg7MSKW/view'},
+                    {title: 'Examen Boumerdes 9', url: 'https://drive.google.com/file/d/10scYmIV_j8DgwVqUoJY_J3D2cyqXmjvi/view'},
+                    {title: 'Examen Boumerdes 10', url: 'https://drive.google.com/file/d/19e11OQ6g0lCYVVgetgDjjjsM6jg0g4j_/view'}
+                ],
+                'cours': [
+                    // General Courses
+                    {title: 'Cours 1', url: 'https://drive.google.com/file/d/1YxBe8JQHGHXzjdt_4PqxRhR0wSIZvuej/view'},
+                    {title: 'Cours 2', url: 'https://drive.google.com/file/d/1lQt24-OaElLSdVGqbkaJP4OM_79PHVIo/view'},
+                    // Specific Topics
+                    {title: 'Equations Différentielles', url: 'https://drive.google.com/drive/folders/1iOeShfrebFAPILYWX7F00GDsbtz7ExIy'},
+                    {title: 'Intégrales', url: 'https://drive.google.com/drive/folders/1G3BtLd0rShPOc40V3g_EGHl0CXXbCY38'},
+                    {title: 'Matrices', url: 'https://drive.google.com/drive/folders/16P5Q69akSsfuVuAIC2OA2-oaKuGA3xWB'},
+                    // Numbered Courses
+                    {title: 'Cours Chapitre 1', url: 'https://drive.google.com/file/d/1sQDSXUrgN_iPrHDBhff_aWcZrtjQ3-W2/view'},
+                    {title: 'Cours Chapitre 2', url: 'https://drive.google.com/file/d/1LxJBlpF27KWX6wofRNCjwlo_jYv5qb8I/view'},
+                    {title: 'Cours Chapitre 4', url: 'https://drive.google.com/file/d/13rv2iLf2Y6E0QYevQhknL-xotLA_3NwK/view'},
+                    {title: 'Cours Chapitre 5', url: 'https://drive.google.com/file/d/1wvkuYvnGnVmOD1TgyHngKw3uxZvlnNF4/view'},
+                    {title: 'Cours Chapitre 6', url: 'https://drive.google.com/file/d/18lhoJmZpe4-NbGM2XRpDCdYOK9GunZw9/view'},
+                    {title: 'Cours Chapitre 7', url: 'https://drive.google.com/file/d/1bk2SjZAZACsQ04xrtwdp5HYPWFHK7qD9/view'},
+                    {title: 'Cours Chapitre 8', url: 'https://drive.google.com/file/d/1c20PPyPxAuO4eqElRPxGwQb14rAvqJ6R/view'}
+                ],
+                'tdtp': [
+                    // Series Integrals
+                    {title: 'Séries Intégrales 1', url: 'https://drive.google.com/file/d/1H0JykHwG-vZTG-V8uUjwVquMw7Oq2qsp/view'},
+                    {title: 'Séries Intégrales 2', url: 'https://drive.google.com/file/d/10rDtV6dAUk6yuaMwl_xflfMEfS1xX_R9/view'},
+                    {title: 'Séries Intégrales 3', url: 'https://drive.google.com/file/d/1v7IqKqb5ZUAkqlVqC-B0Q90X5AENvQRx/view'},
+                    {title: 'Séries Intégrales 4', url: 'https://drive.google.com/file/d/1kOIPW0Gqoey7JmUr44ZslV9U-IkNnzER/view'},
+                    // Series TD Matrices
+                    {title: 'TD Matrices 1', url: 'https://drive.google.com/file/d/1vM3xxpRHlFv8sCFmvDLHrcTEcCoFm1JH/view'},
+                    {title: 'TD Matrices 2', url: 'https://drive.google.com/file/d/1H3KgigSG85vN0cy7ETCwI4Bky8AXu-YG/view'},
+                    {title: 'TD Matrices 3', url: 'https://drive.google.com/file/d/1Cf7oNlJCdJLZkhxdUCrlsZMlIVq0NDAk/view'},
+                    // TD Equations Différentielles
+                    {title: 'TD Equations Diff 1', url: 'https://drive.google.com/file/d/1NtfOENrYoo0EF8T4kAhgIyfSs9-QYmV8/view'},
+                    {title: 'TD Equations Diff 2', url: 'https://drive.google.com/file/d/1UrYEBPAfVvy1RWdd2T0HM_PfaQj0rScq/view'},
+                    {title: 'TD Equations Diff 3', url: 'https://drive.google.com/file/d/1b9n9XTB7BHMtv4QnIHcNU4rnT-ntmJVa/view'},
+                    {title: 'TD Equations Diff 4', url: 'https://drive.google.com/file/d/1eKjSYRi3glRor1Lf-wacUvfipHOa7juh/view'},
+                    {title: 'TD Equations Diff 5', url: 'https://drive.google.com/file/d/1PdtxQV8wPlKMN-4UsMeJfdKaJv6wnx9l/view'},
+                    {title: 'TD Equations Diff 6', url: 'https://drive.google.com/file/d/1oVZkzsGf5dw_0MNmRe3TZaPD9yLnln5Z/view'},
+                    {title: 'TD Equations Diff 7', url: 'https://drive.google.com/file/d/1Y1wI9pAkKhZwnl1d5MaD9yJjZDifpf5x/view'}
+                ]
+            },
+            'Chimie 2': {
+                'cours': [
+                    // Main Courses
+                    {title: 'Cours 1', url: 'https://drive.google.com/file/d/1gGOKPqUntnFiCQaH04u4dy9Frg9dhviS/view'},
+                    {title: 'Cours 2', url: 'https://drive.google.com/file/d/1S3JVaiNzzY2uoKceG0X-LZKWbMSc2ppe/view'},
+                    {title: 'Cours 3', url: 'https://drive.google.com/file/d/1lo1ztborTjw9QJsWvImxppQQmrxplZAh/view'},
+                    {title: 'Cours 4', url: 'https://drive.google.com/file/d/1sWKYgojaaLg2SrJZHrDEq-q0bom992i-/view'},
+                    {title: 'Cours 5', url: 'https://drive.google.com/file/d/1sdS_m1o8ADAUpgs_i0OWNKEAWXv6g8KY/view'},
+                    {title: 'Cours 6', url: 'https://drive.google.com/file/d/1pj62NesRhGkZQL8xuvKrhFcXtlP-L3zw/view'},
+                    // Recommended Courses
+                    {title: 'Cours Recommandé 1', url: 'https://drive.google.com/file/d/1wLb4gI7CjkmEH-HHK__ofqTKCB9BMpiH/view'},
+                    {title: 'Cours Recommandé 2', url: 'https://drive.google.com/file/d/1gIhL2Y-08-SlFneHNZ2evG8PtgRBCWDl/view'},
+                    // Additional Resources
+                    {title: 'Cahier de Cours - Mme Kellou', url: 'https://drive.google.com/drive/folders/1WqT4epkqd7KBfOYgiT9vJpaL2ammj6zH'},
+                    {title: 'Résumé Chimie', url: 'https://drive.google.com/drive/folders/1m5Tv1rdE7f06o8lZ7p0yEU-EbuzuGN_l'}
+                ],
+                'tdtp': [
+                    {title: 'TD 1', url: 'https://drive.google.com/drive/folders/1jmtmjY0aY6xygzzAD_YWb839GK8GRDL1'},
+                    {title: 'TD 2', url: 'https://drive.google.com/drive/folders/1t9ATG7DhXNr89dL8CDOkGG7JceC69TXi'},
+                    {title: 'TD 3', url: 'https://drive.google.com/drive/folders/1SipjdvP_sS1WyXjzx6CqDzIr3G74PBFP'},
+                    {title: 'TD 4', url: 'https://drive.google.com/drive/folders/1jqKPEnCwXDSZJvR83llRV-gN3jQBKtYY'},
+                    {title: 'TD 5', url: 'https://drive.google.com/drive/folders/1RkskqrRkotgx64efE78OYMJu2T0hFjLS'},
+                    {title: 'TD 6', url: 'https://drive.google.com/drive/folders/1n0rL772qXPSCrUiZmDBZ3GNfHDtN3Agv'},
+                    {title: 'TD 7', url: 'https://drive.google.com/drive/folders/1Tt6XeWP_JM5tdv3_NwfgANahJ2syN5k5'}
+                ],
+                'examen': [
+                    {title: 'Examen 1', url: 'https://drive.google.com/file/d/1DH2-OcJDk_GtEs8cG6ZB2L0LG8mYMFad/view'},
+                    {title: 'Examen 2', url: 'https://drive.google.com/file/d/1IxWA-0ZzOt1I-S55ReLKFc20aCpt82EE/view'},
+                    {title: 'Examen 3', url: 'https://drive.google.com/file/d/14Upew2QxQ9F4bpw3LRjd5sfICuzWPMIa/view'},
+                    {title: 'Examen 4', url: 'https://drive.google.com/file/d/1oohakPU22ykhjQzO9rp4NDk_5cNfxMo5/view'},
+                    {title: 'Examen 5', url: 'https://drive.google.com/file/d/1aBb5UoRf8FT4PtsSx0RhtyShzhYsJ3Ns/view'},
+                    {title: 'Examen 6', url: 'https://drive.google.com/file/d/1gxlDXI66TwXvxFxdjD0CttcytTDkjkJx/view'},
+                    {title: 'Examen 7', url: 'https://drive.google.com/file/d/1c-bdaH60BQwVp0Ksrcblch462ZgMRdwN/view'},
+                    {title: 'Examen 8', url: 'https://drive.google.com/file/d/1UM9fsackA0HcWLp6nooFx5CPbJ8ioV01/view'}
+                ]
+            },
+
+            'Physique 2': {
+                'cours': [
+                    {title: 'Chapitre 1', url: 'https://drive.google.com/file/d/1lUgmXRjDjK8QXQtxD6K8cPWlX0yowoA0/view'},
+                    {title: 'Chapitre 2', url: 'https://drive.google.com/file/d/1TWGC2Kmsgh2iWZM174d5MgGtVZ00-XFh/view'},
+                    {title: 'Chapitre 3', url: 'https://drive.google.com/file/d/12SFMDDsJuN45rB45d1brCqdW8OfgMwI0/view'},
+                    {title: 'Chapitre 4', url: 'https://drive.google.com/file/d/1q0OZymxHiePAfl-6vicGhAAqmGx1IlRt/view'},
+                    // Additional courses 1-3
+                    {title: 'Cours Complémentaire 1', url: 'https://drive.google.com/file/d/13EGa-qRsXj2TA8OKkGDJ61hns2Ge4447/view'},
+                    {title: 'Cours Complémentaire 2', url: 'https://drive.google.com/file/d/1Xh49Lrej7Q_4k3ts3EP_IPXRHWhRHtZb/view'},
+                    {title: 'Cours Complémentaire 3', url: 'https://drive.google.com/file/d/1z7dLS9wni-AHzf7T7gsdg9PI9G95zn32/view'}
+                ],
+                'tdtp': [
+                    {title: 'TD Série 1', url: 'https://drive.google.com/file/d/1M2EnykDcRTDts3vuhzrvxpIK5x_Bjr5j/view'},
+                    {title: 'TD Série 2', url: 'https://drive.google.com/file/d/1iudule77cigLiY70Bib8Dr9LAwdBwiLD/view'},
+                    {title: 'TD Série 3', url: 'https://drive.google.com/file/d/1yJMRaWaahugwkaCfBXcfBHs0DaPh71ZO/view'},
+                    {title: 'TD Série 4', url: 'https://drive.google.com/file/d/1eTTczPNIj6p2nTdo7qvF5pyThkjyDHG2/view'},
+                    {title: 'TD Série 5', url: 'https://drive.google.com/file/d/1EyOY25ZmgRW2_bYW2qWEEsfvEfomr52W/view'},
+                    {title: 'TD Série 6', url: 'https://drive.google.com/file/d/1tqy0EdD6jS4loslbskdw7eWOGkh4hc5g/view'},
+                    {title: 'TD Série 7', url: 'https://drive.google.com/file/d/1tSkWODxKOv8rXibnWdMwEZkmGHcG9AqS/view'},
+                    {title: 'TD Série 8', url: 'https://drive.google.com/file/d/1YENgroii5pr5zOJyMGV16u3Tkr7AMpUD/view'},
+                    {title: 'TD Série 9', url: 'https://drive.google.com/file/d/16Vm5NjO9wORrYg2Tic7CDbhWWfoDdAaj/view'},
+                    {title: 'TD Série 10', url: 'https://drive.google.com/file/d/1jKhvMx6SW7WmHXvED2SIrDzT0a05-Ysl/view'},
+                    {title: 'TD Série 11', url: 'https://drive.google.com/file/d/1l1bcRvX7y4fxeE5nLL82WWGQ5EU3BWXc/view'}
+                ]
+            },
+
+            'TP Physique 2': {
+                'tdtp': [
+                    {title: 'TP 1', url: 'https://drive.google.com/file/d/1DmySp9IERo-LfxpLlp4QFNYcp9jPIDl6/view'},
+                    {title: 'TP 2', url: 'https://drive.google.com/file/d/1vVrQQM3QPc93bOw2Nje6g_YMPtYtUpRZ/view'},
+                    {title: 'TP 3', url: 'https://drive.google.com/file/d/1JeJh4GaQFNWWUjC33BvD5-usXeYcAGYE/view'},
+                    {title: 'TP 4', url: 'https://drive.google.com/file/d/1v1D1oTsXMq5hKtx4p-fQJsbwAS6Y5wTu/view'},
+                    {title: 'TP 5', url: 'https://drive.google.com/file/d/1YEOH6hXtEpYO3QbJ0d2FikVp1TxuTD0N/view'}
+                ]
+            }
+        };
+
+        // Add helper function for icons
+        function getIconByType(type) {
+            const icons = {
+                'examen': 'fa-file-alt',
+                'tdtp': 'fa-tasks',
+                'cours': 'fa-book',
+                'compterendu': 'fa-clipboard'
+            };
+            return icons[type] || 'fa-file';
+        }
+
+        function showContent(module, type) {
+            const popup = document.getElementById(`popup-${type}`);
+            const popupTitle = document.getElementById(`popup-title-${type}`);
+            const popupContent = document.getElementById(`popup-content-${type}`);
+
+            popupTitle.textContent = `${module} - ${type.toUpperCase()}`;
+            popupContent.innerHTML = '';
+
+            const bejaiaSection = `
+                <div class="university-section mb-6 transform transition-all duration-300 hover:scale-105 border-l-4 border-green-600">
+                    <div class="section-header bg-green-50 p-4 rounded-t-lg border-b-2 border-green-200">
+                        <h3 class="text-xl font-bold text-green-600 flex items-center gap-2">
+                            <i class="fas fa-university"></i>
+                            Université de Béjaia
+                        </h3>
+                    </div>
+                    <div class="content-grid grid gap-4 p-4">
+                        ${moduleContent[module] && moduleContent[module][type] ? 
+                            moduleContent[module][type].map(item => `
+                                <div class="content-item bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 transform hover:scale-102 border border-gray-100">
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center gap-3">
+                                            <div class="icon-wrapper text-green-500">
+                                                <i class="fas ${getIconByType(type)} text-xl"></i>
+                                            </div>
+                                            <div class="text-content">
+                                                <h4 class="font-semibold text-gray-800">${item.title}</h4>
+                                                ${item.description ? `<p class="text-sm text-gray-500">${item.description}</p>` : ''}
+                                            </div>
+                                        </div>
+                                        <a href="${item.url}" target="_blank" 
+                                           class="download-btn bg-green-50 hover:bg-green-100 text-green-600 px-4 py-2 rounded-full flex items-center gap-2 transition-all duration-300">
+                                            <i class="fas fa-download"></i>
+                                            <span>Télécharger</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            `).join('')
+                            : '<p class="text-gray-500">Aucun contenu disponible</p>'
+                        }
+                    </div>
+                </div>
+            `;
+
+            popupContent.innerHTML = bejaiaSection;
+            popup.classList.remove('hidden');
+        }
+
+        // Add event listeners for close buttons and outside clicks
+        document.querySelectorAll('.close-popup-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                this.closest('[id^="popup-"]').classList.add('hidden');
+            });
         });
 
-        function showContent(type) {
-            // Logic to show content based on type
-            alert('Showing ' + type + ' content');
-            // Redirect to the appropriate link
-            // window.location.href = 'link-to-' + type;
-        }
+        document.querySelectorAll('[id^="popup-"]').forEach(popup => {
+            popup.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.classList.add('hidden');
+                }
+            });
+        });
     </script>
 </body>
 </html>
