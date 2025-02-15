@@ -10,8 +10,10 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/auth.css">
-    <!-- AdTerra Script -->
-    <script id="aclib" type="text/javascript" src="//acscdn.com/script/aclib.js"></script>
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
 </head>
 <body class="flex flex-col min-h-screen bg-gray-50">
     <!-- Top banner -->
@@ -39,6 +41,8 @@
                 <button class="tab-btn active" data-tab="login">Connexion</button>
                 <button class="tab-btn" data-tab="register">Inscription</button>
             </div>
+            
+            <!-- Login Form -->
             <div id="login" class="tab-content active">
                 <h1 class="text-3xl font-bold mb-8 text-center text-gray-800">Connexion</h1>
                 <form id="loginForm" class="space-y-6">
@@ -58,6 +62,8 @@
                     </div>
                 </form>
             </div>
+
+            <!-- Registration Form -->
             <div id="register" class="tab-content">
                 <h1 class="text-3xl font-bold mb-8 text-center text-gray-800">Inscription</h1>
                 <form id="registerForm" class="space-y-6">
@@ -74,7 +80,7 @@
                         <input type="password" id="passwordRegister" class="custom-input" required>
                     </div>
                     <div>
-                        <label for="phoneNumberRegister" class="block text-sm font-medium text-gray-700 mb-2">Numéro de téléphone (sans +213)</label>
+                        <label for="phoneNumberRegister" class="block text-sm font-medium text-gray-700 mb-2">Numéro de téléphone</label>
                         <input type="text" id="phoneNumberRegister" class="custom-input" required>
                     </div>
                     <div class="text-center mt-8">
@@ -88,7 +94,7 @@
         </div>
     </div>
 
-    <!-- Middle banner before buttons -->
+    <!-- Middle banner -->
     <div>
         <script type="text/javascript">
             aclib.runBanner({
@@ -115,13 +121,30 @@
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
+        // Initialize AOS
         AOS.init({
             duration: 800,
             once: true
         });
-    </script>
-    <script>
+
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyB5XYqWKhHdiVDXJx4iOwtpxD8eUCPRfKU",
+            authDomain: "universite-de-bejaia-547fc.firebaseapp.com",
+            projectId: "universite-de-bejaia-547fc",
+            storageBucket: "universite-de-bejaia-547fc.firebasestorage.app",
+            messagingSenderId: "517622731583",
+            appId: "1:517622731583:web:25453d5e01226585bf798a",
+            measurementId: "G-SQ0WWSCS7B"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
         document.addEventListener('DOMContentLoaded', () => {
+            // Tab Handling
             const tabs = document.querySelectorAll('.tab-btn');
             const contents = document.querySelectorAll('.tab-content');
 
@@ -129,73 +152,63 @@
                 tab.addEventListener('click', () => {
                     tabs.forEach(t => t.classList.remove('active'));
                     contents.forEach(c => c.classList.remove('active'));
-
                     tab.classList.add('active');
                     document.getElementById(tab.dataset.tab).classList.add('active');
                 });
             });
 
-            const backendUrl = 'https://moyensy-github-io.onrender.com'; // Replace with your Render app URL
-
-            // Handle registration form submission
+            // Registration Handler
             document.getElementById('registerForm').addEventListener('submit', async (e) => {
                 e.preventDefault();
-                const fullName = document.getElementById('fullNameRegister').value;
                 const email = document.getElementById('emailRegister').value;
                 const password = document.getElementById('passwordRegister').value;
+                const fullName = document.getElementById('fullNameRegister').value;
                 const phoneNumber = document.getElementById('phoneNumberRegister').value;
 
                 try {
-                    const response = await fetch(`${backendUrl}/register`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({ fullName, email, password, phoneNumber })
+                    const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+                    
+                    // Save additional user data to Firestore
+                    await db.collection('users').doc(userCredential.user.uid).set({
+                        fullName,
+                        email,
+                        phoneNumber,
+                        createdAt: firebase.firestore.FieldValue.serverTimestamp()
                     });
 
-                    const data = await response.json();
-                    if (data.success) {
-                        alert('Registration successful');
-                    } else {
-                        alert('Registration failed: ' + data.message);
-                    }
+                    // Show success popup
+                    document.getElementById('popupBox').classList.remove('hidden');
                 } catch (error) {
-                    console.error('Error during registration:', error);
-                    alert('An error occurred during registration');
+                    handleAuthError(error);
                 }
             });
 
-            // Handle login form submission
+            // Login Handler
             document.getElementById('loginForm').addEventListener('submit', async (e) => {
                 e.preventDefault();
                 const email = document.getElementById('emailLogin').value;
                 const password = document.getElementById('passwordLogin').value;
 
                 try {
-                    const response = await fetch(`${backendUrl}/login`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({ email, password })
-                    });
-
-                    const data = await response.json();
-                    if (data.success) {
-                        alert('Login successful');
-                        // Redirect to profile page or home page
-                        window.location.href = 'profile.html';
-                    } else {
-                        alert('Login failed: ' + data.message);
-                    }
+                    await auth.signInWithEmailAndPassword(email, password);
+                    document.getElementById('popupBox').classList.remove('hidden');
                 } catch (error) {
-                    console.error('Error during login:', error);
-                    alert('An error occurred during login');
+                    handleAuthError(error);
                 }
             });
 
-            // Handle popup buttons
+            // Auth State Listener
+            auth.onAuthStateChanged(user => {
+                if (user) {
+                    // User is signed in
+                    console.log('User logged in:', user.uid);
+                } else {
+                    // User is signed out
+                    console.log('User signed out');
+                }
+            });
+
+            // Popup Handlers
             document.getElementById('homeButton').addEventListener('click', () => {
                 window.location.href = 'index.html';
             });
@@ -207,6 +220,29 @@
             document.getElementById('profileButton').addEventListener('click', () => {
                 window.location.href = 'profile.html';
             });
+
+            // Error Handling
+            function handleAuthError(error) {
+                let message = "Une erreur est survenue";
+                switch (error.code) {
+                    case 'auth/email-already-in-use':
+                        message = "Cet email est déjà utilisé";
+                        break;
+                    case 'auth/invalid-email':
+                        message = "Email invalide";
+                        break;
+                    case 'auth/weak-password':
+                        message = "Le mot de passe doit contenir au moins 6 caractères";
+                        break;
+                    case 'auth/wrong-password':
+                        message = "Mot de passe incorrect";
+                        break;
+                    case 'auth/user-not-found':
+                        message = "Utilisateur non trouvé";
+                        break;
+                }
+                alert(message);
+            }
         });
     </script>
 </body>
