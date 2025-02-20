@@ -9,6 +9,86 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        .services-grid {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .service-card.featured {
+            background: linear-gradient(135deg, #ffffff 0%, #f3f4f6 100%);
+            border-radius: 1rem;
+            padding: 2rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            border: 2px solid transparent;
+            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .service-card.featured:hover {
+            transform: translateY(-5px) scale(1.02);
+            border-color: #2563eb;
+            box-shadow: 0 20px 40px -5px rgba(37, 99, 235, 0.2);
+        }
+
+        .service-card.featured .service-icon {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            width: 80px;
+            height: 80px;
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            color: white;
+            position: relative;
+            z-index: 1;
+        }
+
+        .service-card.featured h3 {
+            color: #1f2937;
+            margin-top: 1rem;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(29, 78, 216, 0.1) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .service-card.featured:hover .card-overlay {
+            opacity: 1;
+        }
+
+        /* Add animation for the cards */
+        @keyframes cardAppear {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .service-card.featured {
+            animation: cardAppear 0.6s ease-out forwards;
+        }
+
+        .service-card.featured:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+    </style>
 </head>
 <body class="flex flex-col min-h-screen bg-gray-50">
     <div class="container mx-auto px-4 max-w-7xl flex-grow">
@@ -25,24 +105,23 @@
         <!-- Campus El Kseur -->
         <div class="glass-card mb-8" data-aos="fade-up">
             <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">Campus El Kseur</h2>
-            <div class="services-grid grid grid-cols-1 md:grid-cols-3 gap-6">
-                <a href="notes-science-technologie.html" class="service-card">
+            <div class="services-grid grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Science et technologie LMD -->
+                <a href="notes-science-technologie.html" class="service-card featured">
                     <div class="service-icon text-blue-600">
-                        <i class="fas fa-microscope"></i>
+                        <i class="fas fa-microscope text-3xl"></i>
                     </div>
-                    <h3 class="text-xl font-semibold">Science et technologie LMD</h3>
+                    <h3 class="text-2xl font-semibold">Science et technologie LMD</h3>
+                    <div class="card-overlay"></div>
                 </a>
-                <a href="notes-science-technologie-ing.html" class="service-card">
-                    <div class="service-icon text-green-600">
-                        <i class="fas fa-cogs"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold">Science et technologie ING</h3>
-                </a>
-                <a href="notes-biologie.html" class="service-card">
+
+                <!-- Informatique LMD -->
+                <a href="info.marks.html" class="service-card featured">
                     <div class="service-icon text-purple-600">
-                        <i class="fas fa-dna"></i>
+                        <i class="fas fa-laptop-code text-3xl"></i>
                     </div>
-                    <h3 class="text-xl font-semibold">Biologie</h3>
+                    <h3 class="text-2xl font-semibold">Informatique LMD</h3>
+                    <div class="card-overlay"></div>
                 </a>
             </div>
         </div>

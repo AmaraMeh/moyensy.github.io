@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Marks - ST LMD</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/st.marks.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="assets/css/animations.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Insert this style block inside the <head> section or within a dedicated CSS file -->
+  <style>
+    .search-container {
+      margin: 1rem auto;
+      max-width: 500px;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 0.75rem;
+      font-size: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      transition: border-color 0.3s ease;
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: #007BFF;
+      box-shadow: 0 0 0 2px rgba(0,123,255,0.25);
+    }
+
+    .search-wrapper {
+        display: flex;
+        max-width: 500px;
+        margin: 0 auto;
+        position: relative;
+    }
+
+    .search-input {
+        flex: 1;
+        border-right: none;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        padding-right: 40px;
+        transition: all 0.3s ease;
+    }
+
+    .search-button {
+        border: 1px solid #2563eb;
+        background-color: #2563eb;
+        color: white;
+        cursor: pointer;
+        border-top-right-radius: 0.5rem;
+        border-bottom-right-radius: 0.5rem;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.75rem 1.5rem;
+        transform: translateZ(0);
+    }
+
+    .search-button:hover {
+        background-color: #1d4ed8;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+
+    .search-button:active {
+        transform: translateY(0);
+        box-shadow: none;
+    }
+
+    .search-button i {
+        transition: transform 0.2s ease;
+    }
+
+    .search-button:hover i {
+        transform: scale(1.1);
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+
+    .search-button.searching {
+        animation: pulse 1s infinite;
+        background-color: #1d4ed8;
+    }
+
+    .search-input:focus + .search-button {
+        border-color: #1d4ed8;
+        background-color: #1d4ed8;
+    }
+
+    .passing-grade {
+        color: #22c55e;
+        font-weight: 600;
+    }
+
+    .failing-grade {
+        color: #ef4444;
+        font-weight: 600;
+    }
+
+    .password-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(17, 24, 39, 0.7);
+        backdrop-filter: blur(8px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+    }
+
+    .password-box {
+        background: white;
+        padding: 2rem;
+        border-radius: 1rem;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        max-width: 90%;
+        width: 400px;
+        text-align: center;
+        animation: slideIn 0.3s ease-out;
+    }
+
+    @keyframes slideIn {
+        from {
+            transform: translateY(-20px);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    .password-box h2 {
+        color: #1a1a1a;
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        font-weight: 600;
+    }
+
+    .password-box input {
+        width: 100%;
+        padding: 0.75rem;
+        margin: 1rem 0;
+        border: 2px solid #e5e7eb;
+        border-radius: 0.5rem;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+    }
+
+    .password-box input:focus {
+        outline: none;
+        border-color: #2563eb;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    .password-box button {
+        background: #2563eb;
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border-radius: 0.5rem;
+        border: none;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        width: 100%;
+        margin-top: 1rem;
+    }
+
+    .password-box button:hover {
+        background: #1d4ed8;
+        transform: translateY(-1px);
+    }
+
+    .password-box .instagram-note {
+        margin-top: 1rem;
+        font-size: 0.875rem;
+        color: #6b7280;
+        line-height: 1.5;
+    }
+
+    .password-box .instagram-link {
+        color: #2563eb;
+        text-decoration: none;
+        font-weight: 500;
+    }
+
+    .password-box .instagram-link:hover {
+        text-decoration: underline;
+    }
+
+    .error-message {
+        color: #dc2626;
+        font-size: 0.875rem;
+        margin-top: 0.5rem;
+        display: none;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 flex flex-col min-h-screen">
+  <div id="passwordOverlay" class="password-overlay">
+    <div class="password-box">
+        <h2>Accès Sécurisé</h2>
+        <input 
+            type="password" 
+            id="passwordInput" 
+            placeholder="Entrez le mot de passe"
+            onkeypress="handlePasswordKeyPress(event)"
+        >
+        <button onclick="checkPassword()">Accéder</button>
+        <p id="passwordError" class="error-message">Mot de passe incorrect</p>
+        <p class="instagram-note">
+            Si vous êtes délégué(e) d'un groupe, veuillez contacter 
+            <a href="https://www.instagram.com/spot_campuselkseur" target="_blank" class="instagram-link">
+                spot_campuselkseur
+            </a> 
+            sur Instagram pour obtenir le mot de passe.
+        </p>
+    </div>
+  </div>
+
+  <header class="header-section">
+    <div class="logo-wrapper">
+      <img src="assets/img/LOGO.png" alt="ISET'COM Logo" class="logo-image fade-in" />
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div class="filters-container fade-in">
+      <h1 class="page-title">Informatique LMD - Notes</h1>
+      
+      <div class="text-center mt-4">
+        <a href="notes.html" class="return-button">
+          <i class="fas fa-arrow-left"></i>
+          <span>Retour</span>
+        </a>
+      </div>
+        
+      <!-- Add search bar -->
+      <div class="search-container mt-4">
+        <div class="search-wrapper">
+          <input 
+            type="text" 
+            id="searchInput" 
+            placeholder="Rechercher par nom..."
+            class="search-input px-4 py-2 border rounded-l-lg"
+            onkeypress="handleKeyPress(event)"
+          >
+          <button 
+            id="searchButton"
+            onclick="handleSearch()" 
+            class="search-button"
+          >
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="table-wrapper">
+      <div class="table-scroll">
+        <table id="marksTable">
+          <thead>
+            <tr>
+              <th class="name-column sticky-header">Nom et Prenom</th>
+              <th class="grade-column sticky-header sortable" onclick="sortTable('Moyenne du Semestre')">
+                Moyenne du Semestre <span class="sort-indicator"></span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Table body will be populated by JavaScript -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    let marksData = [];
+    let currentSort = { column: '', direction: 'asc' };
+
+    async function loadData() {
+      try {
+        const response = await fetch('data/marksinfo.json');
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        
+        const data = await response.json();
+        if (!Array.isArray(data)) throw new Error('Invalid data format: expected array');
+
+        marksData = data.filter(item => 
+          item.hasOwnProperty("Nom et Prenom") && 
+          item.hasOwnProperty("Moyenne du Semestre")
+        );
+        renderTable(marksData);
+      } catch (error) {
+        console.error('Error loading data:', error);
+        showError(error.message);
+      }
+    }
+
+    // Add colorMark function
+    function colorMark(mark) {
+        const numMark = parseFloat(mark);
+        if (isNaN(numMark)) return '';
+        if (numMark >= 10) return 'passing-grade';
+        return 'failing-grade';
+    }
+
+    // Update filterTable function to use a search button
+    function filterTable() {
+        const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
+        if (!searchTerm) {
+            renderTable(marksData);
+            return;
+        }
+        
+        const filteredData = marksData.filter(item => 
+            item["Nom et Prenom"] && 
+            item["Nom et Prenom"].toLowerCase().includes(searchTerm)
+        );
+        renderTable(filteredData);
+    }
+
+    function renderTable(data) {
+      const tbody = document.querySelector('#marksTable tbody');
+      tbody.innerHTML = '';
+      
+      if (data.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="2" class="text-center py-4 text-gray-500">
+              Aucun résultat trouvé
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      data.forEach(item => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td class="name-cell">${item["Nom et Prenom"] || ""}</td>
+          <td class="grade-cell ${colorMark(item["Moyenne du Semestre"])}">${item["Moyenne du Semestre"] || ""}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function sortTable(column) {
+      if (column !== 'Moyenne du Semestre') return;
+
+      currentSort.direction = currentSort.column === column 
+        ? (currentSort.direction === 'asc' ? 'desc' : 'asc')
+        : 'asc';
+      currentSort.column = column;
+
+      const sorted = [...marksData].sort((a, b) => {
+        const aVal = parseFloat(a[column]) || -1;
+        const bVal = parseFloat(b[column]) || -1;
+        return currentSort.direction === 'asc' ? aVal - bVal : bVal - aVal;
+      });
+
+      updateSortIndicators(column);
+      renderTable(sorted);
+    }
+
+    function showError(message) {
+      const tbody = document.querySelector('#marksTable tbody');
+      tbody.innerHTML = `
+        <tr>
+          <td colspan="2" class="text-center py-4 text-red-600">
+            <i class="fas fa-exclamation-triangle mr-2"></i>
+            Error loading data: ${message}
+          </td>
+        </tr>
+      `;
+    }
+
+    // Add these functions to your existing script
+    function handleSearch() {
+        const button = document.getElementById('searchButton');
+        button.classList.add('searching');
+        
+        // Add loading state
+        const icon = button.querySelector('i');
+        icon.classList.remove('fa-search');
+        icon.classList.add('fa-spinner', 'fa-spin');
+        
+        // Perform search
+        filterTable();
+        
+        // Reset button state after short delay
+        setTimeout(() => {
+            button.classList.remove('searching');
+            icon.classList.remove('fa-spinner', 'fa-spin');
+            icon.classList.add('fa-search');
+        }, 500);
+    }
+
+    function handleKeyPress(event) {
+        if (event.key === 'Enter') {
+            handleSearch();
+        }
+    }
+
+    // Add this to your existing script section
+    function checkPassword() {
+        const password = document.getElementById('passwordInput').value;
+        const errorElement = document.getElementById('passwordError');
+        
+        // Replace 'your_password_here' with the actual password
+        if (password === 'Campus202425') {
+            document.getElementById('passwordOverlay').style.display = 'none';
+            loadData(); // Load data only after correct password
+        } else {
+            errorElement.style.display = 'block';
+            document.getElementById('passwordInput').value = '';
+        }
+    }
+
+    function handlePasswordKeyPress(event) {
+        if (event.key === 'Enter') {
+            checkPassword();
+        }
+    }
+
+    // Update the DOMContentLoaded event
+    document.addEventListener('DOMContentLoaded', () => {
+        // Don't load data immediately, wait for password
+        document.getElementById('passwordOverlay').style.display = 'flex';
+    });
+  </script>
+
+  <script>
+    // Debug info
+    console.log('Current URL:', window.location.href);
+    console.log('Hostname:', window.location.hostname);
+    console.log('Pathname:', window.location.pathname);
+  </script>
+</body>
+</html>
