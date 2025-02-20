@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calcul de Moyenne ENSIA</title>
+    <meta name="description" content="Calcul de Moyenne ENSIA">
+    <meta name="author" content="Amara Mehdi">
+    <meta name="keywords" content="ENSIA, Moyenne, Calcul">
+    <meta name="robots" content="index, follow">
+    <link rel="icon" type="image/png" href="../assets/img/icon.png">
+    <meta property="og:url" content="https://amaramehdi.github.io/moyenne-universite-bejaia/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Calcul de Moyenne ENSIA">
+    <meta property="og:description" content="Calcul de Moyenne ENSIA">
+    <meta property="og:image" content="https://masterpiecer-images.s3.yandex.net/b08e69b27e0b11eeb532aaafe6635749:upscaled">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+          crossorigin="anonymous"
+          referrerpolicy="no-referrer">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <link rel="stylesheet"
+          href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+          integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+          crossorigin="">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="icon" type="image/x-icon" href="../assets/img/favicon.ico">
+    <link rel="stylesheet" href="../assets/css/floating-menu.css">
+
+    <!-- Google AdSense -->
+    <script async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7539806376887582"
+            crossorigin="anonymous">
+    </script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4QK3R858YJ"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-4QK3R858YJ');
+    </script>
+
+    <style>
+        .warning-box {
+            background-color: #ffcc00;
+            color: #000;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen bg-gray-50" data-aos-easing="ease-out-cubic">
+    <!-- Top banner -->
+    <div>
+        <script type="text/javascript">
+            aclib.runBanner({
+                zoneId: '9521434',
+            });
+        </script>
+    </div>
+    <div class="container mx-auto px-4 max-w-7xl flex-grow">
+        <header class="mb-12 mt-8" data-aos="fade-down">
+            <div class="header-container">
+                <!-- Replace with ENSIA logo -->
+                <img src="../assets/img/ensia.png" alt="ENSIA" class="max-w-[200px]">
+            </div>
+        </header>
+
+        <div class="welcome-section text-center py-8" data-aos="fade-up">
+            <div class="welcome-box p-6 rounded-lg shadow-lg bg-gradient-to-r from-blue-400 to-blue-600 text-white animate-fade-in">
+                <h1 class="text-4xl font-bold mb-4">Bienvenue sur le Portail Étudiant ENSIA</h1>
+                <p class="text-xl mb-4">École Nationale Supérieure d’Intelligence Artificielle</p>
+                <p class="text-lg mb-6">Votre plateforme pour gérer votre parcours académique, accéder aux ressources éducatives et bien plus encore.</p>
+                <div class="flex flex-wrap justify-center gap-4 mt-8">
+                    <!-- All links now lead to maintenance page -->
+                    <a href="ensia-maintenance.html" class="auth-button w-full sm:w-auto px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transform hover:scale-105 transition-all duration-300 shadow-lg">
+                        <i class="fas fa-sign-in-alt mr-2"></i>
+                        Connexion
+                    </a>
+                    <a href="ensia-maintenance.html" class="auth-button w-full sm:w-auto px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transform hover:scale-105 transition-all duration-300 shadow-lg">
+                        <i class="fas fa-user-plus mr-2"></i>
+                        Créer un compte
+                    </a>
+                    <a href="ensia-maintenance.html" class="w-full sm:w-auto px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transform hover:scale-105 transition-all duration-300 shadow-lg">
+                        <i class="fas fa-book mr-2"></i>
+                        Espace Cours
+                    </a>
+                    <a href="ensia-maintenance.html" onclick="checkProfileAccess(event)" class="w-full sm:w-auto px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transform hover:scale-105 transition-all duration-300 shadow-lg">
+                        <i class="fas fa-user mr-2"></i>
+                        Mon Profil
+                    </a>
+                </div>
+            </div>
+            <div class="warning-box my-4">
+                Avertissement: Ce site ENSIA n’est pas affilié officiellement, c’est un projet étudiant.
+            </div>
+
+            <!-- Middle banner -->
+            <div>
+                <script type="text/javascript">
+                    aclib.runBanner({
+                        zoneId: '9521434',
+                    });
+                </script>
+            </div>
+        </div>
+
+        <!-- Services grid -->
+        <div class="services-grid grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Keep only Bibliothèque, Calculer la moyenne, and Guide. Make them point to maintenance -->
+            <a href="ensia-maintenance.html" class="service-card" data-aos="fade-up" data-aos-delay="400">
+                <div class="service-icon text-indigo-600">
+                    <i class="fas fa-book-open text-4xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-800">Bibliothèque</h3>
+                <p class="text-gray-600">Accédez aux ressources académiques</p>
+            </a>
+
+            <a href="ensia-maintenance.html" class="service-card" data-aos="fade-up">
+                <div class="service-icon">
+                    <i class="fas fa-calculator text-4xl text-blue-600"></i>
+                </div>
+                <h3 class="text-xl font-semibold mb-2">Calculer la moyenne</h3>
+                <p class="text-gray-600">Calculez votre moyenne semestrielle facilement</p>
+            </a>
+
+            <a href="ensia-maintenance.html" class="service-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="service-icon text-red-600">
+                    <i class="fas fa-book text-4xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-800">Guide</h3>
+                <p class="text-gray-600">Guide d'utilisation et informations</p>
+            </a>
+        </div>
+
+        <div class="glass-card mb-8" data-aos="fade-up">
+            <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">About ENSIA</h2>
+            <div class="services-grid grid grid-cols-1 md:grid-cols-3 gap-6">
+                <a href="ensia-maintenance.html" class="service-card">
+                    <div class="service-icon text-blue-600">
+                        <i class="fas fa-info-circle"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold">Learn More About Us</h3>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <footer class="text-center text-gray-600 text-sm py-4">
+        <div>&copy; 2025 ENSIA. Développé par <a href="mailto:mehdi.amara@icloud.com" class="text-blue-500 hover:text-blue-700">Amara Mehdi</a></div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true
+        });
+
+        function checkProfileAccess(event) {
+            event.preventDefault();
+            // We still override to maintenance
+            window.location.href = 'ensia-maintenance.html';
+        }
+    </script>
+    <script type="text/javascript">
+        aclib.runAutoTag({
+            zoneId: '1hqerebunb',
+        });
+    </script>
+    <script>
+        // Existing initialization
+        AOS.init({
+            duration: 800,
+            once: true
+        });
+
+        // Function to check auth status and update UI
+        function updateAuthButtons() {
+            const authButtons = document.querySelectorAll('.auth-button');
+            const userData = localStorage.getItem('userData');
+            
+            authButtons.forEach(button => {
+                if (userData) {
+                    // If user is logged in, hide auth links if you wish
+                    if (button.getAttribute('href') === 'ensia-maintenance.html') {
+                        button.style.display = 'none';
+                    }
+                } else {
+                    if (button.getAttribute('href') === 'ensia-maintenance.html') {
+                        button.style.display = 'inline-flex';
+                    }
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            updateAuthButtons();
+        });
+    </script>
+</body>
+</html>
