@@ -298,6 +298,77 @@
             font-size: 0.875rem;
         }
     }
+
+    .alert-banner {
+      background: linear-gradient(135deg, #fff5f5 0%, #fed7d7 100%);
+      border-top: 1px solid #fecaca;
+      border-bottom: 1px solid #fecaca;
+      margin: 1rem 0;
+      padding: 1rem;
+      width: 100%;
+    }
+
+    .alert-content {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      align-items: flex-start;
+      gap: 1.5rem;
+      padding: 0.5rem 1rem;
+    }
+
+    .alert-icon {
+      color: #e53e3e;
+      font-size: 1.75rem;
+      flex-shrink: 0;
+      margin-top: 0.2rem;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+
+    .alert-text {
+      font-size: 1rem;
+      color: #742a2a;
+      line-height: 1.6;
+    }
+
+    .alert-text p {
+      margin: 0.5rem 0;
+    }
+
+    .alert-text strong {
+      color: #9b2c2c;
+      font-weight: 600;
+    }
+
+    .last-update {
+      font-size: 0.875rem;
+      color: #718096;
+      margin-top: 0.75rem !important;
+      font-style: italic;
+    }
+
+    @media (max-width: 640px) {
+      .alert-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 1rem;
+      }
+
+      .alert-icon {
+        margin: 0 0 0.5rem 0;
+      }
+
+      .alert-text {
+        font-size: 0.95rem;
+      }
+    }
   </style>
 </head>
 <body class="bg-gray-50 flex flex-col min-h-screen">
@@ -327,6 +398,18 @@
       <img src="assets/img/LOGO.png" alt="ISET'COM Logo" class="logo-image fade-in" />
     </div>
   </header>
+
+  <!-- Add alert banner here -->
+  <div class="alert-banner">
+    <div class="alert-content">
+      <i class="fas fa-exclamation-triangle alert-icon"></i>
+      <div class="alert-text">
+        <p><strong>Avis Important :</strong> Une mise à jour des moyennes est en cours. Les modifications seront reflétées en temps réel sur le site.</p>
+        <p>Les notes des travaux pratiques d'Algorithmique sont actuellement en cours de traitement et n'ont pas été incluses dans certains calculs de moyenne.</p>
+        <p class="last-update">Dernière mise à jour : 21 Février 2025, 14:35</p>
+      </div>
+    </div>
+  </div>
 
   <main class="main-content">
     <div class="filters-container fade-in">
