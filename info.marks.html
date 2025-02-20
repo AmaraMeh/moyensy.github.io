@@ -207,6 +207,97 @@
         margin-top: 0.5rem;
         display: none;
     }
+
+    /* Add responsive table styles */
+    .table-wrapper {
+        margin: 1rem auto;
+        max-width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding: 0 1rem;
+    }
+
+    .table-scroll {
+        width: 100%;
+    }
+
+    table {
+        width: 100%;
+        min-width: 300px;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        padding: 1rem;
+        text-align: left;
+        border-bottom: 1px solid #e5e7eb;
+    }
+
+    /* Mobile-friendly header */
+    .page-title {
+        font-size: clamp(1.5rem, 5vw, 2rem);
+        padding: 0 1rem;
+    }
+
+    /* Responsive search container */
+    .search-container {
+        margin: 1rem;
+        width: calc(100% - 2rem);
+        max-width: 500px;
+    }
+
+    /* Mobile-friendly password box */
+    .password-box {
+        margin: 1rem;
+        width: calc(100% - 2rem);
+        max-width: 400px;
+    }
+
+    /* Add sticky header support */
+    .sticky-header {
+        position: sticky;
+        top: 0;
+        background: white;
+        z-index: 10;
+    }
+
+    /* Better sort indicators */
+    .sortable {
+        cursor: pointer;
+        position: relative;
+        padding-right: 1.5rem;
+    }
+
+    .sort-indicator::after {
+        content: '↕️';
+        position: absolute;
+        right: 0.5rem;
+        opacity: 0.5;
+    }
+
+    .sort-asc::after {
+        content: '↑';
+        opacity: 1;
+    }
+
+    .sort-desc::after {
+        content: '↓';
+        opacity: 1;
+    }
+
+    /* Mobile-optimized text sizes */
+    @media (max-width: 640px) {
+        .name-cell {
+            font-size: 0.875rem;
+        }
+        .grade-cell {
+            font-size: 0.875rem;
+            text-align: right;
+        }
+        th {
+            font-size: 0.875rem;
+        }
+    }
   </style>
 </head>
 <body class="bg-gray-50 flex flex-col min-h-screen">
@@ -276,7 +367,8 @@
             <tr>
               <th class="name-column sticky-header">Nom et Prenom</th>
               <th class="grade-column sticky-header sortable" onclick="sortTable('Moyenne du Semestre')">
-                Moyenne du Semestre <span class="sort-indicator"></span>
+                Moyenne du Semestre 
+                <span class="sort-indicator"></span>
               </th>
             </tr>
           </thead>
@@ -360,21 +452,36 @@
     }
 
     function sortTable(column) {
-      if (column !== 'Moyenne du Semestre') return;
+        if (column !== 'Moyenne du Semestre') return;
 
-      currentSort.direction = currentSort.column === column 
-        ? (currentSort.direction === 'asc' ? 'desc' : 'asc')
-        : 'asc';
-      currentSort.column = column;
+        if (currentSort.column === column) {
+            currentSort.direction = currentSort.direction === 'asc' ? 'desc' : 'asc';
+        } else {
+            currentSort.column = column;
+            currentSort.direction = 'asc';
+        }
 
-      const sorted = [...marksData].sort((a, b) => {
-        const aVal = parseFloat(a[column]) || -1;
-        const bVal = parseFloat(b[column]) || -1;
-        return currentSort.direction === 'asc' ? aVal - bVal : bVal - aVal;
-      });
+        const sorted = [...marksData].sort((a, b) => {
+            const aVal = parseFloat(a[column]) || 0;
+            const bVal = parseFloat(b[column]) || 0;
+            return currentSort.direction === 'asc' ? aVal - bVal : bVal - aVal;
+        });
 
-      updateSortIndicators(column);
-      renderTable(sorted);
+        updateSortIndicators(column);
+        renderTable(sorted);
+    }
+
+    function updateSortIndicators(column) {
+        const headers = document.querySelectorAll('th.sortable');
+        headers.forEach(header => {
+            const indicator = header.querySelector('.sort-indicator');
+            if (header.textContent.includes(column)) {
+                indicator.classList.remove('sort-asc', 'sort-desc');
+                indicator.classList.add(`sort-${currentSort.direction}`);
+            } else {
+                indicator.classList.remove('sort-asc', 'sort-desc');
+            }
+        });
     }
 
     function showError(message) {
