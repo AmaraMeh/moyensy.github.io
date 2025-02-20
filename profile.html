@@ -7,146 +7,13 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/profile.css">
     <link rel="stylesheet" href="assets/css/auth.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <meta name="theme-color" content="#0f172a">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <style>
-        .glass-card {
-            background: rgba(17, 24, 39, 0.3);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 2rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .profile-photo-wrapper {
-            position: relative;
-            width: 150px;
-            height: 150px;
-            margin: 0 auto 1.5rem;
-        }
-
-        .profile-photo {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 50%;
-            border: 2px solid #38bdf8;
-        }
-
-        .profile-header {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .info-item {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-
-        .profile-card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .profile-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .animate-fadeIn {
-            animation: fadeIn 1s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Mobile optimizations */
-        @media (max-width: 768px) {
-            .grid-cols-3 {
-                grid-template-columns: 1fr;
-            }
-
-            .profile-section {
-                margin-bottom: 2rem;
-            }
-
-            .profile-photo-wrapper {
-                width: 120px;
-                height: 120px;
-            }
-
-            .info-item {
-                padding: 0.75rem;
-                background: rgba(255, 255, 255, 0.05);
-                border-radius: 0.5rem;
-                margin-bottom: 0.75rem;
-            }
-
-            .social-links {
-                padding-top: 1rem;
-                border-top: 1px solid rgba(255, 255, 255, 0.1);
-            }
-        }
-
-        /* Fix white flash on mobile tap */
-        * {
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        .profile-card, 
-        .glass-card,
-        button,
-        a {
-            touch-action: manipulation;
-        }
-
-        /* Improve touch feedback */
-        .profile-card:active,
-        .glass-card:active,
-        button:active,
-        a:active {
-            background: rgba(255, 255, 255, 0.05);
-            transform: scale(0.98);
-        }
-
-        /* Enhance mobile buttons */
-        @media (max-width: 768px) {
-            .custom-button,
-            .auth-button,
-            button {
-                min-height: 44px; /* Better touch target */
-                padding: 0.75rem 1rem;
-            }
-
-            .profile-card {
-                padding: 1rem;
-            }
-
-            .info-item {
-                transition: transform 0.2s ease;
-            }
-
-            .info-item:active {
-                transform: scale(0.98);
-            }
-        }
-    </style>
 </head>
-<body class="flex flex-col min-h-screen bg-gradient-to-r from-cyan-900 to-blue-900 text-white">
+<body class="flex flex-col min-h-screen bg-gray-50" data-aos-easing="ease-out-cubic">
     <header class="mb-12 mt-8" data-aos="fade-down">
         <div class="header-container flex justify-between items-center px-4 py-6">
             <a href="index.html" class="back-button text-lg font-bold hover:text-cyan-300">
@@ -163,14 +30,14 @@
     <main class="container mx-auto px-4 py-8 flex-grow">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 w-full">
             <!-- Profile Section -->
-            <div class="profile-section glass-card col-span-1" data-aos="fade-up">
-                <div class="profile-header">
-                    <div class="profile-photo-wrapper">
+            <div class="profile-section glass-card col-span-1 p-8 rounded-lg shadow-lg bg-white/10 backdrop-blur-md transform hover:scale-[1.02] transition-all duration-300" data-aos="fade-up">
+                <div class="profile-header text-center">
+                    <div class="profile-photo-wrapper mb-6 relative">
                         <img id="profileImage" 
                              src="assets/img/default-avatar.png" 
-                             class="profile-photo" 
+                             class="profile-photo rounded-full border-4 border-cyan-500 shadow-lg w-32 h-32 mx-auto object-cover" 
                              alt="Photo de profil">
-                        <label for="photoUpload" class="photo-upload-btn">
+                        <label for="photoUpload" class="photo-upload-btn cursor-pointer absolute bottom-0 right-1/3 bg-white/20 p-2 rounded-full hover:bg-white/30 transition-all duration-300">
                             <i class="fas fa-camera text-cyan-500 hover:text-cyan-400"></i>
                         </label>
                         <input type="file" 
@@ -178,56 +45,56 @@
                                class="hidden" 
                                accept="image/*">
                     </div>
-                    <h1 id="profileName" class="text-3xl font-bold mb-2"></h1>
-                    <p id="studentLevel" class="text-cyan-400 font-medium"></p>
+                    <h1 id="profileName" class="text-3xl font-bold text-gray-800 mb-2"></h1>
+                    <p id="studentLevel" class="text-cyan-500 font-medium"></p>
                 </div>
 
-                <div class="profile-info">
-                    <div class="info-item">
-                        <i class="fas fa-envelope text-cyan-500"></i>
+                <div class="profile-info mt-8 space-y-6">
+                    <div class="info-item flex items-center p-4 bg-white/5 rounded-lg hover:bg-white/10 transition-all duration-300">
+                        <i class="fas fa-envelope text-cyan-500 text-xl mr-4"></i>
                         <div>
-                            <div class="info-label">Email</div>
-                            <div id="profileEmail" class="info-value"></div>
+                            <div class="info-label text-gray-500 text-sm">Email</div>
+                            <div id="profileEmail" class="info-value text-gray-800 font-medium"></div>
                         </div>
                     </div>
 
-                    <div class="info-item">
-                        <i class="fas fa-id-card text-cyan-500"></i>
+                    <div class="info-item flex items-center p-4 bg-white/5 rounded-lg hover:bg-white/10 transition-all duration-300">
+                        <i class="fas fa-id-card text-cyan-500 text-xl mr-4"></i>
                         <div>
-                            <div class="info-label">Numéro d'immatriculation</div>
-                            <div id="studentId" class="info-value"></div>
+                            <div class="info-label text-gray-500 text-sm">Numéro d'immatriculation</div>
+                            <div id="studentId" class="info-value text-gray-800 font-medium"></div>
                         </div>
                     </div>
 
-                    <div class="info-item">
-                        <i class="fas fa-graduation-cap text-cyan-500"></i>
+                    <div class="info-item flex items-center p-4 bg-white/5 rounded-lg hover:bg-white/10 transition-all duration-300">
+                        <i class="fas fa-graduation-cap text-cyan-500 text-xl mr-4"></i>
                         <div>
-                            <div class="info-label">Spécialité</div>
-                            <div id="studentSpeciality" class="info-value"></div>
+                            <div class="info-label text-gray-500 text-sm">Spécialité</div>
+                            <div id="studentSpeciality" class="info-value text-gray-800 font-medium"></div>
                         </div>
                     </div>
 
-                    <div class="info-item">
-                        <i class="fas fa-phone text-cyan-500"></i>
+                    <div class="info-item flex items-center p-4 bg-white/5 rounded-lg hover:bg-white/10 transition-all duration-300">
+                        <i class="fas fa-phone text-cyan-500 text-xl mr-4"></i>
                         <div>
-                            <div class="info-label">Téléphone</div>
-                            <div id="phoneNumber" class="info-value"></div>
+                            <div class="info-label text-gray-500 text-sm">Téléphone</div>
+                            <div id="phoneNumber" class="info-value text-gray-800 font-medium"></div>
                         </div>
                     </div>
                 </div>
 
-                <div class="social-links">
-                    <a href="#" class="social-icon text-blue-400 hover:text-blue-500">
-                        <i class="fab fa-facebook"></i>
+                <div class="social-links flex justify-center gap-6 mt-8">
+                    <a href="#" class="social-icon text-blue-400 hover:text-blue-500 transform hover:scale-110 transition-all duration-300">
+                        <i class="fab fa-facebook text-2xl"></i>
                     </a>
-                    <a href="#" class="social-icon text-blue-400 hover:text-blue-500">
-                        <i class="fab fa-twitter"></i>
+                    <a href="#" class="social-icon text-blue-400 hover:text-blue-500 transform hover:scale-110 transition-all duration-300">
+                        <i class="fab fa-twitter text-2xl"></i>
                     </a>
-                    <a href="#" class="social-icon text-pink-400 hover:text-pink-500">
-                        <i class="fab fa-instagram"></i>
+                    <a href="#" class="social-icon text-pink-400 hover:text-pink-500 transform hover:scale-110 transition-all duration-300">
+                        <i class="fab fa-instagram text-2xl"></i>
                     </a>
-                    <a href="#" class="social-icon text-gray-400 hover:text-gray-500">
-                        <i class="fab fa-github"></i>
+                    <a href="#" class="social-icon text-gray-400 hover:text-gray-500 transform hover:scale-110 transition-all duration-300">
+                        <i class="fab fa-github text-2xl"></i>
                     </a>
                 </div>
             </div>
@@ -235,10 +102,12 @@
             <!-- Features Grid -->
             <div class="col-span-2 grid grid-cols-1 md:grid-cols-2 gap-8">
                 <!-- Espace Cours -->
-                <div class="profile-card glass-card animate-fadeIn" data-aos="slide-right">
-                    <div class="flex items-center gap-4 mb-4">
-                        <i class="fas fa-book-reader text-cyan-400 text-2xl"></i>
-                        <h2 class="text-2xl font-bold text-cyan-400">Espace Cours</h2>
+                <div class="service-card glass-card p-6 rounded-lg shadow-lg bg-white/10 backdrop-blur-md transform hover:scale-[1.02] transition-all duration-300" data-aos="slide-right">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="service-icon text-cyan-400">
+                            <i class="fas fa-book-reader text-4xl"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold text-gray-800">Espace Cours</h2>
                     </div>
                     <div class="grid grid-cols-1 gap-4">
                         <a href="bib.html" 
@@ -259,17 +128,19 @@
                 </div>
 
                 <!-- Calculer la moyenne -->
-                <div class="profile-card glass-card animate-fadeIn" data-aos="slide-left">
-                    <div class="flex items-center gap-4 mb-4">
-                        <i class="fas fa-calculator text-blue-500 text-2xl"></i>
-                        <h2 class="text-2xl font-bold text-blue-400">Calculer la moyenne</h2>
+                <div class="service-card glass-card p-6 rounded-lg shadow-lg bg-white/10 backdrop-blur-md transform hover:scale-[1.02] transition-all duration-300" data-aos="slide-left">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="service-icon text-blue-500">
+                            <i class="fas fa-calculator text-4xl"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold text-gray-800">Calculer la moyenne</h2>
                     </div>
                     <div class="grid grid-cols-1 gap-4">
                         <a href="calculator.html" class="block p-4 bg-blue-800 hover:bg-blue-900 transition rounded-lg">
                             <div class="flex items-center gap-4">
                                 <i class="fas fa-calculator text-blue-500 text-xl"></i>
                                 <div>
-                                    <h3 class="text-xl font-semibold">Simulateur de moyenne</h3>
+                                    <h3 class="text-xl font-semibold text-white">Simulateur de moyenne</h3>
                                     <p class="text-sm text-gray-400">Préparez-vous efficacement</p>
                                 </div>
                             </div>
@@ -278,10 +149,12 @@
                 </div>
 
                 <!-- Emploi du temps -->
-                <div class="profile-card glass-card animate-fadeIn" data-aos="slide-right">
-                    <div class="flex items-center gap-4 mb-4">
-                        <i class="fas fa-calendar-alt text-purple-400 text-2xl"></i>
-                        <h2 class="text-2xl font-bold text-purple-400">Emploi du temps</h2>
+                <div class="service-card glass-card p-6 rounded-lg shadow-lg bg-white/10 backdrop-blur-md transform hover:scale-[1.02] transition-all duration-300" data-aos="slide-right">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="service-icon text-purple-400">
+                            <i class="fas fa-calendar-alt text-4xl"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold text-gray-800">Emploi du temps</h2>
                     </div>
                     <div class="flex flex-col items-center justify-center p-8 bg-purple-900/30 rounded-lg">
                         <i class="fas fa-clock text-6xl text-purple-400 mb-4"></i>
@@ -294,10 +167,12 @@
                 </div>
 
                 <!-- Contactez-nous -->
-                <div class="profile-card glass-card animate-fadeIn" data-aos="slide-left">
-                    <div class="flex items-center gap-4 mb-4">
-                        <i class="fas fa-envelope text-red-500 text-2xl"></i>
-                        <h2 class="text-2xl font-bold text-red-400">Contactez-nous</h2>
+                <div class="service-card glass-card p-6 rounded-lg shadow-lg bg-white/10 backdrop-blur-md transform hover:scale-[1.02] transition-all duration-300" data-aos="slide-left">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="service-icon text-red-500">
+                            <i class="fas fa-envelope text-4xl"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold text-gray-800">Contactez-nous</h2>
                     </div>
                     <form class="grid grid-cols-1 gap-4">
                         <input type="text" placeholder="Votre message" 
@@ -322,12 +197,41 @@
         </div>
     </main>
 
+    <footer class="text-center text-gray-600 text-sm py-4">
+        <div>&copy; 2025 Université de Bejaia. Développé par <a href="mailto:mehdi.amara@icloud.com" class="text-blue-500 hover:text-blue-700">Amara Mehdi</a></div>
+    </footer>
+
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script type="module">
+        import { getAuth, onAuthStateChanged } from 'firebase/auth';
+        import { getFirestore, doc, getDoc } from 'firebase/firestore';
+        import { initializeApp } from 'firebase/app';
+
+        const firebaseConfig = {
+          // ...
+        };
+        initializeApp(firebaseConfig);
+        const auth = getAuth();
+        const db = getFirestore();
+
+        onAuthStateChanged(auth, async (user) => {
+          if (user) {
+            const userRef = doc(db, 'users', user.uid);
+            const snap = await getDoc(userRef);
+            const data = snap.data();
+
+            document.getElementById('profileName').textContent = data 
+              ? `Bienvenue, ${data.name}` 
+              : 'Aucune donnée trouvée';
+          } else {
+            window.location.href = 'auth.html';
+          }
+        });
+    </script>
     <script>
         AOS.init({ duration: 1000 });
 
-        // Profile Initialization
         document.addEventListener('DOMContentLoaded', () => {
             showLoadingState();
             
@@ -345,7 +249,6 @@
                 }, 1000);
             }
 
-            // Add logout button event listener
             const logoutButton = document.getElementById('logoutButton');
             logoutButton.addEventListener('click', () => {
                 try {
@@ -360,7 +263,6 @@
             });
         });
 
-        // Photo Upload Handling
         const photoUpload = document.getElementById('photoUpload');
         const profileImage = document.getElementById('profileImage');
 
@@ -373,7 +275,7 @@
                     const photoRef = storageRef.child(`profile-photos/${firebase.auth().currentUser.uid}`);
                     
                     const uploadTask = photoRef.put(file);
-                    uploadTask.on(firebase.storage.task_EVENT_STATE_CHANGED, 
+                    uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, 
                         (snapshot) => {
                             const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
                             console.log(`Upload is ${progress}% done`);
