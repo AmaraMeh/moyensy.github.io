@@ -1249,3 +1249,16 @@ html {
       transform: none;
       background-color: #f3f4f6;
   }
+
+  .partners-section {
+    text-align: center;
+}
+
+.partner-card {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(209, 213, 219, 0.3);
+    backdrop-filter: blur(10px);
+}
