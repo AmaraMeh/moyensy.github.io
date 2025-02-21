@@ -273,6 +273,25 @@
                 text-align: center;
             }
         }
+
+        #activate-notifications {
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #activate-notifications:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        #activate-notifications.activated {
+            background-color: #10B981;
+            color: white;
+        }
+
+        #activate-notifications.activated:hover {
+            background-color: #059669;
+        }
     </style>
 </head>
 <body class="flex flex-col min-h-screen bg-gray-50">
@@ -301,6 +320,11 @@
     <div class="department-header" data-aos="fade-down">
         <h1 class="text-4xl font-bold mb-3">Sciences et Technologies</h1>
         <p class="text-xl opacity-90">Affichage des actualités et annonces</p>
+        <!-- Add this notification button -->
+        <button id="activate-notifications" class="mt-4 bg-white text-blue-600 px-4 py-2 rounded-full flex items-center gap-2 mx-auto hover:bg-blue-50 transition-all duration-300">
+            <i class="fas fa-bell"></i>
+            <span>Activer les notifications</span>
+        </button>
     </div>
 
     <!-- Main Content -->
@@ -504,6 +528,39 @@
 
   // Make it globally available
   window.toggleContent = toggleContent;
+</script>
+<script src="../assets/js/notification.js" type="module"></script>
+<script src="../assets/js/firebase-messaging.js" type="module"></script>
+<script>
+    // Initialize notification status
+    document.addEventListener('DOMContentLoaded', () => {
+        const notificationButton = document.getElementById('activate-notifications');
+        
+        // Check if notifications are already enabled
+        if (Notification.permission === 'granted') {
+            notificationButton.classList.add('activated');
+            notificationButton.innerHTML = `<i class="fas fa-bell"></i> <span>Notifications activées</span>`;
+        }
+
+        notificationButton.addEventListener('click', async () => {
+            try {
+                await requestNotificationPermission();
+                notificationButton.classList.add('activated');
+                notificationButton.innerHTML = `<i class="fas fa-bell"></i> <span>Notifications activées</span>`;
+                
+                // Show confirmation notification
+                displayNotification(
+                    "Notifications activées",
+                    {
+                        body: "Vous recevrez désormais des notifications pour les nouvelles annonces.",
+                        icon: "../assets/img/icon.png"
+                    }
+                );
+            } catch (error) {
+                alert("Veuillez autoriser les notifications dans les paramètres de votre navigateur.");
+            }
+        });
+    });
 </script>
 </body>
 </html>
