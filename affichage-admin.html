@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Admin Panel</title>
+    <!-- Tailwind & Font Awesome (from index.html) -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico">
+    <link rel="stylesheet" href="assets/css/style.css">
+  </head>
+  <body class="bg-gray-50 min-h-screen flex flex-col" data-aos-easing="ease-out-cubic">
+    <header class="bg-blue-600 py-4 shadow-lg" data-aos="fade-down">
+      <div class="container mx-auto px-4">
+        <h1 class="text-white text-3xl font-bold">
+          <i class="fas fa-user-shield mr-2"></i>
+          Administration
+        </h1>
+      </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8 flex-grow">
+      <div class="max-w-7xl mx-auto">
+        <!-- Header Section -->
+        <div class="text-center mb-12" data-aos="fade-down">
+          <h2 class="text-3xl font-bold text-gray-800 mb-4">Gestion des Annonces</h2>
+          <p class="text-gray-600 max-w-2xl mx-auto">
+            Gérez les annonces pour chaque spécialité. Sélectionnez une section pour ajouter ou modifier des annonces.
+          </p>
+        </div>
+
+        <!-- Specialities Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+          <!-- ST/SM Card -->
+          <div class="speciality-card bg-white rounded-xl shadow-lg overflow-hidden" data-aos="fade-up">
+            <div class="bg-gradient-to-br from-indigo-600 to-indigo-800 p-6">
+              <div class="text-white text-center">
+                <div class="icon-container mb-4">
+                  <i class="fas fa-atom text-5xl"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2">ST/SM</h3>
+                <p class="text-sm opacity-75">Sciences et Technologies</p>
+              </div>
+            </div>
+            <div class="p-6 bg-gradient-to-b from-white to-gray-50 flex flex-col gap-2">
+              <button onclick="showAnnouncementModal('ST/SM')" 
+                      class="w-full bg-indigo-600 text-white px-4 py-3 rounded-lg hover:bg-indigo-700 transition-all flex items-center justify-center gap-2">
+                <i class="fas fa-plus-circle"></i>
+                <span>Nouvelle Annonce</span>
+              </button>
+              <a href="Affichage/st.html" 
+                 class="w-full bg-gray-100 text-gray-700 px-4 py-3 rounded-lg hover:bg-gray-200 transition-all flex items-center justify-center gap-2">
+                <i class="fas fa-external-link-alt"></i>
+                <span>Voir les annonces</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Biologie Card -->
+          <div class="speciality-card bg-white rounded-xl shadow-lg overflow-hidden" data-aos="fade-up" data-aos-delay="100">
+            <div class="bg-gradient-to-br from-green-600 to-green-800 p-6">
+              <div class="text-white text-center">
+                <div class="icon-container mb-4">
+                  <i class="fas fa-leaf text-5xl"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2">Biologie</h3>
+                <p class="text-sm opacity-75">Sciences Biologiques</p>
+              </div>
+            </div>
+            <div class="p-6 bg-gradient-to-b from-white to-gray-50 flex flex-col gap-2">
+              <button onclick="showAnnouncementModal('Biologie')" 
+                      class="w-full bg-green-600 text-white px-4 py-3 rounded-lg hover:bg-green-700 transition-all flex items-center justify-center gap-2">
+                <i class="fas fa-plus-circle"></i>
+                <span>Nouvelle Annonce</span>
+              </button>
+              <a href="Affichage/biologie.html" 
+                 class="w-full bg-gray-100 text-gray-700 px-4 py-3 rounded-lg hover:bg-gray-200 transition-all flex items-center justify-center gap-2">
+                <i class="fas fa-external-link-alt"></i>
+                <span>Voir les annonces</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Informatique Card -->
+          <div class="speciality-card bg-white rounded-xl shadow-lg overflow-hidden" data-aos="fade-up" data-aos-delay="200">
+            <div class="bg-gradient-to-br from-blue-600 to-blue-800 p-6">
+              <div class="text-white text-center">
+                <div class="icon-container mb-4">
+                  <i class="fas fa-laptop-code text-5xl"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2">Informatique</h3>
+                <p class="text-sm opacity-75">Sciences Informatiques</p>
+              </div>
+            </div>
+            <div class="p-6 bg-gradient-to-b from-white to-gray-50 flex flex-col gap-2">
+              <button onclick="showAnnouncementModal('Informatique')" 
+                      class="w-full bg-blue-600 text-white px-4 py-3 rounded-lg hover:bg-blue-700 transition-all flex items-center justify-center gap-2">
+                <i class="fas fa-plus-circle"></i>
+                <span>Nouvelle Annonce</span>
+              </button>
+              <a href="Affichage/info.html" 
+                 class="w-full bg-gray-100 text-gray-700 px-4 py-3 rounded-lg hover:bg-gray-200 transition-all flex items-center justify-center gap-2">
+                <i class="fas fa-external-link-alt"></i>
+                <span>Voir les annonces</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Architecture Card -->
+          <div class="speciality-card bg-white rounded-xl shadow-lg overflow-hidden" data-aos="fade-up" data-aos-delay="300">
+            <div class="bg-gradient-to-br from-purple-600 to-purple-800 p-6">
+              <div class="text-white text-center">
+                <div class="icon-container mb-4">
+                  <i class="fas fa-drafting-compass text-5xl"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2">Architecture</h3>
+                <p class="text-sm opacity-75">Architecture et Design</p>
+              </div>
+            </div>
+            <div class="p-6 bg-gradient-to-b from-white to-gray-50 flex flex-col gap-2">
+              <button onclick="showAnnouncementModal('Architecture')" 
+                      class="w-full bg-purple-600 text-white px-4 py-3 rounded-lg hover:bg-purple-700 transition-all flex items-center justify-center gap-2">
+                <i class="fas fa-plus-circle"></i>
+                <span>Nouvelle Annonce</span>
+              </button>
+              <a href="Affichage/archi.html" 
+                 class="w-full bg-gray-100 text-gray-700 px-4 py-3 rounded-lg hover:bg-gray-200 transition-all flex items-center justify-center gap-2">
+                <i class="fas fa-external-link-alt"></i>
+                <span>Voir les annonces</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="bg-gray-800 text-gray-200 text-center py-4" data-aos="fade-up">
+      <p class="text-sm">&copy; 2025 Université de Bejaia - Campus El-Kseur</p>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init({ 
+        duration: 800, 
+        once: true, 
+        offset: 100, 
+        delay: 50,
+        easing: 'ease-out-cubic',
+        anchorPlacement: 'top-bottom'
+      });
+    </script>
+    <script>
+      function showAnnouncementModal(speciality) {
+        const modal = document.getElementById('announcementModal');
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        document.getElementById('selectedSpeciality').textContent = speciality;
+      }
+
+      function closeAnnouncementModal() {
+        const modal = document.getElementById('announcementModal');
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        // Reset form
+        document.getElementById('announcementTitle').value = '';
+        document.getElementById('mainContent').value = '';
+        document.getElementById('hiddenContent').value = '';
+        document.getElementById('attachments').value = '';
+        document.getElementById('isPriority').checked = false;
+        document.querySelectorAll('input[name="tag"]').forEach(radio => radio.checked = false);
+      }
+    </script>
+    <style>
+        /* Tag styles */
+        .tag {
+            padding: 0.35rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tag-examens {
+            background-color: #fee2e2;
+            color: #dc2626;
+        }
+
+        .tag-emplois {
+            background-color: #e0e7ff;
+            color: #4f46e5;
+        }
+
+        .tag-notes {
+            background-color: #d1fae5;
+            color: #059669;
+        }
+
+        .tag-annonces {
+            background-color: #fef3c7;
+            color: #d97706;
+        }
+
+        .tag-divers {
+            background-color: #f3e8ff;
+            color: #7e22ce;
+        }
+
+        /* Add these styles at the end of your existing styles */
+        .speciality-card {
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .speciality-card:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .speciality-card .icon-container {
+          transition: transform 0.3s ease;
+        }
+
+        .speciality-card:hover .icon-container {
+          transform: scale(1.1);
+        }
+
+        .modal-content {
+          animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+          from {
+            transform: translateY(-10px);
+            opacity: 0;
+          }
+          to {
+            transform: translateY(0);
+            opacity: 1;
+          }
+        }
+
+        /* Improved form styling */
+        .form-input:focus, .form-textarea:focus {
+          box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+        }
+
+        /* Tag animation */
+        .tag {
+          transition: all 0.2s ease;
+        }
+
+        .tag:hover {
+          transform: scale(1.05);
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+          width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+          background: #f1f1f1;
+          border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+          background: #cbd5e1;
+          border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+          background: #94a3b8;
+        }
+
+          .tag-wrapper input[type="radio"]:checked ~ .tag {
+          transform: scale(1.05);
+          box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .tag-wrapper input[type="radio"]:checked ~ .tag-examens {
+          background-color: #dc2626;
+          color: white;
+        }
+
+        .tag-wrapper input[type="radio"]:checked ~ .tag-emplois {
+          background-color: #4f46e5;
+          color: white;
+        }
+
+        .tag-wrapper input[type="radio"]:checked ~ .tag-notes {
+          background-color: #059669;
+          color: white;
+        }
+
+        .tag-wrapper input[type="radio"]:checked ~ .tag-annonces {
+          background-color: #d97706;
+          color: white;
+        }
+
+        .tag {
+          transition: all 0.2s ease;
+          user-select: none;
+        }
+
+        /* Add these styles to your existing styles */
+        #publishButton {
+          position: relative;
+          overflow: hidden;
+        }
+
+        #progressBar {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          height: 2px;
+          background: rgba(255, 255, 255, 0.8);
+          transform: translateX(-100%);
+          transition: transform 0.8s ease-in-out;
+        }
+
+        /* Loading spinner animation */
+        @keyframes spin {
+          to { transform: rotate(360deg); }
+        }
+
+        .fa-spin {
+          animation: spin 1s linear infinite;
+        }
+
+        /* Notification animation */
+        @keyframes slideIn {
+          from {
+            transform: translateY(-20px);
+            opacity: 0;
+          }
+          to {
+            transform: translateY(0);
+            opacity: 1;
+          }
+        }
+
+        /* Add to your existing styles */
+        #progressBar {
+          transition: width 0.7s ease-in-out;
+        }
+
+        #publishProgress {
+          animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+          }
+          to {
+            opacity: 1;
+          }
+        }
+
+        #errorMessage {
+          animation: shake 0.5s ease-in-out;
+        }
+
+        @keyframes shake {
+          0%, 100% { transform: translateX(0); }
+          25% { transform: translateX(-5px); }
+          75% { transform: translateX(5px); }
+        }
+    </style>
+    <!-- Update the modal div -->
+    <div id="announcementModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 hidden items-center justify-center z-50 p-4">
+      <div class="modal-content bg-white rounded-xl shadow-2xl p-8 max-w-2xl w-full mx-auto max-h-[90vh] overflow-y-auto">
+        <h3 class="text-2xl font-bold mb-4">Nouvelle Annonce - <span id="selectedSpeciality"></span></h3>
+        
+        <!-- Title input -->
+        <div class="mb-4">
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="announcementTitle">
+            Titre de l'annonce
+          </label>
+          <input type="text" id="announcementTitle" 
+                 class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500"
+                 placeholder="Entrez le titre...">
+        </div>
+
+        <!-- Tag Selection -->
+        <div class="mb-4">
+          <label class="block text-gray-700 text-sm font-bold mb-2">Type d'annonce</label>
+          <div class="flex flex-wrap gap-3">
+            <label class="tag-wrapper">
+              <input type="radio" name="tag" value="examens" class="hidden">
+              <span class="tag tag-examens cursor-pointer transform transition-all hover:scale-105">
+                <i class="fas fa-file-alt mr-1"></i>
+                Examens
+              </span>
+            </label>
+            <label class="tag-wrapper">
+              <input type="radio" name="tag" value="emplois" class="hidden">
+              <span class="tag tag-emplois cursor-pointer transform transition-all hover:scale-105">
+                <i class="fas fa-calendar-alt mr-1"></i>
+                Emplois
+              </span>
+            </label>
+            <label class="tag-wrapper">
+              <input type="radio" name="tag" value="notes" class="hidden">
+              <span class="tag tag-notes cursor-pointer transform transition-all hover:scale-105">
+                <i class="fas fa-chart-bar mr-1"></i>
+                Notes
+              </span>
+            </label>
+            <label class="tag-wrapper">
+              <input type="radio" name="tag" value="annonces" class="hidden">
+              <span class="tag tag-annonces cursor-pointer transform transition-all hover:scale-105">
+                <i class="fas fa-bullhorn mr-1"></i>
+                Annonces
+              </span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="mb-4">
+          <label class="block text-gray-700 text-sm font-bold mb-2">
+            Contenu principal
+          </label>
+          <textarea id="mainContent" 
+                    class="w-full h-32 p-3 border rounded-lg focus:ring-2 focus:ring-blue-500"
+                    placeholder="Contenu principal visible..."></textarea>
+        </div>
+
+        <!-- Hidden Content -->
+        <div class="mb-4">
+          <label class="block text-gray-700 text-sm font-bold mb-2">
+            Contenu détaillé (Voir plus)
+          </label>
+          <textarea id="hiddenContent" 
+                    class="w-full h-32 p-3 border rounded-lg focus:ring-2 focus:ring-blue-500"
+                    placeholder="Contenu qui apparaîtra après 'Voir plus'..."></textarea>
+        </div>
+
+        <!-- Files -->
+        <div class="mb-6">
+          <label class="block text-gray-700 text-sm font-bold mb-2">
+            Fichiers joints
+          </label>
+          <input type="file" id="attachments" multiple
+                 class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-blue-500">
+        </div>
+
+        <!-- Priority toggle -->
+        <div class="mb-6">
+          <label class="flex items-center space-x-2 cursor-pointer">
+            <input type="checkbox" id="isPriority" class="form-checkbox text-red-600">
+            <span class="text-gray-700">Annonce prioritaire</span>
+          </label>
+        </div>
+
+        <!-- Action buttons -->
+        <div class="flex flex-col space-y-4">
+          <!-- Progress bar -->
+          <div id="publishProgress" class="hidden">
+            <div class="h-1 w-full bg-gray-200 rounded overflow-hidden">
+              <div id="progressBar" class="h-full w-0 bg-blue-600 transition-all duration-700"></div>
+            </div>
+            <p id="publishStatus" class="text-sm text-gray-600 mt-2 text-center"></p>
+          </div>
+
+          <!-- Error message -->
+          <div id="errorMessage" class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+            <span id="errorText" class="block sm:inline"></span>
+          </div>
+
+          <!-- Buttons -->
+          <div class="flex justify-end space-x-4">
+            <button onclick="closeAnnouncementModal()" 
+                    class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300 transition-all">
+              Annuler
+            </button>
+            <button id="publishButton"
+                    onclick="handlePublish()"
+                    class="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-all flex items-center gap-2">
+              <i class="fas fa-paper-plane"></i>
+              <span>Publier</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="module">
+  // Import Firebase utilities
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+  import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyB5XYqWKhHdiVDXJx4iOwtpxD8eUCPRfKU",
+    authDomain: "universite-de-bejaia-547fc.firebaseapp.com",
+    projectId: "universite-de-bejaia-547fc",
+    storageBucket: "universite-de-bejaia-547fc.firebasestorage.app",
+    messagingSenderId: "517622731583",
+    appId: "1:517622731583:web:25453d5e01226585bf798a",
+    measurementId: "G-SQ0WWSCS7B"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  // Wait for DOM to load
+  document.addEventListener('DOMContentLoaded', () => {
+    const publishButton = document.getElementById('publishButton');
+    
+    if (publishButton) {
+      publishButton.addEventListener('click', handlePublish);
+    }
+  });
+
+  async function handlePublish() {
+    const publishButton = document.getElementById('publishButton');
+    const progressBar = document.getElementById('progressBar');
+    const publishProgress = document.getElementById('publishProgress');
+    const publishStatus = document.getElementById('publishStatus');
+    const errorMessage = document.getElementById('errorMessage');
+    const errorText = document.getElementById('errorText');
+
+    try {
+      // Show progress and disable button
+      errorMessage.classList.add('hidden');
+      publishProgress.classList.remove('hidden');
+      publishButton.disabled = true;
+      
+      // Update progress
+      progressBar.style.width = '30%';
+      publishStatus.textContent = 'Validation des données...';
+
+      // Get form values
+      const speciality = document.getElementById('selectedSpeciality').textContent;
+      const title = document.getElementById('announcementTitle').value;
+      const mainContent = document.getElementById('mainContent').value;
+      const hiddenContent = document.getElementById('hiddenContent').value;
+      const tag = document.querySelector('input[name="tag"]:checked')?.value;
+      const isPriority = document.getElementById('isPriority').checked;
+
+      // Validate
+      if (!title || !mainContent || !tag) {
+        throw new Error('Veuillez remplir tous les champs obligatoires (titre, contenu et type d\'annonce)');
+      }
+
+      // Update progress
+      progressBar.style.width = '60%';
+      publishStatus.textContent = 'Enregistrement de l\'annonce...';
+
+      // Create announcement object
+      const announcement = {
+        speciality,
+        title,
+        mainContent,
+        hiddenContent,
+        tag,
+        isPriority,
+        createdAt: serverTimestamp()
+      };
+
+      // Get collection name
+      const collectionMap = {
+        'ST/SM': 'st_announcements',
+        'Biologie': 'bio_announcements',
+        'Informatique': 'info_announcements',
+        'Architecture': 'archi_announcements'
+      };
+
+      const collectionName = collectionMap[speciality];
+      
+      // Add to Firestore
+      const docRef = await addDoc(collection(db, collectionName), announcement);
+      console.log('Document written with ID:', docRef.id);
+
+      // Update progress
+      progressBar.style.width = '100%';
+      publishStatus.textContent = 'Publication réussie!';
+
+      // Show success message
+      window.showNotification('Annonce publiée avec succès!', 'success');
+
+      // Close modal after delay
+      setTimeout(() => {
+        closeAnnouncementModal();
+      }, 1500);
+
+    } catch (error) {
+      console.error('Error:', error);
+      
+      // Show error in modal
+      errorText.textContent = error.message;
+      errorMessage.classList.remove('hidden');
+      
+      // Reset progress
+      publishProgress.classList.add('hidden');
+      progressBar.style.width = '0%';
+      
+      // Show error notification
+      window.showNotification(error.message, 'error');
+    } finally {
+      // Reset button state after delay
+      setTimeout(() => {
+        publishButton.disabled = false;
+      }, 1000);
+    }
+  }
+
+  // Make functions available globally
+  window.handlePublish = handlePublish;
+</script>
+<script>
+  // Global notification function
+  function showNotification(message, type = 'success') {
+    // Create notification element
+    const notification = document.createElement('div');
+    notification.className = `fixed top-4 right-4 p-4 rounded-lg shadow-lg text-white ${
+      type === 'success' ? 'bg-green-500' : 'bg-red-500'
+    } transform translate-y-[-20px] opacity-0 transition-all duration-300 z-50`;
+    
+    notification.innerHTML = `
+      <div class="flex items-center gap-2">
+        <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-times-circle'}"></i>
+        <p>${message}</p>
+      </div>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    // Trigger animation
+    setTimeout(() => {
+      notification.style.transform = 'translateY(0)';
+      notification.style.opacity = '1';
+    }, 100);
+
+    // Remove notification after delay
+    setTimeout(() => {
+      notification.style.transform = 'translateY(-20px)';
+      notification.style.opacity = '0';
+      setTimeout(() => notification.remove(), 300);
+    }, 3000);
+  }
+
+  // Make it globally available
+  window.showNotification = showNotification;
+</script>
+  </body>
+</html>

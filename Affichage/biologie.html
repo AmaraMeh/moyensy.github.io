@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sciences et Technologies - Affichage | Université de Bejaia</title>
+    <meta name="description" content="Affichage des actualités - Sciences et Technologies - Université de Bejaia">
+    <meta name="author" content="Amara Mehdi">
+    <meta name="keywords" content="Université de Bejaia, Sciences et Technologies, Affichage, Actualités">
+    <link rel="icon" type="image/png" href="../assets/img/icon.png">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .news-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .news-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px -5px rgba(0, 0, 0, 0.2);
+        }
+
+        .news-card.expanded {
+            padding-bottom: 2rem;
+        }
+
+        .news-date {
+            color: #666;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .news-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin: 0.5rem 0;
+            color: #1a1a1a;
+            transition: color 0.3s ease;
+        }
+
+        .news-content {
+            color: #4a4a4a;
+            line-height: 1.6;
+            max-height: 4.8em;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+
+        .news-card.expanded .news-content {
+            max-height: 1000px;
+        }
+
+        .department-header {
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .department-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .filter-section {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .filter-button {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.75rem;
+            background: #f3f4f6;
+            border: 1px solid #e5e7eb;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .filter-button:hover {
+            background: #2563eb;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .filter-button.active {
+            background: #2563eb;
+            color: white;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+        }
+
+        /* Tag colors */
+        .tag {
+            padding: 0.35rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tag-examens {
+            background-color: #fee2e2;
+            color: #dc2626;
+        }
+
+        .tag-emplois {
+            background-color: #e0e7ff;
+            color: #4f46e5;
+        }
+
+        .tag-notes {
+            background-color: #d1fae5;
+            color: #059669;
+        }
+
+        .tag-annonces {
+            background-color: #fef3c7;
+            color: #d97706;
+        }
+
+        /* Navigation improvements */
+        .nav-link {
+            position: relative;
+            padding: 0.5rem 1rem;
+            color: #4b5563;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: #2563eb;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #2563eb;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Read more animation */
+        .read-more-btn {
+            background: none;
+            border: none;
+            color: #2563eb;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 0;
+        }
+
+        .read-more-btn:hover {
+            color: #1d4ed8;
+            gap: 0.75rem;
+        }
+
+        .read-more-btn i {
+            transition: transform 0.3s ease;
+        }
+
+        .news-card.expanded .read-more-btn i {
+            transform: rotate(180deg);
+        }
+
+        /* Publication time */
+        .publication-time {
+            font-size: 0.8rem;
+            color: #6b7280;
+            margin-left: 0.5rem;
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between h-16">
+                <div class="flex">
+                    <a href="../index.html" class="flex items-center">
+                        <img src="../assets/img/LOGO.png" alt="Logo" class="h-10 w-auto">
+                    </a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="../index.html" class="nav-link">
+                        <i class="fas fa-home mr-2"></i>Accueil
+                    </a>
+                    <a href="../affichage.html" class="nav-link">
+                        <i class="fas fa-bullhorn mr-2"></i>Affichage
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Department Header -->
+    <div class="department-header" data-aos="fade-down">
+        <h1 class="text-4xl font-bold mb-3">Biologie et Science Alimentaires</h1>
+        <p class="text-xl opacity-90">Affichage des actualités et annonces</p>
+    </div>
+
+    <!-- Main Content -->
+    <main class="flex-grow">
+        <div class="news-container">
+            <!-- Filters -->
+            <div class="filter-section" data-aos="fade-up">
+                <button class="filter-button active" data-filter="all">
+                    <i class="fas fa-layer-group mr-2"></i>Tous
+                </button>
+                <button class="filter-button" data-filter="examens">
+                    <i class="fas fa-file-alt mr-2"></i>Examens
+                </button>
+                <button class="filter-button" data-filter="emplois">
+                    <i class="fas fa-calendar-alt mr-2"></i>Emplois du temps
+                </button>
+                <button class="filter-button" data-filter="notes">
+                    <i class="fas fa-chart-bar mr-2"></i>Notes
+                </button>
+                <button class="filter-button" data-filter="annonces">
+                    <i class="fas fa-bullhorn mr-2"></i>Annonces
+                </button>
+            </div>
+
+            <!-- News Feed -->
+            <div class="news-feed">
+                <!-- Example News Cards -->
+                <article class="news-card" data-aos="fade-up">
+                    <div class="news-date">
+                        <i class="far fa-calendar-alt"></i>
+                        <span>21 Février 2025</span>
+                        <span class="publication-time">
+                            <i class="far fa-clock"></i> 15:24
+                        </span>
+                    </div>
+                    <h2 class="news-title">Planning des Examens - Semestre 1</h2>
+                    <div class="news-content">
+                        <p>Le planning des examens du premier semestre est maintenant disponible. Les examens débuteront le 1er Mars 2025. Veuillez consulter attentivement les horaires et les salles assignées...</p>
+                        <div class="hidden-content">
+                            <p class="mt-4">Points importants :</p>
+                            <ul class="list-disc ml-6 mt-2">
+                                <li>Présentation obligatoire de la carte d'étudiant</li>
+                                <li>Arrivée 30 minutes avant le début de l'examen</li>
+                                <li>Matériel autorisé : calculatrice non programmable</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="mt-4 flex items-center justify-between">
+                        <span class="tag tag-examens">
+                            <i class="fas fa-tag"></i> Examens
+                        </span>
+                        <button class="read-more-btn">
+                            Voir plus <i class="fas fa-chevron-down"></i>
+                        </button>
+                    </div>
+                </article>
+
+                <article class="news-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="news-date">
+                        <i class="far fa-calendar-alt"></i>
+                        <span>21 Février 2025</span>
+                        <span class="publication-time">
+                            <i class="far fa-clock"></i> 14:30
+                        </span>
+                    </div>
+                    <h2 class="news-title">Emploi du Temps - Semestre 2</h2>
+                    <div class="news-content">
+                        <p>L'emploi du temps du deuxième semestre est désormais disponible sur la plateforme. Les cours reprendront le 15 Mars 2025...</p>
+                    </div>
+                    <div class="mt-4 flex items-center justify-between">
+                        <span class="tag tag-emplois">
+                            <i class="fas fa-tag"></i> Emplois du temps
+                        </span>
+                        <button class="read-more-btn">
+                            Voir plus <i class="fas fa-chevron-down"></i>
+                        </button>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-6">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center">
+                <p>&copy; 2025 Université de Bejaia. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100,
+            delay: 50
+        });
+    </script>
+    <script type="module">
+        // Import Firebase utilities
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyB5XYqWKhHdiVDXJx4iOwtpxD8eUCPRfKU",
+            authDomain: "universite-de-bejaia-547fc.firebaseapp.com",
+            projectId: "universite-de-bejaia-547fc",
+            storageBucket: "universite-de-bejaia-547fc.firebasestorage.app",
+            messagingSenderId: "517622731583",
+            appId: "1:517622731583:web:25453d5e01226585bf798a",
+            measurementId: "G-SQ0WWSCS7B"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Create query for Biologie announcements
+        const q = query(
+            collection(db, 'bio_announcements'),
+            orderBy('createdAt', 'desc')
+        );
+
+        // Real-time listener for announcements
+        onSnapshot(q, (snapshot) => {
+            const newsFeed = document.querySelector('.news-feed');
+            newsFeed.innerHTML = ''; // Clear existing content
+
+            if (snapshot.empty) {
+                newsFeed.innerHTML = `
+                    <div class="text-center py-8 text-gray-500">
+                    <i class="fas fa-inbox text-4xl mb-4"></i>
+                    <p>Aucune annonce disponible pour le moment.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            snapshot.forEach((doc) => {
+                const data = doc.data();
+                const date = data.createdAt?.toDate() || new Date();
+                
+                const articleHTML = `
+                    <article class="news-card ${data.isPriority ? 'border-l-4 border-red-500' : ''}" data-aos="fade-up">
+                    <div class="news-date">
+                        <i class="far fa-calendar-alt"></i>
+                        <span>${date.toLocaleDateString()}</span>
+                        <span class="publication-time">
+                        <i class="far fa-clock"></i> ${date.toLocaleTimeString()}
+                        </span>
+                        ${data.isPriority ? '<span class="ml-2 text-red-500"><i class="fas fa-exclamation-circle"></i> Prioritaire</span>' : ''}
+                    </div>
+                    <h2 class="news-title">${data.title}</h2>
+                    <div class="news-content">
+                        <p>${data.mainContent}</p>
+                        ${data.hiddenContent ? `
+                        <div class="hidden-content hidden">
+                            ${data.hiddenContent}
+                        </div>
+                        ` : ''}
+                    </div>
+                    <div class="mt-4 flex items-center justify-between">
+                        <span class="tag tag-${data.tag}">
+                        <i class="fas fa-tag"></i> ${data.tag}
+                        </span>
+                        ${data.hiddenContent ? `
+                        <button class="read-more-btn" onclick="toggleContent(this)">
+                            Voir plus <i class="fas fa-chevron-down"></i>
+                        </button>
+                        ` : ''}
+                    </div>
+                    </article>
+                `;
+                
+                newsFeed.insertAdjacentHTML('beforeend', articleHTML);
+            });
+
+            // Initialize AOS for new content
+            AOS.refresh();
+        });
+    </script>
+
+    <script>
+        // Add this function for the read more functionality
+        function toggleContent(button) {
+            const card = button.closest('.news-card');
+            const hiddenContent = card.querySelector('.hidden-content');
+            
+            card.classList.toggle('expanded');
+            hiddenContent.classList.toggle('hidden');
+            
+            if (card.classList.contains('expanded')) {
+                button.innerHTML = 'Voir moins <i class="fas fa-chevron-up"></i>';
+            } else {
+                button.innerHTML = 'Voir plus <i class="fas fa-chevron-down"></i>';
+            }
+        }
+
+        // Make it globally available
+        window.toggleContent = toggleContent;
+
+        // Filter functionality
+        document.querySelectorAll('.filter-button').forEach(button => {
+            button.addEventListener('click', () => {
+                const filter = button.getAttribute('data-filter');
+                
+                // Update active state
+                document.querySelectorAll('.filter-button').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                button.classList.add('active');
+                
+                // Filter announcements
+                const articles = document.querySelectorAll('.news-card');
+                articles.forEach(article => {
+                    const tag = article.querySelector('.tag').textContent.trim().toLowerCase();
+                    if (filter === 'all' || tag.includes(filter)) {
+                        article.style.display = 'block';
+                    } else {
+                        article.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
