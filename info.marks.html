@@ -369,27 +369,33 @@
         font-size: 0.95rem;
       }
     }
+
+    /* Remove or update the part that referred to the connect link */
+    .password-box p.mb-4 {
+      display: none; /* Or remove the entire <p> if you prefer */
+    }
   </style>
 </head>
 <body class="bg-gray-50 flex flex-col min-h-screen">
   <div id="passwordOverlay" class="password-overlay">
     <div class="password-box">
-        <h2>Accès Sécurisé</h2>
-        <input 
-            type="password" 
-            id="passwordInput" 
-            placeholder="Entrez le mot de passe"
-            onkeypress="handlePasswordKeyPress(event)"
-        >
-        <button onclick="checkPassword()">Accéder</button>
-        <p id="passwordError" class="error-message">Mot de passe incorrect</p>
-        <p class="instagram-note">
-            Si vous êtes délégué(e) d'un groupe, veuillez contacter 
-            <a href="https://www.instagram.com/spot_campuselkseur" target="_blank" class="instagram-link">
-                spot_campuselkseur
-            </a> 
-            sur Instagram pour obtenir le mot de passe.
-        </p>
+      <h2>Accès Sécurisé</h2>
+      <!-- Removed the "connectez-vous" text block -->
+      <input 
+        type="password" 
+        id="passwordInput" 
+        placeholder="Entrez le mot de passe"
+        onkeypress="handlePasswordKeyPress(event)"
+      >
+      <button onclick="checkPassword()">Accéder</button>
+      <p id="passwordError" class="error-message">Mot de passe incorrect</p>
+      <p class="instagram-note">
+        Si vous êtes délégué(e) d'un groupe, veuillez contacter 
+        <a href="https://www.instagram.com/spot_campuselkseur" target="_blank" class="instagram-link">
+          spot_campuselkseur
+        </a> 
+        sur Instagram pour obtenir le mot de passe.
+      </p>
     </div>
   </div>
 
@@ -639,6 +645,22 @@
     console.log('Current URL:', window.location.href);
     console.log('Hostname:', window.location.hostname);
     console.log('Pathname:', window.location.pathname);
+  </script>
+
+
+    // Update the checkPassword function
+    function checkPassword() {
+      const password = document.getElementById('passwordInput').value;
+      const errorElement = document.getElementById('passwordError');
+      
+      if (password === 'Campus202425') {
+        document.getElementById('passwordOverlay').style.display = 'none';
+        loadData();
+      } else {
+        errorElement.style.display = 'block';
+        document.getElementById('passwordInput').value = '';
+      }
+    }
   </script>
 </body>
 </html>

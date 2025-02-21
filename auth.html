@@ -14,6 +14,39 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <!-- Add these styles to your existing <style> section or auth.css -->
+    <style>
+        @keyframes scaleIn {
+            from { transform: scale(0); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes checkmarkAppear {
+            0% { transform: scale(0); opacity: 0; }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .success-checkmark {
+            animation: checkmarkAppear 0.5s ease-out forwards;
+        }
+
+        #popupContent {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        #popupBox.show #popupContent {
+            animation: scaleIn 0.5s ease-out forwards;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+    </style>
 </head>
 <body class="flex flex-col min-h-screen bg-gray-50">
     <!-- Top banner -->
@@ -128,14 +161,27 @@
         <div>&copy; 2025 Université de Bejaia. Développé par <a href="mailto:mehdi.amara@tech.univ-bejaia.dz" class="text-blue-500 hover:text-blue-700">Amara Mehdi</a></div>
     </footer>
 
-    <!-- Popup Box -->
-    <div id="popupBox" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
-        <div class="glass-card w-full max-w-md p-8 rounded-lg shadow-lg text-center">
-            <h2 class="text-2xl font-bold mb-4">Bienvenue sur notre plateforme</h2>
+    <!-- Replace the existing Popup Box with this improved version -->
+    <div id="popupBox" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden z-50">
+        <div class="glass-card w-full max-w-md p-8 rounded-2xl shadow-2xl text-center transform transition-all duration-500 scale-0" id="popupContent">
+            <div class="success-checkmark mb-6">
+                <i class="fas fa-check-circle text-6xl text-green-500"></i>
+            </div>
+            <h2 class="text-3xl font-bold mb-6 text-gray-800">Connexion réussie!</h2>
+            <p class="text-gray-600 mb-8">Bienvenue sur notre plateforme</p>
             <div class="space-y-4">
-                <button id="homeButton" class="w-full px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transform hover:scale-105 transition-all duration-300 shadow-lg">Accédez écran accueil</button>
-                <button id="coursesButton" class="w-full px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transform hover:scale-105 transition-all duration-300 shadow-lg">Espace cours</button>
-                <button id="profileButton" class="w-full px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transform hover:scale-105 transition-all duration-300 shadow-lg">Profil</button>
+                <button id="homeButton" class="w-full px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg hover:from-blue-600 hover:to-blue-700 transform hover:scale-105 transition-all duration-300 shadow-lg flex items-center justify-center">
+                    <i class="fas fa-home mr-2"></i>
+                    Accueil
+                </button>
+                <button id="coursesButton" class="w-full px-6 py-3 bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-lg hover:from-purple-600 hover:to-purple-700 transform hover:scale-105 transition-all duration-300 shadow-lg flex items-center justify-center">
+                    <i class="fas fa-book mr-2"></i>
+                    Espace cours
+                </button>
+                <button id="profileButton" class="w-full px-6 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-lg hover:from-green-600 hover:to-green-700 transform hover:scale-105 transition-all duration-300 shadow-lg flex items-center justify-center">
+                    <i class="fas fa-user mr-2"></i>
+                    Profil
+                </button>
             </div>
         </div>
     </div>
@@ -272,29 +318,69 @@
                 const password = document.getElementById('passwordLogin').value;
 
                 try {
-                    const userCredential = await auth.signInWithEmailAndPassword(email, password);
+                    // Add loading state
+                    const submitBtn = e.target.querySelector('button[type="submit"]');
+                    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Connexion...';
+                    submitBtn.disabled = true;
+
+                    // Attempt login
+                    const userCredential = await firebase.auth().signInWithEmailAndPassword(email, password);
                     
                     if (userCredential.user) {
-                        // Get user data from Firestore
-                        const userDoc = await db.collection('users').doc(userCredential.user.uid).get();
-                        if (userDoc.exists) {
-                            // Store user data in localStorage
-                            localStorage.setItem('userData', JSON.stringify(userDoc.data()));
-                            localStorage.setItem('userId', userCredential.user.uid);
-                            localStorage.setItem('token', await userCredential.user.getIdToken());
+                        try {
+                            // Get user data from Firestore
+                            const userDoc = await db.collection('users').doc(userCredential.user.uid).get();
+                            
+                            if (userDoc.exists) {
+                                const userData = userDoc.data();
+                                // Store user data in localStorage
+                                localStorage.setItem('userData', JSON.stringify(userData));
+                                localStorage.setItem('userId', userCredential.user.uid);
+                                
+                                // Get fresh token
+                                const token = await userCredential.user.getIdToken(true);
+                                localStorage.setItem('token', token);
 
-                            // Show success popup
-                            const popupBox = document.getElementById('popupBox');
-                            const popupTitle = popupBox.querySelector('h2');
-                            popupTitle.classList.add('text-green-600');
-                            popupTitle.textContent = 'Connexion réussie!';
-                            popupBox.style.display = 'flex';
-                            popupBox.classList.remove('hidden');
+                                // Show success popup
+                                const popupBox = document.getElementById('popupBox');
+                                const popupContent = document.getElementById('popupContent');
+                                popupBox.style.display = 'flex';
+                                popupBox.classList.remove('hidden');
+                                popupBox.classList.add('show');
+                                popupContent.style.transform = 'scale(1)';
+                            } else {
+                                throw new Error('User document not found');
+                            }
+                        } catch (firestoreError) {
+                            console.error('Firestore error:', firestoreError);
+                            throw new Error('Error fetching user data');
                         }
                     }
                 } catch (error) {
                     console.error('Login error:', error);
-                    handleAuthError(error);
+                    let errorMessage = "Une erreur est survenue lors de la connexion";
+                    
+                    if (error.code === 'auth/wrong-password' || error.code === 'auth/user-not-found' || error.code === 'auth/invalid-login-credentials') {
+                        errorMessage = "Email ou mot de passe incorrect";
+                    } else if (error.code === 'auth/too-many-requests') {
+                        errorMessage = "Trop de tentatives échouées. Veuillez réessayer plus tard";
+                    }
+                    
+                    // Show error in a more user-friendly way
+                    const errorDiv = document.createElement('div');
+                    errorDiv.className = 'bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-4';
+                    errorDiv.innerHTML = `<strong class="font-bold">Erreur!</strong><span class="block sm:inline"> ${errorMessage}</span>`;
+                    
+                    const form = document.getElementById('loginForm');
+                    form.insertBefore(errorDiv, form.firstChild);
+                    
+                    // Remove error message after 5 seconds
+                    setTimeout(() => errorDiv.remove(), 5000);
+                } finally {
+                    // Reset button state
+                    const submitBtn = document.querySelector('#loginForm button[type="submit"]');
+                    submitBtn.innerHTML = '<i class="fas fa-sign-in-alt mr-2"></i>Se connecter';
+                    submitBtn.disabled = false;
                 }
             });
 
@@ -348,8 +434,13 @@
             // Add this to ensure popup can be closed
             document.addEventListener('click', (e) => {
                 const popupBox = document.getElementById('popupBox');
+                const popupContent = document.getElementById('popupContent');
                 if (e.target === popupBox) {
-                    popupBox.classList.add('hidden');
+                    popupContent.style.transform = 'scale(0)';
+                    setTimeout(() => {
+                        popupBox.classList.add('hidden');
+                        popupBox.classList.remove('show');
+                    }, 300);
                 }
             });
         });
