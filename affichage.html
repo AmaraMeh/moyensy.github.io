@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Affichage des Filières - Campus Elkseur</title>
+  <!-- Tailwind CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <!-- AOS for animations -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+  <!-- Your custom CSS -->
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico">
+  <link rel="stylesheet" href="assets/css/floating-menu.css">
+  <style>
+    .alert-box {
+      background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+      border: 1px solid #dc2626;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .alert-box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      animation: shine 3s infinite;
+    }
+
+    @keyframes shine {
+      100% { left: 100%; }
+    }
+
+    .back-button {
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .back-button:hover {
+      transform: translateX(-5px);
+    }
+
+    .back-button i {
+      margin-right: 0.5rem;
+    }
+
+    @keyframes float {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-10px); }
+        100% { transform: translateY(0px); }
+    }
+
+    .service-card {
+        animation: float 4s ease-in-out infinite;
+    }
+
+    .service-card:hover .service-icon i {
+        animation: spin 1s ease-in-out;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    .service-icon {
+        transition: all 0.3s ease;
+    }
+
+    .service-card:hover .service-icon {
+        transform: scale(1.2);
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-gray-50 flex flex-col">
+  <div class="container mx-auto px-4 max-w-7xl my-8 flex-grow">
+    <!-- Back button -->
+    <div class="mb-6">
+      <a href="index.html" class="back-button inline-flex items-center px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-all duration-300 shadow-lg">
+        <i class="fas fa-arrow-left"></i>
+        Retour à l'accueil
+      </a>
+    </div>
+
+    <!-- Welcome section -->
+    <div class="welcome-section text-center py-8 mb-8 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-xl shadow-xl" data-aos="fade-up">
+      <h2 class="text-3xl font-bold mb-6 text-white">Bienvenue dans l'espace d'affichage</h2>
+    </div>
+
+    <!-- Alert Message -->
+    <div class="alert-box p-6 rounded-xl shadow-lg mb-8" data-aos="fade-up" data-aos-delay="100">
+      <div class="flex items-center mb-4">
+        <i class="fas fa-exclamation-triangle text-white text-2xl mr-4"></i>
+        <h3 class="text-xl font-bold text-white">Information Importante</h3>
+      </div>
+      <div class="bg-white/10 backdrop-blur-sm rounded-lg p-4">
+        <p class="text-white text-lg leading-relaxed">
+          De nouvelles filières seront ajoutées progressivement au fil du temps.
+        </p>
+      </div>
+      <div class="mt-4 bg-red-500/50 backdrop-blur-sm rounded-lg p-4">
+        <p class="text-white text-lg font-semibold">
+          ⚠️ Cet espace est exclusivement réservé aux étudiants de première année.
+        </p>
+      </div>
+    </div>
+
+    <!-- Department cards without images -->
+    <div class="services-grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+      <!-- ST/SM -->
+      <div class="service-card bg-gradient-to-br from-white to-gray-50 shadow-lg rounded-xl p-6 transform hover:-translate-y-1 hover:shadow-2xl transition-all duration-300" data-aos="fade-up">
+        <div class="text-indigo-600 mb-4 service-icon">
+          <i class="fas fa-atom text-4xl"></i>
+        </div>
+        <h3 class="text-xl font-semibold mb-2 text-gray-800">ST/SM</h3>
+        <p class="text-gray-600 mb-4">Sciences et Technologies / Sciences de la Matière</p>
+        <a href="Affichage/st-sm.html" class="inline-flex items-center bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 transition-colors shadow-md group">
+          <span>Accéder à l'affichage</span>
+          <i class="fas fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform"></i>
+        </a>
+      </div>
+
+      <!-- Biologie/SA -->
+      <div class="service-card bg-gradient-to-br from-white to-gray-50 shadow-lg rounded-xl p-6 transform hover:-translate-y-1 hover:shadow-2xl transition-all duration-300" data-aos="fade-up" data-aos-delay="100">
+        <div class="text-indigo-600 mb-4 service-icon">
+          <i class="fas fa-leaf text-4xl"></i>
+        </div>
+        <h3 class="text-xl font-semibold mb-2 text-gray-800">Biologie/SA</h3>
+        <p class="text-gray-600 mb-4">Biologie et Sciences Alimentaires</p>
+        <a href="Affichage/bio-sa.html" class="inline-flex items-center bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 transition-colors shadow-md group">
+          <span>Accéder à l'affichage</span>
+          <i class="fas fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform"></i>
+        </a>
+      </div>
+
+      <!-- Informatique/Math -->
+      <div class="service-card bg-gradient-to-br from-white to-gray-50 shadow-lg rounded-xl p-6 transform hover:-translate-y-1 hover:shadow-2xl transition-all duration-300" data-aos="fade-up" data-aos-delay="200">
+        <div class="text-indigo-600 mb-4 service-icon">
+          <i class="fas fa-laptop-code text-4xl"></i>
+        </div>
+        <h3 class="text-xl font-semibold mb-2 text-gray-800">Informatique/Math</h3>
+        <p class="text-gray-600 mb-4">Informatique et Mathématiques</p>
+        <a href="Affichage/info-math.html" class="inline-flex items-center bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 transition-colors shadow-md group">
+          <span>Accéder à l'affichage</span>
+          <i class="fas fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform"></i>
+        </a>
+      </div>
+
+      <!-- Architecture -->
+      <div class="service-card bg-gradient-to-br from-white to-gray-50 shadow-lg rounded-xl p-6 transform hover:-translate-y-1 hover:shadow-2xl transition-all duration-300" data-aos="fade-up" data-aos-delay="300">
+        <div class="text-indigo-600 mb-4 service-icon">
+          <i class="fas fa-drafting-compass text-4xl"></i>
+        </div>
+        <h3 class="text-xl font-semibold mb-2 text-gray-800">Architecture</h3>
+        <p class="text-gray-600 mb-4">Architecture et Design</p>
+        <a href="Affichage/architecture.html" class="inline-flex items-center bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 transition-colors shadow-md group">
+          <span>Accéder à l'affichage</span>
+          <i class="fas fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- AOS & custom scripts -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({ duration: 800, once: true });
+  </script>
+</body>
+</html>

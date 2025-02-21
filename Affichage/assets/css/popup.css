@@ -1,0 +1,68 @@
+/* Modern Popup Styles */
+#popup {
+    display: flex;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.3s ease;
+}
+
+#popup.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+#popup .popup-inner {
+    background: #fff;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.5rem 1.5rem rgba(0,0,0,0.15);
+    width: 90%;
+    max-width: 500px;
+    overflow: hidden;
+    animation: popupFade 0.5s ease-out;
+}
+
+@keyframes popupFade {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+#popup .popup-header, 
+#popup .popup-footer {
+    padding: 1rem;
+    background: #f4f4f4;
+}
+
+#popup .popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#popup .popup-header h2 {
+    margin: 0;
+    font-size: 1.25rem;
+    color: #333;
+}
+
+#popup .popup-header button.close {
+    background: transparent;
+    border: none;
+    font-size: 1.25rem;
+    cursor: pointer;
+}
+
+#popup .popup-body {
+    padding: 1rem;
+    color: #555;
+    line-height: 1.5;
+}
