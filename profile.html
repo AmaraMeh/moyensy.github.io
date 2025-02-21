@@ -239,50 +239,45 @@
 
         onAuthStateChanged(auth, async (user) => {
           if (user) {
-            const userRef = doc(db, 'users', user.uid);
-            const snap = await getDoc(userRef);
-            const data = snap.data();
-
-            document.getElementById('profileName').textContent = data 
-              ? `Bienvenue, ${data.name}` 
-              : 'Aucune donnée trouvée';
+            try {
+              const userRef = doc(db, 'users', user.uid);
+              const snap = await getDoc(userRef);
+              const userData = snap.data();
+              
+              if (userData) {
+                // Store the complete user data in localStorage
+                localStorage.setItem('userData', JSON.stringify(userData));
+                
+                // Update UI elements
+                document.getElementById('profileName').textContent = userData.fullName;
+                document.getElementById('profileEmail').textContent = userData.email;
+                document.getElementById('studentId').textContent = userData.matricule;
+                document.getElementById('studentSpeciality').textContent = userData.speciality;
+                document.getElementById('phoneNumber').textContent = userData.phoneNumber;
+                
+                // Handle verification status
+                const verifiedCheckmark = document.getElementById('verifiedCheckmark');
+                if (userData.verified) {
+                  verifiedCheckmark.classList.remove('hidden');
+                  verifiedCheckmark.classList.add('inline-flex');
+                } else {
+                  verifiedCheckmark.classList.add('hidden');
+                  verifiedCheckmark.classList.remove('inline-flex');
+                }
+                
+                hideLoadingState();
+              }
+            } catch (error) {
+              console.error('Error fetching user data:', error);
+              hideLoadingState();
+            }
           } else {
             window.location.href = 'auth.html';
           }
         });
-    </script>
-    <script>
-        AOS.init({ duration: 1000 });
 
         document.addEventListener('DOMContentLoaded', () => {
             showLoadingState();
-            
-            const userData = JSON.parse(localStorage.getItem('userData'));
-            if (userData) {
-                setTimeout(() => {
-                    hideLoadingState();
-                    document.getElementById('profileName').textContent = userData.fullName;
-                    document.getElementById('profileEmail').textContent = userData.email;
-                    document.getElementById('studentId').textContent = userData.matricule;
-                    document.getElementById('studentLevel').textContent = `${userData.year}ème année`;
-                    document.getElementById('studentSpeciality').textContent = userData.speciality;
-                    document.getElementById('phoneNumber').textContent = userData.phoneNumber;
-                    document.getElementById('profileImage').src = userData.photoURL || 'assets/img/default-avatar.png';
-                    if (userData.verified) {
-                        document.getElementById('verifiedCheckmark').classList.remove('hidden');
-                    }
-                    // Update verification display
-                    const verifiedCheckmark = document.getElementById('verifiedCheckmark');
-                    if (userData.verified) {
-                        verifiedCheckmark.classList.remove('hidden');
-                        verifiedCheckmark.classList.add('inline-flex');
-                    } else {
-                        verifiedCheckmark.classList.add('hidden');
-                        verifiedCheckmark.classList.remove('flex');
-                    }
-                }, 1000);
-            }
-
             const logoutButton = document.getElementById('logoutButton');
             logoutButton.addEventListener('click', () => {
                 try {
