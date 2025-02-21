@@ -12,6 +12,37 @@
     <meta name="theme-color" content="#0f172a">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <style>
+        .verified-checkmark {
+            color: #3b82f6;
+            font-size: 1.25rem;
+            margin-left: 0.5rem;
+            display: inline-flex;
+            align-items: center;
+            vertical-align: middle;
+        }
+
+        .verified-checkmark i {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.8;
+                transform: scale(1.1);
+            }
+        }
+
+        .profile-header h1 {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+    </style>
 </head>
 <body class="flex flex-col min-h-screen bg-gray-50" data-aos-easing="ease-out-cubic">
     <header class="mb-12 mt-8" data-aos="fade-down">
@@ -32,21 +63,12 @@
             <!-- Profile Section -->
             <div class="profile-section glass-card col-span-1 p-8 rounded-lg shadow-lg bg-white/10 backdrop-blur-md transform hover:scale-[1.02] transition-all duration-300" data-aos="fade-up">
                 <div class="profile-header text-center">
-                    <div class="profile-photo-wrapper mb-6 relative">
-                        <img id="profileImage" 
-                             src="assets/img/default-avatar.png" 
-                             class="profile-photo rounded-full border-4 border-cyan-500 shadow-lg w-32 h-32 mx-auto object-cover" 
-                             alt="Photo de profil">
-                        <label for="photoUpload" class="photo-upload-btn cursor-pointer absolute bottom-0 right-1/3 bg-white/20 p-2 rounded-full hover:bg-white/30 transition-all duration-300">
-                            <i class="fas fa-camera text-cyan-500 hover:text-cyan-400"></i>
-                        </label>
-                        <input type="file" 
-                               id="photoUpload" 
-                               class="hidden" 
-                               accept="image/*">
-                    </div>
-                    <h1 id="profileName" class="text-3xl font-bold text-gray-800 mb-2"></h1>
-                    <p id="studentLevel" class="text-cyan-500 font-medium"></p>
+                    <h1 class="text-3xl font-bold text-gray-800 mb-2 inline-flex items-center justify-center">
+                        <span id="profileName"></span>
+                        <span id="verifiedCheckmark" class="verified-checkmark hidden ml-2">
+                            <i class="fas fa-check-circle"></i>
+                        </span>
+                    </h1>
                 </div>
 
                 <div class="profile-info mt-8 space-y-6">
@@ -246,6 +268,18 @@
                     document.getElementById('studentSpeciality').textContent = userData.speciality;
                     document.getElementById('phoneNumber').textContent = userData.phoneNumber;
                     document.getElementById('profileImage').src = userData.photoURL || 'assets/img/default-avatar.png';
+                    if (userData.verified) {
+                        document.getElementById('verifiedCheckmark').classList.remove('hidden');
+                    }
+                    // Update verification display
+                    const verifiedCheckmark = document.getElementById('verifiedCheckmark');
+                    if (userData.verified) {
+                        verifiedCheckmark.classList.remove('hidden');
+                        verifiedCheckmark.classList.add('inline-flex');
+                    } else {
+                        verifiedCheckmark.classList.add('hidden');
+                        verifiedCheckmark.classList.remove('flex');
+                    }
                 }, 1000);
             }
 

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Admin Panel</title>
+    <!-- Tailwind & Font Awesome (from index.html) -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico">
+    <link rel="stylesheet" href="assets/css/style.css">
+  </head>
+  <body class="bg-gray-50 min-h-screen flex flex-col" data-aos-easing="ease-out-cubic">
+    <header class="bg-blue-600 py-4 shadow-lg" data-aos="fade-down">
+      <div class="container mx-auto px-4">
+        <h1 class="text-white text-3xl font-bold">
+          <i class="fas fa-user-shield mr-2"></i>
+          Administration
+        </h1>
+      </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8 flex-grow">
+      <div class="max-w-7xl mx-auto">
+        <!-- Header Section -->
+        <div class="text-center mb-12" data-aos="fade-down">
+          <h2 class="text-3xl font-bold text-gray-800 mb-4">Gestion des Utilisateurs</h2>
+          <p class="text-gray-600 max-w-2xl mx-auto">
+            Gérez les informations des utilisateurs enregistrés.
+          </p>
+        </div>
+
+        <!-- Users Table -->
+        <div class="overflow-x-auto">
+          <table class="min-w-full bg-white rounded-lg shadow-lg">
+            <thead class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+              <tr>
+                <th class="py-3 px-6 text-left">Nom Complet</th>
+                <th class="py-3 px-6 text-left">Email</th>
+                <th class="py-3 px-6 text-left">Matricule</th>
+                <th class="py-3 px-6 text-left">Numéro de Téléphone</th>
+                <th class="py-3 px-6 text-left">Spécialité</th>
+                <th class="py-3 px-6 text-center">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="usersTableBody" class="text-gray-600 text-sm font-light">
+              <!-- User rows will be dynamically inserted here -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+
+    <!-- Edit User Modal -->
+    <div id="editUserModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 hidden items-center justify-center z-50 p-4">
+      <div class="modal-content bg-white rounded-xl shadow-2xl p-8 max-w-2xl w-full mx-auto max-h-[90vh] overflow-y-auto">
+        <h3 class="text-2xl font-bold mb-4">Modifier Utilisateur</h3>
+        <form id="editUserForm">
+          <div class="mb-4">
+            <label for="editUserFullName" class="block text-gray-700">Nom Complet</label>
+            <input type="text" id="editUserFullName" class="form-input mt-1 block w-full" required>
+          </div>
+          <div class="mb-4">
+            <label for="editUserEmail" class="block text-gray-700">Email</label>
+            <input type="email" id="editUserEmail" class="form-input mt-1 block w-full" required>
+          </div>
+          <div class="mb-4">
+            <label for="editUserMatricule" class="block text-gray-700">Matricule</label>
+            <input type="text" id="editUserMatricule" class="form-input mt-1 block w-full" required>
+          </div>
+          <div class="mb-4">
+            <label for="editUserPhoneNumber" class="block text-gray-700">Numéro de Téléphone</label>
+            <input type="text" id="editUserPhoneNumber" class="form-input mt-1 block w-full" required>
+          </div>
+          <div class="mb-4">
+            <label for="editUserSpeciality" class="block text-gray-700">Spécialité</label>
+            <input type="text" id="editUserSpeciality" class="form-input mt-1 block w-full" required>
+          </div>
+          <div class="mb-4">
+            <label for="editUserVerified" class="block text-gray-700">Vérifié</label>
+            <input type="checkbox" id="editUserVerified" class="form-checkbox mt-1">
+          </div>
+          <div class="mb-4">
+            <label for="editUserRole" class="block text-gray-700">Rôle</label>
+            <select id="editUserRole" class="form-select mt-1 block w-full">
+              <option value="">Aucun</option>
+              <option value="Founder">Founder</option>
+              <option value="Major de promo">Major de promo</option>
+              <option value="The GOAT">The GOAT</option>
+            </select>
+          </div>
+          <div class="flex justify-end space-x-4">
+            <button type="button" onclick="closeEditUserModal()" class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300 transition-all">Annuler</button>
+            <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-all">Enregistrer</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Firebase and Custom Scripts -->
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+      import { getFirestore, collection, getDocs, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyB5XYqWKhHdiVDXJx4iOwtpxD8eUCPRfKU",
+        authDomain: "universite-de-bejaia-547fc.firebaseapp.com",
+        projectId: "universite-de-bejaia-547fc",
+        storageBucket: "universite-de-bejaia-547fc.firebasestorage.app",
+        messagingSenderId: "517622731583",
+        appId: "1:517622731583:web:25453d5e01226585bf798a",
+        measurementId: "G-SQ0WWSCS7B"
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+
+      // Fetch and display users
+      async function fetchUsers() {
+        const usersCollection = collection(db, 'users');
+        const usersSnapshot = await getDocs(usersCollection);
+        const usersList = usersSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+        const usersTableBody = document.getElementById('usersTableBody');
+        usersTableBody.innerHTML = '';
+
+        usersList.forEach(user => {
+          const userRow = document.createElement('tr');
+          userRow.classList.add('border-b', 'border-gray-200', 'hover:bg-gray-100');
+
+          userRow.innerHTML = `
+            <td class="py-3 px-6 text-left whitespace-nowrap">
+              ${user.fullName}
+              ${user.verified ? '<i class="fas fa-check-circle text-blue-500 ml-2 animate-pulse"></i>' : ''}
+            </td>
+            <td class="py-3 px-6 text-left">${user.email}</td>
+            <td class="py-3 px-6 text-left">${user.matricule}</td>
+            <td class="py-3 px-6 text-left">${user.phoneNumber}</td>
+            <td class="py-3 px-6 text-left">${user.speciality}</td>
+            <td class="py-3 px-6 text-center">
+              <button onclick="editUser('${user.id}', '${user.fullName}', '${user.email}', '${user.matricule}', '${user.phoneNumber}', '${user.speciality}', ${user.verified}, '${user.role}')" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-all">Modifier</button>
+              ${!user.verified ? `
+                <button onclick="verifyUser('${user.id}')" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition-all ml-2">Vérifier</button>
+              ` : ''}
+            </td>
+          `;
+
+          usersTableBody.appendChild(userRow);
+        });
+      }
+
+      // Open edit user modal
+      window.editUser = function(id, fullName, email, matricule, phoneNumber, speciality, verified, role) {
+        document.getElementById('editUserFullName').value = fullName;
+        document.getElementById('editUserEmail').value = email;
+        document.getElementById('editUserMatricule').value = matricule;
+        document.getElementById('editUserPhoneNumber').value = phoneNumber;
+        document.getElementById('editUserSpeciality').value = speciality;
+        document.getElementById('editUserVerified').checked = verified;
+        document.getElementById('editUserRole').value = role;
+        document.getElementById('editUserForm').onsubmit = async function(event) {
+          event.preventDefault();
+          await updateUser(id);
+        };
+        document.getElementById('editUserModal').classList.remove('hidden');
+      };
+
+      // Close edit user modal
+      window.closeEditUserModal = function() {
+        document.getElementById('editUserModal').classList.add('hidden');
+      };
+
+      // Update user information
+      async function updateUser(id) {
+        const userRef = doc(db, 'users', id);
+        const updatedUser = {
+          fullName: document.getElementById('editUserFullName').value,
+          email: document.getElementById('editUserEmail').value,
+          matricule: document.getElementById('editUserMatricule').value,
+          phoneNumber: document.getElementById('editUserPhoneNumber').value,
+          speciality: document.getElementById('editUserSpeciality').value,
+          verified: document.getElementById('editUserVerified').checked,
+          role: document.getElementById('editUserRole').value
+        };
+        await updateDoc(userRef, updatedUser);
+        closeEditUserModal();
+        fetchUsers();
+      }
+
+      // Verify user
+      window.verifyUser = async function(userId) {
+        try {
+          const userRef = doc(db, 'users', userId);
+          await updateDoc(userRef, {
+            verified: true
+          });
+          
+          // Show success notification
+          const notification = document.createElement('div');
+          notification.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg transform transition-all duration-300';
+          notification.innerHTML = `
+            <div class="flex items-center">
+              <i class="fas fa-check-circle mr-2"></i>
+              <span>Utilisateur vérifié avec succès!</span>
+            </div>
+          `;
+          document.body.appendChild(notification);
+          
+          // Remove notification after 3 seconds
+          setTimeout(() => {
+            notification.remove();
+          }, 3000);
+
+          // Refresh the table
+          await fetchUsers();
+        } catch (error) {
+          console.error('Error verifying user:', error);
+        }
+      };
+
+      // Fetch users on page load
+      document.addEventListener('DOMContentLoaded', fetchUsers);
+    </script>
+  </body>
+</html>
