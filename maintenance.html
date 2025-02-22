@@ -15,8 +15,400 @@
     
     <!-- AdTerra Script -->
     <script id="aclib" type="text/javascript" src="//acscdn.com/script/aclib.js"></script>
+
+    <style>
+        .maintenance-container {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .developer-animation {
+            width: 300px;
+            margin: 2rem auto;
+        }
+
+        .progress-bar {
+            background: #e2e8f0;
+            height: 25px;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 1rem 0;
+            position: relative;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .progress {
+            width: 46%;
+            height: 100%;
+            background: linear-gradient(90deg, #4f46e5, #818cf8);
+            position: relative;
+            animation: shimmer 2s linear infinite;
+            background-size: 200% 100%;
+        }
+
+        .progress::after {
+            content: '46%';
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+            font-weight: bold;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .progress-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        .progress-label {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #4f46e5;
+            margin-top: 1rem;
+            display: inline-block;
+            position: relative;
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            background: rgba(79, 70, 229, 0.1);
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        @keyframes progress-glow {
+            0%, 100% { box-shadow: 0 0 5px #4f46e5; }
+            50% { box-shadow: 0 0 20px #4f46e5; }
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stats-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .stat-item {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #4f46e5;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: #6b7280;
+        }
+
+        .exclusive-tag {
+            position: absolute;
+            top: 20px;
+            right: -20px;
+            background: linear-gradient(135deg, #4f46e5, #818cf8);
+            color: white;
+            padding: 0.5rem 2rem;
+            transform: rotate(45deg);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .developer-badge {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #4f46e5, #818cf8);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+            z-index: 1000;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .maintenance-hero {
+            position: relative;
+            padding: 4rem 0;
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.1) 0%, rgba(129, 140, 248, 0.1) 100%);
+            border-radius: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .5; }
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: 2rem;
+            border-left: 2px solid #818cf8;
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #ef4444;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .progress-timeline {
+            position: relative;
+            margin: 2rem 0;
+        }
+
+        .progress-step {
+            position: relative;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-left: 3px solid #818cf8;
+            opacity: 0.5;
+            transition: all 0.3s ease;
+        }
+
+        .progress-step.active {
+            opacity: 1;
+            border-left-color: #4f46e5;
+        }
+
+        .progress-step::before {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 50%;
+            width: 13px;
+            height: 13px;
+            background: #818cf8;
+            border-radius: 50%;
+            transform: translateY(-50%);
+        }
+
+        .progress-step.active::before {
+            background: #4f46e5;
+            animation: pulse-dot 1.5s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite;
+        }
+
+        @keyframes pulse-dot {
+            0% { transform: translateY(-50%) scale(0.8); }
+            50% { transform: translateY(-50%) scale(1.2); }
+            100% { transform: translateY(-50%) scale(0.8); }
+        }
+
+        .feature-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            background: rgba(79, 70, 229, 0.1);
+            border-radius: 20px;
+            font-size: 0.875rem;
+            color: #4f46e5;
+            margin: 0.25rem;
+            transition: all 0.3s ease;
+        }
+
+        .feature-badge:hover {
+            background: rgba(79, 70, 229, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Add these styles to your existing <style> section */
+        .phase-wrapper {
+            margin-top: 2rem;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .phase-item {
+            position: relative;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .phase-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .phase-item.completed {
+            border-left: 4px solid #10B981;
+            background: linear-gradient(to right, rgba(16, 185, 129, 0.05), white);
+        }
+
+        .phase-item.in-progress {
+            border-left: 4px solid #FBBF24;
+            background: linear-gradient(to right, rgba(251, 191, 36, 0.05), white);
+        }
+
+        .phase-item.pending {
+            border-left: 4px solid #9CA3AF;
+        }
+
+        .phase-progress {
+            height: 6px;
+            background: #E5E7EB;
+            border-radius: 999px;
+            overflow: hidden;
+            margin-top: 0.75rem;
+        }
+
+        .phase-progress-bar {
+            height: 100%;
+            border-radius: 999px;
+            transition: width 1.5s ease;
+        }
+
+        .phase-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            margin-right: 0.75rem;
+        }
+
+        /* Add these enhanced phase styles to your existing <style> section */
+        .phase-wrapper {
+            margin: 2rem 0;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .phase-item {
+            position: relative;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s ease;
+            overflow: hidden;
+        }
+
+        .phase-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 4px;
+            background: #9CA3AF;
+        }
+
+        .phase-item.completed::before {
+            background: linear-gradient(180deg, #10B981, #34D399);
+        }
+
+        .phase-item.in-progress::before {
+            background: linear-gradient(180deg, #FBBF24, #F59E0B);
+        }
+
+        .phase-progress {
+            background: #F3F4F6;
+            height: 8px;
+            border-radius: 999px;
+            overflow: hidden;
+            margin-top: 1rem;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .phase-progress-bar {
+            height: 100%;
+            transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .phase-icon {
+            width: 36px;
+            height: 36px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin-right: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .phase-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+        }
+    </style>
 </head>
-<body class="flex flex-col min-h-screen bg-gray-50">
+<body class="flex flex-col min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50">
     <!-- Top banner -->
     <div>
         <script type="text/javascript">
@@ -46,31 +438,162 @@
             </script>
         </div>
 
-        <div class="glass-card text-center" data-aos="fade-up">
-            <h1 class="text-3xl font-bold mb-4 text-gray-800">Maintenance en cours</h1>
-            <p class="text-lg text-gray-700 mb-6">
-                Nous sommes en train d'ajouter les cours, les TP et les examens pour les spécialités dans la bibliothèque.
-            </p>
-            <p class="text-lg text-gray-700 mb-6">
-                Nous serons en ligne dans quelques jours. Merci de votre patience.
-            </p>
-            <p class="text-lg text-gray-700 mb-6">
-                Suivez-nous sur Instagram pour les mises à jour : <a href="https://instagram.com/Spot_campuselkseur" target="_blank" class="text-blue-500 hover:underline">@Spot_campuselkseur</a>
-            </p>
-            <div class="flex justify-center space-x-4 mt-8">
-                <a href="#" class="text-blue-600 hover:text-blue-800 transition-colors">
-                    <i class="fab fa-facebook fa-2x"></i>
-                </a>
-                <a href="#" class="text-blue-400 hover:text-blue-600 transition-colors">
-                    <i class="fab fa-twitter fa-2x"></i>
-                </a>
-                <a href="#" class="text-pink-600 hover:text-pink-800 transition-colors">
-                    <i class="fab fa-instagram fa-2x"></i>
-                </a>
-                <a href="#" class="text-blue-700 hover:text-blue-900 transition-colors">
-                    <i class="fab fa-linkedin fa-2x"></i>
-                </a>
+        <div class="glass-card text-center maintenance-container" data-aos="fade-up">
+            <div class="exclusive-tag">Créé par Amara Mehdi</div>
+            <h1 class="text-4xl font-bold mb-6 text-indigo-800">Section en cours de développement</h1>
+
+            <!-- Progress and Phases Section -->
+            <div class="feature-card" data-aos="fade-up">
+                <h3 class="text-xl font-semibold text-indigo-700 mb-3">État d'avancement</h3>
+                <div class="progress-bar">
+                    <div class="progress">
+                        <div class="progress-particles"></div>
+                    </div>
+                </div>
+                <div class="progress-label">
+                    <span class="percentage-counter">0</span>% Complété
+                </div>
+
+                <div class="phase-wrapper mt-8">
+                    <h4 class="text-lg font-semibold text-indigo-700 mb-6">Phases de Développement</h4>
+                    
+                    <!-- Phase 1 - Completed -->
+                    <div class="phase-item completed" data-aos="fade-right">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center">
+                                <div class="phase-icon bg-green-100 text-green-600">
+                                    <i class="fas fa-check-circle text-lg"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-bold text-green-600">Phase 1 - Complétée</h4>
+                                    <p class="text-sm text-gray-500">Base du projet</p>
+                                </div>
+                            </div>
+                            <span class="text-green-500 font-semibold">100%</span>
+                        </div>
+                        <div class="pl-12 space-y-2 text-gray-600">
+                            <p><i class="fas fa-check-circle text-green-500 mr-2"></i>Calculateur de moyenne</p>
+                            <p><i class="fas fa-check-circle text-green-500 mr-2"></i>Cours, TD, TP, Examens (Campus El-kseur)</p>
+                            <p><i class="fas fa-check-circle text-green-500 mr-2"></i>Notes et moyennes S1</p>
+                            <p><i class="fas fa-check-circle text-green-500 mr-2"></i>Profils utilisateurs et login</p>
+                        </div>
+                    </div>
+
+                    <!-- Phase 2 - In Progress -->
+                    <div class="phase-item in-progress" data-aos="fade-right" data-aos-delay="100">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center">
+                                <div class="phase-icon bg-yellow-100 text-yellow-600">
+                                    <i class="fas fa-spinner fa-spin text-lg"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-bold text-yellow-600">Phase 2 - En cours</h4>
+                                    <p class="text-sm text-gray-500">Extension des ressources</p>
+                                </div>
+                            </div>
+                            <span class="text-yellow-500 font-semibold">31%</span>
+                        </div>
+                        <div class="pl-12 space-y-2 text-gray-600">
+                            <p><i class="fas fa-spinner fa-spin text-yellow-500 mr-2"></i>Resources Campus Aboudaou</p>
+                            <p><i class="fas fa-spinner fa-spin text-yellow-500 mr-2"></i>Resources Campus Targa</p>
+                            <p><i class="fas fa-spinner fa-spin text-yellow-500 mr-2"></i>Section objets perdus</p>
+                        </div>
+                        <div class="phase-progress mt-3">
+                            <div class="phase-progress-bar bg-yellow-500" style="width: 31%"></div>
+                        </div>
+                    </div>
+
+                    <!-- Phase 3 to 5 - Pending -->
+                    <div class="space-y-4 mt-4">
+                        <div class="phase-item pending" data-aos="fade-right" data-aos-delay="200">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <div class="phase-icon bg-gray-100 text-gray-600">
+                                        <i class="fas fa-clock text-lg"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-lg font-semibold text-gray-600">Phase 3</h4>
+                                        <p class="text-sm text-gray-500">Forum étudiant et Planning dynamique</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="phase-item pending" data-aos="fade-right" data-aos-delay="300">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <div class="phase-icon bg-gray-100 text-gray-600">
+                                        <i class="fas fa-clock text-lg"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-lg font-semibold text-gray-600">Phase 4</h4>
+                                        <p class="text-sm text-gray-500">Application mobile et statistiques</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="phase-item pending" data-aos="fade-right" data-aos-delay="400">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <div class="phase-icon bg-gray-100 text-gray-600">
+                                        <i class="fas fa-clock text-lg"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-lg font-semibold text-gray-600">Phase 5</h4>
+                                        <p class="text-sm text-gray-500">Optimisation et sécurité</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+        </div>
+
+        <!-- Statistics Section -->
+        <div class="stats-container grid grid-cols-1 md:grid-cols-2 gap-8 mb-8" data-aos="fade-up">
+            <div class="text-center">
+                <div class="stat-item justify-center">
+                    <i class="fas fa-users text-indigo-500"></i>
+                    <span class="counter" data-value="3700">0</span>
+                </div>
+                <div class="stat-label">Utilisateurs actifs/jour</div>
+            </div>
+            <div class="text-center">
+                <div class="stat-item justify-center">
+                    <i class="fas fa-book-open text-indigo-500"></i>
+                    <span class="counter" data-value="640">0</span>
+                </div>
+                <div class="stat-label">Resources ajoutées</div>
+            </div>
+        </div>
+
+        <!-- Current Updates -->
+        <div class="feature-card mt-8" data-aos="fade-up">
+            <h3 class="text-xl font-semibold text-indigo-700 mb-3">Mises à jour en cours</h3>
+            <ul class="text-left text-gray-600 space-y-2">
+                <li>📚 TD + TP + Examen pour les campus Targa Ouzemour et Aboudaou</li>
+                <li>🗺️ Map interactive virtuelle du campus El-kseur</li>
+                <li>🔍 Section des objets perdus</li>
+                <li>🎨 Amélioration de l'interface utilisateur</li>
+                <li>⚡ Optimisation des performances</li>
+            </ul>
+        </div>
+
+        <div class="flex justify-center space-x-4 mt-8">
+            <a href="#" class="text-blue-600 hover:text-blue-800 transition-colors">
+                <i class="fab fa-facebook fa-2x"></i>
+            </a>
+            <a href="#" class="text-blue-400 hover:text-blue-600 transition-colors">
+                <i class="fab fa-twitter fa-2x"></i>
+            </a>
+            <a href="#" class="text-pink-600 hover:text-pink-800 transition-colors">
+                <i class="fab fa-instagram fa-2x"></i>
+            </a>
+            <a href="#" class="text-blue-700 hover:text-blue-900 transition-colors">
+                <i class="fab fa-linkedin fa-2x"></i>
+            </a>
         </div>
     </div>
 
@@ -83,6 +606,145 @@
         AOS.init({
             duration: 800,
             once: true
+        });
+    </script>
+
+    <!-- Add Lottie animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.7.14/lottie.min.js"></script>
+    <script>
+        // Load developer animation
+        lottie.loadAnimation({
+            container: document.getElementById('developerAnimation'),
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: 'https://assets2.lottiefiles.com/packages/lf20_w51pcehl.json'
+        });
+
+        // Load network animation
+        lottie.loadAnimation({
+            container: document.getElementById('networkAnimation'),
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: 'https://assets9.lottiefiles.com/packages/lf20_kkflmtur.json'
+        });
+    </script>
+
+    <!-- Replace the counter animation script -->
+    <script>
+        const counters = document.querySelectorAll('.counter');
+        counters.forEach(counter => {
+            const target = parseInt(counter.dataset.value);
+            const duration = 2000;
+            const step = Math.ceil(target / (duration / 16));
+
+            function updateCounter() {
+                const current = parseInt(counter.textContent);
+                if (current < target) {
+                    counter.textContent = Math.min(current + step, target);
+                    if (current + step < target) {
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        counter.textContent = target + '+';
+                    }
+                }
+            }
+            
+            updateCounter();
+        });
+    </script>
+
+    <!-- Add this script before the closing </body> tag -->
+    <script>
+        // Animate progress steps on scroll
+        const observerOptions = {
+            threshold: 0.5
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.progress-step').forEach(step => {
+            observer.observe(step);
+        });
+
+        // Animate feature badges
+        document.querySelectorAll('.feature-badge').forEach(badge => {
+            badge.addEventListener('mouseover', () => {
+                badge.style.transform = 'translateY(-5px) scale(1.05)';
+            });
+            
+            badge.addEventListener('mouseout', () => {
+                badge.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Enhanced progress animation
+        function createParticles() {
+            const particlesContainer = document.querySelector('.progress-particles');
+            const particleCount = 20;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                // Random size between 2-4px
+                const size = Math.random() * 2 + 2;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Random position
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                // Random animation
+                const duration = Math.random() * 2 + 1;
+                particle.style.animation = `shimmer ${duration}s linear infinite`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Percentage counter animation
+        function animatePercentage() {
+            const counter = document.querySelector('.percentage-counter');
+            const target = 46;
+            const duration = 2000;
+            const frameDuration = 1000/60;
+            const totalFrames = Math.round(duration/frameDuration);
+            const increment = target/totalFrames;
+            let currentNumber = 0;
+
+            function updateNumber() {
+                currentNumber += increment;
+                if (currentNumber < target) {
+                    counter.textContent = Math.floor(currentNumber);
+                    requestAnimationFrame(updateNumber);
+                } else {
+                    counter.textContent = target;
+                }
+            }
+
+            updateNumber();
+        }
+
+        // Initialize animations
+        createParticles();
+        animatePercentage();
+
+        // Progress bar hover effect
+        const progressBar = document.querySelector('.progress-bar');
+        progressBar.addEventListener('mouseover', () => {
+            progressBar.style.animation = 'progress-glow 2s ease-in-out infinite';
+        });
+        progressBar.addEventListener('mouseout', () => {
+            progressBar.style.animation = 'none';
         });
     </script>
 </body>

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Objets Perdus et Trouvés - Campus Elkseur</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/auth.css">
+</head>
+<body class="flex flex-col min-h-screen bg-gray-50">
+    <!-- Header -->
+    <header class="mb-12 mt-8" data-aos="fade-down">
+        <div class="header-container flex justify-between items-center px-4">
+            <a href="index.html" class="back-button hover:scale-110 transform transition-all duration-300">
+                <i class="fas fa-arrow-left"></i>
+                Retour
+            </a>
+            <img src="assets/img/LOGO.png" alt="Campus Elkseur Logo" class="h-16">
+        </div>
+    </header>
+
+    <main class="flex-grow flex justify-center items-center">
+        <div class="max-w-7xl mx-auto px-4 py-8">
+            <h1 class="text-4xl font-bold mb-6 text-center" data-aos="fade-up">Déclarer un Objet Perdu ou Trouvé</h1>
+            <div class="tabs flex justify-center mb-6">
+                <button id="lost-button" class="tab-btn px-6 py-2 mx-2 rounded-lg active" data-tab="lost-item-form">Objet Perdu</button>
+                <button id="found-button" class="tab-btn px-6 py-2 mx-2 rounded-lg" data-tab="found-item-form">Objet Trouvé</button>
+            </div>
+            <div id="lost-item-form" class="tab-content active glass-card" data-aos="fade-up" data-aos-delay="100">
+                <form>
+                    <div class="mb-4">
+                        <label for="itemName" class="block text-gray-700 font-bold mb-2">Nom de l'objet:</label>
+                        <input type="text" id="itemName" name="itemName" class="custom-input" placeholder="Entrez le nom de l'objet" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="itemDescription" class="block text-gray-700 font-bold mb-2">Description:</label>
+                        <textarea id="itemDescription" name="itemDescription" class="custom-input" placeholder="Décrivez l'objet" required></textarea>
+                    </div>
+                    <div class="mb-4">
+                        <label for="category" class="block text-gray-700 font-bold mb-2">Catégorie:</label>
+                        <select id="category" name="category" class="custom-input" required>
+                            <option value="carte-etudiant">Carte Étudiant</option>
+                            <option value="cle">Clé</option>
+                            <option value="outile-scolaire">Outil Scolaire</option>
+                            <option value="autres">Autres</option>
+                            <option value="portable-pc">Portable/PC</option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label for="location" class="block text-gray-700 font-bold mb-2">Lieu de perte/trouvaille:</label>
+                        <input type="text" id="location" name="location" class="custom-input" placeholder="Entrez le lieu de perte/trouvaille" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="contact" class="block text-gray-700 font-bold mb-2">Contact (Instagram):</label>
+                        <input type="text" id="contact" name="contact" class="custom-input" placeholder="Entrez vos coordonnées Instagram" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="photo" class="block text-gray-700 font-bold mb-2">Attacher une photo:</label>
+                        <input type="file" id="photo" name="photo" class="custom-input" required>
+                    </div>
+                    <div class="progress-bar-container hidden">
+                        <div class="progress-bar"></div>
+                    </div>
+                    <div class="error-message text-red-500 hidden"></div>
+                    <button type="submit" class="auth-button">Soumettre</button>
+                </form>
+            </div>
+            <div id="found-item-form" class="tab-content glass-card" data-aos="fade-up" data-aos-delay="100">
+                <form>
+                    <div class="mb-4">
+                        <label for="foundItemName" class="block text-gray-700 font-bold mb-2">Nom de l'objet:</label>
+                        <input type="text" id="foundItemName" name="foundItemName" class="custom-input" placeholder="Entrez le nom de l'objet" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="foundItemDescription" class="block text-gray-700 font-bold mb-2">Description:</label>
+                        <textarea id="foundItemDescription" name="foundItemDescription" class="custom-input" placeholder="Décrivez l'objet" required></textarea>
+                    </div>
+                    <div class="mb-4">
+                        <label for="foundCategory" class="block text-gray-700 font-bold mb-2">Catégorie:</label>
+                        <select id="foundCategory" name="foundCategory" class="custom-input" required>
+                            <option value="carte-etudiant">Carte Étudiant</option>
+                            <option value="cle">Clé</option>
+                            <option value="outile-scolaire">Outil Scolaire</option>
+                            <option value="autres">Autres</option>
+                            <option value="portable-pc">Portable/PC</option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label for="foundLocation" class="block text-gray-700 font-bold mb-2">Lieu de trouvaille:</label>
+                        <input type="text" id="foundLocation" name="foundLocation" class="custom-input" placeholder="Entrez le lieu de trouvaille" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="foundContact" class="block text-gray-700 font-bold mb-2">Contact:</label>
+                        <input type="text" id="foundContact" name="foundContact" class="custom-input" placeholder="Entrez vos coordonnées" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="foundPhoto" class="block text-gray-700 font-bold mb-2">Attacher une photo:</label>
+                        <input type="file" id="foundPhoto" name="foundPhoto" class="custom-input" required>
+                    </div>
+                    <div class="progress-bar-container hidden">
+                        <div class="progress-bar"></div>
+                    </div>
+                    <div class="error-message text-red-500 hidden"></div>
+                    <button type="submit" class="auth-button">Soumettre</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center text-gray-600 text-sm py-4">
+        <div>&copy; 2025 Campus Elkseur. Développé par <a href="mailto:mehdi.amara@tech.univ-bejaia.dz" class="text-blue-500 hover:text-blue-700">Amara Mehdi</a></div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script type="module">
+    // Initialize AOS
+    AOS.init();
+    
+    // Import Firebase utilities
+    import { db } from "./firebase.js";
+    import { addDoc, collection, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+    // Wait for DOM to load
+    document.addEventListener('DOMContentLoaded', () => {
+        // Tab switching functionality
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = button.getAttribute('data-tab');
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                tabContents.forEach(content => content.classList.remove('active'));
+                button.classList.add('active');
+                document.getElementById(targetId).classList.add('active');
+            });
+        });
+
+        // Form submission handler
+        const handleFormSubmission = async (e, isLostItem) => {
+            e.preventDefault(); // Prevent form submission
+            
+            const form = e.target;
+            const progressBarContainer = form.querySelector('.progress-bar-container');
+            const progressBar = form.querySelector('.progress-bar');
+            const errorMessage = form.querySelector('.error-message');
+            const submitButton = form.querySelector('button[type="submit"]');
+
+            // Disable submit button
+            submitButton.disabled = true;
+
+            try {
+                // Show and reset progress bar
+                progressBarContainer.classList.remove('hidden');
+                progressBar.style.width = '0%';
+                errorMessage.classList.add('hidden');
+
+                // Collect form data
+                const formData = new FormData(form);
+                const data = {
+                    itemName: formData.get(isLostItem ? 'itemName' : 'foundItemName'),
+                    description: formData.get(isLostItem ? 'itemDescription' : 'foundItemDescription'),
+                    category: formData.get(isLostItem ? 'category' : 'foundCategory'),
+                    location: formData.get(isLostItem ? 'location' : 'foundLocation'),
+                    contact: formData.get(isLostItem ? 'contact' : 'foundContact'),
+                    type: isLostItem ? 'lost' : 'found',
+                    createdAt: serverTimestamp()
+                };
+
+                // Update progress
+                progressBar.style.width = '50%';
+
+                // Add to Firebase
+                await addDoc(collection(db, isLostItem ? 'lost_items' : 'found_items'), data);
+                
+                // Complete progress
+                progressBar.style.width = '100%';
+
+                // Show success message
+                alert('Formulaire soumis avec succès!');
+                
+                // Reset form
+                form.reset();
+
+                // Modifier la redirection vers maintenance.html
+                setTimeout(() => {
+                    window.location.href = 'maintenance.html';
+                }, 1500);
+
+            } catch (error) {
+                console.error('Erreur:', error);
+                errorMessage.textContent = 'Une erreur est survenue. Veuillez réessayer.';
+                errorMessage.classList.remove('hidden');
+                progressBar.style.width = '0%';
+            } finally {
+                // Re-enable submit button
+                submitButton.disabled = false;
+                
+                // Hide progress bar after delay
+                setTimeout(() => {
+                    progressBarContainer.classList.add('hidden');
+                }, 2000);
+            }
+        };
+
+        // Add form submit event listeners
+        const lostForm = document.querySelector('#lost-item-form form');
+        const foundForm = document.querySelector('#found-item-form form');
+
+        if (lostForm) {
+            lostForm.addEventListener('submit', (e) => handleFormSubmission(e, true));
+        }
+        if (foundForm) {
+            foundForm.addEventListener('submit', (e) => handleFormSubmission(e, false));
+        }
+    });
+</script>
+</body>
+</html>
