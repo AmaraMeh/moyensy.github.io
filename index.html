@@ -199,6 +199,273 @@
             50% { transform: translateY(-50%) scale(1.5); opacity: 0.5; }
             100% { transform: translateY(-50%) scale(1); opacity: 1; }
         }
+
+        /* Ramadan Theme */
+        .ramadan-theme {
+            --bg-color: #00111cff;
+            --text-color: #ffffff;
+            --primary-color: #002137ff;
+            --secondary-color: #003a61ff;
+            --accent-color: #00406cff;
+        }
+
+        .ramadan-theme body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        .ramadan-theme .welcome-box {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        }
+
+        .ramadan-theme .auth-button {
+            background-color: var(--accent-color);
+        }
+
+        .ramadan-theme .auth-button:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .ramadan-theme .service-card {
+            background-color: var(--primary-color);
+            color: var(--text-color);
+        }
+
+        .ramadan-theme .service-card:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .ramadan-theme .service-icon {
+            background-color: var(--accent-color);
+        }
+
+        .ramadan-theme .service-icon i {
+            color: var(--text-color);
+        }
+
+        .ramadan-theme .live-timestamp::before {
+            background-color: var(--accent-color);
+        }
+
+        /* Ramadan Theme with multiple color variables */
+        .ramadan-theme {
+            --bg-color: #081c2d;
+            --text-color: #fefaf3;
+            --primary-color: #102b49;
+            --secondary-color: #1a446b;
+            --accent-color: #eeb85c;
+            --banner-color: #2b5978;
+            --box-bg-color: #132a3b;
+            --box-hover-color: #1f3f59;
+        }
+
+        /* Entire page: background & text color */
+        .ramadan-theme body {
+            background: linear-gradient(120deg, var(--bg-color), #0d2e46);
+            color: var(--text-color);
+            transition: background 2s ease, color 2s ease;
+        }
+
+        /* Example welcome box style */
+        .ramadan-theme .welcome-box {
+            background: linear-gradient(135deg, var(--box-bg-color), var(--banner-color));
+            transition: background 2s ease;
+        }
+
+        /* General service cards */
+        .ramadan-theme .service-card {
+            background-color: var(--box-bg-color);
+            color: var(--text-color);
+            transition: all 2s ease;
+        }
+        .ramadan-theme .service-card:hover {
+            background-color: var(--box-hover-color);
+        }
+
+        /* Service icon style */
+        .ramadan-theme .service-icon {
+            background-color: var(--accent-color);
+        }
+
+        /* Footer, warning boxes, etc. can follow similar patterns */
+        .ramadan-theme footer,
+        .ramadan-theme .warning-box {
+            background-color: var(--primary-color);
+        }
+
+        /* Live animations */
+        .ramadan-theme .animate-fade-in {
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .ramadan-theme .animate-wave {
+            animation: wave 8s infinite linear;
+        }
+
+        @keyframes wave {
+            0% { transform: translateX(-100%); }
+            50% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        .ramadan-theme .rotate-on-hover {
+            transition: transform 0.5s ease;
+        }
+
+        .ramadan-theme .affichage-card:hover .rotate-on-hover {
+            transform: rotate(15deg);
+        }
+
+        .ramadan-theme .glow-text {
+            text-shadow: 0 0 10px rgba(255,255,255,0.5);
+        }
+
+        .ramadan-theme .arrow-animate {
+            animation: bounceX 2s infinite;
+        }
+
+        @keyframes bounceX {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(10px); }
+        }
+
+        .ramadan-theme .live-timestamp {
+            position: relative;
+        }
+
+        .ramadan-theme .live-timestamp::before {
+            content: '';
+            position: absolute;
+            left: -20px;
+            top: 50%;
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+            transform: translateY(-50%);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: translateY(-50%) scale(1); opacity: 1; }
+            50% { transform: translateY(-50%) scale(1.5); opacity: 0.5; }
+            100% { transform: translateY(-50%) scale(1); opacity: 1; }
+        }
+
+        /* Ramadan Theme with specified color variables */
+        .ramadan-theme {
+            --bg-color: #000e14ff;
+            --text-color: #fefaf3;
+            --primary-color: #002233ff;
+            --secondary-color: #003047ff;
+            --accent-color: #eeb85c;
+            --banner-color: #003652ff;
+            --box-bg-color: #001b29ff;
+            --box-hover-color: #003d5cff;
+        }
+
+        /* Entire page: background & text color */
+        .ramadan-theme body {
+            background: linear-gradient(120deg, var(--bg-color), #0d2e46);
+            color: var(--text-color);
+            transition: background 5s ease, color 5s ease;
+        }
+
+        /* Example welcome box style */
+        .ramadan-theme .welcome-box {
+            background: linear-gradient(135deg, var(--box-bg-color), var(--banner-color));
+            transition: background 5s ease;
+        }
+
+        /* General service cards */
+        .ramadan-theme .service-card {
+            background-color: var(--box-bg-color);
+            color: var(--text-color);
+            transition: all 5s ease;
+        }
+        .ramadan-theme .service-card:hover {
+            background-color: var(--box-hover-color);
+        }
+
+        /* Service icon style */
+        .ramadan-theme .service-icon {
+            background-color: var(--accent-color);
+        }
+
+        /* Footer, warning boxes, etc. can follow similar patterns */
+        .ramadan-theme footer,
+        .ramadan-theme .warning-box {
+            background-color: var(--primary-color);
+        }
+
+        /* Live animations */
+        .ramadan-theme .animate-fade-in {
+            animation: fadeIn 5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .ramadan-theme .animate-wave {
+            animation: wave 8s infinite linear;
+        }
+
+        @keyframes wave {
+            0% { transform: translateX(-100%); }
+            50% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        .ramadan-theme .rotate-on-hover {
+            transition: transform 0.5s ease;
+        }
+
+        .ramadan-theme .affichage-card:hover .rotate-on-hover {
+            transform: rotate(15deg);
+        }
+
+        .ramadan-theme .glow-text {
+            text-shadow: 0 0 10px rgba(255,255,255,0.5);
+        }
+
+        .ramadan-theme .arrow-animate {
+            animation: bounceX 2s infinite;
+        }
+
+        @keyframes bounceX {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(10px); }
+        }
+
+        .ramadan-theme .live-timestamp {
+            position: relative;
+        }
+
+        .ramadan-theme .live-timestamp::before {
+            content: '';
+            position: absolute;
+            left: -20px;
+            top: 50%;
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+            transform: translateY(-50%);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: translateY(-50%) scale(1); opacity: 1; }
+            50% { transform: translateY(-50%) scale(1.5); opacity: 0.5; }
+            100% { transform: translateY(-50%) scale(1); opacity: 1; }
+        }
     </style>
 </head>
 <body class="flex flex-col min-h-screen bg-gray-50" data-aos-easing="ease-out-cubic">
@@ -240,6 +507,9 @@
                         Mon Profil
                     </a>
                 </div>
+                <button id="theme-switcher" class="mt-6 px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition-all duration-300 shadow-lg">
+                    <i class="fas fa-moon mr-2"></i> Activer le thème Ramadan
+                </button>
             </div>
             <div class="warning-box my-4">
                 Avertissement: Le site n'est pas affilié avec l'université de Béjaïa et c'est un projet étudiant.
@@ -478,6 +748,13 @@
     // Update timestamp immediately and every minute
     updateTimestamp();
     setInterval(updateTimestamp, 60000);
+</script>
+<script>
+    document.getElementById('theme-switcher').addEventListener('click', function() {
+        document.documentElement.classList.toggle('ramadan-theme');
+        const isRamadanTheme = document.documentElement.classList.contains('ramadan-theme');
+        this.innerHTML = isRamadanTheme ? '<i class="fas fa-sun mr-2"></i> Désactiver le thème Ramadan' : '<i class="fas fa-moon mr-2"></i> Activer le thème Ramadan';
+    });
 </script>
 </body>
 </html>

@@ -406,6 +406,83 @@
             transform: translateY(-4px);
             box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
         }
+
+        .instagram-section {
+            background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            margin: 2rem 0;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .instagram-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .instagram-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            backdrop-filter: blur(8px);
+            transition: all 0.3s ease;
+        }
+
+        .instagram-badge:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .instagram-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .instagram-stat {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: 1rem;
+            text-align: center;
+            backdrop-filter: blur(4px);
+            transition: transform 0.3s ease;
+        }
+
+        .instagram-stat:hover {
+            transform: translateY(-5px);
+        }
+
+        .instagram-posts {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .instagram-post {
+            aspect-ratio: 1;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 0.5rem;
+            overflow: hidden;
+            position: relative;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes floating-icons {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+
+        .floating-icon {
+            animation: floating-icons 3s ease-in-out infinite;
+        }
     </style>
 </head>
 <body class="flex flex-col min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50">
@@ -547,6 +624,78 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Instagram Section -->
+        <div class="instagram-section" data-aos="fade-up">
+            <div class="instagram-content">
+                <div class="text-center mb-6">
+                    <a href="https://instagram.com/spot_campuselkseur" 
+                       target="_blank" 
+                       class="instagram-badge">
+                        <i class="fab fa-instagram text-2xl floating-icon"></i>
+                        <span class="font-semibold text-lg">@spot_campuselkseur</span>
+                    </a>
+                </div>
+
+                <div class="instagram-stats">
+                    <div class="instagram-stat">
+                        <div class="text-3xl font-bold mb-1">24/7</div>
+                        <div class="text-sm opacity-75">Support actif</div>
+                    </div>
+                    <div class="instagram-stat">
+                        <div class="text-3xl font-bold mb-1">2-4h</div>
+                        <div class="text-sm opacity-75">Temps de réponse</div>
+                    </div>
+                    <div class="instagram-stat">
+                        <div class="text-3xl font-bold mb-1">100+</div>
+                        <div class="text-sm opacity-75">Stories par mois</div>
+                    </div>
+                </div>
+
+                <div class="mt-6 text-center">
+                    <h3 class="text-xl font-semibold mb-4">Pourquoi nous suivre ?</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-bell mt-1"></i>
+                            <div>
+                                <h4 class="font-semibold">Notifications instantanées</h4>
+                                <p class="text-sm opacity-75">Soyez informé des nouveautés en temps réel</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-calendar-alt mt-1"></i>
+                            <div>
+                                <h4 class="font-semibold">Planning des examens</h4>
+                                <p class="text-sm opacity-75">Accédez aux dates importantes</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-book mt-1"></i>
+                            <div>
+                                <h4 class="font-semibold">Resources exclusives</h4>
+                                <p class="text-sm opacity-75">TD, TP et examens en avant-première</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-users mt-1"></i>
+                            <div>
+                                <h4 class="font-semibold">Communauté active</h4>
+                                <p class="text-sm opacity-75">Échangez avec d'autres étudiants</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 text-center">
+                    <a href="https://instagram.com/spot_campuselkseur" 
+                       target="_blank" 
+                       class="inline-flex items-center space-x-2 bg-white text-purple-600 px-6 py-3 rounded-full hover:bg-opacity-90 transition-all transform hover:scale-105">
+                        <i class="fab fa-instagram text-xl"></i>
+                        <span>Nous suivre sur Instagram</span>
+                    </a>
                 </div>
             </div>
         </div>
