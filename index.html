@@ -466,6 +466,79 @@
             50% { transform: translateY(-50%) scale(1.5); opacity: 0.5; }
             100% { transform: translateY(-50%) scale(1); opacity: 1; }
         }
+
+        /* Add these styles to your existing <style> section */
+        .ramadan-btn {
+            background: linear-gradient(135deg, #1f4037 0%, #263a38 100%);
+            color: #eeb85c;
+            border: 2px solid #eeb85c;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ramadan-btn:hover {
+            background: linear-gradient(135deg, #263a38 0%, #1f4037 100%);
+            box-shadow: 0 0 20px rgba(238, 184, 92, 0.5);
+        }
+
+        .ramadan-btn::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #eeb85c, #ffd700, #eeb85c);
+            z-index: -1;
+            animation: border-animation 2s linear infinite;
+            border-radius: lg;
+        }
+
+        .icon-wrapper {
+            position: relative;
+            width: 24px;
+            height: 24px;
+        }
+
+        .moon-icon {
+            color: #eeb85c;
+            animation: moon-glow 2s ease-in-out infinite;
+        }
+
+        .star-icon {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            font-size: 0.8em;
+            color: #ffd700;
+            animation: star-twinkle 1.5s ease-in-out infinite;
+        }
+
+        @keyframes border-animation {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes moon-glow {
+            0%, 100% { filter: drop-shadow(0 0 5px #eeb85c); }
+            50% { filter: drop-shadow(0 0 15px #eeb85c); }
+        }
+
+        @keyframes star-twinkle {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.8); }
+        }
+
+        /* Ramadan theme specific style */
+        .ramadan-theme .ramadan-btn {
+            background: linear-gradient(135deg, #001b29 0%, #002137 100%);
+            border-color: #eeb85c;
+        }
+
+        .ramadan-theme .ramadan-btn:hover {
+            background: linear-gradient(135deg, #002137 0%, #001b29 100%);
+            box-shadow: 0 0 25px rgba(238, 184, 92, 0.6);
+        }
     </style>
 </head>
 <body class="flex flex-col min-h-screen bg-gray-50" data-aos-easing="ease-out-cubic">
@@ -505,6 +578,14 @@
                     <a href="#" onclick="checkProfileAccess(event)" class="w-full sm:w-auto px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transform hover:scale-105 transition-all duration-300 shadow-lg">
                         <i class="fas fa-user mr-2"></i>
                         Mon Profil
+                    </a>
+                    <!-- Replace the existing Ramadan button with this new one -->
+                    <a href="ramadan.html" class="ramadan-btn w-full sm:w-auto px-6 py-3 rounded-lg transform hover:scale-105 transition-all duration-300 shadow-lg flex items-center justify-center space-x-3">
+                        <div class="icon-wrapper">
+                            <i class="fas fa-moon moon-icon"></i>
+                            <i class="fas fa-star star-icon"></i>
+                        </div>
+                        <span>Espace Ramadan</span>
                     </a>
                 </div>
                 <button id="theme-switcher" class="mt-6 px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition-all duration-300 shadow-lg">
