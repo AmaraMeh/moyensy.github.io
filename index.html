@@ -469,64 +469,57 @@
 
         /* Add these styles to your existing <style> section */
         .ramadan-btn {
-            background: linear-gradient(135deg, #1f4037 0%, #263a38 100%);
+            background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
             color: #eeb85c;
             border: 2px solid #eeb85c;
             position: relative;
-            overflow: hidden;
+            transition: all 0.3s ease;
         }
 
         .ramadan-btn:hover {
-            background: linear-gradient(135deg, #263a38 0%, #1f4037 100%);
-            box-shadow: 0 0 20px rgba(238, 184, 92, 0.5);
-        }
-
-        .ramadan-btn::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, #eeb85c, #ffd700, #eeb85c);
-            z-index: -1;
-            animation: border-animation 2s linear infinite;
-            border-radius: lg;
+            background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+            box-shadow: 0 0 20px rgba(238, 184, 92, 0.3);
+            transform: translateY(-2px);
         }
 
         .icon-wrapper {
             position: relative;
             width: 24px;
             height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .moon-icon {
             color: #eeb85c;
-            animation: moon-glow 2s ease-in-out infinite;
+            font-size: 1.2em;
         }
 
         .star-icon {
             position: absolute;
-            top: -5px;
-            right: -5px;
-            font-size: 0.8em;
-            color: #ffd700;
-            animation: star-twinkle 1.5s ease-in-out infinite;
+            top: -3px;
+            right: -3px;
+            font-size: 0.7em;
+            color: #ffffff;
+            animation: star-twinkle 2s ease-in-out infinite;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
         }
 
         @keyframes border-animation {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% { transform: rotate(0deg); opacity: 0.7; }
+            50% { opacity: 0.9; }
+            100% { transform: rotate(360deg); opacity: 0.7; }
         }
 
         @keyframes moon-glow {
-            0%, 100% { filter: drop-shadow(0 0 5px #eeb85c); }
-            50% { filter: drop-shadow(0 0 15px #eeb85c); }
+            0%, 100% { filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.8)); }
+            50% { filter: drop-shadow(0 0 15px rgba(255, 215, 0, 1)); }
         }
 
         @keyframes star-twinkle {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.5; transform: scale(0.8); }
+            0%, 100% { opacity: 1; transform: scale(1) rotate(0deg); }
+            50% { opacity: 0.6; transform: scale(0.7) rotate(180deg); }
         }
 
         /* Ramadan theme specific style */
@@ -580,17 +573,13 @@
                         Mon Profil
                     </a>
                     <!-- Replace the existing Ramadan button with this new one -->
-                    <a href="ramadan.html" class="ramadan-btn w-full sm:w-auto px-6 py-3 rounded-lg transform hover:scale-105 transition-all duration-300 shadow-lg flex items-center justify-center space-x-3">
+                     <a href="ramadan.html" class="ramadan-btn w-full sm:w-auto px-6 py-3 rounded-lg transition-all duration-300 shadow-lg flex items-center justify-center space-x-3">
                         <div class="icon-wrapper">
                             <i class="fas fa-moon moon-icon"></i>
-                            <i class="fas fa-star star-icon"></i>
                         </div>
-                        <span>Espace Ramadan</span>
+                        <span class="font-medium tracking-wide">Espace Ramadan</span>
                     </a>
                 </div>
-                <button id="theme-switcher" class="mt-6 px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition-all duration-300 shadow-lg">
-                    <i class="fas fa-moon mr-2"></i> Activer le thème Ramadan
-                </button>
             </div>
             <div class="warning-box my-4">
                 Avertissement: Le site n'est pas affilié avec l'université de Béjaïa et c'est un projet étudiant.
