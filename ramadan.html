@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="fr" class="ramadan-theme">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Espace Ramadan - Université de Béjaïa</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <style>
+        .ramadan-theme {
+            --primary: #001b2a;
+            --secondary: #003454;
+            --accent: #eeb85c;
+            --text: #ffffff;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--text);
+        }
+
+        .logo-container {
+            text-align: center;
+            margin: 4rem 0;
+        }
+
+        .logo {
+            width: 200px;
+            filter: drop-shadow(0 0 10px var(--accent));
+        }
+
+        .welcome-box {
+            background: linear-gradient(45deg, #00406c, #005fb9);
+            padding: 2rem;
+            border-radius: 1.5rem;
+            margin: 2rem 0;
+            box-shadow: 0 0 2rem rgba(0, 0, 0, 0.3);
+        }
+
+        .prayer-times {
+            background: var(--secondary);
+            padding: 2rem;
+            border-radius: 1.5rem;
+            margin: 2rem 0;
+            box-shadow: 0 0 2rem rgba(0, 0, 0, 0.3);
+        }
+
+        .prayer-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            padding: 1rem;
+            border-radius: 1rem;
+            margin: 0.5rem;
+            transition: transform 0.3s;
+        }
+
+        .prayer-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .next-prayer {
+            background: linear-gradient(45deg, #00406c, #005fb9);
+            padding: 2rem;
+            border-radius: 1.5rem;
+            margin: 2rem 0;
+            box-shadow: 0 0 2rem rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .next-prayer timer {
+            font-size: 3rem;
+            color: var(--accent);
+            text-shadow: 0 0 10px var(--accent);
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--primary);
+            padding: 2rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 0 2rem rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            width: 90%;
+            max-width: 600px;
+        }
+
+        .popup.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+
+        .overlay.active {
+            display: block;
+            animation: overlayFade 0.3s ease;
+        }
+
+        @keyframes overlayFade {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            padding: 1.5rem;
+            border-radius: 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* CSS transitions */
+        .slide-up {
+            animation: slideUp 0.5s ease;
+        }
+
+        @keyframes slideUp {
+            0% { transform: translateY(100%); }
+            100% { transform: translateY(0); }
+        }
+
+        .scale-in {
+            animation: scaleIn 0.3s ease;
+        }
+
+        @keyframes scaleIn {
+            0% { transform: scale(0); }
+            100% { transform: scale(1); }
+        }
+
+        /* Islamic Font for Dua */
+        @import url('https://fonts.googleapis.com/css2?family=Amiri&display=swap');
+        .dua-text {
+            font-family: 'Amiri', serif;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mx-auto px-4 py-8">
+        <!-- Logo Section -->
+        <div class="logo-container">
+            <img src="assets/img/logo.png" alt="University Logo" class="logo">
+        </div>
+
+        <!-- Welcome Box -->
+        <div class="welcome-box text-center" data-aos="fade-up">
+            <h1 class="text-4xl mb-4">Bienvenue à l'Espace Ramadan</h1>
+            <p class="text-xl mb-6">Outils et ressources pour un Ramadan épanouissant</p>
+        </div>
+
+        <!-- Prayer Times Section -->
+        <div class="prayer-times text-center" data-aos="fade-up">
+            <h2 class="text-3xl mb-4">Horaires de Prière pour Bejaia</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div class="prayer-card slide-up">
+                    <div class="text-2xl mb-2">Fajr</div>
+                    <div class="text-4xl font-bold timer" id="fajr-time">03:15</div>
+                </div>
+                <div class="prayer-card slide-up">
+                    <div class="text-2xl mb-2">Sunrise</div>
+                    <div class="text-4xl font-bold timer" id="sunrise-time">04:30</div>
+                </div>
+                <div class="prayer-card slide-up">
+                    <div class="text-2xl mb-2">Dhuhr</div>
+                    <div class="text-4xl font-bold timer" id="dhuhr-time">12:45</div>
+                </div>
+                <div class="prayer-card slide-up">
+                    <div class="text-2xl mb-2">Asr</div>
+                    <div class="text-4xl font-bold timer" id="asr-time">15:30</div>
+                </div>
+                <div class="prayer-card slide-up">
+                    <div class="text-2xl mb-2">Maghrib</div>
+                    <div class="text-4xl font-bold timer" id="maghrib-time">18:45</div>
+                </div>
+                <div class="prayer-card slide-up">
+                    <div class="text-2xl mb-2">Isha</div>
+                    <div class="text-4xl font-bold timer" id="isha-time">20:00</div>
+                </div>
+            </div>
+            <div class="mt-4">
+                <input type="text" placeholder="Changer de ville" class="w-full p-2 rounded-lg scale-in">
+                <button class="bg-var(--accent) p-2 rounded-lg mt-2">Actualiser</button>
+            </div>
+        </div>
+
+        <!-- Next Prayer Section -->
+        <div class="next-prayer text-center" data-aos="fade-up">
+            <h2 class="text-3xl mb-4">Prochaines Prières</h2>
+            <div class="grid grid-cols-2 gap-4">
+                <div class="prayer-card slide-up">
+                    <div class="text-2xl mb-2">Iftar</div>
+                    <timer class="text-4xl font-bold">18:45</timer>
+                    <div class="text-lg text-gray-400" id="iftar-remaining">temps restant: 1h 30m</div>
+                </div>
+                <div class="prayer-card slide-up">
+                    <div class="text-2xl mb-2">Suhoor</div>
+                    <timer class="text-4xl font-bold">03:15</timer>
+                    <div class="text-lg text-gray-400" id="suhoor-remaining">temps restant: 8h 15m</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Feature Grid -->
+        <div class="feature-grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-8">
+            <!-- Dua of the Day -->
+            <div class="feature-card scale-in" onclick="openPopup('dua')">
+                <i class="fas fa-pray text-4xl text-var(--accent)"></i>
+                <h3 class="text-xl mt-2">Dua du Jour</h3>
+            </div>
+
+            <!-- Healthy Meals -->
+            <div class="feature-card scale-in" onclick="openPopup('meals')">
+                <i class="fas fa-utensils text-4xl text-orange-400"></i>
+                <h3 class="text-xl mt-2">Repas Santé</h3>
+            </div>
+
+            <!-- Study Tips -->
+            <div class="feature-card scale-in" onclick="openPopup('study')">
+                <i class="fas fa-book-open text-4xl text-blue-400"></i>
+                <h3 class="text-xl mt-2">Conseils Études</h3>
+            </div>
+
+            <!-- Mosque Finder -->
+            <div class="feature-card scale-in" onclick="openPopup('mosque')">
+                <i class="fas fa-mosque text-4xl text-teal-400"></i>
+                <h3 class="text-xl mt-2">Trouver une Mosquée</h3>
+            </div>
+
+            <!-- Challenges -->
+            <div class="feature-card scale-in" onclick="openPopup('challenges')">
+                <i class="fas fa-trophy text-4xl text-red-400"></i>
+                <h3 class="text-xl mt-2">Défis du Mois</h3>
+            </div>
+        </div>
+
+        <!-- Popups -->
+        <div id="dua-popup" class="popup">
+            <div class="p-4 duo-text">
+                <h2 class="text-3xl mb-4">Dua du Jour</h2>
+                <div class="bg-var(--primary) p-4 rounded-lg shadow-xl">
+                    <p class="text-2xl mb-2">Allāhumma innī a’ūdhu bika min al-ḥāḍari wa al-ḥāḍara</p>
+                    <p class="text-sm italic text-gray-300 dua-text">"Ô Allah, je me réfugie auprès de Toi de la vieillesse et de la sénilité"</p>
+                </div>
+                <button class="bg-var(--accent) text-white p-2 rounded-lg mt-4" onclick="closePopup()">Fermer</button>
+            </div>
+        </div>
+
+        <div id="meals-popup" class="popup">
+            <div class="text-center p-4">
+                <h2 class="text-3xl mb-4">Repas Santé</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-var(--secondary) p-4 rounded-lg shadow-xl">
+                        <h3 class="text-xl mb-2">Iftar</h3>
+                        <ul class="list-disc pl-4">
+                            <li>Dattes et eau</li>
+                            <li>Soupe aux légumes</li>
+                            <li>Poulet grillé</li>
+                            <li>Salade fraîche</li>
+                            <li>Fruit</li>
+                        </ul>
+                    </div>
+                    <div class="bg-var(--secondary) p-4 rounded-lg shadow-xl">
+                        <h3 class="text-xl mb-2">Suhoor</h3>
+                        <ul class="list-disc pl-4">
+                            <li>Oeufs à la coque</li>
+                            <li>Pain complet</li>
+                            <li>Lait</li>
+                            <li>Fruits secs</li>
+                            <li>Yaourt nature</li>
+                        </ul>
+                    </div>
+                </div>
+                <button class="bg-orange-400 text-white p-2 rounded-lg mt-4" onclick="closePopup()">Fermer</button>
+            </div>
+        </div>
+
+        <div id="study-popup" class="popup">
+            <div class="text-center p-4">
+                <h2 class="text-3xl mb-4">Conseils Études</h2>
+                <div class="bg-var(--secondary) p-4 rounded-lg shadow-xl">
+                    <ul class="list-disc pl-4">
+                        <li>Allumer la lampe Attiyah</li>
+                        <li>Éviter la procrastination</li>
+                        <li>Commencer les études après la prière</li>
+                    </ul>
+                </div>
+                <button class="bg-blue-400 text-white p-2 rounded-lg mt-4" onclick="closePopup()">Fermer</button>
+            </div>
+        </div>
+
+        <div id="mosque-popup" class="popup">
+            <div class="text-center p-4">
+                <h2 class="text-3xl mb-4">Trouver une Mosquée</h2>
+                <div class="bg-var(--secondary) p-4 rounded-lg shadow-xl">
+                    <p>Utilisez la carte ci-dessous pour trouver les mosquées les plus proches de vous</p>
+                    <div id="mosque-map" style="height: 400px;"></div>
+                </div>
+                <button class="bg-teal-400 text-white p-2 rounded-lg mt-4" onclick="closePopup()">Fermer</button>
+            </div>
+        </div>
+
+        <div id="challenges-popup" class="popup">
+            <div class="text-center p-4">
+                <h2 class="text-3xl mb-4">Défis du Mois</h2>
+                <div class="bg-var(--secondary) p-4 rounded-lg shadow-xl">
+                    <ul class="list-disc pl-4">
+                        <li>Lisez 10 pages du Coran chaque jour</li>
+                        <li>Effectuez 5 actes de bienfaisance par semaine</li>
+                        <li>Mangez des dattes pour le suhoor et l'iftar</li>
+                    </ul>
+                </div>
+                <button class="bg-red-400 text-white p-2 rounded-lg mt-4" onclick="closePopup()">Fermer</button>
+            </div>
+        </div>
+
+        <!-- Overlay -->
+        <div id="overlay" class="overlay"></div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        // Popup handling
+        const popups = document.querySelectorAll('.popup');
+        const overlay = document.getElementById('overlay');
+
+        function openPopup(id) {
+            overlay.classList.add('active');
+            document.getElementById(`${id}-popup`).classList.add('active');
+        }
+
+        function closePopup() {
+            overlay.classList.remove('active');
+            popups.forEach(popup => popup.classList.remove('active'));
+        }
+
+        overlay.addEventListener('click', closePopup);
+
+        // Time calculations
+        function calculateTimeDifference(targetTime) {
+            const now = new Date();
+            const [hours, minutes] = targetTime.split(':').map(Number);
+            const target = new Date(now);
+            target.setHours(hours, minutes, 0, 0);
+
+            if (target < now) {
+                target.setDate(target.getDate() + 1);
+            }
+
+            const diff = Math.max(0, Math.floor((target - now) / 1000));
+            const hoursLeft = Math.floor(diff / 3600);
+            const minutesLeft = Math.floor((diff % 3600) / 60);
+
+            return `${hoursLeft}h ${minutesLeft}m`;
+        }
+
+        setInterval(() => {
+            const iftarTime = document.getElementById('maghrib-time').textContent;
+            const suhoorTime = document.getElementById('fajr-time').textContent;
+
+            document.getElementById('iftar-remaining').textContent = `temps restant: ${calculateTimeDifference(iftarTime)}`;
+            document.getElementById('suhoor-remaining').textContent = `temps restant: ${calculateTimeDifference(suhoorTime)}`;
+        }, 1000);
+
+        // API integration
+        const API_KEY = 'your_api_key_here';
+const PRAYER_TIMES_URL = `https://api.aladil.info/prayerTimes?city=Bejaia&country=Algeria&apiKey=${API_KEY}`;
+
+async function fetchPrayerTimes() {
+  try {
+    const response = await fetch(PRAYER_TIMES_URL);
+    const data = await response.json();
+    document.getElementById('fajr-time').textContent = data.data[0].fajr;
+    // Update other prayer times similarly
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
+        async function fetchPrayerTimes() {
+            try {
+                const response = await fetch(PRAYER_TIMES_URL);
+                const data = await response.json();
+                document.getElementById('fajr-time').textContent = data.data[0].fajr;
+                document.getElementById('sunrise-time').textContent = data.data[0].sunrise;
+                document.getElementById('dhuhr-time').textContent = data.data[0].dhuhr;
+                document.getElementById('asr-time').textContent = data.data[0].asr;
+                document.getElementById('maghrib-time').textContent = data.data[0].maghrib;
+                document.getElementById('isha-time').textContent = data.data[0].isha;
+            } catch (error) {
+                console.error('Error fetching prayer times:', error);
+            }
+        }
+
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            once: true
+        });
+
+        // Load initial data
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchPrayerTimes();
+            setInterval(fetchPrayerTimes, 3600000); // Refresh every hour
+        });
+    </script>
+</body>
+</html>
