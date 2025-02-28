@@ -23,12 +23,13 @@
       left: 0;
       width: 100vw;
       z-index: 1000;
+      backdrop-filter: blur(8px);
     }
     
     .auth-box {
       background: #fff;
-      padding: 2rem;
-      border-radius: 8px;
+      padding: 2.5rem;
+      border-radius: 12px;
       box-shadow: 0 4px 20px rgba(0,0,0,0.5);
       width: 90%;
       max-width: 400px;
@@ -64,6 +65,19 @@
       display: none;
       color: red;
       margin-top: 1rem;
+    }
+
+    .auth-message {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      color: #666;
+      line-height: 1.4;
+    }
+
+    .instagram-link {
+      color: #E1306C;
+      text-decoration: none;
+      font-weight: 500;
     }
   </style>
 </head>
@@ -151,6 +165,7 @@
               <th class="grade-column sticky-header sortable" onclick="sortTable('Angl 1')">
                 Angl 1 <span class="sort-indicator"></span>
               </th>
+              <th class="grade-column sticky-header">Moyenne Générale</th>
             </tr>
           </thead>
           <tbody>
@@ -161,12 +176,18 @@
     </div>
   </main>
 
+  <!-- Keep only this authentication overlay -->
   <div id="loginOverlay" class="auth-container">
     <div class="auth-box">
-      <h2>Entrez le mot de passe</h2>
-      <input type="password" id="passwordInput" placeholder="Mot de passe">
+      <h2>Authentification Requise</h2>
+      <input type="password" id="passwordInput" placeholder="Entrez le mot de passe">
       <button onclick="checkPassword()">Connexion</button>
       <p id="loginError" class="login-error">Mot de passe incorrect.</p>
+      <p class="auth-message">
+        Si tu es un étudiant ST LMD, contacte l'admin de la page 
+        <a href="https://www.instagram.com/spot_campuselkseur" target="_blank" class="instagram-link">@spot_campuselkseur</a> 
+        sur Instagram pour avoir le mot de passe.
+      </p>
     </div>
   </div>
 
@@ -240,6 +261,9 @@
     document.addEventListener('DOMContentLoaded', () => {
         console.log('Page loaded, starting data fetch...');
         loadData();
+        // Hide content initially
+        document.querySelector('.table-wrapper').style.visibility = 'hidden';
+        document.querySelector('.filters-container').style.visibility = 'hidden';
     });
 
     document.getElementById('sectionSelect').addEventListener('change', applyFilters);
@@ -305,6 +329,7 @@
           <td class="grade-cell ${colorMark(item["MST1"])}">${item["MST1"] || ""}</td>
           <td class="grade-cell ${colorMark(item["DED"])}">${item["DED"] || ""}</td>
           <td class="grade-cell ${colorMark(item["Angl 1"])}">${item["Angl 1"] || ""}</td>
+          <td class="grade-cell">en attente</td>
         `;
 
         tr.innerHTML = rowHtml;
@@ -384,17 +409,33 @@
       }
     }
 
+    // Remove any duplicate password check functions and keep only this one
     function checkPassword() {
         const input = document.getElementById('passwordInput').value;
         const errorMsg = document.getElementById('loginError');
-        const correctPassword = 'Berchiche1234';
+        const correctPassword = 'rattrapage';
+        
         if (input === correctPassword) {
-            // Hide the login overlay and allow access
+            // Hide the login overlay and show content
             document.getElementById('loginOverlay').style.display = 'none';
+            document.querySelector('.table-wrapper').style.visibility = 'visible';
+            document.querySelector('.filters-container').style.visibility = 'visible';
         } else {
             errorMsg.style.display = 'block';
+            setTimeout(() => {
+                errorMsg.style.display = 'none';
+            }, 3000);
         }
     }
+
+    // Add this to hide content initially (add after your existing DOMContentLoaded event)
+    document.addEventListener('DOMContentLoaded', () => {
+        console.log('Page loaded, starting data fetch...');
+        loadData();
+        // Hide content initially
+        document.querySelector('.table-wrapper').style.visibility = 'hidden';
+        document.querySelector('.filters-container').style.visibility = 'hidden';
+    });
   </script>
 
   <script>

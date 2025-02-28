@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Université - Campus El-kseur</title>
+    <!-- Stylesheets -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        .card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px -5px rgba(0, 0, 0, 0.2);
+        }
+
+        .warning-box {
+            background-color: #ffcc00;
+            color: #000;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .affichage-section .service-card {
+            padding: 2rem;
+            border-radius: 1rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .affichage-section .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px -5px rgba(0, 0, 0, 0.2);
+        }
+
+        .affichage-section .service-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+        }
+
+        @media (max-width: 768px) {
+            .affichage-section .service-card {
+                padding: 1.5rem;
+            }
+            
+            .affichage-section .service-icon {
+                width: 60px;
+                height: 60px;
+            }
+        }
+
+        .affichage-section {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .affichage-card {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .affichage-card .service-icon {
+            transition: all 0.3s ease;
+        }
+
+        .affichage-card:hover .service-icon {
+            transform: scale(1.1);
+        }
+
+        .affichage-card:hover .fa-arrow-right {
+            animation: bounceRight 1s infinite;
+        }
+
+        @keyframes bounceRight {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(5px); }
+        }
+
+        @media (max-width: 768px) {
+            .affichage-card .service-icon {
+                padding: 0.75rem;
+            }
+            
+            .affichage-card h2 {
+                font-size: 1.5rem;
+            }
+
+            .affichage-card p {
+                font-size: 0.875rem;
+            }
+        }
+
+        @keyframes wave {
+            0% { transform: translateX(-100%); }
+            50% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        .animate-wave {
+            animation: wave 8s infinite linear;
+        }
+
+        .rotate-on-hover {
+            transition: transform 0.5s ease;
+        }
+
+        .affichage-card:hover .rotate-on-hover {
+            transform: rotate(15deg);
+        }
+
+        .glow-text {
+            text-shadow: 0 0 10px rgba(255,255,255,0.5);
+        }
+
+        .arrow-animate {
+            animation: bounceX 2s infinite;
+        }
+
+        @keyframes bounceX {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(10px); }
+        }
+
+        .live-timestamp {
+            position: relative;
+        }
+
+        .live-timestamp::before {
+            content: '';
+            position: absolute;
+            left: -20px;
+            top: 50%;
+            width: 8px;
+            height: 8px;
+            background-color: #22c55e;
+            border-radius: 50%;
+            transform: translateY(-50%);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: translateY(-50%) scale(1); opacity: 1; }
+            50% { transform: translateY(-50%) scale(1.5); opacity: 0.5; }
+            100% { transform: translateY(-50%) scale(1); opacity: 1; }
+        }
+
+        /* Ramadan Theme */
+        .ramadan-theme {
+            --bg-color: #00111cff;
+            --text-color: #ffffff;
+            --primary-color: #002137ff;
+            --secondary-color: #003a61ff;
+            --accent-color: #00406cff;
+        }
+
+        .ramadan-theme body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        .ramadan-theme .welcome-box {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        }
+
+        .ramadan-theme .auth-button {
+            background-color: var(--accent-color);
+        }
+
+        .ramadan-theme .auth-button:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .ramadan-theme .service-card {
+            background-color: var(--primary-color);
+            color: var(--text-color);
+        }
+
+        .ramadan-theme .service-card:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .ramadan-theme .service-icon {
+            background-color: var(--accent-color);
+        }
+
+        .ramadan-theme .service-icon i {
+            color: var(--text-color);
+        }
+
+        .ramadan-theme .live-timestamp::before {
+            background-color: var(--accent-color);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 flex flex-col min-h-screen">
+    <div class="container mx-auto px-4 py-12 max-w-4xl">
+        <h1 class="text-4xl font-bold text-center text-indigo-800 mb-12" data-aos="fade-up">
+            <span class="gradient-text">Guide pour tous les étudiants</span>
+        </h1>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Étudiants Card -->
+            <div class="card students p-8 rounded-2xl shadow-2xl bg-gradient-to-br from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 transition-all duration-500" data-aos="fade-up" data-aos-delay="100">
+                <h3 class="text-white text-2xl font-bold mb-4">Étudiants</h3>
+                <p class="text-white">Licence: 24471</p>
+                <p class="text-white">Master: 8734</p>
+                <p class="text-white">Ingéniorat: 876</p>
+                <p class="text-white">Post-graduation: 1783</p>
+                <p class="text-white">Système classique: 1207</p>
+            </div>
+
+            <!-- Enseignants Card -->
+            <div class="card teachers p-8 rounded-2xl shadow-2xl bg-gradient-to-br from-yellow-500 to-orange-400 hover:from-yellow-600 hover:to-orange-500 transition-all duration-500" data-aos="fade-up" data-aos-delay="200">
+                <h3 class="text-white text-2xl font-bold mb-4">Enseignants</h3>
+                <p class="text-white">Professeurs: 267</p>
+                <p class="text-white">Maîtres de Conférences A+B: 873</p>
+                <p class="text-white">Maîtres Assistants A+B: 674</p>
+            </div>
+
+            <!-- Offres de formation Card -->
+            <div class="card offers p-8 rounded-2xl shadow-2xl bg-gradient-to-br from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 transition-all duration-500" data-aos="fade-up" data-aos-delay="300">
+                <h3 class="text-white text-2xl font-bold mb-4">Offres de formation</h3>
+                <p class="text-white">Licence: 61</p>
+                <p class="text-white">Master: 120</p>
+                <p class="text-white">MCIL: 2</p>
+                <p class="text-white">Ingénieur d’État: 6</p>
+                <p class="text-white">Double diplôme: 4</p>
+                <p class="text-white">Système classique: 2</p>
+                <p class="text-white">PG: 37</p>
+            </div>
+
+            <!-- Recherche Card -->
+            <div class="card research p-8 rounded-2xl shadow-2xl bg-gradient-to-br from-green-500 to-teal-500 hover:from-green-600 hover:to-teal-600 transition-all duration-500" data-aos="fade-up" data-aos-delay="400">
+                <h3 class="text-white text-2xl font-bold mb-4">Recherche</h3>
+                <p class="text-white">Laboratoires: 37</p>
+                <p class="text-white">Unité de recherche: 1</p>
+                <p class="text-white">Projets: 269</p>
+            </div>
+
+            <!-- Personnel de soutien Card -->
+            <div class="card staff p-8 rounded-2xl shadow-2xl bg-gradient-to-br from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 transition-all duration-500" data-aos="fade-up" data-aos-delay="500">
+                <h3 class="text-white text-2xl font-bold mb-4">Personnel de soutien</h3>
+                <p class="text-white">Permanents: 901</p>
+                <p class="text-white">Contractuels: 331</p>
+            </div>
+
+            <!-- Infrastructures Card -->
+            <div class="card infrastructure p-8 rounded-2xl shadow-2xl bg-gradient-to-br from-orange-500 to-yellow-500 hover:from-orange-600 hover:to-yellow-600 transition-all duration-500" data-aos="fade-up" data-aos-delay="600">
+                <h3 class="text-white text-2xl font-bold mb-4">Infrastructures</h3>
+                <p class="text-white">Auditoriums: 4</p>
+                <p class="text-white">Amphithéâtres: 86</p>
+                <p class="text-white">Salles de cours: 553</p>
+                <p class="text-white">Bibliothèques: 7</p>
+                <p class="text-white">Centres de calcul: 3</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- AOS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true,
+            easing: 'ease-out-cubic'
+        });
+    </script>
+</body>
+</html>
