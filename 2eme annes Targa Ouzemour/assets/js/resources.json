@@ -1,0 +1,21 @@
+{
+  "resources": [
+    {
+      "id": 1,
+      "title": "ST LMD 1",
+      "description": "Ce lien contient quelques documents ( cours , series , ds , examens).",
+      "type": "drive",
+      "url": "#",
+      "thumbnail": "https://img.freepik.com/premium-vector/st-logo-design_579179-1254.jpg",
+      "department": "stic",
+      "semester": 1,
+      "speciality": "st",
+      "category": "drive",
+      "tags": ["Cours", "Séries", "DS", "Examens"],
+      "author": "Wissem ELJ",
+      "dateAdded": "2024-02-20",
+      "downloads": 0,
+      "rating": 4.0
+    }
+  ]
+}

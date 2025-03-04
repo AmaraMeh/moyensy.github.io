@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automatique - Semestre 4</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/popup.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+</head>
+<body class="flex flex-col min-h-screen bg-gray-50">
+    <div class="container mx-auto px-4 max-w-6xl flex-grow">
+        <header class="mb-12 mt-8" data-aos="fade-down">
+            <div class="header-container">
+                <a href="/bib.html" class="back-button hover:scale-110 transform transition-all duration-300">
+                    <i class="fas fa-arrow-left"></i>
+                    Retour
+                </a>
+                <img src="../assets/img/LOGO.png" alt="ISET'COM" class="max-w-[200px]">
+            </div>
+        </header>
+
+        <div class="developer-box bg-gradient-to-r from-blue-500 to-purple-500 text-white text-center py-3 px-6 rounded-lg shadow-lg mb-8">
+            <p class="text-xl font-bold">Automatique - Semestre 4</p>
+            <p class="text-lg font-semibold mt-1">Développé par Amara Mehdi</p>
+        </div>
+
+        <div class="glass-card" data-aos="fade-up">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                <!-- Module 1: Architecture des systèmes automatisés -->
+                <div class="module-card flex flex-col items-center justify-center p-6 hover:scale-105 transition-all duration-300">
+                    <i class="fas fa-cogs text-4xl text-blue-600 mb-4"></i>
+                    <h3 class="text-xl font-semibold text-center">Architecture des systèmes automatisés</h3>
+                    <div class="flex space-x-2 mt-4">
+                        <button class="px-3 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-700" onclick="showContent('Architecture', 'examen')">
+                            Examen
+                        </button>
+                        <button class="px-3 py-1 bg-green-600 text-white rounded-md hover:bg-green-700" onclick="showContent('Architecture', 'tdtp')">
+                            TD+TP
+                        </button>
+                        <button class="px-3 py-1 bg-purple-600 text-white rounded-md hover:bg-purple-700" onclick="showContent('Architecture', 'cours')">
+                            Cours
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Module 2: Logique combinatoire -->
+                <div class="module-card flex flex-col items-center justify-center p-6 hover:scale-105 transition-all duration-300">
+                    <i class="fas fa-microchip text-4xl text-red-600 mb-4"></i>
+                    <h3 class="text-xl font-semibold text-center">Logique combinatoire</h3>
+                    <div class="flex space-x-2 mt-4">
+                        <button class="px-3 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-700" onclick="showContent('Logique', 'examen')">
+                            Examen
+                        </button>
+                        <button class="px-3 py-1 bg-green-600 text-white rounded-md hover:bg-green-700" onclick="showContent('Logique', 'tdtp')">
+                            TD+TP
+                        </button>
+                        <button class="px-3 py-1 bg-purple-600 text-white rounded-md hover:bg-purple-700" onclick="showContent('Logique', 'cours')">
+                            Cours
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Module 3: Mesure électrique -->
+                <div class="module-card flex flex-col items-center justify-center p-6 hover:scale-105 transition-all duration-300">
+                    <i class="fas fa-bolt text-4xl text-yellow-600 mb-4"></i>
+                    <h3 class="text-xl font-semibold text-center">Mesure électrique</h3>
+                    <div class="flex space-x-2 mt-4">
+                        <button class="px-3 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-700" onclick="showContent('Mesure', 'examen')">
+                            Examen
+                        </button>
+                        <button class="px-3 py-1 bg-green-600 text-white rounded-md hover:bg-green-700" onclick="showContent('Mesure', 'tdtp')">
+                            TD+TP
+                        </button>
+                        <button class="px-3 py-1 bg-purple-600 text-white rounded-md hover:bg-purple-700" onclick="showContent('Mesure', 'cours')">
+                            Cours
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Module 4: Méthode numérique -->
+                <div class="module-card flex flex-col items-center justify-center p-6 hover:scale-105 transition-all duration-300">
+                    <i class="fas fa-calculator text-4xl text-purple-600 mb-4"></i>
+                    <h3 class="text-xl font-semibold text-center">Méthode numérique</h3>
+                    <div class="flex space-x-2 mt-4">
+                        <button class="px-3 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-700" onclick="showContent('Numerique', 'examen')">
+                            Examen
+                        </button>
+                        <button class="px-3 py-1 bg-green-600 text-white rounded-md hover:bg-green-700" onclick="showContent('Numerique', 'tdtp')">
+                            TD+TP
+                        </button>
+                        <button class="px-3 py-1 bg-purple-600 text-white rounded-md hover:bg-purple-700" onclick="showContent('Numerique', 'cours')">
+                            Cours
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Module 5: Sécurité électrique -->
+                <div class="module-card flex flex-col items-center justify-center p-6 hover:scale-105 transition-all duration-300">
+                    <i class="fas fa-shield-alt text-4xl text-green-600 mb-4"></i>
+                    <h3 class="text-xl font-semibold text-center">Sécurité électrique</h3>
+                    <div class="flex space-x-2 mt-4">
+                        <button class="px-3 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-700" onclick="showContent('Securite', 'examen')">
+                            Examen
+                        </button>
+                        <button class="px-3 py-1 bg-green-600 text-white rounded-md hover:bg-green-700" onclick="showContent('Securite', 'tdtp')">
+                            TD+TP
+                        </button>
+                        <button class="px-3 py-1 bg-purple-600 text-white rounded-md hover:bg-purple-700" onclick="showContent('Securite', 'cours')">
+                            Cours
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Module 6: TCE -->
+                <div class="module-card flex flex-col items-center justify-center p-6 hover:scale-105 transition-all duration-300">
+                    <i class="fas fa-industry text-4xl text-blue-600 mb-4"></i>
+                    <h3 class="text-xl font-semibold text-center">TCE</h3>
+                    <div class="flex space-x-2 mt-4">
+                        <button class="px-3 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-700" onclick="showContent('TCE', 'examen')">
+                            Examen
+                        </button>
+                        <button class="px-3 py-1 bg-green-600 text-white rounded-md hover:bg-green-700" onclick="showContent('TCE', 'tdtp')">
+                            TD+TP
+                        </button>
+                        <button class="px-3 py-1 bg-purple-600 text-white rounded-md hover:bg-purple-700" onclick="showContent('TCE', 'cours')">
+                            Cours
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Module 7: Théorie du signal -->
+                <div class="module-card flex flex-col items-center justify-center p-6 hover:scale-105 transition-all duration-300">
+                    <i class="fas fa-wifi text-4xl text-orange-600 mb-4"></i>
+                    <h3 class="text-xl font-semibold text-center">Théorie du signal</h3>
+                    <div class="flex space-x-2 mt-4">
+                        <button class="px-3 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-700" onclick="showContent('Signal', 'examen')">
+                            Examen
+                        </button>
+                        <button class="px-3 py-1 bg-green-600 text-white rounded-md hover:bg-green-700" onclick="showContent('Signal', 'tdtp')">
+                            TD+TP
+                        </button>
+                        <button class="px-3 py-1 bg-purple-600 text-white rounded-md hover:bg-purple-700" onclick="showContent('Signal', 'cours')">
+                            Cours
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Module 8: Systèmes asservis linéaire et continus -->
+                <div class="module-card flex flex-col items-center justify-center p-6 hover:scale-105 transition-all duration-300">
+                    <i class="fas fa-swatchbook text-4xl text-pink-600 mb-4"></i>
+                    <h3 class="text-xl font-semibold text-center">Systèmes asservis linéaire et continus</h3>
+                    <div class="flex space-x-2 mt-4">
+                        <button class="px-3 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-700" onclick="showContent('Asservis', 'examen')">
+                            Examen
+                        </button>
+                        <button class="px-3 py-1 bg-green-600 text-white rounded-md hover:bg-green-700" onclick="showContent('Asservis', 'tdtp')">
+                            TD+TP
+                        </button>
+                        <button class="px-3 py-1 bg-purple-600 text-white rounded-md hover:bg-purple-700" onclick="showContent('Asservis', 'cours')">
+                            Cours
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Popups -->
+    <div id="popup-tdtp" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg shadow-lg p-6 max-w-3xl w-full glass-card">
+            <div class="flex justify-between items-center mb-4">
+                <h2 id="popup-title-tdtp" class="text-2xl font-bold text-gray-800"></h2>
+                <button type="button" class="close-popup-btn px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700 transform transition-all duration-300">
+                    <i class="fas fa-times mr-2"></i>Fermer
+                </button>
+            </div>
+            <div id="popup-content-tdtp" class="space-y-4 popup-content"></div>
+        </div>
+    </div>
+
+    <div id="popup-examen" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg shadow-lg p-6 max-w-3xl w-full glass-card">
+            <div class="flex justify-between items-center mb-4">
+                <h2 id="popup-title-examen" class="text-2xl font-bold text-gray-800"></h2>
+                <button type="button" class="close-popup-btn px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700 transform transition-all duration-300">
+                    <i class="fas fa-times mr-2"></i>Fermer
+                </button>
+            </div>
+            <div id="popup-content-examen" class="space-y-4 popup-content"></div>
+        </div>
+    </div>
+
+    <div id="popup-cours" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg shadow-lg p-6 max-w-3xl w-full glass-card">
+            <div class="flex justify-between items-center mb-4">
+                <h2 id="popup-title-cours" class="text-2xl font-bold text-gray-800"></h2>
+                <button type="button" class="close-popup-btn px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700 transform transition-all duration-300">
+                    <i class="fas fa-times mr-2"></i>Fermer
+                </button>
+            </div>
+            <div id="popup-content-cours" class="space-y-4 popup-content"></div>
+        </div>
+    </div>
+
+    <footer class="bg-gray-800 text-gray-200 text-center text-xs py-6 mt-10 border-t border-gray-700">
+        <p>&copy; 2025 Université de Bejaia. Tous droits réservés.</p>
+        <p class="mt-2 font-semibold italic">
+            Développé par <a href="mailto:mehdi.amara@tech.univ-bejaia.dz" class="text-blue-400 hover:text-blue-500">Amara Mehdi</a>
+        </p>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 800, once: true });
+
+        const moduleContent = {
+            "Architecture des systems automatises": {
+                "cours": [
+                    { title: "Chapitre 1", url: "https://drive.google.com/file/d/1TB8pnQ5wBIv1QJxb2Nne6bTtbch4sQiP/view?usp=drive_link" },
+                    { title: "Chapitre 2 partie 1", url: "https://drive.google.com/file/d/1Sxb377p6Jmt3Ao1LEuN2cZSPYsojvX5v/view?usp=drive_link" },
+                    { title: "Chapitre 2 partie 2", url: "https://drive.google.com/file/d/1SuXw1zMDXw59mWRn2atr0sGkiU5jAh4t/view?usp=drive_link" },
+                    { title: "Chapitre 2 partie 3", url: "https://drive.google.com/file/d/1Sp8BvFiLns5fZ_7USJuuTF4WLR7UVsyt/view?usp=drive_link" },
+                    { title: "Chapitre 3", url: "https://drive.google.com/file/d/1SmOvxUyvwQ-RvxplEGN3eGW_uC_eewxf/view?usp=drive_link" },
+                    { title: "Chapitre 4", url: "https://drive.google.com/file/d/1Sl_BwKFAq3QjOk5njxVTLngnYWIq8lSP/view?usp=drive_link" }
+                ]
+            },
+            "Logique combinatoire": {
+                "cours": [
+                    { title: "Chapitre 1 partie 1", url: "https://drive.google.com/file/d/1muPSOFR4UvSyz0ODFiZ-B960iaAZ2B9l/view?usp=drive_link" },
+                    { title: "Chapitre 1 partie 2", url: "https://drive.google.com/file/d/1n42F7YCE-bLjz1PWXW4-6SrL7hP2q9jj/view?usp=drive_link" },
+                    { title: "Chapitre 2 partie 1", url: "https://drive.google.com/file/d/1CPfw0BVKDsNam6BwMdD9sZ6ua5Dpwt7X/view?usp=drive_link" },
+                    { title: "Chapitre 2 partie 2", url: "https://drive.google.com/file/d/1CQwXaOj4QMGmkz4CyeB0K01tzfwoDVbr/view?usp=drive_link" },
+                    { title: "Chapitre 3", url: "https://drive.google.com/file/d/1bhOFJnMwtq1B-ceTuMm0qXp8sSyH_o99/view?usp=drive_link" },
+                    { title: "Chapitre 4", url: "https://drive.google.com/file/d/1vt0w5HUsiVGGBbs8ZIeys_JgnmV1H7p_/view?usp=drive_link" }
+                ],
+                "td": [
+                    { title: "TD 1", url: "https://drive.google.com/file/d/1n0aZ75z_Ws_sO3jJIBYKPx0blbor7fFD/view?usp=drive_link" },
+                    { title: "TD 2 partie 1", url: "https://drive.google.com/file/d/1CRcp4Mym2qHzxtV4Jp0u9tAo0BWsRXkh/view?usp=drive_link" },
+                    { title: "TD 2 partie 2", url: "https://drive.google.com/file/d/1CUn_SU9OiGG_gy6jW_-XVVN6bb84ewR8/view?usp=drive_link" }
+                ]
+            },
+            "Mesure electrique": {
+                "cours": [
+                    { title: "Chapitre 1", url: "https://drive.google.com/file/d/1ptAzR3niK8DvI_caUu-RqZQrwsHDRfgW/view?usp=drive_link" },
+                    { title: "Chapitre 2", url: "https://drive.google.com/file/d/14E3uU4CQbk0L5kuZekw4OWzeUKgDijFu/view?usp=drive_link" },
+                    { title: "Chapitre 3", url: "https://drive.google.com/file/d/1VWatjYyl5mdri-MTtaF8QrfqDHrsFNXl/view?usp=drive_link" },
+                    { title: "Chapitre 4", url: "https://drive.google.com/file/d/1QLCFCK9OH9KlAcTdOvdn2nNkvGvTbGPk/view?usp=drive_link" }
+                ]
+            },
+            "Methode numirique": {
+                "cours": [
+                    { title: "Chapitre 1", url: "https://drive.google.com/file/d/1jT-50mPGW2PWc1DV-41F2cX3ci3G_znO/view?usp=drive_link" },
+                    { title: "Chapitre 2", url: "https://drive.google.com/file/d/1Bjk94qNGjlskiou4Y2utYdrg9xKDST5A/view?usp=drive_link" },
+                    { title: "Chapitre 3", url: "https://drive.google.com/file/d/1su5vEoFQ2OXHcyM0Nb7uJmu9hwKaE29c/view?usp=drive_link" }
+                ],
+                "cours conseiller": [
+                    { title: "Cours complet 1", url: "https://drive.google.com/file/d/137tzSLum8brYanKGFnL9Sht-HlRv98is/view?usp=drive_link" },
+                    { title: "Cours complet 2", url: "https://drive.google.com/file/d/11uw8QrJzJWalTbuVxUza0eWEOftIN_TG/view?usp=drive_link" }
+                ],
+                "td": [
+                    { title: "TD 1", url: "https://drive.google.com/file/d/1sfDXGcsNIGJFA94e-J0H2RT9A97MS6Ae/view?usp=drive_link" },
+                    { title: "Solution TD 1", url: "https://drive.google.com/file/d/1G25YDzvB6YJ4iLxQbHsXRShJPCeVpItY/view?usp=drive_link" },
+                    { title: "TD 2", url: "https://drive.google.com/file/d/1UCqJYy2uNzRhwu7-iKbxO6zOKQK1ACHo/view?usp=drive_link" },
+                    { title: "Solution TD 2", url: "https://drive.google.com/file/d/1sqdWELQZ8f84foQ2bLfUs8dRK6L9t4PV/view?usp=drive_link" }
+                ]
+            },
+            "System aservis": {
+                "cours": [
+                    { title: "Chapitre 1", url: "https://drive.google.com/file/d/1pjzl8EaD_QhIg7KcsLTJrGluDy3JNQ8b/view?usp=drive_link" },
+                    { title: "Chapitre 2", url: "https://drive.google.com/file/d/1qADSVatIs2Dje5iwEaH1UDMDCEKaD6Fs/view?usp=drive_link" },
+                    { title: "Chapitre 3", url: "https://drive.google.com/file/d/12cRGiaaC629rQYvUDrT9BVKBISVXS8VR/view?usp=drive_link" },
+                    { title: "Chapitre 4", url: "https://drive.google.com/file/d/1RWpRarjo7sgTYZ_Phg9mO4jSsC74pdz0/view?usp=drive_link" },
+                    { title: "Chapitre 5", url: "https://drive.google.com/file/d/1saXHeemDzg_WmFfExg9ghFdLeKiwy1R6/view?usp=drive_link" },
+                    { title: "Chapitre 6", url: "https://drive.google.com/file/d/1QIJNsxyikhrSkzdF5GTdbrj9vgzH3e-v/view?usp=drive_link" }
+                ],
+                "td": [
+                    { title: "TD 1", url: "https://drive.google.com/file/d/1rOO4yue7c0wnHUY_CgSa9Syl7c_MN2WD/view?usp=drive_link" },
+                    { title: "TD 2", url: "https://drive.google.com/file/d/1hRFFLN7DCQSEf5hQtsPSRJ4EqkzxC1bJ/view?usp=drive_link" },
+                    { title: "TD 3", url: "https://drive.google.com/file/d/1vbagnETbHqwEM0Q_B4jJEQ2dFcVEYKVh/view?usp=drive_link" },
+                    { title: "TD 4", url: "https://drive.google.com/file/d/1QE5WvMCIUyevbaGM4DU8QQe6vUYQQUwF/view?usp=drive_link" }
+                ]
+            },
+            "Theorie du signal": {
+                "cours": [
+                    { title: "Chapitre 1", url: "https://drive.google.com/file/d/1tfgdUyTMV_6p9ISs5iJjylxL3ogFLRnu/view?usp=drive_link" },
+                    { title: "Chapitre 2", url: "https://drive.google.com/file/d/14l78gjVvwYlYKydCnTHyEKB0RJwyhdmL/view?usp=drive_link" },
+                    { title: "Chapitre 3", url: "https://drive.google.com/file/d/1JFdCMnhm-Vrn1p74255IHjnIUepgpa4-/view?usp=drive_link" },
+                    { title: "Chapitre 4", url: "https://drive.google.com/file/d/1RL4uFcoXCotnybupDzXm-Hf6fKjKlSJC/view?usp=drive_link" }
+                ],
+                "cours conseiller": [
+                    { title: "Cours complet", url: "https://drive.google.com/file/d/1frznWcFscPTVvKWPni11oAIGqzhdfaOz/view?usp=drive_link" }
+                ],
+                "examen": [
+                    { title: "Rattrapage 2018", url: "https://drive.google.com/file/d/1Gq0paJeE2FLV85SeRy8kL6cEq5FZaBr2/view?usp=drive_link" },
+                    { title: "Correction Rattrapage 2018", url: "https://drive.google.com/file/d/1mGOAZGUlEoHF0QGWAXsir4SYhf4oFe1y/view?usp=drive_link" }
+                ],
+                "td": [
+                    { title: "TD 1", url: "https://drive.google.com/file/d/14mj_HoKOIhFf80Zs4eP2ec6RxK98EEPG/view?usp=drive_link" },
+                    { title: "TD 2", url: "https://drive.google.com/file/d/1RHfGQgnpJq8IcqHzrXQQCG4q_KuL2KXi/view?usp=drive_link" },
+                    { title: "TD 3", url: "https://drive.google.com/file/d/1vihaQY78IwNqCQMF64TYkXy5IH50eA3D/view?usp=drive_link" },
+                    { title: "TD 4", url: "https://drive.google.com/file/d/18jvB-i8zM6VcdPpVSvEYC6rAUBnwAm6D/view?usp=drive_link" },
+                    { title: "Solution TD 1", url: "https://drive.google.com/file/d/1JB1UI5fRYllSSTy7675Rj7HWhTgw5NdU/view?usp=drive_link" },
+                    { title: "Solution TD 2", url: "https://drive.google.com/file/d/1vgldmlfSDgh1PW2KKJGNEUuSafdUvhpO/view?usp=drive_link" },
+                    { title: "Solution TD 3", url: "https://drive.google.com/file/d/18gUtKuR3sYeof0IUxM-tkVGnhBzDD0YZ/view?usp=drive_link" },
+                    { title: "Solution TD 4", url: "https://drive.google.com/file/d/18f0YJYXoJr13cZEiQ5vkGzpnF4i5gZDl/view?usp=drive_link" }
+                ]
+            },
+            "TCE": {
+                "cours": [
+                    { title: "Cours complet", url: "https://drive.google.com/file/d/1QviCQQxHOICdrH1II9uT09P5zneMoqlI/view?usp=drive_link" }
+                ]
+            }
+        };
+
+        const moduleMapping = {
+            "Architecture": "Architecture des systems automatises",
+            "Logique": "Logique combinatoire",
+            "Mesure": "Mesure electrique",
+            "Numerique": "Methode numirique",
+            "Securite": "Securite electrique", // Note: No content defined yet
+            "TCE": "TCE",
+            "Signal": "Theorie du signal",
+            "Asservis": "System aservis"
+        };
+
+        function showContent(moduleShortName, type) {
+            // Map short module name to full module name
+            const moduleName = moduleMapping[moduleShortName];
+            if (!moduleName || !moduleContent[moduleName]) {
+                showEmptyPopup(moduleShortName, type);
+                return;
+            }
+
+            const popup = document.getElementById('popup-' + type);
+            const popupTitle = document.getElementById('popup-title-' + type);
+            const popupContentDiv = document.getElementById('popup-content-' + type);
+
+            // Set popup title
+            popupTitle.textContent = `${moduleName} - ${capitalizeFirstLetter(type)}`;
+
+            // Clear existing content
+            popupContentDiv.innerHTML = "";
+
+            // Display content based on module and type
+            const module = moduleContent[moduleName];
+            
+            // Section exclusive Université de Béjaia (like in medcine-semestre2)
+            const bejaiaSection = document.createElement('div');
+            bejaiaSection.className = 'university-section mb-6 transform transition-all duration-300 hover:scale-105 border-l-4 border-green-600';
+            
+            // Create header for the university section
+            const sectionHeader = document.createElement('div');
+            sectionHeader.className = 'section-header bg-green-50 p-4 rounded-t-lg border-b-2 border-green-200';
+            sectionHeader.innerHTML = `
+                <h3 class="text-xl font-bold text-green-600 flex items-center gap-2">
+                    <i class="fas fa-university"></i>
+                    Université de Bejaia
+                </h3>
+            `;
+            
+            // Create content grid for the resources
+            const contentGrid = document.createElement('div');
+            contentGrid.className = 'content-grid grid gap-4 p-4';
+            
+            if (type === 'cours') {
+                // Regular course content
+                if (module.cours && module.cours.length > 0) {
+                    addMedicineStyleContent(contentGrid, module.cours, 'Cours', 'fa-book', false);
+                }
+                
+                // Recommended course content
+                if (module["cours conseiller"] && module["cours conseiller"].length > 0) {
+                    const recommendedSection = document.createElement('div');
+                    recommendedSection.className = 'mb-6 transform transition-all duration-300 hover:scale-105 border-l-4 border-blue-500 recommended-content';
+                    
+                    const recommendedHeader = document.createElement('div');
+                    recommendedHeader.className = 'section-header bg-blue-50 p-4 rounded-t-lg border-b-2 border-blue-200';
+                    recommendedHeader.innerHTML = `
+                        <h3 class="text-xl font-bold text-blue-600 flex items-center gap-2">
+                            <i class="fas fa-star"></i>
+                            Cours Conseillés
+                            <span class="ml-2 text-sm bg-blue-500 text-white px-2 py-1 rounded">Recommandé</span>
+                        </h3>
+                    `;
+                    
+                    const recommendedGrid = document.createElement('div');
+                    recommendedGrid.className = 'content-grid grid gap-4 p-4';
+                    
+                    module["cours conseiller"].forEach(item => {
+                        const contentItem = document.createElement('div');
+                        contentItem.className = 'content-item bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 transform hover:scale-102 border border-blue-100';
+                        contentItem.innerHTML = `
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <div class="icon-wrapper text-blue-500" style="background:rgba(59, 130, 246, 0.1);">
+                                        <i class="fas fa-star text-xl"></i>
+                                    </div>
+                                    <div class="text-content">
+                                        <h4 class="font-semibold text-gray-800">${item.title}</h4>
+                                    </div>
+                                </div>
+                                <a href="${item.url}" target="_blank" 
+                                   class="download-btn bg-blue-50 hover:bg-blue-100 text-blue-600 px-4 py-2 rounded-full flex items-center gap-2 transition-all duration-300">
+                                    <span class="text-sm">Télécharger</span>
+                                    <i class="fas fa-download"></i>
+                                </a>
+                            </div>
+                        `;
+                        recommendedGrid.appendChild(contentItem);
+                    });
+                    
+                    recommendedSection.appendChild(recommendedHeader);
+                    recommendedSection.appendChild(recommendedGrid);
+                    popupContentDiv.appendChild(recommendedSection);
+                }
+                
+            } else if (type === 'tdtp') {
+                // TD content
+                if (module.td && module.td.length > 0) {
+                    addMedicineStyleContent(contentGrid, module.td, 'Travaux Dirigés', 'fa-tasks', false);
+                }
+                
+                // TP content
+                if (module.tp && module.tp.length > 0) {
+                    addMedicineStyleContent(contentGrid, module.tp, 'Travaux Pratiques', 'fa-flask', false);
+                }
+                
+            } else if (type === 'examen') {
+                // Exam content
+                if (module.examen && module.examen.length > 0) {
+                    addMedicineStyleContent(contentGrid, module.examen, 'Examens', 'fa-file-alt', false);
+                } else {
+                    contentGrid.innerHTML = `
+                        <div class="text-center p-8">
+                            <i class="fas fa-exclamation-circle text-5xl text-gray-400 mb-4"></i>
+                            <p class="text-gray-500">Aucun examen disponible pour ce module</p>
+                        </div>
+                    `;
+                }
+            }
+            
+            // Add default content if no specific content is found
+            if (contentGrid.innerHTML === '' && 
+                !(type === 'cours' && module["cours conseiller"] && module["cours conseiller"].length > 0)) {
+                contentGrid.innerHTML = `
+                    <div class="text-center p-8">
+                        <i class="fas fa-exclamation-circle text-5xl text-gray-400 mb-4"></i>
+                        <p class="text-gray-500">Aucun contenu disponible pour ce type.</p>
+                    </div>
+                `;
+            }
+            
+            // Add all elements to section if there's content to display
+            bejaiaSection.appendChild(sectionHeader);
+            bejaiaSection.appendChild(contentGrid);
+            
+            // Only append the university section if we have type-specific content
+            if (type === 'cours' && !module.cours?.length && !module["cours conseiller"]?.length) {
+                popupContentDiv.innerHTML = `
+                    <div class="text-center p-8">
+                        <i class="fas fa-exclamation-circle text-5xl text-gray-400 mb-4"></i>
+                        <p class="text-gray-500">Aucun cours disponible pour ce module</p>
+                    </div>
+                `;
+            } else if (type === 'tdtp' && !module.td?.length && !module.tp?.length) {
+                popupContentDiv.innerHTML = `
+                    <div class="text-center p-8">
+                        <i class="fas fa-exclamation-circle text-5xl text-gray-400 mb-4"></i>
+                        <p class="text-gray-500">Aucun TD ou TP disponible pour ce module</p>
+                    </div>
+                `;
+            } else if (contentGrid.innerHTML !== '' || 
+                (type === 'cours' && module["cours conseiller"] && module["cours conseiller"].length > 0)) {
+                if (contentGrid.innerHTML !== '') {
+                    popupContentDiv.appendChild(bejaiaSection);
+                }
+            }
+
+            // Show the popup
+            popup.classList.remove('hidden');
+        }
+
+        function addMedicineStyleContent(container, items, title, icon, isSpecial) {
+            // Skip if no items
+            if (!items || items.length === 0) return;
+            
+            items.forEach(item => {
+                const contentItem = document.createElement('div');
+                contentItem.className = 'content-item bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 transform hover:scale-102 border border-gray-100';
+                
+                const iconColor = isSpecial ? 'text-blue-500' : 'text-green-500';
+                const bgColor = isSpecial ? 'rgba(59, 130, 246, 0.1)' : 'rgba(34, 197, 94, 0.1)';
+                const btnBgClass = isSpecial ? 'bg-blue-50 hover:bg-blue-100 text-blue-600' : 'bg-green-50 hover:bg-green-100 text-green-600';
+                
+                contentItem.innerHTML = `
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="icon-wrapper ${iconColor}" style="background:${bgColor};">
+                                <i class="fas ${icon} text-xl"></i>
+                            </div>
+                            <div class="text-content">
+                                <h4 class="font-semibold text-gray-800">${item.title}</h4>
+                            </div>
+                        </div>
+                        <a href="${item.url}" target="_blank" 
+                           class="download-btn ${btnBgClass} px-4 py-2 rounded-full flex items-center gap-2 transition-all duration-300">
+                            <span class="text-sm">Télécharger</span>
+                            <i class="fas fa-download"></i>
+                        </a>
+                    </div>
+                `;
+                
+                container.appendChild(contentItem);
+            });
+        }
+
+        function showEmptyPopup(moduleName, type) {
+            const popup = document.getElementById('popup-' + type);
+            const popupTitle = document.getElementById('popup-title-' + type);
+            const popupContentDiv = document.getElementById('popup-content-' + type);
+            
+            popupTitle.textContent = `${moduleName} - ${capitalizeFirstLetter(type)}`;
+            
+            popupContentDiv.innerHTML = `
+                <div class="text-center p-8">
+                    <i class="fas fa-exclamation-circle text-5xl text-gray-400 mb-4"></i>
+                    <p class="text-gray-500">Contenu non disponible pour ce module</p>
+                </div>
+            `;
+            
+            popup.classList.remove('hidden');
+        }
+
+        function capitalizeFirstLetter(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const closeButtons = document.querySelectorAll('.close-popup-btn');
+            closeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const popup = this.closest('[id^="popup-"]');
+                    if (popup) {
+                        popup.classList.add('hidden');
+                    }
+                });
+            });
+
+            // Close popup when clicking outside
+            const popups = document.querySelectorAll('[id^="popup-"]');
+            popups.forEach(popup => {
+                popup.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        this.classList.add('hidden');
+                    }
+                });
+            });
+        });
+    </script>
+
+    <style>
+        /* Module card styling */
+        .module-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .module-card:hover {
+            box-shadow: 0 8px 12px rgba(0,0,0,0.15);
+        }
+        
+        /* Glass effect for popup */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 20px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            backdrop-filter: blur(8px);
+            padding: 2rem;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .close-popup-btn:hover {
+            transform: scale(1.05);
+        }
+        
+        .popup-content {
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+
+        .university-section {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .university-section:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+        }
+
+        .university-section h3 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .university-section h3::before {
+            content: '';
+            width: 4px;
+            height: 1.5rem;
+            background-color: currentColor;
+            border-radius: 2px;
+        }
+
+        .university-section a {
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            padding: 0.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .university-section a:hover {
+            background: rgba(59, 130, 246, 0.1);
+            transform: translateX(10px);
+        }
+
+        .exclusive-2025 {
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        .exclusive-link {
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .exclusive-link:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        @keyframes glow {
+            from {
+                box-shadow: 0 0 5px rgba(34, 197, 94, 0.2);
+            }
+            to {
+                box-shadow: 0 0 20px rgba(34, 197, 94, 0.4);
+            }
+        }
+
+        .recommended-content {
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .recommended-link {
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .recommended-link:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.02);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+
+        .content-item {
+            background: white;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .content-item:hover {
+            transform: translateY(-2px);
+        }
+
+        .icon-wrapper {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(34, 197, 94, 0.1);
+        }
+
+        .download-btn {
+            font-size: 0.875rem;
+            transition: all 0.3s ease;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-1px);
+        }
+
+        /* Animations */
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .content-item {
+            animation: slideIn 0.3s ease-out forwards;
+        }
+
+        /* Title styles */
+        #popup-title-cours, #popup-title-tdtp, #popup-title-examen {
+            color: #1e40af;
+            font-weight: 700;
+        }
+        
+        /* Scroll styling */
+        .popup-content {
+            scrollbar-width: thin;
+            scrollbar-color: rgba(34, 197, 94, 0.5) rgba(229, 231, 235, 0.5);
+        }
+
+        .popup-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .popup-content::-webkit-scrollbar-track {
+            background: rgba(229, 231, 235, 0.5);
+            border-radius: 4px;
+        }
+
+        .popup-content::-webkit-scrollbar-thumb {
+            background: rgba(34, 197, 94, 0.5);
+            border-radius: 4px;
+        }
+
+        .popup-content::-webkit-scrollbar-thumb:hover {
+            background: rgba(34, 197, 94, 0.7);
+        }
+        
+        /* Popup overlay effects */
+        [id^="popup-"] {
+            backdrop-filter: blur(3px);
+            transition: all 0.3s ease;
+        }
+    </style>
+</body>
+</html>
