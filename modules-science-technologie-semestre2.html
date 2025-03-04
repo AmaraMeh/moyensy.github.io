@@ -22,7 +22,7 @@
             });
         </script>
     </div>
-    <div class="container mx-auto px-4 max-w-6xl flex-grow">
+    <div class="container-fluid px-4 flex-grow">
         <header class="mb-12 mt-8" data-aos="fade-down">
             <div class="header-container">
                 <a href="specialite-science-technologie.html" class="back-button hover:scale-110 transform transition-all duration-300">
@@ -35,154 +35,271 @@
         </header>
 
         <div class="glass-card" data-aos="fade-up">
+            <div class="exclusive-box mb-8 p-6 rounded-2xl border-2 border-green-300 bg-gradient-to-r from-green-50 to-blue-50 shadow-lg relative overflow-hidden">
+                <!-- Add decorative elements -->
+                <div class="absolute top-0 right-0 w-32 h-32 -mr-8 -mt-8 bg-gradient-to-br from-green-200 to-blue-200 rounded-full opacity-20"></div>
+                <div class="absolute bottom-0 left-0 w-24 h-24 -ml-6 -mb-6 bg-gradient-to-tr from-blue-200 to-green-200 rounded-full opacity-20"></div>
+                
+                <div class="flex flex-col md:flex-row justify-between items-center relative z-10">
+                    <div>
+                        <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-2">
+                            <span class="text-green-600 mr-2"><i class="fas fa-graduation-cap"></i></span>
+                            <span class="text-green-600 border-b-2 border-green-400 pb-1">Science et Technologie LMD</span> - Semestre 2
+                        </h2>
+                        <p class="text-gray-600 text-sm md:text-base">Ressources pédagogiques pour les étudiants en science et technologie</p>
+                    </div>
+                    <div class="flex flex-col items-end mt-4 md:mt-0">
+                        <div class="bg-blue-50 px-4 py-2 rounded-lg border border-blue-200 shadow-sm">
+                            <span class="text-gray-600 block text-sm">Développé par</span>
+                            <a href="mailto:mehdi.amara@tech.univ-bejaia.dz" class="font-semibold text-blue-600 hover:text-blue-800 hover:underline flex items-center gap-2 text-lg">
+                                <i class="fas fa-code"></i>
+                                Amara Mehdi
+                            </a>
+                        </div>
+                        <span class="text-xs text-gray-500 mt-1">Université de Béjaia</span>
+                    </div>
+                </div>
+            </div>
+
             <h1 class="text-3xl font-bold mb-8 text-center text-gray-800">Science et Technologie LMD - Semestre 2</h1>
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                <div class="module-card flex flex-col items-center justify-center p-6 hover:scale-105 transition-all duration-300">
-                    <i class="fas fa-square-root-alt text-4xl text-purple-600 mb-4"></i>
-                    <h3 class="text-xl font-semibold text-center">Mathématique 2</h3>
-                    <div class="flex space-x-4 mt-4">
-                        <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" onclick="showContent('Mathématique 2', 'tdtp')">TD+TP</button>
-                        <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700" onclick="showContent('Mathématique 2', 'examen')">Examen</button>
-                        <button class="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-700" onclick="showContent('Mathématique 2', 'cours')">Cours</button>
-                    </div>
-                </div>
-                <div class="module-card flex flex-col items-center justify-center p-6 hover:scale-105 transition-all duration-300">
-                    <i class="fas fa-atom text-4xl text-blue-600 mb-4"></i>
-                    <h3 class="text-xl font-semibold text-center">Physique 2</h3>
-                    <div class="flex space-x-4 mt-4">
-                        <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" onclick="showContent('Physique 2', 'tdtp')">TD+TP</button>
-                        <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700" onclick="showContent('Physique 2', 'examen')">Examen</button>
-                        <button class="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-700" onclick="showContent('Physique 2', 'cours')">Cours</button>
-                    </div>
-                </div>
-                <div class="module-card flex flex-col items-center justify-center p-6 hover:scale-105 transition-all duration-300">
-                    <i class="fas fa-flask text-4xl text-red-600 mb-4"></i>
-                    <h3 class="text-xl font-semibold text-center">Thermodynamique (Chimie 2)</h3>
-                    <div class="flex space-x-4 mt-4">
-                        <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" onclick="showContent('Thermodynamique (Chimie 2)', 'tdtp')">TD+TP</button>
-                        <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700" onclick="showContent('Thermodynamique (Chimie 2)', 'examen')">Examen</button>
-                        <button class="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-700" onclick="showContent('Thermodynamique (Chimie 2)', 'cours')">Cours</button>
-                    </div>
-                </div>
-                <div class="module-card flex flex-col items-center justify-center p-6 hover:scale-105 transition-all duration-300">
-                    <i class="fas fa-laptop-code text-4xl text-green-600 mb-4"></i>
-                    <h3 class="text-xl font-semibold text-center">Informatique 2</h3>
-                    <div class="flex space-x-4 mt-4">
-                        <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" onclick="showContent('Informatique 2', 'tdtp')">TD+TP</button>
-                        <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700" onclick="showContent('Informatique 2', 'examen')">Examen</button>
-                        <button class="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-700" onclick="showContent('Informatique 2', 'cours')">Cours</button>
-                    </div>
-                </div>
-                <div class="module-card flex flex-col items-center justify-center p-6 hover:scale-105 transition-all duration-300">
-                    <i class="fas fa-project-diagram text-4xl text-yellow-600 mb-4"></i>
-                    <h3 class="text-xl font-semibold text-center">MP</h3>
-                    <div class="flex space-x-4 mt-4">
-                        <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" onclick="showContent('MP', 'tdtp')">TD+TP</button>
-                        <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700" onclick="showContent('MP', 'examen')">Examen</button>
-                        <button class="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-700" onclick="showContent('MP', 'cours')">Cours</button>
-                    </div>
-                </div>
-                <div class="module-card flex flex-col items-center justify-center p-6 hover:scale-105 transition-all duration-300">
-                    <i class="fas fa-cogs text-4xl text-gray-600 mb-4"></i>
-                    <h3 class="text-xl font-semibold text-center">MST 2</h3>
-                    <div class="flex space-x-4 mt-4">
-                        <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" onclick="showContent('MST 2', 'tdtp')">TD+TP</button>
-                        <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700" onclick="showContent('MST 2', 'examen')">Examen</button>
-                        <button class="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-700" onclick="showContent('MST 2', 'cours')">Cours</button>
-                    </div>
-                </div>
-                <div class="module-card flex flex-col items-center justify-center p-6 hover:scale-105 transition-all duration-300">
-                    <i class="fas fa-language text-4xl text-pink-600 mb-4"></i>
-                    <h3 class="text-xl font-semibold text-center">Langue étrangère 2</h3>
-                    <div class="flex space-x-4 mt-4">
-                        <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" onclick="showContent('Langue étrangère 2 (français et/ou anglais)', 'tdtp')">TD+TP</button>
-                        <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700" onclick="showContent('Langue étrangère 2 (français et/ou anglais)', 'examen')">Examen</button>
-                        <button class="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-700" onclick="showContent('Langue étrangère 2 (français et/ou anglais)', 'cours')">Cours</button>
-                    </div>
-                </div>
-                <div class="module-card flex flex-col items-center justify-center p-6 hover:scale-105 transition-all duration-300">
-                    <i class="fas fa-atom text-4xl text-indigo-600 mb-4"></i>
-                    <h3 class="text-xl font-semibold text-center">TP Physique 2</h3>
-                    <div class="flex space-x-4 mt-4">
-                        <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" onclick="showContent('TP Physique 2', 'tdtp')">TP</button>
-                        <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700" onclick="showContent('TP Physique 2', 'compterendu')">Compte rendu</button>
-                    </div>
-                </div>
-                <div class="module-card flex flex-col items-center justify-center p-6 hover:scale-105 transition-all duration-300">
-                    <i class="fas fa-flask-vial text-4xl text-orange-600 mb-4"></i>
-                    <h3 class="text-xl font-semibold text-center">TP Chimie 2</h3>
-                    <div class="flex space-x-4 mt-4">
-                        <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" onclick="showContent('TP Chimie 2', 'tdtp')">TP</button>
-                        <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700" onclick="showContent('TP Chimie 2', 'compterendu')">Compte rendu</button>
-                    </div>
-                </div>
+    <!-- Mathématique 2 -->
+    <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
+        <div class="flex items-center gap-3 mb-4">
+            <div class="module-icon bg-purple-100 p-3 rounded-full text-purple-600">
+                <i class="fas fa-square-root-alt fa-lg"></i>
             </div>
+            <h3 class="text-xl font-semibold text-gray-800">Mathématique 2</h3>
+        </div>
+        <div class="mt-auto flex flex-wrap gap-2">
+            <button class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('Mathématique 2', 'cours')">
+                <i class="fas fa-book mr-1"></i> Cours
+            </button>
+            <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('Mathématique 2', 'tdtp')">
+                <i class="fas fa-pencil-alt mr-1"></i> TD+TP
+            </button>
+            <button class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('Mathématique 2', 'examen')">
+                <i class="fas fa-file-alt mr-1"></i> Examen
+            </button>
+        </div>
+    </div>
+    
+    <!-- Physique 2 -->
+    <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
+        <div class="flex items-center gap-3 mb-4">
+            <div class="module-icon bg-blue-100 p-3 rounded-full text-blue-600">
+                <i class="fas fa-atom fa-lg"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800">Physique 2</h3>
+        </div>
+        <div class="mt-auto flex flex-wrap gap-2">
+            <button class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('Physique 2', 'cours')">
+                <i class="fas fa-book mr-1"></i> Cours
+            </button>
+            <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('Physique 2', 'tdtp')">
+                <i class="fas fa-pencil-alt mr-1"></i> TD+TP
+            </button>
+            <button class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('Physique 2', 'examen')">
+                <i class="fas fa-file-alt mr-1"></i> Examen
+            </button>
+        </div>
+    </div>
+    
+    <!-- Thermodynamique (Chimie 2) -->
+    <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
+        <div class="flex items-center gap-3 mb-4">
+            <div class="module-icon bg-red-100 p-3 rounded-full text-red-600">
+                <i class="fas fa-flask fa-lg"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800">Thermodynamique (Chimie 2)</h3>
+        </div>
+        <div class="mt-auto flex flex-wrap gap-2">
+            <button class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('Thermodynamique (Chimie 2)', 'cours')">
+                <i class="fas fa-book mr-1"></i> Cours
+            </button>
+            <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('Thermodynamique (Chimie 2)', 'tdtp')">
+                <i class="fas fa-pencil-alt mr-1"></i> TD+TP
+            </button>
+            <button class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('Thermodynamique (Chimie 2)', 'examen')">
+                <i class="fas fa-file-alt mr-1"></i> Examen
+            </button>
+        </div>
+    </div>
+    
+    <!-- Informatique 2 -->
+    <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
+        <div class="flex items-center gap-3 mb-4">
+            <div class="module-icon bg-green-100 p-3 rounded-full text-green-600">
+                <i class="fas fa-laptop-code fa-lg"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800">Informatique 2</h3>
+        </div>
+        <div class="mt-auto flex flex-wrap gap-2">
+            <button class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('Informatique 2', 'cours')">
+                <i class="fas fa-book mr-1"></i> Cours
+            </button>
+            <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('Informatique 2', 'tdtp')">
+                <i class="fas fa-pencil-alt mr-1"></i> TD+TP
+            </button>
+            <button class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('Informatique 2', 'examen')">
+                <i class="fas fa-file-alt mr-1"></i> Examen
+            </button>
+        </div>
+    </div>
+    
+    <!-- MP -->
+    <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
+        <div class="flex items-center gap-3 mb-4">
+            <div class="module-icon bg-yellow-100 p-3 rounded-full text-yellow-600">
+                <i class="fas fa-project-diagram fa-lg"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800">MP</h3>
+        </div>
+        <div class="mt-auto flex flex-wrap gap-2">
+            <button class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('MP', 'cours')">
+                <i class="fas fa-book mr-1"></i> Cours
+            </button>
+            <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('MP', 'tdtp')">
+                <i class="fas fa-pencil-alt mr-1"></i> TD+TP
+            </button>
+            <button class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('MP', 'examen')">
+                <i class="fas fa-file-alt mr-1"></i> Examen
+            </button>
+        </div>
+    </div>
+    
+    <!-- MST 2 -->
+    <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
+        <div class="flex items-center gap-3 mb-4">
+            <div class="module-icon bg-gray-100 p-3 rounded-full text-gray-600">
+                <i class="fas fa-cogs fa-lg"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800">MST 2</h3>
+        </div>
+        <div class="mt-auto flex flex-wrap gap-2">
+            <button class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('MST 2', 'cours')">
+                <i class="fas fa-book mr-1"></i> Cours
+            </button>
+            <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('MST 2', 'tdtp')">
+                <i class="fas fa-pencil-alt mr-1"></i> TD+TP
+            </button>
+            <button class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('MST 2', 'examen')">
+                <i class="fas fa-file-alt mr-1"></i> Examen
+            </button>
+        </div>
+    </div>
+    
+    <!-- Langue étrangère 2 -->
+    <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
+        <div class="flex items-center gap-3 mb-4">
+            <div class="module-icon bg-pink-100 p-3 rounded-full text-pink-600">
+                <i class="fas fa-language fa-lg"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800">Langue étrangère 2</h3>
+        </div>
+        <div class="mt-auto flex flex-wrap gap-2">
+            <button class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('Langue étrangère 2 (français et/ou anglais)', 'cours')">
+                <i class="fas fa-book mr-1"></i> Cours
+            </button>
+            <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('Langue étrangère 2 (français et/ou anglais)', 'tdtp')">
+                <i class="fas fa-pencil-alt mr-1"></i> TD+TP
+            </button>
+            <button class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('Langue étrangère 2 (français et/ou anglais)', 'examen')">
+                <i class="fas fa-file-alt mr-1"></i> Examen
+            </button>
+        </div>
+    </div>
+    
+    <!-- TP Physique 2 -->
+    <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
+        <div class="flex items-center gap-3 mb-4">
+            <div class="module-icon bg-indigo-100 p-3 rounded-full text-indigo-600">
+                <i class="fas fa-atom fa-lg"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800">TP Physique 2</h3>
+        </div>
+        <div class="mt-auto flex flex-wrap gap-2">
+            <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('TP Physique 2', 'tdtp')">
+                <i class="fas fa-flask mr-1"></i> TP
+            </button>
+            <button class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('TP Physique 2', 'compterendu')">
+                <i class="fas fa-file-alt mr-1"></i> Compte rendu
+            </button>
+        </div>
+    </div>
+    
+    <!-- TP Chimie 2 -->
+    <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
+        <div class="flex items-center gap-3 mb-4">
+            <div class="module-icon bg-orange-100 p-3 rounded-full text-orange-600">
+                <i class="fas fa-flask-vial fa-lg"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800">TP Chimie 2</h3>
+        </div>
+        <div class="mt-auto flex flex-wrap gap-2">
+            <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('TP Chimie 2', 'tdtp')">
+                <i class="fas fa-flask mr-1"></i> TP
+            </button>
+            <button class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('TP Chimie 2', 'compterendu')">
+                <i class="fas fa-file-alt mr-1"></i> Compte rendu
+            </button>
+        </div>
+    </div>
+</div>
 
         </div>
     </div>
 
+    <!-- TDTP Popup -->
     <div id="popup-tdtp" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
-        <div class="bg-white rounded-lg shadow-lg max-w-3xl w-full glass-card popup-container">
-            <div class="popup-header">
-                <div class="flex justify-between items-center">
-                    <h2 id="popup-title-tdtp" class="text-2xl font-bold text-gray-800"></h2>
-                    <button type="button" class="close-popup-btn px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700 transform transition-all duration-300">
-                        <i class="fas fa-times mr-2"></i>Fermer
-                    </button>
-                </div>
+        <div class="bg-white rounded-lg shadow-lg p-6 max-w-3xl w-full glass-card">
+            <div class="flex justify-between items-center mb-6">
+                <h2 id="popup-title-tdtp" class="text-2xl font-bold text-gray-800"></h2>
+                <button type="button" class="close-popup-btn px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-300 flex items-center gap-2">
+                    <i class="fas fa-times"></i><span>Fermer</span>
+                </button>
             </div>
-            <div id="popup-content-tdtp" class="popup-body space-y-4">
-                <!-- Dynamic content will be inserted here -->
-            </div>
+            <div id="popup-content-tdtp" class="space-y-6 popup-content"></div>
         </div>
     </div>
 
+    <!-- Examen Popup -->
     <div id="popup-examen" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
-        <div class="bg-white rounded-lg shadow-lg max-w-3xl w-full glass-card popup-container">
-            <div class="popup-header">
-                <div class="flex justify-between items-center">
-                    <h2 id="popup-title-examen" class="text-2xl font-bold text-gray-800"></h2>
-                    <button type="button" class="close-popup-btn px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700 transform transition-all duration-300">
-                        <i class="fas fa-times mr-2"></i>Fermer
-                    </button>
-                </div>
+        <div class="bg-white rounded-lg shadow-lg p-6 max-w-3xl w-full glass-card">
+            <div class="flex justify-between items-center mb-6">
+                <h2 id="popup-title-examen" class="text-2xl font-bold text-gray-800"></h2>
+                <button type="button" class="close-popup-btn px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-300 flex items-center gap-2">
+                    <i class="fas fa-times"></i><span>Fermer</span>
+                </button>
             </div>
-            <div id="popup-content-examen" class="popup-body space-y-4">
-                <!-- Dynamic content will be inserted here -->
-            </div>
+            <div id="popup-content-examen" class="space-y-6 popup-content"></div>
         </div>
     </div>
 
+    <!-- Cours Popup -->
     <div id="popup-cours" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
-        <div class="bg-white rounded-lg shadow-lg max-w-3xl w-full glass-card popup-container">
-            <div class="popup-header">
-                <div class="flex justify-between items-center">
-                    <h2 id="popup-title-cours" class="text-2xl font-bold text-gray-800"></h2>
-                    <button type="button" class="close-popup-btn px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700 transform transition-all duration-300">
-                        <i class="fas fa-times mr-2"></i>Fermer
-                    </button>
-                </div>
+        <div class="bg-white rounded-lg shadow-lg p-6 max-w-3xl w-full glass-card">
+            <div class="flex justify-between items-center mb-6">
+                <h2 id="popup-title-cours" class="text-2xl font-bold text-gray-800"></h2>
+                <button type="button" class="close-popup-btn px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-300 flex items-center gap-2">
+                    <i class="fas fa-times"></i><span>Fermer</span>
+                </button>
             </div>
-            <div id="popup-content-cours" class="popup-body space-y-4">
-                <!-- Dynamic content will be inserted here -->
-            </div>
+            <div id="popup-content-cours" class="space-y-6 popup-content"></div>
         </div>
     </div>
 
+    <!-- Compte Rendu Popup -->
     <div id="popup-compterendu" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
-        <div class="bg-white rounded-lg shadow-lg max-w-3xl w-full glass-card popup-container">
-            <div class="popup-header">
-                <div class="flex justify-between items-center">
-                    <h2 id="popup-title-compterendu" class="text-2xl font-bold text-gray-800"></h2>
-                    <button type="button" class="close-popup-btn px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700 transform transition-all duration-300">
-                        <i class="fas fa-times mr-2"></i>Fermer
-                    </button>
-                </div>
+        <div class="bg-white rounded-lg shadow-lg p-6 max-w-3xl w-full glass-card">
+            <div class="flex justify-between items-center mb-6">
+                <h2 id="popup-title-compterendu" class="text-2xl font-bold text-gray-800"></h2>
+                <button type="button" class="close-popup-btn px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-300 flex items-center gap-2">
+                    <i class="fas fa-times"></i><span>Fermer</span>
+                </button>
             </div>
-            <div id="popup-content-compterendu" class="popup-body space-y-4">
-                <!-- Dynamic content will be inserted here -->
-            </div>
+            <div id="popup-content-compterendu" class="space-y-6 popup-content"></div>
         </div>
     </div>
 
@@ -206,64 +323,39 @@
             popupContent.innerHTML = '';
 
             // Template for Bejaia University section (Primary) - Always show this
-            const bejaiaContent = `
-                <div class="university-section mb-6 transform transition-all duration-300 hover:scale-105 border-l-4 border-green-600">
-                    <h3 class="text-xl font-bold mb-3 text-green-600">Université de Béjaia</h3>
-                    <div class="pl-4 space-y-2">
-                        ${getBejaiaContent(module, type)}
-                    </div>
-                </div>
+            const bejaiaSection = document.createElement('div');
+            bejaiaSection.className = 'university-section mb-6 transform transition-all duration-300 hover:scale-105 border-l-4 border-green-600';
+            
+            // Create section header
+            const sectionHeader = document.createElement('div');
+            sectionHeader.className = 'section-header bg-green-50 p-4 rounded-t-lg border-b-2 border-green-200';
+            sectionHeader.innerHTML = `
+                <h3 class="text-xl font-bold text-green-600 flex items-center gap-2">
+                    <i class="fas fa-university"></i>
+                    Université de Béjaia
+                </h3>
             `;
-
-            // Only add other universities section if there's specific content for them
-            let otherContent = '';
             
-            // Check if there's specific content for other universities (you can add conditions here)
-            const hasOtherContent = false; // Set to true when you have content for other universities
+            // Create content grid
+            const contentGrid = document.createElement('div');
+            contentGrid.className = 'content-grid grid gap-4 p-4';
             
-            if (hasOtherContent) {
-                // Template for USTHB (Secondary)
-                otherContent += `
-                    <div class="university-section mb-6 transform transition-all duration-300 hover:scale-105 border-l-4 border-blue-600">
-                        <h3 class="text-xl font-bold mb-3 text-blue-600">Université des Sciences et de la Technologie Houari Boumediene</h3>
-                        <div class="pl-4 space-y-2">
-                            <p class="text-gray-500 italic">Contenu à venir...</p>
-                        </div>
+            // Get content for this module and type
+            const contentHtml = getBejaiaContent(module, type);
+            
+            if (contentHtml) {
+                contentGrid.innerHTML = contentHtml;
+                bejaiaSection.appendChild(sectionHeader);
+                bejaiaSection.appendChild(contentGrid);
+                popupContent.appendChild(bejaiaSection);
+            } else {
+                popupContent.innerHTML = `
+                    <div class="text-center p-8">
+                        <i class="fas fa-exclamation-circle text-5xl text-gray-400 mb-4"></i>
+                        <p class="text-gray-500">Aucun contenu disponible pour ce module</p>
                     </div>
                 `;
-
-                // Template for other universities
-                const otherUniversities = [
-                    {
-                        name: "Université de Sétif",
-                        color: "red-600"
-                    },
-                    {
-                        name: "Université de Tizi Ouzou",
-                        color: "purple-600"
-                    },
-                    {
-                        name: "Université de Boumerdes",
-                        color: "yellow-600"
-                    },
-                    {
-                        name: "Autres Universités",
-                        color: "gray-600"
-                    }
-                ];
-
-                otherContent += otherUniversities.map(univ => `
-                    <div class="university-section mb-6 transform transition-all duration-300 hover:scale-105 border-l-4 border-${univ.color}">
-                        <h3 class="text-xl font-bold mb-3 text-${univ.color}">${univ.name}</h3>
-                        <div class="pl-4 space-y-2">
-                            <p class="text-gray-500 italic">Contenu à venir...</p>
-                        </div>
-                    </div>
-                `).join('');
             }
-
-            // Add all sections to popup content
-            popupContent.innerHTML = bejaiaContent + otherContent;
 
             // Show popup
             popup.classList.remove('hidden');
@@ -798,7 +890,324 @@
             border-radius: 4px;
             border: 2px solid #f1f5f9;
         }
+
+        /* Enhanced module card styling */
+        .module-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .module-card:hover {
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+        
+        .module-icon {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.08);
+        }
+        
+        .module-btn {
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .module-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+        }
+        
+        .module-btn:active {
+            transform: translateY(0px);
+        }
+        
+        /* Glass card and popup improvements */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 20px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            backdrop-filter: blur(8px);
+            padding: 2rem;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .popup-content {
+            max-height: 70vh;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(34, 197, 94, 0.5) rgba(229, 231, 235, 0.5);
+        }
+        
+        .popup-content::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .popup-content::-webkit-scrollbar-track {
+            background: rgba(229, 231, 235, 0.5);
+            border-radius: 4px;
+        }
+        
+        .popup-content::-webkit-scrollbar-thumb {
+            background: rgba(34, 197, 94, 0.5);
+            border-radius: 4px;
+        }
+        
+        .popup-content::-webkit-scrollbar-thumb:hover {
+            background: rgba(34, 197, 94, 0.7);
+        }
+        
+        /* Improved close button */
+        .close-popup-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background-color: #ef4444;
+            color: white;
+            border-radius: 0.5rem;
+            transition: all 0.2s ease;
+        }
+        
+        .close-popup-btn:hover {
+            background-color: #dc2626;
+            transform: scale(1.05);
+        }
+        
+        /* Content item animations */
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .content-item {
+            animation: slideIn 0.3s ease-out forwards;
+        }
     </style>
+    <style>
+    /* Enhanced popup styling to match Informatique LMD style */
+    .glass-card {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 20px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(8px);
+        padding: 2rem;
+        max-height: 80vh;
+        overflow-y: auto;
+        width: 100%;
+        max-width: 800px;
+    }
+    
+    .popup-content {
+        max-height: 70vh;
+        overflow-y: auto;
+        scrollbar-width: thin;
+        scrollbar-color: rgba(34, 197, 94, 0.5) rgba(229, 231, 235, 0.5);
+        padding: 1rem 0;
+    }
+    
+    .popup-content::-webkit-scrollbar {
+        width: 8px;
+    }
+    
+    .popup-content::-webkit-scrollbar-track {
+        background: rgba(229, 231, 235, 0.5);
+        border-radius: 4px;
+    }
+    
+    .popup-content::-webkit-scrollbar-thumb {
+        background: rgba(34, 197, 94, 0.5);
+        border-radius: 4px;
+    }
+    
+    .popup-content::-webkit-scrollbar-thumb:hover {
+        background: rgba(34, 197, 94, 0.7);
+    }
+    
+    /* Improved close button style */
+    .close-popup-btn {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+        background-color: #ef4444;
+        color: white;
+        border-radius: 0.5rem;
+        transition: all 0.2s ease;
+    }
+    
+    .close-popup-btn:hover {
+        background-color: #dc2626;
+        transform: scale(1.05);
+    }
+    
+    /* University section styling */
+    .university-section {
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 10px;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+    }
+    
+    .university-section:hover {
+        transform: translateX(5px);
+        box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+    }
+    
+    .university-section h3 {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .university-section h3::before {
+        content: '';
+        width: 4px;
+        height: 1.5rem;
+        background-color: currentColor;
+        border-radius: 2px;
+    }
+    
+    /* Content grid and items styling */
+    .content-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1rem;
+    }
+    
+    .content-item {
+        background: white;
+        border-radius: 0.5rem;
+        transition: all 0.3s ease;
+        animation: slideIn 0.3s ease-out forwards;
+    }
+    
+    .content-item:hover {
+        transform: translateY(-2px);
+    }
+    
+    @keyframes slideIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    /* Fix z-index to ensure popups appear on top */
+    [id^="popup-"] {
+        z-index: 50;
+    }
+
+    /* Add these styles to your existing styles section */
+    
+    /* Adjust container to use more screen space */
+    .container {
+        width: 100%;
+        max-width: 1440px; /* Increased from 72rem (1152px) */
+    }
+    
+    /* Ensure glass card uses full width */
+    .glass-card {
+        width: 100%;
+    }
+    
+    /* Fix module card sizing */
+    .module-card {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    
+    /* Make sure grid items take full width */
+    .grid {
+        width: 100%;
+    }
+    
+    /* Improve spacing on mobile */
+    @media (max-width: 640px) {
+        .module-card {
+            margin-bottom: 1rem;
+        }
+    }
+    
+    /* Ensure content isn't too stretched on ultra-wide screens */
+    @media (min-width: 1536px) {
+        .container {
+            max-width: 1600px;
+            padding-left: 2rem;
+            padding-right: 2rem;
+        }
+    }
+</style>
+<style>
+    /* Full width layout fixes */
+    .container-fluid {
+        width: 100%;
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    /* Override any max-width constraints on the glass card */
+    .glass-card {
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
+        border-radius: 20px;
+    }
+    
+    /* Ensure grid uses full width */
+    .grid {
+        width: 100%;
+    }
+    
+    /* Adjust padding on larger screens for better spacing */
+    @media (min-width: 1024px) {
+        .container-fluid {
+            padding-left: 2rem;
+            padding-right: 2rem;
+        }
+    }
+    
+    /* Remove any extra constraints on large screens */
+    @media (min-width: 1536px) {
+        .container-fluid {
+            padding-left: 3rem;
+            padding-right: 3rem;
+        }
+    }
+</style>
     <script src="https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=959531&siteid=357365" async></script>
     <script type="text/javascript">
         aclib.runAutoTag({
