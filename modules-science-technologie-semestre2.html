@@ -63,7 +63,7 @@
 
             <h1 class="text-3xl font-bold mb-8 text-center text-gray-800">Science et Technologie LMD - Semestre 2</h1>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4 sm:gap-6 mb-8">
     <!-- Mathématique 2 -->
     <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
         <div class="flex items-center gap-3 mb-4">
@@ -1185,6 +1185,7 @@
         max-width: 100%;
         margin: 0;
         border-radius: 20px;
+        padding: 2rem 1rem; /* Adjust padding for better mobile experience */
     }
     
     /* Ensure grid uses full width */
@@ -1194,6 +1195,10 @@
     
     /* Adjust padding on larger screens for better spacing */
     @media (min-width: 1024px) {
+        .glass-card {
+            padding: 2rem;
+        }
+        
         .container-fluid {
             padding-left: 2rem;
             padding-right: 2rem;
@@ -1206,6 +1211,65 @@
             padding-left: 3rem;
             padding-right: 3rem;
         }
+    }
+    
+    /* Improve module card sizing on different screens */
+    .module-card {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    /* Add breathing room between module cards on mobile */
+    @media (max-width: 640px) {
+        .module-card {
+            margin-bottom: 1rem;
+        }
+        
+        .grid {
+            gap: 1rem;
+        }
+    }
+</style>
+<style>
+    /* Enhanced full width fixes */
+    .container-fluid {
+        width: 100vw !important;
+        max-width: 100vw !important;
+        margin: 0 !important;
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* Make sure the glass card fills the container completely */
+    .glass-card {
+        width: 100% !important;
+        max-width: none !important;
+        margin: 0 !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* Ensure the grid uses the full available width */
+    .grid {
+        width: 100% !important;
+        max-width: none !important;
+        margin: 0 !important;
+    }
+    
+    /* Adjust spacing on larger screens */
+    @media (min-width: 1024px) {
+        .container-fluid {
+            padding-left: 2rem !important;
+            padding-right: 2rem !important;
+        }
+    }
+    
+    /* Make module cards fill their grid cells */
+    .module-card {
+        width: 100% !important;
+        height: 100% !important;
+        box-sizing: border-box !important;
     }
 </style>
     <script src="https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=959531&siteid=357365" async></script>

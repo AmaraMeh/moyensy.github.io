@@ -3,17 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Biologie - Semestre 2 - ISET'COM</title>
+    <title>Biologie - Semestre 2 - Campus Elkseur</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
+    <script id="aclib" type="text/javascript" src="//acscdn.com/script/aclib.js"></script>
 </head>
 <body class="flex flex-col min-h-screen bg-gray-50">
+    <div>
+        <script type="text/javascript">
+            aclib.runBanner({
+                zoneId: '9521434',
+            });
+        </script>
+    </div>
     <div class="container mx-auto px-4 max-w-6xl flex-grow">
         <header class="mb-12 mt-8" data-aos="fade-down">
             <div class="header-container">
-                <a href="specialite-biologie.html" class="back-button hover:scale-110 transform transition-all duration-300">
+                <a href="specialite-informatique-lmd.html" class="back-button hover:scale-110 transform transition-all duration-300">
                     <i class="fas fa-arrow-left"></i>
                     Retour
                 </a>
@@ -22,138 +30,187 @@
         </header>
 
         <div class="glass-card" data-aos="fade-up">
-            <h1 class="text-3xl font-bold mb-8 text-center text-gray-800">Biologie - Semestre 2</h1>
+            <div class="exclusive-box mb-8 p-6 rounded-2xl border-2 border-green-300 bg-gradient-to-r from-green-50 to-blue-50 shadow-lg relative overflow-hidden">
+                <!-- ... [Keep decorative elements] ... -->
+                
+                <div class="flex flex-col md:flex-row justify-between items-center relative z-10">
+                    <div>
+                        <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-2">
+                            <span class="text-green-600 mr-2"><i class="fas fa-graduation-cap"></i></span>
+                            <span class="text-green-600 border-b-2 border-green-400 pb-1">Biologie</span> - Semestre 2
+                        </h2>
+                        <p class="text-gray-600 text-sm md:text-base">Modules et ressources pour SNV semestre 2</p>
+                    </div>
+                    <div class="flex flex-col items-end mt-4 md:mt-0">
+                        <div class="flex flex-col items-end mt-4 md:mt-0">
+                            <div class="bg-blue-50 px-4 py-2 rounded-lg border border-blue-200 shadow-sm">
+                                <span class="text-gray-600 block text-sm">Développé par</span>
+                                <a href="mailto:mehdi.amara@tech.univ-bejaia.dz" class="font-semibold text-blue-600 hover:text-blue-800 hover:underline flex items-center gap-2 text-lg">
+                                    <i class="fas fa-code"></i>
+                                    Amara Mehdi
+                                </a>
+                            </div>
+                            <span class="text-xs text-gray-500 mt-1">Université de Béjaia</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
             
+            <div>
+                <script type="text/javascript">
+                    aclib.runBanner({
+                        zoneId: '9521434',
+                    });
+                </script>
+            </div>
+
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                <div class="module-card service-card" data-aos="fade-up">
-                    <div class="service-icon text-blue-600">
-                        <i class="fas fa-dna text-4xl"></i>
+                <!-- Biologie Animale -->
+                <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="module-icon bg-blue-100 p-3 rounded-full text-blue-600">
+                            <i class="fas fa-dna fa-lg"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800">Biologie Animale</h3>
                     </div>
-                    <h3 class="text-xl font-semibold mb-2">Biologie Animale</h3>
-                    <div class="flex space-x-4 mt-4">
-                        <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" onclick="showContent('biologie-animale', 'tdtp')">TD+TP</button>
-                        <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700" onclick="showContent('biologie-animale', 'examen')">Examen</button>
-                        <button class="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-700" onclick="showContent('biologie-animale', 'cours')">Cours</button>
-                    </div>
-                </div>
-                <div class="module-card service-card" data-aos="fade-up">
-                    <div class="service-icon text-green-600">
-                        <i class="fas fa-leaf text-4xl"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-2">Biologie Végétale</h3>
-                    <div class="flex space-x-4 mt-4">
-                        <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" onclick="showContent('biologie-vegetale', 'tdtp')">TD+TP</button>
-                        <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700" onclick="showContent('biologie-vegetale', 'examen')">Examen</button>
-                        <button class="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-700" onclick="showContent('biologie-vegetale', 'cours')">Cours</button>
+                    <div class="mt-auto flex flex-wrap gap-2">
+                        <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('biologie-animale', 'cours')">
+                            <i class="fas fa-book mr-1"></i> Cours
+                        </button>
+                        <button class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('biologie-animale', 'td')">
+                            <i class="fas fa-pencil-alt mr-1"></i> TD
+                        </button>
+                        <button class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('biologie-animale', 'examen')">
+                            <i class="fas fa-file-alt mr-1"></i> Examen
+                        </button>
                     </div>
                 </div>
-                <div class="module-card service-card" data-aos="fade-up">
-                    <div class="service-icon text-yellow-600">
-                        <i class="fas fa-flask text-4xl"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-2">TCE2</h3>
-                    <div class="flex space-x-4 mt-4">
-                        <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" onclick="showContent('tce2', 'tdtp')">TD+TP</button>
-                        <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700" onclick="showContent('tce2', 'examen')">Examen</button>
-                        <button class="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-700" onclick="showContent('tce2', 'cours')">Cours</button>
-                    </div>
-                </div>
-                <div class="module-card service-card" data-aos="fade-up">
-                    <div class="service-icon text-red-600">
-                        <i class="fas fa-microscope text-4xl"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-2">SVIS</h3>
-                    <div class="flex space-x-4 mt-4">
-                        <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" onclick="showContent('svis', 'tdtp')">TD+TP</button>
-                        <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700" onclick="showContent('svis', 'examen')">Examen</button>
-                        <button class="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-700" onclick="showContent('svis', 'cours')">Cours</button>
-                    </div>
-                </div>
-                <div class="module-card service-card" data-aos="fade-up">
-                    <div class="service-icon text-indigo-600">
-                        <i class="fas fa-vial text-4xl"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-2">Chimie 2</h3>
-                    <div class="flex space-x-4 mt-4">
-                        <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" onclick="showContent('chimie-2', 'tdtp')">TD+TP</button>
-                        <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700" onclick="showContent('chimie-2', 'examen')">Examen</button>
-                        <button class="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-700" onclick="showContent('chimie-2', 'cours')">Cours</button>
-                    </div>
-                </div>
-                <div class="module-card service-card" data-aos="fade-up">
-                    <div class="service-icon text-blue-600">
-                        <i class="fas fa-cogs text-4xl"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-2">MTT 2</h3>
-                    <div class="flex space-x-4 mt-4">
-                        <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" onclick="showContent('mtt-2', 'tdtp')">TD+TP</button>
-                        <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700" onclick="showContent('mtt-2', 'examen')">Examen</button>
-                        <button class="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-700" onclick="showContent('mtt-2', 'cours')">Cours</button>
-                    </div>
-                </div>
-                <div class="module-card service-card" data-aos="fade-up">
-                    <div class="service-icon text-purple-600">
-                        <i class="fas fa-atom text-4xl"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-2">Physique</h3>
-                    <div class="flex space-x-4 mt-4">
-                        <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" onclick="showContent('physique', 'tdtp')">TD+TP</button>
-                        <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700" onclick="showContent('physique', 'examen')">Examen</button>
-                        <button class="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-700" onclick="showContent('physique', 'cours')">Cours</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <!-- Popup Modal -->
-    <div id="popup-tdtp" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
-        <div class="bg-white rounded-lg shadow-lg p-6 max-w-3xl w-full glass-card">
-            <div class="flex justify-between items-center mb-4">
-                <h2 id="popup-title-tdtp" class="text-2xl font-bold text-gray-800"></h2>
-                <div class="flex space-x-4">
-                    <button onclick="closePopup('tdtp')" class="text-gray-600 hover:text-gray-800 px-3 py-1 rounded border border-red-500 hover:bg-red-100 text-red-500">
-                        <i class="fas fa-times mr-2"></i>Fermer
-                    </button>
-                    <button onclick="closePopup('tdtp')" class="text-gray-600 hover:text-gray-800">&times;</button>
+                <!-- Biologie Végétale -->
+                <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="module-icon bg-green-100 p-3 rounded-full text-green-600">
+                            <i class="fas fa-leaf fa-lg"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800">Biologie Végétale</h3>
+                    </div>
+                    <div class="mt-auto flex flex-wrap gap-2">
+                        <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('biologie-vegetale', 'cours')">
+                            <i class="fas fa-book mr-1"></i> Cours
+                        </button>
+                        <button class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('biologie-vegetale', 'td')">
+                            <i class="fas fa-pencil-alt mr-1"></i> TD
+                        </button>
+                        <button class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('biologie-vegetale', 'examen')">
+                            <i class="fas fa-file-alt mr-1"></i> Examen
+                        </button>
+                    </div>
                 </div>
-            </div>
-            <div id="popup-content-tdtp" class="space-y-4">
-                <!-- Dynamic content will be inserted here -->
-            </div>
-        </div>
-    </div>
 
-    <div id="popup-examen" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
-        <div class="bg-white rounded-lg shadow-lg p-6 max-w-3xl w-full glass-card">
-            <div class="flex justify-between items-center mb-4">
-                <h2 id="popup-title-examen" class="text-2xl font-bold text-gray-800"></h2>
-                <div class="flex space-x-4">
-                    <button onclick="closePopup('examen')" class="text-gray-600 hover:text-gray-800 px-3 py-1 rounded border border-red-500 hover:bg-red-100 text-red-500">
-                        <i class="fas fa-times mr-2"></i>Fermer
-                    </button>
-                    <button onclick="closePopup('examen')" class="text-gray-600 hover:text-gray-800">&times;</button>
+                <!-- TCE2 -->
+                <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="module-icon bg-yellow-100 p-3 rounded-full text-yellow-600">
+                            <i class="fas fa-flask fa-lg"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800">TCE2</h3>
+                    </div>
+                    <div class="mt-auto flex flex-wrap gap-2">
+                        <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('tce2', 'cours')">
+                            <i class="fas fa-book mr-1"></i> Cours
+                        </button>
+                        <button class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('tce2', 'td')">
+                            <i class="fas fa-pencil-alt mr-1"></i> TD
+                        </button>
+                        <button class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('tce2', 'examen')">
+                            <i class="fas fa-file-alt mr-1"></i> Examen
+                        </button>
+                    </div>
                 </div>
-            </div>
-            <div id="popup-content-examen" class="space-y-4">
-                <!-- Dynamic content will be inserted here -->
-            </div>
-        </div>
-    </div>
 
-    <div id="popup-cours" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
-        <div class="bg-white rounded-lg shadow-lg p-6 max-w-3xl w-full glass-card">
-            <div class="flex justify-between items-center mb-4">
-                <h2 id="popup-title-cours" class="text-2xl font-bold text-gray-800"></h2>
-                <div class="flex space-x-4">
-                    <button onclick="closePopup('cours')" class="text-gray-600 hover:text-gray-800 px-3 py-1 rounded border border-red-500 hover:bg-red-100 text-red-500">
-                        <i class="fas fa-times mr-2"></i>Fermer
-                    </button>
-                    <button onclick="closePopup('cours')" class="text-gray-600 hover:text-gray-800">&times;</button>
+                <!-- SVIS -->
+                <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="module-icon bg-red-100 p-3 rounded-full text-red-600">
+                            <i class="fas fa-microscope fa-lg"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800">SVIS</h3>
+                    </div>
+                    <div class="mt-auto flex flex-wrap gap-2">
+                        <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('svis', 'cours')">
+                            <i class="fas fa-book mr-1"></i> Cours
+                        </button>
+                        <button class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('svis', 'td')">
+                            <i class="fas fa-pencil-alt mr-1"></i> TD
+                        </button>
+                        <button class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('svis', 'examen')">
+                            <i class="fas fa-file-alt mr-1"></i> Examen
+                        </button>
+                    </div>
                 </div>
-            </div>
-            <div id="popup-content-cours" class="space-y-4">
-                <!-- Dynamic content will be inserted here -->
+
+                <!-- Chimie 2 -->
+                <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="module-icon bg-indigo-100 p-3 rounded-full text-indigo-600">
+                            <i class="fas fa-vial fa-lg"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800">Chimie 2</h3>
+                    </div>
+                    <div class="mt-auto flex flex-wrap gap-2">
+                        <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('chimie-2', 'cours')">
+                            <i class="fas fa-book mr-1"></i> Cours
+                        </button>
+                        <button class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('chimie-2', 'td')">
+                            <i class="fas fa-pencil-alt mr-1"></i> TD
+                        </button>
+                        <button class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('chimie-2', 'examen')">
+                            <i class="fas fa-file-alt mr-1"></i> Examen
+                        </button>
+                    </div>
+                </div>
+
+                <!-- MTT 2 -->
+                <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="module-icon bg-blue-100 p-3 rounded-full text-blue-600">
+                            <i class="fas fa-cogs fa-lg"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800">MTT 2</h3>
+                    </div>
+                    <div class="mt-auto flex flex-wrap gap-2">
+                        <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('mtt-2', 'cours')">
+                            <i class="fas fa-book mr-1"></i> Cours
+                        </button>
+                        <button class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('mtt-2', 'td')">
+                            <i class="fas fa-pencil-alt mr-1"></i> TD
+                        </button>
+                        <button class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('mtt-2', 'examen')">
+                            <i class="fas fa-file-alt mr-1"></i> Examen
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Physique -->
+                <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="module-icon bg-purple-100 p-3 rounded-full text-purple-600">
+                            <i class="fas fa-atom fa-lg"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800">Physique</h3>
+                    </div>
+                    <div class="mt-auto flex flex-wrap gap-2">
+                        <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('physique', 'cours')">
+                            <i class="fas fa-book mr-1"></i> Cours
+                        </button>
+                        <button class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('physique', 'td')">
+                            <i class="fas fa-pencil-alt mr-1"></i> TD
+                        </button>
+                        <button class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('physique', 'examen')">
+                            <i class="fas fa-file-alt mr-1"></i> Examen
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -161,88 +218,124 @@
     <footer class="text-center text-gray-600 text-sm py-4">
         <div>&copy; 2025 Université de Bejaia. Développé par Amara Mehdi <a href="mailto:mehdi.amara@tech.univ-bejaia.dz" class="text-blue-500 hover:text-blue-700">Amara Mehdi</a></div>
     </footer>
+    <div id="popup-cours" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg shadow-lg p-6 max-w-3xl w-full glass-card">
+            <div class="flex justify-between items-center mb-6">
+                <h2 id="popup-title-cours" class="text-2xl font-bold text-gray-800"></h2>
+                <button type="button" class="close-popup-btn px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-300 flex items-center gap-2">
+                    <i class="fas fa-times"></i><span>Fermer</span>
+                </button>
+            </div>
+            <div id="popup-content-cours" class="space-y-6 popup-content"></div>
+        </div>
+    </div>
+
+    <div id="popup-td" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg shadow-lg p-6 max-w-3xl w-full glass-card">
+            <div class="flex justify-between items-center mb-6">
+                <h2 id="popup-title-td" class="text-2xl font-bold text-gray-800"></h2>
+                <button type="button" class="close-popup-btn px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-300 flex items-center gap-2">
+                    <i class="fas fa-times"></i><span>Fermer</span>
+                </button>
+            </div>
+            <div id="popup-content-td" class="space-y-6 popup-content"></div>
+        </div>
+    </div>
+
+    <div id="popup-examen" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg shadow-lg p-6 max-w-3xl w-full glass-card">
+            <div class="flex justify-between items-center mb-6">
+                <h2 id="popup-title-examen" class="text-2xl font-bold text-gray-800"></h2>
+                <button type="button" class="close-popup-btn px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-300 flex items-center gap-2">
+                    <i class="fas fa-times"></i><span>Fermer</span>
+                </button>
+            </div>
+            <div id="popup-content-examen" class="space-y-6 popup-content"></div>
+        </div>
+    </div>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({
-            duration: 800,
-            once: true
-        });
+        AOS.init({ duration: 800, once: true });
 
-        function showContent(module, type) {
-            const popup = document.getElementById(`popup-${type}`);
-            const popupTitle = document.getElementById(`popup-title-${type}`);
-            const popupContent = document.getElementById(`popup-content-${type}`);
+        const moduleMapping = {
+            'biologie-animale': 'Biologie Animale',
+            'biologie-vegetale': 'Biologie Végétale',
+            'tce2': 'TCE2',
+            'svis': 'SVIS',
+            'chimie-2': 'Chimie 2',
+            'mtt-2': 'MTT 2',
+            'physique': 'Physique'
+        };
 
-            popupTitle.textContent = `${module} - ${type.toUpperCase()}`;
-            popupContent.innerHTML = '';
-
-            // USTHB content
-            const usthbContent = `
-                <div class="university-section mb-6 transform transition-all duration-300 hover:scale-105 border-l-4 border-blue-600">
-                    <h3 class="text-xl font-bold mb-3 text-blue-600">Université des Sciences et de la Technologie Houari Boumediene</h3>
-                    <div class="pl-4 space-y-2">
-                        ${getContentForUSHB(module, type)}
-                    </div>
-                </div>
-            `;
-
-            // Add content to popup
-            popupContent.innerHTML = usthbContent;
-
-            // Show popup
-            popup.classList.remove('hidden');
-        }
-
-        function getContentForUSHB(module, type) {
-            const content = {
-                'biologie-animale': {
+        const moduleContent = {
+            'Biologie Animale': {
+                'bejaia': {
+                    'cours': [],
+                    'td': [],
+                    'examen': []
+                },
+                'autres': {
                     'cours': [
                         { title: 'Cours 1', url: 'https://drive.google.com/file/d/1NzHbbArAqS3PK3j-Q5EnEsQ4ZaaPTsqr/view?usp=drive_link' },
                         { title: 'Cours 2', url: 'https://drive.google.com/file/d/15yAHC89wz_2XBogQLjWNrrWEzvFBs_L1/view?usp=drive_link' },
                         { title: 'Cours 4', url: 'https://drive.google.com/file/d/15zbFhM_XvKa6zunqAaZTL5LHBCVupEty/view?usp=drive_link' },
                         { title: 'Cours 5', url: 'https://drive.google.com/file/d/163oLhNijzWk8ds2YXJCFhrs5DYemtBNP/view?usp=drive_link' }
                     ],
-                    'tdtp': [
+                    'td': [
                         { title: 'TP', url: 'https://drive.google.com/drive/folders/16RD5wq7FV1rHtIXI0mjfHJaonaPKWSyu?usp=drive_link' }
-                    ]
+                    ],
+                    'examen': []
+                }
+            },
+            'Biologie Végétale': {
+                'bejaia': {
+                    'cours': [],
+                    'td': [],
+                    'examen': []
                 },
-                'biologie-vegetale': {
+                'autres': {
                     'cours': [
-                        {
-                            resume: true,
-                            files: [
-                                { title: 'Résumés complets', url: 'https://drive.google.com/drive/folders/15HpU2ddfdDFBkEicWA5M2gra4XdN0Fs3?usp=drive_link' }
-                            ]
-                        },
+                        { title: 'Résumés complets', url: 'https://drive.google.com/drive/folders/15HpU2ddfdDFBkEicWA5M2gra4XdN0Fs3?usp=drive_link' },
                         { title: 'Cours en français', url: 'https://drive.google.com/drive/folders/1Iy-KyRZVLZxfn_o997WUDjumCDCjdHZs?usp=drive_link' },
                         { title: 'Cours en anglais', url: 'https://drive.google.com/drive/folders/1joQ0HU34g0W6wiVhOZSTC5LHGTssOQfh?usp=drive_link' },
                         { title: 'Cours général', url: 'https://drive.google.com/drive/folders/1Agrfmp6QTUXvxcEWPW29F3_PYSQuGhYQ?usp=drive_link' }
                     ],
+                    'td': [],
                     'examen': [
                         { title: 'Examen 1', url: 'https://drive.google.com/file/d/1XoBJsEKOT7VAz2sD2DybwXN0_U-I1xsT/view?usp=drive_link' },
                         { title: 'Examen 2', url: 'https://drive.google.com/file/d/1Mr9Zk4XbNK8XnAo0PLDuGLQoSw5dhWDh/view?usp=drive_link' },
                         { title: 'Examen 3', url: 'https://drive.google.com/file/d/1HNE0n08HwpJm0EY9N1Nczf9oftW7T_yJ/view?usp=drive_link' }
                     ]
+                }
+            },
+            'SVIS': {
+                'bejaia': {
+                    'cours': [],
+                    'td': [],
+                    'examen': []
                 },
-                'svis': {
+                'autres': {
                     'cours': [
                         { title: 'Cours en français', url: 'https://drive.google.com/drive/folders/1jtvMzBkJq9pqYfxPazf6-Ji5eJKuP2jt?usp=drive_link' },
                         { title: 'Cours en anglais', url: 'https://drive.google.com/drive/folders/1k7rO_36HIGI1k4wDkAxaAEX3nK2J_uOP?usp=drive_link' }
                     ],
-                    'tdtp': [
+                    'td': [
                         { title: 'TD SVIS', url: 'https://drive.google.com/drive/folders/1CaWIFTyTbBTWzZICtaMRYMfpC9ze5H7e?usp=drive_link' }
-                    ]
+                    ],
+                    'examen': []
+                }
+            },
+            'Physique': {
+                'bejaia': {
+                    'cours': [],
+                    'td': [],
+                    'examen': []
                 },
-                'physique': {
+                'autres': {
                     'cours': [
-                        {
-                            resume: true,
-                            files: [
-                                { title: 'Résumé 1', url: 'https://drive.google.com/file/d/1MxvByhuE6LeaV39KrqDfuXltc5mFfdIm/view?usp=drive_link' },
-                                { title: 'Résumé 2', url: 'https://drive.google.com/file/d/1XEG8AeG2laQJDs6yBa-3_uzIHn2M0yT2/view?usp=drive_link' }
-                            ]
-                        },
+                        { title: 'Résumé 1', url: 'https://drive.google.com/file/d/1MxvByhuE6LeaV39KrqDfuXltc5mFfdIm/view?usp=drive_link' },
+                        { title: 'Résumé 2', url: 'https://drive.google.com/file/d/1XEG8AeG2laQJDs6yBa-3_uzIHn2M0yT2/view?usp=drive_link' },
                         { title: 'Cours complet', url: 'https://drive.google.com/file/d/1nhRs21KD9JeQK6O4EK5KwEmSpyUN6rnq/view?usp=drive_link' },
                         { title: 'Chapitre 1-1', url: 'https://drive.google.com/file/d/1UgLe5vXshj7UdHTAxZuggQP44nuMvZBC/view?usp=drive_link' },
                         { title: 'Chapitre 1-2', url: 'https://drive.google.com/file/d/1bJOM-bv79kaQKvb1-VVklxJ2kg9NEZky/view?usp=drive_link' },
@@ -250,205 +343,336 @@
                         { title: 'Chapitre 2', url: 'https://drive.google.com/file/d/1iPoPCjjZaYLw94KvJ7Jx9_6pZ-8LlEDS/view?usp=drive_link' },
                         { title: 'Chapitre 3', url: 'https://drive.google.com/file/d/1SHYCsA16XyUxH42Jur4ReZjgEZzN9wwN/view?usp=drive_link' }
                     ],
+                    'td': [],
                     'examen': [
                         { title: 'Examen 1', url: 'https://drive.google.com/file/d/1b76kjGUUIfOluPqL5Z-u8WNFAjHTllo3/view?usp=drive_link' },
                         { title: 'Examen 2', url: 'https://drive.google.com/file/d/1bBM6V9l95HhFcGJYt2Pf7Ke0CVEavxku/view?usp=drive_link' },
                         { title: 'Examen 3', url: 'https://drive.google.com/file/d/1HCNe6-kyBSUHJIRMp9suhpVFg3_p_K6o/view?usp=drive_link' }
                     ]
+                }
+            },
+            'Chimie 2': {
+                'bejaia': {
+                    'cours': [],
+                    'td': [],
+                    'examen': []
                 },
-                'chimie-2': {
+                'autres': {
                     'cours': [
-                        {
-                            resume: true,
-                            files: [
-                                { title: 'Résumé', url: 'https://drive.google.com/file/d/13wUIxhe4jLzOCb4vIBx2oJCPSfDE45OQ/view?usp=drive_link' },
-                                { title: 'Résumé + Astuces', url: 'https://drive.google.com/file/d/1eionfnc1ZPpb-MmGSwmSrgwN01Zc2yOD/view?usp=drive_link' }
-                            ]
-                        },
-                        { title: 'Cours complet', url: 'https://drive.google.com/file/d/1fEVrL40lAGTQWKTWSETh5elF0E5Ttl6E/view?usp=drive_link' }
-                    ]
-                },
-                'mtt-2': {
-                    'cours': [
-                        { title: 'Chapitre 1', url: 'https://drive.google.com/file/d/1JMEN2q_ZnYff0T_TVDzQerxITTq8IwL2/view?usp=drive_link' },
-                        { title: 'Chapitre 2', url: 'https://drive.google.com/file/d/1JOvlmj12utOpAnx0SlZLkkXuOK9nORQu/view?usp=drive_link' },
-                        { title: 'Chapitre 3', url: 'https://drive.google.com/file/d/1JWPCAot9IlHpab8K88zEDEQWaHpcOwA-/view?usp=drive_link' },
-                        { title: 'Chapitre 4', url: 'https://drive.google.com/file/d/1JZC7L1_fuUk3BgBf6TXKznblMQ3ynuVQ/view?usp=drive_link' }
-                    ]
-                },
-                'chimie-2': {
-                    'cours': [
+                        { title: 'Résumé', url: 'https://drive.google.com/file/d/13wUIxhe4jLzOCb4vIBx2oJCPSfDE45OQ/view?usp=drive_link' },
+                        { title: 'Résumé + Astuces', url: 'https://drive.google.com/file/d/1eionfnc1ZPpb-MmGSwmSrgwN01Zc2yOD/view?usp=drive_link' },
+                        { title: 'Cours complet', url: 'https://drive.google.com/file/d/1fEVrL40lAGTQWKTWSETh5elF0E5Ttl6E/view?usp=drive_link' },
                         { title: 'Cours 1', url: 'https://drive.google.com/file/d/1K6oKcO5auDDoYAwV747jSnymPunTbe_o/view?usp=drive_link' },
                         { title: 'Cours 2', url: 'https://drive.google.com/file/d/1KAgrfEPuXwdVSsl0JdFJTWeUuYXT_BPf/view?usp=drive_link' },
                         { title: 'Cours 3', url: 'https://drive.google.com/file/d/1KATpBwgI5OYqBvVwp2BqI2HfWQWReZGL/view?usp=drive_link' },
                         { title: 'Cours 4', url: 'https://drive.google.com/file/d/1KBvMcijw2HvX22Byns4QTApz2JGOgcp3/view?usp=drive_link' }
                     ],
-                    'tdtp': [
+                    'td': [
                         { title: 'TP Chimie', url: 'https://drive.google.com/drive/folders/18dW4froJEygkH3nW2PLMwn3wPOiQiPi7?usp=drive_link' },
                         { title: 'TD Chimie', url: 'https://drive.google.com/drive/folders/1KERK9vQlDkDKBsvJ_t6OrA6btRQIotP4?usp=drive_link' }
-                    ]
+                    ],
+                    'examen': []
                 }
-            };
+            },
+            'MTT 2': {
+                'bejaia': {
+                    'cours': [],
+                    'td': [],
+                    'examen': []
+                },
+                'autres': {
+                    'cours': [
+                        { title: 'Chapitre 1', url: 'https://drive.google.com/file/d/1JMEN2q_ZnYff0T_TVDzQerxITTq8IwL2/view?usp=drive_link' },
+                        { title: 'Chapitre 2', url: 'https://drive.google.com/file/d/1JOvlmj12utOpAnx0SlZLkkXuOK9nORQu/view?usp=drive_link' },
+                        { title: 'Chapitre 3', url: 'https://drive.google.com/file/d/1JWPCAot9IlHpab8K88zEDEQWaHpcOwA-/view?usp=drive_link' },
+                        { title: 'Chapitre 4', url: 'https://drive.google.com/file/d/1JZC7L1_fuUk3BgBf6TXKznblMQ3ynuVQ/view?usp=drive_link' }
+                    ],
+                    'td': [],
+                    'examen': []
+                }
+            },
+            'TCE2': {
+                'bejaia': {
+                    'cours': [],
+                    'td': [],
+                    'examen': []
+                },
+                'autres': {
+                    'cours': [],
+                    'td': [],
+                    'examen': []
+                }
+            }
+        };
 
-            if (content[module] && content[module][type]) {
-                let html = '';
-                const contentArray = content[module][type];
+        function showContent(moduleShortName, type) {
+            // Map short module name to full module name
+            const moduleName = moduleMapping[moduleShortName];
+            if (!moduleName || !moduleContent[moduleName]) {
+                showEmptyPopup(moduleShortName, type);
+                return;
+            }
 
-                // First check for resume section
-                const resumeContent = contentArray.find(item => item.resume);
-                if (resumeContent) {
-                    html += `
-                        <div class="resume-section mb-6">
-                            <h4 class="text-xl font-bold text-amber-600 mb-3 flex items-center">
-                                <span class="bg-amber-600 text-white px-3 py-1 rounded-lg mr-2">
-                                    <i class="fas fa-book"></i>
-                                </span>
-                                Résumés
-                            </h4>
-                            <div class="bg-amber-50 border-2 border-amber-200 rounded-lg p-4 space-y-2">
-                                ${resumeContent.files.map(file => `
-                                    <a href="${file.url}" 
-                                       class="resume-link flex items-center justify-between bg-white p-3 rounded-lg hover:bg-amber-100 transition-all duration-300 transform hover:scale-102 border border-amber-300"
-                                       target="_blank">
-                                        <span class="flex items-center">
-                                            <i class="fas fa-bookmark text-amber-500 mr-2"></i>
-                                            ${file.title}
-                                        </span>
-                                        <i class="fas fa-download text-amber-600"></i>
-                                    </a>
-                                `).join('')}
-                            </div>
-                        </div>
+            const popup = document.getElementById(`popup-${type}`);
+            const popupTitle = document.getElementById(`popup-title-${type}`);
+            const popupContent = document.getElementById(`popup-content-${type}`);
+            
+            // Set popup title
+            popupTitle.textContent = `${moduleName} - ${capitalizeFirstLetter(type)}`;
+            
+            // Clear existing content
+            popupContent.innerHTML = "";
+            
+            // Get module data
+            const module = moduleContent[moduleName];
+            let contentAdded = false;
+            
+            // Create university section for Béjaia resources if they exist
+            if (module.bejaia && module.bejaia[type] && module.bejaia[type].length > 0) {
+                const bejaiaSection = document.createElement('div');
+                bejaiaSection.className = 'university-section mb-6 transform transition-all duration-300 hover:scale-105 border-l-4 border-green-600';
+                
+                // Create section header
+                const sectionHeader = document.createElement('div');
+                sectionHeader.className = 'section-header bg-green-50 p-4 rounded-t-lg border-b-2 border-green-200';
+                sectionHeader.innerHTML = `
+                    <h3 class="text-xl font-bold text-green-600 flex items-center gap-2">
+                        <i class="fas fa-university"></i>
+                        Université de Béjaia
+                    </h3>
+                `;
+                
+                // Create content grid
+                const contentGrid = document.createElement('div');
+                contentGrid.className = 'content-grid grid gap-4 p-4';
+                
+                // Add each item from Béjaia resources
+                module.bejaia[type].forEach(item => {
+                    const contentItem = createContentItem(item, type, false);
+                    contentGrid.appendChild(contentItem);
+                });
+                
+                // Add TP items if handling tdtp
+                if (type === 'td' && module.bejaia['tp'] && module.bejaia['tp'].length > 0) {
+                    module.bejaia['tp'].forEach(item => {
+                        const contentItem = createContentItem(item, 'tp', false);
+                        contentGrid.appendChild(contentItem);
+                    });
+                }
+                
+                // Assemble and add to popup
+                bejaiaSection.appendChild(sectionHeader);
+                bejaiaSection.appendChild(contentGrid);
+                popupContent.appendChild(bejaiaSection);
+                contentAdded = true;
+            }
+            
+            // Create section for other university resources if they exist
+            if (module.autres && 
+                ((module.autres[type] && module.autres[type].length > 0) || 
+                (type === 'cours' && module.autres["cours conseiller"] && module.autres["cours conseiller"].length > 0))) {
+                
+                // Regular resources
+                if (module.autres[type] && module.autres[type].length > 0) {
+                    const autresSection = document.createElement('div');
+                    autresSection.className = 'university-section mb-6 transform transition-all duration-300 hover:scale-105 border-l-4 border-red-600';
+                    
+                    const sectionHeader = document.createElement('div');
+                    sectionHeader.className = 'section-header bg-red-50 p-4 rounded-t-lg border-b-2 border-red-200';
+                    sectionHeader.innerHTML = `
+                        <h3 class="text-xl font-bold text-red-600 flex items-center gap-2">
+                            <i class="fas fa-university"></i>
+                            Autres Universités
+                        </h3>
                     `;
+                    
+                    const contentGrid = document.createElement('div');
+                    contentGrid.className = 'content-grid grid gap-4 p-4';
+                    
+                    module.autres[type].forEach(item => {
+                        const contentItem = createContentItem(item, type, false);
+                        contentGrid.appendChild(contentItem);
+                    });
+                    
+                    autresSection.appendChild(sectionHeader);
+                    autresSection.appendChild(contentGrid);
+                    popupContent.appendChild(autresSection);
+                    contentAdded = true;
                 }
-
-                // Then add regular content
-                html += contentArray
-                    .filter(item => !item.resume)
-                    .map(item => `
-                        <a href="${item.url}" 
-                           class="text-blue-500 hover:underline flex items-center" 
-                           target="_blank">
-                            <i class="fas fa-file-pdf mr-2"></i>${item.title}
-                        </a>
-                    `).join('');
-
-                return html;
+                
+                // Recommended courses if available (only for cours type)
+                if (type === 'cours' && module.autres["cours conseiller"] && module.autres["cours conseiller"].length > 0) {
+                    const recommendedSection = document.createElement('div');
+                    recommendedSection.className = 'university-section mb-6 transform transition-all duration-300 hover:scale-105 border-l-4 border-blue-600 recommended-content';
+                    
+                    const recommendedHeader = document.createElement('div');
+                    recommendedHeader.className = 'section-header bg-blue-50 p-4 rounded-t-lg border-b-2 border-blue-200';
+                    recommendedHeader.innerHTML = `
+                        <h3 class="text-xl font-bold text-blue-600 flex items-center gap-2">
+                            <i class="fas fa-star"></i>
+                            Cours Conseillés
+                            <span class="ml-2 text-sm bg-blue-500 text-white px-2 py-1 rounded">Recommandé</span>
+                        </h3>
+                    `;
+                    
+                    const recommendedGrid = document.createElement('div');
+                    recommendedGrid.className = 'content-grid grid gap-4 p-4';
+                    
+                    module.autres["cours conseiller"].forEach(item => {
+                        const contentItem = createContentItem(item, 'cours', true);
+                        recommendedGrid.appendChild(contentItem);
+                    });
+                    
+                    recommendedSection.appendChild(recommendedHeader);
+                    recommendedSection.appendChild(recommendedGrid);
+                    popupContent.appendChild(recommendedSection);
+                    contentAdded = true;
+                }
             }
-            return '<p class="text-gray-500 italic">Contenu à venir...</p>';
+            
+            // Display "no content" message if nothing was added
+            if (!contentAdded) {
+                popupContent.innerHTML = `
+                    <div class="text-center p-8">
+                        <i class="fas fa-exclamation-circle text-5xl text-gray-400 mb-4"></i>
+                        <p class="text-gray-500">Aucun contenu disponible pour ce module</p>
+                    </div>
+                `;
+            }
+            
+            // Show the popup
+            popup.classList.remove('hidden');
+            
+            // Add hover effects to links and animations
+            const links = popupContent.querySelectorAll('a');
+            links.forEach(link => {
+                link.addEventListener('mouseenter', e => {
+                    const item = e.target.closest('.content-item');
+                    if (item) item.style.transform = 'translateY(-5px)';
+                });
+                
+                link.addEventListener('mouseleave', e => {
+                    const item = e.target.closest('.content-item');
+                    if (item) item.style.transform = '';
+                });
+            });
         }
 
-        function closePopup(type) {
-            document.getElementById(`popup-${type}`).classList.add('hidden');
+        function createContentItem(item, type, isRecommended) {
+            const contentItem = document.createElement('div');
+            contentItem.className = 'content-item bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 transform hover:scale-102 border border-gray-100';
+            
+            const iconClass = getIconByType(type);
+            const bgColor = isRecommended ? 'rgba(59, 130, 246, 0.1)' : 'rgba(34, 197, 94, 0.1)';
+            const textColor = isRecommended ? 'text-blue-500' : 'text-green-500';
+            const btnClass = isRecommended ? 'bg-blue-50 hover:bg-blue-100 text-blue-600' : 'bg-green-50 hover:bg-green-100 text-green-600';
+            
+            contentItem.innerHTML = `
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="icon-wrapper ${textColor}" style="background:${bgColor};">
+                            <i class="fas ${iconClass} text-xl"></i>
+                        </div>
+                        <div class="text-content">
+                            <h4 class="font-semibold text-gray-800">${item.title}</h4>
+                        </div>
+                    </div>
+                    <a href="${item.url}" target="_blank" 
+                       class="download-btn ${btnClass} px-4 py-2 rounded-full flex items-center gap-2 transition-all duration-300">
+                        <span class="text-sm">Télécharger</span>
+                        <i class="fas fa-download"></i>
+                    </a>
+                </div>
+            `;
+            
+            return contentItem;
         }
 
-        // Add this new CSS
-        const newStyles = `
-        <style>
-            .university-section {
-                background: rgba(255, 255, 255, 0.9);
-                border-radius: 10px;
-                padding: 1rem;
-                margin-bottom: 1rem;
-                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-                transition: all 0.3s ease;
-            }
+        function getIconByType(type) {
+            const icons = {
+                'cours': 'fa-book',
+                'td': 'fa-pencil-alt',
+                'tp': 'fa-flask',
+                'examen': 'fa-file-alt'
+            };
+            return icons[type] || 'fa-file';
+        }
 
-            .university-section:hover {
-                transform: translateX(5px);
-                box-shadow: 0 4px 6px rgba(0,0,0,0.15);
-            }
+        function showEmptyPopup(moduleShortName, type) {
+            const popup = document.getElementById(`popup-${type}`);
+            const popupTitle = document.getElementById(`popup-title-${type}`);
+            const popupContent = document.getElementById(`popup-content-${type}`);
+            
+            popupTitle.textContent = `${moduleShortName} - ${capitalizeFirstLetter(type)}`;
+            
+            popupContent.innerHTML = `
+                <div class="text-center p-8">
+                    <i class="fas fa-exclamation-circle text-5xl text-gray-400 mb-4"></i>
+                    <p class="text-gray-500">Contenu non disponible pour ce module</p>
+                </div>
+            `;
+            
+            popup.classList.remove('hidden');
+        }
 
-            .university-section h3 {
-                display: flex;
-                align-items: center;
-                gap: 0.5rem;
-            }
+        function capitalizeFirstLetter(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
 
-            .university-section h3::before {
-                content: '';
-                width: 4px;
-                height: 1.5rem;
-                background-color: currentColor;
-                border-radius: 2px;
-            }
+        // Update the popup close functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Close popup when clicking the close button
+            const closeButtons = document.querySelectorAll('.close-popup-btn');
+            closeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const popup = this.closest('[id^="popup-"]');
+                    if (popup) {
+                        popup.classList.add('hidden');
+                    }
+                });
+            });
 
-            .university-section a {
-                transition: all 0.3s ease;
-                display: flex;
-                align-items: center;
-                padding: 0.5rem;
-                border-radius: 5px;
-                text-decoration: none;
-            }
-
-            .university-section a:hover {
-                background: rgba(59, 130, 246, 0.1);
-                transform: translateX(10px);
-            }
-
-            .resume-section {
-                animation: slideIn 0.5s ease-out;
-            }
-
-            .resume-link {
-                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            }
-
-            .resume-link:hover {
-                box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            }
-
-            @keyframes slideIn {
-                from {
-                    opacity: 0;
-                    transform: translateY(-20px);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
-
-            .resume-section h4 {
-                color: #dc2626 !important; /* red-600 */
-            }
-
-            .resume-section .bg-amber-50 {
-                background-color: #fef2f2 !important; /* red-50 */
-            }
-
-            .resume-section .border-amber-200 {
-                border-color: #fecaca !important; /* red-200 */
-            }
-
-            .resume-section .border-amber-300 {
-                border-color: #fca5a5 !important; /* red-300 */
-            }
-
-            .resume-section .text-amber-500 {
-                color: #ef4444 !important; /* red-500 */
-            }
-
-            .resume-section .text-amber-600 {
-                color: #dc2626 !important; /* red-600 */
-            }
-
-            .resume-section .bg-amber-600 {
-                background-color: #dc2626 !important; /* red-600 */
-            }
-
-            .resume-section .hover\:bg-amber-100:hover {
-                background-color: #fee2e2 !important; /* red-100 */
-            }
-        </style>
-        `;
-
-        // Add the new styles to the document
-        document.head.insertAdjacentHTML('beforeend', newStyles);
+            // Close popup when clicking outside the content
+            const popups = document.querySelectorAll('[id^="popup-"]');
+            popups.forEach(popup => {
+                popup.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        this.classList.add('hidden');
+                    }
+                });
+            });
+        });
     </script>
 
     <style>
+        /* Module card styling */
+        .module-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .module-card:hover {
+            box-shadow: 0 8px 12px rgba(0,0,0,0.15);
+        }
+        
+        /* Glass effect for popup */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 20px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            backdrop-filter: blur(8px);
+            padding: 2rem;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .close-popup-btn:hover {
+            transform: scale(1.05);
+        }
+        
         .popup-content {
             max-height: 70vh;
             overflow-y: auto;
@@ -460,6 +684,26 @@
             padding: 1rem;
             margin-bottom: 1rem;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .university-section:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+        }
+
+        .university-section h3 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .university-section h3::before {
+            content: '';
+            width: 4px;
+            height: 1.5rem;
+            background-color: currentColor;
+            border-radius: 2px;
         }
 
         .university-section a {
@@ -468,11 +712,214 @@
             align-items: center;
             padding: 0.5rem;
             border-radius: 5px;
+            text-decoration: none;
         }
 
         .university-section a:hover {
             background: rgba(59, 130, 246, 0.1);
             transform: translateX(10px);
+        }
+
+        .exclusive-2025 {
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        .exclusive-link {
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .exclusive-link:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        @keyframes glow {
+            from {
+                box-shadow: 0 0 5px rgba(34, 197, 94, 0.2);
+            }
+            to {
+                box-shadow: 0 0 20px rgba(34, 197, 94, 0.4);
+            }
+        }
+
+        .recommended-content {
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .recommended-link {
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .recommended-link:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.02);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+
+        .content-item {
+            background: white;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .content-item:hover {
+            transform: translateY(-2px);
+        }
+
+        .icon-wrapper {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(34, 197, 94, 0.1);
+        }
+
+        .download-btn {
+            font-size: 0.875rem;
+            transition: all 0.3s ease;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-1px);
+        }
+
+        /* Animations */
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .content-item {
+            animation: slideIn 0.3s ease-out forwards;
+        }
+
+        /* Scroll styling */
+        .popup-content {
+            scrollbar-width: thin;
+            scrollbar-color: rgba(34, 197, 94, 0.5) rgba(229, 231, 235, 0.5);
+        }
+
+        .popup-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .popup-content::-webkit-scrollbar-track {
+            background: rgba(229, 231, 235, 0.5);
+            border-radius: 4px;
+        }
+
+        .popup-content::-webkit-scrollbar-thumb {
+            background: rgba(34, 197, 94, 0.5);
+            border-radius: 4px;
+        }
+
+        .popup-content::-webkit-scrollbar-thumb:hover {
+            background: rgba(34, 197, 94, 0.7);
+        }
+
+        /* Improved close button style */
+        .close-popup-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background-color: #ef4444;
+            color: white;
+            border-radius: 0.5rem;
+            transition: all 0.2s ease;
+        }
+        
+        .close-popup-btn:hover {
+            background-color: #dc2626;
+            transform: scale(1.05);
+        }
+        
+        /* Ensure popup is centered and scrollable */
+        .glass-card {
+            max-height: 80vh;
+            overflow-y: auto;
+            width: 100%;
+            max-width: 800px;
+        }
+        
+        /* Ensure popup content is visible */
+        .popup-content {
+            padding: 1rem 0;
+        }
+        
+        /* Fix z-index to ensure popups appear on top */
+        [id^="popup-"] {
+            z-index: 50;
+        }
+
+        /* Enhanced module card styling */
+        .module-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .module-card:hover {
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+        
+        .module-icon {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.08);
+        }
+        
+        .module-btn {
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .module-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+        }
+        
+        .module-btn:active {
+            transform: translateY(0px);
         }
     </style>
 </body>
