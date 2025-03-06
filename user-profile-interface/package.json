@@ -1,0 +1,27 @@
+{
+  "name": "user-profile-interface",
+  "version": "1.0.0",
+  "description": "A dynamic user profile interface with a profile summary card and progressive profile completion module.",
+  "main": "src/index.html",
+  "scripts": {
+    "start": "live-server src",
+    "build": "echo 'Build process not defined yet.'",
+    "test": "echo 'No tests defined.'"
+  },
+  "keywords": [
+    "user",
+    "profile",
+    "interface",
+    "dynamic",
+    "completion"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "firebase": "^9.22.2",
+    "live-server": "^1.2.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.0.0"
+  }
+}

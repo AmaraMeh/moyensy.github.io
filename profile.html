@@ -7,11 +7,29 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/auth.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calcul de Moyenne Université de Bejaia</title>
+    <meta name="description" content="Calcul de Moyenne Université de Bejaia">
+    <meta name="author" content="Amara Mehdi">
+    <meta name="keywords" content="Université de Bejaia, Moyenne, Calcul">
+    <meta name="robots" content="index, follow">
+    <link rel="icon" type="image/png" href="assets/img/icon.png">
+    <meta property="og:url" content="https://amaramehdi.github.io/moyenne-universite-bejaia/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Calcul de Moyenne Université de Bejaia">
+    <meta property="og:description" content="Calcul de Moyenne Université de Bejaia">
+    <meta property="og:image" content="https://masterpiecer-images.s3.yandex.net/b08e69b27e0b11eeb532aaafe6635749:upscaled">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="">
     <link rel="stylesheet" href="assets/css/style.css">
-    <meta name="theme-color" content="#0f172a">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico">
+    <!-- <link rel="stylesheet" href="assets/css/floating-menu.css"> -->
     <style>
         .verified-checkmark {
             color: #3b82f6;
@@ -46,304 +64,1011 @@
         /* Simple skeleton loader styling */
         .skeleton {
             background-color: #e2e8f0;
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
             border-radius: 4px;
+        }
+        
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        .avatar-hint {
+            font-size: 0.75rem;
+            color: #6b7280;
+            margin-top: 0.5rem;
+            text-align: center;
+        }
+
+        .info-group {
+            padding: 1rem;
+            border-radius: 0.5rem;
+            background-color: #f9fafb;
+            transition: all 0.3s ease;
+        }
+
+        .info-group:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        #interestsContainer span {
+            transition: all 0.3s ease;
+        }
+        
+        #interestsContainer span:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Updated interest badges style */
+        #interestsContainer .interest-badge {
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            background: linear-gradient(to right, #3b82f6, #6366f1);
+            color: white;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
         }
     </style>
 </head>
 <body class="flex flex-col min-h-screen bg-gray-50" data-aos-easing="ease-out-cubic">
     <header class="mb-12 mt-8" data-aos="fade-down">
-        <div class="header-container flex justify-between items-center px-4 py-6">
-            <a href="index.html" class="back-button text-lg font-bold hover:text-cyan-300">
-                <i class="fas fa-arrow-left"></i>
-                Retour
-            </a>
+        <div class="header-container flex justify-center items-center px-4 py-6">
             <img src="assets/img/LOGO.png" alt="ISET'COM" class="max-w-[150px]">
-            <button id="logoutButton" class="px-6 py-3 bg-red-800 text-white rounded-lg hover:bg-red-900 transition">
-                <i class="fas fa-sign-out-alt mr-2"></i>Déconnexion
-            </button>
         </div>
     </header>
 
-    <main class="container mx-auto px-4 py-8 flex-grow">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 w-full">
-            <!-- Profile Section -->
-            <div class="profile-section glass-card col-span-1 p-8 rounded-lg shadow-lg bg-white/10 backdrop-blur-md transform hover:scale-[1.02] transition-all duration-300" data-aos="fade-up">
-                <div class="profile-header text-center">
-                    <h1 class="text-3xl font-bold text-gray-800 mb-2 inline-flex items-center justify-center">
-                        <span id="profileName"></span>
-                        <span id="verifiedCheckmark" class="verified-checkmark hidden ml-2">
+    <!-- Main Profile Content -->
+    <main class="flex-grow container mx-auto px-4 pb-12">
+        <!-- Profile Card -->
+        <div class="max-w-3xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:shadow-xl" data-aos="fade-up">
+            <!-- Profile Header - Updated with gradient background -->
+            <div class="profile-header bg-gradient-to-r from-blue-500 to-indigo-600 p-8 flex flex-col md:flex-row items-center gap-6">
+                <div class="avatar-container relative">
+                    <div class="w-32 h-32 rounded-full bg-white overflow-hidden flex items-center justify-center border-4 border-white shadow-inner">
+                        <img id="userAvatar" src="assets/img/default-avatar.png" alt="Photo de profil" class="w-full h-full object-cover">
+                        <div id="avatarOverlay" class="absolute inset-0 bg-black bg-opacity-40 opacity-0 hover:opacity-100 transition-opacity flex items-center justify-center cursor-pointer">
+                            <i class="fas fa-camera text-white text-2xl"></i>
+                        </div>
+                    </div>
+                    <input type="file" id="avatarUpload" accept="image/*" class="hidden">
+                    <p class="avatar-hint text-white mt-2 opacity-75">JPEG, PNG ou GIF • Max 2MB</p>
+                </div>
+                <div class="text-center md:text-left">
+                    <h1 class="text-2xl md:text-3xl font-bold text-white">
+                        <span id="profileName" class="info-value skeleton"></span>
+                        <span id="verifiedCheckmark" class="verified-checkmark text-white">
                             <i class="fas fa-check-circle"></i>
                         </span>
                     </h1>
-                </div>
-
-                <div class="profile-info mt-8 space-y-6">
-                    <div class="info-item flex items-center p-4 bg-white/5 rounded-lg hover:bg-white/10 transition-all duration-300">
-                        <i class="fas fa-envelope text-cyan-500 text-xl mr-4"></i>
-                        <div>
-                            <div class="info-label text-gray-500 text-sm">Email</div>
-                            <div id="profileEmail" class="info-value text-gray-800 font-medium"></div>
-                        </div>
+                    <p class="text-blue-100 mb-3"><span id="studentSpeciality" class="info-value skeleton"></span></p>
+                    <div class="flex flex-wrap items-center gap-3 mt-2">
+                        <span id="profileCompletionBadge" class="px-3 py-1 text-xs rounded-full bg-white bg-opacity-20 text-white backdrop-filter backdrop-blur-sm">Profil à 80% complet</span>
+                        <button id="completeProfileBtn" class="px-4 py-2 bg-white text-blue-600 rounded text-sm hover:bg-blue-50 transition-colors shadow-md flex items-center gap-2">
+                            <i class="fas fa-user-edit"></i> Finaliser le profil
+                        </button>
                     </div>
-
-                    <div class="info-item flex items-center p-4 bg-white/5 rounded-lg hover:bg-white/10 transition-all duration-300">
-                        <i class="fas fa-id-card text-cyan-500 text-xl mr-4"></i>
-                        <div>
-                            <div class="info-label text-gray-500 text-sm">Numéro d'immatriculation</div>
-                            <div id="studentId" class="info-value text-gray-800 font-medium"></div>
-                        </div>
-                    </div>
-
-                    <div class="info-item flex items-center p-4 bg-white/5 rounded-lg hover:bg-white/10 transition-all duration-300">
-                        <i class="fas fa-graduation-cap text-cyan-500 text-xl mr-4"></i>
-                        <div>
-                            <div class="info-label text-gray-500 text-sm">Spécialité</div>
-                            <div id="studentSpeciality" class="info-value text-gray-800 font-medium"></div>
-                        </div>
-                    </div>
-
-                    <div class="info-item flex items-center p-4 bg-white/5 rounded-lg hover:bg-white/10 transition-all duration-300">
-                        <i class="fas fa-phone text-cyan-500 text-xl mr-4"></i>
-                        <div>
-                            <div class="info-label text-gray-500 text-sm">Téléphone</div>
-                            <div id="phoneNumber" class="info-value text-gray-800 font-medium"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="social-links flex justify-center gap-6 mt-8">
-                    <a href="#" class="social-icon text-blue-400 hover:text-blue-500 transform hover:scale-110 transition-all duration-300">
-                        <i class="fab fa-facebook text-2xl"></i>
-                    </a>
-                    <a href="#" class="social-icon text-blue-400 hover:text-blue-500 transform hover:scale-110 transition-all duration-300">
-                        <i class="fab fa-twitter text-2xl"></i>
-                    </a>
-                    <a href="#" class="social-icon text-pink-400 hover:text-pink-500 transform hover:scale-110 transition-all duration-300">
-                        <i class="fab fa-instagram text-2xl"></i>
-                    </a>
-                    <a href="#" class="social-icon text-gray-400 hover:text-gray-500 transform hover:scale-110 transition-all duration-300">
-                        <i class="fab fa-github text-2xl"></i>
-                    </a>
                 </div>
             </div>
 
-            <!-- Features Grid -->
-            <div class="col-span-2 grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- Espace Cours -->
-                <div class="service-card glass-card p-6 rounded-lg shadow-lg bg-white/10 backdrop-blur-md transform hover:scale-[1.02] transition-all duration-300" data-aos="slide-right">
-                    <div class="flex items-center gap-4 mb-6">
-                        <div class="service-icon text-cyan-400">
-                            <i class="fas fa-book-reader text-4xl"></i>
-                        </div>
-                        <h2 class="text-2xl font-bold text-gray-800">Espace Cours</h2>
+            <!-- Profile Info - Updated with better spacing and style -->
+            <div class="p-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="info-group transform transition hover:scale-105">
+                        <h3 class="text-sm uppercase text-blue-600 font-medium mb-2">Matricule</h3>
+                        <p id="studentId" class="info-value skeleton"></p>
                     </div>
-                    <div class="grid grid-cols-1 gap-4">
-                        <a href="bib.html" 
-                           class="group relative overflow-hidden p-6 bg-gradient-to-r from-cyan-600 to-blue-600 rounded-lg transform transition-all duration-300 hover:scale-[1.02] hover:shadow-xl">
-                            <div class="absolute inset-0 bg-gradient-to-r from-cyan-400 to-blue-400 opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
-                            <div class="flex items-center gap-4 relative z-10">
-                                <div class="bg-white/10 p-3 rounded-lg">
-                                    <i class="fas fa-book text-cyan-300 text-2xl group-hover:scale-110 transition-transform duration-300"></i>
-                                </div>
-                                <div>
-                                    <h3 class="text-xl font-semibold text-white mb-1">Accédez à vos cours</h3>
-                                    <p class="text-cyan-100 text-sm">Tous vos documents en un seul endroit</p>
-                                </div>
-                                <i class="fas fa-arrow-right ml-auto text-cyan-300 group-hover:translate-x-2 transition-transform duration-300"></i>
-                            </div>
-                        </a>
+                    <div class="info-group transform transition hover:scale-105">
+                        <h3 class="text-sm uppercase text-blue-600 font-medium mb-2">Email</h3>
+                        <p id="profileEmail" class="info-value skeleton"></p>
+                    </div>
+                    <div class="info-group transform transition hover:scale-105">
+                        <h3 class="text-sm uppercase text-blue-600 font-medium mb-2">Téléphone</h3>
+                        <p id="phoneNumber" class="info-value skeleton"></p>
+                    </div>
+                    <div id="residenceInfo" class="info-group transform transition hover:scale-105">
+                        <h3 class="text-sm uppercase text-blue-600 font-medium mb-2">Résidence</h3>
+                        <p id="residenceValue" class="info-value skeleton"></p>
+                    </div>
+                    <div class="info-group transform transition hover:scale-105">
+                        <h3 class="text-sm uppercase text-blue-600 font-medium mb-2">Année académique</h3>
+                        <p id="academicYear" class="info-value skeleton"></p>
+                    </div>
+                    <div class="info-group transform transition hover:scale-105">
+                        <h3 class="text-sm uppercase text-blue-600 font-medium mb-2">Genre</h3>
+                        <p id="gender" class="info-value skeleton"></p>
+                    </div>
+                    <!-- Remove the interests section by adding hidden class -->
+                    <div id="interestsInfo" class="info-group col-span-1 md:col-span-2 hidden">
+                        <h3 class="text-sm uppercase text-blue-600 font-medium mb-2">Centres d'intérêt</h3>
+                        <div id="interestsContainer" class="flex flex-wrap gap-2">
+                            <!-- Interests badges will be added here dynamically -->
+                        </div>
                     </div>
                 </div>
-
-                <!-- Calculer la moyenne -->
-                <div class="service-card glass-card p-6 rounded-lg shadow-lg bg-white/10 backdrop-blur-md transform hover:scale-[1.02] transition-all duration-300" data-aos="slide-left">
-                    <div class="flex items-center gap-4 mb-6">
-                        <div class="service-icon text-blue-500">
-                            <i class="fas fa-calculator text-4xl"></i>
-                        </div>
-                        <h2 class="text-2xl font-bold text-gray-800">Calculer la moyenne</h2>
-                    </div>
-                    <div class="grid grid-cols-1 gap-4">
-                        <a href="calculator.html" class="block p-4 bg-blue-800 hover:bg-blue-900 transition rounded-lg">
-                            <div class="flex items-center gap-4">
-                                <i class="fas fa-calculator text-blue-500 text-xl"></i>
-                                <div>
-                                    <h3 class="text-xl font-semibold text-white">Simulateur de moyenne</h3>
-                                    <p class="text-sm text-gray-400">Préparez-vous efficacement</p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Emploi du temps -->
-                <div class="service-card glass-card p-6 rounded-lg shadow-lg bg-white/10 backdrop-blur-md transform hover:scale-[1.02] transition-all duration-300" data-aos="slide-right">
-                    <div class="flex items-center gap-4 mb-6">
-                        <div class="service-icon text-purple-400">
-                            <i class="fas fa-calendar-alt text-4xl"></i>
-                        </div>
-                        <h2 class="text-2xl font-bold text-gray-800">Emploi du temps</h2>
-                    </div>
-                    <div class="flex flex-col items-center justify-center p-8 bg-purple-900/30 rounded-lg">
-                        <i class="fas fa-clock text-6xl text-purple-400 mb-4"></i>
-                        <p class="text-lg text-gray-300">Aucun emploi du temps disponible pour le moment</p>
-                        <button class="mt-4 px-6 py-3 bg-purple-500 hover:bg-purple-600 text-white rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
-                            <i class="fas fa-plus-circle mr-2"></i>
-                            Ajouter un emploi du temps
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Contactez-nous -->
-                <div class="service-card glass-card p-6 rounded-lg shadow-lg bg-white/10 backdrop-blur-md transform hover:scale-[1.02] transition-all duration-300" data-aos="slide-left">
-                    <div class="flex items-center gap-4 mb-6">
-                        <div class="service-icon text-red-500">
-                            <i class="fas fa-envelope text-4xl"></i>
-                        </div>
-                        <h2 class="text-2xl font-bold text-gray-800">Contactez-nous</h2>
-                    </div>
-                    <form class="grid grid-cols-1 gap-4">
-                        <input type="text" placeholder="Votre message" 
-                               class="p-3 border rounded-lg w-full focus:outline-none focus:border-blue-500 bg-gray-800 text-white">
-                        <button class="bg-red-800 text-white p-3 rounded-lg w-full hover:bg-red-900 transition">
-                            Envoyer
-                        </button>
-                    </form>
-                    <div class="flex justify-center gap-4 mt-4">
-                        <a href="#" class="text-blue-400 hover:text-blue-500 transition">
-                            <i class="fab fa-facebook-square fa-2x"></i>
-                        </a>
-                        <a href="#" class="text-blue-400 hover:text-blue-500 transition">
-                            <i class="fab fa-twitter-square fa-2x"></i>
-                        </a>
-                        <a href="#" class="text-pink-400 hover:text-pink-500 transition">
-                            <i class="fab fa-instagram-square fa-2x"></i>
-                        </a>
-                    </div>
+                <div class="mt-8 flex justify-end">
+                    <button id="logoutButton" class="px-5 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-300 flex items-center gap-2 shadow-md">
+                        <i class="fas fa-sign-out-alt"></i> Déconnexion
+                    </button>
                 </div>
             </div>
         </div>
     </main>
 
-    <footer class="text-center text-gray-600 text-sm py-4">
-        <div>&copy; 2025 Université de Bejaia. Développé par <a href="mailto:mehdi.amara@icloud.com" class="text-blue-500 hover:text-blue-700">Amara Mehdi</a></div>
-    </footer>
+    <!-- Profile Completion Modal -->
+    <div id="profileModal" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 hidden backdrop-filter backdrop-blur-sm transition-all duration-300">
+        <div class="bg-white rounded-xl max-w-md w-full max-h-[90vh] overflow-y-auto shadow-2xl transform transition-all scale-95 opacity-0" id="modalContent">
+            <div class="p-6 border-b bg-gradient-to-r from-blue-500 to-indigo-600">
+                <div class="flex justify-between items-center">
+                    <h2 class="text-xl font-bold text-white">Finaliser votre profil</h2>
+                    <button id="closeModalBtn" class="text-white hover:text-gray-200 transition-colors">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="p-6">
+                <!-- Form content remains the same -->
+                <form id="profileCompletionForm" class="space-y-4">
+                    <div class="mb-4">
+                        <label for="wilaya" class="block text-sm font-medium text-gray-700 mb-2">Wilaya</label>
+                        <select id="wilaya" name="wilaya" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                            <option value="">Sélectionner une wilaya</option>
+                            <option value="bejaia">Béjaïa</option>
+                            <option value="alger">Alger</option>
+                            <option value="tizi-ouzou">Tizi-Ouzou</option>
+                            <option value="setif">Sétif</option>
+                            <option value="autre">Autre</option>
+                        </select>
+                        <p id="wilayaError" class="mt-1 text-sm text-red-600 hidden"></p>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="commune" class="block text-sm font-medium text-gray-700 mb-2">Commune</label>
+                        <select id="commune" name="commune" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500" disabled>
+                            <option value="">Sélectionner d'abord une wilaya</option>
+                        </select>
+                        <p id="communeError" class="mt-1 text-sm text-red-600 hidden"></p>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="birthdate" class="block text-sm font-medium text-gray-700 mb-2">Date de naissance</label>
+                        <input type="date" id="birthdate" name="birthdate" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                        <p id="birthdateError" class="mt-1 text-sm text-red-600 hidden"></p>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="instagram" class="block text-sm font-medium text-gray-700 mb-2">Instagram (optionnel)</label>
+                        <div class="relative rounded-md">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fab fa-instagram text-gray-400"></i>
+                            </div>
+                            <input type="text" id="instagram" name="instagram" placeholder="nom_utilisateur" class="w-full pl-10 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <p id="instagramError" class="mt-1 text-sm text-red-600 hidden"></p>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="gender" class="block text-sm font-medium text-gray-700 mb-2">Genre</label>
+                        <select id="gender" name="gender" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                            <option value="">Sélectionner</option>
+                            <option value="Masculin">Masculin</option>
+                            <option value="Féminin">Féminin</option>
+                            <option value="Autre">Autre</option>
+                        </select>
+                        <p id="genderError" class="mt-1 text-sm text-red-600 hidden"></p>
+                    </div>
 
-    <!-- Firebase & AOS -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-storage.js"></script>
+                    <div class="mb-4">
+                        <label for="academicYear" class="block text-sm font-medium text-gray-700 mb-2">Année académique</label>
+                        <select id="academicYear" name="academicYear" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                            <option value="">Sélectionner</option>
+                            <option value="2023-2024">2023-2024</option>
+                            <option value="2024-2025">2024-2025</option>
+                        </select>
+                        <p id="academicYearError" class="mt-1 text-sm text-red-600 hidden"></p>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="phoneNumber" class="block text-sm font-medium text-gray-700 mb-2">Téléphone</label>
+                        <div class="relative rounded-md">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fas fa-phone text-gray-400"></i>
+                            </div>
+                            <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="+213 or 0..." class="w-full pl-10 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <p id="phoneNumberError" class="mt-1 text-sm text-red-600 hidden"></p>
+                    </div>
+                    
+                    <div class="flex justify-end">
+                        <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                            Enregistrer
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init();
-    </script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Profile completion button click handler
+            document.getElementById('completeProfileBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                const modal = document.getElementById('profileModal');
+                const modalContent = document.getElementById('modalContent');
+                
+                // Show modal
+                modal.classList.remove('hidden');
+                
+                // Animate content after a small delay
+                setTimeout(() => {
+                    modalContent.classList.add('scale-100', 'opacity-100');
+                    modalContent.classList.remove('scale-95', 'opacity-0');
+                }, 50);
+            });
 
+            // Close modal button click handler
+            document.getElementById('closeModalBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                const modal = document.getElementById('profileModal');
+                const modalContent = document.getElementById('modalContent');
+                
+                // Animate content out
+                modalContent.classList.remove('scale-100', 'opacity-100');
+                modalContent.classList.add('scale-95', 'opacity-0');
+                
+                // Hide modal after animation completes
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                }, 300);
+            });
+
+            // Avatar upload click handler
+            document.getElementById('avatarOverlay').addEventListener('click', function() {
+                document.getElementById('avatarUpload').click();
+            });
+
+            // Avatar upload change handler
+            document.getElementById('avatarUpload').addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        document.getElementById('userAvatar').src = event.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            // Form submission handler
+            document.getElementById('profileCompletionForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                console.log("Form submitted - validation will happen in the module script");
+                // The actual validation and data update happens in the module script
+            });
+        });
+    </script>
     <script type="module">
-        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js';
-        import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js';
-        import { getFirestore, doc, getDoc } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
-        import { getStorage } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js';
+    // Replace the entire script type="module" section 
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js';
+    import { getAuth, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js';
+    import { getFirestore, doc, getDoc, updateDoc } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
+    import { getStorage, ref, uploadBytes, getDownloadURL } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js';
+    
+    // Firebase configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyB5XYqWKhHdiVDXJx4iOwtpxD8eUCPRfKU",
+        authDomain: "universite-de-bejaia-547fc.firebaseapp.com",
+        projectId: "universite-de-bejaia-547fc",
+        storageBucket: "universite-de-bejaia-547fc.firebasestorage.app",
+        messagingSenderId: "517622731583", 
+        appId: "1:517622731583:web:25453d5e01226585bf798a",
+        measurementId: "G-SQ0WWSCS7B"
+    };
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyB5XYqWKhHdiVDXJx4iOwtpxD8eUCPRfKU",
-            authDomain: "universite-de-bejaia-547fc.firebaseapp.com",
-            projectId: "universite-de-bejaia-547fc",
-            storageBucket: "universite-de-bejaia-547fc.firebasestorage.app",
-            messagingSenderId: "517622731583",
-            appId: "1:517622731583:web:25453d5e01226585bf798a",
-            measurementId: "G-SQ0WWSCS7B"
+    // Initialize Firebase services
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    const storage = getStorage(app);
+
+    // Commune data
+    const communesByWilaya = {
+        "bejaia": ["Béjaïa", "Tazmalt", "Akbou", "Sidi-Aïch", "Aokas", "Tichy", "Souk El Ténine", "Amizour", "El Kseur", "Barbacha", "Kherrata", "Oued Ghir", "Boudjellil", "Ifri Ouzellaguen", "Seddouk"],
+        "alger": ["Alger Centre", "Bab El Oued", "Bir Mourad Raïs", "Hussein Dey", "Hydra", "Kouba"],
+        "tizi-ouzou": ["Tizi-Ouzou", "Azazga", "Tigzirt", "Draâ Ben Khedda", "Aïn El Hammam", "Boghni"],
+        "setif": ["Sétif", "El Eulma", "Aïn El Kebira", "Bougaa", "Aïn Oulmene", "Djemila"],
+        "autre": ["Autre"]
+    };
+
+    // Profile completion percentage calculation (modified to remove interests)
+    function calculateProfileCompletion(userData) {
+        const requiredFields = ['fullName', 'email', 'matricule', 'speciality', 'phoneNumber'];
+        const optionalFields = ['wilaya', 'commune', 'birthdate', 'instagram', 'gender', 'academicYear'];
+        
+        let completedRequired = 0;
+        requiredFields.forEach(field => {
+            if (userData[field]) completedRequired++;
+        });
+        
+        let completedOptional = 0;
+        optionalFields.forEach(field => {
+            if (userData[field]) completedOptional++;
+        });
+        
+        const requiredPercentage = (completedRequired / requiredFields.length) * 70;
+        const optionalPercentage = (completedOptional / optionalFields.length) * 30;
+        
+        return Math.round(requiredPercentage + optionalPercentage);
+    }
+
+    // Loading states
+    function showLoadingState() {
+        document.querySelectorAll('.info-value').forEach(el => {
+            el.classList.add('skeleton');
+            el.style.height = '20px';
+            el.style.width = '150px';
+            el.textContent = '';
+        });
+        
+        // Hide the buttons and badges during loading
+        if (document.getElementById('profileCompletionBadge')) {
+            document.getElementById('profileCompletionBadge').classList.add('hidden');
+        }
+        
+        if (document.getElementById('completeProfileBtn')) {
+            document.getElementById('completeProfileBtn').classList.add('hidden');
+        }
+    }
+
+    function hideLoadingState() {
+        document.querySelectorAll('.info-value').forEach(el => {
+            el.classList.remove('skeleton');
+            el.style.height = '';
+            el.style.width = '';
+        });
+        
+        // Show the buttons and badges after loading
+        if (document.getElementById('profileCompletionBadge')) {
+            document.getElementById('profileCompletionBadge').classList.remove('hidden');
+        }
+        
+        if (document.getElementById('completeProfileBtn')) {
+            document.getElementById('completeProfileBtn').classList.remove('hidden');
+        }
+    }
+
+    // Update UI with user data (modified to remove interests)
+    function updateUIWithUserData(userData) {
+        console.log("Updating UI with user data:", userData);
+        hideLoadingState();
+        
+        if (!userData) {
+            console.error("No user data provided to updateUIWithUserData");
+            return;
+        }
+        
+        // Update name and basic info
+        if (userData.fullName) {
+            document.getElementById('profileName').textContent = userData.fullName;
+            console.log("Set profile name to:", userData.fullName);
+        } else {
+            document.getElementById('profileName').textContent = 'N/A';
+        }
+        
+        // Email
+        if (userData.email) {
+            document.getElementById('profileEmail').textContent = userData.email;
+        } else {
+            document.getElementById('profileEmail').textContent = 'N/A';
+        }
+        
+        // Matricule
+        if (userData.matricule) {
+            document.getElementById('studentId').textContent = userData.matricule;
+        } else {
+            document.getElementById('studentId').textContent = 'N/A';
+        }
+        
+        // Speciality
+        let specialityText = userData.speciality || 'N/A';
+        if (userData.speciality && userData.year) {
+            specialityText += ` - ${userData.year}ème année`;
+        }
+        document.getElementById('studentSpeciality').textContent = specialityText;
+        
+        // Other fields
+        document.getElementById('phoneNumber').textContent = userData.phoneNumber || 'N/A';
+        document.getElementById('academicYear').textContent = userData.academicYear || 'N/A';
+        document.getElementById('gender').textContent = userData.gender || 'N/A';
+
+        // Residence info
+        if (userData.wilaya && userData.commune) {
+            document.getElementById('residenceInfo').classList.remove('hidden');
+            document.getElementById('residenceValue').textContent = `${userData.commune}, ${userData.wilaya}`;
+        } else {
+            document.getElementById('residenceInfo').classList.add('hidden');
+        }
+
+        // Avatar
+        if (userData.avatarURL) {
+            document.getElementById('userAvatar').src = userData.avatarURL;
+        } else {
+            document.getElementById('userAvatar').src = 'assets/img/default-avatar.png';
+        }
+
+        // Update profile completion badge and button
+        const completion = calculateProfileCompletion(userData);
+        const badge = document.getElementById('profileCompletionBadge');
+        const completeBtn = document.getElementById('completeProfileBtn');
+        
+        badge.classList.remove('hidden', 'bg-red-100', 'text-red-800', 'bg-yellow-100', 'text-yellow-800', 'bg-green-100', 'text-green-800');
+        
+        if (completion < 70) {
+            badge.textContent = `Profil ${completion}% complet`;
+            badge.classList.add('bg-red-100', 'text-red-800');
+            completeBtn.innerHTML = '<i class="fas fa-user-edit"></i> Finaliser le profil';
+        } else if (completion < 100) {
+            badge.textContent = `Profil ${completion}% complet`;
+            badge.classList.add('bg-yellow-100', 'text-yellow-800');
+            completeBtn.innerHTML = '<i class="fas fa-user-edit"></i> Finaliser le profil';
+        } else {
+            badge.textContent = `Profil complet`;
+            badge.classList.add('bg-green-100', 'text-green-800');
+            completeBtn.innerHTML = '<i class="fas fa-user-edit"></i> Modifier le profil';
+        }
+        
+        console.log("UI update completed");
+    }
+
+    // Handle wilaya and commune selection
+    document.getElementById('wilaya').addEventListener('change', function() {
+        const wilayaValue = this.value;
+        const communeSelect = document.getElementById('commune');
+        
+        // Clear current options
+        communeSelect.innerHTML = '';
+        
+        if (wilayaValue) {
+            communeSelect.removeAttribute('disabled');
+            
+            // Add default option
+            const defaultOption = document.createElement('option');
+            defaultOption.value = '';
+            defaultOption.textContent = 'Sélectionner une commune';
+            communeSelect.appendChild(defaultOption);
+            
+            // Add communes for selected wilaya
+            const communes = communesByWilaya[wilayaValue] || [];
+            communes.forEach(commune => {
+                const option = document.createElement('option');
+                option.value = commune.toLowerCase().replace(/ /g, '-');
+                option.textContent = commune;
+                communeSelect.appendChild(option);
+            });
+        } else {
+            communeSelect.setAttribute('disabled', 'disabled');
+            const option = document.createElement('option');
+            option.value = '';
+            option.textContent = 'Sélectionner d\'abord une wilaya';
+            communeSelect.appendChild(option);
+        }
+    });
+
+    // Avatar upload handling
+    document.getElementById('avatarOverlay').addEventListener('click', () => {
+        document.getElementById('avatarUpload').click();
+    });
+
+    document.getElementById('avatarUpload').addEventListener('change', async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        
+        // Validate file type and size
+        const validTypes = ['image/jpeg', 'image/png', 'image/gif'];
+        if (!validTypes.includes(file.type)) {
+            alert('Veuillez sélectionner une image (JPEG, PNG ou GIF)');
+            return;
+        }
+        
+        if (file.size > 2 * 1024 * 1024) {
+            alert('L\'image ne doit pas dépasser 2 MB');
+            return;
+        }
+        
+        // Preview image
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            document.getElementById('userAvatar').src = event.target.result;
         };
-
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-
-        // Loading states
-        function showLoadingState() {
-            document.querySelectorAll('.info-value').forEach(el => {
-                el.classList.add('skeleton');
-                el.style.height = '20px';
-                el.style.width = '150px';
-                el.textContent = '';
-            });
+        reader.readAsDataURL(file);
+        
+        // Upload to Firebase Storage
+        try {
+            const user = auth.currentUser;
+            if (user) {
+                const storageRef = ref(storage, `avatars/${user.uid}`);
+                await uploadBytes(storageRef, file);
+                const downloadURL = await getDownloadURL(storageRef);
+                
+                // Update user profile with new avatar URL
+                const userRef = doc(db, 'users', user.uid);
+                await updateDoc(userRef, {
+                    avatarURL: downloadURL
+                });
+                
+                console.log('Avatar updated successfully');
+            }
+        } catch (error) {
+            console.error('Error uploading avatar:', error);
+            alert('Erreur lors du téléchargement de l\'image');
         }
+    });
 
-        function hideLoadingState() {
-            document.querySelectorAll('.info-value').forEach(el => {
-                el.classList.remove('skeleton');
-                el.style.height = '';
-                el.style.width = '';
-            });
+    // Form validation for Profile Completion (modified to remove interests)
+    document.getElementById('profileCompletionForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        let isValid = true;
+        const wilaya = document.getElementById('wilaya').value;
+        const commune = document.getElementById('commune').value;
+        const birthdate = document.getElementById('birthdate').value;
+        const instagram = document.getElementById('instagram').value;
+        const gender = document.getElementById('gender').value;
+        const academicYear = document.getElementById('academicYear').value;
+        const phoneNumber = document.getElementById('phoneNumber').value;
+        
+        // Validate wilaya and commune
+        if (!wilaya) {
+            document.getElementById('wilayaError').textContent = 'Veuillez sélectionner une wilaya';
+            document.getElementById('wilayaError').classList.remove('hidden');
+            isValid = false;
+        } else {
+            document.getElementById('wilayaError').classList.add('hidden');
         }
-
-        // Update UI with user data
-        function updateUIWithUserData(userData) {
-            document.getElementById('profileName').textContent = userData.fullName || 'N/A';
-            document.getElementById('profileEmail').textContent = userData.email || 'N/A';
-            document.getElementById('studentId').textContent = userData.matricule || 'N/A';
-            document.getElementById('studentSpeciality').textContent = userData.speciality || 'N/A';
-            document.getElementById('phoneNumber').textContent = userData.phoneNumber || 'N/A';
-
-            // Handle verification status
-            const verifiedCheckmark = document.getElementById('verifiedCheckmark');
-            if (userData.verified) {
-                verifiedCheckmark.classList.remove('hidden');
-                verifiedCheckmark.classList.add('inline-flex');
+        
+        if (!commune) {
+            document.getElementById('communeError').textContent = 'Veuillez sélectionner une commune';
+            document.getElementById('communeError').classList.remove('hidden');
+            isValid = false;
+        } else {
+            document.getElementById('communeError').classList.add('hidden');
+        }
+        
+        // Validate birthdate
+        if (!birthdate) {
+            document.getElementById('birthdateError').textContent = 'Veuillez entrer votre date de naissance';
+            document.getElementById('birthdateError').classList.remove('hidden');
+            isValid = false;
+        } else {
+            const date = new Date(birthdate);
+            const minDate = new Date('2000-01-01');
+            const maxDate = new Date('2009-12-31');
+            
+            if (date < minDate || date > maxDate) {
+                document.getElementById('birthdateError').textContent = 'La date doit être entre 2000 et 2009';
+                document.getElementById('birthdateError').classList.remove('hidden');
+                isValid = false;
             } else {
-                verifiedCheckmark.classList.add('hidden');
-                verifiedCheckmark.classList.remove('inline-flex');
+                document.getElementById('birthdateError').classList.add('hidden');
             }
         }
+        
+        // Validate Instagram if provided
+        if (instagram) {
+            const regex = /^[a-zA-Z0-9_.]{1,30}$/;
+            if (!regex.test(instagram)) {
+                document.getElementById('instagramError').textContent = 'Format de nom d\'utilisateur Instagram invalide';
+                document.getElementById('instagramError').classList.remove('hidden');
+                isValid = false;
+            } else {
+                document.getElementById('instagramError').classList.add('hidden');
+            }
+        } else {
+            document.getElementById('instagramError').classList.add('hidden');
+        }
 
-        // Initialize page
-        async function initializePage() {
-            showLoadingState();
+        // Validate gender
+        if (!gender) {
+            document.getElementById('genderError').textContent = 'Veuillez sélectionner votre genre';
+            document.getElementById('genderError').classList.remove('hidden');
+            isValid = false;
+        } else {
+            document.getElementById('genderError').classList.add('hidden');
+        }
 
-            onAuthStateChanged(auth, async (user) => {
-                if (!user) {
-                    window.location.href = 'auth.html';
-                    return;
-                }
+        // Validate academic year
+        if (!academicYear) {
+            document.getElementById('academicYearError').textContent = 'Veuillez sélectionner une année académique';
+            document.getElementById('academicYearError').classList.remove('hidden');
+            isValid = false;
+        } else {
+            document.getElementById('academicYearError').classList.add('hidden');
+        }
 
-                try {
+        // Validate phone number
+        if (phoneNumber) {
+            const phoneRegex = /^(\+213|0)[567][0-9]{8}$/;
+            if (!phoneRegex.test(phoneNumber)) {
+                document.getElementById('phoneNumberError').textContent = 'Format de numéro de téléphone invalide';
+                document.getElementById('phoneNumberError').classList.remove('hidden');
+                isValid = false;
+            } else {
+                document.getElementById('phoneNumberError').classList.add('hidden');
+            }
+        }
+        
+        // If all validations pass, update profile
+        if (isValid) {
+            try {
+                const user = auth.currentUser;
+                if (user) {
                     const userRef = doc(db, 'users', user.uid);
-                    const userSnap = await getDoc(userRef);
-
-                    if (userSnap.exists()) {
-                        const userData = userSnap.data();
-                        localStorage.setItem('userData', JSON.stringify(userData));
-                        updateUIWithUserData(userData);
-                    } else {
-                        console.error('No user data found');
+                    
+                    // Prepare user data update (removed interests)
+                    const updateData = {
+                        wilaya: wilaya,
+                        commune: commune,
+                        birthdate: birthdate,
+                        gender: gender,
+                        academicYear: academicYear
+                    };
+                    
+                    if (instagram) {
+                        updateData.instagram = instagram;
                     }
-                } catch (error) {
-                    console.error('Error fetching user data:', error);
-                } finally {
-                    hideLoadingState();
+
+                    if (phoneNumber) {
+                        updateData.phoneNumber = phoneNumber;
+                    }
+                    
+                    // Update in Firestore
+                    await updateDoc(userRef, updateData);
+                    
+                    // Close modal and refresh data
+                    const modal = document.getElementById('profileModal');
+                    const modalContent = document.getElementById('modalContent');
+                    
+                    // Animate content out
+                    modalContent.classList.remove('scale-100', 'opacity-100');
+                    modalContent.classList.add('scale-95', 'opacity-0');
+                    
+                    // Hide modal after animation completes
+                    setTimeout(() => {
+                        modal.classList.add('hidden');
+                    }, 300);
+
+                    // Fetch updated user data
+                    const updatedUserSnap = await getDoc(userRef);
+                    if (updatedUserSnap.exists()) {
+                        const updatedUserData = updatedUserSnap.data();
+                        updateUIWithUserData(updatedUserData);
+                    }
+                    
+                    alert('Profil mis à jour avec succès!');
+                }
+            } catch (error) {
+                console.error('Error updating profile:', error);
+                alert('Une erreur est survenue lors de la mise à jour du profil');
+            }
+        }
+    });
+
+    // Initialize page
+    async function initializePage() {
+        console.log("Starting page initialization...");
+        showLoadingState();
+
+        try {
+            // Check if user is authenticated
+            const user = auth.currentUser;
+            
+            if (!user) {
+                console.error("No authenticated user found, redirecting to login page");
+                window.location.href = 'auth.html';
+                return;
+            }
+
+            console.log("User authenticated:", user.uid);
+            
+            // Get user document from Firestore
+            const userRef = doc(db, 'users', user.uid);
+            console.log("Fetching document from:", userRef.path);
+            
+            const userSnap = await getDoc(userRef);
+            
+            if (userSnap.exists()) {
+                const userData = userSnap.data();
+                console.log("User data fetched successfully:", userData);
+                
+                // Update UI with fetched data
+                updateUIWithUserData(userData);
+                
+                // Populate form fields for the modal
+                populateFormFields(userData);
+            } else {
+                console.error("No user document found in Firestore for ID:", user.uid);
+                alert("Erreur: Impossible de trouver votre profil. Veuillez vous reconnecter.");
+            }
+        } catch (error) {
+            console.error('Error fetching user data:', error);
+            alert("Une erreur est survenue lors du chargement de votre profil");
+        } finally {
+            hideLoadingState();
+        }
+    }
+
+    // Helper function to populate form fields
+    function populateFormFields(userData) {
+        // Only proceed if elements exist
+        if (!document.getElementById('wilaya')) {
+            console.log("Form elements not found - form might not be loaded yet");
+            return;
+        }
+
+        console.log("Populating form fields with:", userData);
+        
+        // Set wilaya and trigger change event to populate communes
+        if (userData.wilaya) {
+            document.getElementById('wilaya').value = userData.wilaya;
+            const event = new Event('change');
+            document.getElementById('wilaya').dispatchEvent(event);
+            
+            // Set commune value after communes are populated
+            if (userData.commune) {
+                setTimeout(() => {
+                    try {
+                        const communeSelect = document.getElementById('commune');
+                        const communeValue = userData.commune.toLowerCase().replace(/ /g, '-');
+                        
+                        // Check if option exists before setting
+                        const optionExists = Array.from(communeSelect.options).some(option => option.value === communeValue);
+                        if (optionExists) {
+                            communeSelect.value = communeValue;
+                        } else {
+                            console.warn(`Commune option ${communeValue} not found in select`);
+                        }
+                    } catch (e) {
+                        console.error("Error setting commune value:", e);
+                    }
+                }, 300); // Increased timeout to ensure options are loaded
+            }
+        }
+        
+        // Set other form fields
+        if (userData.birthdate) document.getElementById('birthdate').value = userData.birthdate;
+        if (userData.instagram) document.getElementById('instagram').value = userData.instagram;
+        if (userData.gender) document.getElementById('gender').value = userData.gender;
+        if (userData.academicYear) document.getElementById('academicYear').value = userData.academicYear;
+        if (userData.phoneNumber) document.getElementById('phoneNumber').value = userData.phoneNumber;
+    }
+
+    // Handle logout with better error handling
+    document.getElementById('logoutButton').addEventListener('click', async () => {
+        console.log("Logout button clicked");
+        try {
+            // Sign out from Firebase
+            await signOut(auth);
+            console.log("User signed out successfully");
+            
+            // Clear any local storage data
+            localStorage.removeItem('userData');
+            localStorage.removeItem('token');
+            localStorage.removeItem('userId');
+            
+            // Redirect to auth page
+            window.location.href = 'auth.html';
+        } catch (error) {
+            console.error('Error during logout:', error);
+            alert('Une erreur est survenue lors de la déconnexion. Veuillez réessayer.');
+        }
+    });
+
+    // Ensure DOM is ready before trying to access elements
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log("DOM content loaded, checking Firebase initialization...");
+        
+        // Add safe event listener function that checks if element exists
+        function addSafeEventListener(selector, eventType, callback) {
+            const element = document.getElementById(selector);
+            if (element) {
+                element.addEventListener(eventType, callback);
+            } else {
+                console.warn(`Element with ID '${selector}' not found in the DOM`);
+            }
+        }
+        
+        // Profile completion button
+        addSafeEventListener('completeProfileBtn', 'click', function(e) {
+            e.preventDefault();
+            const modal = document.getElementById('profileModal');
+            const modalContent = document.getElementById('modalContent');
+            
+            if (modal && modalContent) {
+                // Show modal
+                modal.classList.remove('hidden');
+                
+                // Animate content after a small delay
+                setTimeout(() => {
+                    modalContent.classList.add('scale-100', 'opacity-100');
+                    modalContent.classList.remove('scale-95', 'opacity-0');
+                }, 50);
+            }
+        });
+
+        // Close modal button
+        addSafeEventListener('closeModalBtn', 'click', function(e) {
+            e.preventDefault();
+            const modal = document.getElementById('profileModal');
+            const modalContent = document.getElementById('modalContent');
+            
+            if (modal && modalContent) {
+                // Animate content out
+                modalContent.classList.remove('scale-100', 'opacity-100');
+                modalContent.classList.add('scale-95', 'opacity-0');
+                
+                // Hide modal after animation completes
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                }, 300);
+            }
+        });
+
+        // Avatar upload click handler
+        addSafeEventListener('avatarOverlay', 'click', function() {
+            const avatarUpload = document.getElementById('avatarUpload');
+            if (avatarUpload) {
+                avatarUpload.click();
+            }
+        });
+
+        // Avatar upload change handler
+        addSafeEventListener('avatarUpload', 'change', function(e) {
+            const userAvatar = document.getElementById('userAvatar');
+            if (userAvatar) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        userAvatar.src = event.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            }
+        });
+
+        // Form submission handler 
+        addSafeEventListener('profileCompletionForm', 'submit', function(e) {
+            e.preventDefault();
+            console.log("Form submitted - validation will happen in the module script");
+        });
+    });
+
+    // Add this at the end of your script to ensure immediate auth check
+
+    // Check authentication status immediately when the page loads
+    document.addEventListener('DOMContentLoaded', () => {
+        // Check if we need to wait for Firebase to initialize
+        if (auth) {
+            // Firebase is already initialized, check auth state
+            onAuthStateChanged(auth, (user) => {
+                if (user) {
+                    // User is signed in, initialize the page
+                    initializePage();
+                } else {
+                    // No user is signed in, redirect to auth
+                    console.log("No user is signed in, redirecting to auth.html");
+                    window.location.href = 'auth.html';
                 }
             });
+        } else {
+            console.log("Firebase Auth not yet initialized");
+            // Could add a retry mechanism here if needed
         }
+    });
 
-        // Initialize AOS
-        AOS.init({
-            duration: 800,
-            once: true,
-            offset: 100
-        });
+    // Update the form submission handler to ensure data is saved to Firestore
 
-        // Start initialization when DOM is ready
-        document.addEventListener('DOMContentLoaded', initializePage);
-
-        // Handle logout
-        document.getElementById('logoutButton').addEventListener('click', () => {
+    // Form submission handler for profile completion
+    document.getElementById('profileCompletionForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        console.log("Profile completion form submitted");
+        
+        // Get form values
+        const wilaya = document.getElementById('wilaya').value;
+        const commune = document.getElementById('commune').value;
+        const birthdate = document.getElementById('birthdate').value;
+        const instagram = document.getElementById('instagram').value;
+        const gender = document.getElementById('gender').value;
+        const academicYear = document.getElementById('academicYear').value;
+        const phoneNumber = document.getElementById('phoneNumber').value;
+        
+        // Validation (existing code)...
+        
+        // If valid, save to Firestore
+        if (isValid) {
             try {
-                auth.signOut();
-                localStorage.clear();
-                window.location.href = 'auth.html';
+                const user = auth.currentUser;
+                if (!user) {
+                    throw new Error("No authenticated user found");
+                }
+                
+                const userRef = doc(db, 'users', user.uid);
+                console.log("Updating user document:", userRef.path);
+                
+                // Prepare data for update
+                const updateData = {
+                    wilaya: wilaya,
+                    commune: commune,
+                    birthdate: birthdate,
+                    gender: gender,
+                    academicYear: academicYear
+                };
+                
+                if (instagram) updateData.instagram = instagram;
+                if (phoneNumber) updateData.phoneNumber = phoneNumber;
+                
+                // Update in Firestore
+                await updateDoc(userRef, updateData);
+                console.log("User profile updated in Firestore:", updateData);
+                
+                // Close modal and refresh data
+                const modal = document.getElementById('profileModal');
+                modal.classList.add('hidden');
+                
+                // Refresh user data from Firestore
+                const updatedSnap = await getDoc(userRef);
+                if (updatedSnap.exists()) {
+                    updateUIWithUserData(updatedSnap.data());
+                }
+                
+                // Show success message
+                alert("Profil mis à jour avec succès!");
             } catch (error) {
-                console.error('Logout error:', error);
-                alert('Une erreur est survenue lors de la déconnexion');
+                console.error('Error updating profile:', error);
+                alert("Une erreur est survenue lors de la mise à jour du profil");
             }
-        });
-    </script>
+        }
+    });
+
+    // Replace the auth check code at the bottom of the script
+
+    // Wait for both DOM and Firebase to be ready before initializing
+    function initWhenReady() {
+        // Check if both DOM is ready and Firebase Auth is available
+        if (document.readyState === 'complete' && typeof auth !== 'undefined') {
+            console.log("Both DOM and Firebase Auth are ready, checking authentication");
+            
+            // Check authentication state
+            onAuthStateChanged(auth, (user) => {
+                if (user) {
+                    console.log("User is authenticated:", user.uid);
+                    initializePage();
+                } else {
+                    console.log("No authenticated user, redirecting to auth.html");
+                    window.location.href = 'auth.html';
+                }
+            });
+        } else {
+            // Try again in a moment
+            setTimeout(initWhenReady, 100);
+        }
+    }
+
+    // Start the initialization process
+    initWhenReady();
+
+    // Remove duplicate event listeners and initialization code
+    // Remove these sections:
+    // - The duplicate DOMContentLoaded event listener that calls checkFirebaseAuth
+    // - The duplicate form submission handler
+</script>
 </body>
 </html>

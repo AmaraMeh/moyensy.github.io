@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Utilisateur</title>
+    <link rel="icon" type="image/x-icon" href="../assets/img/favicon.ico">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/floating-menu.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+</head>
+<body class="flex flex-col min-h-screen bg-gray-50">
+    <header class="mb-12 mt-8">
+        <div class="header-container flex justify-center items-center px-4 py-6">
+            <img src="../assets/img/logo.png" alt="Logo" class="max-w-[150px]">
+        </div>
+    </header>
+
+    <main class="flex-grow container mx-auto px-4 pb-12">
+        <div class="max-w-3xl mx-auto bg-white rounded-lg shadow-md overflow-hidden">
+            <div class="profile-header bg-gray-100 p-6 flex flex-col md:flex-row items-center gap-6">
+                <div class="avatar-container relative">
+                    <div class="w-32 h-32 rounded-full bg-gray-200 overflow-hidden flex items-center justify-center border-4 border-blue-500">
+                        <img id="userAvatar" src="../assets/img/default-avatar.png" alt="Photo de profil" class="w-full h-full object-cover">
+                        <div id="avatarOverlay" class="absolute inset-0 bg-black bg-opacity-40 opacity-0 hover:opacity-100 transition-opacity flex items-center justify-center cursor-pointer">
+                            <i class="fas fa-camera text-white text-2xl"></i>
+                        </div>
+                    </div>
+                    <input type="file" id="avatarUpload" accept="image/*" class="hidden">
+                </div>
+                <div>
+                    <h1 class="text-2xl md:text-3xl font-bold text-gray-800">
+                        <span id="profileName" class="info-value">Nom Utilisateur</span>
+                        <span id="verifiedCheckmark" class="verified-checkmark">
+                            <i class="fas fa-check-circle"></i>
+                        </span>
+                    </h1>
+                    <p class="text-gray-600"><span id="studentSpeciality" class="info-value">Spécialité</span></p>
+                    <div class="flex flex-wrap items-center gap-3 mt-2">
+                        <span id="profileCompletionBadge" class="px-3 py-1 text-xs rounded-full bg-blue-100 text-blue-800">Profil à 80% complet</span>
+                        <button id="completeProfileBtn" class="px-4 py-2 bg-blue-600 text-white rounded text-sm hover:bg-blue-700 transition-colors">
+                            Finaliser le profil
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="info-group">
+                        <h3 class="text-sm uppercase text-gray-500 font-medium mb-2">Matricule</h3>
+                        <p id="studentId" class="info-value text-gray-800">ISCOM2023-12345</p>
+                    </div>
+                    <div class="info-group">
+                        <h3 class="text-sm uppercase text-gray-500 font-medium mb-2">Email</h3>
+                        <p id="profileEmail" class="info-value text-gray-800">utilisateur@example.com</p>
+                    </div>
+                    <div class="info-group">
+                        <h3 class="text-sm uppercase text-gray-500 font-medium mb-2">Téléphone</h3>
+                        <p id="phoneNumber" class="info-value text-gray-800">+213 666 123 456</p>
+                    </div>
+                    <div class="info-group">
+                        <h3 class="text-sm uppercase text-gray-500 font-medium mb-2">Résidence</h3>
+                        <p id="residenceValue" class="info-value text-gray-800">Aokas, Béjaïa</p>
+                    </div>
+                    <div class="info-group">
+                        <h3 class="text-sm uppercase text-gray-500 font-medium mb-2">Année académique</h3>
+                        <p id="academicYear" class="info-value text-gray-800">2023-2024</p>
+                    </div>
+                    <div class="info-group">
+                        <h3 class="text-sm uppercase text-gray-500 font-medium mb-2">Genre</h3>
+                        <p id="gender" class="info-value text-gray-800">Masculin</p>
+                    </div>
+                </div>
+                <div class="mt-8 flex justify-end">
+                    <button id="logoutButton" class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition-colors flex items-center gap-2">
+                        <i class="fas fa-sign-out-alt"></i> Déconnexion
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="profileModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg max-w-md w-full max-h-[90vh] overflow-y-auto">
+            <div class="p-6 border-b">
+                <div class="flex justify-between items-center">
+                    <h2 class="text-xl font-bold text-gray-800">Finaliser votre profil</h2>
+                    <button id="closeModalBtn" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="p-6">
+                <form id="profileCompletionForm">
+                    <div class="mb-4">
+                        <label for="wilaya" class="block text-sm font-medium text-gray-700 mb-1">Wilaya *</label>
+                        <select id="wilaya" name="wilaya" class="w-full p-2 border rounded" required>
+                            <option value="">Sélectionner une wilaya</option>
+                            <option value="bejaia">Béjaïa</option>
+                            <option value="alger">Alger</option>
+                            <option value="tizi-ouzou">Tizi Ouzou</option>
+                            <option value="setif">Sétif</option>
+                            <option value="autre">Autre</option>
+                        </select>
+                        <p id="wilayaError" class="text-red-500 text-xs mt-1 hidden"></p>
+                    </div>
+                    <div class="mb-4">
+                        <label for="commune" class="block text-sm font-medium text-gray-700 mb-1">Commune *</label>
+                        <select id="commune" name="commune" class="w-full p-2 border rounded" disabled required>
+                            <option value="">Sélectionner d'abord une wilaya</option>
+                        </select>
+                        <p id="communeError" class="text-red-500 text-xs mt-1 hidden"></p>
+                    </div>
+                    <div class="mb-4">
+                        <label for="birthdate" class="block text-sm font-medium text-gray-700 mb-1">Date de naissance *</label>
+                        <input type="date" id="birthdate" name="birthdate" min="2000-01-01" max="2009-12-31" class="w-full p-2 border rounded" required>
+                        <p id="birthdateError" class="text-red-500 text-xs mt-1 hidden"></p>
+                    </div>
+                    <div class="mb-4">
+                        <label for="instagram" class="block text-sm font-medium text-gray-700 mb-1">Instagram</label>
+                        <div class="flex">
+                            <span class="inline-flex items-center px-3 border border-r-0 rounded-l bg-gray-50 text-gray-500 text-sm">
+                                instagram.com/
+                            </span>
+                            <input type="text" id="instagram" name="instagram" placeholder="username" pattern="^[a-zA-Z0-9_.]{1,30}$" class="w-full p-2 border rounded-r">
+                        </div>
+                        <p id="instagramError" class="text-red-500 text-xs mt-1 hidden"></p>
+                    </div>
+                    <div class="mb-4">
+                        <label for="gender" class="block text-sm font-medium text-gray-700 mb-1">Genre *</label>
+                        <select id="gender" name="gender" class="w-full p-2 border rounded" required>
+                            <option value="">Sélectionner un genre</option>
+                            <option value="male">Masculin</option>
+                            <option value="female">Féminin</option>
+                            <option value="other">Autre</option>
+                        </select>
+                        <p id="genderError" class="text-red-500 text-xs mt-1 hidden"></p>
+                    </div>
+                    <div class="mb-4">
+                        <label for="academicYear" class="block text-sm font-medium text-gray-700 mb-1">Année académique *</label>
+                        <select id="academicYear" name="academicYear" class="w-full p-2 border rounded" required>
+                            <option value="">Sélectionner une année</option>
+                            <option value="2023-2024">2023-2024</option>
+                            <option value="2024-2025">2024-2025</option>
+                        </select>
+                        <p id="academicYearError" class="text-red-500 text-xs mt-1 hidden"></p>
+                    </div>
+                    <div class="mt-6">
+                        <button type="submit" id="saveProfileBtn" class="w-full bg-blue-600 text-white rounded py-2 hover:bg-blue-700 transition-colors">
+                            Enregistrer
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="../assets/js/components/avatar-upload.js"></script>
+    <script src="../assets/js/components/profile-completion.js"></script>
+    <script src="../assets/js/components/form-validator.js"></script>
+    <script src="../assets/js/app.js"></script>
+</body>
+</html>
