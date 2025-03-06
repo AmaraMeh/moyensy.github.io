@@ -31,90 +31,181 @@
     <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico">
     <!-- <link rel="stylesheet" href="assets/css/floating-menu.css"> -->
     <style>
-        .verified-checkmark {
-            color: #3b82f6;
-            font-size: 1.25rem;
-            margin-left: 0.5rem;
-            display: inline-flex;
-            align-items: center;
-            vertical-align: middle;
-        }
+    /* Color scheme moved to blue-cyan from teal-green */
+    :root {
+        --primary-color: #0891b2; /* Cyan-600 */
+        --primary-dark: #0e7490; /* Cyan-700 */
+        --secondary-color: #3b82f6; /* Blue-500 */
+        --secondary-dark: #2563eb; /* Blue-600 */
+        --accent-color: #06b6d4; /* Cyan-500 */
+        --light-bg: #ecfeff; /* Cyan-50 */
+        --light-surface: rgba(236, 254, 255, 0.95); /* Cyan-50 with opacity */
+        --text-on-dark: #f0fdfa; /* Cyan-50 */
+        --text-on-light: #164e63; /* Cyan-900 */
+    }
 
-        .verified-checkmark i {
-            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-        }
+    body {
+        background: linear-gradient(135deg, #cffafe 0%, #67e8f9 100%); /* Cyan-100 to Cyan-300 */
+        font-family: 'Poppins', sans-serif;
+    }
 
-        @keyframes pulse {
-            0%, 100% {
-                opacity: 1;
-                transform: scale(1);
-            }
-            50% {
-                opacity: 0.8;
-                transform: scale(1.1);
-            }
-        }
+    .glass-card {
+        background: rgba(240, 253, 250, 0.85); /* Cyan-50 with opacity */
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(103, 232, 249, 0.3); /* Cyan-300 with opacity */
+        border-radius: 1rem;
+        box-shadow: 0 8px 32px rgba(6, 182, 212, 0.15); /* Cyan-500 shadow */
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
 
-        .profile-header h1 {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
+    .glass-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(6, 182, 212, 0.25); /* Enhanced Cyan-500 shadow on hover */
+    }
 
-        /* Simple skeleton loader styling */
-        .skeleton {
-            background-color: #e2e8f0;
-            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-            background-size: 200% 100%;
-            animation: shimmer 1.5s infinite;
-            border-radius: 4px;
-        }
-        
-        @keyframes shimmer {
-            0% { background-position: -200% 0; }
-            100% { background-position: 200% 0; }
-        }
+    .profile-header {
+        background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%) !important;
+        border-radius: 0.75rem 0.75rem 0 0;
+    }
 
-        .avatar-hint {
-            font-size: 0.75rem;
-            color: #6b7280;
-            margin-top: 0.5rem;
-            text-align: center;
-        }
+    .button-primary {
+        background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+        color: white;
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);
+    }
 
-        .info-group {
-            padding: 1rem;
-            border-radius: 0.5rem;
-            background-color: #f9fafb;
-            transition: all 0.3s ease;
-        }
+    .button-primary:hover {
+        background: linear-gradient(to right, var(--primary-dark), var(--secondary-dark));
+        transform: translateY(-3px) scale(1.02);
+        box-shadow: 0 8px 16px rgba(6, 182, 212, 0.4);
+    }
 
-        .info-group:hover {
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-        }
+    .button-danger {
+        background: linear-gradient(135deg, #f87171 0%, #ef4444 100%); /* Red-400 to Red-500 */
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+    }
 
-        #interestsContainer span {
-            transition: all 0.3s ease;
-        }
-        
-        #interestsContainer span:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        }
+    .button-danger:hover {
+        background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); /* Red-500 to Red-600 */
+        transform: translateY(-3px) scale(1.02);
+        box-shadow: 0 8px 16px rgba(239, 68, 68, 0.4);
+    }
 
-        /* Updated interest badges style */
-        #interestsContainer .interest-badge {
-            padding: 0.5rem 1rem;
-            border-radius: 9999px;
-            font-size: 0.75rem;
-            font-weight: 500;
-            background: linear-gradient(to right, #3b82f6, #6366f1);
-            color: white;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.25rem;
+    .info-group {
+        background: rgba(240, 253, 250, 0.8); /* Cyan-50 with opacity */
+        backdrop-filter: blur(8px);
+        border-radius: 0.75rem;
+        padding: 1.25rem;
+        border: 1px solid rgba(103, 232, 249, 0.2); /* Cyan-300 with opacity */
+        box-shadow: 0 4px 12px rgba(6, 182, 212, 0.1);
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .info-group:hover {
+        border-color: rgba(6, 182, 212, 0.4); /* Cyan-500 with opacity */
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(6, 182, 212, 0.15);
+    }
+
+    .info-group h3 {
+        color: var(--primary-color);
+        font-weight: 600;
+        letter-spacing: 0.05em;
+    }
+
+    #profileCompletionBadge {
+        backdrop-filter: blur(4px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    #profileCompletionBadge.bg-green-100 {
+        background-color: rgba(6, 182, 212, 0.25); /* Cyan-500 with opacity */
+        color: var(--text-on-light);
+    }
+
+    #completeProfileBtn {
+        background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+        color: white;
+        box-shadow: 0 4px 10px rgba(6, 182, 212, 0.25);
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    #completeProfileBtn:hover {
+        background: linear-gradient(to right, var(--primary-dark), var(--secondary-dark));
+        transform: translateY(-3px) scale(1.05);
+        box-shadow: 0 8px 15px rgba(6, 182, 212, 0.35);
+    }
+
+    /* For the modal */
+    #modalContent {
+        background: var(--light-surface);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(103, 232, 249, 0.3);
+        box-shadow: 0 25px 50px rgba(6, 182, 212, 0.25);
+    }
+
+    /* Enhanced animations */
+    @keyframes pulse {
+        0%, 100% {
+            opacity: 1;
+            transform: scale(1);
         }
-    </style>
+        50% {
+            opacity: 0.85;
+            transform: scale(1.15);
+        }
+    }
+
+    /* Better skeleton loader */
+    .skeleton {
+        background-color: rgba(103, 232, 249, 0.15);
+        background: linear-gradient(90deg, 
+            rgba(103, 232, 249, 0.15) 25%, 
+            rgba(6, 182, 212, 0.25) 50%, 
+            rgba(103, 232, 249, 0.15) 75%);
+        background-size: 200% 100%;
+        animation: shimmer 1.8s infinite;
+        border-radius: 4px;
+    }
+    
+    @keyframes shimmer {
+        0% { background-position: -200% 0; }
+        100% { background-position: 200% 0; }
+    }
+
+    /* Text shadow for better visibility on colored backgrounds */
+    .text-on-gradient {
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Better form inputs */
+    .form-input {
+        background: rgba(240, 253, 250, 0.9);
+        border: 1px solid rgba(6, 182, 212, 0.25);
+        transition: all 0.3s ease;
+    }
+    
+    .form-input:focus {
+        border-color: rgba(6, 182, 212, 0.7);
+        box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.2);
+        background: rgba(240, 253, 250, 1);
+    }
+
+    /* Radio button styles */
+    .radio-button-label {
+        background: rgba(240, 253, 250, 0.9);
+        border: 1px solid rgba(6, 182, 212, 0.25);
+        transition: all 0.3s ease;
+    }
+
+    .peer:checked + .radio-button-label {
+        background: rgba(6, 182, 212, 0.15);
+        border-color: var(--primary-color);
+        color: var(--primary-dark);
+    }
+</style>
 </head>
 <body class="flex flex-col min-h-screen bg-gray-50" data-aos-easing="ease-out-cubic">
     <header class="mb-12 mt-8" data-aos="fade-down">
@@ -128,28 +219,28 @@
         <!-- Profile Card -->
         <div class="max-w-3xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:shadow-xl" data-aos="fade-up">
             <!-- Profile Header - Updated with gradient background -->
-            <div class="profile-header bg-gradient-to-r from-blue-500 to-indigo-600 p-8 flex flex-col md:flex-row items-center gap-6">
-                <div class="avatar-container relative">
-                    <div class="w-32 h-32 rounded-full bg-white overflow-hidden flex items-center justify-center border-4 border-white shadow-inner">
-                        <img id="userAvatar" src="assets/img/default-avatar.png" alt="Photo de profil" class="w-full h-full object-cover">
+            <div class="profile-header p-8 flex flex-col md:flex-row items-center gap-6" data-aos="fade-down" data-aos-duration="800">
+                <div class="avatar-container relative" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="w-32 h-32 rounded-full bg-white overflow-hidden flex items-center justify-center border-4 border-cyan-100 shadow-inner">
+                        <img id="userAvatar" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMCAyMCIgZmlsbD0iY3VycmVudENvbG9yIj48cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xMCAyYTQgNCAwIDEwMCA4IDQgNCAwIDAwMC04em0wIDEwYTYgNiAwIDEwMC0xMiA2IDYgMCAwMDAgMTJ6bTAgMmE4IDggMCAxMTAtMTYgOCA4IDAgMDEwIDE2eiIgY2xpcC1ydWxlPSJldmVub2RkIi8+PHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNMTAgMTIuNWE1LjUgNS41IDAgMTEwIDExIDUuNSA1LjUgMCAwMTAtMTF6bTcgNS41YTcgNyAwIDExLTE0IDAgNyA3IDAgMDE3LTcgNyA3IDAgMDE3IDd6IiBjbGlwLXJ1bGU9ImV2ZW5vZGQiLz48L3N2Zz4=" alt="Photo de profil" class="w-full h-full object-cover">
                         <div id="avatarOverlay" class="absolute inset-0 bg-black bg-opacity-40 opacity-0 hover:opacity-100 transition-opacity flex items-center justify-center cursor-pointer">
                             <i class="fas fa-camera text-white text-2xl"></i>
                         </div>
                     </div>
                     <input type="file" id="avatarUpload" accept="image/*" class="hidden">
-                    <p class="avatar-hint text-white mt-2 opacity-75">JPEG, PNG ou GIF • Max 2MB</p>
+                    <p class="avatar-hint text-cyan-50 mt-2 opacity-90 text-shadow">JPEG, PNG ou GIF • Max 2MB</p>
                 </div>
-                <div class="text-center md:text-left">
-                    <h1 class="text-2xl md:text-3xl font-bold text-white">
+                <div class="text-center md:text-left" data-aos="fade-up" data-aos-delay="400">
+                    <h1 class="text-2xl md:text-3xl font-bold text-cyan-50 text-on-gradient">
                         <span id="profileName" class="info-value skeleton"></span>
-                        <span id="verifiedCheckmark" class="verified-checkmark text-white">
+                        <span id="verifiedCheckmark" class="verified-checkmark text-cyan-50 hidden">
                             <i class="fas fa-check-circle"></i>
                         </span>
                     </h1>
-                    <p class="text-blue-100 mb-3"><span id="studentSpeciality" class="info-value skeleton"></span></p>
-                    <div class="flex flex-wrap items-center gap-3 mt-2">
-                        <span id="profileCompletionBadge" class="px-3 py-1 text-xs rounded-full bg-white bg-opacity-20 text-white backdrop-filter backdrop-blur-sm">Profil à 80% complet</span>
-                        <button id="completeProfileBtn" class="px-4 py-2 bg-white text-blue-600 rounded text-sm hover:bg-blue-50 transition-colors shadow-md flex items-center gap-2">
+                    <p class="text-cyan-100 mb-4"><span id="studentSpeciality" class="info-value skeleton"></span></p>
+                    <div class="flex flex-wrap items-center gap-3 mt-3">
+                        <span id="profileCompletionBadge" class="px-3 py-1 text-xs font-medium rounded-full bg-cyan-700 bg-opacity-25 text-cyan-50 backdrop-filter backdrop-blur-sm border border-cyan-200 border-opacity-30">Profil à 80% complet</span>
+                        <button id="completeProfileBtn" class="px-4 py-2 rounded-md text-sm transition-all flex items-center gap-2 font-medium">
                             <i class="fas fa-user-edit"></i> Finaliser le profil
                         </button>
                     </div>
@@ -158,41 +249,34 @@
 
             <!-- Profile Info - Updated with better spacing and style -->
             <div class="p-8">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="info-group transform transition hover:scale-105">
-                        <h3 class="text-sm uppercase text-blue-600 font-medium mb-2">Matricule</h3>
-                        <p id="studentId" class="info-value skeleton"></p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="info-group transform transition hover:scale-105" data-aos="fade-up" data-aos-delay="100">
+                        <h3 class="text-sm uppercase text-cyan-700 font-medium mb-2">Matricule</h3>
+                        <p id="studentId" class="info-value skeleton text-cyan-900 font-medium"></p>
                     </div>
-                    <div class="info-group transform transition hover:scale-105">
-                        <h3 class="text-sm uppercase text-blue-600 font-medium mb-2">Email</h3>
-                        <p id="profileEmail" class="info-value skeleton"></p>
+                    <div class="info-group transform transition hover:scale-105" data-aos="fade-up" data-aos-delay="200">
+                        <h3 class="text-sm uppercase text-cyan-700 font-medium mb-2">Email</h3>
+                        <p id="profileEmail" class="info-value skeleton text-cyan-900 font-medium"></p>
                     </div>
-                    <div class="info-group transform transition hover:scale-105">
-                        <h3 class="text-sm uppercase text-blue-600 font-medium mb-2">Téléphone</h3>
-                        <p id="phoneNumber" class="info-value skeleton"></p>
+                    <div class="info-group transform transition hover:scale-105" data-aos="fade-up" data-aos-delay="300">
+                        <h3 class="text-sm uppercase text-cyan-700 font-medium mb-2">Téléphone</h3>
+                        <p id="phoneNumber" class="info-value skeleton text-cyan-900 font-medium"></p>
                     </div>
-                    <div id="residenceInfo" class="info-group transform transition hover:scale-105">
-                        <h3 class="text-sm uppercase text-blue-600 font-medium mb-2">Résidence</h3>
-                        <p id="residenceValue" class="info-value skeleton"></p>
+                    <div id="residenceInfo" class="info-group transform transition hover:scale-105" data-aos="fade-up" data-aos-delay="400">
+                        <h3 class="text-sm uppercase text-cyan-700 font-medium mb-2">Résidence</h3>
+                        <p id="residenceValue" class="info-value skeleton text-cyan-900 font-medium"></p>
                     </div>
-                    <div class="info-group transform transition hover:scale-105">
-                        <h3 class="text-sm uppercase text-blue-600 font-medium mb-2">Année académique</h3>
-                        <p id="academicYear" class="info-value skeleton"></p>
+                    <div class="info-group transform transition hover:scale-105" data-aos="fade-up" data-aos-delay="500">
+                        <h3 class="text-sm uppercase text-cyan-700 font-medium mb-2">Année académique</h3>
+                        <p id="academicYear" class="info-value skeleton text-cyan-900 font-medium"></p>
                     </div>
-                    <div class="info-group transform transition hover:scale-105">
-                        <h3 class="text-sm uppercase text-blue-600 font-medium mb-2">Genre</h3>
-                        <p id="gender" class="info-value skeleton"></p>
-                    </div>
-                    <!-- Remove the interests section by adding hidden class -->
-                    <div id="interestsInfo" class="info-group col-span-1 md:col-span-2 hidden">
-                        <h3 class="text-sm uppercase text-blue-600 font-medium mb-2">Centres d'intérêt</h3>
-                        <div id="interestsContainer" class="flex flex-wrap gap-2">
-                            <!-- Interests badges will be added here dynamically -->
-                        </div>
+                    <div class="info-group transform transition hover:scale-105" data-aos="fade-up" data-aos-delay="600">
+                        <h3 class="text-sm uppercase text-cyan-700 font-medium mb-2">Genre</h3>
+                        <p id="gender" class="info-value skeleton text-cyan-900 font-medium"></p>
                     </div>
                 </div>
-                <div class="mt-8 flex justify-end">
-                    <button id="logoutButton" class="px-5 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-300 flex items-center gap-2 shadow-md">
+                <div class="mt-8 flex justify-end" data-aos="fade-up" data-aos-delay="700">
+                    <button id="logoutButton" class="button-danger px-5 py-2 text-white rounded-md flex items-center gap-2 shadow-md font-medium">
                         <i class="fas fa-sign-out-alt"></i> Déconnexion
                     </button>
                 </div>
@@ -202,21 +286,21 @@
 
     <!-- Profile Completion Modal -->
     <div id="profileModal" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 hidden backdrop-filter backdrop-blur-sm transition-all duration-300">
-        <div class="bg-white rounded-xl max-w-md w-full max-h-[90vh] overflow-y-auto shadow-2xl transform transition-all scale-95 opacity-0" id="modalContent">
-            <div class="p-6 border-b bg-gradient-to-r from-blue-500 to-indigo-600">
+        <div class="max-w-md w-full max-h-[90vh] overflow-y-auto shadow-2xl transform transition-all scale-95 opacity-0 rounded-xl" id="modalContent">
+            <div class="p-6 border-b bg-gradient-to-r from-cyan-600 to-blue-500">
                 <div class="flex justify-between items-center">
-                    <h2 class="text-xl font-bold text-white">Finaliser votre profil</h2>
-                    <button id="closeModalBtn" class="text-white hover:text-gray-200 transition-colors">
+                    <h2 class="text-xl font-bold text-white text-on-gradient">Finaliser votre profil</h2>
+                    <button id="closeModalBtn" class="text-white hover:text-cyan-100 transition-colors">
                         <i class="fas fa-times"></i>
                     </button>
                 </div>
             </div>
-            <div class="p-6">
-                <!-- Form content remains the same -->
-                <form id="profileCompletionForm" class="space-y-4">
+            <div class="p-6 bg-cyan-50 bg-opacity-95">
+                <form id="profileCompletionForm" class="space-y-5">
+                    <!-- Form fields with updated styling -->
                     <div class="mb-4">
-                        <label for="wilaya" class="block text-sm font-medium text-gray-700 mb-2">Wilaya</label>
-                        <select id="wilaya" name="wilaya" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                        <label for="wilaya" class="block text-sm font-medium text-cyan-900 mb-2">Wilaya</label>
+                        <select id="wilaya" name="wilaya" class="form-input w-full px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500">
                             <option value="">Sélectionner une wilaya</option>
                             <option value="bejaia">Béjaïa</option>
                             <option value="alger">Alger</option>
@@ -228,65 +312,66 @@
                     </div>
                     
                     <div class="mb-4">
-                        <label for="commune" class="block text-sm font-medium text-gray-700 mb-2">Commune</label>
-                        <select id="commune" name="commune" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500" disabled>
+                        <label for="commune" class="block text-sm font-medium text-cyan-900 mb-2">Commune</label>
+                        <select id="commune" name="commune" class="form-input w-full px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500" disabled>
                             <option value="">Sélectionner d'abord une wilaya</option>
                         </select>
                         <p id="communeError" class="mt-1 text-sm text-red-600 hidden"></p>
                     </div>
                     
                     <div class="mb-4">
-                        <label for="birthdate" class="block text-sm font-medium text-gray-700 mb-2">Date de naissance</label>
-                        <input type="date" id="birthdate" name="birthdate" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                        <label for="birthdate" class="block text-sm font-medium text-cyan-900 mb-2">Date de naissance</label>
+                        <input type="date" id="birthdate" name="birthdate" class="form-input w-full px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500">
                         <p id="birthdateError" class="mt-1 text-sm text-red-600 hidden"></p>
                     </div>
                     
                     <div class="mb-4">
-                        <label for="instagram" class="block text-sm font-medium text-gray-700 mb-2">Instagram (optionnel)</label>
+                        <label for="instagram" class="block text-sm font-medium text-cyan-900 mb-2">Instagram (optionnel)</label>
                         <div class="relative rounded-md">
                             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                <i class="fab fa-instagram text-gray-400"></i>
+                                <i class="fab fa-instagram text-cyan-500"></i>
                             </div>
-                            <input type="text" id="instagram" name="instagram" placeholder="nom_utilisateur" class="w-full pl-10 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                            <input type="text" id="instagram" name="instagram" placeholder="nom_utilisateur" class="form-input w-full pl-10 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500">
                         </div>
                         <p id="instagramError" class="mt-1 text-sm text-red-600 hidden"></p>
                     </div>
                     
+                    <!-- Updated gender radio buttons with new styling -->
                     <div class="mb-4">
-                        <label for="gender" class="block text-sm font-medium text-gray-700 mb-2">Genre</label>
-                        <select id="gender" name="gender" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                            <option value="">Sélectionner</option>
-                            <option value="Masculin">Masculin</option>
-                            <option value="Féminin">Féminin</option>
-                            <option value="Autre">Autre</option>
-                        </select>
+                        <label class="block text-sm font-medium text-cyan-900 mb-2">Genre</label>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div class="relative">
+                                <input type="radio" id="gender-male" name="gender" value="Masculin" class="hidden peer" required>
+                                <label for="gender-male" class="radio-button-label flex items-center justify-center p-3 text-cyan-700 rounded-md cursor-pointer hover:bg-cyan-100 transition-all">
+                                    <i class="fas fa-mars mr-2"></i>
+                                    Masculin
+                                </label>
+                            </div>
+                            <div class="relative">
+                                <input type="radio" id="gender-female" name="gender" value="Féminin" class="hidden peer" required>
+                                <label for="gender-female" class="radio-button-label flex items-center justify-center p-3 text-cyan-700 rounded-md cursor-pointer hover:bg-cyan-100 transition-all">
+                                    <i class="fas fa-venus mr-2"></i>
+                                    Féminin
+                                </label>
+                            </div>
+                        </div>
                         <p id="genderError" class="mt-1 text-sm text-red-600 hidden"></p>
                     </div>
 
                     <div class="mb-4">
-                        <label for="academicYear" class="block text-sm font-medium text-gray-700 mb-2">Année académique</label>
-                        <select id="academicYear" name="academicYear" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                            <option value="">Sélectionner</option>
-                            <option value="2023-2024">2023-2024</option>
-                            <option value="2024-2025">2024-2025</option>
-                        </select>
-                        <p id="academicYearError" class="mt-1 text-sm text-red-600 hidden"></p>
-                    </div>
-
-                    <div class="mb-4">
-                        <label for="phoneNumber" class="block text-sm font-medium text-gray-700 mb-2">Téléphone</label>
+                        <label for="phoneNumber" class="block text-sm font-medium text-cyan-900 mb-2">Téléphone</label>
                         <div class="relative rounded-md">
                             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                <i class="fas fa-phone text-gray-400"></i>
+                                <i class="fas fa-phone text-cyan-500"></i>
                             </div>
-                            <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="+213 or 0..." class="w-full pl-10 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                            <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="+213 or 0..." class="form-input w-full pl-10 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500">
                         </div>
                         <p id="phoneNumberError" class="mt-1 text-sm text-red-600 hidden"></p>
                     </div>
                     
-                    <div class="flex justify-end">
-                        <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                            Enregistrer
+                    <div class="flex justify-end pt-2">
+                        <button type="submit" class="button-primary px-5 py-2.5 rounded-md text-white font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 transform transition-all hover:scale-105 duration-300 shadow-lg">
+                            <i class="fas fa-save mr-2"></i> Enregistrer
                         </button>
                     </div>
                 </form>
@@ -354,6 +439,26 @@
                 // The actual validation and data update happens in the module script
             });
         });
+
+        // Add this script to your existing AOS initialization
+
+        AOS.init({
+            duration: 800,         // Animation duration (ms)
+            easing: 'ease-out-cubic', // Animation easing
+            once: false,           // Animation only once
+            mirror: true,          // Animation works in both directions
+            offset: 50,            // Offset (px) from original trigger point
+            delay: 100,            // Default delay for animations
+            anchorPlacement: 'top-bottom' // Anchor placement
+        });
+
+        // Add this to enhance element entrance animations
+        document.querySelectorAll('[data-aos]').forEach((elem, index) => {
+            // Add staggered delays to elements
+            if (!elem.getAttribute('data-aos-delay')) {
+                elem.setAttribute('data-aos-delay', (index % 5) * 100 + 100);
+            }
+        });
     </script>
     <script type="module">
     // Replace the entire script type="module" section 
@@ -388,10 +493,10 @@
         "autre": ["Autre"]
     };
 
-    // Profile completion percentage calculation (modified to remove interests)
+    // Profile completion percentage calculation (modified to remove academicYear)
     function calculateProfileCompletion(userData) {
         const requiredFields = ['fullName', 'email', 'matricule', 'speciality', 'phoneNumber'];
-        const optionalFields = ['wilaya', 'commune', 'birthdate', 'instagram', 'gender', 'academicYear'];
+        const optionalFields = ['wilaya', 'commune', 'birthdate', 'instagram', 'gender'];
         
         let completedRequired = 0;
         requiredFields.forEach(field => {
@@ -612,7 +717,7 @@
         }
     });
 
-    // Form validation for Profile Completion (modified to remove interests)
+    // Form validation for Profile Completion (modified to handle radio buttons)
     document.getElementById('profileCompletionForm').addEventListener('submit', async (e) => {
         e.preventDefault();
         
@@ -621,9 +726,12 @@
         const commune = document.getElementById('commune').value;
         const birthdate = document.getElementById('birthdate').value;
         const instagram = document.getElementById('instagram').value;
-        const gender = document.getElementById('gender').value;
-        const academicYear = document.getElementById('academicYear').value;
         const phoneNumber = document.getElementById('phoneNumber').value;
+        
+        // Get gender from radio buttons instead of select element
+        const maleRadio = document.getElementById('gender-male');
+        const femaleRadio = document.getElementById('gender-female');
+        const gender = maleRadio.checked ? maleRadio.value : (femaleRadio.checked ? femaleRadio.value : '');
         
         // Validate wilaya and commune
         if (!wilaya) {
@@ -675,22 +783,13 @@
             document.getElementById('instagramError').classList.add('hidden');
         }
 
-        // Validate gender
+        // Validate gender using radio buttons
         if (!gender) {
             document.getElementById('genderError').textContent = 'Veuillez sélectionner votre genre';
             document.getElementById('genderError').classList.remove('hidden');
             isValid = false;
         } else {
             document.getElementById('genderError').classList.add('hidden');
-        }
-
-        // Validate academic year
-        if (!academicYear) {
-            document.getElementById('academicYearError').textContent = 'Veuillez sélectionner une année académique';
-            document.getElementById('academicYearError').classList.remove('hidden');
-            isValid = false;
-        } else {
-            document.getElementById('academicYearError').classList.add('hidden');
         }
 
         // Validate phone number
@@ -712,13 +811,12 @@
                 if (user) {
                     const userRef = doc(db, 'users', user.uid);
                     
-                    // Prepare user data update (removed interests)
+                    // Prepare user data update - REMOVED academicYear
                     const updateData = {
                         wilaya: wilaya,
                         commune: commune,
                         birthdate: birthdate,
-                        gender: gender,
-                        academicYear: academicYear
+                        gender: gender
                     };
                     
                     if (instagram) {
@@ -731,6 +829,7 @@
                     
                     // Update in Firestore
                     await updateDoc(userRef, updateData);
+                    console.log("User profile updated in Firestore:", updateData);
                     
                     // Close modal and refresh data
                     const modal = document.getElementById('profileModal');
@@ -743,16 +842,16 @@
                     // Hide modal after animation completes
                     setTimeout(() => {
                         modal.classList.add('hidden');
+                        
+                        // Fetch updated user data
+                        getDoc(userRef).then((updatedSnap) => {
+                            if (updatedSnap.exists()) {
+                                updateUIWithUserData(updatedSnap.data());
+                            }
+                        });
+                        
+                        alert('Profil mis à jour avec succès!');
                     }, 300);
-
-                    // Fetch updated user data
-                    const updatedUserSnap = await getDoc(userRef);
-                    if (updatedUserSnap.exists()) {
-                        const updatedUserData = updatedUserSnap.data();
-                        updateUIWithUserData(updatedUserData);
-                    }
-                    
-                    alert('Profil mis à jour avec succès!');
                 }
             } catch (error) {
                 console.error('Error updating profile:', error);
@@ -845,8 +944,20 @@
         // Set other form fields
         if (userData.birthdate) document.getElementById('birthdate').value = userData.birthdate;
         if (userData.instagram) document.getElementById('instagram').value = userData.instagram;
-        if (userData.gender) document.getElementById('gender').value = userData.gender;
-        if (userData.academicYear) document.getElementById('academicYear').value = userData.academicYear;
+        
+        // Set gender radio buttons correctly
+        if (userData.gender) {
+            const maleRadio = document.getElementById('gender-male');
+            const femaleRadio = document.getElementById('gender-female');
+            
+            if (userData.gender === 'Masculin' && maleRadio) {
+                maleRadio.checked = true;
+            } else if (userData.gender === 'Féminin' && femaleRadio) {
+                femaleRadio.checked = true;
+            }
+        }
+        
+        // Set phone number
         if (userData.phoneNumber) document.getElementById('phoneNumber').value = userData.phoneNumber;
     }
 
@@ -971,70 +1082,6 @@
         } else {
             console.log("Firebase Auth not yet initialized");
             // Could add a retry mechanism here if needed
-        }
-    });
-
-    // Update the form submission handler to ensure data is saved to Firestore
-
-    // Form submission handler for profile completion
-    document.getElementById('profileCompletionForm').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        console.log("Profile completion form submitted");
-        
-        // Get form values
-        const wilaya = document.getElementById('wilaya').value;
-        const commune = document.getElementById('commune').value;
-        const birthdate = document.getElementById('birthdate').value;
-        const instagram = document.getElementById('instagram').value;
-        const gender = document.getElementById('gender').value;
-        const academicYear = document.getElementById('academicYear').value;
-        const phoneNumber = document.getElementById('phoneNumber').value;
-        
-        // Validation (existing code)...
-        
-        // If valid, save to Firestore
-        if (isValid) {
-            try {
-                const user = auth.currentUser;
-                if (!user) {
-                    throw new Error("No authenticated user found");
-                }
-                
-                const userRef = doc(db, 'users', user.uid);
-                console.log("Updating user document:", userRef.path);
-                
-                // Prepare data for update
-                const updateData = {
-                    wilaya: wilaya,
-                    commune: commune,
-                    birthdate: birthdate,
-                    gender: gender,
-                    academicYear: academicYear
-                };
-                
-                if (instagram) updateData.instagram = instagram;
-                if (phoneNumber) updateData.phoneNumber = phoneNumber;
-                
-                // Update in Firestore
-                await updateDoc(userRef, updateData);
-                console.log("User profile updated in Firestore:", updateData);
-                
-                // Close modal and refresh data
-                const modal = document.getElementById('profileModal');
-                modal.classList.add('hidden');
-                
-                // Refresh user data from Firestore
-                const updatedSnap = await getDoc(userRef);
-                if (updatedSnap.exists()) {
-                    updateUIWithUserData(updatedSnap.data());
-                }
-                
-                // Show success message
-                alert("Profil mis à jour avec succès!");
-            } catch (error) {
-                console.error('Error updating profile:', error);
-                alert("Une erreur est survenue lors de la mise à jour du profil");
-            }
         }
     });
 
