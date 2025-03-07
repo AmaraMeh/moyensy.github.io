@@ -205,44 +205,110 @@
         border-color: var(--primary-color);
         color: var(--primary-dark);
     }
+
+    /* Loading blur effect */
+    .loading-blur {
+        display: none; /* Hide instead of blur */
+    }
+
+    /* Loading spinner animation */
+    .loading-spinner {
+        display: none; /* Hide spinner */
+    }
+
+    @keyframes spin {
+        to { transform: none; } /* Disable animation */
+    }
+
+    /* Loading overlay fade transition */
+    #loadingOverlay {
+        display: none !important; /* Force hide */
+    }
+
+    /* Smooth transitions for student card */
+    .student-card-container {
+        max-width: 300px;
+        width: 100%;
+        transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+    }
+
+    /* Loading overlay fade transition */
+    #loadingOverlay {
+        transition: opacity 0.3s ease;
+    }
+
+    /* Feature card hover effects */
+    .feature-card {
+        border: 1px solid rgba(103, 232, 249, 0.2);
+        transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    .feature-card:hover {
+        border-color: rgba(6, 182, 212, 0.5);
+        box-shadow: 0 10px 20px rgba(6, 182, 212, 0.15);
+    }
+
+    .feature-card:hover .w-12 {
+        transform: scale(1.1);
+        background-color: rgba(6, 182, 212, 0.2);
+    }
+
+    .feature-card .w-12 {
+        transition: all 0.3s ease;
+    }
+
+    /* Animated icon on hover */
+    .feature-card:hover i {
+        animation: pulse-gentle 1.5s infinite;
+    }
+
+    @keyframes pulse-gentle {
+        0% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.15);
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
 </style>
 </head>
-<body class="flex flex-col min-h-screen bg-gray-50" data-aos-easing="ease-out-cubic">
-    <header class="mb-12 mt-8" data-aos="fade-down">
-        <div class="header-container flex justify-center items-center px-4 py-6">
-            <img src="assets/img/LOGO.png" alt="ISET'COM" class="max-w-[150px]">
+<body>
+    <!-- Add logo header -->
+    <header class="w-full py-4">
+        <div class="container mx-auto px-4 flex justify-center md:justify-start items-center">
+            <a href="index.html" class="flex items-center gap-2 transition-transform hover:scale-105">
+                <img src="assets/img/logo.png" alt="Campus Elkseur Logo" class="h-12">
+            </a>
         </div>
     </header>
-
-    <!-- Main Profile Content -->
-    <main class="flex-grow container mx-auto px-4 pb-12">
-        <!-- Profile Card -->
-        <div class="max-w-3xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:shadow-xl" data-aos="fade-up">
-            <!-- Profile Header - Updated with gradient background -->
-            <div class="profile-header p-8 flex flex-col md:flex-row items-center gap-6" data-aos="fade-down" data-aos-duration="800">
-                <div class="avatar-container relative" data-aos="zoom-in" data-aos-delay="300">
-                    <div class="w-32 h-32 rounded-full bg-white overflow-hidden flex items-center justify-center border-4 border-cyan-100 shadow-inner">
-                        <img id="userAvatar" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMCAyMCIgZmlsbD0iY3VycmVudENvbG9yIj48cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xMCAyYTQgNCAwIDEwMCA4IDQgNCAwIDAwMC04em0wIDEwYTYgNiAwIDEwMC0xMiA2IDYgMCAwMDAgMTJ6bTAgMmE4IDggMCAxMTAtMTYgOCA4IDAgMDEwIDE2eiIgY2xpcC1ydWxlPSJldmVub2RkIi8+PHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNMTAgMTIuNWE1LjUgNS41IDAgMTEwIDExIDUuNSA1LjUgMCAwMTAtMTF6bTcgNS41YTcgNyAwIDExLTE0IDAgNyA3IDAgMDE3LTcgNyA3IDAgMDE3IDd6IiBjbGlwLXJ1bGU9ImV2ZW5vZGQiLz48L3N2Zz4=" alt="Photo de profil" class="w-full h-full object-cover">
-                        <div id="avatarOverlay" class="absolute inset-0 bg-black bg-opacity-40 opacity-0 hover:opacity-100 transition-opacity flex items-center justify-center cursor-pointer">
-                            <i class="fas fa-camera text-white text-2xl"></i>
-                        </div>
+    
+    <!-- Add this profile card container -->
+    <div class="container mx-auto px-4 py-8">
+        <div class="glass-card max-w-4xl mx-auto overflow-hidden">
+            <!-- Profile header section -->
+            <div class="profile-header p-8 text-white">
+                <div class="flex flex-col md:flex-row items-center md:items-start gap-6">
+                    <div class="w-32 h-32 rounded-full bg-white/20 flex items-center justify-center overflow-hidden border-4 border-white/30 shadow-lg">
+                        <i class="fas fa-user-graduate text-4xl"></i>
                     </div>
-                    <input type="file" id="avatarUpload" accept="image/*" class="hidden">
-                    <p class="avatar-hint text-cyan-50 mt-2 opacity-90 text-shadow">JPEG, PNG ou GIF • Max 2MB</p>
-                </div>
-                <div class="text-center md:text-left" data-aos="fade-up" data-aos-delay="400">
-                    <h1 class="text-2xl md:text-3xl font-bold text-cyan-50 text-on-gradient">
-                        <span id="profileName" class="info-value skeleton"></span>
-                        <span id="verifiedCheckmark" class="verified-checkmark text-cyan-50 hidden">
-                            <i class="fas fa-check-circle"></i>
-                        </span>
-                    </h1>
-                    <p class="text-cyan-100 mb-4"><span id="studentSpeciality" class="info-value skeleton"></span></p>
-                    <div class="flex flex-wrap items-center gap-3 mt-3">
-                        <span id="profileCompletionBadge" class="px-3 py-1 text-xs font-medium rounded-full bg-cyan-700 bg-opacity-25 text-cyan-50 backdrop-filter backdrop-blur-sm border border-cyan-200 border-opacity-30">Profil à 80% complet</span>
-                        <button id="completeProfileBtn" class="px-4 py-2 rounded-md text-sm transition-all flex items-center gap-2 font-medium">
-                            <i class="fas fa-user-edit"></i> Finaliser le profil
-                        </button>
+                    <div class="text-center md:text-left">
+                        <h1 id="profileName" class="text-3xl font-bold">Chargement...</h1>
+                        <p id="studentSpeciality" class="text-lg opacity-90 mt-1">Chargement...</p>
+                        <div class="mt-4 flex flex-wrap gap-3 justify-center md:justify-start">
+                            <span id="profileCompletionBadge" class="px-3 py-1 rounded-full text-sm font-medium hidden">
+                                Profil 0% complet
+                            </span>
+                            <button id="completeProfileBtn" class="px-4 py-1.5 rounded-full text-sm font-medium flex items-center gap-2">
+                                <i class="fas fa-user-edit"></i> Compléter le profil
+                            </button>
+                            <!-- Add this new button -->
+                            <button id="checkStudentsBtn" class="px-4 py-1.5 rounded-full text-sm font-medium flex items-center gap-2 bg-white/30 hover:bg-white/50 text-white transition-all">
+                                <i class="fas fa-users"></i> Liste des étudiants
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -252,27 +318,34 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="info-group transform transition hover:scale-105" data-aos="fade-up" data-aos-delay="100">
                         <h3 class="text-sm uppercase text-cyan-700 font-medium mb-2">Matricule</h3>
-                        <p id="studentId" class="info-value skeleton text-cyan-900 font-medium"></p>
+                        <p id="studentId" class="info-value text-cyan-900 font-medium"></p>
                     </div>
                     <div class="info-group transform transition hover:scale-105" data-aos="fade-up" data-aos-delay="200">
                         <h3 class="text-sm uppercase text-cyan-700 font-medium mb-2">Email</h3>
-                        <p id="profileEmail" class="info-value skeleton text-cyan-900 font-medium"></p>
+                        <p id="profileEmail" class="info-value text-cyan-900 font-medium"></p>
                     </div>
                     <div class="info-group transform transition hover:scale-105" data-aos="fade-up" data-aos-delay="300">
                         <h3 class="text-sm uppercase text-cyan-700 font-medium mb-2">Téléphone</h3>
-                        <p id="phoneNumber" class="info-value skeleton text-cyan-900 font-medium"></p>
+                        <p id="phoneNumber" class="info-value text-cyan-900 font-medium"></p>
                     </div>
                     <div id="residenceInfo" class="info-group transform transition hover:scale-105" data-aos="fade-up" data-aos-delay="400">
                         <h3 class="text-sm uppercase text-cyan-700 font-medium mb-2">Résidence</h3>
-                        <p id="residenceValue" class="info-value skeleton text-cyan-900 font-medium"></p>
+                        <p id="residenceValue" class="info-value text-cyan-900 font-medium"></p>
                     </div>
                     <div class="info-group transform transition hover:scale-105" data-aos="fade-up" data-aos-delay="500">
                         <h3 class="text-sm uppercase text-cyan-700 font-medium mb-2">Année académique</h3>
-                        <p id="academicYear" class="info-value skeleton text-cyan-900 font-medium"></p>
+                        <p id="academicYear" class="info-value text-cyan-900 font-medium"></p>
                     </div>
                     <div class="info-group transform transition hover:scale-105" data-aos="fade-up" data-aos-delay="600">
                         <h3 class="text-sm uppercase text-cyan-700 font-medium mb-2">Genre</h3>
-                        <p id="gender" class="info-value skeleton text-cyan-900 font-medium"></p>
+                        <p id="gender" class="info-value text-cyan-900 font-medium"></p>
+                    </div>
+                    <!-- Add this after the gender div in the profile info section -->
+                    <div id="instagramInfo" class="info-group transform transition hover:scale-105" data-aos="fade-up" data-aos-delay="700">
+                        <h3 class="text-sm uppercase text-cyan-700 font-medium mb-2">Instagram</h3>
+                        <p id="instagramValue" class="info-value text-cyan-900 font-medium flex items-center">
+                            <!-- Will be populated with Instagram username or N/A -->
+                        </p>
                     </div>
                 </div>
                 <div class="mt-8 flex justify-end" data-aos="fade-up" data-aos-delay="700">
@@ -282,8 +355,8 @@
                 </div>
             </div>
         </div>
-    </main>
-
+    </div>
+    
     <!-- Profile Completion Modal -->
     <div id="profileModal" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 hidden backdrop-filter backdrop-blur-sm transition-all duration-300">
         <div class="max-w-md w-full max-h-[90vh] overflow-y-auto shadow-2xl transform transition-all scale-95 opacity-0 rounded-xl" id="modalContent">
@@ -379,6 +452,61 @@
         </div>
     </div>
 
+    <!-- Replace the existing studentsModal div with this more colorful version -->
+    <div id="studentsModal" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 hidden backdrop-filter backdrop-blur-sm transition-all duration-300">
+        <div class="max-w-2xl w-full max-h-[80vh] overflow-hidden shadow-xl transform transition-all scale-95 opacity-0 rounded-lg" id="studentsModalContent">
+            <!-- Colorful gradient header -->
+            <div class="p-4 border-b bg-gradient-to-r from-red-500 via-purple-500 to-blue-500 animate-gradient-x">
+                <div class="flex justify-between items-center">
+                    <h2 class="text-lg font-bold text-white text-on-gradient flex items-center">
+                        <i class="fas fa-users mr-2"></i> Liste des étudiants
+                    </h2>
+                    <button id="closeStudentsModalBtn" class="text-white hover:text-pink-100 transition-colors">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Colorful filter options -->
+            <div class="p-3 bg-gradient-to-r from-green-50 to-blue-50 border-b border-blue-100">
+                <div class="flex flex-wrap items-center gap-2">
+                    <span class="text-xs font-medium bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-500">Filtrer par:</span>
+                    <div class="flex gap-1">
+                        <button id="filterAllBtn" class="px-2 py-1 rounded-full text-xs font-medium bg-gradient-to-r from-blue-500 to-cyan-400 text-white transition-all">
+                            Tous
+                        </button>
+                        <button id="filterSpecialityBtn" class="px-2 py-1 rounded-full text-xs font-medium bg-white border border-cyan-200 text-cyan-700 transition-all">
+                            Ma spécialité
+                        </button>
+                    </div>
+                    <div class="ml-auto">
+                        <div class="relative">
+                            <input type="text" id="searchStudents" placeholder="Rechercher..." class="form-input pl-7 pr-3 py-1 rounded-full text-xs border-cyan-300 focus:border-purple-400">
+                            <i class="fas fa-search absolute left-2.5 top-1/2 transform -translate-y-1/2 text-cyan-500 text-xs"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Students list - with colorful cards -->
+            <div class="bg-gradient-to-b from-white to-blue-50 backdrop-blur-sm">
+                <div class="p-3 overflow-y-auto" style="max-height: 60vh;">
+                    <div id="studentsListContainer" class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <!-- Student cards will be dynamically inserted here -->
+                        <div class="skeleton h-24 rounded-md"></div>
+                        <div class="skeleton h-24 rounded-md"></div>
+                        <div class="skeleton h-24 rounded-md"></div>
+                        <div class="skeleton h-24 rounded-md"></div>
+                    </div>
+                    <div id="noStudentsMessage" class="hidden py-6 text-center text-gray-500">
+                        <i class="fas fa-user-slash mb-2 text-2xl text-gray-400"></i>
+                        <p>Aucun étudiant trouvé</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init();
@@ -415,29 +543,14 @@
                 }, 300);
             });
 
-            // Avatar upload click handler
-            document.getElementById('avatarOverlay').addEventListener('click', function() {
-                document.getElementById('avatarUpload').click();
-            });
-
-            // Avatar upload change handler
-            document.getElementById('avatarUpload').addEventListener('change', function(e) {
-                const file = e.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function(event) {
-                        document.getElementById('userAvatar').src = event.target.result;
-                    };
-                    reader.readAsDataURL(file);
-                }
-            });
-
             // Form submission handler
             document.getElementById('profileCompletionForm').addEventListener('submit', function(e) {
                 e.preventDefault();
                 console.log("Form submitted - validation will happen in the module script");
                 // The actual validation and data update happens in the module script
             });
+
+            // Initialize the students modal
         });
 
         // Add this script to your existing AOS initialization
@@ -459,14 +572,213 @@
                 elem.setAttribute('data-aos-delay', (index % 5) * 100 + 100);
             }
         });
+
+        // Add this to the end of the script section with AOS initialization
+        document.querySelectorAll('.feature-card').forEach((card, index) => {
+            // Add staggered animation delays to feature cards
+            card.setAttribute('data-aos-delay', ((index % 5) * 100) + 50);
+        });
     </script>
     <script type="module">
     // Replace the entire script type="module" section 
     import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js';
     import { getAuth, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js';
-    import { getFirestore, doc, getDoc, updateDoc } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
+    import { getFirestore, doc, getDoc, updateDoc, collection, getDocs, query, where } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
     import { getStorage, ref, uploadBytes, getDownloadURL } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js';
-    
+
+    // Then add these functions to the script section
+
+    // Fetch students from Firestore
+    async function fetchStudents() {
+        try {
+            const studentsQuery = collection(db, 'users');
+            const studentsSnapshot = await getDocs(studentsQuery);
+            
+            const students = [];
+            studentsSnapshot.forEach(doc => {
+                // Add student data with ID
+                students.push({
+                    id: doc.id,
+                    ...doc.data()
+                });
+            });
+            
+            return students;
+        } catch (error) {
+            console.error('Error fetching students:', error);
+            showNotification('error', 'Erreur lors du chargement des étudiants');
+            return [];
+        }
+    }
+
+    // Initialize students modal and functionality
+    function initStudentsModal() {
+        const currentUser = auth.currentUser;
+        let currentUserData = null;
+        let allStudents = [];
+        
+        // Get current user data for filtering
+        async function getCurrentUserData() {
+            if (!currentUser) return null;
+            
+            try {
+                const userDoc = await getDoc(doc(db, 'users', currentUser.uid));
+                if (userDoc.exists()) {
+                    return userDoc.data();
+                }
+            } catch (error) {
+                console.error('Error fetching current user data:', error);
+            }
+            return null;
+        }
+        
+        // Update the renderStudents function in the initStudentsModal function
+        function renderStudents(students) {
+            const container = document.getElementById('studentsListContainer');
+            const noStudentsMessage = document.getElementById('noStudentsMessage');
+            
+            if (!students.length) {
+                container.innerHTML = '';
+                noStudentsMessage.classList.remove('hidden');
+                return;
+            }
+            
+            noStudentsMessage.classList.add('hidden');
+            container.innerHTML = students.map(student => `
+                <div class="student-card p-3 bg-cyan-50/70 rounded-md border border-cyan-100 hover:border-cyan-300 transform transition-all hover:-translate-y-1 hover:shadow-md">
+                    <div class="flex items-center gap-2">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 flex items-center justify-center text-white text-sm font-bold">
+                            ${student.fullName ? student.fullName.charAt(0).toUpperCase() : 'U'}
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <h3 class="font-medium text-cyan-900 text-sm truncate">${student.fullName || 'Étudiant'}</h3>
+                            <p class="text-xs text-cyan-700 truncate">${student.speciality || 'Non spécifié'}</p>
+                            ${student.instagram ? `
+                            <a href="https://instagram.com/${student.instagram}" target="_blank" class="flex items-center text-xs text-pink-600 hover:text-pink-700 transition-colors mt-1">
+                                <i class="fab fa-instagram mr-1"></i>${student.instagram}
+                            </a>` : ''}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        // Open the students modal
+        document.getElementById('checkStudentsBtn').addEventListener('click', async function() {
+            const modal = document.getElementById('studentsModal');
+            const modalContent = document.getElementById('studentsModalContent');
+            
+            // Show modal
+            modal.classList.remove('hidden');
+            
+            // Animate content after a small delay
+            setTimeout(() => {
+                modalContent.classList.add('scale-100', 'opacity-100');
+                modalContent.classList.remove('scale-95', 'opacity-0');
+            }, 50);
+            
+            // Show loading state
+            const container = document.getElementById('studentsListContainer');
+            container.innerHTML = `
+                <div class="skeleton h-28 rounded-lg"></div>
+                <div class="skeleton h-28 rounded-lg"></div>
+                <div class="skeleton h-28 rounded-lg"></div>
+            `;
+            
+            // Fetch current user data and all students
+            currentUserData = await getCurrentUserData();
+            allStudents = await fetchStudents();
+            
+            // Render all students initially
+            renderStudents(allStudents);
+            
+            // Set active filter button
+            document.getElementById('filterAllBtn').classList.add('bg-cyan-600', 'text-white');
+            document.getElementById('filterAllBtn').classList.remove('bg-white', 'border', 'text-cyan-700');
+            document.getElementById('filterSpecialityBtn').classList.add('bg-white', 'border', 'border-cyan-200', 'text-cyan-700');
+            document.getElementById('filterSpecialityBtn').classList.remove('bg-cyan-600', 'text-white');
+        });
+        
+        // Filter buttons functionality
+        document.getElementById('filterAllBtn').addEventListener('click', function() {
+            // Update active button state
+            this.classList.add('bg-cyan-600', 'text-white');
+            this.classList.remove('bg-white', 'border', 'text-cyan-700');
+            document.getElementById('filterSpecialityBtn').classList.add('bg-white', 'border', 'border-cyan-200', 'text-cyan-700');
+            document.getElementById('filterSpecialityBtn').classList.remove('bg-cyan-600', 'text-white');
+            
+            // Show all students
+            renderStudents(allStudents);
+        });
+        
+        document.getElementById('filterSpecialityBtn').addEventListener('click', function() {
+            // Update active button state
+            this.classList.add('bg-cyan-600', 'text-white');
+            this.classList.remove('bg-white', 'border', 'border-cyan-200', 'text-cyan-700');
+            document.getElementById('filterAllBtn').classList.add('bg-white', 'border', 'border-cyan-200', 'text-cyan-700');
+            document.getElementById('filterAllBtn').classList.remove('bg-cyan-600', 'text-white');
+            
+            // Filter students by speciality if current user data exists
+            if (currentUserData && currentUserData.speciality) {
+                const filteredStudents = allStudents.filter(student => 
+                    student.speciality === currentUserData.speciality && 
+                    student.id !== currentUser.uid // Exclude current user
+                );
+                renderStudents(filteredStudents);
+            } else {
+                renderStudents([]);
+                showNotification('error', 'Votre spécialité n\'est pas définie dans votre profil');
+            }
+        });
+        
+        // Search functionality
+        document.getElementById('searchStudents').addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase().trim();
+            if (searchTerm === '') {
+                // If search is cleared, respect current filter
+                const showingSpeciality = document.getElementById('filterSpecialityBtn').classList.contains('bg-cyan-600');
+                if (showingSpeciality && currentUserData && currentUserData.speciality) {
+                    const filteredStudents = allStudents.filter(student => 
+                        student.speciality === currentUserData.speciality && 
+                        student.id !== currentUser.uid
+                    );
+                    renderStudents(filteredStudents);
+                } else {
+                    renderStudents(allStudents);
+                }
+                return;
+            }
+            
+            // Filter students by search term
+            const filteredStudents = allStudents.filter(student => {
+                const name = student.fullName || '';
+                const speciality = student.speciality || '';
+                const instagram = student.instagram || '';
+                
+                return name.toLowerCase().includes(searchTerm) || 
+                       speciality.toLowerCase().includes(searchTerm) ||
+                       instagram.toLowerCase().includes(searchTerm);
+            });
+            
+            renderStudents(filteredStudents);
+        });
+        
+        // Close modal button
+        document.getElementById('closeStudentsModalBtn').addEventListener('click', function() {
+            const modal = document.getElementById('studentsModal');
+            const modalContent = document.getElementById('studentsModalContent');
+            
+            // Animate content out
+            modalContent.classList.remove('scale-100', 'opacity-100');
+            modalContent.classList.add('scale-95', 'opacity-0');
+            
+            // Hide modal after animation completes
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        });
+    }
+
     // Firebase configuration
     const firebaseConfig = {
         apiKey: "AIzaSyB5XYqWKhHdiVDXJx4iOwtpxD8eUCPRfKU",
@@ -514,39 +826,20 @@
         return Math.round(requiredPercentage + optionalPercentage);
     }
 
-    // Loading states
+    // Loading states with blur effect
     function showLoadingState() {
-        document.querySelectorAll('.info-value').forEach(el => {
-            el.classList.add('skeleton');
-            el.style.height = '20px';
-            el.style.width = '150px';
-            el.textContent = '';
-        });
-        
-        // Hide the buttons and badges during loading
-        if (document.getElementById('profileCompletionBadge')) {
-            document.getElementById('profileCompletionBadge').classList.add('hidden');
-        }
-        
-        if (document.getElementById('completeProfileBtn')) {
-            document.getElementById('completeProfileBtn').classList.add('hidden');
-        }
+        // Empty function - loading state removed
+        console.log("Loading state disabled");
     }
 
     function hideLoadingState() {
-        document.querySelectorAll('.info-value').forEach(el => {
-            el.classList.remove('skeleton');
-            el.style.height = '';
-            el.style.width = '';
-        });
+        // Empty function - loading state removed
+        console.log("Hide loading state disabled");
         
-        // Show the buttons and badges after loading
-        if (document.getElementById('profileCompletionBadge')) {
-            document.getElementById('profileCompletionBadge').classList.remove('hidden');
-        }
-        
-        if (document.getElementById('completeProfileBtn')) {
-            document.getElementById('completeProfileBtn').classList.remove('hidden');
+        // Remove any existing loading overlays (just in case)
+        const loadingOverlay = document.getElementById('loadingOverlay');
+        if (loadingOverlay) {
+            loadingOverlay.remove();
         }
     }
 
@@ -602,11 +895,19 @@
             document.getElementById('residenceInfo').classList.add('hidden');
         }
 
-        // Avatar
-        if (userData.avatarURL) {
-            document.getElementById('userAvatar').src = userData.avatarURL;
+        // Instagram info display
+        if (userData.instagram) {
+            document.getElementById('instagramInfo').classList.remove('hidden');
+            const instagramValue = document.getElementById('instagramValue');
+            instagramValue.innerHTML = `
+                <a href="https://instagram.com/${userData.instagram}" target="_blank" class="flex items-center hover:text-cyan-600 transition-colors">
+                    <i class="fab fa-instagram mr-2 text-pink-500"></i>
+                    ${userData.instagram}
+                    <i class="fas fa-external-link-alt text-xs ml-2 text-cyan-500"></i>
+                </a>
+            `;
         } else {
-            document.getElementById('userAvatar').src = 'assets/img/default-avatar.png';
+            document.getElementById('instagramInfo').classList.add('hidden');
         }
 
         // Update profile completion badge and button
@@ -664,56 +965,6 @@
             option.value = '';
             option.textContent = 'Sélectionner d\'abord une wilaya';
             communeSelect.appendChild(option);
-        }
-    });
-
-    // Avatar upload handling
-    document.getElementById('avatarOverlay').addEventListener('click', () => {
-        document.getElementById('avatarUpload').click();
-    });
-
-    document.getElementById('avatarUpload').addEventListener('change', async (e) => {
-        const file = e.target.files[0];
-        if (!file) return;
-        
-        // Validate file type and size
-        const validTypes = ['image/jpeg', 'image/png', 'image/gif'];
-        if (!validTypes.includes(file.type)) {
-            alert('Veuillez sélectionner une image (JPEG, PNG ou GIF)');
-            return;
-        }
-        
-        if (file.size > 2 * 1024 * 1024) {
-            alert('L\'image ne doit pas dépasser 2 MB');
-            return;
-        }
-        
-        // Preview image
-        const reader = new FileReader();
-        reader.onload = (event) => {
-            document.getElementById('userAvatar').src = event.target.result;
-        };
-        reader.readAsDataURL(file);
-        
-        // Upload to Firebase Storage
-        try {
-            const user = auth.currentUser;
-            if (user) {
-                const storageRef = ref(storage, `avatars/${user.uid}`);
-                await uploadBytes(storageRef, file);
-                const downloadURL = await getDownloadURL(storageRef);
-                
-                // Update user profile with new avatar URL
-                const userRef = doc(db, 'users', user.uid);
-                await updateDoc(userRef, {
-                    avatarURL: downloadURL
-                });
-                
-                console.log('Avatar updated successfully');
-            }
-        } catch (error) {
-            console.error('Error uploading avatar:', error);
-            alert('Erreur lors du téléchargement de l\'image');
         }
     });
 
@@ -809,9 +1060,15 @@
             try {
                 const user = auth.currentUser;
                 if (user) {
+                    // Show a subtle loading indicator
+                    const submitBtn = document.querySelector('#profileCompletionForm button[type="submit"]');
+                    const originalBtnText = submitBtn.innerHTML;
+                    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Enregistrement...';
+                    submitBtn.disabled = true;
+                    
                     const userRef = doc(db, 'users', user.uid);
                     
-                    // Prepare user data update - REMOVED academicYear
+                    // Prepare user data update
                     const updateData = {
                         wilaya: wilaya,
                         commune: commune,
@@ -850,12 +1107,52 @@
                             }
                         });
                         
-                        alert('Profil mis à jour avec succès!');
+                        // Show success notification instead of alert
+                        const notification = document.createElement('div');
+                        notification.className = 'fixed top-4 right-4 bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded shadow-md z-50 transform transition-all duration-500 translate-x-full';
+                        notification.innerHTML = '<div class="flex items-center"><i class="fas fa-check-circle mr-2"></i> Profil mis à jour avec succès!</div>';
+                        document.body.appendChild(notification);
+                        
+                        // Animate notification
+                        setTimeout(() => {
+                            notification.classList.remove('translate-x-full');
+                        }, 100);
+                        
+                        // Remove notification after delay
+                        setTimeout(() => {
+                            notification.classList.add('translate-x-full');
+                            setTimeout(() => notification.remove(), 500);
+                        }, 4000);
                     }, 300);
+                    
+                    // Reset button
+                    submitBtn.innerHTML = originalBtnText;
+                    submitBtn.disabled = false;
                 }
             } catch (error) {
                 console.error('Error updating profile:', error);
-                alert('Une erreur est survenue lors de la mise à jour du profil');
+                
+                // Show error notification instead of alert
+                const notification = document.createElement('div');
+                notification.className = 'fixed top-4 right-4 bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded shadow-md z-50 transform transition-all duration-500 translate-x-full';
+                notification.innerHTML = '<div class="flex items-center"><i class="fas fa-exclamation-circle mr-2"></i> Une erreur est survenue. Veuillez réessayer.</div>';
+                document.body.appendChild(notification);
+                
+                // Animate notification
+                setTimeout(() => {
+                    notification.classList.remove('translate-x-full');
+                }, 100);
+                
+                // Remove notification after delay
+                setTimeout(() => {
+                    notification.classList.add('translate-x-full');
+                    setTimeout(() => notification.remove(), 500);
+                }, 4000);
+                
+                // Reset submit button
+                const submitBtn = document.querySelector('#profileCompletionForm button[type="submit"]');
+                submitBtn.innerHTML = '<i class="fas fa-save mr-2"></i> Enregistrer';
+                submitBtn.disabled = false;
             }
         }
     });
@@ -863,14 +1160,12 @@
     // Initialize page
     async function initializePage() {
         console.log("Starting page initialization...");
-        showLoadingState();
-
         try {
             // Check if user is authenticated
             const user = auth.currentUser;
             
             if (!user) {
-                console.error("No authenticated user found, redirecting to login page");
+                console.log("No authenticated user found, redirecting to login page");
                 window.location.href = 'auth.html';
                 return;
             }
@@ -893,14 +1188,45 @@
                 // Populate form fields for the modal
                 populateFormFields(userData);
             } else {
-                console.error("No user document found in Firestore for ID:", user.uid);
-                alert("Erreur: Impossible de trouver votre profil. Veuillez vous reconnecter.");
+                console.log("No user document found in Firestore for ID:", user.uid);
+                
+                // Create a minimal user object instead of showing an error
+                const minimalUserData = {
+                    fullName: user.displayName || "Utilisateur",
+                    email: user.email || "Non défini",
+                    matricule: "Non défini",
+                    speciality: "Non défini"
+                };
+                
+                // Update UI with minimal data
+                updateUIWithUserData(minimalUserData);
+                
+                // Start profile completion flow automatically
+                setTimeout(() => {
+                    document.getElementById('completeProfileBtn')?.click();
+                }, 1000);
             }
         } catch (error) {
             console.error('Error fetching user data:', error);
-            alert("Une erreur est survenue lors du chargement de votre profil");
-        } finally {
-            hideLoadingState();
+            
+            // Create a fallback user object
+            const fallbackUserData = {
+                fullName: "Erreur de connexion",
+                email: "Veuillez rafraîchir la page",
+                matricule: "---",
+                speciality: "---"
+            };
+            
+            // Update UI with fallback data
+            updateUIWithUserData(fallbackUserData);
+            
+            // Show error notification
+            showNotification('error', 'Impossible de charger les données. Veuillez rafraîchir la page.');
+            
+            // Retry loading after a delay
+            setTimeout(() => {
+                window.location.reload();
+            }, 5000);
         }
     }
 
@@ -1032,29 +1358,6 @@
             }
         });
 
-        // Avatar upload click handler
-        addSafeEventListener('avatarOverlay', 'click', function() {
-            const avatarUpload = document.getElementById('avatarUpload');
-            if (avatarUpload) {
-                avatarUpload.click();
-            }
-        });
-
-        // Avatar upload change handler
-        addSafeEventListener('avatarUpload', 'change', function(e) {
-            const userAvatar = document.getElementById('userAvatar');
-            if (userAvatar) {
-                const file = e.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function(event) {
-                        userAvatar.src = event.target.result;
-                    };
-                    reader.readAsDataURL(file);
-                }
-            }
-        });
-
         // Form submission handler 
         addSafeEventListener('profileCompletionForm', 'submit', function(e) {
             e.preventDefault();
@@ -1090,8 +1393,17 @@
     // Wait for both DOM and Firebase to be ready before initializing
     function initWhenReady() {
         // Check if both DOM is ready and Firebase Auth is available
-        if (document.readyState === 'complete' && typeof auth !== 'undefined') {
-            console.log("Both DOM and Firebase Auth are ready, checking authentication");
+        if (document.readyState === 'complete') {
+            console.log("DOM is ready, checking Firebase Auth");
+            
+            // Give Firebase more time to initialize if needed
+            if (typeof auth === 'undefined') {
+                console.log("Firebase Auth not yet available, retrying...");
+                setTimeout(initWhenReady, 500); // Increased timeout for Firebase initialization
+                return;
+            }
+            
+            console.log("Firebase Auth is available, checking authentication");
             
             // Check authentication state
             onAuthStateChanged(auth, (user) => {
@@ -1104,7 +1416,8 @@
                 }
             });
         } else {
-            // Try again in a moment
+            // Wait for DOM to be ready
+            console.log("DOM not yet ready, waiting...");
             setTimeout(initWhenReady, 100);
         }
     }
@@ -1116,6 +1429,35 @@
     // Remove these sections:
     // - The duplicate DOMContentLoaded event listener that calls checkFirebaseAuth
     // - The duplicate form submission handler
+
+    // Add this function to the module section if not already there
+
+    // Helper function to show notifications
+    function showNotification(type, message) {
+        const notificationClass = type === 'success' ? 
+            'bg-green-100 border-green-500 text-green-700' : 
+            'bg-red-100 border-red-500 text-red-700';
+        const icon = type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle';
+        
+        const notification = document.createElement('div');
+        notification.className = `fixed top-4 right-4 ${notificationClass} border-l-4 p-4 rounded shadow-md z-50 transform transition-all duration-500 translate-x-full`;
+        notification.innerHTML = `<div class="flex items-center"><i class="fas ${icon} mr-2"></i> ${message}</div>`;
+        document.body.appendChild(notification);
+        
+        // Animate notification
+        setTimeout(() => {
+            notification.classList.remove('translate-x-full');
+        }, 100);
+        
+        // Remove notification after delay
+        setTimeout(() => {
+            notification.classList.add('translate-x-full');
+            setTimeout(() => notification.remove(), 500);
+        }, 4000);
+    }
+
+    // Initialize students modal
+    initStudentsModal();
 </script>
 </body>
 </html>
