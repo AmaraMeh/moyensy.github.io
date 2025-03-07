@@ -304,18 +304,21 @@
                             <button id="completeProfileBtn" class="px-4 py-1.5 rounded-full text-sm font-medium flex items-center gap-2">
                                 <i class="fas fa-user-edit"></i> Compléter le profil
                             </button>
-                            <!-- Add this new button -->
                             <button id="checkStudentsBtn" class="px-4 py-1.5 rounded-full text-sm font-medium flex items-center gap-2 bg-white/30 hover:bg-white/50 text-white transition-all">
                                 <i class="fas fa-users"></i> Liste des étudiants
+                            </button>
+                            <button id="notificationsBtn" class="px-4 py-1.5 rounded-full text-sm font-medium flex items-center gap-2 bg-white/30 hover:bg-white/50 text-white transition-all relative">
+                                <i class="fas fa-bell"></i> Notifications
+                                <span id="notificationBadge" class="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-red-500 text-white text-xs flex items-center justify-center shadow-md hidden">0</span>
                             </button>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <!-- Profile Info - Updated with better spacing and style -->
-            <div class="p-8">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            
+            <!-- Profile info section - fix the nesting -->
+            <div class="p-6">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     <div class="info-group transform transition hover:scale-105" data-aos="fade-up" data-aos-delay="100">
                         <h3 class="text-sm uppercase text-cyan-700 font-medium mb-2">Matricule</h3>
                         <p id="studentId" class="info-value text-cyan-900 font-medium"></p>
@@ -340,7 +343,6 @@
                         <h3 class="text-sm uppercase text-cyan-700 font-medium mb-2">Genre</h3>
                         <p id="gender" class="info-value text-cyan-900 font-medium"></p>
                     </div>
-                    <!-- Add this after the gender div in the profile info section -->
                     <div id="instagramInfo" class="info-group transform transition hover:scale-105" data-aos="fade-up" data-aos-delay="700">
                         <h3 class="text-sm uppercase text-cyan-700 font-medium mb-2">Instagram</h3>
                         <p id="instagramValue" class="info-value text-cyan-900 font-medium flex items-center">
@@ -507,6 +509,54 @@
         </div>
     </div>
 
+    <!-- Add this notifications modal before the script tags -->
+    <div id="notificationsModal" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 hidden backdrop-filter backdrop-blur-sm transition-all duration-300">
+        <div class="max-w-md w-full max-h-[80vh] overflow-hidden shadow-xl transform transition-all scale-95 opacity-0 rounded-lg" id="notificationsModalContent">
+            <!-- Notifications header with gradient -->
+            <div class="p-4 border-b bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 animate-gradient-x">
+                <div class="flex justify-between items-center">
+                    <h2 class="text-lg font-bold text-white text-on-gradient flex items-center">
+                        <i class="fas fa-bell mr-2"></i> Notifications
+                    </h2>
+                    <button id="closeNotificationsModalBtn" class="text-white hover:text-pink-100 transition-colors">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Notifications filter tabs -->
+            <div class="bg-white border-b border-gray-200">
+                <div class="flex">
+                    <button id="allNotificationsTab" class="flex-1 py-2 px-4 font-medium text-sm text-center border-b-2 border-pink-500 text-pink-500">
+                        Toutes
+                    </button>
+                    <button id="friendRequestsTab" class="flex-1 py-2 px-4 font-medium text-sm text-center border-b-2 border-transparent text-gray-500 hover:text-gray-700">
+                        Demandes d'amis
+                    </button>
+                    <button id="messagesTab" class="flex-1 py-2 px-4 font-medium text-sm text-center border-b-2 border-transparent text-gray-500 hover:text-gray-700">
+                        Messages
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Notifications content -->
+            <div class="bg-gradient-to-b from-white to-pink-50 backdrop-blur-sm">
+                <div class="overflow-y-auto" style="max-height: 60vh;">
+                    <div id="notificationsContainer" class="p-2 space-y-2">
+                        <!-- Notifications will be added here -->
+                        <div class="skeleton h-16 rounded-md"></div>
+                        <div class="skeleton h-16 rounded-md"></div>
+                        <div class="skeleton h-16 rounded-md"></div>
+                    </div>
+                    <div id="noNotificationsMessage" class="hidden py-8 text-center text-gray-500">
+                        <i class="fas fa-bell-slash mb-2 text-2xl text-gray-400"></i>
+                        <p>Aucune notification</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init();
@@ -583,7 +633,7 @@
     // Replace the entire script type="module" section 
     import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js';
     import { getAuth, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js';
-    import { getFirestore, doc, getDoc, updateDoc, collection, getDocs, query, where } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
+    import { getFirestore, doc, getDoc, updateDoc, collection, getDocs, query, where, addDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
     import { getStorage, ref, uploadBytes, getDownloadURL } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js';
 
     // Then add these functions to the script section
@@ -644,23 +694,163 @@
             }
             
             noStudentsMessage.classList.add('hidden');
-            container.innerHTML = students.map(student => `
-                <div class="student-card p-3 bg-cyan-50/70 rounded-md border border-cyan-100 hover:border-cyan-300 transform transition-all hover:-translate-y-1 hover:shadow-md">
-                    <div class="flex items-center gap-2">
-                        <div class="w-10 h-10 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 flex items-center justify-center text-white text-sm font-bold">
+            
+            // Colorful gradients for student cards (cycling through colors)
+            const gradients = [
+                'from-cyan-500 to-blue-500',
+                'from-blue-500 to-purple-500',
+                'from-purple-500 to-pink-500',
+                'from-pink-500 to-red-500',
+                'from-red-500 to-orange-500',
+                'from-orange-500 to-yellow-500',
+                'from-yellow-500 to-green-500',
+                'from-green-500 to-teal-500',
+                'from-teal-500 to-cyan-500'
+            ];
+            
+            container.innerHTML = students.map((student, index) => {
+                // Select gradient based on index (cycling through the array)
+                const gradient = gradients[index % gradients.length];
+                
+                return `
+                <div class="student-card p-4 bg-white/90 rounded-md border-l-4 border-${gradient.split(' ')[0].replace('from-', '')} hover:-translate-y-1 transition-all duration-300 hover:shadow-lg relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl ${gradient} opacity-10 rounded-bl-full"></div>
+                    <div class="flex items-center gap-3 relative z-10">
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-r ${gradient} flex items-center justify-center text-white text-sm font-bold shadow-md">
                             ${student.fullName ? student.fullName.charAt(0).toUpperCase() : 'U'}
                         </div>
                         <div class="flex-1 min-w-0">
-                            <h3 class="font-medium text-cyan-900 text-sm truncate">${student.fullName || 'Étudiant'}</h3>
-                            <p class="text-xs text-cyan-700 truncate">${student.speciality || 'Non spécifié'}</p>
+                            <h3 class="font-medium text-gray-900 text-sm truncate">${student.fullName || 'Étudiant'}</h3>
+                            <p class="text-xs text-gray-700 truncate">${student.speciality || 'Non spécifié'}</p>
                             ${student.instagram ? `
                             <a href="https://instagram.com/${student.instagram}" target="_blank" class="flex items-center text-xs text-pink-600 hover:text-pink-700 transition-colors mt-1">
                                 <i class="fab fa-instagram mr-1"></i>${student.instagram}
                             </a>` : ''}
                         </div>
                     </div>
+                    
+                    <div class="mt-3 pt-3 border-t border-gray-100 flex gap-2">
+                        <button class="add-friend-btn flex-1 bg-gradient-to-r from-green-500 to-emerald-600 text-white text-xs py-1.5 px-2 rounded-md hover:shadow-md transition-all flex items-center justify-center" 
+                                data-user-id="${student.id}">
+                            <i class="fas fa-user-plus mr-1"></i> Ajouter
+                        </button>
+                        <button class="send-message-btn flex-1 bg-gradient-to-r from-blue-500 to-indigo-600 text-white text-xs py-1.5 px-2 rounded-md hover:shadow-md transition-all flex items-center justify-center"
+                                data-user-id="${student.id}">
+                            <i class="fas fa-paper-plane mr-1"></i> Message
+                        </button>
+                    </div>
                 </div>
-            `).join('');
+                `;
+            }).join('');
+            
+            // Add event listeners to all friend and message buttons
+            document.querySelectorAll('.add-friend-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const userId = btn.dataset.userId;
+                    sendFriendRequest(userId);
+                });
+            });
+            
+            document.querySelectorAll('.send-message-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const userId = btn.dataset.userId;
+                    openMessageDialog(userId);
+                });
+            });
+        }
+
+        // Add these functions for friend requests
+        async function sendFriendRequest(targetUserId) {
+            try {
+                const currentUser = auth.currentUser;
+                if (!currentUser) {
+                    showNotification('error', 'Vous devez être connecté pour envoyer une demande d\'ami');
+                    return;
+                }
+                
+                // Check if a request already exists
+                const requestStatus = await checkFriendRequestStatus(currentUser.uid, targetUserId);
+                
+                if (requestStatus === 'sent') {
+                    showNotification('error', 'Vous avez déjà envoyé une demande à cet étudiant');
+                    return;
+                } else if (requestStatus === 'received') {
+                    showNotification('error', 'Cet étudiant vous a déjà envoyé une demande');
+                    return;
+                } else if (requestStatus === 'friends') {
+                    showNotification('error', 'Vous êtes déjà ami avec cet étudiant');
+                    return;
+                }
+                
+                // Create new friend request
+                const friendRequestsRef = collection(db, 'friendRequests');
+                await addDoc(friendRequestsRef, {
+                    senderId: currentUser.uid,
+                    recipientId: targetUserId,
+                    status: 'pending',
+                    timestamp: serverTimestamp()
+                });
+                
+                showNotification('success', 'Demande d\'ami envoyée avec succès');
+                
+                // Update button appearance
+                const btn = document.querySelector(`.add-friend-btn[data-user-id="${targetUserId}"]`);
+                if (btn) {
+                    btn.innerHTML = '<i class="fas fa-clock mr-1"></i> En attente';
+                    btn.classList.remove('from-green-500', 'to-emerald-600');
+                    btn.classList.add('from-yellow-500', 'to-amber-600');
+                    btn.disabled = true;
+                }
+            } catch (error) {
+                console.error('Error sending friend request:', error);
+                showNotification('error', 'Erreur lors de l\'envoi de la demande d\'ami');
+            }
+        }
+        
+        async function checkFriendRequestStatus(userId1, userId2) {
+            try {
+                // Check if they are already friends
+                const friendsRef = doc(db, 'friends', userId1);
+                const friendsDoc = await getDoc(friendsRef);
+                
+                if (friendsDoc.exists() && friendsDoc.data().friendIds && 
+                    friendsDoc.data().friendIds.includes(userId2)) {
+                    return 'friends';
+                }
+                
+                // Check for pending requests in both directions
+                const sentRequestsQuery = query(
+                    collection(db, 'friendRequests'),
+                    where('senderId', '==', userId1),
+                    where('recipientId', '==', userId2),
+                    where('status', '==', 'pending')
+                );
+                
+                const receivedRequestsQuery = query(
+                    collection(db, 'friendRequests'),
+                    where('senderId', '==', userId2),
+                    where('recipientId', '==', userId1),
+                    where('status', '==', 'pending')
+                );
+                
+                const sentRequests = await getDocs(sentRequestsQuery);
+                const receivedRequests = await getDocs(receivedRequestsQuery);
+                
+                if (!sentRequests.empty) {
+                    return 'sent';
+                }
+                
+                if (!receivedRequests.empty) {
+                    return 'received';
+                }
+                
+                return 'none';
+            } catch (error) {
+                console.error('Error checking friend request status:', error);
+                return 'error';
+            }
         }
         
         // Open the students modal
