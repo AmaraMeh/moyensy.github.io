@@ -322,13 +322,13 @@
             popupTitle.textContent = `${module} - ${type.toUpperCase()}`;
             popupContent.innerHTML = '';
 
-            // Template for Bejaia University section (Primary) - Always show this
+            // Template for Bejaia University section
             const bejaiaSection = document.createElement('div');
-            bejaiaSection.className = 'university-section mb-6 transform transition-all duration-300 hover:scale-105 border-l-4 border-green-600';
+            bejaiaSection.className = 'university-section mb-6 transform transition-all duration-300 hover:translate-x-1 border-l-4 border-green-600 bg-white rounded-lg shadow-sm';
             
             // Create section header
             const sectionHeader = document.createElement('div');
-            sectionHeader.className = 'section-header bg-green-50 p-4 rounded-t-lg border-b-2 border-green-200';
+            sectionHeader.className = 'section-header bg-green-50 p-4 rounded-t-lg border-b border-green-100';
             sectionHeader.innerHTML = `
                 <h3 class="text-xl font-bold text-green-600 flex items-center gap-2">
                     <i class="fas fa-university"></i>
@@ -336,29 +336,37 @@
                 </h3>
             `;
             
-            // Create content grid
-            const contentGrid = document.createElement('div');
-            contentGrid.className = 'content-grid grid gap-4 p-4';
-            
             // Get content for this module and type
             const contentHtml = getBejaiaContent(module, type);
             
-            if (contentHtml) {
-                contentGrid.innerHTML = contentHtml;
+            if (contentHtml && contentHtml !== '<p class="text-gray-500 italic">Contenu à venir...</p>') {
+                const contentContainer = document.createElement('div');
+                contentContainer.className = 'p-4';
+                contentContainer.innerHTML = contentHtml;
+                
                 bejaiaSection.appendChild(sectionHeader);
-                bejaiaSection.appendChild(contentGrid);
+                bejaiaSection.appendChild(contentContainer);
                 popupContent.appendChild(bejaiaSection);
             } else {
                 popupContent.innerHTML = `
                     <div class="text-center p-8">
                         <i class="fas fa-exclamation-circle text-5xl text-gray-400 mb-4"></i>
                         <p class="text-gray-500">Aucun contenu disponible pour ce module</p>
+                        <p class="text-sm text-gray-400 mt-2">Revenez plus tard pour voir les ressources</p>
                     </div>
                 `;
             }
 
-            // Show popup
+            // Show popup with animation
             popup.classList.remove('hidden');
+            popup.animate([
+                { opacity: 0, transform: 'scale(0.95)' },
+                { opacity: 1, transform: 'scale(1)' }
+            ], {
+                duration: 200,
+                easing: 'ease-out',
+                fill: 'forwards'
+            });
         }
 
         function getBejaiaContent(module, type) {
@@ -617,11 +625,14 @@
                 let html = '';
                 const contentArray = content[module][type];
 
+                // Create a content grid container
+                html += '<div class="content-grid grid grid-cols-1 md:grid-cols-2 gap-4">';
+
                 // First check for exclusive content
                 const exclusiveContent = contentArray.find(item => item.exclusive);
                 if (exclusiveContent) {
                     html += `
-                        <div class="exclusive-2025 mb-6">
+                        <div class="col-span-full exclusive-2025 mb-6">
                             <h4 class="text-xl font-bold text-green-600 mb-3 flex items-center">
                                 <span class="bg-green-600 text-white px-3 py-1 rounded-lg mr-2">2025</span>
                                 Contenu Exclusif
@@ -635,7 +646,10 @@
                                             <i class="fas fa-star text-yellow-500 mr-2"></i>
                                             ${file.title}
                                         </span>
-                                        <i class="fas fa-download text-green-600"></i>
+                                        <span class="download-btn bg-green-50 hover:bg-green-100 text-green-600 px-2 py-1 rounded-full text-sm flex items-center">
+                                            <i class="fas fa-download mr-1"></i>
+                                            <span class="hidden md:inline">Télécharger</span>
+                                        </span>
                                     </a>
                                 `).join('')}
                             </div>
@@ -647,7 +661,7 @@
                 const recommendedContent = contentArray.find(item => item.recommended);
                 if (recommendedContent) {
                     html += `
-                        <div class="recommended-content mb-6">
+                        <div class="col-span-full recommended-content mb-6">
                             <h4 class="text-xl font-bold text-blue-600 mb-3 flex items-center">
                                 <span class="bg-blue-600 text-white px-3 py-1 rounded-lg mr-2">
                                     <i class="fas fa-thumbs-up"></i>
@@ -663,7 +677,10 @@
                                             <i class="fas fa-award text-blue-500 mr-2"></i>
                                             ${file.title}
                                         </span>
-                                        <i class="fas fa-download text-blue-600"></i>
+                                        <span class="download-btn bg-blue-50 hover:bg-blue-100 text-blue-600 px-2 py-1 rounded-full text-sm flex items-center">
+                                            <i class="fas fa-download mr-1"></i>
+                                            <span class="hidden md:inline">Télécharger</span>
+                                        </span>
                                     </a>
                                 `).join('')}
                             </div>
@@ -672,19 +689,46 @@
                 }
 
                 // Then add regular content
-                html += contentArray
+                contentArray
                     .filter(item => !item.exclusive && !item.recommended)
-                    .map(item => `
-                        <a href="${item.url}" 
-                           class="text-blue-500 hover:underline flex items-center" 
-                           target="_blank">
-                            <i class="fas fa-file-pdf mr-2"></i>${item.title}
-                        </a>
-                    `).join('');
+                    .forEach(item => {
+                        const icon = getIconByType(type);
+                        
+                        html += `
+                            <div class="content-item bg-white p-4 rounded-lg shadow hover:shadow-md transition-all duration-300">
+                                <a href="${item.url}" 
+                                   class="text-gray-800 flex items-center justify-between w-full" 
+                                   target="_blank">
+                                    <span class="flex items-center">
+                                        <span class="icon-wrapper flex items-center justify-center w-10 h-10 rounded-full bg-green-50 text-green-600 mr-3">
+                                            <i class="fas ${icon} text-lg"></i>
+                                        </span>
+                                        <span class="font-medium">${item.title}</span>
+                                    </span>
+                                    <span class="download-btn bg-green-50 hover:bg-green-100 text-green-600 px-2 py-1 rounded-full text-sm flex items-center">
+                                        <i class="fas fa-download mr-1"></i>
+                                        <span class="hidden md:inline">Télécharger</span>
+                                    </span>
+                                </a>
+                            </div>
+                        `;
+                    });
 
+                html += '</div>';
                 return html;
             }
+            
             return '<p class="text-gray-500 italic">Contenu à venir...</p>';
+        }
+
+        function getIconByType(type) {
+            switch (type) {
+                case 'cours': return 'fa-book';
+                case 'tdtp': return 'fa-pencil-alt';
+                case 'examen': return 'fa-file-alt';
+                case 'compterendu': return 'fa-clipboard-check';
+                default: return 'fa-file-pdf';
+            }
         }
 
         function closePopup(type) {
@@ -696,15 +740,25 @@
 
         // Add event listeners for popup clicks
         document.addEventListener('DOMContentLoaded', function() {
-            ['tdtp', 'examen', 'cours', 'compterendu'].forEach(type => {
-                const popup = document.getElementById(`popup-${type}`);
-                if (popup) {
-                    popup.addEventListener('click', function(e) {
-                        if (e.target === this) {
-                            closePopup(type);
-                        }
-                    });
-                }
+            // Add listeners for all close buttons
+            const closeButtons = document.querySelectorAll('.close-popup-btn');
+            closeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const popup = this.closest('[id^="popup-"]');
+                    if (popup) {
+                        popup.classList.add('hidden');
+                    }
+                });
+            });
+
+            // Close when clicking outside the content
+            const popups = document.querySelectorAll('[id^="popup-"]');
+            popups.forEach(popup => {
+                popup.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        this.classList.add('hidden');
+                    }
+                });
             });
         });
 
@@ -973,60 +1027,69 @@
         .popup-content::-webkit-scrollbar-thumb:hover {
             background: rgba(34, 197, 94, 0.7);
         }
-        
-        /* Improved close button */
-        .close-popup-btn {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            background-color: #ef4444;
-            color: white;
-            border-radius: 0.5rem;
-            transition: all 0.2s ease;
-        }
-        
-        .close-popup-btn:hover {
-            background-color: #dc2626;
-            transform: scale(1.05);
-        }
-        
-        /* Content item animations */
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .content-item {
-            animation: slideIn 0.3s ease-out forwards;
-        }
     </style>
+
     <style>
-    /* Enhanced popup styling to match Informatique LMD style */
+    /* Enhanced content item styling */
+    .content-item {
+        border: 1px solid rgba(229, 231, 235, 0.5);
+        transition: all 0.3s ease;
+        animation: fadeIn 0.5s ease forwards;
+    }
+    
+    .content-item:hover {
+        transform: translateY(-3px);
+        border-color: rgba(34, 197, 94, 0.3);
+    }
+    
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* Download button enhancements */
+    .download-btn {
+        transition: all 0.2s ease;
+    }
+    
+    .download-btn:hover {
+        transform: scale(1.05);
+    }
+    
+    /* Exclusive and recommended content styling */
+    .exclusive-2025, .recommended-content {
+        position: relative;
+    }
+    
+    .exclusive-2025::before, .recommended-content::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        border-radius: 3px;
+    }
+    
+    .exclusive-2025::before {
+        background: linear-gradient(to right, #10b981, #3b82f6);
+    }
+    
+    .recommended-content::before {
+        background: linear-gradient(to right, #3b82f6, #8b5cf6);
+    }
+    
+    /* Enhanced popup structure */
     .glass-card {
         background: rgba(255, 255, 255, 0.95);
         border-radius: 20px;
         box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
         backdrop-filter: blur(8px);
-        padding: 2rem;
-        max-height: 80vh;
-        overflow-y: auto;
-        width: 100%;
-        max-width: 800px;
     }
     
     .popup-content {
-        max-height: 70vh;
-        overflow-y: auto;
         scrollbar-width: thin;
         scrollbar-color: rgba(34, 197, 94, 0.5) rgba(229, 231, 235, 0.5);
-        padding: 1rem 0;
     }
     
     .popup-content::-webkit-scrollbar {
@@ -1047,265 +1110,22 @@
         background: rgba(34, 197, 94, 0.7);
     }
     
-    /* Improved close button style */
-    .close-popup-btn {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        padding: 0.5rem 1rem;
-        background-color: #ef4444;
-        color: white;
-        border-radius: 0.5rem;
-        transition: all 0.2s ease;
+    /* Section headers styling */
+    .section-header {
+        position: relative;
+        overflow: hidden;
     }
     
-    .close-popup-btn:hover {
-        background-color: #dc2626;
-        transform: scale(1.05);
-    }
-    
-    /* University section styling */
-    .university-section {
-        background: rgba(255, 255, 255, 0.9);
-        border-radius: 10px;
-        padding: 1rem;
-        margin-bottom: 1rem;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        transition: all 0.3s ease;
-    }
-    
-    .university-section:hover {
-        transform: translateX(5px);
-        box-shadow: 0 4px 6px rgba(0,0,0,0.15);
-    }
-    
-    .university-section h3 {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-    }
-    
-    .university-section h3::before {
+    .section-header::after {
         content: '';
-        width: 4px;
-        height: 1.5rem;
-        background-color: currentColor;
-        border-radius: 2px;
-    }
-    
-    /* Content grid and items styling */
-    .content-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 1rem;
-    }
-    
-    .content-item {
-        background: white;
-        border-radius: 0.5rem;
-        transition: all 0.3s ease;
-        animation: slideIn 0.3s ease-out forwards;
-    }
-    
-    .content-item:hover {
-        transform: translateY(-2px);
-    }
-    
-    @keyframes slideIn {
-        from {
-            opacity: 0;
-            transform: translateY(10px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-    
-    /* Fix z-index to ensure popups appear on top */
-    [id^="popup-"] {
-        z-index: 50;
-    }
-
-    /* Add these styles to your existing styles section */
-    
-    /* Adjust container to use more screen space */
-    .container {
+        position: absolute;
+        bottom: 0;
+        left: 0;
         width: 100%;
-        max-width: 1440px; /* Increased from 72rem (1152px) */
-    }
-    
-    /* Ensure glass card uses full width */
-    .glass-card {
-        width: 100%;
-    }
-    
-    /* Fix module card sizing */
-    .module-card {
-        height: 100%;
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-    }
-    
-    /* Make sure grid items take full width */
-    .grid {
-        width: 100%;
-    }
-    
-    /* Improve spacing on mobile */
-    @media (max-width: 640px) {
-        .module-card {
-            margin-bottom: 1rem;
-        }
-    }
-    
-    /* Ensure content isn't too stretched on ultra-wide screens */
-    @media (min-width: 1536px) {
-        .container {
-            max-width: 1600px;
-            padding-left: 2rem;
-            padding-right: 2rem;
-        }
+        height: 1px;
+        background: linear-gradient(to right, transparent, rgba(16, 185, 129, 0.3), transparent);
     }
 </style>
-<style>
-    /* Full width layout fixes */
-    .container-fluid {
-        width: 100%;
-        max-width: 100%;
-        margin-left: auto;
-        margin-right: auto;
-    }
-    
-    /* Override any max-width constraints on the glass card */
-    .glass-card {
-        width: 100%;
-        max-width: 100%;
-        margin: 0;
-        border-radius: 20px;
-        padding: 2rem 1rem; /* Adjust padding for better mobile experience */
-    }
-    
-    /* Ensure grid uses full width */
-    .grid {
-        width: 100%;
-    }
-    
-    /* Adjust padding on larger screens for better spacing */
-    @media (min-width: 1024px) {
-        .glass-card {
-            padding: 2rem;
-        }
-        
-        .container-fluid {
-            padding-left: 2rem;
-            padding-right: 2rem;
-        }
-    }
-    
-    /* Remove any extra constraints on large screens */
-    @media (min-width: 1536px) {
-        .container-fluid {
-            padding-left: 3rem;
-            padding-right: 3rem;
-        }
-    }
-    
-    /* Improve module card sizing on different screens */
-    .module-card {
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-    }
-    
-    /* Add breathing room between module cards on mobile */
-    @media (max-width: 640px) {
-        .module-card {
-            margin-bottom: 1rem;
-        }
-        
-        .grid {
-            gap: 1rem;
-        }
-    }
-</style>
-<style>
-    /* Enhanced full width fixes */
-    .container-fluid {
-        width: 100vw !important;
-        max-width: 100vw !important;
-        margin: 0 !important;
-        padding-left: 1rem !important;
-        padding-right: 1rem !important;
-        box-sizing: border-box !important;
-    }
-    
-    /* Make sure the glass card fills the container completely */
-    .glass-card {
-        width: 100% !important;
-        max-width: none !important;
-        margin: 0 !important;
-        box-sizing: border-box !important;
-    }
-    
-    /* Ensure the grid uses the full available width */
-    .grid {
-        width: 100% !important;
-        max-width: none !important;
-        margin: 0 !important;
-    }
-    
-    /* Adjust spacing on larger screens */
-    @media (min-width: 1024px) {
-        .container-fluid {
-            padding-left: 2rem !important;
-            padding-right: 2rem !important;
-        }
-    }
-    
-    /* Make module cards fill their grid cells */
-    .module-card {
-        width: 100% !important;
-        height: 100% !important;
-        box-sizing: border-box !important;
-    }
-</style>
-    <script src="https://richinfo.co/richpartners/in-page/js/richads-ob.js?pubid=959531&siteid=357365" async></script>
-    <script type="text/javascript">
-        aclib.runAutoTag({
-            zoneId: '1hqerebunb',
-        });
-    </script>
-    <script>
-        // Nouvelle fonction de fermeture des popups
-        document.addEventListener('DOMContentLoaded', function() {
-            // Ajouter les listeners pour tous les boutons de fermeture
-            const closeButtons = document.querySelectorAll('.close-popup-btn');
-            closeButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const popup = this.closest('[id^="popup-"]');
-                    if (popup) {
-                        popup.classList.add('hidden');
-                    }
-                });
-            });
-
-            // Fermer le popup en cliquant en dehors
-            const popups = document.querySelectorAll('[id^="popup-"]');
-            popups.forEach(popup => {
-                popup.addEventListener('click', function(e) {
-                    if (e.target === this) {
-                        this.classList.add('hidden');
-                    }
-                });
-            });
-        });
-    </script>
-    <script type="module">
-        import features from './js/features-integration.js';
-        // Features are automatically initialized
-    </script>
 </body>
 </html>
+

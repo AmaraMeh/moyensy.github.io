@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversation - ISET'COM</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        .chat-container {
+            background: linear-gradient(135deg, #cffafe 0%, #67e8f9 100%);
+        }
+
+        .chat-header {
+            background: rgba(240, 253, 250, 0.95);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(103, 232, 249, 0.3);
+            border-radius: 1rem;
+            box-shadow: 0 8px 32px rgba(6, 182, 212, 0.15);
+        }
+
+        .chat-messages {
+            height: 60vh;
+            overflow-y: auto;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 1rem;
+            box-shadow: 0 8px 32px rgba(6, 182, 212, 0.1);
+        }
+
+        .message-bubble.sent {
+            background: #007BFF;
+            color: white;
+            border-radius: 15px 15px 15px 5px;
+        }
+
+        .message-bubble.received {
+            background: #E4E6EB;
+            border-radius: 15px 15px 5px 15px;
+        }
+
+        .message-input {
+            background: rgba(240, 253, 250, 0.9);
+            border: 1px solid rgba(103, 232, 249, 0.3);
+            border-radius: 1rem;
+            box-shadow: 0 4px 16px rgba(6, 182, 212, 0.1);
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen bg-gray-50">
+    <div class="container mx-auto px-4 max-w-7xl flex-grow">
+        <header class="chat-header py-4 mb-6" data-aos="fade-down">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <a href="profile.html" class="back-button hover:scale-110 transform transition-all duration-300">
+                        <i class="fas fa-arrow-left"></i>
+                        Retour
+                    </a>
+                    <img src="assets/img/LOGO.png" alt="ISET'COM" class="max-w-[200px] ml-4">
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button class="p-2 rounded-full bg-white hover:bg-gray-100">
+                        <i class="fas fa-video-slash"></i>
+                    </button>
+                    <button class="p-2 rounded-full bg-white hover:bg-gray-100">
+                        <i class="fas fa-phone-slash"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <div class="chat-container bg-white/90 rounded-2xl shadow-xl overflow-hidden">
+            <!-- Chat Header -->
+            <div class="chat-header bg-blue-500 text-white p-4">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-r from-blue-500 to-blue-600 flex items-center justify-center">
+                            <i class="fas fa-user text-xl text-white"></i>
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="text-xl font-semibold">Nom de l'Utilisateur</h3>
+                            <span class="text-sm">En ligne</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <button class="p-2 rounded-full bg-white/20 hover:bg-white/30">
+                            <i class="fas fa-video"></i>
+                        </button>
+                        <button class="p-2 rounded-full bg-white/20 hover:bg-white/30">
+                            <i class="fas fa-phone"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chat Messages -->
+            <div class="chat-messages p-4 space-y-4" id="chatMessages">
+                <!-- Messages will be dynamically inserted here -->
+            </div>
+
+            <!-- Message Input -->
+            <div class="message-input p-4 border-t border-gray-200">
+                <div class="flex space-x-4">
+                    <input type="text" id="messageInput" class="flex-1 p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500" placeholder="Tapez un message...">
+                    <button onclick="sendMessage()" class="bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700 transition-all">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 800, once: true });
+
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyB5XYqWKhHdiVDXJx4iOwtpxD8eUCPRfKU",
+            authDomain: "universite-de-bejaia-547fc.firebaseapp.com",
+            projectId: "universite-de-bejaia-547fc",
+            storageBucket: "universite-de-bejaia-547fc.firebasestorage.app",
+            messagingSenderId: "517622731583",
+            appId: "1:517622731583:web:25453d5e01226585bf798a",
+            measurementId: "G-SQ0WWSCS7B"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+
+        // Get current user and recipient from URL parameters
+        const currentUser = auth.currentUser;
+        const urlParams = new URLSearchParams(window.location.search);
+        const recipientId = urlParams.get('userId');
+
+        // Load chat history
+        async function loadChatHistory() {
+            const chatMessages = document.getElementById('chatMessages');
+            const querySnapshot = await getDocs(collection(db, 'chats', `${currentUser.uid}_${recipientId}`, 'messages'));
+            
+            querySnapshot.forEach((doc) => {
+                const message = doc.data();
+                const messageBubble = document.createElement('div');
+                messageBubble.className = `message-bubble ${message.senderId === currentUser.uid ? 'sent' : 'received'}`;
+                messageBubble.innerHTML = `
+                    <p>${message.text}</p>
+                    <small class="block text-xs">${new Date(message.timestamp).toLocaleTimeString()}</small>
+                `;
+                chatMessages.appendChild(messageBubble);
+            });
+
+            // Scroll to bottom
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // Send message
+        function sendMessage() {
+            const messageInput = document.getElementById('messageInput');
+            const messageText = messageInput.value.trim();
+
+            if (messageText) {
+                const newMessage = {
+                    text: messageText,
+                    senderId: currentUser.uid,
+                    recipientId: recipientId,
+                    timestamp: serverTimestamp()
+                };
+
+                // Add to Firestore
+                addDoc(collection(db, 'chats', `${currentUser.uid}_${recipientId}`, 'messages'), newMessage)
+                    .then(() => {
+                        messageInput.value = '';
+                        loadChatHistory();
+                    })
+                    .catch((error) => {
+                        console.error("Error sending message:", error);
+                    });
+            }
+        }
+
+        // Listen for real-time updates
+        onSnapshot(collection(db, 'chats', `${currentUser.uid}_${recipientId}`, 'messages'), (snapshot) => {
+            loadChatHistory();
+        });
+
+        // Initial load
+        document.addEventListener('DOMContentLoaded', () => {
+            loadChatHistory();
+        });
+    </script>
+</body>
+</html>

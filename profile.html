@@ -273,6 +273,113 @@
             transform: scale(1);
         }
     }
+
+    /* Glass card styling for popups */
+    .glass-card {
+        background: rgba(255, 255, 255, 0.85);
+        border-radius: 15px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 2rem;
+    }
+    
+    /* Close button styling */
+    .close-popup-btn {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+        background-color: #ef4444;
+        color: white;
+        border-radius: 0.5rem;
+        transition: all 0.2s ease;
+    }
+    
+    .close-popup-btn:hover {
+        background-color: #dc2626;
+        transform: scale(1.05);
+    }
+    
+    /* Popup content styling */
+    .popup-content {
+        max-height: 70vh;
+        overflow-y: auto;
+        scrollbar-width: thin;
+        scrollbar-color: rgba(34, 197, 94, 0.5) rgba(229, 231, 235, 0.5);
+    }
+    
+    .popup-content::-webkit-scrollbar {
+        width: 8px;
+    }
+    
+    .popup-content::-webkit-scrollbar-track {
+        background: rgba(229, 231, 235, 0.5);
+        border-radius: 4px;
+    }
+    
+    .popup-content::-webkit-scrollbar-thumb {
+        background: rgba(34, 197, 94, 0.5);
+        border-radius: 4px;
+    }
+    
+    .popup-content::-webkit-scrollbar-thumb:hover {
+        background: rgba(34, 197, 94, 0.7);
+    }
+    
+    /* Module button styling */
+    .module-btn {
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        font-weight: 500;
+        transition: all 0.2s ease;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        display: inline-flex;
+        align-items: center;
+    }
+    
+    .module-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+    }
+    
+    .module-btn:active {
+        transform: translateY(0px);
+    }
+    
+    /* Radio button styling */
+    .radio-button-label {
+        position: relative;
+        transition: all 0.3s ease;
+    }
+    
+    .radio-button-label:hover {
+        transform: translateY(-2px);
+    }
+    
+    input[type="radio"].peer:checked + .radio-button-label {
+        background-color: #f0f9ff;
+        border-color: #3b82f6;
+        color: #1e40af;
+        box-shadow: 0 2px 6px rgba(59, 130, 246, 0.3);
+    }
+    
+    /* Animation for modal appearance */
+    @keyframes slideIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    .glass-card {
+        animation: slideIn 0.3s ease-out forwards;
+    }
 </style>
 </head>
 <body>
@@ -360,22 +467,20 @@
     </div>
     
     <!-- Profile Completion Modal -->
-    <div id="profileModal" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 hidden backdrop-filter backdrop-blur-sm transition-all duration-300">
-        <div class="max-w-md w-full max-h-[90vh] overflow-y-auto shadow-2xl transform transition-all scale-95 opacity-0 rounded-xl" id="modalContent">
-            <div class="p-6 border-b bg-gradient-to-r from-cyan-600 to-blue-500">
-                <div class="flex justify-between items-center">
-                    <h2 class="text-xl font-bold text-white text-on-gradient">Finaliser votre profil</h2>
-                    <button id="closeModalBtn" class="text-white hover:text-cyan-100 transition-colors">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
+    <div id="profileModal" class="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50 hidden backdrop-filter backdrop-blur-sm transition-all duration-300">
+        <div class="max-w-md w-full max-h-[90vh] overflow-y-auto shadow-2xl transform transition-all scale-95 opacity-0 rounded-xl glass-card" id="modalContent">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-gray-800">Finaliser votre profil</h2>
+                <button id="closeModalBtn" class="close-popup-btn px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-300 flex items-center gap-2">
+                    <i class="fas fa-times"></i><span>Fermer</span>
+                </button>
             </div>
-            <div class="p-6 bg-cyan-50 bg-opacity-95">
+            <div class="p-6 bg-white bg-opacity-95 rounded-lg popup-content">
                 <form id="profileCompletionForm" class="space-y-5">
                     <!-- Form fields with updated styling -->
                     <div class="mb-4">
-                        <label for="wilaya" class="block text-sm font-medium text-cyan-900 mb-2">Wilaya</label>
-                        <select id="wilaya" name="wilaya" class="form-input w-full px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500">
+                        <label for="wilaya" class="block text-sm font-medium text-gray-800 mb-2">Wilaya</label>
+                        <select id="wilaya" name="wilaya" class="form-input w-full px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 border border-gray-300">
                             <option value="">Sélectionner une wilaya</option>
                             <option value="bejaia">Béjaïa</option>
                             <option value="alger">Alger</option>
@@ -387,45 +492,45 @@
                     </div>
                     
                     <div class="mb-4">
-                        <label for="commune" class="block text-sm font-medium text-cyan-900 mb-2">Commune</label>
-                        <select id="commune" name="commune" class="form-input w-full px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500" disabled>
+                        <label for="commune" class="block text-sm font-medium text-gray-800 mb-2">Commune</label>
+                        <select id="commune" name="commune" class="form-input w-full px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 border border-gray-300" disabled>
                             <option value="">Sélectionner d'abord une wilaya</option>
                         </select>
                         <p id="communeError" class="mt-1 text-sm text-red-600 hidden"></p>
                     </div>
                     
                     <div class="mb-4">
-                        <label for="birthdate" class="block text-sm font-medium text-cyan-900 mb-2">Date de naissance</label>
-                        <input type="date" id="birthdate" name="birthdate" class="form-input w-full px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500">
+                        <label for="birthdate" class="block text-sm font-medium text-gray-800 mb-2">Date de naissance</label>
+                        <input type="date" id="birthdate" name="birthdate" class="form-input w-full px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 border border-gray-300">
                         <p id="birthdateError" class="mt-1 text-sm text-red-600 hidden"></p>
                     </div>
                     
                     <div class="mb-4">
-                        <label for="instagram" class="block text-sm font-medium text-cyan-900 mb-2">Instagram (optionnel)</label>
+                        <label for="instagram" class="block text-sm font-medium text-gray-800 mb-2">Instagram (optionnel)</label>
                         <div class="relative rounded-md">
                             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                <i class="fab fa-instagram text-cyan-500"></i>
+                                <i class="fab fa-instagram text-pink-500"></i>
                             </div>
-                            <input type="text" id="instagram" name="instagram" placeholder="nom_utilisateur" class="form-input w-full pl-10 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500">
+                            <input type="text" id="instagram" name="instagram" placeholder="nom_utilisateur" class="form-input w-full pl-10 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 border border-gray-300">
                         </div>
                         <p id="instagramError" class="mt-1 text-sm text-red-600 hidden"></p>
                     </div>
                     
                     <!-- Updated gender radio buttons with new styling -->
                     <div class="mb-4">
-                        <label class="block text-sm font-medium text-cyan-900 mb-2">Genre</label>
+                        <label class="block text-sm font-medium text-gray-800 mb-2">Genre</label>
                         <div class="grid grid-cols-2 gap-3">
                             <div class="relative">
                                 <input type="radio" id="gender-male" name="gender" value="Masculin" class="hidden peer" required>
-                                <label for="gender-male" class="radio-button-label flex items-center justify-center p-3 text-cyan-700 rounded-md cursor-pointer hover:bg-cyan-100 transition-all">
-                                    <i class="fas fa-mars mr-2"></i>
+                                <label for="gender-male" class="radio-button-label flex items-center justify-center p-3 text-gray-700 rounded-md cursor-pointer hover:bg-blue-50 transition-all border border-gray-200">
+                                    <i class="fas fa-mars mr-2 text-blue-600"></i>
                                     Masculin
                                 </label>
                             </div>
                             <div class="relative">
                                 <input type="radio" id="gender-female" name="gender" value="Féminin" class="hidden peer" required>
-                                <label for="gender-female" class="radio-button-label flex items-center justify-center p-3 text-cyan-700 rounded-md cursor-pointer hover:bg-cyan-100 transition-all">
-                                    <i class="fas fa-venus mr-2"></i>
+                                <label for="gender-female" class="radio-button-label flex items-center justify-center p-3 text-gray-700 rounded-md cursor-pointer hover:bg-pink-50 transition-all border border-gray-200">
+                                    <i class="fas fa-venus mr-2 text-pink-500"></i>
                                     Féminin
                                 </label>
                             </div>
@@ -434,18 +539,18 @@
                     </div>
 
                     <div class="mb-4">
-                        <label for="phoneNumber" class="block text-sm font-medium text-cyan-900 mb-2">Téléphone</label>
+                        <label for="phoneNumber" class="block text-sm font-medium text-gray-800 mb-2">Téléphone</label>
                         <div class="relative rounded-md">
                             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                <i class="fas fa-phone text-cyan-500"></i>
+                                <i class="fas fa-phone text-green-500"></i>
                             </div>
-                            <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="+213 or 0..." class="form-input w-full pl-10 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500">
+                            <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="+213 or 0..." class="form-input w-full pl-10 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 border border-gray-300">
                         </div>
                         <p id="phoneNumberError" class="mt-1 text-sm text-red-600 hidden"></p>
                     </div>
                     
                     <div class="flex justify-end pt-2">
-                        <button type="submit" class="button-primary px-5 py-2.5 rounded-md text-white font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 transform transition-all hover:scale-105 duration-300 shadow-lg">
+                        <button type="submit" class="module-btn bg-blue-500 hover:bg-blue-600 px-5 py-2.5 rounded-md text-white font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transform transition-all hover:scale-105 duration-300 shadow-lg">
                             <i class="fas fa-save mr-2"></i> Enregistrer
                         </button>
                     </div>
@@ -493,12 +598,20 @@
             <!-- Students list - with colorful cards -->
             <div class="bg-gradient-to-b from-white to-blue-50 backdrop-blur-sm">
                 <div class="p-3 overflow-y-auto" style="max-height: 60vh;">
-                    <div id="studentsListContainer" class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                        <!-- Student cards will be dynamically inserted here -->
-                        <div class="skeleton h-24 rounded-md"></div>
-                        <div class="skeleton h-24 rounded-md"></div>
-                        <div class="skeleton h-24 rounded-md"></div>
-                        <div class="skeleton h-24 rounded-md"></div>
+                    <div id="studentsListContainer">
+                        <!-- For each student in your list, render something like this -->
+                        <div class="student-card-container p-4 bg-white rounded-lg shadow-md mb-4">
+                            <h3 class="text-lg font-semibold">John Doe</h3>
+                            <p class="text-sm text-gray-600">Speciality - 2ème année</p>
+                            <div class="flex gap-3 mt-2">
+                                <!-- Other buttons -->
+                                <button class="send-message-btn module-btn bg-blue-500 hover:bg-blue-600"
+                                    data-userid="STUDENT_UID_HERE">
+                                    <i class="fas fa-paper-plane"></i> Message
+                                </button>
+                            </div>
+                        </div>
+                        <!-- ... -->
                     </div>
                     <div id="noStudentsMessage" class="hidden py-6 text-center text-gray-500">
                         <i class="fas fa-user-slash mb-2 text-2xl text-gray-400"></i>
@@ -904,7 +1017,7 @@
         document.getElementById('filterSpecialityBtn').addEventListener('click', function() {
             // Update active button state
             this.classList.add('bg-cyan-600', 'text-white');
-            this.classList.remove('bg-white', 'border', 'border-cyan-200', 'text-cyan-700');
+            this.classList.remove('bg-white', 'border', 'text-cyan-700');
             document.getElementById('filterAllBtn').classList.add('bg-white', 'border', 'border-cyan-200', 'text-cyan-700');
             document.getElementById('filterAllBtn').classList.remove('bg-cyan-600', 'text-white');
             
@@ -1648,6 +1761,67 @@
 
     // Initialize students modal
     initStudentsModal();
+</script>
+<script>
+    // Add this to your existing script section
+    document.addEventListener('DOMContentLoaded', function() {
+        // Profile completion button click handler
+        document.getElementById('completeProfileBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            const modal = document.getElementById('profileModal');
+            const modalContent = document.getElementById('modalContent');
+            
+            // Show modal
+            modal.classList.remove('hidden');
+            
+            // Animate content after a small delay
+            setTimeout(() => {
+                modalContent.classList.add('scale-100', 'opacity-100');
+                modalContent.classList.remove('scale-95', 'opacity-0');
+            }, 50);
+        });
+
+        // Close modal button click handler
+        document.getElementById('closeModalBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            const modal = document.getElementById('profileModal');
+            const modalContent = document.getElementById('modalContent');
+            
+            // Animate content out
+            modalContent.classList.remove('scale-100', 'opacity-100');
+            modalContent.classList.add('scale-95', 'opacity-0');
+            
+            // Hide modal after animation completes
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        });
+        
+        // Close modal when clicking outside
+        document.getElementById('profileModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                const modalContent = document.getElementById('modalContent');
+                modalContent.classList.remove('scale-100', 'opacity-100');
+                modalContent.classList.add('scale-95', 'opacity-0');
+                
+                setTimeout(() => {
+                    this.classList.add('hidden');
+                }, 300);
+            }
+        });
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Listen for clicks on any message button
+        document.querySelectorAll('.send-message-btn').forEach(function(button) {
+            button.addEventListener('click', function() {
+                const targetUserId = this.getAttribute('data-userid');
+                // Navigate to chatting.html with the targetUserId as a URL parameter
+                window.location.href = `chatting.html?userId=${targetUserId}`;
+            });
+        });
+    });
 </script>
 </body>
 </html>
