@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Informatique LMD - Semestre 2 - ISET'COM</title>
+    <title>Génie des procédés - Semestre 4</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -21,7 +21,7 @@
     <div class="container mx-auto px-4 max-w-6xl flex-grow">
         <header class="mb-12 mt-8" data-aos="fade-down">
             <div class="header-container">
-                <a href="specialite-informatique-lmd.html" class="back-button hover:scale-110 transform transition-all duration-300">
+                <a href="/bib.html" class="back-button hover:scale-110 transform transition-all duration-300">
                     <i class="fas fa-arrow-left"></i>
                     Retour
                 </a>
@@ -37,7 +37,7 @@
                     <div>
                         <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-2">
                             <span class="text-green-600 mr-2"><i class="fas fa-graduation-cap"></i></span>
-                            <span class="text-green-600 border-b-2 border-green-400 pb-1">Template</span> - Spécialité
+                            <span class="text-green-600 border-b-2 border-green-400 pb-1">Génie des procédés - Semestre 4</span>
                         </h2>
                         <p class="text-gray-600 text-sm md:text-base">Modèle pour nouvelles spécialités</p>
                     </div>
@@ -65,23 +65,170 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                <!-- Test Module -->
+                <!-- Module Méthode Numérique -->
                 <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
                     <div class="flex items-center gap-3 mb-4">
                         <div class="module-icon bg-blue-100 p-3 rounded-full text-blue-600">
-                            <i class="fas fa-box-open fa-lg"></i>
+                            <i class="fas fa-calculator fa-lg"></i>
                         </div>
-                        <h3 class="text-xl font-semibold text-gray-800">Test Module</h3>
+                        <h3 class="text-xl font-semibold text-gray-800">Méthode Numérique</h3>
                     </div>
                     <div class="mt-auto flex flex-wrap gap-2">
-                        <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('test', 'cours')">
+                        <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('num', 'cours')">
                             <i class="fas fa-book mr-1"></i> Cours
                         </button>
-                        <button class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('test', 'td')">
+                        <button class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('num', 'td')">
                             <i class="fas fa-pencil-alt mr-1"></i> TD
                         </button>
-                        <button class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('test', 'examen')">
+                        <button class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('num', 'examen')">
                             <i class="fas fa-file-alt mr-1"></i> Examen
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Module Introduction au raffinage et à la pétrochimie -->
+                <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="module-icon bg-blue-100 p-3 rounded-full text-blue-600">
+                            <i class="fas fa-industry fa-lg"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800">Introduction au raffinage et à la pétrochimie</h3>
+                    </div>
+                    <div class="mt-auto flex flex-wrap gap-2">
+                        <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('petrochimie', 'cours')">
+                            <i class="fas fa-book mr-1"></i> Cours
+                        </button>
+                        <button class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('petrochimie', 'td')">
+                            <i class="fas fa-pencil-alt mr-1"></i> TD
+                        </button>
+                        <button class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('petrochimie', 'examen')">
+                            <i class="fas fa-file-alt mr-1"></i> Examen
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Module Chimie des solutions -->
+                <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="module-icon bg-blue-100 p-3 rounded-full text-blue-600">
+                            <i class="fas fa-vial fa-lg"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800">Chimie des solutions</h3>
+                    </div>
+                    <div class="mt-auto flex flex-wrap gap-2">
+                        <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('chimiesolutions', 'cours')">
+                            <i class="fas fa-book mr-1"></i> Cours
+                        </button>
+                        <button class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('chimiesolutions', 'td')">
+                            <i class="fas fa-pencil-alt mr-1"></i> TD
+                        </button>
+                        <button class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('chimiesolutions', 'tp')">
+                            <i class="fas fa-flask mr-1"></i> TP
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Module Notions des phénomènes de transfert -->
+                <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="module-icon bg-blue-100 p-3 rounded-full text-blue-600">
+                            <i class="fas fa-wind fa-lg"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800">Notions des phénomènes de transfert</h3>
+                    </div>
+                    <div class="mt-auto flex flex-wrap gap-2">
+                        <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('transfer', 'cours')">
+                            <i class="fas fa-book mr-1"></i> Cours
+                        </button>
+                        <button class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('transfer', 'td')">
+                            <i class="fas fa-pencil-alt mr-1"></i> TD
+                        </button>
+                        <button class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('transfer', 'examen')">
+                            <i class="fas fa-file-alt mr-1"></i> Examen
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Module TCE -->
+                <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="module-icon bg-blue-100 p-3 rounded-full text-blue-600">
+                            <i class="fas fa-cubes fa-lg"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800">TCE</h3>
+                    </div>
+                    <div class="mt-auto flex flex-wrap gap-2">
+                        <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('tce', 'cours')">
+                            <i class="fas fa-book mr-1"></i> Cours
+                        </button>
+                        <button class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('tce', 'td')">
+                            <i class="fas fa-pencil-alt mr-1"></i> TD
+                        </button>
+                        <button class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('tce', 'examen')">
+                            <i class="fas fa-file-alt mr-1"></i> Examen
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Module Thermodynamique Chimique -->
+                <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="module-icon bg-blue-100 p-3 rounded-full text-blue-600">
+                            <i class="fas fa-thermometer-half fa-lg"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800">Thermodynamique Chimique</h3>
+                    </div>
+                    <div class="mt-auto flex flex-wrap gap-2">
+                        <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('thermoChim', 'cours')">
+                            <i class="fas fa-book mr-1"></i> Cours
+                        </button>
+                        <button class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('thermoChim', 'td')">
+                            <i class="fas fa-pencil-alt mr-1"></i> TD
+                        </button>
+                        <button class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('thermoChim', 'examen')">
+                            <i class="fas fa-file-alt mr-1"></i> Examen
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Module Cinétique Chimique -->
+                <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="module-icon bg-blue-100 p-3 rounded-full text-blue-600">
+                            <i class="fas fa-bolt fa-lg"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800">Cinétique Chimique</h3>
+                    </div>
+                    <div class="mt-auto flex flex-wrap gap-2">
+                        <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('cinetiqueChim', 'cours')">
+                            <i class="fas fa-book mr-1"></i> Cours
+                        </button>
+                        <button class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('cinetiqueChim', 'td')">
+                            <i class="fas fa-pencil-alt mr-1"></i> TD
+                        </button>
+                        <button class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('cinetiqueChim', 'examen')">
+                            <i class="fas fa-file-alt mr-1"></i> Examen
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Module Chimie organique -->
+                <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="module-icon bg-blue-100 p-3 rounded-full text-blue-600">
+                            <i class="fas fa-flask fa-lg"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800">Chimie organique</h3>
+                    </div>
+                    <div class="mt-auto flex flex-wrap gap-2">
+                        <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('chimieOrg', 'cours')">
+                            <i class="fas fa-book mr-1"></i> Cours
+                        </button>
+                        <button class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('chimieOrg', 'td')">
+                            <i class="fas fa-pencil-alt mr-1"></i> TD
+                        </button>
+                        <button class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('chimieOrg', 'tp')">
+                            <i class="fas fa-flask mr-1"></i> TP
                         </button>
                     </div>
                 </div>
@@ -128,278 +275,322 @@
         </div>
     </div>
 
+    <!-- Pour ajouter le popup TP manquant -->
+    <div id="popup-tp" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg shadow-lg p-6 max-w-3xl w-full glass-card">
+            <div class="flex justify-between items-center mb-6">
+                <h2 id="popup-title-tp" class="text-2xl font-bold text-gray-800"></h2>
+                <button type="button" class="close-popup-btn px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-300 flex items-center gap-2">
+                    <i class="fas fa-times"></i><span>Fermer</span>
+                </button>
+            </div>
+            <div id="popup-content-tp" class="space-y-6 popup-content"></div>
+        </div>
+    </div>
+
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ duration: 800, once: true });
+        AOS.init({
+            duration: 800,
+            once: true
+        });
 
+        // Mapping des identifiants de modules vers leurs noms complets
         const moduleMapping = {
-            'test': 'Test Module'
+            'num': 'Méthode Numérique',
+            'petrochimie': 'Introduction au raffinage et à la pétrochimie',
+            'chimiesolutions': 'Chimie des solutions',
+            'transfer': 'Notions des phénomènes de transfert',
+            'tce': 'TCE',
+            'thermoChim': 'Thermodynamique Chimique',
+            'cinetiqueChim': 'Cinétique Chimique',
+            'chimieOrg': 'Chimie organique'
         };
 
+        // Contenu pour chaque module
         const moduleContent = {
-            'Test Module': {
-                'bejaia': {
-                    'cours': [
-                        { title: "Exemple de cours", url: "#" },
-                        { title: "Document modèle", url: "#" }
-                    ],
-                    'td': [
-                        { title: "TD Exemple", url: "#" },
-                        { title: "Exercices modèle", url: "#" }
-                    ],
-                    'examen': [
-                        { title: "Examen modèle", url: "#" }
-                    ]
-                },
-                'autres': {
-                    'cours': [
-                        { title: "Cours externe", url: "#" },
-                        { title: "Ressource supplémentaire", url: "#" }
-                    ],
-                    'td': [
-                        { title: "TD externe", url: "#" }
-                    ],
-                    'examen': []
-                }
+            'chimiesolutions': {
+                'cours': `
+                    <div class="space-y-4">
+                        <h4 class="font-semibold text-lg">Ressources de cours</h4>
+                        <ul class="list-disc pl-5 space-y-3">
+                            <li>
+                                <a href="https://drive.google.com/file/d/1KsKdzIJRLo6Tw48_CDBY9RP00G-FTM4K/view?usp=drive_link" 
+                                   class="text-blue-600 hover:text-blue-800 flex items-center gap-2" target="_blank">
+                                   <i class="fas fa-file-pdf"></i>
+                                   Chapitre 1
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://drive.google.com/file/d/1vYua8ky0HgQajr1f476_5goNJ6zIBSlG/view?usp=drive_link" 
+                                   class="text-blue-600 hover:text-blue-800 flex items-center gap-2" target="_blank">
+                                   <i class="fas fa-file-pdf"></i>
+                                   Chapitre 2
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                `,
+                'td': `
+                    <div class="space-y-4">
+                        <h4 class="font-semibold text-lg">Séries de TD</h4>
+                        <ul class="list-disc pl-5 space-y-3">
+                            <li>
+                                <a href="https://docs.google.com/document/d/1fJcY0oWMe_rhmFzlH-nmRAg7hrf-Dyrn/edit?usp=drive_link&ouid=114996133160688114099&rtpof=true&sd=true" 
+                                   class="text-blue-600 hover:text-blue-800 flex items-center gap-2" target="_blank">
+                                   <i class="fas fa-file-alt"></i>
+                                   Série 2
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://docs.google.com/document/d/1Qcxk2OEqMud2KJtLlD2h8gtO5pv4SWJt/edit?usp=drive_link&ouid=114996133160688114099&rtpof=true&sd=true" 
+                                   class="text-blue-600 hover:text-blue-800 flex items-center gap-2" target="_blank">
+                                   <i class="fas fa-file-alt"></i>
+                                   Série 3
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://drive.google.com/file/d/1za1mK1GnCYJAgzuPETICgD2qeBSR6OAv/view?usp=drive_link" 
+                                   class="text-blue-600 hover:text-blue-800 flex items-center gap-2" target="_blank">
+                                   <i class="fas fa-file-pdf"></i>
+                                   Corrigé série 2
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                `,
+                'tp': `
+                    <div class="space-y-4">
+                        <h4 class="font-semibold text-lg">Travaux Pratiques</h4>
+                        <ul class="list-disc pl-5 space-y-3">
+                            <li>
+                                <a href="https://drive.google.com/file/d/1QlNvS-gziT8evCsSAkx8V8XBK41SI0C4/view?usp=drive_link" 
+                                   class="text-blue-600 hover:text-blue-800 flex items-center gap-2" target="_blank">
+                                   <i class="fas fa-flask"></i>
+                                   TP Chimie des solutions
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                `
+            },
+            'chimieOrg': {
+                'cours': `
+                    <div class="space-y-4">
+                        <h4 class="font-semibold text-lg">Ressources de cours</h4>
+                        <p>Tous les cours de Chimie organique sont disponibles ici :</p>
+                        <ul class="list-disc pl-5 space-y-3">
+                            <li>
+                                <a href="https://drive.google.com/drive/folders/10n3HKl_-daZMY_yd-u5mkDPrZ2lK8xI0?usp=drive_link" 
+                                   class="text-blue-600 hover:text-blue-800 flex items-center gap-2" target="_blank">
+                                   <i class="fas fa-folder-open"></i>
+                                   Dossier complet des cours
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                `,
+                'td': `
+                    <div class="space-y-4">
+                        <h4 class="font-semibold text-lg">Travaux Dirigés</h4>
+                        <ul class="list-disc pl-5 space-y-3">
+                            <li>
+                                <a href="https://drive.google.com/file/d/1Ote9g5L36TheSH8sOFCwnobl_fxnhFpT/view?usp=drive_link" 
+                                   class="text-blue-600 hover:text-blue-800 flex items-center gap-2" target="_blank">
+                                   <i class="fas fa-file-alt"></i>
+                                   TD 1
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://drive.google.com/file/d/1PJSbGE79FCe8AuyU4oHsq7AH_ERw4IbB/view?usp=drive_link" 
+                                   class="text-blue-600 hover:text-blue-800 flex items-center gap-2" target="_blank">
+                                   <i class="fas fa-file-alt"></i>
+                                   TD 2
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://drive.google.com/file/d/1Kw4nZSlDoWYQvv1tgVW_iMuFnQPEgMKa/view?usp=drive_link" 
+                                   class="text-blue-600 hover:text-blue-800 flex items-center gap-2" target="_blank">
+                                   <i class="fas fa-file-alt"></i>
+                                   TD 4
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                `,
+                'tp': `
+                    <div class="space-y-4">
+                        <h4 class="font-semibold text-lg">Travaux Pratiques</h4>
+                        <ul class="list-disc pl-5 space-y-3">
+                            <li>
+                                <a href="https://drive.google.com/file/d/1nN4jpn0YONYV3kJwu8vwcCNuRbmIUwen/view?usp=drive_link" 
+                                   class="text-blue-600 hover:text-blue-800 flex items-center gap-2" target="_blank">
+                                   <i class="fas fa-flask"></i>
+                                   TP 1
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://drive.google.com/file/d/1xadDJsLgV7SrEEO6ixSF5iLyljGOgN6s/view?usp=drive_link" 
+                                   class="text-blue-600 hover:text-blue-800 flex items-center gap-2" target="_blank">
+                                   <i class="fas fa-flask"></i>
+                                   TP 2
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                `
+            },
+            'petrochimie': {
+                'cours': `
+                    <div class="space-y-4">
+                        <h4 class="font-semibold text-lg">Ressources de cours</h4>
+                        <ul class="list-disc pl-5 space-y-3">
+                            <li>
+                                <a href="https://drive.google.com/file/d/1Quw5E-bzRzKwujpSMsRX3HwobWIyQclL/view?usp=drive_link" 
+                                   class="text-blue-600 hover:text-blue-800 flex items-center gap-2" target="_blank">
+                                   <i class="fas fa-file-pdf"></i>
+                                   Cours complet
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                `,
+                'td': `<p class="text-gray-600">Aucun TD disponible pour le moment.</p>`,
+                'examen': `<p class="text-gray-600">Aucun examen disponible pour le moment.</p>`
+            },
+            // Autres modules avec des contenus vides ou à compléter
+            'num': {
+                'cours': `<p class="text-gray-600">Contenu du cours à venir.</p>`,
+                'td': `<p class="text-gray-600">TDs à venir.</p>`,
+                'examen': `<p class="text-gray-600">Examens à venir.</p>`
+            },
+            'transfer': {
+                'cours': `<p class="text-gray-600">Contenu du cours à venir.</p>`,
+                'td': `<p class="text-gray-600">TDs à venir.</p>`,
+                'examen': `<p class="text-gray-600">Examens à venir.</p>`
+            },
+            'tce': {
+                'cours': `<p class="text-gray-600">Contenu du cours à venir.</p>`,
+                'td': `<p class="text-gray-600">TDs à venir.</p>`,
+                'examen': `<p class="text-gray-600">Examens à venir.</p>`
+            },
+            'thermoChim': {
+                'cours': `<p class="text-gray-600">Contenu du cours à venir.</p>`,
+                'td': `<p class="text-gray-600">TDs à venir.</p>`,
+                'examen': `<p class="text-gray-600">Examens à venir.</p>`
+            },
+            'cinetiqueChim': {
+                'cours': `<p class="text-gray-600">Contenu du cours à venir.</p>`,
+                'td': `<p class="text-gray-600">TDs à venir.</p>`,
+                'examen': `<p class="text-gray-600">Examens à venir.</p>`
             }
         };
 
-        function showContent(moduleShortName, type) {
-            // Map short module name to full module name
-            const moduleName = moduleMapping[moduleShortName];
-            if (!moduleName || !moduleContent[moduleName]) {
-                showEmptyPopup(moduleShortName, type);
-                return;
-            }
-
-            const popup = document.getElementById(`popup-${type}`);
-            const popupTitle = document.getElementById(`popup-title-${type}`);
-            const popupContent = document.getElementById(`popup-content-${type}`);
+        // Fonction pour afficher le contenu dans un popup
+        function showContent(moduleId, contentType) {
+            const moduleName = moduleMapping[moduleId];
+            const content = moduleContent[moduleId]?.[contentType] || `<p class="text-gray-600">Contenu non disponible.</p>`;
             
-            // Set popup title
-            popupTitle.textContent = `${moduleName} - ${capitalizeFirstLetter(type)}`;
-            
-            // Clear existing content
-            popupContent.innerHTML = "";
-            
-            // Get module data
-            const module = moduleContent[moduleName];
-            let contentAdded = false;
-            
-            // Create university section for Béjaia resources if they exist
-            if (module.bejaia && module.bejaia[type] && module.bejaia[type].length > 0) {
-                const bejaiaSection = document.createElement('div');
-                bejaiaSection.className = 'university-section mb-6 transform transition-all duration-300 hover:scale-105 border-l-4 border-green-600';
-                
-                // Create section header
-                const sectionHeader = document.createElement('div');
-                sectionHeader.className = 'section-header bg-green-50 p-4 rounded-t-lg border-b-2 border-green-200';
-                sectionHeader.innerHTML = `
-                    <h3 class="text-xl font-bold text-green-600 flex items-center gap-2">
-                        <i class="fas fa-university"></i>
-                        Université de Béjaia
-                    </h3>
-                `;
-                
-                // Create content grid
-                const contentGrid = document.createElement('div');
-                contentGrid.className = 'content-grid grid gap-4 p-4';
-                
-                // Add each item from Béjaia resources
-                module.bejaia[type].forEach(item => {
-                    const contentItem = createContentItem(item, type, false);
-                    contentGrid.appendChild(contentItem);
-                });
-                
-                // Add TP items if handling tdtp
-                if (type === 'td' && module.bejaia['tp'] && module.bejaia['tp'].length > 0) {
-                    module.bejaia['tp'].forEach(item => {
-                        const contentItem = createContentItem(item, 'tp', false);
-                        contentGrid.appendChild(contentItem);
-                    });
-                }
-                
-                // Assemble and add to popup
-                bejaiaSection.appendChild(sectionHeader);
-                bejaiaSection.appendChild(contentGrid);
-                popupContent.appendChild(bejaiaSection);
-                contentAdded = true;
+            // Définir les titres basés sur le type de contenu
+            let title;
+            if (contentType === 'cours') {
+                title = `Cours de ${moduleName}`;
+            } else if (contentType === 'td') {
+                title = `Travaux Dirigés - ${moduleName}`;
+            } else if (contentType === 'examen') {
+                title = `Examens - ${moduleName}`;
+            } else if (contentType === 'tp') {
+                title = `Travaux Pratiques - ${moduleName}`;
             }
             
-            // Create section for other university resources if they exist
-            if (module.autres && 
-                ((module.autres[type] && module.autres[type].length > 0) || 
-                (type === 'cours' && module.autres["cours conseiller"] && module.autres["cours conseiller"].length > 0))) {
-                
-                // Regular resources
-                if (module.autres[type] && module.autres[type].length > 0) {
-                    const autresSection = document.createElement('div');
-                    autresSection.className = 'university-section mb-6 transform transition-all duration-300 hover:scale-105 border-l-4 border-red-600';
-                    
-                    const sectionHeader = document.createElement('div');
-                    sectionHeader.className = 'section-header bg-red-50 p-4 rounded-t-lg border-b-2 border-red-200';
-                    sectionHeader.innerHTML = `
-                        <h3 class="text-xl font-bold text-red-600 flex items-center gap-2">
-                            <i class="fas fa-university"></i>
-                            Autres Universités
-                        </h3>
-                    `;
-                    
-                    const contentGrid = document.createElement('div');
-                    contentGrid.className = 'content-grid grid gap-4 p-4';
-                    
-                    module.autres[type].forEach(item => {
-                        const contentItem = createContentItem(item, type, false);
-                        contentGrid.appendChild(contentItem);
-                    });
-                    
-                    autresSection.appendChild(sectionHeader);
-                    autresSection.appendChild(contentGrid);
-                    popupContent.appendChild(autresSection);
-                    contentAdded = true;
-                }
-                
-                // Recommended courses if available (only for cours type)
-                if (type === 'cours' && module.autres["cours conseiller"] && module.autres["cours conseiller"].length > 0) {
-                    const recommendedSection = document.createElement('div');
-                    recommendedSection.className = 'university-section mb-6 transform transition-all duration-300 hover:scale-105 border-l-4 border-blue-600 recommended-content';
-                    
-                    const recommendedHeader = document.createElement('div');
-                    recommendedHeader.className = 'section-header bg-blue-50 p-4 rounded-t-lg border-b-2 border-blue-200';
-                    recommendedHeader.innerHTML = `
-                        <h3 class="text-xl font-bold text-blue-600 flex items-center gap-2">
-                            <i class="fas fa-star"></i>
-                            Cours Conseillés
-                            <span class="ml-2 text-sm bg-blue-500 text-white px-2 py-1 rounded">Recommandé</span>
-                        </h3>
-                    `;
-                    
-                    const recommendedGrid = document.createElement('div');
-                    recommendedGrid.className = 'content-grid grid gap-4 p-4';
-                    
-                    module.autres["cours conseiller"].forEach(item => {
-                        const contentItem = createContentItem(item, 'cours', true);
-                        recommendedGrid.appendChild(contentItem);
-                    });
-                    
-                    recommendedSection.appendChild(recommendedHeader);
-                    recommendedSection.appendChild(recommendedGrid);
-                    popupContent.appendChild(recommendedSection);
-                    contentAdded = true;
-                }
-            }
+            // Mettre à jour le popup et l'afficher
+            document.getElementById(`popup-title-${contentType}`).textContent = title;
+            document.getElementById(`popup-content-${contentType}`).innerHTML = content;
+            document.getElementById(`popup-${contentType}`).classList.remove('hidden');
             
-            // Display "no content" message if nothing was added
-            if (!contentAdded) {
-                popupContent.innerHTML = `
-                    <div class="text-center p-8">
-                        <i class="fas fa-exclamation-circle text-5xl text-gray-400 mb-4"></i>
-                        <p class="text-gray-500">Aucun contenu disponible pour ce module</p>
-                    </div>
-                `;
-            }
-            
-            // Show the popup
-            popup.classList.remove('hidden');
-            
-            // Add hover effects to links and animations
-            const links = popupContent.querySelectorAll('a');
-            links.forEach(link => {
-                link.addEventListener('mouseenter', e => {
-                    const item = e.target.closest('.content-item');
-                    if (item) item.style.transform = 'translateY(-5px)';
-                });
-                
-                link.addEventListener('mouseleave', e => {
-                    const item = e.target.closest('.content-item');
-                    if (item) item.style.transform = '';
-                });
-            });
+            // Empêcher le défilement du contenu en arrière-plan
+            document.body.style.overflow = 'hidden';
+        }
+        
+        // Fonction pour fermer un popup
+        function closePopup(contentType) {
+            document.getElementById(`popup-${contentType}`).classList.add('hidden');
+            document.body.style.overflow = 'auto';
         }
 
-        function createContentItem(item, type, isRecommended) {
-            const contentItem = document.createElement('div');
-            contentItem.className = 'content-item bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 transform hover:scale-102 border border-gray-100';
-            
-            const iconClass = getIconByType(type);
-            const bgColor = isRecommended ? 'rgba(59, 130, 246, 0.1)' : 'rgba(34, 197, 94, 0.1)';
-            const textColor = isRecommended ? 'text-blue-500' : 'text-green-500';
-            const btnClass = isRecommended ? 'bg-blue-50 hover:bg-blue-100 text-blue-600' : 'bg-green-50 hover:bg-green-100 text-green-600';
-            
-            contentItem.innerHTML = `
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-3">
-                        <div class="icon-wrapper ${textColor}" style="background:${bgColor};">
-                            <i class="fas ${iconClass} text-xl"></i>
-                        </div>
-                        <div class="text-content">
-                            <h4 class="font-semibold text-gray-800">${item.title}</h4>
-                        </div>
-                    </div>
-                    <a href="${item.url}" target="_blank" 
-                       class="download-btn ${btnClass} px-4 py-2 rounded-full flex items-center gap-2 transition-all duration-300">
-                        <span class="text-sm">Télécharger</span>
-                        <i class="fas fa-download"></i>
-                    </a>
+        // Attacher les gestionnaires d'événements pour les boutons de fermeture
+        document.querySelectorAll('.close-popup-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const popup = button.closest('[id^="popup-"]');
+                const contentType = popup.id.replace('popup-', '');
+                closePopup(contentType);
+            });
+        });
+
+        // Fermer les popups en cliquant en dehors
+        document.querySelectorAll('[id^="popup-"]').forEach(popup => {
+            popup.addEventListener('click', (e) => {
+                if (e.target === popup) {
+                    const contentType = popup.id.replace('popup-', '');
+                    closePopup(contentType);
+                }
+            });
+        });
+
+        // Fermer les popups avec la touche Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('[id^="popup-"]:not(.hidden)').forEach(popup => {
+                    const contentType = popup.id.replace('popup-', '');
+                    closePopup(contentType);
+                });
+            }
+        });
+
+        // Ajouter une information sur l'université
+        document.querySelectorAll('.popup-content').forEach(content => {
+            const uniInfo = document.createElement('div');
+            uniInfo.className = 'mt-8 pt-4 border-t border-gray-300';
+            uniInfo.innerHTML = `
+                <div class="flex items-center gap-2 text-gray-600">
+                    <i class="fas fa-university"></i>
+                    <span>Ressources de l'Université USTHB</span>
                 </div>
             `;
-            
-            return contentItem;
-        }
+            content.appendChild(uniInfo);
+        });
 
-        function getIconByType(type) {
-            const icons = {
-                'cours': 'fa-book',
-                'td': 'fa-pencil-alt',
-                'tp': 'fa-flask',
-                'examen': 'fa-file-alt'
-            };
-            return icons[type] || 'fa-file';
-        }
-
-        function showEmptyPopup(moduleShortName, type) {
-            const popup = document.getElementById(`popup-${type}`);
-            const popupTitle = document.getElementById(`popup-title-${type}`);
-            const popupContent = document.getElementById(`popup-content-${type}`);
-            
-            popupTitle.textContent = `${moduleShortName} - ${capitalizeFirstLetter(type)}`;
-            
-            popupContent.innerHTML = `
-                <div class="text-center p-8">
-                    <i class="fas fa-exclamation-circle text-5xl text-gray-400 mb-4"></i>
-                    <p class="text-gray-500">Contenu non disponible pour ce module</p>
-                </div>
-            `;
-            
-            popup.classList.remove('hidden');
-        }
-
-        function capitalizeFirstLetter(string) {
-            return string.charAt(0).toUpperCase() + string.slice(1);
-        }
-
-        // Update the popup close functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            // Close popup when clicking the close button
-            const closeButtons = document.querySelectorAll('.close-popup-btn');
-            closeButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const popup = this.closest('[id^="popup-"]');
-                    if (popup) {
-                        popup.classList.add('hidden');
+        // S'assurer que les boutons de TP fonctionnent également
+        document.addEventListener('DOMContentLoaded', () => {
+            // Créer un popup pour TP s'il n'existe pas déjà
+            if (!document.getElementById('popup-tp')) {
+                const tpPopup = document.createElement('div');
+                tpPopup.id = 'popup-tp';
+                tpPopup.className = 'hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50';
+                tpPopup.innerHTML = `
+                    <div class="bg-white rounded-lg shadow-lg p-6 max-w-3xl w-full glass-card">
+                        <div class="flex justify-between items-center mb-6">
+                            <h2 id="popup-title-tp" class="text-2xl font-bold text-gray-800"></h2>
+                            <button type="button" class="close-popup-btn px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-300 flex items-center gap-2">
+                                <i class="fas fa-times"></i><span>Fermer</span>
+                            </button>
+                        </div>
+                        <div id="popup-content-tp" class="space-y-6 popup-content"></div>
+                    </div>
+                `;
+                document.body.appendChild(tpPopup);
+                
+                // Ajouter l'événement de fermeture pour ce nouveau popup
+                tpPopup.querySelector('.close-popup-btn').addEventListener('click', () => {
+                    closePopup('tp');
+                });
+                
+                tpPopup.addEventListener('click', (e) => {
+                    if (e.target === tpPopup) {
+                        closePopup('tp');
                     }
                 });
-            });
-
-            // Close popup when clicking outside the content
-            const popups = document.querySelectorAll('[id^="popup-"]');
-            popups.forEach(popup => {
-                popup.addEventListener('click', function(e) {
-                    if (e.target === this) {
-                        this.classList.add('hidden');
-                    }
-                });
-            });
+            }
         });
     </script>
 
@@ -680,7 +871,284 @@
         .module-btn:active {
             transform: translateY(0px);
         }
+
+        /* Amélioration du style des popups inspiré du semestre 2 d'Informatique LMD */
+        .popup-content {
+            padding: 1.5rem;
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        
+        /* Style pour les sections de contenu */
+        .resource-section {
+            background: #f8fafc;
+            border-left: 4px solid #3b82f6;
+            padding: 1rem 1.5rem;
+            margin-bottom: 1.5rem;
+            border-radius: 0 8px 8px 0;
+            transition: all 0.3s ease;
+        }
+        
+        .resource-section:hover {
+            background: #f0f9ff;
+            transform: translateX(5px);
+        }
+        
+        /* Style pour les liens de ressources */
+        .resource-link {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem;
+            margin: 0.5rem 0;
+            border-radius: 8px;
+            color: #2563eb;
+            background: rgba(59, 130, 246, 0.05);
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .resource-link:hover {
+            background: rgba(59, 130, 246, 0.1);
+            color: #1d4ed8;
+            transform: translateX(5px);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .resource-link i {
+            margin-right: 0.75rem;
+            font-size: 1.25rem;
+        }
+        
+        /* Style pour le footer USTHB */
+        .university-footer {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: #4b5563;
+            font-size: 0.9rem;
+        }
+        
+        .university-footer i {
+            color: #3b82f6;
+            font-size: 1.25rem;
+        }
+        
+        .university-badge {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: 9999px;
+            padding: 0.25rem 1rem;
+            font-weight: 500;
+        }
+
+        /* Animation pour les contenus */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .resource-section {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+        
+        /* Style amélioré pour les titres de section */
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .section-title i {
+            color: #3b82f6;
+        }
     </style>
+
+    <!-- Ajout de la fonction pour mettre à jour le contenu des popups avec un style amélioré -->
+    <script>
+        // Remplacer la fonction showContent existante par celle-ci
+        function showContent(moduleId, contentType) {
+            const moduleName = moduleMapping[moduleId];
+            let content = moduleContent[moduleId]?.[contentType] || `<p class="text-gray-600">Contenu non disponible pour le moment.</p>`;
+            
+            // Ajouter le footer USTHB pour les modules qui ont du contenu
+            if (moduleContent[moduleId]?.[contentType]) {
+                content += `
+                    <div class="university-footer">
+                        <div class="university-badge">
+                            <i class="fas fa-university mr-2"></i>
+                            Ressources de l'Université USTHB
+                        </div>
+                    </div>
+                `;
+            }
+            
+            // Définir les titres basés sur le type de contenu
+            let title;
+            let icon;
+            
+            if (contentType === 'cours') {
+                title = `Cours de ${moduleName}`;
+                icon = 'book';
+            } else if (contentType === 'td') {
+                title = `Travaux Dirigés - ${moduleName}`;
+                icon = 'pencil-alt';
+            } else if (contentType === 'tp') {
+                title = `Travaux Pratiques - ${moduleName}`;
+                icon = 'flask';
+            } else if (contentType === 'examen') {
+                title = `Examens - ${moduleName}`;
+                icon = 'file-alt';
+            }
+            
+            // Mettre à jour le titre avec l'icône
+            const titleElement = document.getElementById(`popup-title-${contentType}`);
+            titleElement.innerHTML = `<i class="fas fa-${icon} text-blue-500 mr-2"></i>${title}`;
+            
+            // Ajouter le contenu
+            document.getElementById(`popup-content-${contentType}`).innerHTML = content;
+            document.getElementById(`popup-${contentType}`).classList.remove('hidden');
+            
+            // Empêcher le défilement du contenu en arrière-plan
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Mise à jour du contenu pour les modules existants avec le nouveau format
+        moduleContent['chimiesolutions']['cours'] = `
+            <div class="resource-section">
+                <h3 class="section-title"><i class="fas fa-book"></i>Chapitres de cours</h3>
+                <a href="https://drive.google.com/file/d/1KsKdzIJRLo6Tw48_CDBY9RP00G-FTM4K/view?usp=drive_link" 
+                   class="resource-link" target="_blank">
+                   <i class="fas fa-file-pdf"></i>
+                   Chapitre 1 - Chimie des solutions
+                </a>
+                <a href="https://drive.google.com/file/d/1vYua8ky0HgQajr1f476_5goNJ6zIBSlG/view?usp=drive_link" 
+                   class="resource-link" target="_blank">
+                   <i class="fas fa-file-pdf"></i>
+                   Chapitre 2 - Chimie des solutions
+                </a>
+            </div>
+        `;
+
+        moduleContent['chimiesolutions']['td'] = `
+            <div class="resource-section">
+                <h3 class="section-title"><i class="fas fa-pencil-alt"></i>Séries d'exercices</h3>
+                <a href="https://docs.google.com/document/d/1fJcY0oWMe_rhmFzlH-nmRAg7hrf-Dyrn/edit?usp=drive_link&ouid=114996133160688114099&rtpof=true&sd=true" 
+                   class="resource-link" target="_blank">
+                   <i class="fas fa-file-alt"></i>
+                   Série 2 - Exercices
+                </a>
+                <a href="https://docs.google.com/document/d/1Qcxk2OEqMud2KJtLlD2h8gtO5pv4SWJt/edit?usp=drive_link&ouid=114996133160688114099&rtpof=true&sd=true" 
+                   class="resource-link" target="_blank">
+                   <i class="fas fa-file-alt"></i>
+                   Série 3 - Exercices
+                </a>
+                <a href="https://drive.google.com/file/d/1za1mK1GnCYJAgzuPETICgD2qeBSR6OAv/view?usp=drive_link" 
+                   class="resource-link" target="_blank">
+                   <i class="fas fa-file-pdf"></i>
+                   Corrigé série 2
+                </a>
+            </div>
+        `;
+
+        moduleContent['chimiesolutions']['tp'] = `
+            <div class="resource-section">
+                <h3 class="section-title"><i class="fas fa-flask"></i>Travaux Pratiques</h3>
+                <a href="https://drive.google.com/file/d/1QlNvS-gziT8evCsSAkx8V8XBK41SI0C4/view?usp=drive_link" 
+                   class="resource-link" target="_blank">
+                   <i class="fas fa-flask"></i>
+                   TP Chimie des solutions
+                </a>
+            </div>
+        `;
+
+        moduleContent['chimieOrg']['cours'] = `
+            <div class="resource-section">
+                <h3 class="section-title"><i class="fas fa-book"></i>Ressources de cours</h3>
+                <p class="text-gray-600 mb-3">Accédez à l'ensemble des cours de Chimie organique:</p>
+                <a href="https://drive.google.com/drive/folders/10n3HKl_-daZMY_yd-u5mkDPrZ2lK8xI0?usp=drive_link" 
+                   class="resource-link" target="_blank">
+                   <i class="fas fa-folder-open"></i>
+                   Dossier complet des cours de Chimie organique
+                </a>
+            </div>
+        `;
+
+        moduleContent['chimieOrg']['td'] = `
+            <div class="resource-section">
+                <h3 class="section-title"><i class="fas fa-pencil-alt"></i>Travaux Dirigés</h3>
+                <a href="https://drive.google.com/file/d/1Ote9g5L36TheSH8sOFCwnobl_fxnhFpT/view?usp=drive_link" 
+                   class="resource-link" target="_blank">
+                   <i class="fas fa-file-alt"></i>
+                   TD 1 - Chimie organique
+                </a>
+                <a href="https://drive.google.com/file/d/1PJSbGE79FCe8AuyU4oHsq7AH_ERw4IbB/view?usp=drive_link" 
+                   class="resource-link" target="_blank">
+                   <i class="fas fa-file-alt"></i>
+                   TD 2 - Chimie organique
+                </a>
+                <a href="https://drive.google.com/file/d/1Kw4nZSlDoWYQvv1tgVW_iMuFnQPEgMKa/view?usp=drive_link" 
+                   class="resource-link" target="_blank">
+                   <i class="fas fa-file-alt"></i>
+                   TD 4 - Chimie organique
+                </a>
+            </div>
+        `;
+
+        moduleContent['chimieOrg']['tp'] = `
+            <div class="resource-section">
+                <h3 class="section-title"><i class="fas fa-flask"></i>Travaux Pratiques</h3>
+                <a href="https://drive.google.com/file/d/1nN4jpn0YONYV3kJwu8vwcCNuRbmIUwen/view?usp=drive_link" 
+                   class="resource-link" target="_blank">
+                   <i class="fas fa-flask"></i>
+                   TP 1 - Chimie organique
+                </a>
+                <a href="https://drive.google.com/file/d/1xadDJsLgV7SrEEO6ixSF5iLyljGOgN6s/view?usp=drive_link" 
+                   class="resource-link" target="_blank">
+                   <i class="fas fa-flask"></i>
+                   TP 2 - Chimie organique
+                </a>
+            </div>
+        `;
+
+        moduleContent['petrochimie']['cours'] = `
+            <div class="resource-section">
+                <h3 class="section-title"><i class="fas fa-book"></i>Ressources de cours</h3>
+                <a href="https://drive.google.com/file/d/1Quw5E-bzRzKwujpSMsRX3HwobWIyQclL/view?usp=drive_link" 
+                   class="resource-link" target="_blank">
+                   <i class="fas fa-file-pdf"></i>
+                   Cours complet - Introduction au raffinage et à la pétrochimie
+                </a>
+            </div>
+        `;
+
+        // Amélioration du style des popups
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mise à jour des styles des popups
+            document.querySelectorAll('[id^="popup-"]').forEach(popup => {
+                const contentDiv = popup.querySelector('.bg-white');
+                if (contentDiv) {
+                    contentDiv.classList.add('overflow-y-auto', 'max-h-[80vh]');
+                }
+            });
+            
+            // Supprimer les informations sur l'université ajoutées précédemment
+            // puisque nous les ajoutons maintenant dans le code HTML
+            document.querySelectorAll('.university-footer').forEach(footer => {
+                if (footer.parentNode.querySelector('.university-footer + .university-footer')) {
+                    footer.parentNode.querySelector('.university-footer + .university-footer').remove();
+                }
+            });
+        });
+    </script>
     <script type="module">
         import features from './js/fe';
         // Features are automatically initialized

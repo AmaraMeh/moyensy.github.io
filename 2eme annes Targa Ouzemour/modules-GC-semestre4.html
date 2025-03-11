@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Génie Civil - Semestre 4 - ISET'COM</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script id="aclib" type="text/javascript" src="//acscdn.com/script/aclib.js"></script>
+</head>
+<body class="flex flex-col min-h-screen bg-gray-50">
+    <div class="flex-grow w-full h-full">
+        <header class="mb-4 mt-4 px-4" data-aos="fade-down">
+            <div class="header-container flex items-center justify-between">
+                <a href="/bib.html"
+                   class="back-button hover:scale-110 transform transition-all duration-300">
+                   <i class="fas fa-arrow-left text-xl text-gray-600"></i>
+                </a>
+                <div class="flex flex-col items-center">
+                    <img src="assets/img/LOGO.png" alt="ISET'COM" class="max-w-[150px] mb-2">
+                    <h1 class="text-3xl font-bold" data-aos="fade-up">Génie Civil Semestre 4</h1>
+                </div>
+                <div class="w-6"></div> <!-- Spacer pour l'équilibre -->
+            </div>
+        </header>
+
+        <div class="glass-card w-full h-full pb-8 px-4 md:px-8" data-aos="fade-up">
+            <div class="exclusive-box mb-8 p-6 rounded-2xl border-2 border-green-300 bg-gradient-to-r from-green-50 to-blue-50 shadow-lg relative overflow-hidden">
+                <div class="flex flex-col items-center md:items-start relative z-10">
+                    <div>
+                        <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-2 text-center md:text-left">
+                            <span class="text-green-600 mr-2"><i class="fas fa-graduation-cap"></i></span>
+                            <span class="text-green-600 border-b-2 border-green-400 pb-1">Génie Civil</span> - Semestre 4
+                        </h2>
+                        <p class="text-gray-600 text-sm md:text-base text-center md:text-left mb-4">Université de Béjaia - Targa Ouzemour</p>
+                    </div>
+                    
+                    <div class="text-gray-700 font-semibold text-sm mt-2 flex items-center animate-pulse">
+                        <i class="fas fa-history mr-2 text-green-600"></i>
+                        Dernière mise à jour le 11 mars 2025 à 23:30 à Targa Ouzemour, Béjaia
+                    </div>
+                </div>
+                
+                <div class="absolute top-2 right-4 mt-4">
+                    <div class="bg-blue-50 px-4 py-2 rounded-lg border border-blue-200 shadow-sm">
+                        <span class="text-gray-600 block text-sm">Développé par</span>
+                        <a href="mailto:mehdi.amara@tech.univ-bejaia.dz" class="font-semibold text-blue-600 hover:text-blue-800 hover:underline flex items-center gap-2 text-lg">
+                            <i class="fas fa-code"></i>
+                            Amara Mehdi
+                        </a>
+                    </div>
+                    <span class="text-xs text-gray-500 mt-1 block text-right">Université de Béjaia</span>
+                </div>
+            </div>
+
+            <div>
+                <script type="text/javascript">
+                    aclib.runBanner({
+                        zoneId: '9521434',
+                    });
+                </script>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8 mt-8">
+                <!-- MDC Module -->
+                <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="module-icon bg-blue-100 p-3 rounded-full text-blue-600">
+                            <i class="fas fa-box-open fa-lg"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800">MDC</h3>
+                    </div>
+                    <div class="mt-auto flex flex-wrap gap-2">
+                        <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('mdc', 'cours')">
+                            <i class="fas fa-book mr-1"></i> Cours
+                        </button>
+                        <button class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('mdc', 'td')">
+                            <i class="fas fa-pencil-alt mr-1"></i> TD
+                        </button>
+                        <button class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('mdc', 'examen')">
+                            <i class="fas fa-file-alt mr-1"></i> Examen
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Méthode Numérique Module -->
+                <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="module-icon bg-blue-100 p-3 rounded-full text-blue-600">
+                            <i class="fas fa-calculator fa-lg"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800">Méthode Numérique</h3>
+                    </div>
+                    <div class="mt-auto flex flex-wrap gap-2">
+                        <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('methode_numerique', 'cours')">
+                            <i class="fas fa-book mr-1"></i> Cours
+                        </button>
+                        <button class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('methode_numerique', 'td')">
+                            <i class="fas fa-pencil-alt mr-1"></i> TD
+                        </button>
+                        <button class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('methode_numerique', 'examen')">
+                            <i class="fas fa-file-alt mr-1"></i> Examen
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Topographie Module -->
+                <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="module-icon bg-blue-100 p-3 rounded-full text-blue-600">
+                            <i class="fas fa-map-marked-alt fa-lg"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800">Topographie</h3>
+                    </div>
+                    <div class="mt-auto flex flex-wrap gap-2">
+                        <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('topographie', 'cours')">
+                            <i class="fas fa-book mr-1"></i> Cours
+                        </button>
+                        <button class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('topographie', 'td')">
+                            <i class="fas fa-pencil-alt mr-1"></i> TD
+                        </button>
+                        <button class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('topographie', 'examen')">
+                            <i class="fas fa-file-alt mr-1"></i> Examen
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Mathématique 4 Module -->
+                <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="module-icon bg-blue-100 p-3 rounded-full text-blue-600">
+                            <i class="fas fa-chart-pie fa-lg"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800">Mathématique 4</h3>
+                    </div>
+                    <div class="mt-auto flex flex-wrap gap-2">
+                        <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('mathematique4', 'cours')">
+                            <i class="fas fa-book mr-1"></i> Cours
+                        </button>
+                        <button class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('mathematique4', 'td')">
+                            <i class="fas fa-pencil-alt mr-1"></i> TD
+                        </button>
+                        <button class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('mathematique4', 'examen')">
+                            <i class="fas fa-file-alt mr-1"></i> Examen
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Géologie Module -->
+                <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="module-icon bg-blue-100 p-3 rounded-full text-blue-600">
+                            <i class="fas fa-mountain fa-lg"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800">Géologie</h3>
+                    </div>
+                    <div class="mt-auto flex flex-wrap gap-2">
+                        <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('geologie', 'cours')">
+                            <i class="fas fa-book mr-1"></i> Cours
+                        </button>
+                        <button class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('geologie', 'td')">
+                            <i class="fas fa-pencil-alt mr-1"></i> TD
+                        </button>
+                        <button class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('geologie', 'examen')">
+                            <i class="fas fa-file-alt mr-1"></i> Examen
+                        </button>
+                    </div>
+                </div>
+
+                <!-- MDS Module -->
+                <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="module-icon bg-blue-100 p-3 rounded-full text-blue-600">
+                            <i class="fas fa-database fa-lg"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800">MDS</h3>
+                    </div>
+                    <div class="mt-auto flex flex-wrap gap-2">
+                        <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('mds', 'cours')">
+                            <i class="fas fa-book mr-1"></i> Cours
+                        </button>
+                        <button class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('mds', 'td')">
+                            <i class="fas fa-pencil-alt mr-1"></i> TD
+                        </button>
+                        <button class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('mds', 'examen')">
+                            <i class="fas fa-file-alt mr-1"></i> Examen
+                        </button>
+                    </div>
+                </div>
+
+                <!-- TCE Module -->
+                <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="module-icon bg-blue-100 p-3 rounded-full text-blue-600">
+                            <i class="fas fa-industry fa-lg"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800">TCE</h3>
+                    </div>
+                    <div class="mt-auto flex flex-wrap gap-2">
+                        <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('tce', 'cours')">
+                            <i class="fas fa-book mr-1"></i> Cours
+                        </button>
+                        <button class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('tce', 'td')">
+                            <i class="fas fa-pencil-alt mr-1"></i> TD
+                        </button>
+                        <button class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('tce', 'examen')">
+                            <i class="fas fa-file-alt mr-1"></i> Examen
+                        </button>
+                    </div>
+                </div>
+
+                <!-- RDM Module -->
+                <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="module-icon bg-blue-100 p-3 rounded-full text-blue-600">
+                            <i class="fas fa-balance-scale fa-lg"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800">RDM</h3>
+                    </div>
+                    <div class="mt-auto flex flex-wrap gap-2">
+                        <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('rdm', 'cours')">
+                            <i class="fas fa-book mr-1"></i> Cours
+                        </button>
+                        <button class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('rdm', 'td')">
+                            <i class="fas fa-pencil-alt mr-1"></i> TD
+                        </button>
+                        <button class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('rdm', 'examen')">
+                            <i class="fas fa-file-alt mr-1"></i> Examen
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="text-center text-gray-600 text-sm py-4">
+        <div>&copy; 2025 Université de Bejaia. Développé par Amara Mehdi <a href="mailto:mehdi.amara@tech.univ-bejaia.dz" class="text-blue-500 hover:text-blue-700">Amara Mehdi</a></div>
+    </footer>
+    
+    <div id="popup-cours" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg shadow-lg p-6 max-w-3xl w-full glass-card">
+            <div class="flex justify-between items-center mb-6">
+                <h2 id="popup-title-cours" class="text-2xl font-bold text-gray-800"></h2>
+                <button type="button" class="close-popup-btn px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-300 flex items-center gap-2">
+                    <i class="fas fa-times"></i><span>Fermer</span>
+                </button>
+            </div>
+            <div id="popup-content-cours" class="space-y-6 popup-content"></div>
+        </div>
+    </div>
+
+    <div id="popup-td" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg shadow-lg p-6 max-w-3xl w-full glass-card">
+            <div class="flex justify-between items-center mb-6">
+                <h2 id="popup-title-td" class="text-2xl font-bold text-gray-800"></h2>
+                <button type="button" class="close-popup-btn px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-300 flex items-center gap-2">
+                    <i class="fas fa-times"></i><span>Fermer</span>
+                </button>
+            </div>
+            <div id="popup-content-td" class="space-y-6 popup-content"></div>
+        </div>
+    </div>
+
+    <div id="popup-examen" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg shadow-lg p-6 max-w-3xl w-full glass-card">
+            <div class="flex justify-between items-center mb-6">
+                <h2 id="popup-title-examen" class="text-2xl font-bold text-gray-800"></h2>
+                <button type="button" class="close-popup-btn px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-300 flex items-center gap-2">
+                    <i class="fas fa-times"></i><span>Fermer</span>
+                </button>
+            </div>
+            <div id="popup-content-examen" class="space-y-6 popup-content"></div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 800, once: true });
+
+        const moduleMapping = {
+            'mdc': 'MDC',
+            'methode_numerique': 'Méthode Numérique',
+            'topographie': 'Topographie',
+            'mathematique4': 'Mathématique 4',
+            'geologie': 'Géologie',
+            'mds': 'MDS',
+            'tce': 'TCE',
+            'rdm': 'RDM'
+        };
+
+        const moduleContent = {
+            'MDC': {
+                'autres': {
+                    'cours': [
+                        { title: "Cours 1", url: "https://drive.google.com/file/d/1tAKlqBFQ9H9kTxfPGjmqIPOdQCx1kUCU/view?usp=drive_link" },
+                        { title: "Cours 2", url: "https://drive.google.com/file/d/1AkqMLBqu-luL569mdclUONE5fgXkB0iR/view?usp=drive_link" },
+                        { title: "Cours 4", url: "https://drive.google.com/file/d/16cucKWUAo0SusFpc5FrO7OTdoACuik66/view?usp=drive_link" }
+                    ],
+                    'td': [],
+                    'examen': []
+                }
+            },
+            'Méthode Numérique': {
+                'autres': {
+                    'cours': [
+                        { title: "Chapitre 1", url: "https://drive.google.com/drive/folders/1IjmK7enW-EjGfx1cL7cIy9E84Z9I6IkA?usp=drive_link" },
+                        { title: "Chapitre 2", url: "https://drive.google.com/drive/folders/1ZxtmltFRzNOu1GChgT-U2vog1GrC-23t?usp=drive_link" },
+                        { title: "Chapitre 3", url: "https://drive.google.com/drive/folders/1XtYrg8wQDoPMZ4K2mcnNrnPSqfckZrmI?usp=drive_link" }
+                    ],
+                    'td': [
+                        { title: "TD 1 (part 1)", url: "https://drive.google.com/file/d/1rJFAiT5oA6g8y8ms2jt2-2T3wNGPmVoz/view?usp=drive_link" },
+                        { title: "TD 1 (part 2)", url: "https://drive.google.com/file/d/1ipbCahOEquAiUaAxGZOBHnGABD1mHaS3/view?usp=drive_link" },
+                        { title: "TD 1 (part 1) corrigé", url: "https://drive.google.com/file/d/1T5Tmtmm_p5OatjJqCmvhiG8YfisLzwQm/view?usp=drive_link" },
+                        { title: "TD 1 (part 2) corrigé", url: "https://drive.google.com/file/d/1BCxHIM_eZp4u5LhtlBx6ls8mI5CwaibQ/view?usp=drive_link" },
+                        { title: "TD 2 (part 1) + corrigé", url: "https://drive.google.com/file/d/1P7s9Ed_q5jEaMnZ9_-GOlY0vozWGZQUv/view?usp=drive_link" },
+                        { title: "TD 2 part 2", url: "https://drive.google.com/file/d/1Pv_Hav2GSDBLPpO3fGcfxQNPX98u5Hhf/view?usp=drive_link" }
+                    ],
+                    'examen': [
+                        { title: "Examen TP", url: "https://drive.google.com/file/d/1mWYLXb6HphZXPvPoEWtw1eznUqeLVeYm/view?usp=drive_link" },
+                        { title: "Corrigé examen TP", url: "https://drive.google.com/file/d/1_bkriru5LddhFJLgfXwNkh_wjDIvTmar/view?usp=drive_link" }
+                    ]
+                }
+            },
+            'Topographie': {
+                'autres': {
+                    'cours': [
+                        { title: "Chapitre 1", url: "https://drive.google.com/file/d/1V3NjhCbJ9gfxKiPEdf2RNqcp2YHdxuQD/view?usp=drive_link" },
+                        { title: "Chapitre 2", url: "https://drive.google.com/file/d/1sPzRN34d4onFb5-PIbjoSgnoRA1Fj7Ve/view?usp=drive_link" },
+                        { title: "Chapitre 3", url: "https://drive.google.com/file/d/1oFWfob_ArlGVaVGl4nlagPxr4o5XQXWh/view?usp=drive_link" }
+                    ],
+                    'td': [
+                        { title: "TD 1", url: "https://drive.google.com/file/d/1uMMnKVaJ6g8fR1Mr4N08mgTO8QNqUqYV/view?usp=drive_link" },
+                        { title: "Corrigé TD 1", url: "https://drive.google.com/file/d/1D7uu2Az7pvJ6xSrlJPnuBETxBmeqQ1QN/view?usp=drive_link" },
+                        { title: "Série TD 2", url: "https://drive.google.com/file/d/19kk053gVimzGeI7frhnIKU8EvfSyOvvK/view?usp=drive_link" },
+                        { title: "Corrigé TD 2", url: "https://drive.google.com/file/d/1W3mUGQTOiVjCR4YVc5mhFsvtmGMuV9nh/view?usp=drive_link" },
+                        { title: "TD 3", url: "https://drive.google.com/file/d/1OlG_TzZSJa-OyUv-XL6rHLnJp-Z3MQlh/view?usp=drive_link" },
+                        { title: "Corrigé TD 3", url: "https://drive.google.com/file/d/1ARdTXqRToYHeEPtqlC_riqUTvmG_Gv5V/view?usp=drive_link" },
+                        { title: "TD 4", url: "https://drive.google.com/file/d/1nByY47TO_IbBDlv4Y7z5m40BDiil91wv/view?usp=drive_link" },
+                        { title: "Corrigé TD 4", url: "https://drive.google.com/file/d/1bM0TIPioCsoGhZYT3JPUCCiHT5a_c2G8/view?usp=drive_link" },
+                        { title: "Tableau série TD 4", url: "https://drive.google.com/file/d/1-P6CrkkLTmly9cyYWPC-hKV0Fd5_CITE/view?usp=drive_link" }
+                    ],
+                    'examen': []
+                }
+            },
+            'Mathématique 4': {
+                'autres': {
+                    'cours': [
+                        { title: "Chapitre 1", url: "https://drive.google.com/file/d/1Xm5qCaK0xSts4ey257lnsWqKXLqDG19J/view?usp=drive_link" },
+                        { title: "Chapitre 2", url: "https://drive.google.com/file/d/1gKl7NYeOT3CFzVs1M5ADpujDbugXSnGt/view?usp=drive_link" },
+                        { title: "Chapitre 3", url: "https://drive.google.com/file/d/1q8Cq96y-sUAOBoH39i6-RMkj0lLa4B-z/view?usp=drive_link" },
+                        { title: "Chapitre 4", url: "https://drive.google.com/file/d/1d7Q04QeZwfqyH-Gjeov3T0AWaEWtQu2m/view?usp=drive_link" }
+                    ],
+                    'td': [
+                        { title: "TD 1", url: "https://drive.google.com/file/d/1Xm5qCaK0xSts4ey257lnsWqKXLqDG19J/view?usp=drive_link" },
+                        { title: "Corrigé TD 1", url: "https://drive.google.com/file/d/1gKl7NYeOT3CFzVs1M5ADpujDbugXSnGt/view?usp=drive_link" },
+                        { title: "TD 2", url: "https://drive.google.com/file/d/1a2MTfEUoOaMQk0Q-QfCibzDeWSSijYxY/view?usp=drive_link" },
+                        { title: "Corrigé TD 2", url: "https://drive.google.com/file/d/1j7jx-yaS2mpRHHWbcbryYM8A_WaILVta/view?usp=drive_link" },
+                        { title: "TD 3", url: "https://drive.google.com/file/d/1q8Cq96y-sUAOBoH39i6-RMkj0lLa4B-z/view?usp=drive_link" },
+                        { title: "Corrigé TD 3", url: "https://drive.google.com/file/d/1_wHnW-N4V5Kws2fSMgOYHzCXSkCnosUQ/view?usp=drive_link" },
+                        { title: "TD 4", url: "https://drive.google.com/file/d/1d7Q04QeZwfqyH-Gjeov3T0AWaEWtQu2m/view?usp=drive_link" },
+                        { title: "Corrigé TD 4", url: "https://drive.google.com/file/d/1JyPwlkYcNUyC4Oxe8fUU9i7M9XSS-siO/view?usp=drive_link" }
+                    ],
+                    'examen': [
+                        { title: "Examen + corrigé", url: "https://drive.google.com/file/d/1eBxScgDHL86B_JB4RD0AggH4f40GB8uH/view?usp=drive_link" }
+                    ]
+                }
+            },
+            'Géologie': {
+                'autres': {
+                    'cours': [
+                        { title: "Chapitre 2", url: "https://drive.google.com/file/d/1mfBW2Viwocc9WhEuJhIXjtkO5AA8-sBt/view?usp=drive_link" },
+                        { title: "Chapitre 3", url: "https://drive.google.com/file/d/1eT_cOf52rKxe-1Y4P42KCq89_gb3TetW/view?usp=drive_link" },
+                        { title: "Chapitre 4", url: "https://drive.google.com/file/d/1dQBAOVz9sWpLJB2OxBcvx_wHwuS8NMPw/view?usp=drive_link" },
+                        { title: "Chapitre 5", url: "https://drive.google.com/file/d/1sFKVMK7PhmtmhC_ef-fomS9Twn5JeU3h/view?usp=drive_link" }
+                    ],
+                    'td': [
+                        { title: "Série TD 1 2021", url: "https://drive.google.com/file/d/1r4gYCtJ9Orv2pH7iik6PYyX6L7rLJM_7/view?usp=drive_link" },
+                        { title: "Correction série TD 1 2021", url: "https://drive.google.com/file/d/1tkpmwo_7puBmA26qwuZb-iOfjgpq13s2/view?usp=drive_link" },
+                        { title: "Série TD 2 2021", url: "https://drive.google.com/file/d/1KIIU-dbPzmCU4D06QHAZX7tMypgHifjD/view?usp=drive_link" },
+                        { title: "Correction série TD 2", url: "https://drive.google.com/file/d/1Kwn3maYWBI3SHmmVrJiaO16sJC2Sg6OD/view?usp=drive_link" },
+                        { title: "Série TD 4 + correction 2021", url: "https://drive.google.com/file/d/1FlDxxQDS0IdqLchQfgCVLO6WNgzZNNws/view?usp=drive_link" }
+                    ],
+                    'examen': [
+                        { title: "Examen 2021", url: "https://drive.google.com/file/d/16WKBltHuwl5Zo7KCkvzzmgl3zc7ADwuT/view?usp=drive_link" },
+                        { title: "Corrigé examen 2021", url: "https://drive.google.com/file/d/18evz8_w0tMUzwYzjJcj12JRtUZgHH1QW/view?usp=drive_link" }
+                    ]
+                }
+            },
+            'MDS': {
+                'autres': {
+                    'cours': [
+                        { title: "Chapitre 1+2", url: "https://drive.google.com/file/d/1URMYWWizDLBCRtLU5k1LX2xH86JdXb0W/view?usp=drive_link" },
+                        { title: "Chapitre 3", url: "https://drive.google.com/file/d/1hN-YzqcE72VZ5vBcwgzt1UGOisMzNLXw/view?usp=drive_link" },
+                        { title: "Chapitre 1 (2021)", url: "https://drive.google.com/file/d/1N7Hm1xDjIGR3MgEgSlHJdmT3J4iVF7lW/view?usp=drive_link" },
+                        { title: "Chapitre 2 (2021)", url: "https://drive.google.com/file/d/1DDIOyzDO_3S0aUz0QjAH0xTCZOgt9Nmm/view?usp=drive_link" },
+                        { title: "Chapitre 3 (2021)", url: "https://drive.google.com/file/d/1rFUZxxCS4hi8aNyxP8rX3m4AW4fC8LBG/view?usp=drive_link" },
+                        { title: "Chapitre 4 (2021)", url: "https://drive.google.com/file/d/1lHRQGqSeetGcLGibw_ByEZ1QOq053fev/view?usp=drive_link" }
+                    ],
+                    'td': [],
+                    'examen': [
+                        { title: "Examens", url: "https://drive.google.com/file/d/1eBxScgDHL86B_JB4RD0AggH4f40GB8uH/view?usp=drive_link" }
+                    ]
+                }
+            },
+            'TCE': {
+                'autres': {
+                    'cours': [
+                        { title: "Chapitre 1", url: "https://drive.google.com/file/d/1HbMPxhENPBc_y0Mk2IrEwnpvfXVDJXRu/view?usp=drive_link" },
+                        { title: "Chapitre 2", url: "https://drive.google.com/file/d/1x1PinzAIilgmYWDadxXgGFePBaaP7Nts/view?usp=drive_link" },
+                        { title: "Chapitre 3", url: "https://drive.google.com/file/d/1h4JheTeERQTiu4Ks-CDF8mDWoXlynVdj/view?usp=drive_link" },
+                        { title: "Chapitre 4", url: "https://drive.google.com/file/d/1XOWb9uYsd05b0rGqBwN1iLLWosOFDK-2/view?usp=drive_link" },
+                        { title: "Chapitre 5", url: "https://drive.google.com/file/d/11bnBUMpDAhGADXjnADbPMBzWHwoRzYQS/view?usp=drive_link" },
+                        { title: "Chapitre 6", url: "https://drive.google.com/file/d/191FbCGnlWqgfF8VDOvyPquayRbFLV8Fw/view?usp=drive_link" }
+                    ],
+                    'td': [],
+                    'examen': []
+                }
+            },
+            'RDM': {
+                'autres': {
+                    'cours': [
+                        { title: "Chapitre 1", url: "https://drive.google.com/file/d/1mBApIbT6Vsh__6O97Sg9KLG5IjZr-J5B/view?usp=drive_link" },
+                        { title: "Chapitre 3", url: "https://drive.google.com/file/d/1-rIN4dKKuPWu8t8NIcbKTrqV1FNUVM1A/view?usp=drive_link" }
+                    ],
+                    'td': [
+                        { title: "TD 1", url: "https://drive.google.com/file/d/1vYK48054ybcql3PFwl0lcKaXV3NjgXzT/view?usp=drive_link" },
+                        { title: "Solution TD 1", url: "https://drive.google.com/file/d/1Kq0pyX1YN58HbKrfRti0UdnbxP0rEaC7/view?usp=drive_link" },
+                        { title: "Série TD 2", url: "https://drive.google.com/file/d/1jdU9j9O1BLKmkpSGrf40_0AYEZOvDXkq/view?usp=drive_link" },
+                        { title: "TD 1 (2021)+ corrigé", url: "https://drive.google.com/drive/folders/1XzKEW4avVwX9VxWwhYoc512M-7dA4FAN?usp=drive_link" },
+                        { title: "TD 2 (2021) + corrigé", url: "https://drive.google.com/drive/folders/13TdLdRfDY3LiYKr57djuz21Uu-N2HtbE?usp=drive_link" }
+                    ],
+                    'examen': []
+                }
+            }
+        };
+
+        function showContent(moduleShortName, type) {
+            const moduleName = moduleMapping[moduleShortName];
+            if (!moduleName || !moduleContent[moduleName]) {
+                showEmptyPopup(moduleShortName, type);
+                return;
+            }
+
+            const popup = document.getElementById(`popup-${type}`);
+            const popupTitle = document.getElementById(`popup-title-${type}`);
+            const popupContent = document.getElementById(`popup-content-${type}`);
+            
+            popupTitle.textContent = `${moduleName} - ${capitalizeFirstLetter(type)}`;
+            popupContent.innerHTML = "";
+            
+            const module = moduleContent[moduleName];
+            let contentAdded = false;
+            
+            if (module.autres && 
+                ((module.autres[type] && module.autres[type].length > 0) || 
+                (type === 'cours' && module.autres["cours conseiller"] && module.autres["cours conseiller"].length > 0))) {
+                
+                if (module.autres[type] && module.autres[type].length > 0) {
+                    const autresSection = document.createElement('div');
+                    autresSection.className = 'university-section mb-6 transform transition-all duration-300 hover:scale-105 border-l-4 border-red-600';
+                    
+                    const sectionHeader = document.createElement('div');
+                    sectionHeader.className = 'section-header bg-red-50 p-4 rounded-t-lg border-b-2 border-red-200';
+                    sectionHeader.innerHTML = `
+                        <h3 class="text-xl font-bold text-red-600 flex items-center gap-2">
+                            <i class="fas fa-university"></i>
+                            Autres Universités
+                        </h3>
+                    `;
+                    
+                    const contentGrid = document.createElement('div');
+                    contentGrid.className = 'content-grid grid gap-4 p-4';
+                    
+                    module.autres[type].forEach(item => {
+                        const contentItem = createContentItem(item, type, false);
+                        contentGrid.appendChild(contentItem);
+                    });
+                    
+                    autresSection.appendChild(sectionHeader);
+                    autresSection.appendChild(contentGrid);
+                    popupContent.appendChild(autresSection);
+                    contentAdded = true;
+                }
+                
+                if (type === 'cours' && module.autres["cours conseiller"] && module.autres["cours conseiller"].length > 0) {
+                    const recommendedSection = document.createElement('div');
+                    recommendedSection.className = 'university-section mb-6 transform transition-all duration-300 hover:scale-105 border-l-4 border-blue-600 recommended-content';
+                    
+                    const recommendedHeader = document.createElement('div');
+                    recommendedHeader.className = 'section-header bg-blue-50 p-4 rounded-t-lg border-b-2 border-blue-200';
+                    recommendedHeader.innerHTML = `
+                        <h3 class="text-xl font-bold text-blue-600 flex items-center gap-2">
+                            <i class="fas fa-star"></i>
+                            Cours Conseillés
+                            <span class="ml-2 text-sm bg-blue-500 text-white px-2 py-1 rounded">Recommandé</span>
+                        </h3>
+                    `;
+                    
+                    const recommendedGrid = document.createElement('div');
+                    recommendedGrid.className = 'content-grid grid gap-4 p-4';
+                    
+                    module.autres["cours conseiller"].forEach(item => {
+                        const contentItem = createContentItem(item, 'cours', true);
+                        recommendedGrid.appendChild(contentItem);
+                    });
+                    
+                    recommendedSection.appendChild(recommendedHeader);
+                    recommendedSection.appendChild(recommendedGrid);
+                    popupContent.appendChild(recommendedSection);
+                    contentAdded = true;
+                }
+            }
+            
+            if (!contentAdded) {
+                popupContent.innerHTML = `
+                    <div class="text-center p-8">
+                        <i class="fas fa-exclamation-circle text-5xl text-gray-400 mb-4"></i>
+                        <p class="text-gray-500">Aucun contenu disponible pour ce module</p>
+                    </div>
+                `;
+            }
+            
+            popup.classList.remove('hidden');
+            
+            const links = popupContent.querySelectorAll('a');
+            links.forEach(link => {
+                link.addEventListener('mouseenter', e => {
+                    const item = e.target.closest('.content-item');
+                    if (item) item.style.transform = 'translateY(-5px)';
+                });
+                
+                link.addEventListener('mouseleave', e => {
+                    const item = e.target.closest('.content-item');
+                    if (item) item.style.transform = '';
+                });
+            });
+        }
+
+        function createContentItem(item, type, isRecommended) {
+            const contentItem = document.createElement('div');
+            contentItem.className = 'content-item bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 transform hover:scale-102 border border-gray-100';
+            
+            const iconClass = getIconByType(type);
+            const bgColor = isRecommended ? 'rgba(59, 130, 246, 0.1)' : 'rgba(255, 118, 118, 0.1)';
+            const textColor = isRecommended ? 'text-blue-500' : 'text-red-500';
+            const btnClass = isRecommended ? 'bg-blue-50 hover:bg-blue-100 text-blue-600' : 'bg-red-50 hover:bg-red-100 text-red-600';
+            
+            contentItem.innerHTML = `
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="icon-wrapper ${textColor}" style="background:${bgColor};">
+                            <i class="fas ${iconClass} text-xl"></i>
+                        </div>
+                        <div class="text-content">
+                            <h4 class="font-semibold text-gray-800">${item.title}</h4>
+                        </div>
+                    </div>
+                    <a href="${item.url}" target="_blank" 
+                       class="download-btn ${btnClass} px-4 py-2 rounded-full flex items-center gap-2 transition-all duration-300">
+                        <span class="text-sm">Télécharger</span>
+                        <i class="fas fa-download"></i>
+                    </a>
+                </div>
+            `;
+            
+            return contentItem;
+        }
+
+        function getIconByType(type) {
+            const icons = {
+                'cours': 'fa-book',
+                'td': 'fa-pencil-alt',
+                'tp': 'fa-flask',
+                'examen': 'fa-file-alt'
+            };
+            return icons[type] || 'fa-file';
+        }
+
+        function showEmptyPopup(moduleShortName, type) {
+            const popup = document.getElementById(`popup-${type}`);
+            const popupTitle = document.getElementById(`popup-title-${type}`);
+            const popupContent = document.getElementById(`popup-content-${type}`);
+            
+            popupTitle.textContent = `${moduleShortName} - ${capitalizeFirstLetter(type)}`;
+            
+            popupContent.innerHTML = `
+                <div class="text-center p-8">
+                    <i class="fas fa-exclamation-circle text-5xl text-gray-400 mb-4"></i>
+                    <p class="text-gray-500">Contenu non disponible pour ce module</p>
+                </div>
+            `;
+            
+            popup.classList.remove('hidden');
+        }
+
+        function capitalizeFirstLetter(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const closeButtons = document.querySelectorAll('.close-popup-btn');
+            closeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const popup = this.closest('[id^="popup-"]');
+                    if (popup) {
+                        popup.classList.add('hidden');
+                    }
+                });
+            });
+
+            const popups = document.querySelectorAll('[id^="popup-"]');
+            popups.forEach(popup => {
+                popup.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        this.classList.add('hidden');
+                    }
+                });
+            });
+        });
+    </script>
+
+    <style>
+        .module-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .module-card:hover {
+            box-shadow: 0 8px 12px rgba(0,0,0,0.15);
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 20px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            backdrop-filter: blur(8px);
+            padding: 2rem;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .close-popup-btn:hover {
+            transform: scale(1.05);
+        }
+        
+        .popup-content {
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+
+        .university-section {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .university-section:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+        }
+
+        .university-section h3 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .university-section h3::before {
+            content: '';
+            width: 4px;
+            height: 1.5rem;
+            background-color: currentColor;
+            border-radius: 2px;
+        }
+
+        .university-section a {
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            padding: 0.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .university-section a:hover {
+            background: rgba(59, 130, 246, 0.1);
+            transform: translateX(10px);
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+
+        .content-item {
+            background: white;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .content-item:hover {
+            transform: translateY(-2px);
+        }
+
+        .icon-wrapper {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255, 118, 118, 0.1);
+        }
+
+        .download-btn {
+            font-size: 0.875rem;
+            transition: all 0.3s ease;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-1px);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .content-item {
+            animation: slideIn 0.3s ease-out forwards;
+        }
+
+        .popup-content {
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255, 118, 118, 0.5) rgba(229, 231, 235, 0.5);
+        }
+
+        .popup-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .popup-content::-webkit-scrollbar-track {
+            background: rgba(229, 231, 235, 0.5);
+            border-radius: 4px;
+        }
+
+        .popup-content::-webkit-scrollbar-thumb {
+            background: rgba(255, 118, 118, 0.5);
+            border-radius: 4px;
+        }
+
+        .popup-content::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 118, 118, 0.7);
+        }
+
+        .close-popup-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background-color: #ef4444;
+            color: white;
+            border-radius: 0.5rem;
+            transition: all 0.2s ease;
+        }
+        
+        .close-popup-btn:hover {
+            background-color: #dc2626;
+            transform: scale(1.05);
+        }
+        
+        .glass-card {
+            max-height: 80vh;
+            overflow-y: auto;
+            width: 100%;
+            max-width: 800px;
+        }
+        
+        .popup-content {
+            padding: 1rem 0;
+        }
+        
+        [id^="popup-"] {
+            z-index: 50;
+        }
+
+        .module-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .module-card:hover {
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+        
+        .module-icon {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.08);
+        }
+        
+        .module-btn {
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .module-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+        }
+        
+        .module-btn:active {
+            transform: translateY(0px);
+        }
+    </style>
+    <script type="module">
+        import features from './js/fe';
+        // Features are automatically initialized
+    </script>
+    <script type="module">
+        import features from './js/features-integration.js';
+        // Features are automatically initialized
+    </script>
+</body>
+</html>
