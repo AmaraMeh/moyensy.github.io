@@ -10,9 +10,8 @@ class LibraryFeatures {
     async init() {
         await this.loadFavorites();
         this.addFavoriteButtons();
-        this.setupKeyboardShortcuts();
-        this.addSearchBar();
-        this.removeResourceCountBadges(); // Add this new method call
+        // ... other features such as keyboard shortcuts and search bar
+        this.removeResourceCountBadges();
     }
     
     // Add this new method to remove resource count badges
@@ -292,24 +291,15 @@ class LibraryFeatures {
     
     // Modify the addFavoritesSection method to ensure it always creates the section properly
     addFavoritesSection() {
-        // Check if we have any favorites first
-        if (!this.favorites || this.favorites.length === 0) {
-            const existingSection = document.getElementById('favorites-section');
-            if (existingSection) existingSection.remove();
-            return;
-        }
-        
-        console.log("Creating favorites section with", this.favorites.length, "items");
-        
-        // Remove existing section if any
+        // Always create a favorites section container, even if empty.
         const existingSection = document.getElementById('favorites-section');
         if (existingSection) existingSection.remove();
         
-        // Create the section
         const favoritesSection = document.createElement('div');
         favoritesSection.id = 'favorites-section';
         favoritesSection.className = 'mb-8 bg-gradient-to-r from-yellow-50 to-orange-50 rounded-lg shadow-lg p-6';
         
+        // Header remains the same
         favoritesSection.innerHTML = `
             <div class="flex items-center justify-between mb-4">
                 <div class="flex items-center">
@@ -323,46 +313,25 @@ class LibraryFeatures {
                 </span>
             </div>
             <div id="favorites-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                <!-- Favorites will be added here -->
+                <!-- Favorite cards will be inserted here -->
             </div>
         `;
         
-        // Find the best location to insert the favorites section - right after header or search bar
+        // Insert the favorites section in bib.html; adjust based on your layout.
         const container = document.querySelector('.container');
-        
         if (container) {
-            // First, look for a search container
-            const searchContainer = container.querySelector('.mb-8');
-            
-            if (searchContainer) {
-                // Insert after search bar
-                if (searchContainer.nextSibling) {
-                    container.insertBefore(favoritesSection, searchContainer.nextSibling);
-                } else {
-                    container.appendChild(favoritesSection);
-                }
+            // For bib.html, always insert immediately after the header.
+            const header = container.querySelector('header');
+            if (header && header.nextElementSibling) {
+                container.insertBefore(favoritesSection, header.nextElementSibling);
             } else {
-                // Try to find the header
-                const header = container.querySelector('header');
-                if (header) {
-                    // Insert after header
-                    if (header.nextSibling) {
-                        container.insertBefore(favoritesSection, header.nextSibling);
-                    } else {
-                        container.appendChild(favoritesSection);
-                    }
-                } else {
-                    // If all else fails, insert at the beginning
-                    if (container.firstChild) {
-                        container.insertBefore(favoritesSection, container.firstChild);
-                    } else {
-                        container.appendChild(favoritesSection);
-                    }
-                }
+                container.insertBefore(favoritesSection, container.firstChild);
             }
+        } else {
+            document.body.appendChild(favoritesSection);
         }
         
-        // Now populate the grid
+        // Populate the grid (empty state will be rendered if no favorite cards exist)
         this.refreshFavoritesDisplay();
     }
 
