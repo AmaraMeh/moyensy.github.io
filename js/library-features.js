@@ -87,8 +87,10 @@ class LibraryFeatures {
     
     addFavoriteButtons() {
         console.log("Adding favorite buttons to cards");
-        // Consider the user logged in if 'isLoggedIn' is true or 'userId' exists in localStorage
-        const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true' || !!localStorage.getItem('userId');
+        // Determine login status - user is logged in if either isLoggedIn is true or userId exists
+        const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true' || 
+                          (!!localStorage.getItem('userData') && !!localStorage.getItem('userId'));
+        
         // Include both service cards and module cards
         const specialtyLinks = document.querySelectorAll('.service-card, .module-card');
         
@@ -115,7 +117,7 @@ class LibraryFeatures {
             favBtn.className = 'favorite-btn absolute top-3 right-3 z-10';
             
             if (isLoggedIn) {
-                // Build a button with a star icon – yellow if favorite, gray if not.
+                // For logged-in users: Build a button with a star icon – yellow if favorite, gray if not
                 favBtn.innerHTML = `
                     <button class="w-10 h-10 bg-white rounded-full shadow-md flex items-center justify-center hover:shadow-lg transition-all duration-300 transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-400">
                         <i class="fas fa-star ${isFavorite ? 'text-yellow-500' : 'text-gray-400'} text-lg"></i>
@@ -123,7 +125,7 @@ class LibraryFeatures {
                 `;
                 favBtn.title = isFavorite ? 'Retirer des favoris' : 'Ajouter aux favoris';
                 
-                // Click handler to toggle favorite
+                // Click handler for logged in users to toggle favorite status
                 favBtn.addEventListener('click', async (e) => {
                     e.preventDefault();
                     e.stopPropagation();
@@ -161,7 +163,7 @@ class LibraryFeatures {
                     this.refreshFavoritesDisplay();
                 });
             } else {
-                // Not logged in – show a grayed-out button that prompts for login.
+                // For non-logged in users: Show a grayed-out button that prompts for login
                 favBtn.innerHTML = `
                     <button class="w-10 h-10 bg-white bg-opacity-70 rounded-full shadow flex items-center justify-center opacity-60">
                         <i class="fas fa-star text-gray-400 text-lg"></i>
@@ -169,6 +171,7 @@ class LibraryFeatures {
                 `;
                 favBtn.title = 'Connectez-vous pour ajouter aux favoris';
                 
+                // When clicked, show login prompt instead of adding to favorites
                 favBtn.addEventListener('click', (e) => {
                     e.preventDefault();
                     e.stopPropagation();
@@ -176,24 +179,30 @@ class LibraryFeatures {
                 });
             }
             
-            // Ensure the card is positioned relatively so the button is correctly placed.
+            // Ensure the card is positioned relatively so the button is correctly placed
             link.style.position = 'relative';
             link.appendChild(favBtn);
         });
         
-        // Always update the favorites section
+        // Always update the favorites section if it exists
         this.refreshFavoritesDisplay();
     }
     
     // Add a login prompt method
     showLoginPrompt() {
-        // Create a modal for login prompt
+        // First check if a prompt already exists and remove it
+        const existingPrompt = document.getElementById('login-prompt-modal');
+        if (existingPrompt) {
+            existingPrompt.remove();
+        }
+
+        // Create a modal for login prompt with improved styling
         const modal = document.createElement('div');
-        modal.className = 'fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50';
+        modal.className = 'fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 opacity-0 transition-opacity duration-300';
         modal.id = 'login-prompt-modal';
         
         modal.innerHTML = `
-            <div class="bg-white rounded-lg p-6 max-w-md w-full transform transition-all" data-aos="zoom-in">
+            <div class="bg-white rounded-lg p-6 max-w-md w-full transform transition-all scale-95 duration-300 shadow-xl">
                 <div class="text-center mb-4">
                     <div class="bg-blue-100 text-blue-600 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
                         <i class="fas fa-user-lock text-2xl"></i>
@@ -203,7 +212,8 @@ class LibraryFeatures {
                 </div>
                 
                 <div class="mt-6 flex flex-col gap-3">
-                    <a href="auth.html" class="w-full bg-blue-600 text-white py-3 rounded-lg text-center font-medium hover:bg-blue-700 transition-colors">
+                    <a href="auth.html" class="w-full bg-blue-600 text-white py-3 rounded-lg text-center font-medium hover:bg-blue-700 transition-colors flex items-center justify-center">
+                        <i class="fas fa-sign-in-alt mr-2"></i>
                         Se connecter
                     </a>
                     <button id="close-login-prompt" class="w-full bg-gray-200 text-gray-800 py-3 rounded-lg text-center font-medium hover:bg-gray-300 transition-colors">
@@ -215,9 +225,20 @@ class LibraryFeatures {
         
         document.body.appendChild(modal);
         
+        // Animate in
+        setTimeout(() => {
+            modal.classList.remove('opacity-0');
+            const modalContent = modal.querySelector('div');
+            modalContent.classList.remove('scale-95');
+            modalContent.classList.add('scale-100');
+        }, 10);
+        
         // Add click handler to close the modal
         modal.querySelector('#close-login-prompt').addEventListener('click', () => {
             modal.classList.add('opacity-0');
+            const modalContent = modal.querySelector('div');
+            modalContent.classList.remove('scale-100');
+            modalContent.classList.add('scale-95');
             setTimeout(() => {
                 modal.remove();
             }, 300);
@@ -227,6 +248,9 @@ class LibraryFeatures {
         modal.addEventListener('click', (e) => {
             if (e.target === modal) {
                 modal.classList.add('opacity-0');
+                const modalContent = modal.querySelector('div');
+                modalContent.classList.remove('scale-100');
+                modalContent.classList.add('scale-95');
                 setTimeout(() => {
                     modal.remove();
                 }, 300);

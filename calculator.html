@@ -196,5 +196,167 @@
             }
         }
     </script>
+
+    <!-- Mobile Navigation Bar -->
+    <nav id="mobile-nav" class="fixed bottom-0 left-0 right-0 bg-white bg-opacity-95 backdrop-filter backdrop-blur-lg shadow-lg border-t border-gray-200 py-3 px-2 flex justify-around items-center z-30 md:hidden">
+        <!-- Home Button -->
+        <a href="index.html" class="mobile-nav-item">
+            <div class="icon-container">
+                <i class="fas fa-home"></i>
+            </div>
+            <span>Accueil</span>
+        </a>
+        
+        <!-- Courses Button -->
+        <a href="bib.html" class="mobile-nav-item">
+            <div class="icon-container">
+                <i class="fas fa-book-open"></i>
+            </div>
+            <span>Cours</span>
+        </a>
+        
+        <!-- Calculator Button - Active on this page -->
+        <a href="calculator.html" class="mobile-nav-item active-nav-item">
+            <div class="icon-container">
+                <i class="fas fa-calculator"></i>
+            </div>
+            <span>Moyenne</span>
+        </a>
+        
+        <!-- Profile Button -->
+        <a href="#" onclick="checkProfileAccess(event)" class="mobile-nav-item">
+            <div class="icon-container">
+                <i class="fas fa-user"></i>
+            </div>
+            <span>Profil</span>
+        </a>
+    </nav>
+
+    <!-- Add navigation scripts and styles -->
+    <script>
+        // Define the checkProfileAccess function if not already defined
+        function checkProfileAccess(event) {
+            event.preventDefault();
+            const userData = localStorage.getItem('userData');
+            if (!userData) {
+                window.location.href = 'auth.html?redirect=profile';
+            } else {
+                window.location.href = 'profile.html';
+            }
+        }
+        
+        // Set active item in the mobile nav based on current page
+        function setActiveMobileNavItem() {
+            const currentPath = window.location.pathname;
+            const navItems = document.querySelectorAll('.mobile-nav-item');
+            
+            navItems.forEach(item => {
+                // Remove active class from all items
+                item.classList.remove('active-nav-item');
+                
+                // Get the href value
+                const href = item.getAttribute('href');
+                
+                // Skip items with "#" or JavaScript function calls
+                if (href === "#") return;
+                
+                // Check if this is the current page
+                if (currentPath.endsWith(href) || 
+                   (currentPath.endsWith('/') && href === 'index.html')) {
+                    item.classList.add('active-nav-item');
+                }
+            });
+            
+            // Add logged in indicator for profile if user data exists
+            const userData = localStorage.getItem('userData');
+            const profileNavItem = document.querySelector('.mobile-nav-item[onclick*="checkProfileAccess"]');
+            if (userData && profileNavItem) {
+                profileNavItem.classList.add('logged-in');
+            }
+        }
+        
+        // Initialize mobile nav on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            setActiveMobileNavItem();
+        });
+    </script>
+
+    <style>
+        @media (max-width: 768px) {
+            body {
+                padding-bottom: 60px;
+            }
+        }
+
+        /* Enhanced Mobile Navigation Styling */
+        #mobile-nav {
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        /* When scrolling down, hide the navbar (added via JS) */
+        #mobile-nav.nav-hidden {
+            transform: translateY(100%);
+        }
+        
+        .mobile-nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 4px 0;
+            color: #64748b; /* Tailwind text-gray-500 */
+            transition: all 0.3s ease;
+            position: relative;
+            width: 23%;
+            border-radius: 0.75rem;
+        }
+        
+        .mobile-nav-item .icon-container {
+            position: relative;
+            margin-bottom: 4px;
+            font-size: 1.25rem;
+        }
+        
+        .mobile-nav-item span {
+            font-size: 0.7rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+        
+        /* Active state for the current page */
+        .mobile-nav-item.active-nav-item {
+            color: #3b82f6; /* Tailwind blue-500 */
+            font-weight: 600;
+        }
+        
+        .mobile-nav-item.active-nav-item::before {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 25%;
+            width: 50%;
+            height: 3px;
+            background: linear-gradient(to right, #3b82f6, #2563eb);
+            border-radius: 3px;
+        }
+        
+        /* Hover and tap effects */
+        .mobile-nav-item:hover, .mobile-nav-item:active {
+            color: #3b82f6; /* Tailwind blue-500 */
+            transform: translateY(-2px);
+        }
+        
+        /* Small icon indicator for profile when logged in */
+        .mobile-nav-item.logged-in::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 25%;
+            width: 8px;
+            height: 8px;
+            background-color: #10b981; /* Tailwind green-500 */
+            border-radius: 50%;
+            border: 2px solid white;
+        }
+    </style>
 </body>
 </html>
