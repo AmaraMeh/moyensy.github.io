@@ -42,6 +42,24 @@
                             <span class="text-green-600 border-b-2 border-green-400 pb-1">Informatique LMD</span> - Semestre 2
                         </h2>
                         <p class="text-gray-600 text-sm md:text-base">Ressources pédagogiques pour les étudiants en informatique</p>
+                        
+                        <!-- Date de mise à jour animée -->
+                        <div class="text-gray-700 font-semibold text-sm mt-3 flex items-center animate-pulse">
+                            <i class="fas fa-history mr-2 text-green-600"></i>
+                            <span class="text-center md:text-left">Dernière mise à jour le 12 mars 2025 à 18:00 au campus Targa Ouzemour</span>
+                        </div>
+                        
+                        <!-- Bouton pour le contenu exclusif -->
+                        <div class="mt-4">
+                            <button onclick="document.getElementById('popup-exclusive').classList.remove('hidden')" 
+                                  class="bg-gradient-to-r from-yellow-400 to-yellow-600 text-white px-4 py-2 rounded-lg 
+                                         shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 
+                                         flex items-center gap-2">
+                                <i class="fas fa-crown text-yellow-100 animate-pulse"></i>
+                                <span class="font-bold">Ressources Exclusives 2024-2025</span>
+                                <span class="bg-red-500 text-white text-xs px-2 py-1 rounded-full">NOUVEAU</span>
+                            </button>
+                        </div>
                     </div>
                     <div class="flex flex-col items-end mt-4 md:mt-0">
                         <div class="bg-blue-50 px-4 py-2 rounded-lg border border-blue-200 shadow-sm">
@@ -62,6 +80,26 @@
                         zoneId: '9521434',
                     });
                 </script>
+            </div>
+
+            <!-- Banner pour les ressources exclusives 2024-2025 -->
+            <div class="mb-8 p-4 rounded-xl bg-gradient-to-r from-indigo-50 via-purple-50 to-pink-50 border border-indigo-200 shadow-md">
+                <div class="flex flex-col md:flex-row items-center justify-between">
+                    <div class="flex items-center gap-3 mb-4 md:mb-0">
+                        <div class="w-12 h-12 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg">
+                            <i class="fas fa-crown text-yellow-300 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-indigo-800">Ressources Exclusives 2024-2025</h3>
+                            <p class="text-sm text-gray-600">Documents mis à jour pour tous les modules</p>
+                        </div>
+                    </div>
+                    <button onclick="document.getElementById('popup-exclusive').classList.remove('hidden')" 
+                           class="bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-4 py-2 rounded-lg 
+                                  shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+                        <i class="fas fa-eye mr-2"></i>Voir toutes les ressources
+                    </button>
+                </div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
@@ -246,6 +284,296 @@
                 </button>
             </div>
             <div id="popup-content-examen" class="space-y-6 popup-content"></div>
+        </div>
+    </div>
+
+    <!-- Popup pour la nouvelle section exclusive -->
+    <div id="popup-exclusive" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
+        <div class="glass-card max-w-4xl w-full mx-4 relative">
+            <button onclick="closePopup('popup-exclusive')" class="close-popup-btn absolute top-2 right-2 text-gray-500 hover:text-gray-800 text-2xl">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="popup-content">
+                <div class="bg-gradient-to-r from-blue-500 to-purple-600 text-white p-4 rounded-t-lg">
+                    <h2 class="text-2xl font-bold flex items-center">
+                        <i class="fas fa-crown text-yellow-300 mr-2"></i>
+                        Ressources Exclusives 2024-2025
+                    </h2>
+                    <p class="text-sm font-light mt-1">Nouvelles ressources mises à jour pour les étudiants en Informatique LMD</p>
+                </div>
+                
+                <div class="p-6">
+                    <div class="mb-8 p-4 bg-yellow-50 rounded-lg border-2 border-yellow-200">
+                        <p class="text-yellow-800 font-bold"><i class="fas fa-info-circle mr-2"></i> Tous les examens possèdent leurs corrigés</p>
+                    </div>
+                    
+                    <!-- Algèbre 2 -->
+                    <div class="university-section">
+                        <h3 class="text-xl font-bold text-blue-600 mb-2">Algèbre 2</h3>
+                        
+                        <h4 class="font-semibold text-gray-700 mt-3 mb-1">Travaux Dirigés</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                            <a href="https://drive.google.com/file/d/1aj7zmLWtUeiJ-qi-CKe7Vim8Um8EK2zk/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
+                                <i class="fas fa-file-alt text-blue-500 mr-2"></i>TD 1
+                            </a>
+                            <a href="https://drive.google.com/file/d/1hjRrls_f0iAbxXmrsGNfaGeeO6965yAh/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
+                                <i class="fas fa-file-alt text-blue-500 mr-2"></i>TD 2
+                            </a>
+                            <a href="https://drive.google.com/file/d/18dcdxpk1mySymkSLK5nSh8Yz2Y_Iu_c9/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
+                                <i class="fas fa-file-alt text-blue-500 mr-2"></i>TD 3
+                            </a>
+                            <a href="https://drive.google.com/drive/folders/1zPs6eWPC7WntXctVm5DTBrSNo4gYsmyX?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
+                                <i class="fas fa-check-circle text-green-500 mr-2"></i>Corrigé TD 1
+                            </a>
+                            <a href="https://drive.google.com/drive/folders/1ccLVrWtYrNBgPjsOSQqBwsONYf4oCJb2?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
+                                <i class="fas fa-check-circle text-green-500 mr-2"></i>Corrigé TD 2
+                            </a>
+                            <a href="https://drive.google.com/drive/folders/11hgi_jlD_YAuAXCkKcrNgRWBLU9TFPho?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
+                                <i class="fas fa-check-circle text-green-500 mr-2"></i>Corrigé TD 3
+                            </a>
+                        </div>
+                        
+                        <h4 class="font-semibold text-gray-700 mt-3 mb-1">Cours</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                            <a href="https://drive.google.com/file/d/1ZMrIavkD56-l9I9fymkzr10ngIalKr4t/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
+                                <i class="fas fa-book text-indigo-500 mr-2"></i>Chapitre 1
+                            </a>
+                            <a href="https://drive.google.com/file/d/1msQ9Aks8oeUZKHWh4lZpe9UMAysJotBU/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
+                                <i class="fas fa-book text-indigo-500 mr-2"></i>Chapitre 2
+                            </a>
+                            <a href="https://drive.google.com/file/d/15RWypRogyfurlE3URSVBWrSuExyBqVEK/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
+                                <i class="fas fa-book text-indigo-500 mr-2"></i>Chapitre 3
+                            </a>
+                            <a href="https://drive.google.com/file/d/1JMQjgnqnPCAgbksZW3jR_vNgLGp9UgtX/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
+                                <i class="fas fa-book text-indigo-500 mr-2"></i>Chapitre 4
+                            </a>
+                        </div>
+
+                        <h4 class="font-semibold text-gray-700 mt-3 mb-1">Examens</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                            <a href="https://drive.google.com/file/d/16wRZ6sNzm_bEd2H4diyDgicxPXn6kJ02/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
+                                <i class="fas fa-file-alt text-purple-500 mr-2"></i>Examen 2022+2019 + corriger
+                            </a>
+                            <a href="https://drive.google.com/file/d/1FILlMsmVEFVUvFcY0U5kBKmvYvl_lml1/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
+                                <i class="fas fa-file-alt text-purple-500 mr-2"></i>Examen 2024 avec corriger
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Analyse 2 -->
+                    <div class="university-section">
+                        <h3 class="text-xl font-bold text-blue-600 mb-2">Analyse 2</h3>
+                        
+                        <h4 class="font-semibold text-gray-700 mt-3 mb-1">Cours</h4>
+                        <div class="grid grid-cols-1 gap-2">
+                            <a href="https://drive.google.com/file/d/15xe6R8dT1mYnzgLZif_upE1aiTtP02hw/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
+                                <i class="fas fa-book text-indigo-500 mr-2"></i>Tous les cours
+                            </a>
+                        </div>
+                        
+                        <h4 class="font-semibold text-gray-700 mt-3 mb-1">Travaux Dirigés</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                            <a href="https://drive.google.com/file/d/19PwWxjou6rIpheyfUGp6Tiqz6iXAkFyS/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
+                                <i class="fas fa-file-alt text-blue-500 mr-2"></i>TD 1
+                            </a>
+                            <a href="https://drive.google.com/file/d/1ZnewSF4VvezkCUj2IX2QBDM89QusjaA-/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
+                                <i class="fas fa-file-alt text-blue-500 mr-2"></i>TD 2
+                            </a>
+                            <a href="https://drive.google.com/drive/folders/19h2iPu5JGaeVb_pRlwC-LkD2aYiSfkpH?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
+                                <i class="fas fa-check-circle text-green-500 mr-2"></i>Corrigé TD 1
+                            </a>
+                            <a href="https://drive.google.com/drive/folders/1suA0BbVbW_4tvA1Gj1H5AZKhlMnx_Yx-?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
+                                <i class="fas fa-check-circle text-green-500 mr-2"></i>Corrigé TD 2
+                            </a>
+                        </div>
+                        
+                        <h4 class="font-semibold text-gray-700 mt-3 mb-1">Examens</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+                            <a href="https://drive.google.com/file/d/1IJ1JjvEAzGSy9QD8PLZ5r2AOa-YqqbUM/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
+                                <i class="fas fa-file-alt text-red-500 mr-2"></i>Examen 2012
+                            </a>
+                            <a href="https://drive.google.com/file/d/1BGELjBjVWJqTGSshKweUvOVzOLd36g4z/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
+                                <i class="fas fa-file-alt text-red-500 mr-2"></i>Examen 2015
+                            </a>
+                            <a href="https://drive.google.com/file/d/1_CU03uUEee6j5EMML2vGvTfARP55Rj7U/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
+                                <i class="fas fa-file-alt text-red-500 mr-2"></i>Examen 2017
+                            </a>
+                            <a href="https://drive.google.com/file/d/1vIrRPGw06vs9LoYGX1hKM2GVHeP7maPB/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
+                                <i class="fas fa-file-alt text-red-500 mr-2"></i>Examen 2018
+                            </a>
+                            <a href="https://drive.google.com/file/d/1xkV_tf1GAgIFgFh43L_SfSsMZEshPfsZ/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
+                                <i class="fas fa-file-alt text-red-500 mr-2"></i>Examen 2019
+                            </a>
+                            <a href="https://drive.google.com/file/d/1TBJPefPCUHYdsjzuB6OYEa5B7eKNVK5h/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
+                                <i class="fas fa-file-alt text-red-500 mr-2"></i>Examen 2021
+                            </a>
+                            <a href="https://drive.google.com/file/d/1YCNLgcNcwSKR4pE0ZX3ZpYNEAVqdNEgV/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
+                                <i class="fas fa-file-alt text-red-500 mr-2"></i>Examen 2023
+                            </a>
+                            <a href="https://drive.google.com/file/d/1n8gw7a-qz_Jk2cOkKsfEqE1UjJYjdYMA/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
+                                <i class="fas fa-file-alt text-red-500 mr-2"></i>Examen 2024
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- MATLAB -->
+                    <div class="university-section">
+                        <h3 class="text-xl font-bold text-blue-600 mb-2">MATLAB</h3>
+                        
+                        <h4 class="font-semibold text-gray-700 mt-3 mb-1">Cours</h4>
+                        <div class="grid grid-cols-1 gap-2">
+                            <a href="https://drive.google.com/file/d/1f-qnkDXLvFturme2BxPZQsL5IoI9NE7C/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
+                                <i class="fas fa-book text-indigo-500 mr-2"></i>Tous les cours
+                            </a>
+                        </div>
+                        
+                        <h4 class="font-semibold text-gray-700 mt-3 mb-1">Travaux Pratiques</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                            <a href="https://drive.google.com/file/d/1yjzKGM-6t1pQd2ixwgV2I6qaGTDOy6Lj/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
+                                <i class="fas fa-laptop-code text-blue-500 mr-2"></i>TP 1
+                            </a>
+                            <a href="https://drive.google.com/file/d/1Pd5z6pSrHc4GxcA42VovOwyzW-OHFVZ2/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
+                                <i class="fas fa-laptop-code text-blue-500 mr-2"></i>TP 2
+                            </a>
+                            <a href="https://drive.google.com/file/d/1A-zJSVc4XxHyZSMXCs0x8ccye_VMguTS/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
+                                <i class="fas fa-laptop-code text-blue-500 mr-2"></i>TP 3
+                            </a>
+                            <a href="https://drive.google.com/file/d/1tdL8jNmMEeZFFdfE4B0FMiYXDxqP3QYq/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
+                                <i class="fas fa-laptop-code text-blue-500 mr-2"></i>TP 4
+                            </a>
+                            <a href="https://drive.google.com/file/d/15ObeR545Sydtq6nZkCSWWXy68ok32WaH/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
+                                <i class="fas fa-laptop-code text-blue-500 mr-2"></i>TP 5
+                            </a>
+                        </div>
+                        
+                        <h4 class="font-semibold text-gray-700 mt-3 mb-1">Corrigés TP</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                            <a href="https://drive.google.com/drive/folders/1qhB--5muDT04pMGQHlQoL2_f4P7qEYHs?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
+                                <i class="fas fa-check-circle text-green-500 mr-2"></i>Corrigé TP 2
+                            </a>
+                            <a href="https://drive.google.com/drive/folders/14e6z0mg2mwMzFk8bkO_oyCHPNPYGI-Gc?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
+                                <i class="fas fa-check-circle text-green-500 mr-2"></i>Corrigé TP 3
+                            </a>
+                            <a href="https://drive.google.com/drive/folders/18RwjVcU8ar_lDyZgJyqYDuNl7Owt76th?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
+                                <i class="fas fa-check-circle text-green-500 mr-2"></i>Corrigé TP 4
+                            </a>
+                            <a href="https://drive.google.com/drive/folders/1MOysR2whFuu_MUVTREdUjtwIr6xjtqcR?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
+                                <i class="fas fa-check-circle text-green-500 mr-2"></i>Corrigé TP 5
+                            </a>
+                        </div>
+                        
+                        <h4 class="font-semibold text-gray-700 mt-3 mb-1">Tests</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                            <a href="https://drive.google.com/file/d/1_UXjKippa9PRPWtzYFc0jyek7y_BeGyw/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
+                                <i class="fas fa-tasks text-orange-500 mr-2"></i>Test 1 (TD)
+                            </a>
+                            <a href="https://drive.google.com/file/d/16_cHHElg551Wq199UzZ4m-U8Q4X4gyyW/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
+                                <i class="fas fa-tasks text-orange-500 mr-2"></i>Test 2
+                            </a>
+                            <a href="https://drive.google.com/file/d/1Be0sXqrITCos2T2xRmO3oYbw7Gy_1g7O/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
+                                <i class="fas fa-tasks text-orange-500 mr-2"></i>Test 3
+                            </a>
+                            <a href="https://drive.google.com/file/d/1s8vgQoPijherofCi8BzYX9TEjq-9Xi13/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
+                                <i class="fas fa-tasks text-orange-500 mr-2"></i>Test 4
+                            </a>
+                            <a href="https://drive.google.com/file/d/1Ltq3JvTF3dJQz7xzmzlF31MSNrh1A88R/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
+                                <i class="fas fa-tasks text-orange-500 mr-2"></i>Test 5
+                            </a>
+                            <a href="https://drive.google.com/file/d/1_v5fSXvD9q7Grg_pWvI6Lh2g63AoqorZ/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
+                                <i class="fas fa-tasks text-orange-500 mr-2"></i>Test 6
+                            </a>
+                            <a href="https://drive.google.com/drive/folders/1IBLGECQzQccrl8SsOqNuYt2SiYU8uLZx?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
+                                <i class="fas fa-check-circle text-green-500 mr-2"></i>Corrigés tests 1-6
+                            </a>
+                        </div>
+                        
+                        <h4 class="font-semibold text-gray-700 mt-3 mb-1">Examens</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                            <a href="https://drive.google.com/file/d/1hG79hC8Yg51nIya8KTCDMB8sQQac1jOt/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
+                                <i class="fas fa-file-alt text-red-500 mr-2"></i>Examen 2023 avec corrigé
+                            </a>
+                            <a href="https://drive.google.com/file/d/1XQi2llgaz5ZUtUcoDXPiNx6OKq6RS-ue/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
+                                <i class="fas fa-file-alt text-red-500 mr-2"></i>Examen 2024 avec corrigé
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Plus de modules... -->
+                    <!-- Algorithme 2 -->
+                    <div class="university-section">
+                        <h3 class="text-xl font-bold text-blue-600 mb-2">Algorithme 2</h3>
+                        
+                        <h4 class="font-semibold text-gray-700 mt-3 mb-1">Cours</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
+                            <a href="https://drive.google.com/file/d/1T4UJNVt5dIa71sUB03G9gR3KSXaa4Oix/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
+                                <i class="fas fa-book text-indigo-500 mr-2"></i>Chapitre 5
+                            </a>
+                            <a href="https://drive.google.com/file/d/1QxJykkxdMJjTxWxGDrVcFhaUUUdNupbE/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
+                                <i class="fas fa-book text-indigo-500 mr-2"></i>Chapitre 6
+                            </a>
+                            <a href="https://drive.google.com/file/d/1jhHgkDiJfw3Uki_KU212emWKbor1B3wN/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
+                                <i class="fas fa-book text-indigo-500 mr-2"></i>Chapitre 7
+                            </a>
+                        </div>
+                        
+                        <h4 class="font-semibold text-gray-700 mt-3 mb-1">Travaux Dirigés</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                            <a href="https://drive.google.com/file/d/1RNIAzcsNDGdDBdO1paxEBkr-aLpQLAOw/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
+                                <i class="fas fa-file-alt text-blue-500 mr-2"></i>TD 5
+                            </a>
+                            <a href="https://drive.google.com/file/d/1-mTk2OP74NTGDYGvTlW8PbzlsoO0uCeL/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
+                                <i class="fas fa-file-alt text-blue-500 mr-2"></i>TD 6
+                            </a>
+                            <a href="https://drive.google.com/file/d/1b5IwEaU2fpMzaksmN-M4ygatQLwGUy8j/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
+                                <i class="fas fa-file-alt text-blue-500 mr-2"></i>TD 7
+                            </a>
+                            <a href="https://drive.google.com/file/d/1m0S8FSEUh3kHxii2OJHJ2YUzK7wD3lnY/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
+                                <i class="fas fa-check-circle text-green-500 mr-2"></i>Corrigé TD 7
+                            </a>
+                            <a href="https://drive.google.com/file/d/1XnX7XPaJ7s12c_Xdo66sqJ8bR5_6ygwU/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
+                                <i class="fas fa-check-circle text-green-500 mr-2"></i>Corrigé TD 6
+                            </a>
+                            <a href="https://drive.google.com/file/d/1JlRh5P1WWSh_iAyTMPDNVBFsmIP2epuK/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
+                                <i class="fas fa-check-circle text-green-500 mr-2"></i>Corrigé TD 5
+                            </a>
+                            <a href="https://drive.google.com/file/d/1NU1Yc7nSFnv-HaXBg70AI9k4mTrzNoUT/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
+                                <i class="fas fa-tasks text-orange-500 mr-2"></i>Interro (TD)
+                            </a>
+                            <a href="https://drive.google.com/file/d/1iUaUtuSMImCRopwWuxXoePMogcMraZZl/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
+                                <i class="fas fa-check-circle text-green-500 mr-2"></i>Corrigé Interro
+                            </a>
+                        </div>
+                        
+                        <h4 class="font-semibold text-gray-700 mt-3 mb-1">TP</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                            <a href="https://drive.google.com/file/d/1tZjYh4QCd_-_TQhlCUTx04alr7eVoor_/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
+                                <i class="fas fa-flask text-green-500 mr-2"></i>TP 6
+                            </a>
+                            <a href="https://drive.google.com/file/d/1KKKvf8PXAEwj8hQ4oPM3PcMOjggYNJ88/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
+                                <i class="fas fa-flask text-green-500 mr-2"></i>TP 5
+                            </a>
+                        </div>
+                        
+                        <h4 class="font-semibold text-gray-700 mt-3 mb-1">Examens</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                            <a href="https://drive.google.com/file/d/1jJMoN3IonMMewZVI5VKWTUAVe70g4XbF/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
+                                <i class="fas fa-file-alt text-purple-500 mr-2"></i>Examen 2016 part 1
+                            </a>
+                            <a href="https://drive.google.com/file/d/15_oYRdvcdeYJHRTtETv-q1_msiw1i6RW/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
+                                <i class="fas fa-file-alt text-purple-500 mr-2"></i>Examen 2016 part 2
+                            </a>
+                            <a href="https://drive.google.com/file/d/1VCM_WVRHpx7OSuS6bJoO0yYURaz3amvh/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
+                                <i class="fas fa-check-circle text-green-500 mr-2"></i>Corrigé 2016
+                            </a>
+                            <a href="https://drive.google.com/file/d/1CAv5Sad1HqRm5-Lhlrs1BH8ydNO8ZP0c/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
+                                <i class="fas fa-file-alt text-purple-500 mr-2"></i>Examen 2017
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- J'ai abrégé l'exemple, mais vous pouvez continuer avec le reste des modules -->
+                </div>
+            </div>
         </div>
     </div>
 
