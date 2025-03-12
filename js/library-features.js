@@ -1,67 +1,35 @@
 import { db } from '../firebase.js';
-import { doc, getDoc, setDoc, updateDoc, collection, query, where, getDocs } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js';
+import { doc, getDoc, setDoc } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js';
 
 class LibraryFeatures {
     constructor() {
         this.userId = this.getUserId();
-        this.favorites = [];
-        this.resourceCounts = {};
+        this.favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
     }
 
     async init() {
-        await this.loadResourceCounts();
-        await this.addResourceCountBadges();
         await this.loadFavorites();
         this.addFavoriteButtons();
         this.setupKeyboardShortcuts();
         this.addSearchBar();
-    }
-
-    // Resource Count Badges
-    async loadResourceCounts() {
-        try {
-            const specialtiesRef = collection(db, "specialties");
-            const querySnapshot = await getDocs(specialtiesRef);
-            
-            querySnapshot.forEach(doc => {
-                const data = doc.data();
-                this.resourceCounts[data.id] = data.resourceCount || 0;
-            });
-            
-            // Also add some default counts for testing
-            const defaultSpecialties = [
-                'biologie', 'informatique-lmd', 'science-technologie', 
-                'medecine', 'segc', 'genie-procedes', 'automatique'
-            ];
-            
-            defaultSpecialties.forEach(specialty => {
-                if (!this.resourceCounts[specialty]) {
-                    this.resourceCounts[specialty] = Math.floor(Math.random() * 50) + 10;
-                }
-            });
-        } catch (error) {
-            console.error("Error loading resource counts:", error);
-        }
+        this.removeResourceCountBadges(); // Add this new method call
     }
     
-    async addResourceCountBadges() {
-        const specialtyLinks = document.querySelectorAll('.service-card');
+    // Add this new method to remove resource count badges
+    removeResourceCountBadges() {
+        // Find and remove any resource count badges
+        const badges = document.querySelectorAll('.resource-count-badge');
+        badges.forEach(badge => badge.remove());
         
-        specialtyLinks.forEach(link => {
-            const title = link.querySelector('h3').textContent.trim();
-            const specialtyId = this.getSpecialtyId(title);
-            const count = this.resourceCounts[specialtyId] || 0;
-            
-            // Create badge
-            const badge = document.createElement('span');
-            badge.className = 'resource-count absolute top-2 left-2 bg-blue-500 text-white text-xs rounded-full px-2 py-1';
-            badge.innerHTML = `${count} <i class="fas fa-file-alt"></i>`;
-            
-            // Make the service card position relative
-            link.style.position = 'relative';
-            
-            // Add badge
-            link.appendChild(badge);
+        // Also find any elements that might have these badges as children and clean them
+        const cardElements = document.querySelectorAll('.service-card');
+        cardElements.forEach(card => {
+            const countBadges = card.querySelectorAll('.badge, [class*="count"], [class*="badge"]');
+            countBadges.forEach(badge => {
+                if (badge.textContent.match(/^\d+$/) || badge.textContent.includes('ressource')) {
+                    badge.remove();
+                }
+            });
         });
     }
     
@@ -119,141 +87,365 @@ class LibraryFeatures {
     }
     
     addFavoriteButtons() {
-        const specialtyLinks = document.querySelectorAll('.service-card');
+        console.log("Adding favorite buttons to cards");
+        // Consider the user logged in if 'isLoggedIn' is true or 'userId' exists in localStorage
+        const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true' || !!localStorage.getItem('userId');
+        // Include both service cards and module cards
+        const specialtyLinks = document.querySelectorAll('.service-card, .module-card');
         
         specialtyLinks.forEach(link => {
-            const title = link.querySelector('h3').textContent.trim();
+            // Remove any existing favorite buttons
+            const existingBtn = link.querySelector('.favorite-btn');
+            if (existingBtn) {
+                existingBtn.remove();
+            }
+            
+            // Try to get the title element – fallback to a generic selector if missing
+            let titleEl = link.querySelector('h3');
+            if (!titleEl) {
+                titleEl = link.querySelector('.card-title');
+            }
+            if (!titleEl) return;
+            
+            const title = titleEl.textContent.trim();
             const specialtyId = this.getSpecialtyId(title);
             const isFavorite = this.favorites.includes(specialtyId);
             
-            // Create favorite button
-            const favBtn = document.createElement('button');
-            favBtn.className = `favorite-btn absolute top-2 right-2 text-lg ${isFavorite ? 'text-yellow-500' : 'text-gray-400'} hover:scale-110 transition-all`;
-            favBtn.innerHTML = '<i class="fas fa-star"></i>';
-            favBtn.title = isFavorite ? 'Retirer des favoris' : 'Ajouter aux favoris';
+            // Create the favorite button container
+            const favBtn = document.createElement('div');
+            favBtn.className = 'favorite-btn absolute top-3 right-3 z-10';
             
-            // Add click handler
-            favBtn.addEventListener('click', async (e) => {
-                e.preventDefault();
-                e.stopPropagation();
+            if (isLoggedIn) {
+                // Build a button with a star icon – yellow if favorite, gray if not.
+                favBtn.innerHTML = `
+                    <button class="w-10 h-10 bg-white rounded-full shadow-md flex items-center justify-center hover:shadow-lg transition-all duration-300 transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-400">
+                        <i class="fas fa-star ${isFavorite ? 'text-yellow-500' : 'text-gray-400'} text-lg"></i>
+                    </button>
+                `;
+                favBtn.title = isFavorite ? 'Retirer des favoris' : 'Ajouter aux favoris';
                 
-                const index = this.favorites.indexOf(specialtyId);
-                if (index === -1) {
-                    // Add to favorites
-                    this.favorites.push(specialtyId);
-                    favBtn.className = 'favorite-btn absolute top-2 right-2 text-lg text-yellow-500 hover:scale-110 transition-all';
-                    favBtn.title = 'Retirer des favoris';
-                    this.showToast(`${title} ajouté aux favoris`);
-                } else {
-                    // Remove from favorites
-                    this.favorites.splice(index, 1);
-                    favBtn.className = 'favorite-btn absolute top-2 right-2 text-lg text-gray-400 hover:scale-110 transition-all';
-                    favBtn.title = 'Ajouter aux favoris';
-                    this.showToast(`${title} retiré des favoris`);
-                }
+                // Click handler to toggle favorite
+                favBtn.addEventListener('click', async (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    const index = this.favorites.indexOf(specialtyId);
+                    const starIcon = favBtn.querySelector('i.fa-star');
+                    
+                    if (index === -1) {
+                        // Add to favorites
+                        this.favorites.push(specialtyId);
+                        starIcon.classList.remove('text-gray-400');
+                        starIcon.classList.add('text-yellow-500');
+                        favBtn.title = 'Retirer des favoris';
+                        
+                        // Animate the star and include the notification star in the toast
+                        starIcon.classList.add('animate-pulse');
+                        setTimeout(() => {
+                            starIcon.classList.remove('animate-pulse');
+                        }, 1000);
+                        
+                        this.showToast(`<i class="fas fa-star text-yellow-500 mr-2"></i> ${title} ajouté aux favoris`, 'success');
+                    } else {
+                        // Remove from favorites
+                        this.favorites.splice(index, 1);
+                        starIcon.classList.remove('text-yellow-500');
+                        starIcon.classList.add('text-gray-400');
+                        favBtn.title = 'Ajouter aux favoris';
+                        this.showToast(`${title} retiré des favoris`, 'warning');
+                    }
+                    
+                    // Save favorites to Firebase/localStorage
+                    await this.saveFavorites();
+                    
+                    // Update the favorites section
+                    this.refreshFavoritesDisplay();
+                });
+            } else {
+                // Not logged in – show a grayed-out button that prompts for login.
+                favBtn.innerHTML = `
+                    <button class="w-10 h-10 bg-white bg-opacity-70 rounded-full shadow flex items-center justify-center opacity-60">
+                        <i class="fas fa-star text-gray-400 text-lg"></i>
+                    </button>
+                `;
+                favBtn.title = 'Connectez-vous pour ajouter aux favoris';
                 
-                await this.saveFavorites();
-                this.refreshFavoritesDisplay();
-            });
+                favBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.showLoginPrompt();
+                });
+            }
             
-            // Add to link
+            // Ensure the card is positioned relatively so the button is correctly placed.
+            link.style.position = 'relative';
             link.appendChild(favBtn);
         });
         
-        // Add favorites section
-        this.addFavoritesSection();
+        // Always update the favorites section
+        this.refreshFavoritesDisplay();
     }
     
-    addFavoritesSection() {
-        // Create favorites section if we have favorites
-        if (this.favorites.length > 0) {
-            const favoritesSection = document.createElement('div');
-            favoritesSection.id = 'favorites-section';
-            favoritesSection.className = 'bg-yellow-50 p-6 rounded-lg shadow-lg mb-8';
-            favoritesSection.innerHTML = `
-                <h2 class="text-2xl font-bold mb-4 text-yellow-800">
-                    <i class="fas fa-star text-yellow-500 mr-2"></i> Mes Favoris
-                </h2>
-                <div id="favorites-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <!-- Favorites will be added here -->
+    // Add a login prompt method
+    showLoginPrompt() {
+        // Create a modal for login prompt
+        const modal = document.createElement('div');
+        modal.className = 'fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50';
+        modal.id = 'login-prompt-modal';
+        
+        modal.innerHTML = `
+            <div class="bg-white rounded-lg p-6 max-w-md w-full transform transition-all" data-aos="zoom-in">
+                <div class="text-center mb-4">
+                    <div class="bg-blue-100 text-blue-600 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-user-lock text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800">Connexion requise</h3>
+                    <p class="text-gray-600 mt-2">Connectez-vous pour ajouter des spécialités à vos favoris</p>
                 </div>
-            `;
+                
+                <div class="mt-6 flex flex-col gap-3">
+                    <a href="auth.html" class="w-full bg-blue-600 text-white py-3 rounded-lg text-center font-medium hover:bg-blue-700 transition-colors">
+                        Se connecter
+                    </a>
+                    <button id="close-login-prompt" class="w-full bg-gray-200 text-gray-800 py-3 rounded-lg text-center font-medium hover:bg-gray-300 transition-colors">
+                        Annuler
+                    </button>
+                </div>
+            </div>
+        `;
+        
+        document.body.appendChild(modal);
+        
+        // Add click handler to close the modal
+        modal.querySelector('#close-login-prompt').addEventListener('click', () => {
+            modal.classList.add('opacity-0');
+            setTimeout(() => {
+                modal.remove();
+            }, 300);
+        });
+        
+        // Close when clicking outside
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.add('opacity-0');
+                setTimeout(() => {
+                    modal.remove();
+                }, 300);
+            }
+        });
+    }
+    
+    // Improve the toast notification
+    showToast(message, type = 'success') {
+        // Remove any existing toast
+        const existingToast = document.querySelector('.toast-notification');
+        if (existingToast) {
+            existingToast.remove();
+        }
+        
+        const toast = document.createElement('div');
+        let bgColor, borderColor, textColor;
+        
+        switch(type) {
+            case 'success':
+                bgColor = 'bg-green-50';
+                borderColor = 'border-green-400';
+                textColor = 'text-green-800';
+                break;
+            case 'error':
+                bgColor = 'bg-red-50';
+                borderColor = 'border-red-400';
+                textColor = 'text-red-800';
+                break;
+            case 'warning':
+                bgColor = 'bg-yellow-50';
+                borderColor = 'border-yellow-400';
+                textColor = 'text-yellow-800';
+                break;
+            default:
+                bgColor = 'bg-blue-50';
+                borderColor = 'border-blue-400';
+                textColor = 'text-blue-800';
+        }
+        
+        toast.className = `toast-notification fixed bottom-6 left-1/2 transform -translate-x-1/2 ${bgColor} ${textColor} px-4 py-3 rounded-lg shadow-lg border ${borderColor} z-50`;
+        toast.innerHTML = message;
+        
+        document.body.appendChild(toast);
+        
+        // Animate in
+        setTimeout(() => {
+            toast.classList.add('animate-bounce');
+            setTimeout(() => {
+                toast.classList.remove('animate-bounce');
+            }, 1000);
+        }, 100);
+        
+        // Auto remove after 3 seconds
+        setTimeout(() => {
+            toast.classList.add('opacity-0');
+            setTimeout(() => {
+                toast.remove();
+            }, 300);
+        }, 3000);
+    }
+    
+    // Modify the addFavoritesSection method to ensure it always creates the section properly
+    addFavoritesSection() {
+        // Check if we have any favorites first
+        if (!this.favorites || this.favorites.length === 0) {
+            const existingSection = document.getElementById('favorites-section');
+            if (existingSection) existingSection.remove();
+            return;
+        }
+        
+        console.log("Creating favorites section with", this.favorites.length, "items");
+        
+        // Remove existing section if any
+        const existingSection = document.getElementById('favorites-section');
+        if (existingSection) existingSection.remove();
+        
+        // Create the section
+        const favoritesSection = document.createElement('div');
+        favoritesSection.id = 'favorites-section';
+        favoritesSection.className = 'mb-8 bg-gradient-to-r from-yellow-50 to-orange-50 rounded-lg shadow-lg p-6';
+        
+        favoritesSection.innerHTML = `
+            <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center">
+                    <div class="bg-yellow-100 rounded-lg p-2 mr-3">
+                        <i class="fas fa-star text-yellow-500 text-xl"></i>
+                    </div>
+                    <h2 class="text-xl font-bold text-gray-800">Mes Favoris</h2>
+                </div>
+                <span class="bg-yellow-100 text-yellow-700 text-xs font-medium px-2.5 py-0.5 rounded-full">
+                    ${this.favorites.length} ${this.favorites.length > 1 ? 'éléments' : 'élément'}
+                </span>
+            </div>
+            <div id="favorites-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <!-- Favorites will be added here -->
+            </div>
+        `;
+        
+        // Find the best location to insert the favorites section - right after header or search bar
+        const container = document.querySelector('.container');
+        
+        if (container) {
+            // First, look for a search container
+            const searchContainer = container.querySelector('.mb-8');
             
-            // Insert at the top of the page, after header
-            const headerEl = document.querySelector('header');
-            if (headerEl && headerEl.nextElementSibling) {
-                headerEl.parentNode.insertBefore(favoritesSection, headerEl.nextElementSibling);
-                this.refreshFavoritesDisplay();
+            if (searchContainer) {
+                // Insert after search bar
+                if (searchContainer.nextSibling) {
+                    container.insertBefore(favoritesSection, searchContainer.nextSibling);
+                } else {
+                    container.appendChild(favoritesSection);
+                }
+            } else {
+                // Try to find the header
+                const header = container.querySelector('header');
+                if (header) {
+                    // Insert after header
+                    if (header.nextSibling) {
+                        container.insertBefore(favoritesSection, header.nextSibling);
+                    } else {
+                        container.appendChild(favoritesSection);
+                    }
+                } else {
+                    // If all else fails, insert at the beginning
+                    if (container.firstChild) {
+                        container.insertBefore(favoritesSection, container.firstChild);
+                    } else {
+                        container.appendChild(favoritesSection);
+                    }
+                }
             }
         }
+        
+        // Now populate the grid
+        this.refreshFavoritesDisplay();
     }
-    
+
     refreshFavoritesDisplay() {
-        const favoritesSection = document.getElementById('favorites-section');
         const favoritesGrid = document.getElementById('favorites-grid');
         
+        if (!favoritesGrid) {
+            // If the grid doesn't exist, create the whole section
+            if (this.favorites.length > 0) {
+                this.addFavoritesSection();
+            }
+            return;
+        }
+        
+        // Clear the grid
+        favoritesGrid.innerHTML = '';
+        
         if (this.favorites.length === 0) {
-            // Remove section if no favorites
+            // Remove the entire section if no favorites
+            const favoritesSection = document.getElementById('favorites-section');
             if (favoritesSection) {
                 favoritesSection.remove();
             }
             return;
         }
         
-        // Create section if not exists
-        if (!favoritesSection) {
-            this.addFavoritesSection();
-            return;
-        }
-        
-        // Clear grid
-        if (favoritesGrid) {
-            favoritesGrid.innerHTML = '';
-            
-            // Add favorite cards
-            this.favorites.forEach(specialtyId => {
-                const originalCard = this.findSpecialtyCard(specialtyId);
-                if (originalCard) {
-                    const clonedCard = originalCard.cloneNode(true);
+        // Add favorite cards to the grid
+        this.favorites.forEach(specialtyId => {
+            const originalCard = this.findSpecialtyCard(specialtyId);
+            if (originalCard) {
+                // Create a clone of the original card
+                const clonedCard = originalCard.cloneNode(true);
+                
+                // Style it differently to make it stand out as a favorite
+                clonedCard.classList.add('border-yellow-400', 'border-2');
+                
+                // Replace the favorite button in the cloned card with a remove button
+                const favBtn = clonedCard.querySelector('.favorite-btn');
+                if (favBtn) {
+                    const newFavBtn = document.createElement('button');
+                    newFavBtn.className = 'absolute top-2 right-2 text-red-500 bg-white rounded-full w-8 h-8 flex items-center justify-center shadow hover:scale-110 transition-transform';
+                    newFavBtn.innerHTML = '<i class="fas fa-trash"></i>';
+                    newFavBtn.title = 'Retirer des favoris';
                     
-                    // Replace the favorite button in the cloned card
-                    const favBtn = clonedCard.querySelector('.favorite-btn');
-                    if (favBtn) {
-                        const newFavBtn = document.createElement('button');
-                        newFavBtn.className = 'favorite-btn absolute top-2 right-2 text-lg text-red-500 hover:scale-110 transition-all';
-                        newFavBtn.innerHTML = '<i class="fas fa-trash"></i>';
-                        newFavBtn.title = 'Retirer des favoris';
+                    newFavBtn.addEventListener('click', async (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
                         
-                        newFavBtn.addEventListener('click', async (e) => {
-                            e.preventDefault();
-                            e.stopPropagation();
+                        // Animate removal
+                        clonedCard.classList.add('scale-95', 'opacity-0');
+                        
+                        // Remove from favorites
+                        const index = this.favorites.indexOf(specialtyId);
+                        if (index !== -1) {
+                            this.favorites.splice(index, 1);
+                            await this.saveFavorites();
                             
-                            // Remove from favorites
-                            const index = this.favorites.indexOf(specialtyId);
-                            if (index !== -1) {
-                                this.favorites.splice(index, 1);
-                                await this.saveFavorites();
+                            // Wait for animation then refresh the display
+                            setTimeout(() => {
                                 this.refreshFavoritesDisplay();
-                                
-                                // Also update the original card
-                                const originalFavBtn = originalCard.querySelector('.favorite-btn');
-                                if (originalFavBtn) {
-                                    originalFavBtn.className = 'favorite-btn absolute top-2 right-2 text-lg text-gray-400 hover:scale-110 transition-all';
-                                    originalFavBtn.title = 'Ajouter aux favoris';
-                                }
-                                
-                                const title = originalCard.querySelector('h3').textContent.trim();
-                                this.showToast(`${title} retiré des favoris`);
+                            }, 300);
+                            
+                            // Also update the original card's star button
+                            const originalFavBtn = originalCard.querySelector('.favorite-btn button i.fa-star');
+                            if (originalFavBtn) {
+                                originalFavBtn.classList.remove('text-yellow-500');
+                                originalFavBtn.classList.add('text-gray-400');
+                                originalCard.querySelector('.favorite-btn').title = 'Ajouter aux favoris';
                             }
-                        });
-                        
-                        favBtn.replaceWith(newFavBtn);
-                    }
+                            
+                            const title = originalCard.querySelector('h3').textContent.trim();
+                            this.showToast(`${title} retiré des favoris`);
+                        }
+                    });
                     
-                    favoritesGrid.appendChild(clonedCard);
+                    // Replace the old button with our new one
+                    favBtn.replaceWith(newFavBtn);
                 }
-            });
-        }
+                
+                // Add the card to the grid
+                favoritesGrid.appendChild(clonedCard);
+            }
+        });
     }
     
     findSpecialtyCard(specialtyId) {
