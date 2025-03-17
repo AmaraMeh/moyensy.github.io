@@ -15,6 +15,44 @@
     <!-- Ajouter les bibliothèques jsPDF et html2canvas -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        .custom-input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #e5e7eb; /* Tailwind gray-200 */
+            border-radius: 8px;
+            background-color: #f9fafb; /* Tailwind gray-50 */
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .custom-input:focus {
+            border-color: #3b82f6; /* Tailwind blue-500 */
+            box-shadow: 0 0 8px rgba(59, 130, 246, 0.5); /* Blue glow */
+            outline: none;
+            transform: scale(1.02);
+        }
+
+        .custom-input:hover {
+            background-color: #f3f4f6; /* Tailwind gray-100 */
+        }
+    </style>
+    <style>
+        .exclusive-box {
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
 </head>
 
 <body class="flex flex-col min-h-screen bg-gray-50">
@@ -29,8 +67,12 @@
             </div>
         </header>
 
+        <div class="exclusive-box text-center p-6 rounded-lg shadow-lg mb-8 bg-gradient-to-r from-blue-500 to-indigo-500 text-white">
+            <h1 class="text-4xl font-bold">Calculer la moyenne</h1>
+            <p class="text-sm mt-2">Développé par <span class="font-semibold">Amara Mehdi</span></p>
+        </div>
+
         <div class="glass-card" data-aos="fade-up">
-            <h1 class="text-3xl font-bold mb-8 text-center text-gray-800">Calculer la moyenne</h1>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                 <div>
@@ -80,16 +122,6 @@
             </div>
 
             <!-- Ajouter des boutons pour exporter en PDF et partager sur Instagram -->
-            <div class="text-center mt-4">
-                <button onclick="exportToPDF()" class="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transform hover:scale-105 transition-all duration-300 shadow-lg">
-                    <i class="fas fa-file-pdf mr-2"></i>
-                    Exporter en PDF
-                </button>
-                <button onclick="shareOnInstagram()" class="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transform hover:scale-105 transition-all duration-300 shadow-lg">
-                    <i class="fab fa-instagram mr-2"></i>
-                    Partager sur Instagram
-                </button>
-            </div>
         </div>
     </div>
 
