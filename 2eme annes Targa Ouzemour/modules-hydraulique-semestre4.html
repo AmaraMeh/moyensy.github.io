@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nouvelle Spécialité - Semestre 4</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+ :root {
+            --primary-color: #3b82f6;
+            --secondary-color: #1d4ed8;
+            --accent-color: #22c55e;
+            --text-color: #1f2937;
+            --bg-color: #f8fafc;
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --shadow-color: rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .back-button {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: rgba(59, 130, 246, 0.1);
+            transform: translateX(-2px);
+        }
+
+        .logo {
+            max-width: 200px;
+            height: auto;
+        }
+
+        .glass-card {
+            background: var(--card-bg);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px var(--shadow-color);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .exclusive-box {
+            background: linear-gradient(135deg, #ffffff 0%, #f3f4f6 100%);
+            border: 2px solid var(--primary-color);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 10px 30px var(--shadow-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .exclusive-box::before,
+        .exclusive-box::after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            opacity: 0.2;
+        }
+
+        .exclusive-box::before {
+            background: var(--primary-color);
+            top: -50px;
+            right: -50px;
+        }
+
+        .exclusive-box::after {
+            background: var(--accent-color);
+            bottom: -50px;
+            left: -50px;
+        }
+
+        .module-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .module-card {
+            background: var(--card-bg);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 5px 15px var(--shadow-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .module-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px var(--shadow-color);
+        }
+
+        .module-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .module-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(59, 130, 246, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+            font-size: 1.25rem;
+        }
+
+        .module-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .module-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: auto;
+        }
+
+        .module-btn {
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .module-btn.cours {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--primary-color);
+        }
+
+        .module-btn.cours:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .module-btn.td {
+            background: rgba(75, 168, 105, 0.1);
+            color: #4b5563;
+        }
+
+        .module-btn.td:hover {
+            background: #4b5563;
+            color: white;
+        }
+
+        .module-btn.examen {
+            background: rgba(234, 88, 12, 0.1);
+            color: #ef5330;
+        }
+
+        .module-btn.examen:hover {
+            background: #ef5330;
+            color: white;
+        }
+
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .popup-content {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 2rem;
+            width: 90%;
+            max-width: 800px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+            position: relative;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .popup-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .popup-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.25rem;
+            cursor: pointer;
+            color: #9ca3af;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            color: #1f2937;
+        }
+
+        .resource-section {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .resource-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.75rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .resource-item:hover {
+            transform: translateX(5px);
+        }
+
+        .resource-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: rgba(59, 130, 246, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+        }
+
+        .resource-link {
+            flex: 1;
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .resource-link:hover {
+            color: var(--primary-color);
+        }
+
+        footer {
+            background: white;
+            padding: 1.5rem 0;
+            text-align: center;
+            margin-top: 2rem;
+            box-shadow: 0 -2px 10px var(--shadow-color);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .footer-link:hover {
+            text-decoration: underline;
+        }
+
+        .copyright {
+            color: #9ca3af;
+            font-size: 0.875rem;
+        }
+
+        .developer {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .developer:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .module-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .module-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <script type="text/javascript">
+            aclib.runBanner({
+                zoneId: '9521434',
+            });
+        </script>
+    </div>
+    <div class="container mx-auto px-4 max-w-6xl flex-grow">
+        <header class="mb-12 mt-8" data-aos="fade-down">
+            <div class="header-container">
+                <a href="/bib.html" class="back-button hover:scale-110 transform transition-all duration-300">
+                    <i class="fas fa-arrow-left"></i>
+                    Retour
+                </a>
+                <img src="assets/img/LOGO.png" alt="ISET'COM" class="max-w-[200px]">
+            </div>
+        </header>
+
+        <div class="glass-card" data-aos="fade-up">
+            <div class="exclusive-box mb-8 p-6 rounded-2xl border-2 border-green-300 bg-gradient-to-r from-green-50 to-blue-50 shadow-lg relative overflow-hidden">
+                <div class="flex flex-col md:flex-row justify-between items-center relative z-10">
+                    <div>
+                        <h2 class="text-2xl md:text-3xl font-bold text-gray-800">
+                            <span class="text-green-600 mr-2"><i class="fas fa-graduation-cap"></i></span>
+                            <span class="text-green-600 border-b-2 border-green-400 pb-1">Nouvelle Spécialité - Semestre 4</span>
+                        </h2>
+                        <p class="text-gray-600 text-sm md:text-base">Modèle pour nouvelles spécialités</p>
+                    </div>
+                    <div class="flex flex-col items-end mt-4 md:mt-0">
+                        <div class="bg-blue-50 px-4 py-2 rounded-lg border border-blue-200 shadow-sm">
+                            <span class="text-gray-600 block text-sm">Développé par</span>
+                            <a href="mailto:mehdi.amara@tech.univ-bejaia.dz" class="font-semibold text-blue-600 hover:text-blue-800 hover:underline flex items-center gap-2 text-lg">
+                                <i class="fas fa-code"></i>
+                                Amara Mehdi
+                            </a>
+                        </div>
+                        <span class="text-xs text-gray-500 mt-1">Université de Béjaia</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div>
+                <script type="text/javascript">
+                    aclib.runBanner({
+                        zoneId: '9521434',
+                    });
+                </script>
+            </div>
+
+            <div class="module-grid">
+                <!-- Thermodynamique -->
+                <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="module-icon bg-blue-100 p-3 rounded-full text-blue-600">
+                            <i class="fas fa-thermometer-half fa-lg"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800">Thermodynamique</h3>
+                    </div>
+                    <div class="mt-auto flex flex-wrap gap-2">
+                        <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('thermo', 'cours')">
+                            <i class="fas fa-book mr-1"></i> Cours
+                        </button>
+                        <button class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('thermo', 'td')">
+                            <i class="fas fa-pencil-alt mr-1"></i> TD
+                        </button>
+                        <button class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('thermo', 'examen')">
+                            <i class="fas fa-file-alt mr-1"></i> Examen
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Physique 2 -->
+                <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="module-icon bg-blue-100 p-3 rounded-full text-blue-600">
+                            <i class="fas fa-atom fa-lg"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800">Physique 2</h3>
+                    </div>
+                    <div class="mt-auto flex flex-wrap gap-2">
+                        <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('physique2', 'cours')">
+                            <i class="fas fa-book mr-1"></i> Cours
+                        </button>
+                        <button class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('physique2', 'td')">
+                            <i class="fas fa-pencil-alt mr-1"></i> TD
+                        </button>
+                        <button class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('physique2', 'examen')">
+                            <i class="fas fa-file-alt mr-1"></i> Examen
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Anglais -->
+                <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="module-icon bg-blue-100 p-3 rounded-full text-blue-600">
+                            <i class="fas fa-language fa-lg"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800">Anglais</h3>
+                    </div>
+                    <div class="mt-auto flex flex-wrap gap-2">
+                        <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('anglais', 'cours')">
+                            <i class="fas fa-book mr-1"></i> Cours
+                        </button>
+                        <button class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('anglais', 'td')">
+                            <i class="fas fa-pencil-alt mr-1"></i> TD
+                        </button>
+                        <button class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('anglais', 'examen')">
+                            <i class="fas fa-file-alt mr-1"></i> Examen
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Mathématique 2 -->
+                <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="module-icon bg-blue-100 p-3 rounded-full text-blue-600">
+                            <i class="fas fa-square-root-alt fa-lg"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800">Mathématique 2</h3>
+                    </div>
+                    <div class="mt-auto flex flex-wrap gap-2">
+                        <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('math2', 'cours')">
+                            <i class="fas fa-book mr-1"></i> Cours
+                        </button>
+                        <button class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('math2', 'td')">
+                            <i class="fas fa-pencil-alt mr-1"></i> TD
+                        </button>
+                        <button class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('math2', 'examen')">
+                            <i class="fas fa-file-alt mr-1"></i> Examen
+                        </button>
+                    </div>
+                </div>
+
+                <!-- MST 2 -->
+                <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="module-icon bg-blue-100 p-3 rounded-full text-blue-600">
+                            <i class="fas fa-cogs fa-lg"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800">MST 2</h3>
+                    </div>
+                    <div class="mt-auto flex flex-wrap gap-2">
+                        <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('mst2', 'cours')">
+                            <i class="fas fa-book mr-1"></i> Cours
+                        </button>
+                        <button class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('mst2', 'td')">
+                            <i class="fas fa-pencil-alt mr-1"></i> TD
+                        </button>
+                        <button class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('mst2', 'examen')">
+                            <i class="fas fa-file-alt mr-1"></i> Examen
+                        </button>
+                    </div>
+                </div>
+
+                <!-- MP -->
+                <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="module-icon bg-blue-100 p-3 rounded-full text-blue-600">
+                            <i class="fas fa-project-diagram fa-lg"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800">MP</h3>
+                    </div>
+                    <div class="mt-auto flex flex-wrap gap-2">
+                        <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('mp', 'cours')">
+                            <i class="fas fa-book mr-1"></i> Cours
+                        </button>
+                        <button class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('mp', 'td')">
+                            <i class="fas fa-pencil-alt mr-1"></i> TD
+                        </button>
+                        <button class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('mp', 'examen')">
+                            <i class="fas fa-file-alt mr-1"></i> Examen
+                        </button>
+                    </div>
+                </div>
+
+                <!-- TP Physique 2 -->
+                <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="module-icon bg-blue-100 p-3 rounded-full text-blue-600">
+                            <i class="fas fa-microscope fa-lg"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800">TP Physique 2</h3>
+                    </div>
+                    <div class="mt-auto flex flex-wrap gap-2">
+                        <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('tp_physique2', 'tp')">
+                            <i class="fas fa-flask mr-1"></i> TP
+                        </button>
+                        <button class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('tp_physique2', 'comptere')">
+                            <i class="fas fa-file-alt mr-1"></i> Compte-rendu
+                        </button>
+                    </div>
+                </div>
+
+                <!-- TP Chimie 2 -->
+                <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="module-icon bg-blue-100 p-3 rounded-full text-blue-600">
+                            <i class="fas fa-vial fa-lg"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800">TP Chimie 2</h3>
+                    </div>
+                    <div class="mt-auto flex flex-wrap gap-2">
+                        <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('tp_chimie2', 'tp')">
+                            <i class="fas fa-flask mr-1"></i> TP
+                        </button>
+                        <button class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('tp_chimie2', 'comptere')">
+                            <i class="fas fa-file-alt mr-1"></i> Compte-rendu
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="text-center text-gray-600 text-sm py-4">
+        <div>&copy; 2025 Université de Bejaia. Développé par Amara Mehdi <a href="mailto:mehdi.amara@tech.univ-bejaia.dz" class="text-blue-500 hover:text-blue-700">Amara Mehdi</a></div>
+    </footer>
+
+    <div id="popup-cours" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg shadow-lg p-6 max-w-3xl w-full glass-card">
+            <div class="flex justify-between items-center mb-6">
+                <h2 id="popup-title-cours" class="text-2xl font-bold text-gray-800"></h2>
+                <button type="button" class="close-popup-btn px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-300 flex items-center gap-2">
+                    <i class="fas fa-times"></i><span>Fermer</span>
+                </button>
+            </div>
+            <div id="popup-content-cours" class="space-y-6 popup-content"></div>
+        </div>
+    </div>
+
+    <div id="popup-td" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg shadow-lg p-6 max-w-3xl w-full glass-card">
+            <div class="flex justify-between items-center mb-6">
+                <h2 id="popup-title-td" class="text-2xl font-bold text-gray-800"></h2>
+                <button type="button" class="close-popup-btn px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-300 flex items-center gap-2">
+                    <i class="fas fa-times"></i><span>Fermer</span>
+                </button>
+            </div>
+            <div id="popup-content-td" class="space-y-6 popup-content"></div>
+        </div>
+    </div>
+
+    <div id="popup-examen" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg shadow-lg p-6 max-w-3xl w-full glass-card">
+            <div class="flex justify-between items-center mb-6">
+                <h2 id="popup-title-examen" class="text-2xl font-bold text-gray-800"></h2>
+                <button type="button" class="close-popup-btn px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-300 flex items-center gap-2">
+                    <i class="fas fa-times"></i><span>Fermer</span>
+                </button>
+            </div>
+            <div id="popup-content-examen" class="space-y-6 popup-content"></div>
+        </div>
+    </div>
+
+    <div id="popup-tp" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg shadow-lg p-6 max-w-3xl w-full glass-card">
+            <div class="flex justify-between items-center mb-6">
+                <h2 id="popup-title-tp" class="text-2xl font-bold text-gray-800"></h2>
+                <button type="button" class="close-popup-btn px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-300 flex items-center gap-2">
+                    <i class="fas fa-times"></i><span>Fermer</span>
+                </button>
+            </div>
+            <div id="popup-content-tp" class="space-y-6 popup-content"></div>
+        </div>
+    </div>
+
+    <div id="popup-comptere" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg shadow-lg p-6 max-w-3xl w-full glass-card">
+            <div class="flex justify-between items-center mb-6">
+                <h2 id="popup-title-comptere" class="text-2xl font-bold text-gray-800"></h2>
+                <button type="button" class="close-popup-btn px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-300 flex items-center gap-2">
+                    <i class="fas fa-times"></i><span>Fermer</span>
+                </button>
+            </div>
+            <div id="popup-content-comptere" class="space-y-6 popup-content"></div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true
+        });
+
+        const moduleMapping = {
+            'thermo': 'Thermodynamique',
+            'physique2': 'Physique 2',
+            'anglais': 'Anglais',
+            'math2': 'Mathématique 2',
+            'mst2': 'MST 2',
+            'mp': 'MP',
+            'tp_physique2': 'TP Physique 2',
+            'tp_chimie2': 'TP Chimie 2'
+        };
+
+        const moduleContent = {
+            'thermo': {
+                'cours': `
+                    <div class="resource-section">
+                        <h3 class="section-title"><i class="fas fa-book"></i>Chapitres de cours</h3>
+                        <a href="https://example.com/cours-thermo-chap1" class="resource-link" target="_blank">
+                            <i class="fas fa-file-pdf"></i>
+                            Chapitre 1 - Thermodynamique
+                        </a>
+                        <a href="https://example.com/cours-thermo-chap2" class="resource-link" target="_blank">
+                            <i class="fas fa-file-pdf"></i>
+                            Chapitre 2 - Thermodynamique
+                        </a>
+                    </div>
+                `,
+                'td': `
+                    <div class="resource-section">
+                        <h3 class="section-title"><i class="fas fa-pencil-alt"></i>Séries d'exercices</h3>
+                        <a href="https://example.com/td-thermo-serie1" class="resource-link" target="_blank">
+                            <i class="fas fa-file-alt"></i>
+                            Série 1 - Exercices
+                        </a>
+                        <a href="https://example.com/td-thermo-serie2" class="resource-link" target="_blank">
+                            <i class="fas fa-file-alt"></i>
+                            Série 2 - Exercices
+                        </a>
+                    </div>
+                `,
+                'examen': `
+                    <div class="resource-section">
+                        <h3 class="section-title"><i class="fas fa-file-alt"></i>Examens précédents</h3>
+                        <a href="https://example.com/examen-thermo-2022" class="resource-link" target="_blank">
+                            <i class="fas fa-file-pdf"></i>
+                            Examen 2022
+                        </a>
+                        <a href="https://example.com/examen-thermo-2021" class="resource-link" target="_blank">
+                            <i class="fas fa-file-pdf"></i>
+                            Examen 2021
+                        </a>
+                    </div>
+                `
+            },
+            'physique2': {
+                'cours': `
+                    <div class="resource-section">
+                        <h3 class="section-title"><i class="fas fa-book"></i>Chapitres de cours</h3>
+                        <a href="https://example.com/cours-physique2-chap1" class="resource-link" target="_blank">
+                            <i class="fas fa-file-pdf"></i>
+                            Chapitre 1 - Physique 2
+                        </a>
+                        <a href="https://example.com/cours-physique2-chap2" class="resource-link" target="_blank">
+                            <i class="fas fa-file-pdf"></i>
+                            Chapitre 2 - Physique 2
+                        </a>
+                    </div>
+                `,
+                'td': `
+                    <div class="resource-section">
+                        <h3 class="section-title"><i class="fas fa-pencil-alt"></i>Séries d'exercices</h3>
+                        <a href="https://example.com/td-physique2-serie1" class="resource-link" target="_blank">
+                            <i class="fas fa-file-alt"></i>
+                            Série 1 - Exercices
+                        </a>
+                        <a href="https://example.com/td-physique2-serie2" class="resource-link" target="_blank">
+                            <i class="fas fa-file-alt"></i>
+                            Série 2 - Exercices
+                        </a>
+                    </div>
+                `,
+                'examen': `
+                    <div class="resource-section">
+                        <h3 class="section-title"><i class="fas fa-file-alt"></i>Examens précédents</h3>
+                        <a href="https://example.com/examen-physique2-2022" class="resource-link" target="_blank">
+                            <i class="fas fa-file-pdf"></i>
+                            Examen 2022
+                        </a>
+                        <a href="https://example.com/examen-physique2-2021" class="resource-link" target="_blank">
+                            <i class="fas fa-file-pdf"></i>
+                            Examen 2021
+                        </a>
+                    </div>
+                `
+            },
+            'anglais': {
+                'cours': `
+                    <div class="resource-section">
+                        <h3 class="section-title"><i class="fas fa-book"></i>Chapitres de cours</h3>
+                        <a href="https://example.com/cours-anglais-chap1" class="resource-link" target="_blank">
+                            <i class="fas fa-file-pdf"></i>
+                            Chapitre 1 - Anglais
+                        </a>
+                        <a href="https://example.com/cours-anglais-chap2" class="resource-link" target="_blank">
+                            <i class="fas fa-file-pdf"></i>
+                            Chapitre 2 - Anglais
+                        </a>
+                    </div>
+                `,
+                'td': `
+                    <div class="resource-section">
+                        <h3 class="section-title"><i class="fas fa-pencil-alt"></i>Séries d'exercices</h3>
+                        <a href="https://example.com/td-anglais-serie1" class="resource-link" target="_blank">
+                            <i class="fas fa-file-alt"></i>
+                            Série 1 - Exercices
+                        </a>
+                        <a href="https://example.com/td-anglais-serie2" class="resource-link" target="_blank">
+                            <i class="fas fa-file-alt"></i>
+                            Série 2 - Exercices
+                        </a>
+                    </div>
+                `,
+                'examen': `
+                    <div class="resource-section">
+                        <h3 class="section-title"><i class="fas fa-file-alt"></i>Examens précédents</h3>
+                        <a href="https://example.com/examen-anglais-2022" class="resource-link" target="_blank">
+                            <i class="fas fa-file-pdf"></i>
+                            Examen 2022
+                        </a>
+                        <a href="https://example.com/examen-anglais-2021" class="resource-link" target="_blank">
+                            <i class="fas fa-file-pdf"></i>
+                            Examen 2021
+                        </a>
+                    </div>
+                `
+            },
+            'math2': {
+                'cours': `
+                    <div class="resource-section">
+                        <h3 class="section-title"><i class="fas fa-book"></i>Chapitres de cours</h3>
+                        <a href="https://example.com/cours-math2-chap1" class="resource-link" target="_blank">
+                            <i class="fas fa-file-pdf"></i>
+                            Chapitre 1 - Mathématique 2
+                        </a>
+                        <a href="https://example.com/cours-math2-chap2" class="resource-link" target="_blank">
+                            <i class="fas fa-file-pdf"></i>
+                            Chapitre 2 - Mathématique 2
+                        </a>
+                    </div>
+                `,
+                'td': `
+                    <div class="resource-section">
+                        <h3 class="section-title"><i class="fas fa-pencil-alt"></i>Séries d'exercices</h3>
+                        <a href="https://example.com/td-math2-serie1" class="resource-link" target="_blank">
+                            <i class="fas fa-file-alt"></i>
+                            Série 1 - Exercices
+                        </a>
+                        <a href="https://example.com/td-math2-serie2" class="resource-link" target="_blank">
+                            <i class="fas fa-file-alt"></i>
+                            Série 2 - Exercices
+                        </a>
+                    </div>
+                `,
+                'examen': `
+                    <div class="resource-section">
+                        <h3 class="section-title"><i class="fas fa-file-alt"></i>Examens précédents</h3>
+                        <a href="https://example.com/examen-math2-2022" class="resource-link" target="_blank">
+                            <i class="fas fa-file-pdf"></i>
+                            Examen 2022
+                        </a>
+                        <a href="https://example.com/examen-math2-2021" class="resource-link" target="_blank">
+                            <i class="fas fa-file-pdf"></i>
+                            Examen 2021
+                        </a>
+                    </div>
+                `
+            },
+            'mst2': {
+                'cours': `
+                    <div class="resource-section">
+                        <h3 class="section-title"><i class="fas fa-book"></i>Chapitres de cours</h3>
+                        <a href="https://example.com/cours-mst2-chap1" class="resource-link" target="_blank">
+                            <i class="fas fa-file-pdf"></i>
+                            Chapitre 1 - MST 2
+                        </a>
+                        <a href="https://example.com/cours-mst2-chap2" class="resource-link" target="_blank">
+                            <i class="fas fa-file-pdf"></i>
+                            Chapitre 2 - MST 2
+                        </a>
+                    </div>
+                `,
+                'td': `
+                    <div class="resource-section">
+                        <h3 class="section-title"><i class="fas fa-pencil-alt"></i>Séries d'exercices</h3>
+                        <a href="https://example.com/td-mst2-serie1" class="resource-link" target="_blank">
+                            <i class="fas fa-file-alt"></i>
+                            Série 1 - Exercices
+                        </a>
+                        <a href="https://example.com/td-mst2-serie2" class="resource-link" target="_blank">
+                            <i class="fas fa-file-alt"></i>
+                            Série 2 - Exercices
+                        </a>
+                    </div>
+                `,
+                'examen': `
+                    <div class="resource-section">
+                        <h3 class="section-title"><i class="fas fa-file-alt"></i>Examens précédents</h3>
+                        <a href="https://example.com/examen-mst2-2022" class="resource-link" target="_blank">
+                            <i class="fas fa-file-pdf"></i>
+                            Examen 2022
+                        </a>
+                        <a href="https://example.com/examen-mst2-2021" class="resource-link" target="_blank">
+                            <i class="fas fa-file-pdf"></i>
+                            Examen 2021
+                        </a>
+                    </div>
+                `
+            },
+            'mp': {
+                'cours': `
+                    <div class="resource-section">
+                        <h3 class="section-title"><i class="fas fa-book"></i>Chapitres de cours</h3>
+                        <a href="https://example.com/cours-mp-chap1" class="resource-link" target="_blank">
+                            <i class="fas fa-file-pdf"></i>
+                            Chapitre 1 - MP
+                        </a>
+                        <a href="https://example.com/cours-mp-chap2" class="resource-link" target="_blank">
+                            <i class="fas fa-file-pdf"></i>
+                            Chapitre 2 - MP
+                        </a>
+                    </div>
+                `,
+                'td': `
+                    <div class="resource-section">
+                        <h3 class="section-title"><i class="fas fa-pencil-alt"></i>Séries d'exercices</h3>
+                        <a href="https://example.com/td-mp-serie1" class="resource-link" target="_blank">
+                            <i class="fas fa-file-alt"></i>
+                            Série 1 - Exercices
+                        </a>
+                        <a href="https://example.com/td-mp-serie2" class="resource-link" target="_blank">
+                            <i class="fas fa-file-alt"></i>
+                            Série 2 - Exercices
+                        </a>
+                    </div>
+                `,
+                'examen': `
+                    <div class="resource-section">
+                        <h3 class="section-title"><i class="fas fa-file-alt"></i>Examens précédents</h3>
+                        <a href="https://example.com/examen-mp-2022" class="resource-link" target="_blank">
+                            <i class="fas fa-file-pdf"></i>
+                            Examen 2022
+                        </a>
+                        <a href="https://example.com/examen-mp-2021" class="resource-link" target="_blank">
+                            <i class="fas fa-file-pdf"></i>
+                            Examen 2021
+                        </a>
+                    </div>
+                `
+            },
+            'tp_physique2': {
+                'tp': `
+                    <div class="resource-section">
+                        <h3 class="section-title"><i class="fas fa-flask"></i>Travaux Pratiques</h3>
+                        <a href="https://example.com/tp-physique2-tp1" class="resource-link" target="_blank">
+                            <i class="fas fa-flask"></i>
+                            TP 1 - Physique 2
+                        </a>
+                        <a href="https://example.com/tp-physique2-tp2" class="resource-link" target="_blank">
+                            <i class="fas fa-flask"></i>
+                            TP 2 - Physique 2
+                        </a>
+                    </div>
+                `,
+                'comptere': `
+                    <div class="resource-section">
+                        <h3 class="section-title"><i class="fas fa-file-alt"></i>Comptes-rendus</h3>
+                        <a href="https://example.com/comptere-physique2-tp1" class="resource-link" target="_blank">
+                            <i class="fas fa-file-alt"></i>
+                            Compte-rendu TP 1
+                        </a>
+                        <a href="https://example.com/comptere-physique2-tp2" class="resource-link" target="_blank">
+                            <i class="fas fa-file-alt"></i>
+                            Compte-rendu TP 2
+                        </a>
+                    </div>
+                `
+            },
+            'tp_chimie2': {
+                'tp': `
+                    <div class="resource-section">
+                        <h3 class="section-title"><i class="fas fa-flask"></i>Travaux Pratiques</h3>
+                        <a href="https://example.com/tp-chimie2-tp1" class="resource-link" target="_blank">
+                            <i class="fas fa-flask"></i>
+                            TP 1 - Chimie 2
+                        </a>
+                        <a href="https://example.com/tp-chimie2-tp2" class="resource-link" target="_blank">
+                            <i class="fas fa-flask"></i>
+                            TP 2 - Chimie 2
+                        </a>
+                    </div>
+                `,
+                'comptere': `
+                    <div class="resource-section">
+                        <h3 class="section-title"><i class="fas fa-file-alt"></i>Comptes-rendus</h3>
+                        <a href="https://example.com/comptere-chimie2-tp1" class="resource-link" target="_blank">
+                            <i class="fas fa-file-alt"></i>
+                            Compte-rendu TP 1
+                        </a>
+                        <a href="https://example.com/comptere-chimie2-tp2" class="resource-link" target="_blank">
+                            <i class="fas fa-file-alt"></i>
+                            Compte-rendu TP 2
+                        </a>
+                    </div>
+                `
+            }
+        };
+
+        function showContent(moduleId, contentType) {
+            const moduleName = moduleMapping[moduleId];
+            let content = moduleContent[moduleId]?.[contentType] || `<p class="text-gray-600">Contenu non disponible pour le moment.</p>`;
+            
+            // Définir les titres basés sur le type de contenu
+            let title;
+            let icon;
+            
+            if (contentType === 'cours') {
+                title = `Cours de ${moduleName}`;
+                icon = 'book';
+            } else if (contentType === 'td') {
+                title = `Travaux Dirigés - ${moduleName}`;
+                icon = 'pencil-alt';
+            } else if (contentType === 'tp') {
+                title = `Travaux Pratiques - ${moduleName}`;
+                icon = 'flask';
+            } else if (contentType === 'examen') {
+                title = `Examens - ${moduleName}`;
+                icon = 'file-alt';
+            } else if (contentType === 'comptere') {
+                title = `Comptes-rendus - ${moduleName}`;
+                icon = 'file-alt';
+            }
+            
+            // Mettre à jour le titre avec l'icône
+            const titleElement = document.getElementById(`popup-title-${contentType}`);
+            titleElement.innerHTML = `<i class="fas fa-${icon} text-blue-500 mr-2"></i>${title}`;
+            
+            // Ajouter le contenu
+            document.getElementById(`popup-content-${contentType}`).innerHTML = content;
+            document.getElementById(`popup-${contentType}`).classList.remove('hidden');
+            
+            // Empêcher le défilement du contenu en arrière-plan
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closePopup(contentType) {
+            document.getElementById(`popup-${contentType}`).classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        document.querySelectorAll('.close-popup-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const popup = button.closest('[id^="popup-"]');
+                const contentType = popup.id.replace('popup-', '');
+                closePopup(contentType);
+            });
+        });
+
+        document.querySelectorAll('[id^="popup-"]').forEach(popup => {
+            popup.addEventListener('click', (e) => {
+                if (e.target === popup) {
+                    const contentType = popup.id.replace('popup-', '');
+                    closePopup(contentType);
+                }
+            });
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('[id^="popup-"]:not(.hidden)').forEach(popup => {
+                    const contentType = popup.id.replace('popup-', '');
+                    closePopup(contentType);
+                });
+            }
+        });
+    </script>
+</body>
+</html>

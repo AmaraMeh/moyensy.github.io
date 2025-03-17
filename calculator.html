@@ -12,6 +12,9 @@
 
     <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7539806376887582" crossorigin="anonymous"></script>
+    <!-- Ajouter les bibliothèques jsPDF et html2canvas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 
 <body class="flex flex-col min-h-screen bg-gray-50">
@@ -74,6 +77,18 @@
                     <h3 class="text-xl font-semibold mb-2 text-gray-800">Moyenne Générale</h3>
                     <div class="text-4xl font-bold">--</div>
                 </div>
+            </div>
+
+            <!-- Ajouter des boutons pour exporter en PDF et partager sur Instagram -->
+            <div class="text-center mt-4">
+                <button onclick="exportToPDF()" class="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transform hover:scale-105 transition-all duration-300 shadow-lg">
+                    <i class="fas fa-file-pdf mr-2"></i>
+                    Exporter en PDF
+                </button>
+                <button onclick="shareOnInstagram()" class="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transform hover:scale-105 transition-all duration-300 shadow-lg">
+                    <i class="fab fa-instagram mr-2"></i>
+                    Partager sur Instagram
+                </button>
             </div>
         </div>
     </div>

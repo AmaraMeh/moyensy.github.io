@@ -75,7 +75,7 @@
 
             <h1 class="text-3xl font-bold mb-8 text-center text-gray-800">Science et Technologie LMD - Semestre 2</h1>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4 sm:gap-6 mb-8">
+            <div id="moduleContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4 sm:gap-6 mb-8">
     <!-- Mathématique 2 -->
     <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
         <div class="flex items-center gap-3 mb-4">
@@ -1339,6 +1339,33 @@
         animation: orangeGlow 2s ease-in-out infinite alternate;
     }
 </style>
+
+    <script type="module">
+        import { getModules } from './firebase.js';
+
+        async function loadModulesForPage() {
+            const modules = await getModules();
+            const moduleContainer = document.getElementById('moduleContainer'); // Assume a container for modules
+            moduleContainer.innerHTML = ''; // Clear existing content
+
+            modules
+                .filter((module) => module.specialty === 'Science et Technologie LMD' && module.semester === '2')
+                .forEach((module) => {
+                    const moduleCard = document.createElement('div');
+                    moduleCard.className = 'module-card';
+                    moduleCard.innerHTML = `
+                        <h3>${module.name}</h3>
+                        <p>Coefficient: ${module.coefficient}</p>
+                        <p>Credits: ${module.credits}</p>
+                        <a href="${module.resources[0]?.link || '#'}" target="_blank">Voir Ressources</a>
+                    `;
+                    moduleContainer.appendChild(moduleCard);
+                });
+        }
+
+        // Call loadModulesForPage on page load
+        document.addEventListener('DOMContentLoaded', loadModulesForPage);
+    </script>
 </body>
 </html>
 

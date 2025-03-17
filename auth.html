@@ -10,6 +10,8 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/auth.css">
+    <link rel="stylesheet" href="assets/css/dark.css" id="darkCss">
+    <link rel="stylesheet" href="assets/css/dark1.css" id="dark1Css">
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
@@ -96,8 +98,37 @@
             animation: scaleIn 0.5s ease-out forwards;
         }
     </style>
+    <!-- Add this additional CSS to your dark.css file or inline styles -->
+    <style>
+        /* Dark mode toggle button styles */
+        #darkModeToggle {
+            opacity: 0.9;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        #darkModeToggle:hover {
+            transform: scale(1.1);
+            opacity: 1;
+        }
+        
+        .dark-theme #darkModeToggle {
+            background-color: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+        
+        .dark-theme #darkModeToggle i.fa-sun {
+            color: #fbbf24; /* Bright yellow in dark mode */
+        }
+        
+        .dark-theme #darkModeToggle:hover {
+            background-color: rgba(255, 255, 255, 0.25);
+        }
+    </style>
 </head>
 <body class="flex flex-col min-h-screen bg-gray-50">
+    <div class="cyberpunk-grid"></div>
+    <div class="gradient-top"></div>
+    <div class="gradient-bottom"></div>
     <!-- Top banner -->
     <div>
         <script type="text/javascript">
@@ -264,6 +295,63 @@
             </div>
         </div>
     </div>
+
+    <div class="floating-cards hidden dark-mode-only">
+        <!-- Card 1 -->
+        <div class="floating-card" style="left: 5%; top: 20%; transform: rotate(-3deg);">
+            <div class="floating-card-content">
+                <div class="floating-card-icon"></div>
+                <div>
+                    <div class="floating-card-text"></div>
+                    <div class="floating-card-subtext"></div>
+                </div>
+            </div>
+            <div class="floating-card-actions">
+                <div class="floating-card-button"></div>
+                <div class="floating-card-button"></div>
+            </div>
+        </div>
+        
+        <!-- Card 2 -->
+        <div class="floating-card" style="right: 10%; top: 15%; transform: rotate(2deg);">
+            <div class="floating-card-content">
+                <div class="floating-card-icon"></div>
+                <div>
+                    <div class="floating-card-text"></div>
+                    <div class="floating-card-subtext"></div>
+                </div>
+            </div>
+            <div class="floating-card-actions">
+                <div class="floating-card-button"></div>
+                <div class="floating-card-button"></div>
+            </div>
+        </div>
+        
+        <!-- Card 3 -->
+        <div class="floating-card" style="left: 15%; bottom: 20%; transform: rotate(3deg);">
+            <div class="floating-card-content">
+                <div class="floating-card-icon"></div>
+                <div>
+                    <div class="floating-card-text"></div>
+                    <div class="floating-card-subtext"></div>
+                </div>
+            </div>
+            <div class="floating-card-actions">
+                <div class="floating-card-button"></div>
+                <div class="floating-card-button"></div>
+            </div>
+        </div>
+    </div>
+
+    <button
+  id="darkModeToggle"
+  class="fixed top-4 right-4 z-50 p-3 bg-gray-800/70 backdrop-blur-md rounded-full shadow-lg hover:bg-gray-700/80 border border-gray-600/50 text-yellow-300 text-lg transition-all duration-300 flex items-center justify-center"
+  onclick="toggleDarkMode()"
+>
+  <i class="fas fa-adjust"></i>
+</button>
+
+    <button onclick="toggleDarkMode()">Toggle Dark Mode</button>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
@@ -762,6 +850,15 @@
                 });
             }
         });
+
+        function toggleDarkMode() {
+            const darkCss = document.getElementById('darkCss');
+            const dark1Css = document.getElementById('dark1Css');
+            const isDisabled = darkCss.disabled && dark1Css.disabled;
+            darkCss.disabled = isDisabled ? false : true;
+            dark1Css.disabled = isDisabled ? false : true;
+        }
     </script>
+    <script src="js/dark-mode.js"></script>
 </body>
 </html>

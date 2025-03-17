@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panneau d'Administration - Bibliothèque</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="icon" type="image/png" href="assets/img/icon.png">
+    <style>
+        .admin-container {
+            background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .admin-card {
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .admin-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #e0e0e0;
+            border-radius: 0.5rem;
+            font-family: 'Poppins', sans-serif;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(90deg, #4caf50, #2e7d32);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(90deg, #2e7d32, #4caf50);
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: #f8f9fa;
+            border: 1px solid #e0e0e0;
+            color: #4b5563;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary:hover {
+            background: #f0f0f0;
+            border-color: #d0d0d0;
+        }
+        
+        .tag {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 1.5rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .tag-exclusive {
+            background: #f0f4ff;
+            color: #3b82f6;
+        }
+        
+        .tag-university {
+            background: #ebf5ff;
+            color: #0ea5e9;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+        }
+        
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .admin-table th, .admin-table td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .admin-table th {
+            background: #f8f9fa;
+            font-weight: 600;
+        }
+        
+        .admin-table tr:hover {
+            background: #f0f0f0;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .btn-edit {
+            background: #f5f5f5;
+            color: #4b5563;
+            border: 1px solid #e0e0e0;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.375rem;
+            cursor: pointer;
+        }
+        
+        .btn-edit:hover {
+            background: #e0e0e0;
+        }
+        
+        .btn-delete {
+            background: #fee2e2;
+            color: #ef4444;
+            border: 1px solid #fca5a5;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.375rem;
+            cursor: pointer;
+        }
+        
+        .btn-delete:hover {
+            background: #f87171;
+            color: white;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .header h2 {
+            margin: 0;
+            font-weight: 700;
+        }
+        
+        .header p {
+            margin: 0.5rem 0 0;
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body class="admin-container bg-gray-50 font-poppins">
+    <div class="container mx-auto px-4 max-w-7xl flex-grow">
+        <header class="mb-12 mt-8" data-aos="fade-down">
+            <div class="header-container flex justify-between items-center">
+                <a href="index.html" class="back-button hover:scale-110 transform transition-all duration-300">
+                    <i class="fas fa-arrow-left"></i>
+                    Retour
+                </a>
+                <img src="assets/img/logo.png" alt="Université de Béjaïa" class="max-w-[200px]">
+            </div>
+        </header>
+
+        <div class="admin-card" data-aos="fade-up">
+            <div class="header">
+                <h2>Gestion des Spécialités</h2>
+                <p>Ajoutez, modifiez ou supprimez des spécialités</p>
+            </div>
+            <form id="addSpecialtyForm" class="space-y-6 p-6">
+                <div class="form-group">
+                    <label for="specialtyName" class="block text-sm font-medium text-gray-700 mb-2">Nom de la Spécialité</label>
+                    <input type="text" id="specialtyName" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="specialtyYear" class="block text-sm font-medium text-gray-700 mb-2">Année</label>
+                    <select id="specialtyYear" class="form-control">
+                        <option value="1">1ère année</option>
+                        <option value="2">2ème année</option>
+                        <option value="3">3ème année</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="specialtyCampus" class="block text-sm font-medium text-gray-700 mb-2">Campus</label>
+                    <select id="specialtyCampus" class="form-control">
+                        <option value="El-Kseur">El-Kseur</option>
+                        <option value="Aboudaou">Aboudaou</option>
+                        <option value="Targa">Targa</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Étiquettes</label>
+                    <div class="flex gap-2 items-center">
+                        <span class="tag tag-exclusive">Contenu Exclusif</span>
+                        <span class="tag tag-university">Université de Béjaïa</span>
+                    </div>
+                </div>
+                <button type="submit" class="btn-primary">Ajouter la Spécialité</button>
+            </form>
+        </div>
+
+        <div class="admin-card" data-aos="fade-up">
+            <div class="header">
+                <h2>Gestion des Ressources</h2>
+                <p>Ajoutez, modifiez ou supprimez des ressources</p>
+            </div>
+            <form id="addResourceForm" class="space-y-6 p-6">
+                <div class="form-group">
+                    <label for="resourceName" class="block text-sm font-medium text-gray-700 mb-2">Nom de la Ressource</label>
+                    <input type="text" id="resourceName" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="resourceType" class="block text-sm font-medium text-gray-700 mb-2">Type de Ressource</label>
+                    <select id="resourceType" class="form-control">
+                        <option value="cours">Cours</option>
+                        <option value="td">TD</option>
+                        <option value="tp">TP</option>
+                        <option value="examen">Examen</option>
+                        <option value="autre">Autre</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="resourceSpecialty" class="block text-sm font-medium text-gray-700 mb-2">Spécialité Associée</label>
+                    <select id="resourceSpecialty" class="form-control">
+                        <option value="">Sélectionnez une spécialité</option>
+                        <!-- Spécialités seront chargées dynamiquement -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="resourceLink" class="block text-sm font-medium text-gray-700 mb-2">Lien de la Ressource</label>
+                    <input type="url" id="resourceLink" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Étiquettes</label>
+                    <div class="flex gap-2 items-center">
+                        <span class="tag tag-exclusive">Contenu Exclusif</span>
+                        <span class="tag tag-university">Université de Béjaïa</span>
+                    </div>
+                </div>
+                <button type="submit" class="btn-primary">Ajouter la Ressource</button>
+            </form>
+        </div>
+
+        <div class="admin-card" data-aos="fade-up">
+            <div class="header">
+                <h2>Gestion des Modules</h2>
+                <p>Ajoutez, modifiez ou supprimez des modules</p>
+            </div>
+            <form id="addModuleForm" class="space-y-6 p-6">
+                <div class="form-group">
+                    <label for="moduleName" class="block text-sm font-medium text-gray-700 mb-2">Nom du Module</label>
+                    <input type="text" id="moduleName" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="moduleSpecialty" class="block text-sm font-medium text-gray-700 mb-2">Spécialité Associée</label>
+                    <select id="moduleSpecialty" class="form-control">
+                        <option value="">Sélectionnez une spécialité</option>
+                        <!-- Spécialités seront chargées dynamiquement -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="moduleSemester" class="block text-sm font-medium text-gray-700 mb-2">Semestre</label>
+                    <select id="moduleSemester" class="form-control">
+                        <option value="1">Semestre 1</option>
+                        <option value="2">Semestre 2</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="moduleCoefficient" class="block text-sm font-medium text-gray-700 mb-2">Coefficient</label>
+                    <input type="number" id="moduleCoefficient" class="form-control" min="1" required>
+                </div>
+                <div class="form-group">
+                    <label for="moduleCredits" class="block text-sm font-medium text-gray-700 mb-2">Crédits</label>
+                    <input type="number" id="moduleCredits" class="form-control" min="1" required>
+                </div>
+                <div class="form-group">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Évaluations</label>
+                    <div class="space-y-2">
+                        <div class="flex items-center">
+                            <input type="checkbox" id="moduleExam" class="form-checkbox h-4 w-4 text-blue-600">
+                            <label for="moduleExam" class="ml-2 text-sm text-gray-700">Examen</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input type="checkbox" id="moduleTD" class="form-checkbox h-4 w-4 text-blue-600">
+                            <label for="moduleTD" class="ml-2 text-sm text-gray-700">TD</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input type="checkbox" id="moduleTP" class="form-checkbox h-4 w-4 text-blue-600">
+                            <label for="moduleTP" class="ml-2 text-sm text-gray-700">TP</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Étiquettes</label>
+                    <div class="flex gap-2 items-center">
+                        <span class="tag tag-exclusive">Contenu Exclusif</span>
+                        <span class="tag tag-university">Université de Béjaïa</span>
+                    </div>
+                </div>
+                <button type="submit" class="btn-primary">Ajouter le Module</button>
+            </form>
+        </div>
+
+        <div class="admin-card" data-aos="fade-up">
+            <div class="header">
+                <h2>Liste des Spécialités</h2>
+                <p>Gérez toutes les spécialités existantes</p>
+            </div>
+            <div class="p-6">
+                <div class="table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Année</th>
+                                <th>Campus</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="specialtiesList">
+                            <!-- Les spécialités seront chargées dynamiquement -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="admin-card" data-aos="fade-up">
+            <div class="header">
+                <h2>Liste des Ressources</h2>
+                <p>Gérez toutes les ressources existantes</p>
+            </div>
+            <div class="p-6">
+                <div class="table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Type</th>
+                                <th>Spécialité</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="resourcesList">
+                            <!-- Les ressources seront chargées dynamiquement -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="admin-card" data-aos="fade-up">
+            <div class="header">
+                <h2>Liste des Modules</h2>
+                <p>Gérez tous les modules existants</p>
+            </div>
+            <div class="p-6">
+                <div class="table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Spécialité</th>
+                                <th>Semestre</th>
+                                <th>Coefficient</th>
+                                <th>Crédits</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="modulesList">
+                            <!-- Les modules seront chargés dynamiquement -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="admin-card">
+            <h2>Ajouter une Ressource</h2>
+            <form id="addResourceForm">
+                <input type="text" id="resourceName" placeholder="Nom de la Ressource" required />
+                <select id="resourceType">
+                    <option value="cours">Cours</option>
+                    <option value="td">TD</option>
+                    <option value="tp">TP</option>
+                    <option value="examen">Examen</option>
+                </select>
+                <input type="url" id="resourceLink" placeholder="Lien de la Ressource" required />
+                <select id="resourceModule">
+                    <!-- Dynamically populate with module IDs -->
+                </select>
+                <button type="submit">Ajouter</button>
+            </form>
+        </div>
+    </div>
+
+    <footer class="text-center text-gray-600 text-sm py-4">
+        <div>&copy; 2025 Université de Béjaïa. Développé par <a href="mailto:mehdi.amara@icloud.com" class="text-blue-500 hover:text-blue-700">Amara Mehdi</a></div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true
+        });
+        
+        // Fonction pour ajouter une nouvelle spécialité
+        document.getElementById('addSpecialtyForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const specialtyName = document.getElementById('specialtyName').value;
+            const specialtyYear = document.getElementById('specialtyYear').value;
+            const specialtyCampus = document.getElementById('specialtyCampus').value;
+            
+            // Ici, vous ajoutez le code pour sauvegarder la spécialité dans votre base de données
+            console.log('Ajout de la spécialité:', specialtyName, specialtyYear, specialtyCampus);
+            
+            // Après sauvegarde, actualisez la liste des spécialités
+            // refreshSpecialtiesList();
+            
+            // Réinitialisez le formulaire
+            this.reset();
+        });
+        
+        // Fonction pour ajouter une nouvelle ressource
+        document.getElementById('addResourceForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const resourceName = document.getElementById('resourceName').value;
+            const resourceType = document.getElementById('resourceType').value;
+            const resourceLink = document.getElementById('resourceLink').value;
+            const moduleId = document.getElementById('resourceModule').value; // Assume a dropdown for selecting the module
+
+            const resourceData = {
+                name: resourceName,
+                type: resourceType,
+                link: resourceLink,
+            };
+
+            await addResource(moduleId, resourceData);
+            alert('Ressource ajoutée avec succès!');
+            this.reset();
+        });
+        
+        // Fonction pour ajouter un nouveau module
+        document.getElementById('addModuleForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const moduleName = document.getElementById('moduleName').value;
+            const moduleSpecialty = document.getElementById('moduleSpecialty').value;
+            const moduleSemester = document.getElementById('moduleSemester').value;
+            const moduleCoefficient = document.getElementById('moduleCoefficient').value;
+            const moduleCredits = document.getElementById('moduleCredits').value;
+            const moduleExam = document.getElementById('moduleExam').checked;
+            const moduleTD = document.getElementById('moduleTD').checked;
+            const moduleTP = document.getElementById('moduleTP').checked;
+            
+            // Ici, vous ajoutez le code pour sauvegarder le module dans votre base de données
+            console.log('Ajout du module:', moduleName, moduleSpecialty, moduleSemester, moduleCoefficient, moduleCredits, {exam: moduleExam, td: moduleTD, tp: moduleTP});
+            
+            // Après sauvegarde, actualisez la liste des modules
+            // refreshModulesList();
+            
+            // Réinitialisez le formulaire
+            this.reset();
+        });
+        
+        // Fonctions pour actualiser les listes (à implémenter avec vos données réelles)
+        function refreshSpecialtiesList() {
+            // Code pour charger les spécialités depuis la base de données et mettre à jour le DOM
+            console.log('Actualisation de la liste des spécialités');
+        }
+        
+        function refreshResourcesList() {
+            // Code pour charger les ressources depuis la base de données et mettre à jour le DOM
+            console.log('Actualisation de la liste des ressources');
+        }
+        
+        function refreshModulesList() {
+            // Code pour charger les modules depuis la base de données et mettre à jour le DOM
+            console.log('Actualisation de la liste des modules');
+        }
+        
+        // Fonctions pour charger les données initiales
+        function loadSpecialties() {
+            const specialties = [
+                { name: "Science et Technologie LMD", link: "specialite-science-technologie.html" },
+                { name: "Informatique LMD", link: "specialite-informatique-lmd.html" },
+                { name: "Biologie", link: "specialite-biologie.html" },
+                { name: "Mathématiques", link: "specialite-mathematiques.html" },
+                { name: "Science de la Matière", link: "specialite-science-matiere.html" },
+                // Add more specialties as needed
+            ];
+
+            const specialtiesList = document.getElementById("specialtiesList");
+            specialtiesList.innerHTML = ""; // Clear existing content
+
+            specialties.forEach(specialty => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${specialty.name}</td>
+                    <td><a href="${specialty.link}" target="_blank" class="text-blue-500 hover:underline">Voir</a></td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="btn-edit" onclick="editSpecialty('${specialty.name}')">Modifier</button>
+                            <button class="btn-delete" onclick="deleteSpecialty('${specialty.name}')">Supprimer</button>
+                        </div>
+                    </td>
+                `;
+                specialtiesList.appendChild(row);
+            });
+        }
+        
+        function loadResources() {
+            // Code pour charger les ressources depuis la base de données
+            console.log('Chargement des ressources');
+        }
+        
+        import { getModules, deleteModule } from './firebase.js';
+
+        async function loadModules() {
+            const modules = await getModules();
+            const modulesList = document.getElementById('modulesList');
+            modulesList.innerHTML = ''; // Clear existing content
+
+            modules.forEach((module) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${module.name}</td>
+                    <td>${module.specialty}</td>
+                    <td>${module.semester}</td>
+                    <td>${module.coefficient}</td>
+                    <td>${module.credits}</td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="btn-edit" onclick="editModule('${module.id}')">Modifier</button>
+                            <button class="btn-delete" onclick="deleteModule('${module.id}')">Supprimer</button>
+                        </div>
+                    </td>
+                `;
+                modulesList.appendChild(row);
+            });
+        }
+
+        // Call loadModules on page load
+        document.addEventListener('DOMContentLoaded', loadModules);
+        
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSpecialties();
+            loadResources();
+        });
+    </script>
+    <script>
+        document.getElementById("addSpecialtyForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const specialtyName = document.getElementById("specialtyName").value;
+            const specialtyYear = document.getElementById("specialtyYear").value;
+            const specialtyCampus = document.getElementById("specialtyCampus").value;
+
+            // Add the new specialty to the list (this should also save to the database in a real app)
+            const specialtiesList = document.getElementById("specialtiesList");
+            const row = document.createElement("tr");
+            row.innerHTML = `
+                <td>${specialtyName}</td>
+                <td>${specialtyYear}</td>
+                <td>${specialtyCampus}</td>
+                <td>
+                    <div class="action-buttons">
+                        <button class="btn-edit" onclick="editSpecialty('${specialtyName}')">Modifier</button>
+                        <button class="btn-delete" onclick="deleteSpecialty('${specialtyName}')">Supprimer</button>
+                    </div>
+                </td>
+            `;
+            specialtiesList.appendChild(row);
+
+            // Reset the form
+            this.reset();
+        });
+    </script>
+</body>
+</html>

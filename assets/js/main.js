@@ -296,50 +296,59 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Calculate individual module average
-function calculerMoyenneMatiere(index) {
-    const inputs = document.querySelectorAll(`[data-matiere-index="${index}"] input[type="number"]`);
-    let hasValue = false;
-    let moyenne = 0;
-
-    // Get current module info
-    const currentMatiere = getCurrentMatiere(index);
-    if (!currentMatiere) return 0;
-
-    if (currentMatiere.tp && currentMatiere.td && currentMatiere.examen) {
-        const tp = parseFloat(inputs[0].value) || 0;
-        const td = parseFloat(inputs[1].value) || 0;
-        const examen = parseFloat(inputs[2].value) || 0;
-
-        if (tp > 0 || td > 0 || examen > 0) {
-            moyenne = (td * 0.2) + (tp * 0.2) + (examen * 0.6);
-            hasValue = true;
-        }
+function calculerMoyenneMatiere(moduleIndex) {
+    const specialite = specialiteSelect.value;
+    const semestre = semestreSelect.value;
+    const module = universiteBejaiaData["1ere Année Licence"][specialite][semestre][moduleIndex];
+    
+    const notes = {};
+    const inputs = document.querySelectorAll(`input[data-module="${moduleIndex}"]`);
+    const inputsRemplis = {};
+    
+    inputs.forEach(input => {
+        const type = input.getAttribute('data-type');
+        // Vérifier si l'input a une valeur réellement entrée (même 0)
+        inputsRemplis[type] = input.value !== '';
+        notes[type] = parseFloat(input.value) || 0;
+    });
+    
+    // Vérifier si tous les inputs requis ont une valeur renseignée
+    if (Object.values(inputsRemplis).some(estRempli => !estRempli)) {
+        return 0; // Return 0 seulement si un champ est vraiment vide
     }
-    else if (currentMatiere.tp && currentMatiere.examen) {
-        const tp = parseFloat(inputs[0].value) || 0;
-        const examen = parseFloat(inputs[1].value) || 0;
-
-        if (tp > 0 || examen > 0) {
-            moyenne = (tp * 0.4) + (examen * 0.6);
-            hasValue = true;
-        }
+    
+    // Reste du code inchangé...
+    // Calculate weighted average based on evaluation types
+    const evaluations = module.evaluations;
+    
+    // Si le module n'a que TP
+    if (evaluations.length === 1 && evaluations.includes('TP')) {
+        return notes.tp;
     }
-    else if (currentMatiere.examen) {
-        const examen = parseFloat(inputs[0].value) || 0;
-        if (examen > 0) {
-            moyenne = examen;
-            hasValue = true;
-        }
+    
+    // Si le module a TP et Examen
+    if (evaluations.length === 2 && evaluations.includes('TP') && evaluations.includes('Examen')) {
+        return (notes.tp * 0.4) + (notes.examen * 0.6);
     }
-
-    return hasValue ? moyenne : 0;
-}
-
-function getCurrentMatiere(index) {
-    const annee = document.getElementById('anneeSelect').value;
-    const specialite = document.getElementById('specialiteSelect').value;
-    const semestre = document.getElementById('semestreSelect').value;
-    return universiteBejaiaData[annee][specialite][semestre][index];
+    
+    // Si le module a TD et Examen
+    if (evaluations.length === 2 && evaluations.includes('TD') && evaluations.includes('Examen')) {
+        return (notes.td * 0.4) + (notes.examen * 0.6);
+    }
+    
+    // Si le module a TD, TP et Examen
+    if (evaluations.includes('TD') && evaluations.includes('TP') && evaluations.includes('Examen')) {
+        return (notes.td * 0.2) + (notes.tp * 0.2) + (notes.examen * 0.6);
+    }
+    
+    // Si le module n'a que Examen
+    if (evaluations.length === 1 && evaluations.includes('Examen')) {
+        return notes.examen;
+    }
+    
+    // Par défaut, retourner la moyenne de toutes les notes disponibles
+    const sum = Object.values(notes).reduce((a, b) => a + b, 0);
+    return sum / Object.values(notes).length;
 }
 
 function calculerMoyenneGenerale() {
@@ -365,9 +374,9 @@ function calculerMoyenneGenerale() {
             // Pour la moyenne générale, on divise directement par le total des coefficients
             moyenneGenerale += (moyenne * module.coefficient) / totalCoefficients;
             
-            // Add module result to display
+            // Add module result to display with improved styling
             const moduleResult = document.createElement('div');
-            moduleResult.className = 'bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200';
+            moduleResult.className = 'bg-white p-5 rounded-lg shadow-md hover:shadow-lg transition-all duration-300';
             
             // Determine color class based on grade
             const colorClass = moyenne >= 10 ? 'text-green-600' : 'text-red-600';
@@ -377,30 +386,57 @@ function calculerMoyenneGenerale() {
             
             moduleResult.innerHTML = `
                 <div class="flex justify-between items-center">
-                    <h4 class="font-semibold text-gray-800">${module.matiere}</h4>
-                    <div class="flex items-center">
-                        <div class="text-2xl font-bold ${colorClass}">${moyenne.toFixed(2)} ${icon}</div>
+                    <div class="flex flex-col">
+                        <h4 class="font-semibold text-gray-800 text-lg">${module.matiere}</h4>
+                        <span class="text-xs text-gray-500">Coefficient: ${module.coefficient}</span>
                     </div>
+                    <div class="flex items-center bg-white p-3 rounded-full shadow-sm">
+                        <div class="text-2xl font-bold ${colorClass}">${moyenne.toFixed(2)}</div>
+                        <div class="ml-2 text-2xl ${colorClass}">${icon}</div>
+                    </div>
+                </div>
+                <div class="mt-3 h-2 w-full bg-gray-200 rounded-full overflow-hidden">
+                    <div class="h-full ${moyenne >= 10 ? 'bg-green-500' : 'bg-red-500'}" style="width: ${Math.min(moyenne * 5, 100)}%;"></div>
                 </div>
             `;
             moduleResults.appendChild(moduleResult);
         }
     });
     
-    // Show results
+    // Show results with improved styling
     resultats.style.display = 'block';
     const moyenneDisplay = resultats.querySelector('.moyenne-generale');
-    moyenneDisplay.className = 'moyenne-generale mt-8 p-6 rounded-lg text-center ' + 
+    moyenneDisplay.className = 'moyenne-generale mt-8 p-8 rounded-lg text-center shadow-lg ' + 
         (moyenneGenerale >= 10 ? 'bg-green-50' : 'bg-red-50');
     
-    // Clear previous content
+    // Clear previous content with enhanced display
     moyenneDisplay.innerHTML = `
-        <h3 class="text-xl font-semibold mb-4 text-gray-800">Moyenne Générale</h3>
-        <div class="text-4xl font-bold ${moyenneGenerale >= 10 ? 'text-green-600' : 'text-red-600'}">
-            ${moyenneGenerale.toFixed(2)}
+        <h3 class="text-xl font-semibold mb-6 text-gray-800">Moyenne Générale</h3>
+        <div class="flex items-center justify-center">
+            <div class="relative">
+                <div class="text-5xl font-bold ${moyenneGenerale >= 10 ? 'text-green-600' : 'text-red-600'}">
+                    ${moyenneGenerale.toFixed(2)}
+                </div>
+                <div class="text-xs absolute top-0 right-0 transform translate-x-full -translate-y-1/4 bg-gray-100 rounded-full w-8 h-8 flex items-center justify-center">
+                    /20
+                </div>
+            </div>
         </div>
-        <div class="text-lg mt-2 font-semibold ${moyenneGenerale >= 10 ? 'text-green-600' : 'text-red-600'}">
-            ${moyenneGenerale >= 10 ? 'Semestre Validé ✓' : 'Semestre Non Validé ✗'}
+        <div class="mt-6">
+            <div class="w-48 h-48 mx-auto relative">
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <svg viewBox="0 0 36 36" class="w-full h-full">
+                        <path class="stroke-current ${moyenneGenerale >= 10 ? 'text-green-200' : 'text-red-200'}" fill="none" stroke-width="3" stroke-linecap="round"
+                            d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                        <path class="stroke-current ${moyenneGenerale >= 10 ? 'text-green-500' : 'text-red-500'}" fill="none" stroke-width="3" stroke-linecap="round"
+                            stroke-dasharray="${moyenneGenerale * 5}, 100"
+                            d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                    </svg>
+                    <div class="absolute text-lg font-semibold ${moyenneGenerale >= 10 ? 'text-green-600' : 'text-red-600'}">
+                        ${moyenneGenerale >= 10 ? 'Semestre Validé ✓' : 'Semestre Non Validé ✗'}
+                    </div>
+                </div>
+            </div>
         </div>
     `;
     
@@ -555,16 +591,21 @@ function calculerMoyenneMatiere(moduleIndex) {
     
     const notes = {};
     const inputs = document.querySelectorAll(`input[data-module="${moduleIndex}"]`);
+    const inputsRemplis = {};
     
     inputs.forEach(input => {
         const type = input.getAttribute('data-type');
+        // Vérifier si l'input a une valeur réellement entrée (même 0)
+        inputsRemplis[type] = input.value !== '';
         notes[type] = parseFloat(input.value) || 0;
     });
     
-    if (Object.values(notes).some(note => note === 0)) {
-        return 0; // Return 0 if any note is missing
+    // Vérifier si tous les inputs requis ont une valeur renseignée
+    if (Object.values(inputsRemplis).some(estRempli => !estRempli)) {
+        return 0; // Return 0 seulement si un champ est vraiment vide
     }
     
+    // Reste du code inchangé...
     // Calculate weighted average based on evaluation types
     const evaluations = module.evaluations;
     
@@ -621,9 +662,9 @@ function calculerMoyenneGenerale() {
             // Pour la moyenne générale, on divise directement par le total des coefficients
             moyenneGenerale += (moyenne * module.coefficient) / totalCoefficients;
             
-            // Add module result to display
+            // Add module result to display with improved styling
             const moduleResult = document.createElement('div');
-            moduleResult.className = 'bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200';
+            moduleResult.className = 'bg-white p-5 rounded-lg shadow-md hover:shadow-lg transition-all duration-300';
             
             // Determine color class based on grade
             const colorClass = moyenne >= 10 ? 'text-green-600' : 'text-red-600';
@@ -633,33 +674,103 @@ function calculerMoyenneGenerale() {
             
             moduleResult.innerHTML = `
                 <div class="flex justify-between items-center">
-                    <h4 class="font-semibold text-gray-800">${module.matiere}</h4>
-                    <div class="flex items-center">
-                        <div class="text-2xl font-bold ${colorClass}">${moyenne.toFixed(2)} ${icon}</div>
+                    <div class="flex flex-col">
+                        <h4 class="font-semibold text-gray-800 text-lg">${module.matiere}</h4>
+                        <span class="text-xs text-gray-500">Coefficient: ${module.coefficient}</span>
                     </div>
+                    <div class="flex items-center bg-white p-3 rounded-full shadow-sm">
+                        <div class="text-2xl font-bold ${colorClass}">${moyenne.toFixed(2)}</div>
+                        <div class="ml-2 text-2xl ${colorClass}">${icon}</div>
+                    </div>
+                </div>
+                <div class="mt-3 h-2 w-full bg-gray-200 rounded-full overflow-hidden">
+                    <div class="h-full ${moyenne >= 10 ? 'bg-green-500' : 'bg-red-500'}" style="width: ${Math.min(moyenne * 5, 100)}%;"></div>
                 </div>
             `;
             moduleResults.appendChild(moduleResult);
         }
     });
     
-    // Show results
+    // Show results with improved styling
     resultats.style.display = 'block';
     const moyenneDisplay = resultats.querySelector('.moyenne-generale');
-    moyenneDisplay.className = 'moyenne-generale mt-8 p-6 rounded-lg text-center ' + 
+    moyenneDisplay.className = 'moyenne-generale mt-8 p-8 rounded-lg text-center shadow-lg ' + 
         (moyenneGenerale >= 10 ? 'bg-green-50' : 'bg-red-50');
     
-    // Clear previous content
+    // Clear previous content with enhanced display
     moyenneDisplay.innerHTML = `
-        <h3 class="text-xl font-semibold mb-4 text-gray-800">Moyenne Générale</h3>
-        <div class="text-4xl font-bold ${moyenneGenerale >= 10 ? 'text-green-600' : 'text-red-600'}">
-            ${moyenneGenerale.toFixed(2)}
+        <h3 class="text-xl font-semibold mb-6 text-gray-800">Moyenne Générale</h3>
+        <div class="flex items-center justify-center">
+            <div class="relative">
+                <div class="text-5xl font-bold ${moyenneGenerale >= 10 ? 'text-green-600' : 'text-red-600'}">
+                    ${moyenneGenerale.toFixed(2)}
+                </div>
+                <div class="text-xs absolute top-0 right-0 transform translate-x-full -translate-y-1/4 bg-gray-100 rounded-full w-8 h-8 flex items-center justify-center">
+                    /20
+                </div>
+            </div>
         </div>
-        <div class="text-lg mt-2 font-semibold ${moyenneGenerale >= 10 ? 'text-green-600' : 'text-red-600'}">
-            ${moyenneGenerale >= 10 ? 'Semestre Validé ✓' : 'Semestre Non Validé ✗'}
+        <div class="mt-6">
+            <div class="w-48 h-48 mx-auto relative">
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <svg viewBox="0 0 36 36" class="w-full h-full">
+                        <path class="stroke-current ${moyenneGenerale >= 10 ? 'text-green-200' : 'text-red-200'}" fill="none" stroke-width="3" stroke-linecap="round"
+                            d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                        <path class="stroke-current ${moyenneGenerale >= 10 ? 'text-green-500' : 'text-red-500'}" fill="none" stroke-width="3" stroke-linecap="round"
+                            stroke-dasharray="${moyenneGenerale * 5}, 100"
+                            d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                    </svg>
+                    <div class="absolute text-lg font-semibold ${moyenneGenerale >= 10 ? 'text-green-600' : 'text-red-600'}">
+                        ${moyenneGenerale >= 10 ? 'Semestre Validé ✓' : 'Semestre Non Validé ✗'}
+                    </div>
+                </div>
+            </div>
         </div>
     `;
     
     // Scroll to results
     resultats.scrollIntoView({ behavior: 'smooth' });
+}
+
+// Fonction pour exporter les résultats en PDF
+async function exportToPDF() {
+    const { jsPDF } = window.jspdf;
+
+    // Capturer la section des résultats
+    const resultatsElement = document.getElementById('resultats');
+    const canvas = await html2canvas(resultatsElement, { scale: 2 });
+    const imgData = canvas.toDataURL('image/png');
+
+    // Créer un PDF
+    const pdf = new jsPDF('p', 'mm', 'a4');
+    const pageWidth = pdf.internal.pageSize.getWidth();
+    const pageHeight = pdf.internal.pageSize.getHeight();
+    const imgWidth = pageWidth - 20; // Marges
+    const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+    // Ajouter l'image au PDF
+    pdf.addImage(imgData, 'PNG', 10, 10, imgWidth, imgHeight);
+
+    // Ajouter les tags
+    pdf.setFontSize(10);
+    pdf.text('@spot_campuselkseur', 10, pageHeight - 20);
+    pdf.text('Made by Amara Mehdi', 10, pageHeight - 15);
+
+    // Télécharger le PDF
+    pdf.save('resultats.pdf');
+}
+
+// Fonction pour partager sur Instagram (générer une image)
+async function shareOnInstagram() {
+    const resultatsElement = document.getElementById('resultats');
+    const canvas = await html2canvas(resultatsElement, { scale: 2 });
+    const imgData = canvas.toDataURL('image/png');
+
+    // Créer un lien de téléchargement pour l'image
+    const link = document.createElement('a');
+    link.href = imgData;
+    link.download = 'resultats.png';
+    link.click();
+
+    alert("Image générée ! Vous pouvez maintenant la partager sur Instagram.");
 }

@@ -1,0 +1,332 @@
+{
+    "years": {
+      "2013/2014": {
+        "students": {
+          "total": 41263,
+          "inscrits_systeme_LMD": 38571,
+          "inscrits_systeme_classique": 2692
+        },
+        "personnel": {
+          "agents_techniques": 1059,
+          "enseignants_permanents": 1417
+        },
+        "infrastructure": {
+          "amphitheatres": 76,
+          "auditoriums": 2,
+          "classrooms": 499,
+          "libraries": 6,
+          "internet_rooms": 4
+        },
+        "education_offers": {
+          "specialites_licence": 70,
+          "specialites_master": 93,
+          "specialites_doctorat": 25
+        },
+        "international_exchanges": {
+          "universites_partenaires": 67,
+          "etudiants_etrangers": 249,
+          "nationalites": 22
+        },
+        "research": {
+          "laboratoires_recherche": 29,
+          "enseignants_chercheurs": 661,
+          "CNEPRU_projects": 118,
+          "PNR_projects": 47
+        }
+      },
+      "2014/2015": {
+        "students": {
+          "total": 42216,
+          "inscrits_licence": 27879,
+          "inscrits_master": 10571,
+          "inscrits_post_graduation": 1595,
+          "inscrits_medicine": 718,
+          "inscrits_systeme_classique": 1453
+        },
+        "teachers": {
+          "professeurs": 88,
+          "maitres_conferences_A_B": 273,
+          "maitres_assistants_A_B": 1089,
+          "assistants": 4
+        },
+        "administrative_staff": {
+          "permanents": 817,
+          "contractuels": 299,
+          "pre_emplois": 186
+        },
+        "infrastructure": {
+          "auditoriums": 2,
+          "amphitheatres": 76,
+          "classrooms": 499,
+          "libraries": 6,
+          "internet_spaces": 4
+        },
+        "education_offers": {
+          "formations_licence": 107
+        },
+        "research": {
+          "unite_recherche": 1,
+          "laboratoires_recherche": 28,
+          "CNEPRU_projects": 118,
+          "PNR_projects": 41
+        }
+      },
+      "2016/2017": {
+        "students": {
+          "total": 42777,
+          "inscrits_licence": 26892,
+          "inscrits_master": 13433,
+          "inscrits_post_graduation": 1641,
+          "inscrits_medicine": 811
+        },
+        "teachers": {
+          "professeurs": 106,
+          "maitres_conferences_A_B": 362,
+          "maitres_assistants_A_B": 1158,
+          "assistants": 3
+        },
+        "administrative_staff": {
+          "permanents": 1171,
+          "contractuels": 93,
+          "pre_emplois": 93
+        },
+        "education_offers": {
+          "formations_licence": 51,
+          "formations_master": 152,
+          "formations_post_graduation": 56
+        },
+        "infrastructure": {
+          "auditoriums": 3,
+          "amphitheatres": 86,
+          "classrooms": 527,
+          "libraries": 7,
+          "internet_spaces": 5
+        },
+        "research": {
+          "unite_recherche": 1,
+          "laboratoires_recherche": 31,
+          "CNEPRU_projects": 169,
+          "other_research_projects": 5
+        }
+      },
+      "2017/2018": {
+        "students": {
+          "total": 43331,
+          "inscrits_licence": 27883,
+          "inscrits_master": 12857,
+          "inscrits_post_graduation": 1679,
+          "inscrits_systeme_classique": 912
+        },
+        "teachers": {
+          "professeurs": 115,
+          "maitres_conferences_A_B": 441,
+          "maitres_assistants_A_B": 1098,
+          "assistants": 3
+        },
+        "personnel_de_soutien": {
+          "permanents": 871,
+          "contractuels": 318,
+          "pre_emplois": 35
+        },
+        "education_offers": {
+          "formations_licence": 60,
+          "formations_master": 112,
+          "formations_post_graduation": 37
+        },
+        "research": {
+          "unite_recherche": 1,
+          "laboratoires_recherche": 32,
+          "CNEPRU_projects": 120,
+          "other_research_projects": 5
+        },
+        "infrastructure": {
+          "auditoriums": 4,
+          "amphitheatres": 86,
+          "classrooms": 553,
+          "libraries": 7,
+          "calculation_centers": 3
+        }
+      },
+      "2019/2020": {
+        "students": {
+          "total": 41712,
+          "inscrits_licence": 27767,
+          "inscrits_master": 11215,
+          "inscrits_post_graduation": 1823,
+          "inscrits_systeme_classique": 907
+        },
+        "teachers": {
+          "professeurs": 130,
+          "maitres_conferences_A_B": 597,
+          "maitres_assistants_A_B": 967,
+          "assistants": 2
+        },
+        "research": {
+          "unite_recherche": 1,
+          "projets_recherche": 140,
+          "laboratoires_recherche": 33
+        },
+        "education_offers": {
+          "formations_licence": 60,
+          "formations_master": 106,
+          "formations_post_graduation": 37
+        },
+        "personnel_de_soutien": {
+          "permanents": 910,
+          "contractuels": 336,
+          "pre_emplois": 35
+        },
+        "infrastructure": {
+          "auditoriums": 4,
+          "amphitheatres": 86,
+          "calculation_centers": 3,
+          "classrooms": 553,
+          "libraries": 7
+        }
+      },
+      "2021/2022": {
+        "students": {
+          "total": 40888,
+          "inscrits_licence": 26014,
+          "inscrits_master": 12082,
+          "inscrits_post_graduation": 1865,
+          "inscrits_systeme_classique": 927
+        },
+        "teachers": {
+          "professeurs": 171,
+          "maitres_conferences_A_B": 798,
+          "maitres_assistants_A_B": 744,
+          "assistants": 1
+        },
+        "education_offers": {
+          "formations_licence": 60,
+          "formations_master": 110,
+          "formations_PG": 37
+        },
+        "research": {
+          "laboratoires_recherche": 36,
+          "unite_recherche": 1,
+          "projets_recherche": 230
+        },
+        "infrastructure": {
+          "auditoriums": 4,
+          "amphitheatres": 86,
+          "classrooms": 553,
+          "libraries": 7,
+          "calculation_centers": 3
+        }
+      },
+      "2022/2023": {
+        "students": {
+          "total": 40823,
+          "inscrits_licence": 25706,
+          "inscrits_master": 12293,
+          "inscrits_post_graduation": 1908,
+          "inscrits_systeme_classique": 916
+        },
+        "teachers": {
+          "professeurs": 215,
+          "maitres_conferences_A_B": 818,
+          "maitres_assistants_A_B": 687
+        },
+        "research": {
+          "laboratoires_recherche": 36,
+          "unite_recherche": 1,
+          "projets_recherche": 264
+        },
+        "education_offers": {
+          "formations_licence": 57,
+          "formations_master": 102,
+          "formations_PG": 37
+        },
+        "personnel_de_soutien": {
+          "permanents": 926,
+          "contractuels": 346
+        },
+        "infrastructure": {
+          "auditoriums": 4,
+          "amphitheatres": 5,
+          "classrooms": 553,
+          "libraries": 7,
+          "calculation_centers": 3
+        }
+      },
+      "2023/2024": {
+        "students": {
+          "total": 39398,
+          "inscrits_licence": 25418,
+          "inscrits_master": 11021,
+          "inscrits_post_graduation": 1948,
+          "inscrits_systeme_classique": 1011
+        },
+        "teachers": {
+          "professeurs": 238,
+          "maitres_conferences_A_B": 842,
+          "maitres_assistants_A_B": 637
+        },
+        "research": {
+          "laboratoires_recherche": 37,
+          "unite_recherche": 1,
+          "projets_recherche": 286
+        },
+        "education_offers": {
+          "formations_licence": 63,
+          "formations_master": 119,
+          "ingenieur_etat": 6,
+          "formations_PG": 37
+        },
+        "personnel_de_soutien": {
+          "permanents": 923,
+          "contractuels": 341
+        },
+        "infrastructure": {
+          "auditoriums": 4,
+          "amphitheatres": 86,
+          "classrooms": 553,
+          "libraries": 7,
+          "calculation_centers": 3
+        }
+      },
+      "2024/2025": {
+        "students": {
+          "total": 37071,
+          "inscrits_licence": 24471,
+          "inscrits_master": 8734,
+          "ingeniorat": 876,
+          "inscrits_post_graduation": 1783,
+          "inscrits_systeme_classique": 1207
+        },
+        "teachers": {
+          "professeurs": 287,
+          "maitres_conferences_A_B": 873,
+          "maitres_assistants_A_B": 674
+        },
+        "research": {
+          "laboratoires_recherche": 37,
+          "unite_recherche": 1,
+          "projets_recherche": 269
+        },
+        "education_offers": {
+          "formations_licence": 61,
+          "formations_master": 120,
+          "MCIL": 2,
+          "ingenieur_etat": 6,
+          "double_diplomation": 4,
+          "systeme_classique": 2,
+          "formations_PG": 37
+        },
+        "personnel_de_soutien": {
+          "permanents": 901,
+          "contractuels": 331
+        },
+        "infrastructure": {
+          "auditoriums": 4,
+          "amphitheatres": 86,
+          "classrooms": 553,
+          "libraries": 7,
+          "calculation_centers": 3
+        }
+      }
+    }
+  }
+  

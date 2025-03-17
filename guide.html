@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guide - Université de Béjaïa</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="icon" type="image/png" href="assets/img/icon.png">
+    <link rel="stylesheet" href="assets/css/guide.css">
+</head>
+<body class="flex flex-col min-h-screen bg-gray-50 font-poppins">
+    <div class="container mx-auto px-4 max-w-7xl flex-grow">
+        <header class="mb-12 mt-8" data-aos="fade-down">
+            <div class="header-container flex justify-between items-center">
+                <a href="index.html" class="back-button hover:scale-110 transform transition-all duration-300">
+                    <i class="fas fa-arrow-left"></i>
+                    Retour
+                </a>
+                <img src="assets/img/logo.png" alt="Université de Béjaïa" class="max-w-[200px]">
+            </div>
+        </header>
+        <section class="mb-16" data-aos="fade-up">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Aperçu Global</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-6 max-w-7xl mx-auto">
+                <!-- Étudiants -->
+                <div 
+                    class="p-8 rounded-2xl shadow-2xl bg-gradient-to-br from-indigo-600 via-violet-600 to-purple-600 hover:from-indigo-700 hover:via-violet-700 hover:to-purple-700 transform hover:-translate-y-1 transition-all duration-500 relative overflow-hidden"
+                    onclick="showModal('students')">
+                    <div class="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent animate-wave"></div>
+                    <div class="flex items-center space-x-6">
+                        <div class="service-icon bg-white/15 backdrop-blur-xl p-5 rounded-2xl">
+                            <i class="fas fa-users text-4xl text-white"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-xl font-bold text-white mb-2">Étudiants</h3>
+                            <p class="text-indigo-100 text-sm">Cliquez pour voir l’historique</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Enseignants -->
+                <div 
+                    class="p-8 rounded-2xl shadow-2xl bg-gradient-to-br from-green-600 via-teal-600 to-teal-500 hover:from-green-700 hover:via-teal-700 hover:to-teal-600 transform hover:-translate-y-1 transition-all duration-500 relative overflow-hidden"
+                    onclick="showModal('teachers')">
+                    <div class="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent animate-wave"></div>
+                    <div class="flex items-center space-x-6">
+                        <div class="service-icon bg-white/15 backdrop-blur-xl p-5 rounded-2xl">
+                            <i class="fas fa-chalkboard-teacher text-4xl text-white"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-xl font-bold text-white mb-2">Enseignants</h3>
+                            <p class="text-green-100 text-sm">Cliquez pour voir l’historique</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Offres de formation -->
+                <div 
+                    class="p-8 rounded-2xl shadow-2xl bg-gradient-to-br from-blue-600 via-cyan-600 to-cyan-500 hover:from-blue-700 hover:via-cyan-700 hover:to-cyan-600 transform hover:-translate-y-1 transition-all duration-500 relative overflow-hidden"
+                    onclick="showModal('education_offers')">
+                    <div class="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent animate-wave"></div>
+                    <div class="flex items-center space-x-6">
+                        <div class="service-icon bg-white/15 backdrop-blur-xl p-5 rounded-2xl">
+                            <i class="fas fa-book-open text-4xl text-white"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-xl font-bold text-white mb-2">Offres de formation</h3>
+                            <p class="text-blue-100 text-sm">Cliquez pour voir l’historique</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Recherche -->
+                <div 
+                    class="p-8 rounded-2xl shadow-2xl bg-gradient-to-br from-red-600 via-pink-600 to-pink-500 hover:from-red-700 hover:via-pink-700 hover:to-pink-600 transform hover:-translate-y-1 transition-all duration-500 relative overflow-hidden"
+                    onclick="showModal('research')">
+                    <div class="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent animate-wave"></div>
+                    <div class="flex items-center space-x-6">
+                        <div class="service-icon bg-white/15 backdrop-blur-xl p-5 rounded-2xl">
+                            <i class="fas fa-flask text-4xl text-white"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-xl font-bold text-white mb-2">Recherche</h3>
+                            <p class="text-red-100 text-sm">Cliquez pour voir l’historique</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Personnel de soutien -->
+                <div 
+                    class="p-8 rounded-2xl shadow-2xl bg-gradient-to-br from-yellow-600 via-orange-600 to-orange-500 hover:from-yellow-700 hover:via-orange-700 hover:to-orange-600 transform hover:-translate-y-1 transition-all duration-500 relative overflow-hidden"
+                    onclick="showModal('personnel_de_soutien')">
+                    <div class="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent animate-wave"></div>
+                    <div class="flex items-center space-x-6">
+                        <div class="service-icon bg-white/15 backdrop-blur-xl p-5 rounded-2xl">
+                            <i class="fas fa-user-cog text-4xl text-white"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-xl font-bold text-white mb-2">Personnel de soutien</h3>
+                            <p class="text-yellow-100 text-sm">Cliquez pour voir l’historique</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Infrastructures -->
+                <div 
+                    class="p-8 rounded-2xl shadow-2xl bg-gradient-to-br from-gray-600 via-gray-700 to-gray-500 hover:from-gray-700 hover:via-gray-800 hover:to-gray-600 transform hover:-translate-y-1 transition-all duration-500 relative overflow-hidden"
+                    onclick="showModal('infrastructure')">
+                    <div class="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent animate-wave"></div>
+                    <div class="flex items-center space-x-6">
+                        <div class="service-icon bg-white/15 backdrop-blur-xl p-5 rounded-2xl">
+                            <i class="fas fa-building text-4xl text-white"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-xl font-bold text-white mb-2">Infrastructures</h3>
+                            <p class="text-gray-100 text-sm">Cliquez pour voir l’historique</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Modal -->
+    <div id="statsModal" class="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center hidden">
+        <div class="bg-white rounded-lg shadow-lg p-6 max-w-3xl w-full">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-2xl font-bold" id="modalTitle"></h3>
+                <button id="closeModal" class="text-gray-600 hover:text-gray-800">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div id="modalContent" class="overflow-y-auto max-h-96"></div>
+        </div>
+    </div>
+
+    <!-- Modal for extra details -->
+    <div id="statsModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg shadow-lg p-8 max-w-4xl w-full relative" data-aos="zoom-in">
+            <button id="closeModal" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+            <div id="modalContent" class="mt-4"></div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        AOS.init({ duration: 800, once: true });
+
+        let statsData = null;
+
+        // Fetch data from stats.json
+        fetch('assets/data/stats.json')
+            .then(response => response.json())
+            .then(data => {
+                statsData = data.years;
+            })
+            .catch(error => console.error('Error fetching stats:', error));
+
+        // Modal references
+        const statsModal = document.getElementById('statsModal');
+        const modalContent = document.getElementById('modalContent');
+        const closeModal = document.getElementById('closeModal');
+
+        // Show modal with dynamic content
+        function showModal(sectionKey) {
+            if (!statsData) return;
+
+            const years = Object.keys(statsData);
+            const sectionData = years.map(year => ({
+                year,
+                data: statsData[year][sectionKey] || {}
+            }));
+
+            modalContent.innerHTML = `
+                <h3 class="text-2xl font-bold mb-4">${sectionKey}</h3>
+                <div class="flex justify-between items-center mb-4">
+                    <label for="yearFilter" class="text-gray-600">Filter by year:</label>
+                    <select id="yearFilter" class="border rounded-md p-2">
+                        ${years.map(year => `<option value="${year}">${year}</option>`).join('')}
+                    </select>
+                </div>
+                <div id="graphContainer" class="mt-4">
+                    <canvas id="statsGraph" width="400" height="200"></canvas>
+                </div>
+            `;
+
+            // Initialize graph
+            const ctx = document.getElementById('statsGraph').getContext('2d');
+            const chartData = sectionData.map(item => ({
+                x: item.year,
+                y: Object.values(item.data).reduce((a, b) => a + b, 0)
+            }));
+
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: chartData.map(item => item.x),
+                    datasets: [{
+                        label: sectionKey,
+                        data: chartData.map(item => item.y),
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+
+            statsModal.classList.remove('hidden');
+        }
+
+        // Close modal
+        closeModal.addEventListener('click', () => {
+            statsModal.classList.add('hidden');
+        });
+    </script>
+</body>
+</html>
