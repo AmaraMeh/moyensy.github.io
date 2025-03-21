@@ -67,24 +67,6 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                <!-- Test Module -->
-                <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="module-icon bg-blue-100 p-3 rounded-full text-blue-600">
-                            <i class="fas fa-box-open fa-lg"></i>
-                        </div>
-                        <h3 class="text-xl font-semibold text-gray-800">Test Module</h3>
-                    </div>
-                    <div class="mt-auto flex flex-wrap gap-2">
-                        <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('test', 'cours')">
-                            <i class="fas fa-book mr-1"></i> Cours
-                        </button>
-                        <button class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('test', 'examen')">
-                            <i class="fas fa-file-alt mr-1"></i> Examen
-                        </button>
-                    </div>
-                </div>
-
                 <!-- Mathématique 1 -->
                 <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
                     <div class="flex items-center gap-3 mb-4">
@@ -94,10 +76,10 @@
                         <h3 class="text-xl font-semibold text-gray-800">Mathématique 1</h3>
                     </div>
                     <div class="mt-auto flex flex-wrap gap-2">
-                        <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('math1', 'cours')">
+                        <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="console.log('Cours button clicked'); showContent('math1', 'cours')">
                             <i class="fas fa-book mr-1"></i> Cours
                         </button>
-                        <button class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('math1', 'examen')">
+                        <button class="module-btn bg-purple-500 hover:bg-purple-600" onclick="console.log('Exam button clicked'); showContent('math1', 'examen')">
                             <i class="fas fa-file-alt mr-1"></i> Examen
                         </button>
                     </div>
@@ -254,8 +236,8 @@
     <script>
         AOS.init({ duration: 800, once: true });
 
+        // Update the module mapping to ensure consistent keys
         const moduleMapping = {
-            'test': 'Test Module',
             'math1': 'Mathématique 1',
             'chimie1': 'Chimie 1',
             'physique1': 'Physique 1',
@@ -263,58 +245,201 @@
             'mr': 'MR/DED/MST'
         };
 
-        const moduleContent = {
-            'Test Module': {
-                'bejaia': {
-                    'cours': [
-                        { title: "Exemple de cours", url: "#" },
-                        { title: "Document modèle", url: "#" }
-                    ],
-                    'td': [
-                        { title: "TD Exemple", url: "#" },
-                        { title: "Exercices modèle", url: "#" }
-                    ],
-                    'examen': [
-                        { title: "Examen modèle", url: "#" }
-                    ]
-                },
-                'autres': {
-                    'cours': [
-                        { title: "Cours externe", url: "#" },
-                        { title: "Ressource supplémentaire", url: "#" }
-                    ],
-                    'td': [
-                        { title: "TD externe", url: "#" }
-                    ],
-                    'examen': []
-                }
+        // Update resourcesByYear to use consistent module keys
+        const resourcesByYear = {
+            '2023': {
+                color: 'blue',
+                resources: [
+                    { module: 'physique1', title: "Physique 1 (2023)", url: "https://elearning.univ-bejaia.dz/mod/resource/view.php?id=347476" },
+                    { module: 'math1', title: "Math 1 (2023)", url: "https://elearning.univ-bejaia.dz/mod/resource/view.php?id=347689" },
+                    { module: 'mr', title: "DED (2023)", url: "https://elearning.univ-bejaia.dz/mod/resource/view.php?id=347176" },
+                    { module: 'mr', title: "MST (2023)", url: "https://elearning.univ-bejaia.dz/mod/resource/view.php?id=346748" },
+                    { module: 'mr', title: "MR (2023)", url: "https://elearning.univ-bejaia.dz/mod/resource/view.php?id=347178" },
+                    { module: 'info1', title: "Informatique 1 (2023)", url: "https://elearning.univ-bejaia.dz/mod/resource/view.php?id=347360" }
+                ]
+            },
+            '2022': {
+                color: 'green',
+                resources: [
+                    { module: 'chimie1', title: "Chimie 1 (2022)", url: "https://elearning.univ-bejaia.dz/mod/resource/view.php?id=293063" },
+                    { module: 'info1', title: "Informatique 1 (2022)", url: "https://elearning.univ-bejaia.dz/mod/resource/view.php?id=293065" },
+                    { module: 'math1', title: "Math 1 (2022)", url: "https://elearning.univ-bejaia.dz/mod/resource/view.php?id=294020" },
+                    { module: 'physique1', title: "Physique 1 (2022)", url: "https://elearning.univ-bejaia.dz/mod/resource/view.php?id=294024" }
+                ]
+            },
+            '2018': {
+                color: 'purple',
+                resources: [
+                    { module: 'physique1', title: "Physique 1 (2018)", url: "https://elearning.univ-bejaia.dz/pluginfile.php/353208/mod_folder/content/0/Corrig%C3%A9%20Ex%20de%20rattrapage%20de%20Physique%201.pdf?forcedownload=1" },
+                    { module: 'chimie1', title: "Chimie 1 (2018)", url: "https://elearning.univ-bejaia.dz/pluginfile.php/353208/mod_folder/content/0/Corrig%C3%A9%20examen%20de%20ratt%20Chimie1.PDF?forcedownload=1" },
+                    { module: 'math1', title: "Math 1 (2018)", url: "https://elearning.univ-bejaia.dz/pluginfile.php/353208/mod_folder/content/0/Sujet%20et%20corrig%C3%A9%20Ex%20Rat%20Maths%201.PDF?forcedownload=1" },
+                    { module: 'mr', title: "MR (2018)", url: "https://elearning.univ-bejaia.dz/pluginfile.php/353208/mod_folder/content/0/Sujet%20et%20Corrig%C3%A9%20Ex%20Rat%20MR.PDF?forcedownload=1" }
+                ]
+            },
+            '2017': {
+                color: 'yellow',
+                resources: [
+                    { module: 'math1', title: "Math 1 (2017)", url: "https://elearning.univ-bejaia.dz/pluginfile.php/353209/mod_folder/content/0/corig%C3%A9%20de%20rattrapage%20math1.2017.pdf?forcedownload=1" },
+                    { module: 'physique1', title: "Physique 1 (2017)", url: "https://elearning.univ-bejaia.dz/pluginfile.php/353209/mod_folder/content/0/Corrig%C3%A9%20Examen_Ratt-phys1-16-17.pdf?forcedownload=1" }
+                ]
+            },
+            '2016': {
+                color: 'red',
+                resources: [
+                    { module: 'math1', title: "Corrigé Math 1 (2016)", url: "https://elearning.univ-bejaia.dz/pluginfile.php/353214/mod_folder/content/0/corig%C3%A9%20de%20rattrapage%20math1.2017.pdf?forcedownload=1" },
+                    { module: 'math1', title: "Corrigé Math 1 (écrit)", url: "https://elearning.univ-bejaia.dz/pluginfile.php/353214/mod_folder/content/0/Corrig%C3%A9%20ex%20ratt%20Maths1.PDF?forcedownload=1" },
+                    { module: 'mr', title: "Corrigé MST (2016)", url: "https://elearning.univ-bejaia.dz/pluginfile.php/353214/mod_folder/content/0/Correction%20de%20lexamen%20ratt%20MST.PDF?forcedownload=1" },
+                    { module: 'physique1', title: "Corrigé Physique 1 (2016)", url: "https://elearning.univ-bejaia.dz/pluginfile.php/353214/mod_folder/content/0/Corrig%C3%A9%20examen%20ratt%20Physique.PDF?forcedownload=1" },
+                    { module: 'physique1', title: "Physique 1 (2016)", url: "https://elearning.univ-bejaia.dz/pluginfile.php/353232/mod_resource/content/1/Examen_Ratt-phys1-16-17.pdf" }
+                ]
             }
         };
 
-        function showContent(moduleShortName, type) {
+        // Update coursResources to use the same module keys
+        const coursResources = {
+            'chimie1': { title: "Chimie 1", url: "https://elearning.univ-bejaia.dz/mod/resource/view.php?id=97220" },
+            'math1': { title: "Math 1", url: "https://elearning.univ-bejaia.dz/mod/resource/view.php?id=97221" },
+            'physique1': [
+                { title: "Physique 1 (Mme RABOUHI)", url: "https://elearning.univ-bejaia.dz/mod/resource/view.php?id=97222" },
+                { title: "Physique 1 (Mr. TARIKET)", url: "https://elearning.univ-bejaia.dz/mod/resource/view.php?id=97733" }
+            ],
+            'mr': { title: "MR/DED/MST", url: "https://elearning.univ-bejaia.dz/mod/folder/view.php?id=97635" },
+            'info1': { title: "Informatique 1", url: "https://elearning.univ-bejaia.dz/mod/url/view.php?id=9722" }
+        };
+
+        // Function to create the resourcesByYear popup content
+        function showExamContent(moduleShortName, type) {
             const popup = document.getElementById(`popup-${type}`);
             const popupTitle = document.getElementById(`popup-title-${type}`);
             const popupContent = document.getElementById(`popup-content-${type}`);
-
-            // Ensure the popup exists
-            if (!popup || !popupTitle || !popupContent) {
-                console.error(`Popup for type "${type}" not found.`);
-                return;
-            }
-
-            // Set the popup title
+            
+            // Set popup title
             const moduleName = moduleMapping[moduleShortName] || moduleShortName;
             popupTitle.textContent = `${moduleName} - ${capitalizeFirstLetter(type)}`;
-
+            
             // Clear existing content
             popupContent.innerHTML = "";
+            
+            // Add warning banner about corrigés
+            const warningBanner = document.createElement('div');
+            warningBanner.className = "mb-8 p-4 bg-yellow-50 rounded-lg border-2 border-yellow-200";
+            warningBanner.innerHTML = `
+                <p class="text-yellow-800 font-bold flex items-center">
+                    <i class="fas fa-info-circle mr-2"></i> 
+                    Tous les examens contiennent des corrigés.
+                </p>
+            `;
+            popupContent.appendChild(warningBanner);
 
-            // Handle "cours" and "examen" types
-            if (type === "cours") {
-                const resources = coursResources[moduleShortName];
-                if (resources) {
-                    const contentItem = document.createElement("div");
-                    contentItem.className = "content-item bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100";
+            // Create a section for each year with appropriate styling
+            Object.keys(resourcesByYear)
+                .sort((a, b) => parseInt(b) - parseInt(a)) // Sort years in descending order
+                .forEach(year => {
+                    const yearData = resourcesByYear[year];
+                    
+                    // Filter resources for the current module
+                    const moduleResources = yearData.resources.filter(r => 
+                        r.module.toLowerCase() === moduleShortName.toLowerCase()
+                    );
+                    
+                    if (moduleResources.length === 0) return; // Skip years with no relevant resources
+                    
+                    const colorClass = yearData.color;
+                    
+                    // Create year section
+                    const yearSection = document.createElement('div');
+                    yearSection.className = `university-section mb-6 transform transition-all duration-300 hover:scale-105 border-l-4 border-${colorClass}-600`;
+                    
+                    // Create year header
+                    const yearHeader = document.createElement('div');
+                    yearHeader.className = `section-header bg-${colorClass}-50 p-4 rounded-t-lg border-b-2 border-${colorClass}-200`;
+                    yearHeader.innerHTML = `
+                        <h3 class="text-xl font-bold text-${colorClass}-600 flex items-center gap-2">
+                            <i class="fas fa-calendar-alt"></i>
+                            Rattrapage ${year} - Université de Béjaia
+                        </h3>
+                    `;
+                    
+                    // Create content grid
+                    const contentGrid = document.createElement('div');
+                    contentGrid.className = 'content-grid grid gap-4 p-4';
+                    
+                    // Add each resource
+                    moduleResources.forEach(resource => {
+                        const contentItem = document.createElement('div');
+                        contentItem.className = 'content-item bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 transform hover:scale-102 border border-gray-100';
+                        
+                        contentItem.innerHTML = `
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <div class="icon-wrapper text-${colorClass}-500" style="background:rgba(var(--${colorClass}-rgb), 0.1);">
+                                        <i class="fas fa-file-alt text-xl"></i>
+                                    </div>
+                                    <div class="text-content">
+                                        <h4 class="font-semibold text-gray-800">${resource.title}</h4>
+                                    </div>
+                                </div>
+                                <a href="${resource.url}" target="_blank" 
+                                  class="download-btn bg-${colorClass}-50 hover:bg-${colorClass}-100 text-${colorClass}-600 px-4 py-2 rounded-full flex items-center gap-2 transition-all duration-300">
+                                    <span class="text-sm">Télécharger</span>
+                                    <i class="fas fa-download"></i>
+                                </a>
+                            </div>
+                        `;
+                        
+                        contentGrid.appendChild(contentItem);
+                    });
+                    
+                    // Assemble and add to popup
+                    yearSection.appendChild(yearHeader);
+                    yearSection.appendChild(contentGrid);
+                    popupContent.appendChild(yearSection);
+                });
+
+            // Show the popup
+            popup.classList.remove('hidden');
+        }
+
+        // Function to show course content
+        function showCourseContent(moduleShortName, type) {
+            const popup = document.getElementById(`popup-${type}`);
+            const popupTitle = document.getElementById(`popup-title-${type}`);
+            const popupContent = document.getElementById(`popup-content-${type}`);
+            
+            // Set popup title
+            const moduleName = moduleMapping[moduleShortName] || moduleShortName;
+            popupTitle.textContent = `${moduleName} - ${capitalizeFirstLetter(type)}`;
+            
+            // Clear existing content
+            popupContent.innerHTML = "";
+            
+            // Get course resources for this module
+            const resources = coursResources[moduleShortName];
+            
+            // Create section for Bejaia University
+            const bejaiaSection = document.createElement('div');
+            bejaiaSection.className = 'university-section mb-6 transform transition-all duration-300 hover:scale-105 border-l-4 border-green-600';
+            
+            // Create section header
+            const sectionHeader = document.createElement('div');
+            sectionHeader.className = 'section-header bg-green-50 p-4 rounded-t-lg border-b-2 border-green-200';
+            sectionHeader.innerHTML = `
+                <h3 class="text-xl font-bold text-green-600 flex items-center gap-2">
+                    <i class="fas fa-university"></i>
+                    Université de Béjaia
+                </h3>
+            `;
+            
+            // Create content grid
+            const contentGrid = document.createElement('div');
+            contentGrid.className = 'content-grid grid gap-4 p-4';
+            
+            // Check if resources is an array or single object
+            if (Array.isArray(resources)) {
+                resources.forEach(resource => {
+                    const contentItem = document.createElement('div');
+                    contentItem.className = 'content-item bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 transform hover:scale-102 border border-gray-100';
+                    
                     contentItem.innerHTML = `
                         <div class="flex items-center justify-between">
                             <div class="flex items-center gap-3">
@@ -322,93 +447,83 @@
                                     <i class="fas fa-book text-xl"></i>
                                 </div>
                                 <div class="text-content">
-                                    <h4 class="font-semibold text-gray-800">${resources.title}</h4>
+                                    <h4 class="font-semibold text-gray-800">${resource.title}</h4>
                                 </div>
                             </div>
-                            <a href="${resources.url}" target="_blank" 
+                            <a href="${resource.url}" target="_blank" 
                                class="download-btn bg-green-50 hover:bg-green-100 text-green-600 px-4 py-2 rounded-full flex items-center gap-2 transition-all duration-300">
                                 <span class="text-sm">Télécharger</span>
                                 <i class="fas fa-download"></i>
                             </a>
                         </div>
                     `;
-                    popupContent.appendChild(contentItem);
-                } else {
-                    popupContent.innerHTML = `
-                        <div class="text-center p-8">
-                            <i class="fas fa-exclamation-circle text-5xl text-gray-400 mb-4"></i>
-                            <p class="text-gray-500">Aucun cours disponible pour ce module</p>
+                    
+                    contentGrid.appendChild(contentItem);
+                });
+            } else if (resources) {
+                const contentItem = document.createElement('div');
+                contentItem.className = 'content-item bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 transform hover:scale-102 border border-gray-100';
+                
+                contentItem.innerHTML = `
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="icon-wrapper text-green-500" style="background:rgba(34, 197, 94, 0.1);">
+                                <i class="fas fa-book text-xl"></i>
+                            </div>
+                            <div class="text-content">
+                                <h4 class="font-semibold text-gray-800">${resources.title}</h4>
+                            </div>
                         </div>
-                    `;
-                }
-            } else if (type === "examen") {
-                let foundResources = false;
-
-                Object.keys(resourcesByYear)
-                    .sort((a, b) => parseInt(b) - parseInt(a))
-                    .forEach((year) => {
-                        const yearData = resourcesByYear[year];
-                        const moduleResources = yearData.resources.filter((r) => r.module.toLowerCase() === moduleShortName.toLowerCase());
-
-                        if (moduleResources.length > 0) {
-                            foundResources = true;
-
-                            const yearSection = document.createElement("div");
-                            yearSection.className = `university-section mb-6 transform transition-all duration-300 hover:scale-105 border-l-4 border-${yearData.color}-600`;
-
-                            const yearHeader = document.createElement("div");
-                            yearHeader.className = `section-header bg-${yearData.color}-50 p-4 rounded-t-lg border-b-2 border-${yearData.color}-200`;
-                            yearHeader.innerHTML = `
-                                <h3 class="text-xl font-bold text-${yearData.color}-600 flex items-center gap-2">
-                                    <i class="fas fa-calendar-alt"></i>
-                                    Rattrapage ${year} - Université de Béjaia
-                                </h3>
-                            `;
-
-                            const contentGrid = document.createElement("div");
-                            contentGrid.className = "content-grid grid gap-4 p-4";
-
-                            moduleResources.forEach((resource) => {
-                                const contentItem = document.createElement("div");
-                                contentItem.className = "content-item bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100";
-                                contentItem.innerHTML = `
-                                    <div class="flex items-center justify-between">
-                                        <div class="flex items-center gap-3">
-                                            <div class="icon-wrapper text-${yearData.color}-500" style="background:rgba(var(--${yearData.color}-rgb), 0.1);">
-                                                <i class="fas fa-file-alt text-xl"></i>
-                                            </div>
-                                            <div class="text-content">
-                                                <h4 class="font-semibold text-gray-800">${resource.title}</h4>
-                                            </div>
-                                        </div>
-                                        <a href="${resource.url}" target="_blank" 
-                                           class="download-btn bg-${yearData.color}-50 hover:bg-${yearData.color}-100 text-${yearData.color}-600 px-4 py-2 rounded-full flex items-center gap-2 transition-all duration-300">
-                                            <span class="text-sm">Télécharger</span>
-                                            <i class="fas fa-download"></i>
-                                        </a>
-                                    </div>
-                                `;
-                                contentGrid.appendChild(contentItem);
-                            });
-
-                            yearSection.appendChild(yearHeader);
-                            yearSection.appendChild(contentGrid);
-                            popupContent.appendChild(yearSection);
-                        }
-                    });
-
-                if (!foundResources) {
-                    popupContent.innerHTML = `
-                        <div class="text-center p-8">
-                            <i class="fas fa-exclamation-circle text-5xl text-gray-400 mb-4"></i>
-                            <p class="text-gray-500">Aucun examen disponible pour ce module</p>
-                        </div>
-                    `;
-                }
+                        <a href="${resources.url}" target="_blank" 
+                           class="download-btn bg-green-50 hover:bg-green-100 text-green-600 px-4 py-2 rounded-full flex items-center gap-2 transition-all duration-300">
+                            <span class="text-sm">Télécharger</span>
+                            <i class="fas fa-download"></i>
+                        </a>
+                    </div>
+                `;
+                
+                contentGrid.appendChild(contentItem);
+            } else {
+                contentGrid.innerHTML = `
+                    <div class="text-center p-8">
+                        <i class="fas fa-exclamation-circle text-5xl text-gray-400 mb-4"></i>
+                        <p class="text-gray-500">Aucun cours disponible pour ce module</p>
+                    </div>
+                `;
             }
-
+            
+            // Assemble and add to popup
+            bejaiaSection.appendChild(sectionHeader);
+            bejaiaSection.appendChild(contentGrid);
+            popupContent.appendChild(bejaiaSection);
+            
             // Show the popup
-            popup.classList.remove("hidden");
+            popup.classList.remove('hidden');
+        }
+
+        // Update the existing showContent function to use our new specialized functions
+        function showContent(moduleShortName, type) {
+            if (type === 'examen') {
+                showExamContent(moduleShortName, type);
+            } else if (type === 'cours') {
+                showCourseContent(moduleShortName, type);
+            } else {
+                // Fallback to original behavior
+                const popup = document.getElementById(`popup-${type}`);
+                const popupTitle = document.getElementById(`popup-title-${type}`);
+                const popupContent = document.getElementById(`popup-content-${type}`);
+                
+                popupTitle.textContent = `${moduleShortName} - ${capitalizeFirstLetter(type)}`;
+                
+                popupContent.innerHTML = `
+                    <div class="text-center p-8">
+                        <i class="fas fa-exclamation-circle text-5xl text-gray-400 mb-4"></i>
+                        <p class="text-gray-500">Contenu non disponible pour ce module</p>
+                    </div>
+                `;
+                
+                popup.classList.remove('hidden');
+            }
         }
 
         // Close popup functionality
@@ -432,6 +547,10 @@
                 });
             });
         });
+
+        function capitalizeFirstLetter(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
     </script>
 
     <style>
@@ -720,46 +839,47 @@
             '2023': {
                 color: 'blue',
                 resources: [
-                    { module: 'Physique 1', title: "Physique 1 (2023)", url: "https://elearning.univ-bejaia.dz/mod/resource/view.php?id=347476" },
-                    { module: 'Math 1', title: "Math 1 (2023)", url: "https://elearning.univ-bejaia.dz/mod/resource/view.php?id=347689" },
-                    { module: 'DED', title: "DED (2023)", url: "https://elearning.univ-bejaia.dz/mod/resource/view.php?id=347176" },
-                    { module: 'MST', title: "MST (2023)", url: "https://elearning.univ-bejaia.dz/mod/resource/view.php?id=346748" },
-                    { module: 'MR', title: "MR (2023)", url: "https://elearning.univ-bejaia.dz/mod/resource/view.php?id=347178" },
-                    { module: 'Informatique 1', title: "Informatique 1 (2023)", url: "https://elearning.univ-bejaia.dz/mod/resource/view.php?id=347360" }
+                    { module: 'physique1', title: "Physique 1 (2023)", url: "https://elearning.univ-bejaia.dz/mod/resource/view.php?id=347476" },
+                    { module: 'math1', title: "Math 1 (2023)", url: "https://elearning.univ-bejaia.dz/mod/resource/view.php?id=347689" },
+                    { module: 'mr', title: "DED (2023)", url: "https://elearning.univ-bejaia.dz/mod/resource/view.php?id=347176" },
+                    { module: 'mr', title: "MST (2023)", url: "https://elearning.univ-bejaia.dz/mod/resource/view.php?id=346748" },
+                    { module: 'mr', title: "MR (2023)", url: "https://elearning.univ-bejaia.dz/mod/resource/view.php?id=347178" },
+                    { module: 'info1', title: "Informatique 1 (2023)", url: "https://elearning.univ-bejaia.dz/mod/resource/view.php?id=347360" }
                 ]
             },
             '2022': {
                 color: 'green',
                 resources: [
-                    { module: 'Chimie 1', title: "Chimie 1 (2022)", url: "https://elearning.univ-bejaia.dz/mod/resource/view.php?id=293063" },
-                    { module: 'Informatique 1', title: "Informatique 1 (2022)", url: "https://elearning.univ-bejaia.dz/mod/resource/view.php?id=293065" },
-                    { module: 'Math 1', title: "Math 1 (2022)", url: "https://elearning.univ-bejaia.dz/mod/resource/view.php?id=294020" },
-                    { module: 'Physique 1', title: "Physique 1 (2022)", url: "https://elearning.univ-bejaia.dz/mod/resource/view.php?id=294024" }
+                    { module: 'chimie1', title: "Chimie 1 (2022)", url: "https://elearning.univ-bejaia.dz/mod/resource/view.php?id=293063" },
+                    { module: 'info1', title: "Informatique 1 (2022)", url: "https://elearning.univ-bejaia.dz/mod/resource/view.php?id=293065" },
+                    { module: 'math1', title: "Math 1 (2022)", url: "https://elearning.univ-bejaia.dz/mod/resource/view.php?id=294020" },
+                    { module: 'physique1', title: "Physique 1 (2022)", url: "https://elearning.univ-bejaia.dz/mod/resource/view.php?id=294024" }
                 ]
             },
             '2018': {
                 color: 'purple',
                 resources: [
-                    { module: 'Physique 1', title: "Physique 1 (2018)", url: "https://elearning.univ-bejaia.dz/pluginfile.php/353208/mod_folder/content/0/Corrig%C3%A9%20Ex%20de%20rattrapage%20de%20Physique%201.pdf?forcedownload=1" },
-                    { module: 'Chimie 1', title: "Chimie 1 (2018)", url: "https://elearning.univ-bejaia.dz/pluginfile.php/353208/mod_folder/content/0/Corrig%C3%A9%20examen%20de%20ratt%20Chimie1.PDF?forcedownload=1" },
-                    { module: 'Math 1', title: "Math 1 (2018)", url: "https://elearning.univ-bejaia.dz/pluginfile.php/353208/mod_folder/content/0/Sujet%20et%20corrig%C3%A9%20Ex%20Rat%20Maths%201.PDF?forcedownload=1" },
-                    { module: 'MR', title: "MR (2018)", url: "https://elearning.univ-bejaia.dz/pluginfile.php/353208/mod_folder/content/0/Sujet%20et%20Corrig%C3%A9%20Ex%20Rat%20MR.PDF?forcedownload=1" }
+                    { module: 'physique1', title: "Physique 1 (2018)", url: "https://elearning.univ-bejaia.dz/pluginfile.php/353208/mod_folder/content/0/Corrig%C3%A9%20Ex%20de%20rattrapage%20de%20Physique%201.pdf?forcedownload=1" },
+                    { module: 'chimie1', title: "Chimie 1 (2018)", url: "https://elearning.univ-bejaia.dz/pluginfile.php/353208/mod_folder/content/0/Corrig%C3%A9%20examen%20de%20ratt%20Chimie1.PDF?forcedownload=1" },
+                    { module: 'math1', title: "Math 1 (2018)", url: "https://elearning.univ-bejaia.dz/pluginfile.php/353208/mod_folder/content/0/Sujet%20et%20corrig%C3%A9%20Ex%20Rat%20Maths%201.PDF?forcedownload=1" },
+                    { module: 'mr', title: "MR (2018)", url: "https://elearning.univ-bejaia.dz/pluginfile.php/353208/mod_folder/content/0/Sujet%20et%20Corrig%C3%A9%20Ex%20Rat%20MR.PDF?forcedownload=1" }
                 ]
             },
             '2017': {
-                color: 'amber',
+                color: 'yellow',
                 resources: [
-                    { module: 'Math 1', title: "Math 1 (2017)", url: "https://elearning.univ-bejaia.dz/pluginfile.php/353209/mod_folder/content/0/corig%C3%A9%20de%20rattrapage%20math1.2017.pdf?forcedownload=1" },
-                    { module: 'Physique 1', title: "Physique 1 (2017)", url: "https://elearning.univ-bejaia.dz/pluginfile.php/353209/mod_folder/content/0/Corrig%C3%A9%20Examen_Ratt-phys1-16-17.pdf?forcedownload=1" }
+                    { module: 'math1', title: "Math 1 (2017)", url: "https://elearning.univ-bejaia.dz/pluginfile.php/353209/mod_folder/content/0/corig%C3%A9%20de%20rattrapage%20math1.2017.pdf?forcedownload=1" },
+                    { module: 'physique1', title: "Physique 1 (2017)", url: "https://elearning.univ-bejaia.dz/pluginfile.php/353209/mod_folder/content/0/Corrig%C3%A9%20Examen_Ratt-phys1-16-17.pdf?forcedownload=1" }
                 ]
             },
             '2016': {
                 color: 'red',
                 resources: [
-                    { module: 'Math 1', title: "Math 1 (2016)", url: "https://elearning.univ-bejaia.dz/pluginfile.php/353214/mod_folder/content/0/corig%C3%A9%20de%20rattrapage%20math1.2017.pdf?forcedownload=1" },
-                    { module: 'Math 1 (écrit)', title: "Math 1 écrit (2016)", url: "https://elearning.univ-bejaia.dz/pluginfile.php/353214/mod_folder/content/0/Corrig%C3%A9%20ex%20ratt%20Maths1.PDF?forcedownload=1" },
-                    { module: 'MST', title: "MST (2016)", url: "https://elearning.univ-bejaia.dz/pluginfile.php/353214/mod_folder/content/0/Correction%20de%20lexamen%20ratt%20MST.PDF?forcedownload=1" },
-                    { module: 'Physique 1', title: "Physique 1 (2016)", url: "https://elearning.univ-bejaia.dz/pluginfile.php/353214/mod_folder/content/0/Corrig%C3%A9%20examen%20ratt%20Physique.PDF?forcedownload=1" }
+                    { module: 'math1', title: "Corrigé Math 1 (2016)", url: "https://elearning.univ-bejaia.dz/pluginfile.php/353214/mod_folder/content/0/corig%C3%A9%20de%20rattrapage%20math1.2017.pdf?forcedownload=1" },
+                    { module: 'math1', title: "Corrigé Math 1 (écrit)", url: "https://elearning.univ-bejaia.dz/pluginfile.php/353214/mod_folder/content/0/Corrig%C3%A9%20ex%20ratt%20Maths1.PDF?forcedownload=1" },
+                    { module: 'mr', title: "Corrigé MST (2016)", url: "https://elearning.univ-bejaia.dz/pluginfile.php/353214/mod_folder/content/0/Correction%20de%20lexamen%20ratt%20MST.PDF?forcedownload=1" },
+                    { module: 'physique1', title: "Corrigé Physique 1 (2016)", url: "https://elearning.univ-bejaia.dz/pluginfile.php/353214/mod_folder/content/0/Corrig%C3%A9%20examen%20ratt%20Physique.PDF?forcedownload=1" },
+                    { module: 'physique1', title: "Physique 1 (2016)", url: "https://elearning.univ-bejaia.dz/pluginfile.php/353232/mod_resource/content/1/Examen_Ratt-phys1-16-17.pdf" }
                 ]
             }
         };
@@ -771,9 +891,8 @@
                 { title: "Physique 1 (Mme RABOUHI)", url: "https://elearning.univ-bejaia.dz/mod/resource/view.php?id=97222" },
                 { title: "Physique 1 (Mr. TARIKET)", url: "https://elearning.univ-bejaia.dz/mod/resource/view.php?id=97733" }
             ],
-            'mst': { title: "MST", url: "https://elearning.univ-bejaia.dz/mod/resource/view.php?id=90531" },
-            'info1': { title: "Informatique 1", url: "https://elearning.univ-bejaia.dz/mod/url/view.php?id=9722" },
-            'mr': { title: "MR", url: "https://elearning.univ-bejaia.dz/mod/folder/view.php?id=97635" }
+            'mr': { title: "MR/DED/MST", url: "https://elearning.univ-bejaia.dz/mod/folder/view.php?id=97635" },
+            'info1': { title: "Informatique 1", url: "https://elearning.univ-bejaia.dz/mod/url/view.php?id=9722" }
         };
 
         // Function to create the resourcesByYear popup content
@@ -808,7 +927,7 @@
                     
                     // Filter resources for the current module
                     const moduleResources = yearData.resources.filter(r => 
-                        r.module.toLowerCase().includes(moduleShortName.toLowerCase())
+                        r.module.toLowerCase() === moduleShortName.toLowerCase()
                     );
                     
                     if (moduleResources.length === 0) return; // Skip years with no relevant resources
