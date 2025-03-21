@@ -660,38 +660,6 @@
 </div>
 
             <!-- Replace the existing affichage-card div -->
-<div class="affichage-card mt-8" data-aos="fade-up">
-    <a href="affichage.html" class="block">
-        <div class="p-8 rounded-2xl shadow-2xl bg-gradient-to-br from-indigo-600 via-violet-600 to-purple-600 hover:from-indigo-700 hover:via-violet-700 hover:to-purple-700 transform hover:-translate-y-1 transition-all duration-500 relative overflow-hidden">
-            <!-- Animated background effect -->
-            <div class="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent animate-wave"></div>
-            
-            <div class="flex items-center justify-between relative z-10">
-                <div class="flex items-center space-x-6">
-                    <div class="service-icon bg-white/15 backdrop-blur-xl p-5 rounded-2xl rotate-on-hover">
-                        <i class="fas fa-bullhorn text-4xl text-white animate-pulse"></i>
-                    </div>
-                    <div class="flex-1">
-                        <h2 class="text-3xl font-bold text-white mb-2 glow-text">Affichage</h2>
-                        <p class="text-indigo-100 text-lg">Consultez les dernières actualités et annonces importantes</p>
-                    </div>
-                </div>
-                <div class="hidden md:flex items-center text-white/90">
-                    <i class="fas fa-arrow-right text-2xl arrow-animate"></i>
-                </div>
-            </div>
-            
-            <div class="mt-6 flex items-center justify-end relative z-10">
-                <div class="inline-flex items-center bg-white/15 backdrop-blur-xl rounded-xl px-4 py-2 border border-white/10">
-                    <i class="fas fa-clock text-indigo-200 mr-2 animate-pulse"></i>
-                    <span class="text-indigo-100 live-timestamp">
-                        Dernière mise à jour: <span class="font-semibold" id="lastUpdateTime"></span>
-                    </span>
-                </div>
-            </div>
-        </div>
-    </a>
-</div>
 
 <!-- Add this right after the existing affichage-card div -->
 <div class="affichage-card mt-8" data-aos="fade-up" style="display: none;">
@@ -799,9 +767,26 @@
         </div>
     </div>
 
-    <footer class="text-center text-gray-600 text-sm py-4">
-        <div>&copy; 2025 Université de Bejaia. Développé par <a href="mailto:mehdi.amara@icloud.com" class="text-blue-500 hover:text-blue-700">Amara Mehdi</a></div>
-    </footer>
+    <footer class="text-center py-6 bg-gradient-to-r from-indigo-900 via-blue-900 to-indigo-900 text-white relative overflow-hidden">
+    <!-- Animated background elements -->
+    <div class="absolute inset-0 opacity-20">
+        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-400 to-purple-400 animate-pulse"></div>
+        <div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-purple-400 to-blue-400 animate-pulse"></div>
+    </div>
+
+    <div class="container mx-auto px-4 relative z-10">
+        <div class="copyright-text mb-2">
+            <span class="font-bold text-lg">&copy; 2025 Université de Béjaïa</span>
+            <span class="mx-2">|</span>
+            <span>Développé par <a href="mailto:mehdi.amara@icloud.com" class="text-blue-300 hover:text-blue-100 transition-colors duration-300 border-b border-blue-400 hover:border-blue-200">Amara Mehdi</a></span>
+        </div>
+        
+        <div class="license-text text-xs text-gray-300 max-w-2xl mx-auto">
+            <p class="mb-1"><strong>TOUS DROITS RÉSERVÉS</strong></p>
+            <p>La reproduction, l'utilisation ou la distribution de ce site web, en tout ou en partie, est strictement interdite sans l'autorisation écrite préalable du développeur. Toute utilisation non autorisée constitue une violation des lois sur le droit d'auteur et la propriété intellectuelle.</p>
+        </div>
+    </div>
+</footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
