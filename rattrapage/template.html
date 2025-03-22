@@ -710,7 +710,137 @@
         .module-btn:active {
             transform: translateY(0px);
         }
+
+        /* Mobile optimizations */
+        @media (max-width: 640px) {
+            /* 1. Smaller font sizes and flexible headings */
+            h1, h2, #popup-title-cours, #popup-title-examen, #popup-title-td {
+                font-size: 1.5rem !important; /* Smaller headings */
+            }
+            
+            h3, .text-xl {
+                font-size: 1.1rem !important; /* Smaller sub-headings */
+            }
+            
+            .text-sm, .download-btn {
+                font-size: 0.8rem !important; /* Even smaller text */
+            }
+            
+            /* 2. Make content items stack vertically on mobile */
+            .content-item .flex {
+                flex-direction: column;
+                align-items: flex-start !important;
+            }
+            
+            .content-item .flex > div {
+                margin-bottom: 0.75rem;
+                width: 100%;
+            }
+            
+            /* Make download buttons full width on mobile */
+            .download-btn {
+                width: 100%;
+                justify-content: center;
+                margin-top: 0.5rem;
+            }
+            
+            /* 3. Ensure popup windows are fully visible with better scrolling */
+            .glass-card {
+                max-height: 85vh;
+                max-width: 95vw;
+                padding: 1rem !important;
+                margin: 1rem;
+            }
+            
+            .popup-content {
+                max-height: 65vh;
+                padding-right: 0.5rem;
+                -webkit-overflow-scrolling: touch; /* Smooth scrolling for iOS */
+            }
+            
+            /* 4. Replace hover effects with tap-friendly interactions */
+            .university-section:hover {
+                transform: none !important; /* Remove hover transform */
+            }
+            
+            .university-section:active {
+                background-color: rgba(249, 250, 251, 0.9) !important;
+            }
+            
+            .content-item:hover {
+                transform: none !important; /* Remove hover transform */
+            }
+            
+            .content-item:active {
+                background-color: #f5f5f5 !important;
+            }
+            
+            /* 5. Simplify animations for better performance */
+            .recommended-content {
+                animation: none !important; /* Disable pulse animation */
+            }
+            
+            .exclusive-2025 {
+                animation: none !important; /* Disable glow animation */
+                box-shadow: 0 0 10px rgba(34, 197, 94, 0.3); /* Static shadow instead */
+            }
+            
+            /* 6. Improve button tap areas */
+            .module-btn {
+                padding: 0.75rem 1rem;
+                margin-bottom: 0.5rem;
+                min-width: 120px;
+                justify-content: center;
+            }
+            
+            .close-popup-btn {
+                padding: 0.75rem 1rem;
+            }
+            
+            /* 7. Improved grid for module cards */
+            .grid {
+                grid-template-columns: 1fr !important;
+            }
+            
+            .content-grid {
+                grid-template-columns: 1fr !important;
+            }
+            
+            /* 8. Fix module card height and spacing */
+            .module-card {
+                margin-bottom: 1rem;
+                height: auto !important;
+            }
+            
+            /* 9. Adjust icons for better visibility */
+            .icon-wrapper {
+                width: 36px !important;
+                height: 36px !important;
+            }
+            
+            /* 10. Fix spacing in header for mobile */
+            .header-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .back-button {
+                margin-bottom: 1rem;
+            }
+        }
+        
+        /* Add active state styles for better touch feedback */
+        .module-btn:active {
+            transform: scale(0.95);
+            opacity: 0.9;
+        }
+        
+        .download-btn:active {
+            transform: scale(0.95);
+            opacity: 0.9;
+        }
     </style>
+
     <script type="module">
         import features from './js/fe';
         // Features are automatically initialized
@@ -718,6 +848,49 @@
     <script type="module">
         import features from './js/features-integration.js';
         // Features are automatically initialized
+    </script>
+
+    <!-- Add this script to further enhance mobile interactions -->
+    <script>
+        // Existing scripts...
+        
+        // Add this to your existing DOMContentLoaded event handler
+        document.addEventListener('DOMContentLoaded', function() {
+            // Existing code...
+            
+            // Add tap effect for mobile devices
+            function addTapEffect(elements) {
+                elements.forEach(el => {
+                    el.addEventListener('touchstart', () => {
+                        el.classList.add('tapped');
+                    }, { passive: true });
+                    
+                    el.addEventListener('touchend', () => {
+                        el.classList.remove('tapped');
+                    }, { passive: true });
+                });
+            }
+            
+            // Apply tap effects to interactive elements
+            addTapEffect(document.querySelectorAll('.module-btn, .download-btn, .close-popup-btn'));
+            
+            // Optimize scrolling for touch devices
+            const popupContents = document.querySelectorAll('.popup-content');
+            popupContents.forEach(content => {
+                content.style.webkitOverflowScrolling = 'touch';
+            });
+            
+            // Detect mobile browser and add class to body
+            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            if (isMobile) {
+                document.body.classList.add('mobile-device');
+                
+                // Disable animations to improve performance
+                document.querySelectorAll('.recommended-content, .exclusive-2025').forEach(el => {
+                    el.style.animation = 'none';
+                });
+            }
+        });
     </script>
 </body>
 </html>
