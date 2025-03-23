@@ -767,26 +767,287 @@
         </div>
     </div>
 
-    <footer class="text-center py-6 bg-gradient-to-r from-indigo-900 via-blue-900 to-indigo-900 text-white relative overflow-hidden">
-    <!-- Animated background elements -->
-    <div class="absolute inset-0 opacity-20">
-        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-400 to-purple-400 animate-pulse"></div>
-        <div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-purple-400 to-blue-400 animate-pulse"></div>
-    </div>
-
-    <div class="container mx-auto px-4 relative z-10">
-        <div class="copyright-text mb-2">
-            <span class="font-bold text-lg">&copy; 2025 Université de Béjaïa</span>
-            <span class="mx-2">|</span>
-            <span>Développé par <a href="mailto:mehdi.amara@icloud.com" class="text-blue-300 hover:text-blue-100 transition-colors duration-300 border-b border-blue-400 hover:border-blue-200">Amara Mehdi</a></span>
+    <!-- Password Protection Overlay -->
+    <footer class="py-8 bg-gradient-to-r from-blue-50 to-green-50 border-t border-gray-200 mt-auto relative overflow-hidden">
+        <!-- Animated background elements -->
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+            <div class="footer-bubble" style="top: 10%; left: 5%; width: 250px; height: 250px; background: radial-gradient(circle, rgba(59, 130, 246, 0.05) 0%, rgba(16, 185, 129, 0.05) 100%); animation: float 15s ease-in-out infinite;"></div>
+            <div class="footer-bubble" style="top: 60%; left: 75%; width: 300px; height: 300px; background: radial-gradient(circle, rgba(16, 185, 129, 0.05) 0%, rgba(59, 130, 246, 0.05) 100%); animation: float 20s ease-in-out infinite alternate;"></div>
+            <div class="footer-bubble" style="top: 30%; left: 40%; width: 200px; height: 200px; background: radial-gradient(circle, rgba(249, 168, 212, 0.05) 0%, rgba(16, 185, 129, 0.05) 100%); animation: float 17s ease-in-out infinite alternate-reverse;"></div>
         </div>
         
-        <div class="license-text text-xs text-gray-300 max-w-2xl mx-auto">
-            <p class="mb-1"><strong>TOUS DROITS RÉSERVÉS</strong></p>
-            <p>La reproduction, l'utilisation ou la distribution de ce site web, en tout ou en partie, est strictement interdite sans l'autorisation écrite préalable du développeur. Toute utilisation non autorisée constitue une violation des lois sur le droit d'auteur et la propriété intellectuelle.</p>
+        <div class="container mx-auto px-4 relative z-10">
+            <!-- Main Footer Content -->
+            <div class="flex flex-col md:flex-row items-center justify-between mb-6">
+                <div class="mb-6 md:mb-0 text-center md:text-left">
+                    <div class="flex items-center justify-center md:justify-start mb-3 transform transition hover:scale-105 duration-300">
+                        <div class="w-12 h-12 bg-white rounded-full shadow-sm p-2 mr-3 flex items-center justify-center pulse-animation">
+                            <img src="assets/img/LOGO.png" alt="Logo" class="h-8">
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-800">Université de Béjaia</h3>
+                            <p class="text-sm text-gray-600">Faculté de Technologie</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-600 mt-2 hover-slide-animation">Plateforme de ressources académiques pour les étudiants</p>
+                </div>
+                
+                <div class="flex flex-col items-center md:items-end">
+                    <div class="mb-4 transform transition hover:scale-105 duration-300">
+                        <span class="inline-block px-4 py-1 bg-green-100 text-green-600 rounded-full text-sm font-medium">
+                            <i class="fas fa-check-circle mr-1 animate-pulse"></i> Mise à jour Mars 2025
+                        </span>
+                    </div>
+                    
+                    <div class="flex space-x-3 mb-3 social-icons-container">
+                        <a href="https://www.facebook.com/univ.bejaia" class="social-icon bg-gradient-to-r from-blue-50 to-blue-100 text-blue-600 hover:from-blue-600 hover:to-blue-500 hover:text-white transform transition-all duration-300" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/school/universit%C3%A9-de-bejaia/" class="social-icon bg-gradient-to-r from-blue-50 to-blue-100 text-blue-600 hover:from-blue-600 hover:to-blue-500 hover:text-white transform transition-all duration-300" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="https://twitter.com/exspottedbejaia" class="social-icon bg-gradient-to-r from-blue-50 to-blue-100 text-blue-600 hover:from-blue-600 hover:to-blue-500 hover:text-white transform transition-all duration-300" aria-label="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="https://instagram.com/spot_campuselkseur" class="social-icon bg-gradient-to-r from-blue-50 to-blue-100 text-blue-600 hover:from-blue-600 hover:to-blue-500 hover:text-white transform transition-all duration-300" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://snapchat.com/add/campuselkseur" class="social-icon bg-gradient-to-r from-blue-50 to-blue-100 text-blue-600 hover:from-blue-600 hover:to-blue-500 hover:text-white transform transition-all duration-300" aria-label="Snapchat">
+                            <i class="fab fa-snapchat-ghost"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Navigation Links -->
+            <div class="border-t border-gray-200 pt-6 mt-2">
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 text-sm">
+                    <div class="text-center sm:text-left footer-column">
+                        <h4 class="font-semibold text-gray-800 mb-3 flex items-center justify-center sm:justify-start">
+                            <i class="fas fa-link text-green-500 mr-2"></i>
+                            Liens Rapides
+                        </h4>
+                        <ul class="space-y-2 footer-links">
+                            <li><a href="/" class="text-gray-600 hover:text-blue-600 transition-colors flex items-center justify-center sm:justify-start"><i class="fas fa-chevron-right text-xs text-green-500 mr-2"></i>Accueil</a></li>
+                            <li><a href="/specialites.html" class="text-gray-600 hover:text-blue-600 transition-colors flex items-center justify-center sm:justify-start"><i class="fas fa-chevron-right text-xs text-green-500 mr-2"></i>Spécialités</a></li>
+                            <li><a href="/contact.html" class="text-gray-600 hover:text-blue-600 transition-colors flex items-center justify-center sm:justify-start"><i class="fas fa-chevron-right text-xs text-green-500 mr-2"></i>Contact</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="text-center sm:text-left footer-column">
+                        <h4 class="font-semibold text-gray-800 mb-3 flex items-center justify-center sm:justify-start">
+                            <i class="fas fa-question-circle text-green-500 mr-2"></i>
+                            Support
+                        </h4>
+                        <ul class="space-y-2 footer-links">
+                            <li><a href="#" onclick="showPopup('faq'); return false;" class="text-gray-600 hover:text-blue-600 transition-colors flex items-center justify-center sm:justify-start"><i class="fas fa-chevron-right text-xs text-green-500 mr-2"></i>FAQ</a></li>
+                            <li><a href="#" onclick="showPopup('signaler'); return false;" class="text-gray-600 hover:text-blue-600 transition-colors flex items-center justify-center sm:justify-start"><i class="fas fa-chevron-right text-xs text-green-500 mr-2"></i>Signaler un problème</a></li>
+                            <li><a href="#" onclick="showPopup('contribuer'); return false;" class="text-gray-600 hover:text-blue-600 transition-colors flex items-center justify-center sm:justify-start"><i class="fas fa-chevron-right text-xs text-green-500 mr-2"></i>Contribuer</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="text-center sm:text-left footer-column">
+                        <h4 class="font-semibold text-gray-800 mb-3 flex items-center justify-center sm:justify-start">
+                            <i class="fas fa-shield-alt text-green-500 mr-2"></i>
+                            Légal
+                        </h4>
+                        <ul class="space-y-2 footer-links">
+                            <li><a href="#" onclick="showPopup('conditions'); return false;" class="text-gray-600 hover:text-blue-600 transition-colors flex items-center justify-center sm:justify-start"><i class="fas fa-chevron-right text-xs text-green-500 mr-2"></i>Conditions d'utilisation</a></li>
+                            <li><a href="#" onclick="showPopup('conditions'); return false;" class="text-gray-600 hover:text-blue-600 transition-colors flex items-center justify-center sm:justify-start"><i class="fas fa-chevron-right text-xs text-green-500 mr-2"></i>Politique de confidentialité</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="text-center sm:text-left footer-column">
+                        <h4 class="font-semibold text-gray-800 mb-3 flex items-center justify-center sm:justify-start">
+                            <i class="fas fa-code text-green-500 mr-2"></i>
+                            Développeur
+                        </h4>
+                        <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100 developer-card transform transition hover:shadow-md duration-300">
+                            <div class="flex items-center justify-center sm:justify-start mb-2">
+                                <div class="w-10 h-10 bg-blue-50 rounded-full flex items-center justify-center mr-3">
+                                    <i class="fas fa-user-circle text-blue-500 text-lg"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium text-gray-800">Amara Mehdi</p>
+                                    <a href="mailto:mehdi.amara@tech.univ-bejaia.dz" class="text-blue-600 hover:text-blue-800 text-xs">mehdi.amara@tech.univ-bejaia.dz</a>
+                                </div>
+                            </div>
+                            <div class="text-xs text-gray-500 mt-2">
+                                <p>Version 1.2.5</p>
+                                <p>&copy; 2025 Tous droits réservés</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Footer bottom -->
+            <div class="mt-8 pt-6 border-t border-gray-200 text-center">
+                <p class="text-sm text-gray-500">
+                    <span class="typing-animation">Campus Elkseur, Université de Béjaia - Créé avec <i class="fas fa-heart text-red-500 animate-pulse"></i> pour les étudiants</span>
+                </p>
+            </div>
         </div>
-    </div>
-</footer>
+    </footer>
+    
+    <style>
+        /* Footer animations */
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+            100% { transform: translateY(0) rotate(0deg); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .pulse-animation {
+            animation: pulse 3s infinite ease-in-out;
+        }
+        
+        .hover-slide-animation {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hover-slide-animation::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: #3b82f6;
+            transition: width 0.3s ease;
+        }
+        
+        .hover-slide-animation:hover::after {
+            width: 100%;
+        }
+        
+        /* Social icons container with animation */
+        .social-icons-container {
+            display: flex;
+        }
+        
+        .social-icons-container .social-icon {
+            transition: all 0.3s ease;
+        }
+        
+        .social-icons-container:hover .social-icon {
+            transform: translateY(-3px);
+        }
+        
+        .social-icons-container .social-icon:hover {
+            transform: translateY(-7px) scale(1.1);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Footer links animation */
+        .footer-links li a {
+            position: relative;
+            transition: transform 0.3s ease, color 0.3s ease;
+            padding-left: 0;
+        }
+        
+        .footer-links li a:hover {
+            transform: translateX(5px);
+        }
+        
+        .footer-links li a i {
+            transition: transform 0.3s ease;
+        }
+        
+        .footer-links li a:hover i {
+            transform: translateX(3px);
+        }
+        
+        /* Footer column animation */
+        .footer-column {
+            transition: transform 0.3s ease;
+        }
+        
+        .footer-column:hover {
+            transform: translateY(-5px);
+        }
+        
+        /* Developer card animation */
+        .developer-card {
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+        }
+        
+        .developer-card:hover {
+            border-left-color: #3b82f6;
+            transform: translateX(5px);
+        }
+        
+        /* Typing animation */
+        .typing-animation {
+            display: inline-block;
+            overflow: hidden;
+            white-space: nowrap;
+            animation: typing 10s steps(40, end) infinite;
+        }
+        
+        @keyframes typing {
+            0%, 100% { width: 0 }
+            50% { width: 100% }
+        }
+        
+        /* Footer social icons */
+        .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        /* Active state for touch devices */
+        .social-icon:active {
+            transform: scale(0.9);
+        }
+        
+        /* Mobile optimization for footer */
+        @media (max-width: 640px) {
+            .social-icon {
+                width: 40px; /* Larger tap target on mobile */
+                height: 40px;
+            }
+            
+            .footer-bubble {
+                opacity: 0.3;
+            }
+            
+            .typing-animation {
+                white-space: normal;
+                animation: none;
+            }
+            
+            footer {
+                text-align: center;
+            }
+            
+            footer .grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            footer h4::after {
+                content: '';
+                display: block;
+                width: 40px;
+                height: 2px;
+                background-color: #3b82f6;
+                margin: 0.5rem auto 0;
+            }
+        }
+    </style>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
