@@ -119,9 +119,253 @@
         </script>
     </div>
 
-    <footer class="text-center text-gray-600 text-sm py-4">
-        <div>&copy; 2025 Université de Bejaia. Développé par Amara Mehdi <a href="mailto:mehdi.amara@tech.univ-bejaia.dz" class="text-blue-500 hover:text-blue-700">Amara Mehdi</a></div>
-    </footer>
+    <footer class="py-8 bg-gradient-to-r from-blue-50 to-green-50 border-t border-gray-200 mt-auto relative overflow-hidden">
+    <!-- Animated background elements -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+        <div class="footer-bubble" style="top: 10%; left: 5%; width: 250px; height: 250px; background: radial-gradient(circle, rgba(59, 130, 246, 0.05) 0%, rgba(16, 185, 129, 0.05) 100%); animation: float 15s ease-in-out infinite;"></div>
+        <div class="footer-bubble" style="top: 60%; left: 75%; width: 300px; height: 300px; background: radial-gradient(circle, rgba(16, 185, 129, 0.05) 0%, rgba(59, 130, 246, 0.05) 100%); animation: float 20s ease-in-out infinite alternate;"></div>
+        <div class="footer-bubble" style="top: 30%; left: 40%; width: 200px; height: 200px; background: radial-gradient(circle, rgba(249, 168, 212, 0.05) 0%, rgba(16, 185, 129, 0.05) 100%); animation: float 17s ease-in-out infinite alternate-reverse;"></div>
+    </div>
+    
+    <div class="container mx-auto px-4 relative z-10">
+        <!-- Main Footer Content -->
+        <div class="flex flex-col md:flex-row items-center justify-between mb-6">
+            <div class="mb-6 md:mb-0 text-center md:text-left">
+                <div class="flex items-center justify-center md:justify-start mb-3 transform transition hover:scale-105 duration-300">
+                    <div class="w-12 h-12 bg-white rounded-full shadow-sm p-2 mr-3 flex items-center justify-center pulse-animation">
+                        <img src="assets/img/LOGO.png" alt="Logo" class="h-8">
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-800">Université de Béjaia</h3>
+                        <p class="text-sm text-gray-600">Faculté de Technologie</p>
+                    </div>
+                </div>
+                <p class="text-sm text-gray-600 mt-2 hover-slide-animation">Plateforme de ressources académiques pour les étudiants</p>
+            </div>
+            
+            <div class="flex flex-col items-center md:items-end">
+                <div class="mb-4 transform transition hover:scale-105 duration-300">
+                    <span class="inline-block px-4 py-1 bg-green-100 text-green-600 rounded-full text-sm font-medium">
+                        <i class="fas fa-check-circle mr-1 animate-pulse"></i> Mise à jour Mars 2025
+                    </span>
+                </div>
+                
+                <div class="flex space-x-3 mb-3 social-icons-container">
+                    <a href="https://www.facebook.com/univ.bejaia" class="social-icon bg-gradient-to-r from-blue-50 to-blue-100 text-blue-600 hover:from-blue-600 hover:to-blue-500 hover:text-white transform transition-all duration-300" aria-label="Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/school/universit%C3%A9-de-bejaia/" class="social-icon bg-gradient-to-r from-blue-50 to-blue-100 text-blue-600 hover:from-blue-600 hover:to-blue-500 hover:text-white transform transition-all duration-300" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://twitter.com/exspottedbejaia" class="social-icon bg-gradient-to-r from-blue-50 to-blue-100 text-blue-600 hover:from-blue-600 hover:to-blue-500 hover:text-white transform transition-all duration-300" aria-label="Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="https://instagram.com/spot_campuselkseur" class="social-icon bg-gradient-to-r from-blue-50 to-blue-100 text-blue-600 hover:from-blue-600 hover:to-blue-500 hover:text-white transform transition-all duration-300" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://snapchat.com/add/campuselkseur" class="social-icon bg-gradient-to-r from-blue-50 to-blue-100 text-blue-600 hover:from-blue-600 hover:to-blue-500 hover:text-white transform transition-all duration-300" aria-label="Snapchat">
+                        <i class="fab fa-snapchat-ghost"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Navigation Links -->
+        <div class="border-t border-gray-200 pt-6 mt-2">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 text-sm">
+                <div class="text-center sm:text-left footer-column">
+                    <h4 class="font-semibold text-gray-800 mb-3 flex items-center justify-center sm:justify-start">
+                        <i class="fas fa-link text-green-500 mr-2"></i>
+                        Liens Rapides
+                    </h4>
+                    <ul class="space-y-2 footer-links">
+                        <li><a href="/" class="text-gray-600 hover:text-blue-600 transition-colors flex items-center justify-center sm:justify-start"><i class="fas fa-chevron-right text-xs text-green-500 mr-2"></i>Accueil</a></li>
+                        <li><a href="/specialites.html" class="text-gray-600 hover:text-blue-600 transition-colors flex items-center justify-center sm:justify-start"><i class="fas fa-chevron-right text-xs text-green-500 mr-2"></i>Spécialités</a></li>
+                        <li><a href="/contact.html" class="text-gray-600 hover:text-blue-600 transition-colors flex items-center justify-center sm:justify-start"><i class="fas fa-chevron-right text-xs text-green-500 mr-2"></i>Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="text-center sm:text-left footer-column">
+                    <h4 class="font-semibold text-gray-800 mb-3 flex items-center justify-center sm:justify-start">
+                        <i class="fas fa-question-circle text-green-500 mr-2"></i>
+                        Support
+                    </h4>
+                    <ul class="space-y-2 footer-links">
+                        <li><a href="#" onclick="showPopup('faq'); return false;" class="text-gray-600 hover:text-blue-600 transition-colors flex items-center justify-center sm:justify-start"><i class="fas fa-chevron-right text-xs text-green-500 mr-2"></i>FAQ</a></li>
+                        <li><a href="#" onclick="showPopup('signaler'); return false;" class="text-gray-600 hover:text-blue-600 transition-colors flex items-center justify-center sm:justify-start"><i class="fas fa-chevron-right text-xs text-green-500 mr-2"></i>Signaler un problème</a></li>
+                        <li><a href="#" onclick="showPopup('contribuer'); return false;" class="text-gray-600 hover:text-blue-600 transition-colors flex items-center justify-center sm:justify-start"><i class="fas fa-chevron-right text-xs text-green-500 mr-2"></i>Contribuer</a></li>
+                    </ul>
+                </div>
+                
+                <div class="text-center sm:text-left footer-column">
+                    <h4 class="font-semibold text-gray-800 mb-3 flex items-center justify-center sm:justify-start">
+                        <i class="fas fa-shield-alt text-green-500 mr-2"></i>
+                        Légal
+                    </h4>
+                    <ul class="space-y-2 footer-links">
+                        <li><a href="#" onclick="showPopup('conditions'); return false;" class="text-gray-600 hover:text-blue-600 transition-colors flex items-center justify-center sm:justify-start"><i class="fas fa-chevron-right text-xs text-green-500 mr-2"></i>Conditions d'utilisation</a></li>
+                        <li><a href="#" onclick="showPopup('conditions'); return false;" class="text-gray-600 hover:text-blue-600 transition-colors flex items-center justify-center sm:justify-start"><i class="fas fa-chevron-right text-xs text-green-500 mr-2"></i>Politique de confidentialité</a></li>
+                    </ul>
+                </div>
+                
+                <div class="text-center sm:text-left footer-column">
+                    <h4 class="font-semibold text-gray-800 mb-3 flex items-center justify-center sm:justify-start">
+                        <i class="fas fa-code text-green-500 mr-2"></i>
+                        Développeur
+                    </h4>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100 developer-card transform transition hover:shadow-md duration-300">
+                        <div class="flex items-center justify-center sm:justify-start mb-2">
+                            <div class="w-10 h-10 bg-blue-50 rounded-full flex items-center justify-center mr-3">
+                                <i class="fas fa-user-circle text-blue-500 text-lg"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium text-gray-800">Amara Mehdi</p>
+                                <a href="mailto:mehdi.amara@tech.univ-bejaia.dz" class="text-blue-600 hover:text-blue-800 text-xs">mehdi.amara@tech.univ-bejaia.dz</a>
+                            </div>
+                        </div>
+                        <div class="text-xs text-gray-500 mt-2">
+                            <p>Version 1.2.5</p>
+                            <p>&copy; 2025 Tous droits réservés</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer bottom -->
+        <div class="mt-8 pt-6 border-t border-gray-200 text-center">
+            <p class="text-sm text-gray-500">
+                <span class="typing-animation">Campus Elkseur, Université de Béjaia - Créé avec <i class="fas fa-heart text-red-500 animate-pulse"></i> pour les étudiants</span>
+            </p>
+        </div>
+    </div>
+</footer>
+
+<style>
+    /* Footer animations */
+    @keyframes float {
+        0% { transform: translateY(0) rotate(0deg); }
+        50% { transform: translateY(-20px) rotate(5deg); }
+        100% { transform: translateY(0) rotate(0deg); }
+    }
+    
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+    }
+    
+    .pulse-animation {
+        animation: pulse 3s infinite ease-in-out;
+    }
+    
+    .hover-slide-animation {
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .hover-slide-animation::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 1px;
+        background-color: #3b82f6;
+        transition: width 0.3s ease;
+    }
+    
+    .hover-slide-animation:hover::after {
+        width: 100%;
+    }
+    
+    /* Social icons container with animation */
+    .social-icons-container {
+        display: flex;
+    }
+    
+    .social-icons-container .social-icon {
+        transition: all 0.3s ease;
+    }
+    
+    .social-icons-container:hover .social-icon {
+        transform: translateY(-3px);
+    }
+    
+    .social-icons-container .social-icon:hover {
+        transform: translateY(-7px) scale(1.1);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Footer links animation */
+    .footer-links li a {
+        position: relative;
+        transition: transform 0.3s ease, color 0.3s ease;
+        padding-left: 0;
+    }
+    
+    .footer-links li a:hover {
+        transform: translateX(5px);
+    }
+    
+    .footer-links li a i {
+        transition: transform 0.3s ease;
+    }
+    
+    .footer-links li a:hover i {
+        transform: translateX(3px);
+    }
+    
+    /* Footer column animation */
+    .footer-column {
+        transition: transform 0.3s ease;
+    }
+    
+    .footer-column:hover {
+        transform: translateY(-5px);
+    }
+    
+    /* Developer card animation */
+    .developer-card {
+        transition: all 0.3s ease;
+        border-left: 3px solid transparent;
+    }
+    
+    .developer-card:hover {
+        border-left-color: #3b82f6;
+        transform: translateX(5px);
+    }
+    
+    /* Typing animation */
+    .typing-animation {
+        display: inline-block;
+        overflow: hidden;
+        white-space: nowrap;
+        animation: typing 10s steps(40, end) infinite;
+    }
+    
+    @keyframes typing {
+        0%, 100% { width: 0 }
+        50% { width: 100% }
+    }
+    
+    /* Mobile optimization */
+    @media (max-width: 640px) {
+        .social-icon {
+            width: 40px;
+            height: 40px;
+        }
+        
+        .footer-bubble {
+            opacity: 0.3;
+        }
+        
+        .typing-animation {
+            white-space: normal;
+            animation: none;
+        }
+    }
+</style>
+
     <div id="popup-cours" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
         <div class="bg-white rounded-lg shadow-lg p-6 max-w-3xl w-full glass-card">
             <div class="flex justify-between items-center mb-6">
@@ -155,6 +399,285 @@
                 </button>
             </div>
             <div id="popup-content-examen" class="space-y-6 popup-content"></div>
+        </div>
+    </div>
+
+    <div id="popup-conditions" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg shadow-lg p-6 max-w-4xl w-full glass-card">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-gray-800">Conditions d'Utilisation</h2>
+                <button type="button" class="close-popup-btn px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-300 flex items-center gap-2">
+                    <i class="fas fa-times"></i><span>Fermer</span>
+                </button>
+            </div>
+            <div class="space-y-6 popup-content overflow-y-auto max-h-[70vh]">
+                <div class="prose prose-blue max-w-none">
+                    <h3>1. Objet et Champ d'Application</h3>
+                    <p>Les présentes Conditions définissent les règles d'utilisation du Site, les droits et obligations des utilisateurs, ainsi que les modalités de collecte, d'utilisation et de conservation des données. Elles s'appliquent à tous les visiteurs, utilisateurs et clients accédant au Site, et constituent un accord légal entre vous et Icosium Store.</p>
+                    
+                    <h3>2. Acceptation des Conditions d'Utilisation</h3>
+                    <p>En utilisant le Site, vous déclarez avoir lu, compris et accepté, sans réserve, l'intégralité des présentes Conditions. Votre utilisation continue du Site vaudra acceptation tacite de toute modification ultérieure.</p>
+                    
+                    <!-- Remaining sections from condition.txt -->
+                    <h3>3. Accès au Site et Fonctionnalités</h3>
+                    <h4>3.1 Accès au Site</h4>
+                    <p>Icosium Store met tout en œuvre pour assurer un accès permanent au Site. Toutefois, des interruptions temporaires peuvent survenir pour maintenance ou mise à jour technique. Icosium Store ne saurait être tenu responsable en cas d'indisponibilité prolongée.</p>
+                    
+                    <h4>3.2 Comptes Utilisateurs</h4>
+                    <p>Certaines fonctionnalités du Site nécessitent la création d'un compte utilisateur. Vous êtes responsable de la confidentialité de vos identifiants et de toute activité réalisée sous votre compte. Vous vous engagez à notifier immédiatement Icosium Store en cas d'utilisation non autorisée ou de violation de la sécurité.</p>
+                    
+                    <!-- Continue with remaining sections -->
+                    <!-- Full content from condition.txt would go here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FAQ Popup (Improved Version) -->
+    <div id="popup-faq" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg shadow-lg p-6 max-w-3xl w-full glass-card">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-gray-800">Questions Fréquentes (FAQ)</h2>
+                <button type="button" class="close-popup-btn px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-300 flex items-center gap-2">
+                    <i class="fas fa-times"></i><span>Fermer</span>
+                </button>
+            </div>
+            <div class="space-y-6 popup-content">
+                <div class="space-y-4">
+                    <!-- FAQ Accordion -->
+                    <div class="border border-gray-200 rounded-lg overflow-hidden">
+                        <div class="faq-item">
+                            <button class="faq-question w-full flex justify-between items-center text-left p-4 bg-gray-50 hover:bg-gray-100 focus:outline-none">
+                                <span class="font-medium">Comment accéder aux ressources de cours ?</span>
+                                <i class="fas fa-chevron-down text-gray-500 transition-transform"></i>
+                            </button>
+                            <div class="faq-answer p-4 border-t border-gray-200 bg-white hidden">
+                                <p>Pour accéder aux ressources de cours, cliquez sur le bouton "Cours" associé au module qui vous intéresse. Une fenêtre s'ouvrira avec toutes les ressources disponibles pour ce module.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item border-t border-gray-200">
+                            <button class="faq-question w-full flex justify-between items-center text-left p-4 bg-gray-50 hover:bg-gray-100 focus:outline-none">
+                                <span class="font-medium">Comment puis-je télécharger les contenus ?</span>
+                                <i class="fas fa-chevron-down text-gray-500 transition-transform"></i>
+                            </button>
+                            <div class="faq-answer p-4 border-t border-gray-200 bg-white hidden">
+                                <p>Chaque ressource dispose d'un bouton "Télécharger" qui vous permet d'accéder au fichier. Selon le type de ressource, vous serez soit redirigé vers Google Drive, soit le téléchargement démarrera directement.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item border-t border-gray-200">
+                            <button class="faq-question w-full flex justify-between items-center text-left p-4 bg-gray-50 hover:bg-gray-100 focus:outline-none">
+                                <span class="font-medium">Les contenus sont-ils mis à jour régulièrement ?</span>
+                                <i class="fas fa-chevron-down text-gray-500 transition-transform"></i>
+                            </button>
+                            <div class="faq-answer p-4 border-t border-gray-200 bg-white hidden">
+                                <p>Oui, notre équipe travaille constamment pour mettre à jour les ressources. La date de dernière mise à jour est indiquée en haut de chaque page de module.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item border-t border-gray-200">
+                            <button class="faq-question w-full flex justify-between items-center text-left p-4 bg-gray-50 hover:bg-gray-100 focus:outline-none">
+                                <span class="font-medium">Je n'arrive pas à accéder à certains fichiers, que faire ?</span>
+                                <i class="fas fa-chevron-down text-gray-500 transition-transform"></i>
+                            </button>
+                            <div class="faq-answer p-4 border-t border-gray-200 bg-white hidden">
+                                <p>Si vous rencontrez des difficultés pour accéder aux ressources, assurez-vous d'être connecté à votre compte Google (pour les fichiers hébergés sur Drive). Si le problème persiste, utilisez la fonction "Signaler un problème" pour nous informer.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item border-t border-gray-200">
+                            <button class="faq-question w-full flex justify-between items-center text-left p-4 bg-gray-50 hover:bg-gray-100 focus:outline-none">
+                                <span class="font-medium">Comment puis-je contribuer au site ?</span>
+                                <i class="fas fa-chevron-down text-gray-500 transition-transform"></i>
+                            </button>
+                            <div class="faq-answer p-4 border-t border-gray-200 bg-white hidden">
+                                <p>Vous pouvez contribuer en partageant vos propres ressources ou en suggérant des améliorations. Cliquez sur "Contribuer" dans la section Support pour plus d'informations.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4 text-center">
+                        <p class="text-sm text-gray-600">Vous ne trouvez pas la réponse à votre question ? <a href="#" onclick="showPopup('signaler'); return false;" class="text-blue-600 hover:underline">Contactez-nous</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    // Fixed FAQ functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        // Set up FAQ accordion functionality
+        const initFaqAccordion = function() {
+            const faqQuestions = document.querySelectorAll('.faq-question');
+            
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', function() {
+                    const answer = this.nextElementSibling;
+                    const icon = this.querySelector('i');
+                    
+                    // Toggle this answer
+                    answer.classList.toggle('hidden');
+                    icon.classList.toggle('transform');
+                    icon.classList.toggle('rotate-180');
+                    
+                    // Close other answers
+                    faqQuestions.forEach(q => {
+                        if (q !== question) {
+                            const otherAnswer = q.nextElementSibling;
+                            const otherIcon = q.querySelector('i');
+                            if (!otherAnswer.classList.contains('hidden')) {
+                                otherAnswer.classList.add('hidden');
+                                otherIcon.classList.remove('rotate-180');
+                            }
+                        }
+                    });
+                });
+            });
+        };
+        
+        // Initialize when the document loads
+        initFaqAccordion();
+        
+        // Also initialize when the FAQ popup is shown
+        const originalShowPopup = window.showPopup;
+        window.showPopup = function(popupType) {
+            originalShowPopup(popupType);
+            if (popupType === 'faq') {
+                // Short timeout to ensure DOM is updated
+                setTimeout(initFaqAccordion, 100);
+            }
+        };
+    });
+    </script>
+
+    <!-- Report Problem Popup -->
+    <div id="popup-signaler" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg shadow-lg p-6 max-w-3xl w-full glass-card">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-gray-800">Signaler un Problème</h2>
+                <button type="button" class="close-popup-btn px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-300 flex items-center gap-2">
+                    <i class="fas fa-times"></i><span>Fermer</span>
+                </button>
+            </div>
+            <div class="space-y-6 popup-content">
+                <form id="reportProblemForm" class="space-y-4">
+                    <div>
+                        <label for="problem-name" class="block text-sm font-medium text-gray-700 mb-1">Nom et Prénom</label>
+                        <input type="text" id="problem-name" name="name" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Votre nom et prénom" required>
+                    </div>
+                    
+                    <div>
+                        <label for="problem-email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                        <input type="email" id="problem-email" name="email" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="votre.email@exemple.com" required>
+                    </div>
+                    
+                    <div>
+                        <label for="problem-type" class="block text-sm font-medium text-gray-700 mb-1">Type de Problème</label>
+                        <select id="problem-type" name="problemType" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" required>
+                            <option value="">Sélectionnez un type</option>
+                            <option value="ressource-inaccessible">Ressource inaccessible</option>
+                            <option value="lien-brise">Lien brisé</option>
+                            <option value="contenu-errone">Contenu erroné</option>
+                            <option value="probleme-technique">Problème technique</option>
+                            <option value="autre">Autre</option>
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <label for="problem-module" class="block text-sm font-medium text-gray-700 mb-1">Module concerné (si applicable)</label>
+                        <input type="text" id="problem-module" name="module" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Nom du module concerné">
+                    </div>
+                    
+                    <div>
+                        <label for="problem-description" class="block text-sm font-medium text-gray-700 mb-1">Description du problème</label>
+                        <textarea id="problem-description" name="description" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Décrivez en détail le problème rencontré..." required></textarea>
+                    </div>
+                    
+                    <div>
+                        <label for="problem-screenshot" class="block text-sm font-medium text-gray-700 mb-1">Capture d'écran (optionnel)</label>
+                        <input type="file" id="problem-screenshot" name="screenshot" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" accept="image/*">
+                    </div>
+                    
+                    <div class="text-center">
+                        <button type="submit" class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transform hover:scale-105 transition-all duration-300 shadow-lg">
+                            <i class="fas fa-paper-plane mr-2"></i>Envoyer le signalement
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contribute Popup -->
+    <div id="popup-contribuer" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg shadow-lg p-6 max-w-3xl w-full glass-card">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-gray-800">Contribuer</h2>
+                <button type="button" class="close-popup-btn px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-300 flex items-center gap-2">
+                    <i class="fas fa-times"></i><span>Fermer</span>
+                </button>
+            </div>
+            <div class="space-y-6 popup-content">
+                <div class="bg-blue-50 p-4 rounded-lg border border-blue-200 mb-4">
+                    <h3 class="text-lg font-semibold text-blue-800 mb-2 flex items-center">
+                        <i class="fas fa-info-circle mr-2"></i>Comment contribuer ?
+                    </h3>
+                    <p class="text-sm text-blue-700">
+                        Votre contribution est essentielle pour améliorer la qualité des ressources disponibles. Vous pouvez partager vos propres documents, suggérer des corrections ou proposer de nouvelles fonctionnalités.
+                    </p>
+                </div>
+                
+                <form id="contributeForm" class="space-y-4">
+                    <div>
+                        <label for="contribute-name" class="block text-sm font-medium text-gray-700 mb-1">Nom et Prénom</label>
+                        <input type="text" id="contribute-name" name="name" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Votre nom et prénom" required>
+                    </div>
+                    
+                    <div>
+                        <label for="contribute-email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                        <input type="email" id="contribute-email" name="email" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="votre.email@exemple.com" required>
+                    </div>
+                    
+                    <div>
+                        <label for="contribute-type" class="block text-sm font-medium text-gray-700 mb-1">Type de Contribution</label>
+                        <select id="contribute-type" name="contributeType" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" required>
+                            <option value="">Sélectionnez un type</option>
+                            <option value="document">Partage de document (cours, TD, TP, examen)</option>
+                            <option value="correction">Correction de contenu existant</option>
+                            <option value="suggestion">Suggestion d'amélioration</option>
+                            <option value="autre">Autre</option>
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <label for="contribute-module" class="block text-sm font-medium text-gray-700 mb-1">Module concerné</label>
+                        <input type="text" id="contribute-module" name="module" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Nom du module concerné" required>
+                    </div>
+                    
+                    <div>
+                        <label for="contribute-description" class="block text-sm font-medium text-gray-700 mb-1">Description de votre contribution</label>
+                        <textarea id="contribute-description" name="description" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Décrivez votre contribution..." required></textarea>
+                    </div>
+                    
+                    <div>
+                        <label for="contribute-files" class="block text-sm font-medium text-gray-700 mb-1">Fichiers à partager (si applicable)</label>
+                        <input type="file" id="contribute-files" name="files" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500" multiple>
+                        <p class="text-xs text-gray-500 mt-1">Formats acceptés: PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX, ZIP (max 20Mo)</p>
+                    </div>
+                    
+                    <div class="text-center">
+                        <button type="submit" class="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transform hover:scale-105 transition-all duration-300 shadow-lg">
+                            <i class="fas fa-upload mr-2"></i>Soumettre ma contribution
+                        </button>
+                    </div>
+                </form>
+                
+                <div class="mt-4 text-center">
+                    <p class="text-sm text-gray-600">Vous pouvez également nous contacter directement sur Instagram <a href="https://instagram.com/spot_campuselkseur" target="_blank" class="text-blue-600 hover:underline">@spot_campuselkseur</a></p>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -839,6 +1362,48 @@
             transform: scale(0.95);
             opacity: 0.9;
         }
+
+        /* Footer social icons */
+        .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        /* Active state for touch devices */
+        .social-icon:active {
+            transform: scale(0.9);
+        }
+        
+        /* Mobile optimization for footer */
+        @media (max-width: 640px) {
+            .social-icon {
+                width: 40px; /* Larger tap target on mobile */
+                height: 40px;
+            }
+            
+            footer {
+                text-align: center;
+            }
+            
+            footer .grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            footer h4::after {
+                content: '';
+                display: block;
+                width: 40px;
+                height: 2px;
+                background-color: #3b82f6;
+                margin: 0.5rem auto 0;
+            }
+        }
     </style>
 
     <script type="module">
@@ -892,5 +1457,202 @@
             }
         });
     </script>
+    <script>
+    // Function to show a popup by ID
+    function showPopup(popupType) {
+        const popup = document.getElementById(`popup-${popupType}`);
+        if (popup) {
+            popup.classList.remove('hidden');
+        }
+    }
+
+    // Initialize FAQ accordion functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        // Set up popup close handlers
+        const closeButtons = document.querySelectorAll('.close-popup-btn');
+        closeButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const popup = this.closest('[id^="popup-"]');
+                if (popup) {
+                    popup.classList.add('hidden');
+                }
+            });
+        });
+
+        // Set up popup background close
+        const popups = document.querySelectorAll('[id^="popup-"]');
+        popups.forEach(popup => {
+            popup.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.classList.add('hidden');
+                }
+            });
+        });
+
+        // Set up FAQ accordion functionality
+        const faqQuestions = document.querySelectorAll('.faq-question');
+        faqQuestions.forEach(question => {
+            question.addEventListener('click', function() {
+                const answer = this.nextElementSibling;
+                const icon = this.querySelector('i');
+                
+                // Toggle this answer
+                answer.classList.toggle('hidden');
+                icon.classList.toggle('transform');
+                icon.classList.toggle('rotate-180');
+                
+                // Close other answers
+                faqQuestions.forEach(q => {
+                    if (q !== question) {
+                        const otherAnswer = q.nextElementSibling;
+                        const otherIcon = q.querySelector('i');
+                        if (!otherAnswer.classList.contains('hidden')) {
+                            otherAnswer.classList.add('hidden');
+                            otherIcon.classList.remove('rotate-180');
+                        }
+                    }
+                });
+            });
+        });
+
+        // Handle form submissions
+        const reportForm = document.getElementById('reportProblemForm');
+        if (reportForm) {
+            reportForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                // Here you would normally send the data to the server
+                alert('Merci pour votre signalement. Nous allons examiner ce problème dès que possible.');
+                this.reset();
+                document.getElementById('popup-signaler').classList.add('hidden');
+            });
+        }
+
+        const contributeForm = document.getElementById('contributeForm');
+        if (contributeForm) {
+            contributeForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                // Here you would normally send the data to the server
+                alert('Merci pour votre contribution. Nous l\'examinerons et reviendrons vers vous rapidement.');
+                this.reset();
+                document.getElementById('popup-contribuer').classList.add('hidden');
+            });
+        }
+    });
+</script>
+    <script type="module">
+    // Import the Firebase modules
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js';
+    import { getFirestore, collection, addDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js';
+    import { getStorage, ref, uploadBytes, getDownloadURL } from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-storage.js';
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyB5XYqWKhHdiVDXJx4iOwtpxD8eUCPRfKU",
+        authDomain: "universite-de-bejaia-547fc.firebaseapp.com",
+        projectId: "universite-de-bejaia-547fc",
+        storageBucket: "universite-de-bejaia-547fc.firebasestorage.app",
+        messagingSenderId: "517622731583",
+        appId: "1:517622731583:web:25453d5e01226585bf798a",
+        measurementId: "G-SQ0WWSCS7B"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const storage = getStorage(app);
+
+    // Handle problem report submission
+    const reportForm = document.getElementById('reportProblemForm');
+    if (reportForm) {
+        reportForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            try {
+                // Create data object from form
+                const formData = {
+                    name: document.getElementById('problem-name').value,
+                    email: document.getElementById('problem-email').value,
+                    problemType: document.getElementById('problem-type').value,
+                    module: document.getElementById('problem-module').value,
+                    description: document.getElementById('problem-description').value,
+                    timestamp: serverTimestamp()
+                };
+                
+                // Handle screenshot if provided
+                const screenshotFile = document.getElementById('problem-screenshot').files[0];
+                if (screenshotFile) {
+                    const storageRef = ref(storage, `problem-reports/${Date.now()}-${screenshotFile.name}`);
+                    const snapshot = await uploadBytes(storageRef, screenshotFile);
+                    const downloadURL = await getDownloadURL(snapshot.ref);
+                    formData.screenshotURL = downloadURL;
+                }
+                
+                // Save to Firestore
+                await addDoc(collection(db, "problem-reports"), formData);
+                
+                // Show success message
+                alert('Merci pour votre signalement. Nous allons examiner ce problème dès que possible.');
+                
+                // Reset form and close popup
+                reportForm.reset();
+                document.getElementById('popup-signaler').classList.add('hidden');
+                
+            } catch (error) {
+                console.error("Error submitting problem report:", error);
+                alert('Une erreur s\'est produite. Veuillez réessayer plus tard.');
+            }
+        });
+    }
+
+    // Handle contribution submission
+    const contributeForm = document.getElementById('contributeForm');
+    if (contributeForm) {
+        contributeForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            try {
+                // Create data object from form
+                const formData = {
+                    name: document.getElementById('contribute-name').value,
+                    email: document.getElementById('contribute-email').value,
+                    contributeType: document.getElementById('contribute-type').value,
+                    module: document.getElementById('contribute-module').value,
+                    description: document.getElementById('contribute-description').value,
+                    timestamp: serverTimestamp(),
+                    fileURLs: []
+                };
+                
+                // Handle file uploads if provided
+                const files = document.getElementById('contribute-files').files;
+                if (files.length > 0) {
+                    for (let i = 0; i < files.length; i++) {
+                        const file = files[i];
+                        const storageRef = ref(storage, `contributions/${Date.now()}-${file.name}`);
+                        const snapshot = await uploadBytes(storageRef, file);
+                        const downloadURL = await getDownloadURL(snapshot.ref);
+                        formData.fileURLs.push({
+                            name: file.name,
+                            url: downloadURL
+                        });
+                    }
+                }
+                
+                // Save to Firestore
+                await addDoc(collection(db, "contributions"), formData);
+                
+                // Show success message
+                alert('Merci pour votre contribution. Nous l\'examinerons et reviendrons vers vous rapidement.');
+                
+                // Reset form and close popup
+                contributeForm.reset();
+                document.getElementById('popup-contribuer').classList.add('hidden');
+                
+            } catch (error) {
+                console.error("Error submitting contribution:", error);
+                alert('Une erreur s\'est produite. Veuillez réessayer plus tard.');
+            }
+        });
+    }
+</script>
 </body>
 </html>

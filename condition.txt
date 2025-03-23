@@ -1,0 +1,81 @@
+1. Objet et Champ d’Application
+Les présentes Conditions définissent les règles d’utilisation du Site, les droits et obligations des utilisateurs, ainsi que les modalités de collecte, d’utilisation et de conservation des données. Elles s’appliquent à tous les visiteurs, utilisateurs et clients accédant au Site, et constituent un accord légal entre vous et Icosium Store.
+
+2. Acceptation des Conditions d’Utilisation
+En utilisant le Site, vous déclarez avoir lu, compris et accepté, sans réserve, l’intégralité des présentes Conditions. Votre utilisation continue du Site vaudra acceptation tacite de toute modification ultérieure.
+
+3. Accès au Site et Fonctionnalités
+3.1 Accès au Site
+Icosium Store met tout en œuvre pour assurer un accès permanent au Site. Toutefois, des interruptions temporaires peuvent survenir pour maintenance ou mise à jour technique. Icosium Store ne saurait être tenu responsable en cas d’indisponibilité prolongée.
+
+3.2 Comptes Utilisateurs
+Certaines fonctionnalités du Site nécessitent la création d’un compte utilisateur. Vous êtes responsable de la confidentialité de vos identifiants et de toute activité réalisée sous votre compte. Vous vous engagez à notifier immédiatement Icosium Store en cas d'utilisation non autorisée ou de violation de la sécurité.
+
+4. Propriété Intellectuelle
+L’ensemble des contenus présents sur le Site (textes, images, logos, graphismes, logiciels, bases de données, etc.) est protégé par le droit d’auteur, le droit des marques et d’autres législations en vigueur. Toute reproduction totale ou partielle, modification, adaptation ou exploitation des contenus sans l’accord écrit préalable d’Icosium Store est strictement interdite.
+
+5. Collecte et Traitement des Données
+5.1 Collecte des Données Personnelles
+Icosium Store s’engage à recueillir, traiter et conserver vos données personnelles dans le respect de la législation applicable, notamment du Règlement Général sur la Protection des Données (RGPD) pour les utilisateurs résidant dans l’Union Européenne. Le Site collecte diverses informations, telles que :
+
+Informations d’identification : nom, prénom, adresse e-mail, numéro de téléphone, etc.
+
+Données de navigation : adresses IP, type de navigateur, pages consultées, durée de la visite, etc.
+
+Données transactionnelles : historique d’achats, préférences de produits, mode de paiement, etc.
+
+5.2 Utilisation et Stockage dans la Base de Données
+Toutes les données collectées sont intégralement stockées dans une base de données sécurisée. Ces informations servent à :
+
+Faciliter et personnaliser votre expérience d'achat ;
+
+Assurer la gestion et le suivi de vos commandes ;
+
+Améliorer et optimiser le fonctionnement du Site ;
+
+Vous informer, avec votre consentement préalable, des offres promotionnelles et mises à jour importantes concernant nos services.
+
+Icosium Store met en œuvre des mesures techniques et organisationnelles appropriées afin de garantir la sécurité et la confidentialité de vos données contre toute forme de traitement illicite ou non autorisé.
+
+5.3 Partage et Transfert des Données
+Vos informations personnelles ne seront partagées avec des tiers que dans les cas suivants :
+
+Lorsque cela est nécessaire pour le traitement de vos commandes (ex. : services de livraison, prestataires de paiement) ;
+
+En cas d’obligation légale ou réglementaire ;
+
+Dans le cadre d'une éventuelle fusion ou cession d’entreprise, sous réserve que le repreneur s’engage à respecter les présentes Conditions et à protéger vos données personnelles.
+
+6. Cookies et Technologies Similaires
+Icosium Store utilise des cookies et autres traceurs pour améliorer votre navigation sur le Site, analyser l’audience, et personnaliser les contenus. En utilisant le Site, vous consentez à l’installation de ces cookies sur votre terminal, sauf si vous configurez votre navigateur pour les refuser. Notez toutefois que certaines fonctionnalités du Site pourraient être affectées par cette décision.
+
+7. Responsabilités et Garanties
+7.1 Responsabilité de l’Utilisateur
+Vous vous engagez à utiliser le Site de manière loyale et conforme aux présentes Conditions. Toute utilisation frauduleuse, abusive ou contraire aux lois en vigueur est strictement interdite et pourra entraîner la suspension ou la suppression de votre compte.
+
+7.2 Limitation de Responsabilité
+Icosium Store s’efforce d’assurer l’exactitude et la mise à jour des informations diffusées sur le Site. Toutefois, en cas d’erreur ou d’omission, la responsabilité de Icosium Store ne saurait être engagée. L’utilisation du Site se fait sous votre propre responsabilité. Icosium Store ne pourra être tenu responsable des dommages directs ou indirects résultant de l’accès ou de l’utilisation du Site.
+
+7.3 Sécurité et Maintenance
+Bien que Icosium Store prenne toutes les mesures nécessaires pour sécuriser le Site et les données collectées, il est important de noter qu’aucun système de sécurité n’est infaillible. En conséquence, Icosium Store décline toute responsabilité en cas d’accès non autorisé aux données.
+
+8. Modifications des Conditions d’Utilisation
+Icosium Store se réserve le droit de modifier à tout moment les présentes Conditions afin de les adapter aux évolutions légales, technologiques ou commerciales. Les modifications prendront effet dès leur publication sur le Site. Il est de votre responsabilité de consulter régulièrement cette page pour prendre connaissance des éventuelles mises à jour.
+
+9. Liens Hypertextes et Contenus de Tiers
+Le Site peut contenir des liens vers des sites web ou des services tiers. Icosium Store n’exerce aucun contrôle sur ces sites et décline toute responsabilité quant à leur contenu ou à leur politique de protection des données. La consultation de ces sites se fait à vos risques et périls.
+
+10. Durée, Suspension et Résiliation
+Ces Conditions sont conclues pour une durée indéterminée. Icosium Store se réserve le droit de suspendre ou de résilier l’accès au Site, sans préavis, en cas de manquement grave aux présentes Conditions. En cas de résiliation, les dispositions relatives à la protection des données et à la propriété intellectuelle demeureront applicables.
+
+11. Droit Applicable et Juridiction Compétente
+Les présentes Conditions sont régies par le droit français. Tout litige relatif à l’interprétation ou à l’exécution des présentes Conditions sera soumis aux tribunaux compétents du ressort de la Cour d’appel dans le siège social de Icosium Store.
+
+12. Contact
+Pour toute question ou réclamation concernant ces Conditions d’Utilisation ou vos données personnelles, vous pouvez nous contacter :
+
+Par e-mail : support@icosiumstore.com
+
+Par courrier postal : [Adresse Postale]
+
+En accédant et utilisant le Site Icosium Store, vous acceptez expressément l’intégralité des présentes Conditions d’Utilisation. Merci de votre confiance et bonne navigation sur Icosium Store.
