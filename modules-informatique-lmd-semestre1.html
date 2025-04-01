@@ -7,301 +7,215 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <!-- <link rel="stylesheet" href="assets/css/style.css"> -->
     <script id="aclib" type="text/javascript" src="//acscdn.com/script/aclib.js"></script>
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"> <!-- Added AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
         body {
-            font-family: 'Poppins', sans-serif; /* Ensure Poppins is applied */
+            font-family: 'Poppins', sans-serif;
+            background: #f1f5f9; /* Softer blue-gray */
+            color: #1e293b; /* Darker text for contrast */
         }
+
+        /* Module Card */
         .module-card {
-            background: rgba(255, 255, 255, 0.9);
-            border: 1px solid #e5e7eb;
-            border-radius: 15px; /* Increased radius */
-            box-shadow: 0 4px 10px rgba(0,0,0,0.08); /* Soft shadow */
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            padding: 1.5rem;
+            transition: all 0.3s ease;
             height: 100%;
             display: flex;
             flex-direction: column;
-            padding: 1.25rem; /* p-5 */
         }
-
         .module-card:hover {
-            box-shadow: 0 8px 25px rgba(0,0,0,0.12); /* Enhanced hover shadow */
-            border-color: rgba(59, 130, 246, 0.3); /* Subtle border color on hover */
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
         }
-
         .module-icon {
-            width: 50px; /* Consistent size */
-            height: 50px;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 50%;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.08); /* Icon shadow */
+            background: #dbeafe; /* Light blue */
         }
-
         .module-btn {
-            padding: 0.5rem 1rem;
-            color: #fff;
-            font-size: 0.875rem;
+            padding: 0.75rem 1.25rem;
+            border-radius: 8px;
             font-weight: 500;
-            border-radius: 8px; /* Slightly more rounded */
-            transition: all 0.2s ease; /* Faster transition */
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Button shadow */
-            display: inline-flex; /* Align icon and text */
-            align-items: center; /* Align icon and text */
-        }
-
-        .module-btn i {
-            margin-right: 0.5rem; /* Space between icon and text */
-        }
-
-        .module-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 6px rgba(0,0,0,0.15); /* Lift effect */
-        }
-         .module-btn:active {
-             transform: translateY(0px); /* Click effect */
-         }
-
-        /* Glass effect for popup */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.9); /* Slightly less transparent, more readable */
-            border-radius: 20px;
-            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.25); /* Adjusted shadow */
-            backdrop-filter: blur(12px); /* Increased blur */
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            max-height: 85vh; /* Increased max height */
-            overflow-y: auto; /* Ensure scrolling */
-             padding: 1.5rem; /* Consistent padding */
-        }
-
-        [id^="popup-"] { /* Target all popups */
-            animation: fadeIn 0.3s ease-in-out;
-             z-index: 50; /* Ensure popups are on top */
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
-        .close-popup-btn {
-             display: flex;
-             align-items: center;
-             gap: 0.5rem;
-             padding: 0.5rem 1rem;
-             background-color: #ef4444; /* red-500 */
-             color: white;
-             border-radius: 0.5rem; /* rounded-lg */
-             transition: all 0.2s ease;
-        }
-        .close-popup-btn:hover {
-             background-color: #dc2626; /* red-600 */
-             transform: scale(1.05);
-        }
-         .close-popup-btn:focus {
-              outline: none;
-              box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.5); /* Focus ring */
-         }
-
-         .popup-content {
-             max-height: calc(85vh - 150px); /* Adjust based on title/button height */
-             overflow-y: auto;
-             padding-right: 1rem; /* Space for scrollbar */
-             margin-top: 1rem; /* Space below title */
-             scrollbar-width: thin;
-             scrollbar-color: rgba(34, 197, 94, 0.5) rgba(229, 231, 235, 0.5);
-         }
-         .popup-content::-webkit-scrollbar { width: 8px; }
-         .popup-content::-webkit-scrollbar-track { background: rgba(229, 231, 235, 0.5); border-radius: 4px; }
-         .popup-content::-webkit-scrollbar-thumb { background: rgba(34, 197, 94, 0.5); border-radius: 4px; }
-         .popup-content::-webkit-scrollbar-thumb:hover { background: rgba(34, 197, 94, 0.7); }
-
-
-         /* Content Item Styling within Popup */
-         .content-grid {
-             display: grid;
-             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-             gap: 1rem;
-         }
-
-         .content-item {
-             background: white;
-             border-radius: 0.5rem;
-             padding: 1rem;
-             transition: all 0.3s ease;
-             border: 1px solid #f3f4f6; /* Lighter border */
-             box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-         }
-
-         .content-item:hover {
-             transform: translateY(-3px) scale(1.01); /* Slightly more lift */
-             box-shadow: 0 4px 8px rgba(0,0,0,0.08);
-         }
-
-         .icon-wrapper {
-             width: 40px;
-             height: 40px;
-             display: flex;
-             align-items: center;
-             justify-content: center;
-             border-radius: 50%;
-         }
-
-         .download-btn {
-             font-size: 0.875rem;
-             transition: all 0.3s ease;
-             white-space: nowrap; /* Prevent button text wrapping */
-         }
-
-         .download-btn:hover {
-             transform: scale(1.03); /* Scale effect on hover */
-         }
-
-         /* University Section Styling */
-         .university-section {
-             background: rgba(255, 255, 255, 0.7); /* Slightly transparent background */
-             border-radius: 10px;
-             margin-bottom: 1.5rem;
-             box-shadow: 0 2px 5px rgba(0,0,0,0.07);
-             transition: all 0.3s ease;
-             overflow: hidden; /* Ensure rounded corners apply to children */
-         }
-
-         .university-section:hover {
-             /* transform: translateX(5px); */ /* Removed horizontal shift */
-             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-         }
-
-         .section-header {
-             padding: 1rem 1.5rem; /* More padding */
-             border-bottom: 1px solid rgba(0,0,0,0.05); /* Softer border */
-         }
-          .section-header h3 {
-              display: flex;
-              align-items: center;
-              gap: 0.75rem; /* More gap */
-              font-weight: 600; /* Semibold */
-          }
-
-         .content-grid-container { /* Added container for padding */
-              padding: 1.5rem;
-         }
-
-
-        /* Header Styles */
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 0;
-            border-bottom: 1px solid #e5e7eb;
-            margin-bottom: 2rem;
-        }
-        .back-button {
+            transition: all 0.3s ease;
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            background-color: #f3f4f6;
-            color: #4b5563;
-            border-radius: 9999px; /* pill shape */
+        }
+        .module-btn:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.1);
+        }
+
+        /* Header */
+        .header-container {
+            padding: 1.5rem 0;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .back-button {
+            padding: 0.75rem 1.25rem;
+            background: #e2e8f0;
+            color: #475569;
+            border-radius: 9999px;
             font-weight: 500;
-            text-decoration: none;
             transition: all 0.3s ease;
         }
         .back-button:hover {
-            background-color: #e5e7eb;
-            color: #1f2937;
-        }
-        .header-container img {
-             max-height: 50px; /* Adjust logo size */
-             max-width: none; /* Override previous max-width */
+            background: #cbd5e1;
+            color: #1e293b;
         }
 
         /* Exclusive Box */
         .exclusive-box {
-            border-width: 1px; /* Thinner border */
+            background: linear-gradient(135deg, #dbeafe, #e0e7ff);
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            position: relative;
+        }
+
+        /* Popup Styling */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            backdrop-filter: blur(12px);
+            width: 90%;
+            max-width: 900px;
+            max-height: 90vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .popup-header {
+            padding: 1rem 1.5rem;
+            background: #ffffff;
+            border-bottom: 1px solid #e2e8f0;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .popup-content {
+            padding: 1.5rem;
+            overflow-y: auto;
+            flex-grow: 1;
+        }
+        .close-popup-btn {
+            padding: 0.5rem 1rem;
+            background: #ef4444;
+            color: white;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .close-popup-btn:hover {
+            background: #dc2626;
+            transform: scale(1.05);
+        }
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+        .content-item {
+            background: #ffffff;
+            padding: 1rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        .content-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+        }
+        .download-btn {
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
         }
 
         /* Responsive Adjustments */
-         @media (max-width: 640px) {
+        @media (max-width: 640px) {
             .header-container {
                 flex-direction: column;
                 gap: 1rem;
-                align-items: flex-start; /* Align items left on mobile */
+                align-items: flex-start;
             }
-             .exclusive-box .flex-col.md\:flex-row {
-                 flex-direction: column;
-                 align-items: flex-start;
-             }
-             .exclusive-box .items-end {
-                 align-items: flex-start;
-                 width: 100%;
-                 margin-top: 1rem; /* Add space between text and dev info on mobile */
-             }
-              .module-grid { /* Ensure grid adapts on smaller screens */
-                 grid-template-columns: 1fr;
-              }
-               .popup-content {
-                    padding-right: 0.5rem; /* Less padding on mobile */
-               }
-               .glass-card {
-                   max-height: 90vh; /* Allow slightly more height on mobile */
-               }
-         }
-
+            .module-grid {
+                grid-template-columns: 1fr;
+            }
+            .exclusive-box {
+                padding: 1.5rem;
+            }
+            .exclusive-box .flex-col.md\:flex-row {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .glass-card {
+                width: 95%;
+                max-height: 95vh;
+            }
+            .popup-header {
+                padding: 1rem;
+            }
+            .popup-content {
+                padding: 1rem;
+            }
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            .module-btn, .download-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
     </style>
 </head>
-<body class="flex flex-col min-h-screen bg-gray-100"> <!-- Slightly darker background -->
-    <div>
-        <script type="text/javascript">
-            // ACLib Banner Script
-            try { aclib.runBanner({ zoneId: '9521434' }); } catch(e) { console.error("ACLib Banner Error:", e); }
-        </script>
-    </div>
-    <div class="container mx-auto px-4 max-w-6xl flex-grow mb-12"> <!-- Added bottom margin -->
-        <header class="mt-8" data-aos="fade-down"> <!-- Removed mb-12 -->
+<body class="flex flex-col min-h-screen">
+    <div class="container mx-auto px-4 max-w-6xl flex-grow mb-12">
+        <header class="mt-6" data-aos="fade-down">
             <div class="header-container">
-                <a href="specialite-informatique-lmd.html" class="back-button"> <!-- Make sure this link is correct -->
-                    <i class="fas fa-arrow-left"></i>
-                    Retour
+                <a href="specialite-informatique-lmd.html" class="back-button">
+                    <i class="fas fa-arrow-left"></i> Retour
                 </a>
-                <!-- Make sure the image path is correct -->
-                <img src="assets/img/LOGO.png" alt="oUniversité">
+                <img src="assets/img/LOGO.png" alt="oUniversité" class="max-h-12">
             </div>
         </header>
 
-        <div data-aos="fade-up"> <!-- Removed glass-card from outer container -->
-            <div class="exclusive-box mb-8 p-6 rounded-2xl border border-gray-200 bg-gradient-to-r from-green-50 to-blue-50 shadow-lg relative overflow-hidden">
-                <!-- Decorative elements -->
-                <div class="absolute top-0 right-0 w-32 h-32 -mr-8 -mt-8 bg-gradient-to-br from-green-200 to-blue-200 rounded-full opacity-20 pointer-events-none"></div>
-                <div class="absolute bottom-0 left-0 w-24 h-24 -ml-6 -mb-6 bg-gradient-to-tr from-blue-200 to-green-200 rounded-full opacity-20 pointer-events-none"></div>
-
-                <div class="flex flex-col md:flex-row justify-between items-center relative z-10">
+        <div data-aos="fade-up">
+            <div class="exclusive-box mb-8 relative">
+                <div class="flex flex-col md:flex-row justify-between items-center">
                     <div>
-                        <h1 class="text-2xl md:text-3xl font-bold text-gray-800 mb-2"> <!-- Changed h2 to h1 for main page title -->
-                            <span class="text-green-600 mr-2"><i class="fas fa-graduation-cap"></i></span>
-                            <span class="text-green-600 border-b-2 border-green-400 pb-1">Informatique LMD</span> - Semestre 1 (Rattrapage)
+                        <h1 class="text-2xl md:text-3xl font-bold mb-2">
+                            <span class="text-blue-600 mr-2"><i class="fas fa-graduation-cap"></i></span>
+                            Informatique LMD - Semestre 1 (Rattrapage)
                         </h1>
                         <p class="text-gray-600 text-sm md:text-base">Ressources pédagogiques pour les étudiants en informatique</p>
-
-                        <div class="text-gray-700 font-semibold text-sm mt-3 flex items-center animate-pulse">
-                            <i class="fas fa-history mr-2 text-green-600"></i>
-                            <span class="text-center md:text-left">Dernière mise à jour le 26 mars 2025</span>
-                             <!-- Removed location detail for brevity -->
+                        <div class="text-gray-700 font-medium text-sm mt-3 flex items-center">
+                            <i class="fas fa-history mr-2 text-blue-600"></i>
+                            Dernière mise à jour le 26 mars 2025
                         </div>
                     </div>
                     <div class="flex flex-col items-center md:items-end mt-4 md:mt-0">
-                        <div class="bg-blue-50 px-4 py-2 rounded-lg border border-blue-200 shadow-sm text-center md:text-right">
+                        <div class="bg-white px-4 py-2 rounded-lg border border-blue-100 shadow-sm">
                             <span class="text-gray-600 block text-sm">Développé par</span>
-                            <a href="mailto:mehdi.amara@tech.univ-bejaia.dz" class="font-semibold text-blue-600 hover:text-blue-800 hover:underline flex items-center justify-center md:justify-end gap-2 text-lg">
-                                <i class="fas fa-code"></i>
-                                Amara Mehdi
+                            <a href="mailto:mehdi.amara@tech.univ-bejaia.dz" class="font-semibold text-blue-600 hover:text-blue-800 flex items-center gap-2">
+                                <i class="fas fa-code"></i> Amara Mehdi
                             </a>
                         </div>
                         <span class="text-xs text-gray-500 mt-1">Université de Béjaia</span>
@@ -309,201 +223,109 @@
                 </div>
             </div>
 
-            <div>
-                 <script type="text/javascript">
-                    // ACLib Banner Script
-                    try { aclib.runBanner({ zoneId: '9521434' }); } catch(e) { console.error("ACLib Banner Error:", e); }
-                </script>
-            </div>
-
             <!-- Module Cards Grid -->
             <div class="module-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
-                <!-- Algebra Module -->
-                <div class="module-card transform transition-all duration-300 hover:scale-105">
+                <div class="module-card">
                     <div class="flex items-center gap-3 mb-4">
-                        <div class="module-icon bg-blue-100 text-blue-600">
-                            <i class="fas fa-superscript fa-lg"></i>
-                        </div>
-                        <h2 class="text-xl font-semibold text-gray-800">Algèbre</h2> <!-- Changed to h2 -->
+                        <div class="module-icon text-blue-600"><i class="fas fa-superscript"></i></div>
+                        <h2 class="text-xl font-semibold">Algèbre</h2>
                     </div>
-                    <div class="mt-auto flex flex-wrap gap-2">
-                        <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('algebre', 'cours')">
-                            <i class="fas fa-book"></i> Cours
-                        </button>
-                        <button class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('algebre', 'examen')">
-                            <i class="fas fa-file-alt"></i> Examens
-                        </button>
+                    <div class="mt-auto flex flex-wrap gap-3">
+                        <button class="module-btn bg-blue-600 text-white" onclick="showContent('algebre', 'cours')"><i class="fas fa-book"></i> Cours</button>
+                        <button class="module-btn bg-green-600 text-white" onclick="showContent('algebre', 'examen')"><i class="fas fa-file-alt"></i> Examens</button>
                     </div>
                 </div>
-
-                <!-- Algorithm Module -->
-                <div class="module-card transform transition-all duration-300 hover:scale-105">
+                <div class="module-card">
                     <div class="flex items-center gap-3 mb-4">
-                        <div class="module-icon bg-red-100 text-red-600">
-                            <i class="fas fa-code fa-lg"></i>
-                        </div>
-                        <h2 class="text-xl font-semibold text-gray-800">Algorithme</h2> <!-- Changed to h2 -->
+                        <div class="module-icon text-red-600"><i class="fas fa-code"></i></div>
+                        <h2 class="text-xl font-semibold">Algorithme</h2>
                     </div>
-                    <div class="mt-auto flex flex-wrap gap-2">
-                        <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('algorithme', 'cours')">
-                            <i class="fas fa-book"></i> Cours
-                        </button>
-                         <button class="module-btn bg-yellow-500 hover:bg-yellow-600" onclick="showContent('algorithme', 'td')"> <!-- Added TD button -->
-                            <i class="fas fa-pencil-ruler"></i> TD/TP
-                        </button>
-                        <button class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('algorithme', 'examen')">
-                            <i class="fas fa-file-alt"></i> Examens
-                        </button>
+                    <div class="mt-auto flex flex-wrap gap-3">
+                        <button class="module-btn bg-blue-600 text-white" onclick="showContent('algorithme', 'cours')"><i class="fas fa-book"></i> Cours</button>
+                        <button class="module-btn bg-yellow-600 text-white" onclick="showContent('algorithme', 'td')"><i class="fas fa-pencil-ruler"></i> TD/TP</button>
+                        <button class="module-btn bg-green-600 text-white" onclick="showContent('algorithme', 'examen')"><i class="fas fa-file-alt"></i> Examens</button>
                     </div>
                 </div>
-
-                <!-- Analysis Module -->
-                <div class="module-card transform transition-all duration-300 hover:scale-105">
+                <div class="module-card">
                     <div class="flex items-center gap-3 mb-4">
-                        <div class="module-icon bg-yellow-100 text-yellow-600">
-                            <i class="fas fa-chart-line fa-lg"></i>
-                        </div>
-                        <h2 class="text-xl font-semibold text-gray-800">Analyse</h2> <!-- Changed to h2 -->
+                        <div class="module-icon text-yellow-600"><i class="fas fa-chart-line"></i></div>
+                        <h2 class="text-xl font-semibold">Analyse</h2>
                     </div>
-                    <div class="mt-auto flex flex-wrap gap-2">
-                        <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('analyse', 'cours')">
-                            <i class="fas fa-book"></i> Cours
-                        </button>
-                        <button class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('analyse', 'examen')">
-                            <i class="fas fa-file-alt"></i> Examens
-                        </button>
+                    <div class="mt-auto flex flex-wrap gap-3">
+                        <button class="module-btn bg-blue-600 text-white" onclick="showContent('analyse', 'cours')"><i class="fas fa-book"></i> Cours</button>
+                        <button class="module-btn bg-green-600 text-white" onclick="showContent('analyse', 'examen')"><i class="fas fa-file-alt"></i> Examens</button>
                     </div>
                 </div>
-
-                <!-- Mechanics Module -->
-                <div class="module-card transform transition-all duration-300 hover:scale-105">
+                <div class="module-card">
                     <div class="flex items-center gap-3 mb-4">
-                        <div class="module-icon bg-purple-100 text-purple-600">
-                            <i class="fas fa-cogs fa-lg"></i>
-                        </div>
-                        <h2 class="text-xl font-semibold text-gray-800">Mécanique du Point</h2> <!-- Changed to h2 -->
+                        <div class="module-icon text-purple-600"><i class="fas fa-cogs"></i></div>
+                        <h2 class="text-xl font-semibold">Mécanique du Point</h2>
                     </div>
-                    <div class="mt-auto flex flex-wrap gap-2">
-                        <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('mecanique', 'cours')">
-                            <i class="fas fa-book"></i> Cours
-                        </button>
-                        <button class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('mecanique', 'examen')">
-                            <i class="fas fa-file-alt"></i> Examens
-                        </button>
+                    <div class="mt-auto flex flex-wrap gap-3">
+                        <button class="module-btn bg-blue-600 text-white" onclick="showContent('mecanique', 'cours')"><i class="fas fa-book"></i> Cours</button>
+                        <button class="module-btn bg-green-600 text-white" onclick="showContent('mecanique', 'examen')"><i class="fas fa-file-alt"></i> Examens</button>
                     </div>
                 </div>
-
-                <!-- Machine Structure Module -->
-                <div class="module-card transform transition-all duration-300 hover:scale-105">
+                <div class="module-card">
                     <div class="flex items-center gap-3 mb-4">
-                        <div class="module-icon bg-green-100 text-green-600">
-                            <i class="fas fa-server fa-lg"></i>
-                        </div>
-                        <h2 class="text-xl font-semibold text-gray-800">Structure Machine</h2> <!-- Changed to h2 -->
+                        <div class="module-icon text-green-600"><i class="fas fa-server"></i></div>
+                        <h2 class="text-xl font-semibold">Structure Machine</h2>
                     </div>
-                    <div class="mt-auto flex flex-wrap gap-2">
-                        <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('structure', 'cours')">
-                            <i class="fas fa-book"></i> Cours
-                        </button>
-                        <button class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('structure', 'examen')">
-                            <i class="fas fa-file-alt"></i> Examens
-                        </button>
+                    <div class="mt-auto flex flex-wrap gap-3">
+                        <button class="module-btn bg-blue-600 text-white" onclick="showContent('structure', 'cours')"><i class="fas fa-book"></i> Cours</button>
+                        <button class="module-btn bg-green-600 text-white" onclick="showContent('structure', 'examen')"><i class="fas fa-file-alt"></i> Examens</button>
                     </div>
                 </div>
-
-                <!-- TEE Module -->
-                <div class="module-card transform transition-all duration-300 hover:scale-105">
+                <div class="module-card">
                     <div class="flex items-center gap-3 mb-4">
-                        <div class="module-icon bg-orange-100 text-orange-600">
-                            <i class="fas fa-lightbulb fa-lg"></i>
-                        </div>
-                        <h2 class="text-xl font-semibold text-gray-800">TEE</h2> <!-- Changed to h2 -->
+                        <div class="module-icon text-orange-600"><i class="fas fa-lightbulb"></i></div>
+                        <h2 class="text-xl font-semibold">TEE</h2>
                     </div>
-                    <div class="mt-auto flex flex-wrap gap-2">
-                        <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('tee', 'cours')">
-                            <i class="fas fa-book"></i> Cours
-                        </button>
-                        <!-- No Exam button for TEE as per original structure -->
+                    <div class="mt-auto flex flex-wrap gap-3">
+                        <button class="module-btn bg-blue-600 text-white" onclick="showContent('tee', 'cours')"><i class="fas fa-book"></i> Cours</button>
                     </div>
                 </div>
-            </div> <!-- End Module Cards Grid -->
-
-        </div> <!-- End AOS fade-up container -->
-    </div> <!-- End Main Content Container -->
-
-    <footer class="text-center text-gray-600 text-sm py-4 mt-auto bg-gray-200"> <!-- Footer styling -->
-        <div>© 2025 Université de Bejaia. Développé par <a href="mailto:mehdi.amara@tech.univ-bejaia.dz" class="text-blue-600 hover:text-blue-800 hover:underline font-medium">Amara Mehdi</a></div>
-    </footer>
-
-    <!-- Popups (Keep these separate as intended by the JS logic) -->
-    <div id="popup-cours" class="hidden fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center p-4">
-        <div class="glass-card w-full max-w-4xl"> <!-- Increased max-width -->
-            <div class="flex justify-between items-center mb-4 pb-4 border-b border-gray-300">
-                <h2 id="popup-title-cours" class="text-2xl font-bold text-gray-800"></h2>
-                <button type="button" class="close-popup-btn">
-                    <i class="fas fa-times"></i><span>Fermer</span>
-                </button>
             </div>
-            <div id="popup-content-cours" class="popup-content"></div> <!-- Content will be added here -->
         </div>
     </div>
 
-    <div id="popup-td" class="hidden fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center p-4">
-        <div class="glass-card w-full max-w-4xl"> <!-- Increased max-width -->
-            <div class="flex justify-between items-center mb-4 pb-4 border-b border-gray-300">
-                <h2 id="popup-title-td" class="text-2xl font-bold text-gray-800"></h2>
-                <button type="button" class="close-popup-btn">
-                    <i class="fas fa-times"></i><span>Fermer</span>
-                </button>
+    <footer class="text-center text-gray-600 text-sm py-4 mt-auto bg-gray-200">
+        © 2025 Université de Bejaia. Développé par <a href="mailto:mehdi.amara@tech.univ-bejaia.dz" class="text-blue-600 hover:text-blue-800 font-medium">Amara Mehdi</a>
+    </footer>
+
+    <!-- Popups -->
+    <div id="popup-cours" class="hidden fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center p-4 z-50">
+        <div class="glass-card">
+            <div class="popup-header">
+                <h2 id="popup-title-cours" class="text-xl font-bold"></h2>
+                <button class="close-popup-btn"><i class="fas fa-times"></i> Fermer</button>
+            </div>
+            <div id="popup-content-cours" class="popup-content"></div>
+        </div>
+    </div>
+    <div id="popup-td" class="hidden fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center p-4 z-50">
+        <div class="glass-card">
+            <div class="popup-header">
+                <h2 id="popup-title-td" class="text-xl font-bold"></h2>
+                <button class="close-popup-btn"><i class="fas fa-times"></i> Fermer</button>
             </div>
             <div id="popup-content-td" class="popup-content"></div>
         </div>
     </div>
-
-    <div id="popup-examen" class="hidden fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center p-4">
-        <div class="glass-card w-full max-w-4xl"> <!-- Increased max-width -->
-            <div class="flex justify-between items-center mb-4 pb-4 border-b border-gray-300">
-                <h2 id="popup-title-examen" class="text-2xl font-bold text-gray-800"></h2>
-                <button type="button" class="close-popup-btn">
-                    <i class="fas fa-times"></i><span>Fermer</span>
-                </button>
+    <div id="popup-examen" class="hidden fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center p-4 z-50">
+        <div class="glass-card">
+            <div class="popup-header">
+                <h2 id="popup-title-examen" class="text-xl font-bold"></h2>
+                <button class="close-popup-btn"><i class="fas fa-times"></i> Fermer</button>
             </div>
             <div id="popup-content-examen" class="popup-content"></div>
         </div>
     </div>
 
-    <!-- Popup for exclusive content (Example - can be removed if not used) -->
-    <div id="popup-exclusive" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden p-4">
-         <div class="glass-card max-w-4xl w-full relative">
-            <button onclick="closePopup('popup-exclusive')" class="absolute top-3 right-3 text-gray-600 hover:text-gray-900 text-2xl z-10">
-                <i class="fas fa-times"></i>
-            </button>
-            <div class="popup-content">
-                <div class="bg-gradient-to-r from-blue-500 to-purple-600 text-white p-4 rounded-t-lg">
-                    <h2 class="text-2xl font-bold flex items-center">
-                        <i class="fas fa-crown text-yellow-300 mr-2"></i>
-                        Ressources Exclusives (Example)
-                    </h2>
-                    <p class="text-sm font-light mt-1">Nouvelles ressources pour Informatique LMD</p>
-                </div>
-                <div class="p-6">
-                    <div class="mb-8 p-4 bg-yellow-50 rounded-lg border border-yellow-200">
-                        <p class="text-yellow-800 font-semibold"><i class="fas fa-info-circle mr-2"></i> Example exclusive content area.</p>
-                    </div>
-                    <!-- Add exclusive content links here -->
-                </div>
-            </div>
-         </div>
-    </div>
-
-
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({ duration: 800, once: true });
 
-        // --- Consolidated and Corrected JavaScript ---
-
-        // Map short names from buttons to full names used in moduleContent
         const moduleMapping = {
             'algebre': 'Algèbre',
             'algorithme': 'Algorithme',
@@ -513,7 +335,6 @@
             'tee': 'TEE'
         };
 
-        // Centralized content data - NOW POPULATED
         const moduleContent = {
             'Algèbre': {
                 'bejaia': {
@@ -530,13 +351,13 @@
                         { title: 'Rattrapage 2018', url: 'https://drive.google.com/file/d/1A1KIH6O8Ggyp7CYioTdfmy9Cfc-Ay5le/view?usp=drive_link' },
                         { title: 'Rattrapage 2017', url: 'https://drive.google.com/file/d/1wy6EfA6ji8sXpofTG8ae-l_CWpd1bAPN/view?usp=drive_link' }
                     ],
-                    'td': [], // No TD/TP specified for Algebre
+                    'td': [],
                     'tp': []
                 },
-                'autres': { 'cours': [], 'examen': [], 'td': [], 'tp': [] } // Placeholder
+                'autres': { 'cours': [], 'examen': [], 'td': [], 'tp': [] }
             },
             'Algorithme': {
-                 'bejaia': {
+                'bejaia': {
                     'cours': [
                         { title: 'Chapitre 1', url: 'https://drive.google.com/file/d/1t2Nbva491Dc8pqz3rWryUME6ZLKESP1X/view?usp=drive_link' },
                         { title: 'Chapitre 2', url: 'https://drive.google.com/file/d/1yd4uTTTuoA0NCm9Rembko12TJ5PPdyTk/view?usp=drive_link' },
@@ -550,13 +371,13 @@
                         { title: 'Rattrapage 2017', url: 'https://drive.google.com/file/d/1XyjgDXBvlBfSXINNuNh5Po9MCnRBXAuh/view?usp=drive_link' },
                         { title: 'Rattrapage 2020', url: 'https://drive.google.com/file/d/1VXHVfAbDW6Oi7-KEOt0gyzQUZuvVcLHN/view?usp=drive_link' },
                         { title: 'Corrigé Rattrapage 2020', url: 'https://drive.google.com/file/d/1RJHTYzTr0HOkp4_90qejCFMa-3Yn---n/view?usp=drive_link' }
-                     ],
-                     'td': [ // Group TD/TP here
+                    ],
+                    'td': [
                         { title: 'Exercices et Corrigés (TD/TP)', url: 'https://drive.google.com/file/d/18V5ZwVeC-ftlNq7707lW3kZIZP6h_c-G/view?usp=drive_link' }
-                     ],
-                     'tp': [] // Keep TP array empty if grouped under TD
-                 },
-                 'autres': { 'cours': [], 'examen': [], 'td': [], 'tp': [] } // Placeholder
+                    ],
+                    'tp': []
+                },
+                'autres': { 'cours': [], 'examen': [], 'td': [], 'tp': [] }
             },
             'Analyse': {
                 'bejaia': {
@@ -584,299 +405,135 @@
                     'td': [],
                     'tp': []
                 },
-                'autres': { 'cours': [], 'examen': [], 'td': [], 'tp': [] } // Placeholder
+                'autres': { 'cours': [], 'examen': [], 'td': [], 'tp': [] }
             },
             'Mécanique du Point': {
-                 'bejaia': {
-                     'cours': [
+                'bejaia': {
+                    'cours': [
                         { title: 'Chapitre 1', url: 'https://drive.google.com/file/d/1VOlK3hi1MtaRx807X3FRfKF8NUdZniH3/view?usp=drive_link' },
                         { title: 'Chapitre 2', url: 'https://drive.google.com/file/d/1ytGxfqEt8UPhKhc0hQDtQluvcNlZJ0A7/view?usp=drive_link' },
                         { title: 'Chapitre 3', url: 'https://drive.google.com/file/d/18BCnbk06btzQyAoboo2aGoGsR4BlmLYY/view?usp=drive_link' },
                         { title: 'Chapitre 4', url: 'https://drive.google.com/file/d/1WfjF0GNzR0x0PDlq0YBzn0fqcm737PNO/view?usp=drive_link' },
                         { title: 'Programme MP', url: 'https://drive.google.com/file/d/14yKazSKFv9BW-0x5Cis1sOwwgxPJdx0v/view?usp=drive_link' }
                     ],
-                     'examen': [
+                    'examen': [
                         { title: 'Examen Normal 1', url: 'https://drive.google.com/file/d/1wuO6eeZkb9CQXSrr3SiI_TFu-GAXFLuL/view?usp=drive_link' },
                         { title: 'Examen Normal 2', url: 'https://drive.google.com/file/d/1_wvzIXbHn6rlYxKYAqMQGJRel7MXC7pY/view?usp=drive_link' },
                         { title: 'Examen Normal 3', url: 'https://drive.google.com/file/d/1Dn36-6xAPrzbtlDDq5iZ3u6nHXspEtMX/view?usp=drive_link' },
                         { title: 'Examen Normal 2023', url: 'https://drive.google.com/file/d/1_Dgyh_jkQ3E-kfYr7AkM-SPn_5ksOsKu/view?usp=drive_link' },
                         { title: 'Examen Normal 2024', url: 'https://drive.google.com/file/d/1JSonY60803tsHVWdKvzwXo8D3ckO68YB/view?usp=drive_link' }
                     ],
-                     'td': [],
-                     'tp': []
+                    'td': [],
+                    'tp': []
                 },
-                 'autres': { 'cours': [], 'examen': [], 'td': [], 'tp': [] } // Placeholder
+                'autres': { 'cours': [], 'examen': [], 'td': [], 'tp': [] }
             },
             'Structure Machine': {
-                 'bejaia': {
-                     'cours': [
+                'bejaia': {
+                    'cours': [
                         { title: 'Chapitre 1', url: 'https://drive.google.com/file/d/1DLut4iy57hzH0z7meFnlsssXr1v0zo96/view?usp=drive_link' },
                         { title: 'Chapitre 2', url: 'https://drive.google.com/file/d/1C6Yln7Cc5fsPVirXCxuSi44ZqJgdOOAu/view?usp=drive_link' },
                         { title: 'Chapitre 3', url: 'https://drive.google.com/file/d/1W9mYiCgTsY_QIyYIc_pr3i0o9pxiWmDV/view?usp=drive_link' }
                     ],
-                     'examen': [
+                    'examen': [
                         { title: 'Examen Normal 2023', url: 'https://drive.google.com/file/d/1kn6NYp2C7SwIECuiT5IFnB_dc9a_8GhJ/view?usp=drive_link' },
                         { title: 'Examen Normal 2024', url: 'https://drive.google.com/file/d/17uUDIWgOlgnqER7kwdYBw_-e1x4MeZVi/view?usp=drive_link' }
                     ],
-                     'td': [],
-                     'tp': []
+                    'td': [],
+                    'tp': []
                 },
-                 'autres': { 'cours': [], 'examen': [], 'td': [], 'tp': [] } // Placeholder
+                'autres': { 'cours': [], 'examen': [], 'td': [], 'tp': [] }
             },
             'TEE': {
                 'bejaia': {
                     'cours': [
                         { title: 'Résumé TEE', url: 'https://drive.google.com/file/d/1s4qsm8dDX_-XwIh5e0MclHFgA0wv0mZu/view?usp=drive_link' }
                     ],
-                    'examen': [], // No exams provided for TEE
+                    'examen': [],
                     'td': [],
                     'tp': []
                 },
-                'autres': { 'cours': [], 'examen': [], 'td': [], 'tp': [] } // Placeholder
+                'autres': { 'cours': [], 'examen': [], 'td': [], 'tp': [] }
             }
         };
 
-
         function showContent(moduleShortName, type) {
             const moduleName = moduleMapping[moduleShortName];
-            // Determine the correct popup ID based on type (group TD/TP if necessary)
-             let popupType = type;
-             if (type === 'tp') popupType = 'td'; // Show TP content in the TD popup
-
+            let popupType = type === 'tp' ? 'td' : type; // Group TP under TD popup
             const popup = document.getElementById(`popup-${popupType}`);
+            const popupTitle = popup.querySelector(`#popup-title-${popupType}`);
+            const popupContent = popup.querySelector(`#popup-content-${popupType}`);
 
-            if (!moduleName || !popup) {
-                console.error(`Module or Popup not found for: ${moduleShortName}, ${type} (Popup ID: popup-${popupType})`);
-                alert("Erreur: Impossible de trouver le contenu ou le conteneur pour afficher le contenu demandé.");
-                return;
-            }
+            let displayType = capitalizeFirstLetter(type);
+            if (type === 'td') displayType = 'TD/TP'; // Combine TD and TP in title
+            popupTitle.textContent = `${moduleName} - ${displayType}`;
+            popupContent.innerHTML = '';
 
             const moduleData = moduleContent[moduleName];
             if (!moduleData) {
-                showEmptyPopup(moduleName, type, popup);
+                popupContent.innerHTML = `<p class="text-center text-gray-500 py-8">Aucun contenu disponible pour ce module.</p>`;
+                popup.classList.remove('hidden');
                 return;
             }
 
-            const popupTitle = popup.querySelector(`[id^="popup-title-"]`); // More robust selector
-            const popupContent = popup.querySelector(`[id^="popup-content-"]`); // More robust selector
-
-             if (!popupTitle || !popupContent) {
-                 console.error("Popup title or content area not found within popup element:", popup);
-                 alert("Erreur interne: Impossible d'afficher le contenu.");
-                 return;
-             }
-
-
-            // Use the original 'type' for the title (e.g., "Algorithme - TD/TP" if type is 'td')
-            let displayType = capitalizeFirstLetter(type);
-            if (type === 'td' && moduleData.bejaia && moduleData.bejaia.tp && moduleData.bejaia.tp.length > 0) {
-                 displayType = "TD / TP"; // Adjust title if both TD and TP exist
+            const itemsToAdd = [];
+            if (moduleData.bejaia[type]?.length) {
+                moduleData.bejaia[type].forEach(item => itemsToAdd.push({ item, type }));
             }
-            popupTitle.textContent = `${moduleName} - ${displayType}`;
-
-            popupContent.innerHTML = ""; // Clear previous content
-
-            let contentAdded = false;
-
-            // Function to create and add sections
-            const addSection = (uniKey, uniName, uniColor, uniIcon) => {
-                const uniData = moduleData[uniKey];
-                if (!uniData) return false; // Skip if uniKey doesn't exist
-
-                const itemsToAdd = [];
-
-                // Collect items for the requested type
-                if (uniData[type] && uniData[type].length > 0) {
-                    uniData[type].forEach(item => {
-                        itemsToAdd.push({ item, effectiveType: type, isRecommended: false });
-                    });
-                }
-
-                // Special handling: if requested type is 'td', ALSO include 'tp' items
-                 if (type === 'td' && uniData['tp'] && uniData['tp'].length > 0) {
-                     uniData['tp'].forEach(item => {
-                         itemsToAdd.push({ item, effectiveType: 'tp', isRecommended: false }); // Mark as TP type
-                     });
-                 }
-
-                // Handle recommended courses (only for type 'cours' and 'autres' university)
-                if (type === 'cours' && uniKey === 'autres' && uniData["cours conseiller"] && uniData["cours conseiller"].length > 0) {
-                    uniData["cours conseiller"].forEach(item => {
-                         itemsToAdd.push({ item, effectiveType: 'cours', isRecommended: true });
-                     });
-                }
-
-
-                if (itemsToAdd.length > 0) {
-                    contentAdded = true; // Mark that overall content was found
-                    const section = document.createElement('div');
-                    section.className = `university-section mb-6 border-l-4 border-${uniColor}-600`;
-
-                    const header = document.createElement('div');
-                    header.className = `section-header bg-${uniColor}-50`;
-                    header.innerHTML = `<h3 class="text-xl font-bold text-${uniColor}-700"><i class="fas ${uniIcon} mr-2"></i>${uniName}</h3>`;
-
-                    const gridContainer = document.createElement('div'); // Container for padding
-                    gridContainer.className = 'content-grid-container';
-                    const grid = document.createElement('div');
-                    grid.className = 'content-grid';
-
-                     // Sort items: TD first, then TP (if applicable)
-                     if (type === 'td') {
-                         itemsToAdd.sort((a, b) => {
-                             if (a.effectiveType === 'td' && b.effectiveType === 'tp') return -1;
-                             if (a.effectiveType === 'tp' && b.effectiveType === 'td') return 1;
-                             // Optional: sort by title alphabetically within type
-                             // return a.item.title.localeCompare(b.item.title);
-                             return 0;
-                         });
-                     }
-
-                    itemsToAdd.forEach(({ item, effectiveType, isRecommended }) => {
-                        grid.appendChild(createContentItem(item, effectiveType, isRecommended)); // Pass effectiveType
-                    });
-
-                    gridContainer.appendChild(grid);
-                    section.appendChild(header);
-                    section.appendChild(gridContainer);
-                    popupContent.appendChild(section);
-                    return true; // Indicate section was added
-                }
-                return false; // Indicate section was not added
-            };
-
-            // Add Bejaia Section
-            addSection('bejaia', 'Université de Béjaia', 'green', 'fa-university');
-
-            // Add Autres Section (including recommended if applicable)
-            addSection('autres', 'Autres Universités', 'red', 'fa-globe');
-
-
-            // If no content was added at all, show the empty message
-            if (!contentAdded) {
-                showEmptyPopup(moduleName, type, popup); // Pass popup element
-                return; // Exit function early
+            if (type === 'td' && moduleData.bejaia.tp?.length) {
+                moduleData.bejaia.tp.forEach(item => itemsToAdd.push({ item, type: 'tp' }));
             }
 
-            // Show the popup
+            if (itemsToAdd.length === 0) {
+                popupContent.innerHTML = `<p class="text-center text-gray-500 py-8">Aucun contenu de type "${displayType}" disponible.</p>`;
+            } else {
+                const grid = document.createElement('div');
+                grid.className = 'content-grid';
+                itemsToAdd.forEach(({ item, type: effectiveType }) => {
+                    const bgColor = effectiveType === 'cours' ? 'bg-blue-600' : effectiveType === 'examen' ? 'bg-green-600' : 'bg-yellow-600';
+                    grid.innerHTML += `
+                        <div class="content-item">
+                            <div class="flex items-center justify-between gap-3">
+                                <div class="flex items-center gap-3">
+                                    <div class="icon-wrapper bg-blue-100 text-blue-600"><i class="fas ${getIconByType(effectiveType)}"></i></div>
+                                    <h4 class="font-semibold truncate">${item.title}</h4>
+                                </div>
+                                <a href="${item.url}" target="_blank" class="download-btn ${bgColor} text-white"><i class="fas fa-eye"></i> Voir</a>
+                            </div>
+                        </div>
+                    `;
+                });
+                popupContent.appendChild(grid);
+            }
             popup.classList.remove('hidden');
         }
 
-        function createContentItem(item, type, isRecommended) {
-            const contentItem = document.createElement('div');
-            contentItem.className = 'content-item transform transition-all duration-300'; // Added transform classes here
-
-            const iconClass = getIconByType(type);
-            // Conditional styling based on recommendation
-            const bgColor = isRecommended ? 'bg-blue-100' : (type === 'tp' ? 'bg-yellow-100' : 'bg-green-100'); // Yellow for TP
-            const textColor = isRecommended ? 'text-blue-600' : (type === 'tp' ? 'text-yellow-700' : 'text-green-600'); // Yellow for TP
-            const btnBgColor = isRecommended ? 'bg-blue-500 hover:bg-blue-600' : (type === 'tp' ? 'bg-yellow-500 hover:bg-yellow-600' : 'bg-green-500 hover:bg-green-600'); // Yellow for TP
-            const btnTextColor = 'text-white'; // White text for colored buttons
-
-
-            contentItem.innerHTML = `
-                <div class="flex items-center justify-between gap-3">
-                    <div class="flex items-center gap-3 overflow-hidden"> <!-- Added overflow-hidden -->
-                        <div class="icon-wrapper ${bgColor} ${textColor} flex-shrink-0"> <!-- Added flex-shrink-0 -->
-                            <i class="fas ${iconClass} text-lg"></i> <!-- Slightly smaller icon -->
-                        </div>
-                        <div class="text-content flex-grow min-w-0"> <!-- Added flex-grow and min-w-0 -->
-                            <h4 class="font-semibold text-gray-800 truncate" title="${item.title}">${item.title}</h4> <!-- Added truncate and title -->
-                             ${isRecommended ? '<span class="text-xs bg-blue-200 text-blue-800 px-2 py-0.5 rounded-full font-medium ml-1">Conseillé</span>' : ''}
-                             ${type === 'tp' ? '<span class="text-xs bg-yellow-200 text-yellow-800 px-2 py-0.5 rounded-full font-medium ml-1">TP</span>' : ''} <!-- TP Badge -->
-                             ${type === 'td' && item.title.toLowerCase().includes('td') ? '<span class="text-xs bg-indigo-200 text-indigo-800 px-2 py-0.5 rounded-full font-medium ml-1">TD</span>' : ''} <!-- TD Badge -->
-
-                        </div>
-                    </div>
-                    <a href="${item.url}" target="_blank" rel="noopener noreferrer"
-                       class="download-btn ${btnBgColor} ${btnTextColor} px-3 py-1.5 rounded-full flex items-center gap-1.5 transition-all duration-300 flex-shrink-0"> <!-- Adjusted padding, added flex-shrink-0 -->
-                        <span class="text-xs sm:text-sm">Voir</span> <!-- Changed text, responsive size -->
-                        <i class="fas fa-external-link-alt text-xs"></i> <!-- Changed icon -->
-                    </a>
-                </div>
-            `;
-            return contentItem;
-        }
-
         function getIconByType(type) {
-            const icons = {
-                'cours': 'fa-book-open', // Changed icon
-                'td': 'fa-pencil-ruler', // Changed icon
-                'tp': 'fa-flask-vial', // Changed icon for TP
-                'examen': 'fa-file-signature', // Changed icon
-                'default': 'fa-file-alt'
-            };
-            return icons[type] || icons['default'];
-        }
-
-        // Updated function to accept popup element
-        function showEmptyPopup(moduleName, type, popupElement) {
-             const popupTitle = popupElement.querySelector('[id^="popup-title-"]');
-             const popupContent = popupElement.querySelector('[id^="popup-content-"]');
-
-             if(popupTitle) popupTitle.textContent = `${moduleName} - ${capitalizeFirstLetter(type)}`;
-             if(popupContent) {
-                popupContent.innerHTML = `
-                    <div class="text-center p-8">
-                        <i class="fas fa-box-open text-5xl text-gray-400 mb-4"></i>
-                        <p class="text-gray-500 text-lg">Aucun contenu de type "${capitalizeFirstLetter(type)}" disponible pour le moment.</p>
-                        <p class="text-gray-400 text-sm mt-2">Veuillez vérifier ultérieurement.</p>
-                    </div>
-                `;
-             }
-            if(popupElement) popupElement.classList.remove('hidden'); // Show the specific popup
+            return {
+                'cours': 'fa-book',
+                'td': 'fa-pencil-ruler',
+                'tp': 'fa-flask',
+                'examen': 'fa-file-alt'
+            }[type] || 'fa-file';
         }
 
         function capitalizeFirstLetter(string) {
-            if (!string) return '';
             return string.charAt(0).toUpperCase() + string.slice(1);
         }
 
-        // Popup closing logic
-        document.addEventListener('DOMContentLoaded', function() {
-            // Close popup when clicking the close button
-            const closeButtons = document.querySelectorAll('.close-popup-btn');
-            closeButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    // Find the closest parent popup div and hide it
-                    const popup = this.closest('[id^="popup-"]');
-                    if (popup) {
-                        popup.classList.add('hidden');
-                    }
-                });
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.close-popup-btn').forEach(btn => {
+                btn.addEventListener('click', () => btn.closest('[id^="popup-"]').classList.add('hidden'));
             });
-
-            // Close popup when clicking outside the content (on the backdrop)
-            const popups = document.querySelectorAll('[id^="popup-"]');
-            popups.forEach(popup => {
-                popup.addEventListener('click', function(e) {
-                    // If the click is directly on the backdrop (the popup div itself)
-                    if (e.target === this) {
-                        this.classList.add('hidden');
-                    }
-                });
+            document.querySelectorAll('[id^="popup-"]').forEach(popup => {
+                popup.addEventListener('click', e => { if (e.target === popup) popup.classList.add('hidden'); });
             });
-
-             // Make closePopup function global for inline onclick (like on exclusive popup example)
-             window.closePopup = function(popupId) {
-                const popup = document.getElementById(popupId);
-                if (popup) {
-                    popup.classList.add('hidden');
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    document.querySelectorAll('[id^="popup-"]:not(.hidden)').forEach(popup => popup.classList.add('hidden'));
                 }
-            }
+            });
         });
-
-         // Optional: Close popup on 'Escape' key press
-         document.addEventListener('keydown', function(event) {
-            if (event.key === "Escape") {
-                const visiblePopups = document.querySelectorAll('[id^="popup-"]:not(.hidden)');
-                visiblePopups.forEach(popup => {
-                    popup.classList.add('hidden');
-                });
-            }
-         });
-
     </script>
-
 </body>
 </html>
