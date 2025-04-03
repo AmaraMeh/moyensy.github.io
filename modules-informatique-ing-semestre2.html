@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ressources ING - Semestre 2 | Université de Béjaïa</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-blue-50 to-green-50 font-poppins text-gray-800">
+    <!-- Header -->
+    <header class="bg-white shadow-lg py-6 sticky top-0 z-50">
+        <div class="container mx-auto px-4 max-w-6xl flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <img src="assets/img/LOGO.png" alt="Université de Béjaïa" class="w-32 transition-transform duration-300 hover:scale-105">
+                <h1 class="text-2xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-green-600">
+                    Ressources ING - Semestre 2
+                </h1>
+            </div>
+            <a href="#" class="flex items-center gap-2 text-blue-600 hover:text-blue-800 transition-all duration-300">
+                <i class="fas fa-arrow-left"></i> Retour
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 max-w-6xl py-12">
+        <section class="bg-white/90 backdrop-blur-md rounded-3xl p-8 shadow-xl mb-12" data-aos="fade-up">
+            <h2 class="text-3xl font-semibold mb-4 text-blue-700">Université de Béjaïa</h2>
+            <p class="text-lg text-gray-600 mb-6">Ressources pédagogiques pour les étudiants en ingénierie informatique - Semestre 2</p>
+            <div class="flex items-center gap-2 text-sm text-gray-700 font-medium animate-pulse">
+                <i class="fas fa-history text-blue-600"></i>
+                Dernière mise à jour : 3 avril 2025 à 14:00, Campus El-Kseur
+            </div>
+            <div class="mt-6 flex items-center gap-4">
+                <div class="bg-blue-50 p-3 rounded-lg shadow-sm transition-transform duration-300 hover:scale-105">
+                    <span class="text-sm text-gray-600">Développé par</span>
+                    <a href="mailto:mehdi.amara@tech.univ-bejaia.dz" class="block font-semibold text-blue-600 hover:text-blue-800 flex items-center gap-2">
+                        <i class="fas fa-code"></i> Amara Mehdi
+                    </a>
+                </div>
+                <span class="text-xs text-gray-500">Département d'Informatique, Université de Béjaïa</span>
+            </div>
+        </section>
+
+        <!-- Modules Grid -->
+        <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Analyse 2 -->
+            <div class="module-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="module-icon bg-blue-100 text-blue-600"><i class="fas fa-chart-line"></i></div>
+                    <h3 class="text-xl font-semibold">Analyse 2</h3>
+                </div>
+                <div class="flex flex-wrap gap-3">
+                    <button class="module-btn bg-blue-600" onclick="showContent('analyse2', 'cours')">Cours</button>
+                    <button class="module-btn bg-green-600" onclick="showContent('analyse2', 'td')">TD</button>
+                    <button class="module-btn bg-purple-600" onclick="showContent('analyse2', 'examen')">Examen</button>
+                </div>
+            </div>
+
+            <!-- Algèbre 2 -->
+            <div class="module-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="module-icon bg-green-100 text-green-600"><i class="fas fa-square-root-alt"></i></div>
+                    <h3 class="text-xl font-semibold">Algèbre 2</h3>
+                </div>
+                <div class="flex flex-wrap gap-3">
+                    <button class="module-btn bg-blue-600" onclick="showContent('algebre2', 'cours')">Cours</button>
+                    <button class="module-btn bg-green-600" onclick="showContent('algebre2', 'td')">TD</button>
+                    <button class="module-btn bg-purple-600" onclick="showContent('algebre2', 'examen')">Examen</button>
+                </div>
+            </div>
+
+            <!-- Algorithme 2 -->
+            <div class="module-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="module-icon bg-red-100 text-red-600"><i class="fas fa-code"></i></div>
+                    <h3 class="text-xl font-semibold">Algorithme 2</h3>
+                </div>
+                <div class="flex flex-wrap gap-3">
+                    <button class="module-btn bg-blue-600" onclick="showContent('algo2', 'cours')">Cours</button>
+                    <button class="module-btn bg-green-600" onclick="showContent('algo2', 'td')">TD</button>
+                    <button class="module-btn bg-purple-600" onclick="showContent('algo2', 'examen')">Examen</button>
+                </div>
+            </div>
+
+            <!-- SE 2 -->
+            <div class="module-card" data-aos="fade-up" data-aos-delay="400">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="module-icon bg-indigo-100 text-indigo-600"><i class="fas fa-cogs"></i></div>
+                    <h3 class="text-xl font-semibold">SE 2</h3>
+                </div>
+                <div class="flex flex-wrap gap-3">
+                    <button class="module-btn bg-blue-600" onclick="showContent('se2', 'cours')">Cours</button>
+                    <button class="module-btn bg-green-600" onclick="showContent('se2', 'td')">TD</button>
+                    <button class="module-btn bg-purple-600" onclick="showContent('se2', 'examen')">Examen</button>
+                </div>
+            </div>
+
+            <!-- Proba Stat 1 -->
+            <div class="module-card" data-aos="fade-up" data-aos-delay="500">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="module-icon bg-yellow-100 text-yellow-600"><i class="fas fa-chart-bar"></i></div>
+                    <h3 class="text-xl font-semibold">Proba Stat 1</h3>
+                </div>
+                <div class="flex flex-wrap gap-3">
+                    <button class="module-btn bg-blue-600" onclick="showContent('probastat1', 'cours')">Cours</button>
+                    <button class="module-btn bg-green-600" onclick="showContent('probastat1', 'td')">TD</button>
+                    <button class="module-btn bg-purple-600" onclick="showContent('probastat1', 'examen')">Examen</button>
+                </div>
+            </div>
+
+            <!-- Logique Mathématique -->
+            <div class="module-card" data-aos="fade-up" data-aos-delay="600">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="module-icon bg-purple-100 text-purple-600"><i class="fas fa-brain"></i></div>
+                    <h3 class="text-xl font-semibold">Logique Mathématique</h3>
+                </div>
+                <div class="flex flex-wrap gap-3">
+                    <button class="module-btn bg-blue-600" onclick="showContent('logiquemath', 'cours')">Cours</button>
+                    <button class="module-btn bg-green-600" onclick="showContent('logiquemath', 'td')">TD</button>
+                    <button class="module-btn bg-purple-600" onclick="showContent('logiquemath', 'examen')">Examen</button>
+                </div>
+            </div>
+
+            <!-- TEO -->
+            <div class="module-card" data-aos="fade-up" data-aos-delay="700">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="module-icon bg-cyan-100 text-cyan-600"><i class="fas fa-wave-square"></i></div>
+                    <h3 class="text-xl font-semibold">TEO</h3>
+                </div>
+                <div class="flex flex-wrap gap-3">
+                    <button class="module-btn bg-blue-600" onclick="showContent('teo', 'cours')">Cours</button>
+                    <button class="module-btn bg-green-600" onclick="showContent('teo', 'td')">TD</button>
+                    <button class="module-btn bg-purple-600" onclick="showContent('teo', 'examen')">Examen</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-4 max-w-6xl">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-green-400">
+                        <i class="fas fa-university mr-2"></i>Université de Béjaïa
+                    </h3>
+                    <p class="text-gray-300">Campus El-Kseur, Béjaïa, Algérie</p>
+                    <p class="text-gray-400 mt-2">Département d'Informatique - Section ING</p>
+                    <p class="text-gray-400 mt-2">Fondée en 1983</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-green-400">
+                        <i class="fas fa-info-circle mr-2"></i>À Propos
+                    </h3>
+                    <p class="text-gray-300">Créé par <a href="mailto:mehdi.amara@tech.univ-bejaia.dz" class="text-blue-400 hover:text-blue-300">Amara Mehdi</a>, étudiant en ING.</p>
+                    <p class="text-gray-400 mt-2">Ressources éducatives pour les étudiants en informatique.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-green-400">
+                        <i class="fas fa-envelope mr-2"></i>Contact
+                    </h3>
+                    <p class="text-gray-300">Email: <a href="mailto:mehdi.amara@tech.univ-bejaia.dz" class="text-blue-400 hover:text-blue-300">mehdi.amara@tech.univ-bejaia.dz</a></p>
+                    <p class="text-gray-300 mt-2">Téléphone: +213 123 456 789</p>
+                    <p class="text-gray-300 mt-2">Mise à jour: 3 avril 2025</p>
+                </div>
+            </div>
+            <div class="mt-8 text-center text-gray-400 text-sm">
+                <p>© 2025 Université de Béjaïa - Tous droits réservés.</p>
+                <p class="mt-2">Initiative étudiante non officielle à des fins éducatives.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Popups -->
+    <div id="popup-cours" class="popup hidden">
+        <div class="popup-content">
+            <h2 id="popup-title-cours" class="popup-title"></h2>
+            <button class="close-btn"><i class="fas fa-times"></i></button>
+            <div id="popup-content-cours" class="popup-body"></div>
+        </div>
+    </div>
+
+    <div id="popup-td" class="popup hidden">
+        <div class="popup-content">
+            <h2 id="popup-title-td" class="popup-title"></h2>
+            <button class="close-btn"><i class="fas fa-times"></i></button>
+            <div id="popup-content-td" class="popup-body"></div>
+        </div>
+    </div>
+
+    <div id="popup-examen" class="popup hidden">
+        <div class="popup-content">
+            <h2 id="popup-title-examen" class="popup-title"></h2>
+            <button class="close-btn"><i class="fas fa-times"></i></button>
+            <div id="popup-content-examen" class="popup-body"></div>
+        </div>
+    </div>
+
+    <script>
+        AOS.init({ duration: 1000, once: true });
+
+        const moduleResources = {
+            'analyse2': {
+                'cours': `
+                    <div class="resource-list">
+                        <div class="resource-item">
+                            <span class="resource-name">Chapitre 04 - Équations Différentielles (Partie 1)</span>
+                            <span class="resource-details">Promo 2022</span>
+                            <a href="https://drive.google.com/file/d/1z6rwDNIoNTLWFMn_6Q1Q73XbhuLrloCy/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Chapitre 03 - Intégrales Généralisées</span>
+                            <span class="resource-details">Promo 2022</span>
+                            <a href="https://drive.google.com/file/d/1sqvv5v9Hzsr1UoJOdJfpO1TXDDMS3fgT/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Chapitre 04 - EDO</span>
+                            <span class="resource-details">2023-2024</span>
+                            <a href="https://drive.google.com/file/d/18uv5qMm5PUghKXM9rVX6gdPDmLctIf_k/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Livre Analyse 1</span>
+                            <span class="resource-details">Promo 2022</span>
+                            <a href="https://drive.google.com/file/d/1_73eIdZ42uhYliJSAeSXqVLE1GEB_g6m/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                    </div>`,
+                'td': `
+                    <div class="resource-list">
+                        <div class="resource-item">
+                            <span class="resource-name">Série de TD №3</span>
+                            <span class="resource-details">2022-2023</span>
+                            <a href="https://docs.google.com/document/d/1JfH_9oEm7T_GmIyC48I8CtieML3Raqn4/edit?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Série de TD №2</span>
+                            <span class="resource-details">2022-2023</span>
+                            <a href="https://docs.google.com/document/d/1YAa-HE0svFdJw-O6zOc2NSUK7Fp0YfHI/edit?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Série de TD №1</span>
+                            <span class="resource-details">2022-2023</span>
+                            <a href="https://docs.google.com/document/d/1Lbb7SZoAYkVHPRqwcraGlfLewDsD-NPg/edit?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Série №3</span>
+                            <span class="resource-details">2023-2024</span>
+                            <a href="https://drive.google.com/file/d/17jlxFvZBAtdfMyfRteuPUeS8r9v5CaHZ/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Série №2</span>
+                            <span class="resource-details">2023-2024</span>
+                            <a href="https://drive.google.com/file/d/17h3dcFE5OfjYysqCz7PQsYdmFvyaq6kW/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Série №1</span>
+                            <span class="resource-details">2023-2024</span>
+                            <a href="https://drive.google.com/file/d/17eghFNg3aMKrAxTepPG6cKcv8ShJKD2f/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">TD4 - Équations Différentielles</span>
+                            <span class="resource-details">Promo 2022</span>
+                            <a href="https://drive.google.com/file/d/11JhVYFzpfpEQ5ifoMqPUtdQWT_nTPnju/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Exercices Corrigés - Intégration</span>
+                            <span class="resource-details">Promo 2022</span>
+                            <a href="https://drive.google.com/file/d/1M6sK235DvHUyP7oZrujo-YLm1Iy8Jb_z/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                    </div>`,
+                'examen': `
+                    <div class="resource-list">
+                        <div class="resource-item">
+                            <span class="resource-name">Examen Analyse 2 + Correction</span>
+                            <span class="resource-details">2022-2023</span>
+                            <a href="https://drive.google.com/file/d/13wmmZlh0c189MVz8FtxaZVNi-Qkdh-RA/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Examen</span>
+                            <span class="resource-details">2023-2024</span>
+                            <a href="https://drive.google.com/file/d/142idNyaxysIBhpYzxQGLOL2j7SJ4sqwx/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Examen de Remplacement</span>
+                            <span class="resource-details">2023-2024</span>
+                            <a href="https://drive.google.com/file/d/143mFNLjI-SRfkPi9o15oSyRbJIXxHvMV/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Examen Rattrapage</span>
+                            <span class="resource-details">2023-2024</span>
+                            <a href="https://drive.google.com/file/d/1J0dGJwXQgBT6gx4Tga9QGV1-qvIwR8EI/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Interrogation №2</span>
+                            <span class="resource-details">2023-2024</span>
+                            <a href="https://drive.google.com/file/d/14wYzgpjN_CVUEoNK6AUkjflbsZ_k5SgD/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Interrogation 2</span>
+                            <span class="resource-details">Promo 2022</span>
+                            <a href="https://docs.google.com/document/d/10QReG3s2bsNBY7013r_ZDXmnFEJzw5uQ/edit?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Interrogation 1</span>
+                            <span class="resource-details">Promo 2022</span>
+                            <a href="https://docs.google.com/document/d/1wVOANuHR3F9Wba9E7dynlLT14NyekauF/edit?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                    </div>`
+            },
+            'algebre2': {
+                'cours': `
+                    <div class="resource-list">
+                        <div class="resource-item">
+                            <span class="resource-name">Cours et TD</span>
+                            <span class="resource-details">Promo 2022</span>
+                            <a href="https://drive.google.com/file/d/15eNIx5tG1Tck_Klye0ESJqaoefeV2ROJ/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Polycopié Cours et Exercices Corrigés</span>
+                            <span class="resource-details">2023-2024</span>
+                            <a href="https://drive.google.com/file/d/1949iwh8r5g4mDRZW4fP2y9RAWfdepQcE/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Chapitre Matrices</span>
+                            <span class="resource-details">Promo 2022</span>
+                            <a href="https://drive.google.com/file/d/1t6hewbq7UlCgdxOA6CUJTPpTIY1wrk0S/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                    </div>`,
+                'td': `
+                    <div class="resource-list">
+                        <div class="resource-item">
+                            <span class="resource-name">Série de TD №3</span>
+                            <span class="resource-details">2023-2024</span>
+                            <a href="https://drive.google.com/file/d/19OlmPqbyB9XiPs7xDSN49SxyOa_TRzt5/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Série de TD №2</span>
+                            <span class="resource-details">2023-2024</span>
+                            <a href="https://drive.google.com/file/d/19O2o2aDCgtIf8uHcr26KVZZsnir30CMK/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Série de TD №1</span>
+                            <span class="resource-details">2023-2024</span>
+                            <a href="https://drive.google.com/file/d/19KnTPBSRNrcqJzwpvTLKK-Kjz9QAD0a6/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Série 3</span>
+                            <span class="resource-details">2022-2023</span>
+                            <a href="https://drive.google.com/file/d/1WP6sRSUzkBoLCt1UPy3KbSEvivJ4jC2W/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Série 3 + Solutions</span>
+                            <span class="resource-details">Promo 2022</span>
+                            <a href="https://drive.google.com/file/d/1zagbtLzDW0mt3N_6c3-0L6RH-q09C5cF/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Série 2 + Solutions</span>
+                            <span class="resource-details">Promo 2022</span>
+                            <a href="https://drive.google.com/file/d/14okZeLDN5lEOu6cSds-WgxsJaaiJWEmB/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Série 1 + Solutions</span>
+                            <span class="resource-details">Promo 2022</span>
+                            <a href="https://drive.google.com/file/d/14heRujVj3rQeB99KdtzSEZjyRFaeP6LO/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                    </div>`,
+                'examen': `
+                    <div class="resource-list">
+                        <div class="resource-item">
+                            <span class="resource-name">Examen</span>
+                            <span class="resource-details">2023-2024</span>
+                            <a href="https://drive.google.com/file/d/1yyewXmmc4YU7cXa2PvVnO-YHUH9hyZM1/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Correction d'Examen</span>
+                            <span class="resource-details">2023-2024</span>
+                            <a href="https://drive.google.com/file/d/19am4WVNy3wis4cfM7apG4St0u_7oY6s4/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Interrogation №2</span>
+                            <span class="resource-details">2023-2024</span>
+                            <a href="https://drive.google.com/file/d/195pZSvA-PjnIyhw9CqL1TcJFQAJe3xuQ/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Interrogation №1</span>
+                            <span class="resource-details">2023-2024</span>
+                            <a href="https://drive.google.com/file/d/19HEAclTpPYVuB302feJAwxemn-j7uyNn/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Corrigé Examen Final</span>
+                            <span class="resource-details">2021-2022</span>
+                            <a href="https://drive.google.com/file/d/15fUisiUK3dnbFi6qff0is697hEOngc33/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                    </div>`
+            },
+            'algo2': {
+                'cours': `
+                    <div class="resource-list">
+                        <div class="resource-item">
+                            <span class="resource-name">Cours Programmation et Structures de Données</span>
+                            <span class="resource-details">2023-2024</span>
+                            <a href="https://drive.google.com/file/d/14MXLtf6F6Uy4ia5HCvL09cRCbCcqYvXa/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Chapitre 4</span>
+                            <span class="resource-details">2023-2024</span>
+                            <a href="https://drive.google.com/file/d/14GNEzbE7wXbgRARMUV4itb8Zw20Aqa8s/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Chapitre 1</span>
+                            <span class="resource-details">2023-2024</span>
+                            <a href="https://drive.google.com/file/d/1453Hr3vP2r2dynPGM3gnr2cRGrH_Prtu/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Pointeurs</span>
+                            <span class="resource-details">Promo 2022</span>
+                            <a href="https://drive.google.com/file/d/1sOo_r9iNxWSSG0upx0O7JJKXyB4fq7vt/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Listes Linéaires Chaînées</span>
+                            <span class="resource-details">Promo 2022</span>
+                            <a href="https://drive.google.com/file/d/1p_if8QzActs6l97qVZOPSaPchsew8imO/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                    </div>`,
+                'td': `
+                    <div class="resource-list">
+                        <div class="resource-item">
+                            <span class="resource-name">Série №4</span>
+                            <span class="resource-details">2023-2024</span>
+                            <a href="https://drive.google.com/file/d/14vyc5mJ98v3P6GzY9L6qwTFxxMZkj4PF/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Série №3</span>
+                            <span class="resource-details">2023-2024</span>
+                            <a href="https://drive.google.com/file/d/14gv5qLw476KWTLv83BwqebExzO7gsEjb/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Série №2</span>
+                            <span class="resource-details">2023-2024</span>
+                            <a href="https://drive.google.com/file/d/14U4xDfsYZ2Sy9qHDeCF37emq9CDjJ6E4/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Série №1</span>
+                            <span class="resource-details">2023-2024</span>
+                            <a href="https://drive.google.com/file/d/15rJIcfxaTetZwMcvn9B6ASZ5GRk59A6F/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Série de TP №2</span>
+                            <span class="resource-details">2023-2024</span>
+                            <a href="https://drive.google.com/file/d/15KKHKKj_3TnCwhfbomS5Qfyi75ltbXm5/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Série de TP №1</span>
+                            <span class="resource-details">2023-2024</span>
+                            <a href="https://drive.google.com/file/d/15Fy2-3TAb-JWNi2fp6rBZzXg6c4Ql-jt/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">TD 1</span>
+                            <span class="resource-details">2022-2023</span>
+                            <a href="https://drive.google.com/file/d/1LbGgeCoLh96OqL-hnzfRFrANMDPYcyS-/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">TD3</span>
+                            <span class="resource-details">Promo 2022</span>
+                            <a href="https://drive.google.com/file/d/1bSuIoYiarIyLME95metdv437ezC8ucu7/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">TD2</span>
+                            <span class="resource-details">Promo 2022</span>
+                            <a href="https://drive.google.com/file/d/1VYWktzpShfw9_36fHy5PyfuJJetfptVy/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                    </div>`,
+                'examen': `
+                    <div class="resource-list">
+                        <div class="resource-item">
+                            <span class="resource-name">Examen</span>
+                            <span class="resource-details">2023-2024</span>
+                            <a href="https://drive.google.com/file/d/14OuZGt2Uv2dQ6qovzyqWh_MF_yEVX_pK/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Examen Rattrapage</span>
+                            <span class="resource-details">2023-2024</span>
+                            <a href="https://drive.google.com/file/d/1IfhZCJJX61rZk31b5SEKyF8kORugtUo4/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Interrogation</span>
+                            <span class="resource-details">2023-2024</span>
+                            <a href="https://drive.google.com/file/d/14TGQ-rlbXe1q1JvqZ1v3dkDOxttm0Xyi/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Test TP Sujet 2</span>
+                            <span class="resource-details">2023-2024</span>
+                            <a href="https://drive.google.com/file/d/14psEnkW3O_3gCVwX1nT5EWcbHwZ230M2/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Test TP Sujet 1</span>
+                            <span class="resource-details">2023-2024</span>
+                            <a href="https://drive.google.com/file/d/15nZNb0Ywi3lzDhYHtMiIrCKwCTbdw1S2/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Examen</span>
+                            <span class="resource-details">2022-2023</span>
+                            <a href="https://drive.google.com/file/d/1LBgQtxF0oO7ZZnDXuINC1JVBIvkROhJ9/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                    </div>`
+            },
+            'se2': {
+                'cours': `
+                    <div class="resource-list">
+                        <div class="resource-item">
+                            <span class="resource-name">Cours SE2 L1 AMROUN</span>
+                            <span class="resource-details">2023-2024</span>
+                            <a href="https://drive.google.com/file/d/15SB1QnMnSrqDRdDBL5-HjLth5nsRjZZn/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Cours Assembleur 8086</span>
+                            <span class="resource-details">2023-2024</span>
+                            <a href="https://drive.google.com/file/d/15S0TL6oL7CcE5_wcw3pXk81po0pWuSPU/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Chapitre II - Architecture Interne des Processeurs</span>
+                            <span class="resource-details">Promo 2022</span>
+                            <a href="https://drive.google.com/file/d/152IB-3jLyjmVbvYY5L5HsrRmWuRHWJqN/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Introduction au Système d’Exploitation 2</span>
+                            <span class="resource-details">Promo 2022</span>
+                            <a href="https://drive.google.com/file/d/10xJoy65qLjaoJ6G_Hky9S3bvf1ojQeeI/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                    </div>`,
+                'td': `
+                    <div class="resource-list">
+                        <div class="resource-item">
+                            <span class="resource-name">Série TD №3</span>
+                            <span class="resource-details">2023-2024</span>
+                            <a href="https://drive.google.com/file/d/15sPQNLcIV9Wzvka2pw8X56fqf2g7fXay/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Série TD №2</span>
+                            <span class="resource-details">2023-2024</span>
+                            <a href="https://drive.google.com/file/d/15dKs9YAEeYx4j5YkASbDOgkpwJIRHN9k/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Série TD №1</span>
+                            <span class="resource-details">2023-2024</span>
+                            <a href="https://drive.google.com/file/d/15fiEHy3Jfth5AS0eOZ9Vw1eTbFADo7oD/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Série Préliminaire</span>
+                            <span class="resource-details">2023-2024</span>
+                            <a href="https://drive.google.com/file/d/15lEgZY4j3D5rBI6OP45kxRTm3aZ_sHfv/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Série de TP №3</span>
+                            <span class="resource-details">2023-2024</span>
+                            <a href="https://drive.google.com/file/d/167JbrTFVu_r61jfLhrYAcM__aF2ukx-S/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Série de TP №2</span>
+                            <span class="resource-details">2023-2024</span>
+                            <a href="https://drive.google.com/file/d/1612BBnktdBsM_oT0hbqPXThd_zTyZck2/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Série de TP №1</span>
+                            <span class="resource-details">2023-2024</span>
+                            <a href="https://drive.google.com/file/d/19mWaagdf6e5A0-J68ALz21oahyUYqXXf/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">TD 2</span>
+                            <span class="resource-details">2022-2023</span>
+                            <a href="https://drive.google.com/file/d/1MMMrZ7wJZOs7jKBUPLF2nUuhFXIe60ER/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                    </div>`,
+                'examen': `
+                    <div class="resource-list">
+                        <div class="resource-item">
+                            <span class="resource-name">Examen</span>
+                            <span class="resource-details">2023-2024</span>
+                            <a href="https://drive.google.com/file/d/160a4QfaI0_IO_vgdBVhWmnEj1BPY95cC/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Examen Rattrapage</span>
+                            <span class="resource-details">2023-2024</span>
+                            <a href="https://drive.google.com/file/d/1Iw7cMjiFHwGZ9AHkLpyrIFPQaWe2dIGS/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Interrogation</span>
+                            <span class="resource-details">2023-2024</span>
+                            <a href="https://drive.google.com/file/d/15vpdmeBfCzcC5iRVEMekCI_kn4F35Hxx/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Test TP</span>
+                            <span class="resource-details">2023-2024</span>
+                            <a href="https://drive.google.com/file/d/19drLwmDL6EbTIzx5elsVOE1aWp3WZZg_/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Examen</span>
+                            <span class="resource-details">2022-2023</span>
+                            <a href="https://drive.google.com/file/d/1MgMXCRFT-uqy18FS9TzzUtx7l9h7UYrP/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                    </div>`
+            },
+            'probastat1': {
+                'cours': `
+                    <div class="resource-list">
+                        <div class="resource-item">
+                            <span class="resource-name">Statistiques Descriptives</span>
+                            <span class="resource-details">2020-2021</span>
+                            <a href="https://drive.google.com/file/d/1NLWUdM12tCF7C05NQrfYeKL-ucXiTK_A/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Cours 03</span>
+                            <span class="resource-details">2023-2024</span>
+                            <a href="https://drive.google.com/file/d/185nMxOURnFldTflJZ2aXFrUPRTTI122c/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Cours 02</span>
+                            <span class="resource-details">2023-2024</span>
+                            <a href="https://drive.google.com/file/d/17w70PhobIVzVi1nxAmohJcInW3JMhQxc/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Cours 01</span>
+                            <span class="resource-details">2023-2024</span>
+                            <a href="https://drive.google.com/file/d/17vLg5eT4cBAYeMqaKxJLRFioaWkYFR3A/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Analyse Combinatoire et Calcul des Probabilités - ZIANE Yasmina</span>
+                            <span class="resource-details">2022-2023</span>
+                            <a href="https://drive.google.com/file/d/11OH1sJfbezTJ--EOGAQn2pWFdaubdaJA/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                    </div>`,
+                'td': `
+                    <div class="resource-list">
+                        <div class="resource-item">
+                            <span class="resource-name">Série de TD №4</span>
+                            <span class="resource-details">2023-2024</span>
+                            <a href="https://drive.google.com/file/d/18eeybqZQWe5n8dVfRfYTAwfO-Puwn8M_/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Série de TD №3</span>
+                            <span class="resource-details">2023-2024</span>
+                            <a href="https://drive.google.com/file/d/18cofX5RtLa0Tn_4lzX1_N4Xjr8LQdAqq/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Série de TD №2</span>
+                            <span class="resource-details">2023-2024</span>
+                            <a href="https://drive.google.com/file/d/18YJ87Ir6o5LslIsNFvF1MDhWOnjrA4f1/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Série de TD №1</span>
+                            <span class="resource-details">2023-2024</span>
+                            <a href="https://drive.google.com/file/d/18Tc8BVc3LePA5IilDuF9wQSKXHp5fVNN/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">TD 4</span>
+                            <span class="resource-details">2022-2023</span>
+                            <a href="https://drive.google.com/file/d/1O3vuc3ZDGh30h5SE1JfccAFzpRczh6q8/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">TD 2</span>
+                            <span class="resource-details">2022-2023</span>
+                            <a href="https://drive.google.com/file/d/1O_uF6cm04wAOtwoAAUoiO4vAHD-VpeAz/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                    </div>`,
+                'examen': `
+                    <div class="resource-list">
+                        <div class="resource-item">
+                            <span class="resource-name">Examen</span>
+                            <span class="resource-details">2023-2024</span>
+                            <a href="https://drive.google.com/file/d/18FbZZ7XhYYDjL_RiRNyVzTWx-NthCLTY/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Corrigé d'Examen</span>
+                            <span class="resource-details">2023-2024</span>
+                            <a href="https://drive.google.com/file/d/19ayl6-v29U8Uc8RDOO9BNivElytreuXO/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Examen Rattrapage</span>
+                            <span class="resource-details">2023-2024</span>
+                            <a href="https://drive.google.com/file/d/1JtAo1GZecXgZyZiTUJWEo8p1UMoCuuQN/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Interrogation Sujet 2</span>
+                            <span class="resource-details">2023-2024</span>
+                            <a href="https://drive.google.com/file/d/18SCYnstirTUVQloryrzHmCGTrCM8modv/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Interrogation Sujet 1</span>
+                            <span class="resource-details">2023-2024</span>
+                            <a href="https://drive.google.com/file/d/18RiB4xvI6MrJG6E0Rvgj8PH4e69mJ1va/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Examen</span>
+                            <span class="resource-details">2022-2023</span>
+                            <a href="https://drive.google.com/file/d/1NpBZma4I79QnxTXGMK_luhioEtTgMUI0/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                    </div>`
+            },
+            'logiquemath': {
+                'cours': `
+                    <div class="resource-list">
+                        <div class="resource-item">
+                            <span class="resource-name">Logique Mathématique - Mezghiche</span>
+                            <span class="resource-details">Promo 2022</span>
+                            <a href="https://drive.google.com/file/d/1zPSCM2LwufbluIOVsFGesXe2uiBfs_2O/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Logique Mathématique - Medjahed</span>
+                            <span class="resource-details">Promo 2022</span>
+                            <a href="https://drive.google.com/file/d/1iUJZwBo1zq22KHtd_ose9Zsmivcn2zO_/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Chapitre 2</span>
+                            <span class="resource-details">2023-2024</span>
+                            <a href="https://drive.google.com/file/d/13UitC5SzZq_8O46rVhJrt5Qgb7-idxO_/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Chapitre 3</span>
+                            <span class="resource-details">2023-2024</span>
+                            <a href="https://drive.google.com/file/d/13OkQKhtY9Ip6VPJNycEm8YezaHhEhUc8/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Chapitre 1</span>
+                            <span class="resource-details">2023-2024</span>
+                            <a href="https://drive.google.com/file/d/13N7Tzpk7mHfmLvtZJSyWKAkW" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                    </div>`,
+                'td': `
+                    <div class="resource-list">
+                        <div class="resource-item">
+                            <span class="resource-name">Solution Série de TD №3</span>
+                            <span class="resource-details">2023-2024</span>
+                            <a href="https://drive.google.com/file/d/1Vuceb_bGFcWG_3h2KruC2gMo071ZGX-X/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Solution Série de TD №2</span>
+                            <span class="resource-details">2023-2024</span>
+                            <a href="https://drive.google.com/file/d/13fXG05pUzScK8gEpEFe8HCjf9eWOUhkr/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Solution Série de TD №1</span>
+                            <span class="resource-details">2023-2024</span>
+                            <a href="https://drive.google.com/file/d/13o-ZMBc5MDRKnVjCnDFcWGVpCuH0WNLt/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Série de TD №1</span>
+                            <span class="resource-details">2023-2024</span>
+                            <a href="https://drive.google.com/file/d/13ex2brrLra6sl8KPetVQPJxXLvgBzQbm/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">TD 2</span>
+                            <span class="resource-details">2022-2023</span>
+                            <a href="https://drive.google.com/file/d/1KxkUuvnPP5KZIzw0CrdHAlYWgRfWDUEW/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">TD 1</span>
+                            <span class="resource-details">2022-2023</span>
+                            <a href="https://drive.google.com/file/d/1L68LFlKzoCyqdxaxzfpXuxNhLhuHQT-K/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Solution Série 02</span>
+                            <span class="resource-details">2022-2023</span>
+                            <a href="https://drive.google.com/file/d/1ySf1uCqmy_VH_aHj-VDE9qyA2Gx8dslw/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                    </div>`,
+                'examen': `
+                    <div class="resource-list">
+                        <div class="resource-item">
+                            <span class="resource-name">Examen + Correction</span>
+                            <span class="resource-details">2023-2024</span>
+                            <a href="https://drive.google.com/file/d/13omLQGed4CR2qSH0hy9bHq9B68_EwQJn/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Examen Rattrapage</span>
+                            <span class="resource-details">2023-2024</span>
+                            <a href="https://drive.google.com/file/d/1J1wY7NHKeoaqTNjFzCnnMeUwtUOlHg4t/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Corrigé Interrogation №1</span>
+                            <span class="resource-details">2023-2024</span>
+                            <a href="https://drive.google.com/file/d/13unTVwjdzn8fqLMMiEdJkGuwpZi6RZKV/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Interrogation №1</span>
+                            <span class="resource-details">2023-2024</span>
+                            <a href="https://drive.google.com/file/d/13uF7bFxocuB9mSI8JHQLR0q2quH2FfPY/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Corrigé Examen ING + Barême</span>
+                            <span class="resource-details">2022-2023</span>
+                            <a href="https://drive.google.com/file/d/1UimLYtjgDjoALHLMGShWTTuk_OtAf8lV/view?usp=drivesdk" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                    </div>`
+            },
+            'teo': {
+                'cours': `
+                    <div class="resource-list">
+                        <div class="resource-item">
+                            <span class="resource-name">Cours TEO</span>
+                            <span class="resource-details">2023-2024</span>
+                            <a href="https://drive.google.com/file/d/167_w8qA6xAAUup_gqWH3Kg-kYXF2qI52/view?usp=drive_link" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                        <div class="resource-item">
+                            <span class="resource-name">Résumé TEO</span>
+                            <span class="resource-details">2023-2024</span>
+                            <a href="https://drive.google.com/file/d/168jAFEKlKP0j-EVBdMOfOEAd7ubFKLH6/view?usp=drive_link" target="_blank" class="preview-btn">Aperçu</a>
+                        </div>
+                    </div>`,
+                'td': '<p class="text-gray-600">Ressources en cours de préparation.</p>',
+                'examen': '<p class="text-gray-600">Ressources en cours de préparation.</p>'
+            }
+        };
+
+        function showContent(moduleShortName, type) {
+            const moduleName = {
+                'analyse2': 'Analyse 2',
+                'algebre2': 'Algèbre 2',
+                'algo2': 'Algorithme 2',
+                'se2': 'SE 2',
+                'probastat1': 'Proba Stat 1',
+                'logiquemath': 'Logique Mathématique',
+                'teo': 'TEO'
+            }[moduleShortName] || moduleShortName;
+
+            const popup = document.getElementById(`popup-${type}`);
+            const popupTitle = document.getElementById(`popup-title-${type}`);
+            const popupContent = document.getElementById(`popup-content-${type}`);
+
+            popupTitle.textContent = `${moduleName} - ${capitalize(type)}`;
+            popupContent.innerHTML = moduleResources[moduleShortName]?.[type] || '<p class="text-gray-600">Ressources non disponibles pour le moment.</p>';
+
+            popup.classList.remove('hidden');
+            popup.classList.add('animate-popup-in');
+        }
+
+        function capitalize(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const closeButtons = document.querySelectorAll('.close-btn');
+            closeButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const popup = btn.closest('.popup');
+                    popup.classList.remove('animate-popup-in');
+                    popup.classList.add('animate-popup-out');
+                    setTimeout(() => {
+                        popup.classList.add('hidden');
+                        popup.classList.remove('animate-popup-out');
+                    }, 300);
+                });
+            });
+
+            const popups = document.querySelectorAll('.popup');
+            popups.forEach(popup => {
+                popup.addEventListener('click', (e) => {
+                    if (e.target === popup) {
+                        popup.classList.remove('animate-popup-in');
+                        popup.classList.add('animate-popup-out');
+                        setTimeout(() => {
+                            popup.classList.add('hidden');
+                            popup.classList.remove('animate-popup-out');
+                        }, 300);
+                    }
+                });
+            });
+        });
+    </script>
+
+    <style>
+        /* Base Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #e6f0fa, #d4f4e2);
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-blur-md;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        /* Module Card */
+        .module-card {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .module-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .module-icon {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            font-size: 1.25rem;
+            transition: all 0.3s ease;
+        }
+
+        .module-card:hover .module-icon {
+            transform: scale(1.1);
+        }
+
+        .module-btn {
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .module-btn:hover {
+            filter: brightness(1.1);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Popup */
+        .popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .popup:not(.hidden) {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .popup-content {
+            position: relative;
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            width: 90%;
+            max-width: 700px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .popup-title {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, #2563eb, #16a34a);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 40px;
+            height: 40px;
+            background: #ef4444;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: #dc2626;
+            transform: scale(1.1);
+        }
+
+        .popup-body {
+            padding: 0;
+        }
+
+        .resource-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .resource-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem;
+            background: #f9fafb;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .resource-item:hover {
+            background: #e5e7eb;
+            transform: translateX(5px);
+        }
+
+        .resource-name {
+            font-weight: 500;
+            color: #1f2937;
+            flex: 1;
+        }
+
+        .resource-details {
+            font-size: 0.875rem;
+            color: #6b7280;
+            margin-left: 1rem;
+            flex: 0 0 auto;
+        }
+
+        .preview-btn {
+            background: #3b82f6;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .preview-btn:hover {
+            background: #2563eb;
+            transform: translateY(-2px);
+        }
+
+        /* Animations */
+        @keyframes popupIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes popupOut {
+            from { opacity: 1; transform: scale(1); }
+            to { opacity: 0; transform: scale(0.95); }
+        }
+
+        .animate-popup-in {
+            animation: popupIn 0.3s ease-out forwards;
+        }
+
+        .animate-popup-out {
+            animation: popupOut 0.3s ease-in forwards;
+        }
+
+        /* Scrollbar */
+        .popup-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .popup-content::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        .popup-content::-webkit-scrollbar-thumb {
+            background: #3b82f6;
+            border-radius: 4px;
+        }
+
+        .popup-content::-webkit-scrollbar-thumb:hover {
+            background: #2563eb;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, #1f2937, #111827);
+        }
+    </style>
+</body>
+</html>
