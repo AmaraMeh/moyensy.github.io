@@ -36,6 +36,11 @@
             min-height: 100vh; 
             display: flex; 
             flex-direction: column; 
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        body.dark-mode { 
+            background: linear-gradient(145deg, #1f2937 0%, #111827 100%); 
+            color: #e5e7eb; 
         }
         .glass-card {
             background: rgba(255, 255, 255, 0.95);
@@ -44,7 +49,11 @@
             padding: 2.5rem;
             box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
             border: 1px solid rgba(255, 255, 255, 0.3);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+        }
+        .dark-mode .glass-card {
+            background: rgba(31, 41, 55, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         .glass-card:hover { transform: translateY(-5px); box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2); }
         .selection-input, .custom-input {
@@ -56,6 +65,12 @@
             transition: all 0.3s ease;
             font-size: 1rem;
             box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+            touch-action: manipulation;
+        }
+        .dark-mode .selection-input, .dark-mode .custom-input {
+            background-color: #374151;
+            border-color: #4b5563;
+            color: #e5e7eb;
         }
         .selection-input:focus, .custom-input:focus {
             border-color: #3b82f6;
@@ -71,6 +86,10 @@
             border-left: 6px solid #3b82f6;
             transition: all 0.3s ease;
         }
+        .dark-mode .module-card {
+            background-color: #374151;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
         .module-card:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12); }
         .note-inputs { 
             display: grid; 
@@ -79,14 +98,17 @@
             margin: 1rem 0; 
         }
         .note-field label { font-size: 0.9rem; font-weight: 600; color: #374151; margin-bottom: 0.3rem; }
+        .dark-mode .note-field label { color: #d1d5db; }
         .custom-input { text-align: center; font-weight: 500; }
         .input-error { border-color: #ef4444; background-color: #fef2f2; }
+        .dark-mode .input-error { background-color: #7f1d1d; }
         .module-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid #e5e7eb; }
+        .dark-mode .module-footer { border-top-color: #4b5563; }
         .avg-text { font-weight: 700; font-size: 1.1rem; }
         .elim-text { font-size: 0.85rem; font-style: italic; margin-left: 0.3rem; }
         .min-exam-btn { 
-            background-color: #dbeafe; 
-            color: #1e40af; 
+            background: linear-gradient(to right, #60a5fa, #3b82f6); 
+            color: white; 
             padding: 0.4rem 1rem; 
             border-radius: 8px; 
             font-size: 0.85rem; 
@@ -95,7 +117,7 @@
             cursor: pointer; 
             transition: all 0.2s ease; 
         }
-        .min-exam-btn:hover { background-color: #bfdbfe; }
+        .min-exam-btn:hover { background: linear-gradient(to right, #3b82f6, #2563eb); transform: translateY(-2px); }
         #resultats { transition: all 0.5s ease; max-height: 0; opacity: 0; overflow: hidden; }
         #resultats.visible { max-height: 2000px; opacity: 1; }
         .module-result-card { 
@@ -107,16 +129,48 @@
             background-color: #f9fafb; 
             transition: transform 0.2s ease; 
         }
+        .dark-mode .module-result-card { 
+            background-color: #4b5563; 
+            border-color: #6b7280; 
+        }
         .module-result-card:hover { transform: scale(1.02); }
         .module-result-title { font-weight: 600; color: #4b5563; margin-bottom: 0.4rem; }
+        .dark-mode .module-result-title { color: #d1d5db; }
         .module-result-avg { font-weight: 700; font-size: 1.2rem; }
         .module-result-elim { font-size: 0.8rem; font-style: italic; margin-left: 0.3rem; }
         .moyenne-generale { 
-            background: linear-gradient(120deg, #3b82f6, #1e40af); 
+            background: linear-gradient(120deg, #3b82f6, #1e40af, #3b82f6); 
+            background-size: 200% 200%;
             color: white; 
             border-radius: 15px; 
             padding: 2rem; 
             box-shadow: 0 8px 30px rgba(59, 130, 246, 0.3); 
+            position: relative; 
+            overflow: hidden; 
+            animation: gradientShift 5s ease infinite; 
+        }
+        @keyframes gradientShift { 
+            0% { background-position: 0% 50%; } 
+            50% { background-position: 100% 50%; } 
+            100% { background-position: 0% 50%; } 
+        }
+        .moyenne-generale.passed::after {
+            content: '🎉';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 2rem;
+            animation: bounce 1s ease infinite;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .moyenne-generale-val { 
+            font-size: 3.5rem; 
+            font-weight: 800; 
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); 
+            transition: all 0.5s ease; 
         }
         .credits-row { display: flex; justify-content: space-around; margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid rgba(255, 255, 255, 0.2); font-size: 0.95rem; }
         .what-if-card { 
@@ -127,29 +181,64 @@
             margin-top: 2.5rem; 
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); 
         }
+        .dark-mode .what-if-card { 
+            background-color: #4b5563; 
+            border-color: #6b7280; 
+        }
         .what-if-row { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
         .what-if-input { padding: 10px; border-radius: 8px; width: 100px; }
         .what-if-btn { 
-            background-color: #10b981; 
+            background: linear-gradient(to right, #34d399, #10b981); 
             padding: 0.6rem 1.2rem; 
             border-radius: 8px; 
             font-weight: 600; 
             transition: all 0.3s ease; 
         }
-        .what-if-btn:hover { background-color: #059669; transform: translateY(-2px); }
+        .what-if-btn:hover { background: linear-gradient(to right, #10b981, #059669); transform: translateY(-2px); }
         .action-buttons-row { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 1.5rem; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid #e5e7eb; }
-        .action-btn { padding: 0.75rem 1.5rem; border-radius: 10px; font-weight: 600; transition: all 0.3s ease; }
-        .save-load-btn { background-color: #dbeafe; color: #1e40af; }
-        .save-load-btn:hover { background-color: #bfdbfe; }
-        .clear-btn { background-color: #fee2e2; color: #dc2626; }
-        .clear-btn:hover { background-color: #fecaca; }
-        .calculate-btn { 
-            background: linear-gradient(to right, #3b82f6, #2563eb); 
-            padding: 1rem 2rem; 
-            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4); 
+        .dark-mode .action-buttons-row { border-top-color: #4b5563; }
+        .action-btn { 
+            padding: 0.75rem 1.5rem; 
+            border-radius: 10px; 
+            font-weight: 600; 
+            transition: all 0.3s ease; 
+            position: relative; 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 0.5rem; 
         }
-        .calculate-btn:hover { transform: scale(1.05); }
+        .action-btn:hover .tooltip { opacity: 1; visibility: visible; }
+        .tooltip { 
+            position: absolute; 
+            top: -2.5rem; 
+            left: 50%; 
+            transform: translateX(-50%); 
+            background: #1f2937; 
+            color: white; 
+            padding: 0.3rem 0.8rem; 
+            border-radius: 6px; 
+            font-size: 0.8rem; 
+            opacity: 0; 
+            visibility: hidden; 
+            transition: all 0.2s ease; 
+            white-space: nowrap; 
+        }
+        .save-load-btn { background: linear-gradient(to right, #60a5fa, #3b82f6); color: white; }
+        .save-load-btn:hover { background: linear-gradient(to right, #3b82f6, #2563eb); }
+        .clear-btn { background: linear-gradient(to right, #f87171, #ef4444); color: white; }
+        .clear-btn:hover { background: linear-gradient(to right, #ef4444, #dc2626); }
+        .calculate-btn { 
+            background: linear-gradient(to right, #a855f7, #8b5cf6); 
+            padding: 1rem 2rem; 
+            box-shadow: 0 6px 20px rgba(168, 85, 247, 0.4); 
+        }
+        .calculate-btn:hover { background: linear-gradient(to right, #8b5cf6, #7c3aed); transform: scale(1.05); }
+        .share-btn { background: linear-gradient(to right, #facc15, #eab308); color: white; }
+        .share-btn:hover { background: linear-gradient(to right, #eab308, #ca8a04); }
+        .history-btn { background: linear-gradient(to right, #22d3ee, #06b6d4); color: white; }
+        .history-btn:hover { background: linear-gradient(to right, #06b6d4, #0891b2); }
         .loader { border: 4px solid #f3f3f3; border-top: 4px solid #3b82f6; border-radius: 50%; width: 24px; height: 24px; animation: spin 1s linear infinite; margin-left: 10px; }
+        .dark-mode .loader { border-color: #4b5563; border-top-color: #60a5fa; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         footer { 
             background: linear-gradient(to top, #1e293b, #334155); 
@@ -174,33 +263,104 @@
             background-color: #eff6ff; 
             transition: all 0.2s ease; 
         }
+        .dark-mode .back-button { background-color: #4b5563; color: #93c5fd; }
         .back-button:hover { background-color: #dbeafe; transform: scale(1.05); }
-        .back-button i { font-size: 0.8rem; }
+        .dark-mode .back-button:hover { background-color: #6b7280; }
+        .dark-mode-toggle { 
+            position: fixed; 
+            top: 1rem; 
+            right: 1rem; 
+            background: #3b82f6; 
+            color: white; 
+            padding: 0.5rem; 
+            border-radius: 50%; 
+            cursor: pointer; 
+            transition: all 0.3s ease; 
+        }
+        .dark-mode-toggle:hover { background: #2563eb; transform: rotate(180deg); }
+        .modal { 
+            display: none; 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            background: rgba(0, 0, 0, 0.5); 
+            justify-content: center; 
+            align-items: center; 
+            z-index: 1000; 
+        }
+        .modal-content { 
+            background: white; 
+            padding: 2rem; 
+            border-radius: 12px; 
+            text-align: center; 
+            max-width: 90%; 
+            width: 400px; 
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2); 
+            position: relative; 
+            animation: slideIn 0.3s ease; 
+        }
+        .dark-mode .modal-content { background: #374151; color: #e5e7eb; }
+        @keyframes slideIn { 
+            from { transform: translateY(-20px); opacity: 0; } 
+            to { transform: translateY(0); opacity: 1; } 
+        }
+        .modal-close { 
+            position: absolute; 
+            top: 0.5rem; 
+            right: 0.5rem; 
+            background: #ef4444; 
+            color: white; 
+            border: none; 
+            border-radius: 50%; 
+            width: 24px; 
+            height: 24px; 
+            cursor: pointer; 
+            font-size: 0.9rem; 
+            line-height: 24px; 
+        }
+        .modal-close:hover { background: #dc2626; }
+        .modal-buttons { display: flex; justify-content: center; gap: 1rem; margin-top: 1.5rem; }
+        .modal-btn { padding: 0.5rem 1.5rem; border-radius: 8px; font-weight: 600; cursor: pointer; }
+        .modal-btn.confirm { background: #10b981; color: white; }
+        .modal-btn.confirm:hover { background: #059669; }
+        .modal-btn.cancel { background: #ef4444; color: white; }
+        .modal-btn.cancel:hover { background: #dc2626; }
         @media (max-width: 1024px) { 
             .glass-card { padding: 2rem; } 
             .action-buttons-row { flex-direction: column; align-items: center; } 
-            .action-btn { width: 100%; max-width: 300px; } 
+            .action-btn { width: 100%; max-width: 300px; padding: 1rem; font-size: 1rem; } 
+            .selection-input, .custom-input { padding: 14px 15px; font-size: 1.1rem; } 
         }
         @media (max-width: 768px) { 
             .note-inputs { grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); } 
             .glass-card { padding: 1.5rem; } 
             .module-card { padding: 1rem; } 
             body { padding-bottom: 80px; } 
+            .moyenne-generale-val { font-size: 2.5rem; } 
+            .dark-mode-toggle { top: 0.5rem; right: 0.5rem; } 
         }
         @media (max-width: 480px) { 
-            .selection-input, .custom-input { font-size: 0.9rem; padding: 10px; } 
+            .selection-input, .custom-input { font-size: 0.9rem; padding: 12px; } 
             .what-if-row { flex-direction: column; align-items: center; } 
             .what-if-input { width: 80px; } 
             footer { padding: 1.5rem 0.5rem; } 
-            .container { padding-left: 1rem; padding-right: 1rem; }
+            .container { padding-left: 1rem; padding-right: 1rem; } 
+            .action-btn { padding: 0.75rem; font-size: 0.9rem; } 
+            .modal-content { padding: 1.5rem; width: 90%; } 
         }
     </style>
 </head>
 
 <body>
+    <button class="dark-mode-toggle" onclick="toggleDarkMode()" title="Activer/Désactiver le mode sombre">
+        <i class="fas fa-moon"></i>
+    </button>
+
     <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl flex-grow py-6">
         <header class="mt-4 mb-8" data-aos="fade-down">
-            <div class="flex justify-between items-center border-b border-gray-200 pb-4">
+            <div class="flex justify-between items-center border-b border-gray-200 pb-4 dark:border-gray-700">
                 <a href="index.html" class="back-button"><i class="fas fa-arrow-left"></i> Retour</a>
                 <img src="assets/img/LOGO.png" alt="E-Campus Bejaia Logo" class="h-12">
             </div>
@@ -214,45 +374,65 @@
         <div class="glass-card" data-aos="fade-up">
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
                 <div>
-                    <label for="anneeSelect" class="block text-sm font-medium text-gray-700 mb-2">Année</label>
+                    <label for="anneeSelect" class="block text-sm font-medium text-gray-700 mb-2 dark:text-gray-300">Année</label>
                     <select id="anneeSelect" class="selection-input"></select>
                 </div>
                 <div>
-                    <label for="specialiteSelect" class="block text-sm font-medium text-gray-700 mb-2">Spécialité</label>
+                    <label for="specialiteSelect" class="block text-sm font-medium text-gray-700 mb-2 dark:text-gray-300">Spécialité</label>
                     <select id="specialiteSelect" class="selection-input" disabled></select>
                 </div>
                 <div>
-                    <label for="semestreSelect" class="block text-sm font-medium text-gray-700 mb-2">Semestre</label>
+                    <label for="semestreSelect" class="block text-sm font-medium text-gray-700 mb-2 dark:text-gray-300">Semestre</label>
                     <select id="semestreSelect" class="selection-input" disabled></select>
                 </div>
             </div>
 
             <div id="noteForm" class="space-y-6">
-                <p id="module-placeholder" class="text-center text-gray-500 py-10">Chargement des données...</p>
+                <p id="module-placeholder" class="text-center text-gray-500 dark:text-gray-400 py-10">Chargement des données... <span class="loader"></span></p>
             </div>
 
             <div id="what-if-section" class="what-if-card hidden" data-aos="fade-up" data-aos-delay="100">
-                <h3 class="text-xl font-semibold mb-4 text-gray-800">Calcul "Et Si ?"</h3>
+                <h3 class="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200">Calcul "Et Si ?"</h3>
                 <div class="what-if-row">
-                    <label for="targetAverage" class="what-if-label">Moyenne Cible :</label>
+                    <label for="targetAverage" class="what-if-label text-gray-700 dark:text-gray-300">Moyenne Cible :</label>
                     <input type="number" id="targetAverage" class="what-if-input" min="0" max="20" step="0.01" value="10.00">
-                    <button onclick="calculateWhatIf()" class="what-if-btn"><i class="fas fa-magic mr-2"></i> Calculer</button>
+                    <button onclick="calculateWhatIf()" class="what-if-btn"><i class="fas fa-magic mr-2"></i> Calculer et Remplir</button>
                 </div>
             </div>
 
             <div class="action-buttons-row">
-                <button id="saveBtn" onclick="saveGrades()" class="action-btn save-load-btn" disabled><i class="fas fa-save"></i> Sauvegarder <span id="saveLoader" class="loader hidden"></span></button>
-                <button id="loadBtn" onclick="loadGrades()" class="action-btn save-load-btn" disabled><i class="fas fa-download"></i> Charger <span id="loadLoader" class="loader hidden"></span></button>
-                <button id="clearBtn" onclick="clearGrades()" class="action-btn clear-btn" disabled><i class="fas fa-trash-alt"></i> Effacer</button>
-                <button id="calculateBtn" onclick="calculerMoyenneGenerale()" class="action-btn calculate-btn" disabled><i class="fas fa-calculator mr-2"></i> Calculer</button>
+                <button id="saveBtn" onclick="saveGrades()" class="action-btn save-load-btn" disabled>
+                    <i class="fas fa-save"></i> Sauvegarder <span id="saveLoader" class="loader hidden"></span>
+                    <span class="tooltip">Sauvegarder vos notes</span>
+                </button>
+                <button id="loadBtn" onclick="loadGrades()" class="action-btn save-load-btn" disabled>
+                    <i class="fas fa-download"></i> Charger <span id="loadLoader" class="loader hidden"></span>
+                    <span class="tooltip">Charger les notes sauvegardées</span>
+                </button>
+                <button id="clearBtn" onclick="clearGrades()" class="action-btn clear-btn" disabled>
+                    <i class="fas fa-trash-alt"></i> Effacer
+                    <span class="tooltip">Effacer toutes les notes</span>
+                </button>
+                <button id="calculateBtn" onclick="calculerMoyenneGenerale()" class="action-btn calculate-btn" disabled>
+                    <i class="fas fa-calculator mr-2"></i> Calculer
+                    <span class="tooltip">Calculer la moyenne générale</span>
+                </button>
+                <button id="shareBtn" onclick="shareResults()" class="action-btn share-btn" disabled>
+                    <i class="fas fa-share-alt"></i> Partager
+                    <span class="tooltip">Partager vos résultats</span>
+                </button>
+                <button id="historyBtn" onclick="showGradeHistory()" class="action-btn history-btn" disabled>
+                    <i class="fas fa-history"></i> Historique
+                    <span class="tooltip">Voir l'historique des notes</span>
+                </button>
             </div>
 
-            <div id="resultats" class="mt-12 p-8 rounded-xl bg-white shadow-lg border border-gray-100" data-aos="fade-up" data-aos-delay="200">
-                <h2 class="text-2xl font-bold mb-6 text-center text-gray-800 border-b pb-4">Résultats Détaillés</h2>
+            <div id="resultats" class="mt-12 p-8 rounded-xl bg-white dark:bg-gray-800 shadow-lg border border-gray-100 dark:border-gray-700" data-aos="fade-up" data-aos-delay="200">
+                <h2 class="text-2xl font-bold mb-6 text-center text-gray-800 dark:text-gray-200 border-b pb-4 dark:border-gray-700">Résultats Détaillés</h2>
                 <div id="modules-results" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-8"></div>
-                <div class="moyenne-generale">
+                <div id="moyenneGenerale" class="moyenne-generale">
                     <h3 class="text-xl font-semibold mb-3">Moyenne Générale</h3>
-                    <div id="moyenne-generale-val" class="text-5xl font-bold">--</div>
+                    <div id="moyenne-generale-val" class="moyenne-generale-val">--</div>
                     <p id="validation-status" class="mt-4 font-medium text-lg"></p>
                     <div id="credits-results" class="credits-row">
                         <span id="credits-attempted">Crédits Tentés: --</span>
@@ -275,6 +455,35 @@
         </div>
     </footer>
 
+    <!-- Modals -->
+    <div id="minExamModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('minExamModal')">×</button>
+            <h3 class="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200">Note Minimale Examen</h3>
+            <p id="minExamMessage" class="text-gray-600 dark:text-gray-300"></p>
+        </div>
+    </div>
+
+    <div id="clearConfirmModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('clearConfirmModal')">×</button>
+            <h3 class="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200">Confirmer l'effacement</h3>
+            <p class="text-gray-600 dark:text-gray-300">Voulez-vous vraiment effacer toutes les notes ? Cette action est irréversible.</p>
+            <div class="modal-buttons">
+                <button class="modal-btn confirm" onclick="confirmClearGrades()">Oui</button>
+                <button class="modal-btn cancel" onclick="closeModal('clearConfirmModal')">Non</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="historyModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('historyModal')">×</button>
+            <h3 class="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200">Historique des Notes</h3>
+            <div id="historyContent" class="text-gray-600 dark:text-gray-300 max-h-60 overflow-y-auto"></div>
+        </div>
+    </div>
+
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({ duration: 800, once: true, offset: 100 });
@@ -291,10 +500,13 @@
         const validationStatusDiv = document.getElementById('validation-status');
         const creditsAttemptedSpan = document.getElementById('credits-attempted');
         const creditsValidatedSpan = document.getElementById('credits-validated');
+        const moyenneGeneraleContainer = document.getElementById('moyenneGenerale');
         const calculateBtn = document.getElementById('calculateBtn');
         const saveBtn = document.getElementById('saveBtn');
         const loadBtn = document.getElementById('loadBtn');
         const clearBtn = document.getElementById('clearBtn');
+        const shareBtn = document.getElementById('shareBtn');
+        const historyBtn = document.getElementById('historyBtn');
         const whatIfSection = document.getElementById('what-if-section');
         const targetAverageInput = document.getElementById('targetAverage');
 
@@ -302,11 +514,31 @@
         let specialties = [];
         let allModules = [];
         let currentModulesData = [];
+        let gradeHistory = JSON.parse(localStorage.getItem('gradeHistory')) || [];
 
-        // Fetch Initial Data from Firestore (aligned with calculator.tsx)
+        // Dark Mode Toggle
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+        }
+
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark-mode');
+        }
+
+        // Modal Functions
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'flex';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        // Fetch Initial Data from Firestore
         async function fetchInitialData() {
             try {
-                // Fetch Years
+                modulePlaceholder.innerHTML = 'Chargement des données... <span class="loader"></span>';
                 const yearsQuery = window.firestoreFunctions.query(
                     window.firestoreFunctions.collection(window.db, 'years'),
                     window.firestoreFunctions.orderBy('order', 'asc')
@@ -319,7 +551,6 @@
                 }));
                 populateAnneeSelect();
 
-                // Fetch Specialties
                 const specialtiesQuery = window.firestoreFunctions.collection(window.db, 'specialties');
                 const specialtiesSnapshot = await window.firestoreFunctions.getDocs(specialtiesQuery);
                 specialties = specialtiesSnapshot.docs.map(doc => ({
@@ -335,7 +566,7 @@
             }
         }
 
-        // Fetch Modules (aligned with calculator.tsx)
+        // Fetch Modules
         async function fetchModules() {
             const selectedSpecialtyId = specialiteSelect.value;
             if (!selectedSpecialtyId) {
@@ -344,6 +575,7 @@
                 return;
             }
             try {
+                modulePlaceholder.innerHTML = 'Chargement des modules... <span class="loader"></span>';
                 const modulesQuery = window.firestoreFunctions.query(
                     window.firestoreFunctions.collection(window.db, 'modules'),
                     window.firestoreFunctions.where('specialtyId', '==', selectedSpecialtyId)
@@ -363,7 +595,7 @@
                 populateSemestreSelect();
             } catch (error) {
                 console.error('Erreur lors du chargement des modules:', error);
-                modulePlaceholder.textContent = 'Erreur lors du chargement des modules.';
+                modulePlaceholder.textContent = 'Erreur lors du chargement des modules. Essayez de recharger la page.';
             }
         }
 
@@ -386,6 +618,11 @@
             semestreSelect.innerHTML = '<option value="">--Sélectionnez--</option>';
             specialiteSelect.disabled = !selectedYearId;
             semestreSelect.disabled = true;
+            noteForm.innerHTML = '';
+            currentModulesData = [];
+            resultatsDiv.classList.remove('visible');
+            whatIfSection.classList.add('hidden');
+            modulePlaceholder.classList.remove('hidden');
             const filteredSpecialties = specialties.filter(s => s.yearId === selectedYearId);
             filteredSpecialties.forEach(spec => {
                 const option = document.createElement('option');
@@ -436,8 +673,11 @@
                     modulePlaceholder.classList.add('hidden');
                     whatIfSection.classList.remove('hidden');
                     loadGrades();
+                    // Autofocus on the first input
+                    const firstInput = noteForm.querySelector('.module-grade-input');
+                    if (firstInput) firstInput.focus();
                 } else {
-                    modulePlaceholder.textContent = 'Aucun module trouvé.';
+                    modulePlaceholder.textContent = 'Aucun module trouvé pour cette sélection.';
                 }
             }
             enableDisableControls();
@@ -468,11 +708,11 @@
             const minExamButtonHTML = hasExam ? `<button class="min-exam-btn" onclick="calculateMinExamGrade('${module.id}')">Note Min. Examen</button>` : '';
 
             card.innerHTML = `
-                <h3 class="text-lg font-semibold mb-2">${module.name}</h3>
+                <h3 class="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">${module.name}</h3>
                 <div class="flex flex-wrap gap-3 mb-4 text-sm">
-                    <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full">Coef: ${module.coefficient}</span>
-                    <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full">Crédits: ${module.credits}</span>
-                    ${module.noteEliminatoire !== undefined ? `<span class="bg-red-100 text-red-700 px-3 py-1 rounded-full">Élim: ${module.noteEliminatoire}</span>` : ''}
+                    <span class="bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-3 py-1 rounded-full">Coef: ${module.coefficient}</span>
+                    <span class="bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-3 py-1 rounded-full">Crédits: ${module.credits}</span>
+                    ${module.noteEliminatoire !== undefined ? `<span class="bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-300 px-3 py-1 rounded-full">Élim: ${module.noteEliminatoire}</span>` : ''}
                 </div>
                 <div class="note-inputs">${inputsHTML}</div>
                 <div class="module-footer">
@@ -608,6 +848,7 @@
                 creditsAttemptedSpan.textContent = 'Crédits Tentés: --';
                 creditsValidatedSpan.textContent = 'Crédits Validés: --';
                 resultatsDiv.classList.add('visible');
+                shareBtn.disabled = true;
                 return;
             }
 
@@ -619,6 +860,12 @@
             creditsAttemptedSpan.textContent = `Crédits Tentés: ${totalCreditsAttempted}`;
             creditsValidatedSpan.textContent = `Crédits Validés: ${totalCreditsValidated}`;
             resultatsDiv.classList.add('visible');
+            shareBtn.disabled = false;
+            if (isValidated) {
+                moyenneGeneraleContainer.classList.add('passed');
+            } else {
+                moyenneGeneraleContainer.classList.remove('passed');
+            }
             resultatsDiv.scrollIntoView({ behavior: 'smooth' });
         }
 
@@ -647,6 +894,17 @@
             loader.classList.remove('hidden');
             saveBtn.disabled = true;
             localStorage.setItem(key, JSON.stringify(gradesToSave));
+            // Add to history
+            const historyEntry = {
+                date: new Date().toLocaleString(),
+                year: anneeSelect.options[anneeSelect.selectedIndex]?.text,
+                specialty: specialiteSelect.options[specialiteSelect.selectedIndex]?.text,
+                semester: semestreSelect.value,
+                grades: gradesToSave
+            };
+            gradeHistory.push(historyEntry);
+            localStorage.setItem('gradeHistory', JSON.stringify(gradeHistory));
+            historyBtn.disabled = false;
             setTimeout(() => {
                 alert('Notes sauvegardées.');
                 loader.classList.add('hidden');
@@ -682,7 +940,10 @@
         }
 
         function clearGrades() {
-            if (!confirm("Effacer toutes les notes ?")) return;
+            openModal('clearConfirmModal');
+        }
+
+        function confirmClearGrades() {
             document.querySelectorAll('.module-grade-input').forEach(input => {
                 input.value = '';
                 input.classList.remove('input-error');
@@ -692,14 +953,18 @@
             const key = getStorageKey();
             if (key) localStorage.removeItem(key);
             alert('Notes effacées.');
+            closeModal('clearConfirmModal');
+            shareBtn.disabled = true;
         }
 
-        // "What If" Calculation
+        // "What If" Calculation with Auto-Fill
         function calculateWhatIf() {
             const targetAvg = parseFloat(targetAverageInput.value.replace(',', '.'));
             if (isNaN(targetAvg) || targetAvg < 0 || targetAvg > 20) return alert('Moyenne cible invalide (0-20).');
 
             let weightedSum = 0, totalCoeff = 0, examWeightCoeff = 0, canCalculate = true;
+            const modulesToFill = [];
+
             currentModulesData.forEach(module => {
                 const card = document.querySelector(`.module-card[data-module-id="${module.id}"]`);
                 if (!card) { canCalculate = false; return; }
@@ -709,8 +974,10 @@
 
                 const tdInput = card.querySelector(`#${module.id}-td`);
                 const tpInput = card.querySelector(`#${module.id}-tp`);
+                const examInput = card.querySelector(`#${module.id}-examen`);
                 const tdInfo = tdInput ? parseGrade(tdInput.value) : { num: null };
                 const tpInfo = tpInput ? parseGrade(tpInput.value) : { num: null };
+                const examInfo = examInput ? parseGrade(examInput.value) : { num: null };
 
                 if (evals.includes('TD') && tdInfo.num === null) canCalculate = false;
                 if (evals.includes('TP') && tpInfo.num === null) canCalculate = false;
@@ -729,21 +996,48 @@
                 } else if (evals.includes('Examen')) examWeight = 1.0;
 
                 weightedSum += sumWithoutExam * coeff;
-                if (examWeight > 0) examWeightCoeff += examWeight * coeff;
+                if (examWeight > 0) {
+                    examWeightCoeff += examWeight * coeff;
+                    if (examInfo.num === null) {
+                        modulesToFill.push({ card, examInput, examWeight, coeff });
+                    } else {
+                        weightedSum += examInfo.num * examWeight * coeff;
+                        examWeightCoeff -= examWeight * coeff;
+                    }
+                }
             });
 
             if (!canCalculate) return alert('Entrez toutes les notes TD/TP.');
-            if (examWeightCoeff <= 0) return alert('Aucun examen à calculer.');
+            if (examWeightCoeff <= 0) return alert('Aucun examen à remplir ou tous les examens sont déjà remplis.');
+
             const neededExamAvg = (targetAvg * totalCoeff - weightedSum) / examWeightCoeff;
-            const message = neededExamAvg <= 0 ? 'Cible atteinte.' : neededExamAvg > 20 ? 'Impossible.' : `Il faut ${neededExamAvg.toFixed(2)}/20 aux examens.`;
-            alert('Calcul "Et Si":\n' + message);
+            if (neededExamAvg > 20) {
+                alert('Impossible d’atteindre cette moyenne. Essayez une cible plus basse.');
+                return;
+            }
+            if (neededExamAvg < 0) {
+                alert('Moyenne cible déjà atteinte !');
+                return;
+            }
+
+            // Fill blank exam grades
+            modulesToFill.forEach(({ examInput }) => {
+                examInput.value = neededExamAvg.toFixed(2);
+                validateGradeInput(examInput);
+                calculateModuleAverage(examInput.closest('.module-card'));
+            });
+
+            alert(`Examens remplis avec ${neededExamAvg.toFixed(2)}/20 pour atteindre ${targetAvg.toFixed(2)} de moyenne générale.`);
         }
 
-        // Calculate Minimum Exam Grade
+        // Calculate Minimum Exam Grade with Modal
         function calculateMinExamGrade(moduleId) {
             const card = document.querySelector(`.module-card[data-module-id="${moduleId}"]`);
             const moduleData = currentModulesData.find(m => m.id === moduleId);
-            if (!card || !moduleData || !moduleData.evaluations.includes('Examen')) return alert('Pas d’examen.');
+            if (!card || !moduleData || !moduleData.evaluations.includes('Examen')) {
+                alert('Pas d’examen pour ce module.');
+                return;
+            }
 
             const evals = moduleData.evaluations;
             const tdInput = card.querySelector(`#${moduleId}-td`);
@@ -756,7 +1050,8 @@
                 const missing = [];
                 if (hasTD && tdInfo.num === null) missing.push('TD');
                 if (hasTP && tpInfo.num === null) missing.push('TP');
-                return alert(`Entrez ${missing.join(' et ')}.`);
+                alert(`Entrez les notes de ${missing.join(' et ')}.`);
+                return;
             }
 
             let tdWeight = 0, tpWeight = 0, examWeight = 0;
@@ -768,10 +1063,72 @@
             const currentSum = (tdInfo.num || 0) * tdWeight + (tpInfo.num || 0) * tpWeight;
             const target = Math.max(10, moduleData.noteEliminatoire || 0);
             const examGrade = examWeight > 0 ? (target - currentSum) / examWeight : Infinity;
-            const message = examGrade <= 0 ? 'Validé.' : examGrade > 20 ? 'Impossible.' : `Il faut ${examGrade.toFixed(2)}/20.`;
-            alert(`Note Min (${moduleData.name}):\n` + message);
+            const message = examGrade <= 0 ? 'Module déjà validé.' : examGrade > 20 ? 'Impossible à valider avec les notes actuelles.' : `Il vous faut <strong>${examGrade.toFixed(2)}/20</strong> à l'examen pour valider ce module.`;
+
+            document.getElementById('minExamMessage').innerHTML = `<strong>${moduleData.name}</strong><br>${message}`;
+            openModal('minExamModal');
         }
 
+        // Share Results
+        function shareResults() {
+            const moyenne = moyenneGeneraleDiv.textContent;
+            const status = validationStatusDiv.textContent;
+            const creditsAttempted = creditsAttemptedSpan.textContent;
+            const creditsValidated = creditsValidatedSpan.textContent;
+            const modulesText = Array.from(document.querySelectorAll('.module-result-card')).map(card => {
+                const title = card.querySelector('.module-result-title').textContent;
+                const avg = card.querySelector('.module-result-avg').textContent;
+                return `${title}: ${avg}`;
+            }).join('\n');
+
+            const shareText = `Moyenne Générale: ${moyenne}\nStatut: ${status}\n${creditsAttempted}\n${creditsValidated}\n\nModules:\n${modulesText}`;
+            navigator.clipboard.writeText(shareText).then(() => {
+                alert('Résultats copiés dans le presse-papiers !');
+            }).catch(() => {
+                alert('Erreur lors de la copie. Veuillez copier manuellement.');
+            });
+        }
+
+        // Show Grade History
+        function showGradeHistory() {
+            const historyContent = document.getElementById('historyContent');
+            if (gradeHistory.length === 0) {
+                historyContent.textContent = 'Aucun historique disponible.';
+            } else {
+                historyContent.innerHTML = gradeHistory.map((entry, index) => `
+                    <div class="mb-4 p-3 bg-gray-100 dark:bg-gray-700 rounded-lg">
+                        <strong>Enregistrement ${index + 1} (${entry.date})</strong><br>
+                        Année: ${entry.year}<br>
+                        Spécialité: ${entry.specialty}<br>
+                        Semestre: ${entry.semester}<br>
+                        <button class="mt-2 text-blue-600 dark:text-blue-400 underline" onclick="loadHistoryEntry(${index})">Charger</button>
+                    </div>
+                `).join('');
+            }
+            openModal('historyModal');
+        }
+
+        function loadHistoryEntry(index) {
+            const entry = gradeHistory[index];
+            anneeSelect.value = years.find(y => y.name === entry.year)?.id || '';
+            populateSpecialiteSelect();
+            specialiteSelect.value = specialties.find(s => s.name === entry.specialty)?.id || '';
+            fetchModules();
+            semestreSelect.value = entry.semester;
+            displayModules();
+            setTimeout(() => {
+                const savedGrades = entry.grades;
+                document.querySelectorAll('.module-grade-input').forEach(input => {
+                    const moduleId = input.id.split('-')[0];
+                    const type = input.id.split('-')[1];
+                    input.value = savedGrades[moduleId]?.[type] || '';
+                    validateGradeInput(input);
+                    calculateModuleAverage(input.closest('.module-card'));
+                });
+                alert('Notes historiques chargées.');
+                closeModal('historyModal');
+            }, 500);
+        }
         // Enable/Disable Controls
         function enableDisableControls() {
             const modulesLoaded = currentModulesData.length > 0;
@@ -779,19 +1136,28 @@
             saveBtn.disabled = !modulesLoaded;
             loadBtn.disabled = !modulesLoaded;
             clearBtn.disabled = !modulesLoaded;
+            shareBtn.disabled = !modulesLoaded;
+            historyBtn.disabled = !modulesLoaded || gradeHistory.length === 0;
             targetAverageInput.disabled = !modulesLoaded;
             document.querySelector('.what-if-btn').disabled = !modulesLoaded;
         }
 
         // Event Listeners
-        anneeSelect.addEventListener('change', populateSpecialiteSelect);
-        specialiteSelect.addEventListener('change', fetchModules);
+        anneeSelect.addEventListener('change', () => {
+            specialiteSelect.value = '';
+            semestreSelect.value = '';
+            populateSpecialiteSelect();
+        });
+        specialiteSelect.addEventListener('change', () => {
+            semestreSelect.value = '';
+            fetchModules();
+        });
         semestreSelect.addEventListener('change', displayModules);
 
         // Initial Load
         document.addEventListener('DOMContentLoaded', () => {
             fetchInitialData();
-            setTimeout(() => alert("Moyennes calculées après rattrapage."), 1500);
+            if (gradeHistory.length > 0) historyBtn.disabled = false;
         });
     </script>
 </body>
