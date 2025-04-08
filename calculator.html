@@ -3,407 +3,796 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculer la moyenne - ISET'COM</title>
+    <title>Calculateur de Moyenne - E-Campus Bejaia</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/style.css">
 
-    <!-- Google AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7539806376887582" crossorigin="anonymous"></script>
-    <!-- Ajouter les bibliothèques jsPDF et html2canvas -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js';
+        import { getFirestore, collection, getDocs, query, where, orderBy } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js';
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyB5XYqWKhHdiVDXJx4iOwtpxD8eUCPRfKU",
+            authDomain: "universite-de-bejaia-547fc.firebaseapp.com",
+            projectId: "universite-de-bejaia-547fc",
+            storageBucket: "universite-de-bejaia-547fc.firebasestorage.app",
+            messagingSenderId: "517622731583",
+            appId: "1:517622731583:web:25453d5e01226585bf798a",
+            measurementId: "G-SQ0WWSCS7B"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        window.db = getFirestore(app);
+        window.firestoreFunctions = { collection, getDocs, query, where, orderBy };
+    </script>
+
     <style>
-        .custom-input {
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            background: linear-gradient(145deg, #e5e7eb 0%, #d1d5db 100%); 
+            min-height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px);
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .glass-card:hover { transform: translateY(-5px); box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2); }
+        .selection-input, .custom-input {
             width: 100%;
-            padding: 10px;
-            border: 2px solid #e5e7eb; /* Tailwind gray-200 */
-            border-radius: 8px;
-            background-color: #f9fafb; /* Tailwind gray-50 */
+            padding: 12px 15px;
+            border: 1px solid #d1d5db;
+            border-radius: 10px;
+            background-color: #fff;
             transition: all 0.3s ease;
-            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
         }
-
-        .custom-input:focus {
-            border-color: #3b82f6; /* Tailwind blue-500 */
-            box-shadow: 0 0 8px rgba(59, 130, 246, 0.5); /* Blue glow */
+        .selection-input:focus, .custom-input:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.25);
             outline: none;
-            transform: scale(1.02);
         }
-
-        .custom-input:hover {
-            background-color: #f3f4f6; /* Tailwind gray-100 */
+        .module-card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+            border-left: 6px solid #3b82f6;
+            transition: all 0.3s ease;
         }
-    </style>
-    <style>
-        .exclusive-box {
-            animation: fadeIn 1s ease-in-out;
+        .module-card:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12); }
+        .note-inputs { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)); 
+            gap: 1.25rem; 
+            margin: 1rem 0; 
         }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .note-field label { font-size: 0.9rem; font-weight: 600; color: #374151; margin-bottom: 0.3rem; }
+        .custom-input { text-align: center; font-weight: 500; }
+        .input-error { border-color: #ef4444; background-color: #fef2f2; }
+        .module-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid #e5e7eb; }
+        .avg-text { font-weight: 700; font-size: 1.1rem; }
+        .elim-text { font-size: 0.85rem; font-style: italic; margin-left: 0.3rem; }
+        .min-exam-btn { 
+            background-color: #dbeafe; 
+            color: #1e40af; 
+            padding: 0.4rem 1rem; 
+            border-radius: 8px; 
+            font-size: 0.85rem; 
+            font-weight: 600; 
+            border: none; 
+            cursor: pointer; 
+            transition: all 0.2s ease; 
+        }
+        .min-exam-btn:hover { background-color: #bfdbfe; }
+        #resultats { transition: all 0.5s ease; max-height: 0; opacity: 0; overflow: hidden; }
+        #resultats.visible { max-height: 2000px; opacity: 1; }
+        .module-result-card { 
+            border: 1px solid #e5e7eb; 
+            border-radius: 10px; 
+            padding: 1rem; 
+            text-align: center; 
+            font-size: 0.95rem; 
+            background-color: #f9fafb; 
+            transition: transform 0.2s ease; 
+        }
+        .module-result-card:hover { transform: scale(1.02); }
+        .module-result-title { font-weight: 600; color: #4b5563; margin-bottom: 0.4rem; }
+        .module-result-avg { font-weight: 700; font-size: 1.2rem; }
+        .module-result-elim { font-size: 0.8rem; font-style: italic; margin-left: 0.3rem; }
+        .moyenne-generale { 
+            background: linear-gradient(120deg, #3b82f6, #1e40af); 
+            color: white; 
+            border-radius: 15px; 
+            padding: 2rem; 
+            box-shadow: 0 8px 30px rgba(59, 130, 246, 0.3); 
+        }
+        .credits-row { display: flex; justify-content: space-around; margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid rgba(255, 255, 255, 0.2); font-size: 0.95rem; }
+        .what-if-card { 
+            background-color: #f9fafb; 
+            border: 2px dashed #9ca3af; 
+            border-radius: 12px; 
+            padding: 1.5rem; 
+            margin-top: 2.5rem; 
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); 
+        }
+        .what-if-row { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
+        .what-if-input { padding: 10px; border-radius: 8px; width: 100px; }
+        .what-if-btn { 
+            background-color: #10b981; 
+            padding: 0.6rem 1.2rem; 
+            border-radius: 8px; 
+            font-weight: 600; 
+            transition: all 0.3s ease; 
+        }
+        .what-if-btn:hover { background-color: #059669; transform: translateY(-2px); }
+        .action-buttons-row { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 1.5rem; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid #e5e7eb; }
+        .action-btn { padding: 0.75rem 1.5rem; border-radius: 10px; font-weight: 600; transition: all 0.3s ease; }
+        .save-load-btn { background-color: #dbeafe; color: #1e40af; }
+        .save-load-btn:hover { background-color: #bfdbfe; }
+        .clear-btn { background-color: #fee2e2; color: #dc2626; }
+        .clear-btn:hover { background-color: #fecaca; }
+        .calculate-btn { 
+            background: linear-gradient(to right, #3b82f6, #2563eb); 
+            padding: 1rem 2rem; 
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4); 
+        }
+        .calculate-btn:hover { transform: scale(1.05); }
+        .loader { border: 4px solid #f3f3f3; border-top: 4px solid #3b82f6; border-radius: 50%; width: 24px; height: 24px; animation: spin 1s linear infinite; margin-left: 10px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        footer { 
+            background: linear-gradient(to top, #1e293b, #334155); 
+            color: white; 
+            padding: 2rem 1rem; 
+            border-top-left-radius: 2rem; 
+            border-top-right-radius: 2rem; 
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.2); 
+            margin-top: auto; 
+        }
+        footer a { color: #93c5fd; transition: color 0.2s ease; }
+        footer a:hover { color: #60a5fa; }
+        .back-button { 
+            display: flex; 
+            align-items: center; 
+            gap: 0.5rem; 
+            color: #3b82f6; 
+            font-weight: 500; 
+            font-size: 0.9rem; 
+            padding: 0.5rem 1rem; 
+            border-radius: 9999px; 
+            background-color: #eff6ff; 
+            transition: all 0.2s ease; 
+        }
+        .back-button:hover { background-color: #dbeafe; transform: scale(1.05); }
+        .back-button i { font-size: 0.8rem; }
+        @media (max-width: 1024px) { 
+            .glass-card { padding: 2rem; } 
+            .action-buttons-row { flex-direction: column; align-items: center; } 
+            .action-btn { width: 100%; max-width: 300px; } 
+        }
+        @media (max-width: 768px) { 
+            .note-inputs { grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); } 
+            .glass-card { padding: 1.5rem; } 
+            .module-card { padding: 1rem; } 
+            body { padding-bottom: 80px; } 
+        }
+        @media (max-width: 480px) { 
+            .selection-input, .custom-input { font-size: 0.9rem; padding: 10px; } 
+            .what-if-row { flex-direction: column; align-items: center; } 
+            .what-if-input { width: 80px; } 
+            footer { padding: 1.5rem 0.5rem; } 
+            .container { padding-left: 1rem; padding-right: 1rem; }
         }
     </style>
 </head>
 
-<body class="flex flex-col min-h-screen bg-gray-50">
-    <div class="container mx-auto px-4 max-w-6xl flex-grow">
-        <header class="mb-12 mt-8" data-aos="fade-down">
-            <div class="header-container">
-                <a href="index.html" class="back-button hover:scale-110 transform transition-all duration-300">
-                    <i class="fas fa-arrow-left"></i>
-                    Retour
-                </a>
-                <img src="assets/img/LOGO.png" alt="ISET'COM" class="max-w-[200px]">
+<body>
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl flex-grow py-6">
+        <header class="mt-4 mb-8" data-aos="fade-down">
+            <div class="flex justify-between items-center border-b border-gray-200 pb-4">
+                <a href="index.html" class="back-button"><i class="fas fa-arrow-left"></i> Retour</a>
+                <img src="assets/img/LOGO.png" alt="E-Campus Bejaia Logo" class="h-12">
             </div>
         </header>
 
-        <div class="exclusive-box text-center p-6 rounded-lg shadow-lg mb-8 bg-gradient-to-r from-blue-500 to-indigo-500 text-white">
-            <h1 class="text-4xl font-bold">Calculer la moyenne</h1>
-            <p class="text-sm mt-2">Développé par <span class="font-semibold">Amara Mehdi</span></p>
+        <div class="text-center p-8 rounded-xl shadow-lg mb-10 bg-gradient-to-r from-blue-600 to-indigo-700 text-white" data-aos="zoom-in">
+            <h1 class="text-3xl sm:text-4xl font-bold">Calculateur de Moyenne</h1>
+            <p class="text-sm sm:text-base mt-3 opacity-90">Développé par <span class="font-semibold">Amara Mehdi</span></p>
         </div>
 
         <div class="glass-card" data-aos="fade-up">
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                <div>
+                    <label for="anneeSelect" class="block text-sm font-medium text-gray-700 mb-2">Année</label>
+                    <select id="anneeSelect" class="selection-input"></select>
+                </div>
                 <div>
                     <label for="specialiteSelect" class="block text-sm font-medium text-gray-700 mb-2">Spécialité</label>
-                    <select id="specialiteSelect" class="selection-input">
-                        <option value="">--Sélectionnez--</option>
-                        <option value="Science et Technologie LMD">Science et Technologie LMD</option>
-                        <option value="Mathématiques">Mathématiques</option>
-                        <option value="Science de la matière">Science de la matière</option>
-                        <option value="Informatique LMD">Informatique LMD</option>
-                        <option value="Science et Technologie Ingénieur">Science et Technologie Ingénieur</option>
-                        <option value="Informatique ING">Informatique ING</option>
-                        <option value="Biologie">Biologie</option>
-                        <option value="Architecture">Architecture</option>
-                    </select>
+                    <select id="specialiteSelect" class="selection-input" disabled></select>
                 </div>
-
                 <div>
                     <label for="semestreSelect" class="block text-sm font-medium text-gray-700 mb-2">Semestre</label>
-                    <select id="semestreSelect" class="selection-input">
-                        <option value="">--Sélectionnez--</option>
-                        <!-- Semesters will be dynamically added here -->
-                    </select>
+                    <select id="semestreSelect" class="selection-input" disabled></select>
                 </div>
             </div>
 
             <div id="noteForm" class="space-y-6">
-                <!-- Module cards will be dynamically added here -->
+                <p id="module-placeholder" class="text-center text-gray-500 py-10">Chargement des données...</p>
             </div>
 
-            <div class="text-center mt-8">
-                <button onclick="calculerMoyenneGenerale()" class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transform hover:scale-105 transition-all duration-300 shadow-lg">
-                    <i class="fas fa-calculator mr-2"></i>
-                    Calculer la moyenne
-                </button>
-            </div>
-
-            <div id="resultats" class="mt-8 p-6 rounded-lg bg-white shadow-lg" style="display: none;">
-                <h2 class="text-2xl font-bold mb-6 text-gray-800">Résultats</h2>
-                <div id="modules-results" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    <!-- Module results will be added here -->
-                </div>
-                <div class="moyenne-generale mt-8 p-6 rounded-lg text-center">
-                    <h3 class="text-xl font-semibold mb-2 text-gray-800">Moyenne Générale</h3>
-                    <div class="text-4xl font-bold">--</div>
+            <div id="what-if-section" class="what-if-card hidden" data-aos="fade-up" data-aos-delay="100">
+                <h3 class="text-xl font-semibold mb-4 text-gray-800">Calcul "Et Si ?"</h3>
+                <div class="what-if-row">
+                    <label for="targetAverage" class="what-if-label">Moyenne Cible :</label>
+                    <input type="number" id="targetAverage" class="what-if-input" min="0" max="20" step="0.01" value="10.00">
+                    <button onclick="calculateWhatIf()" class="what-if-btn"><i class="fas fa-magic mr-2"></i> Calculer</button>
                 </div>
             </div>
 
-            <!-- Ajouter des boutons pour exporter en PDF et partager sur Instagram -->
+            <div class="action-buttons-row">
+                <button id="saveBtn" onclick="saveGrades()" class="action-btn save-load-btn" disabled><i class="fas fa-save"></i> Sauvegarder <span id="saveLoader" class="loader hidden"></span></button>
+                <button id="loadBtn" onclick="loadGrades()" class="action-btn save-load-btn" disabled><i class="fas fa-download"></i> Charger <span id="loadLoader" class="loader hidden"></span></button>
+                <button id="clearBtn" onclick="clearGrades()" class="action-btn clear-btn" disabled><i class="fas fa-trash-alt"></i> Effacer</button>
+                <button id="calculateBtn" onclick="calculerMoyenneGenerale()" class="action-btn calculate-btn" disabled><i class="fas fa-calculator mr-2"></i> Calculer</button>
+            </div>
+
+            <div id="resultats" class="mt-12 p-8 rounded-xl bg-white shadow-lg border border-gray-100" data-aos="fade-up" data-aos-delay="200">
+                <h2 class="text-2xl font-bold mb-6 text-center text-gray-800 border-b pb-4">Résultats Détaillés</h2>
+                <div id="modules-results" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-8"></div>
+                <div class="moyenne-generale">
+                    <h3 class="text-xl font-semibold mb-3">Moyenne Générale</h3>
+                    <div id="moyenne-generale-val" class="text-5xl font-bold">--</div>
+                    <p id="validation-status" class="mt-4 font-medium text-lg"></p>
+                    <div id="credits-results" class="credits-row">
+                        <span id="credits-attempted">Crédits Tentés: --</span>
+                        <span id="credits-validated">Crédits Validés: --</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <footer class="text-center text-gray-600 text-sm py-4">
-        <div>&copy; 2025 Université de Bejaia. Développé par Amara Mehdi <a href="mailto:mehdi.amara@tech.univ-bejaia.dz" class="text-blue-500 hover:text-blue-700">Amara Mehdi</a></div>
+    <footer class="text-center text-white">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl">
+            <p class="text-sm sm:text-base">© 2025 Université de Bejaia. Tous droits réservés.</p>
+            <p class="mt-2 text-sm">Conçu et développé par <a href="mailto:mehdi.amara@tech.univ-bejaia.dz" class="font-medium">Amara Mehdi</a></p>
+            <div class="mt-4 flex justify-center gap-6">
+                <a href="#" class="text-gray-300 hover:text-white"><i class="fab fa-github"></i></a>
+                <a href="#" class="text-gray-300 hover:text-white"><i class="fab fa-linkedin"></i></a>
+                <a href="mailto:mehdi.amara@tech.univ-bejaia.dz" class="text-gray-300 hover:text-white"><i class="fas fa-envelope"></i></a>
+            </div>
+        </div>
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="assets/js/data.js"></script>
-    <script src="assets/js/main.js"></script>
     <script>
-        AOS.init({
-            duration: 800,
-            once: true
-        });
+        AOS.init({ duration: 800, once: true, offset: 100 });
 
-        document.getElementById('specialiteSelect').addEventListener('change', function() {
-            const specialite = this.value;
-            const semestreSelect = document.getElementById('semestreSelect');
+        // DOM Elements
+        const anneeSelect = document.getElementById('anneeSelect');
+        const specialiteSelect = document.getElementById('specialiteSelect');
+        const semestreSelect = document.getElementById('semestreSelect');
+        const noteForm = document.getElementById('noteForm');
+        const modulePlaceholder = document.getElementById('module-placeholder');
+        const resultatsDiv = document.getElementById('resultats');
+        const modulesResultsDiv = document.getElementById('modules-results');
+        const moyenneGeneraleDiv = document.getElementById('moyenne-generale-val');
+        const validationStatusDiv = document.getElementById('validation-status');
+        const creditsAttemptedSpan = document.getElementById('credits-attempted');
+        const creditsValidatedSpan = document.getElementById('credits-validated');
+        const calculateBtn = document.getElementById('calculateBtn');
+        const saveBtn = document.getElementById('saveBtn');
+        const loadBtn = document.getElementById('loadBtn');
+        const clearBtn = document.getElementById('clearBtn');
+        const whatIfSection = document.getElementById('what-if-section');
+        const targetAverageInput = document.getElementById('targetAverage');
+
+        let years = [];
+        let specialties = [];
+        let allModules = [];
+        let currentModulesData = [];
+
+        // Fetch Initial Data from Firestore (aligned with calculator.tsx)
+        async function fetchInitialData() {
+            try {
+                // Fetch Years
+                const yearsQuery = window.firestoreFunctions.query(
+                    window.firestoreFunctions.collection(window.db, 'years'),
+                    window.firestoreFunctions.orderBy('order', 'asc')
+                );
+                const yearsSnapshot = await window.firestoreFunctions.getDocs(yearsQuery);
+                years = yearsSnapshot.docs.map(doc => ({
+                    id: doc.id,
+                    name: doc.data().name,
+                    order: doc.data().order
+                }));
+                populateAnneeSelect();
+
+                // Fetch Specialties
+                const specialtiesQuery = window.firestoreFunctions.collection(window.db, 'specialties');
+                const specialtiesSnapshot = await window.firestoreFunctions.getDocs(specialtiesQuery);
+                specialties = specialtiesSnapshot.docs.map(doc => ({
+                    id: doc.id,
+                    name: doc.data().name,
+                    yearId: doc.data().yearId
+                }));
+
+                modulePlaceholder.textContent = 'Sélectionnez une année, spécialité et semestre.';
+            } catch (error) {
+                console.error('Erreur lors du chargement:', error);
+                modulePlaceholder.textContent = 'Erreur de connexion à la base de données. Vérifiez votre connexion ou contactez l’administrateur.';
+            }
+        }
+
+        // Fetch Modules (aligned with calculator.tsx)
+        async function fetchModules() {
+            const selectedSpecialtyId = specialiteSelect.value;
+            if (!selectedSpecialtyId) {
+                allModules = [];
+                displayModules();
+                return;
+            }
+            try {
+                const modulesQuery = window.firestoreFunctions.query(
+                    window.firestoreFunctions.collection(window.db, 'modules'),
+                    window.firestoreFunctions.where('specialtyId', '==', selectedSpecialtyId)
+                );
+                const modulesSnapshot = await window.firestoreFunctions.getDocs(modulesQuery);
+                allModules = modulesSnapshot.docs.map(doc => ({
+                    id: doc.id,
+                    name: doc.data().name,
+                    specialtyId: doc.data().specialtyId,
+                    yearId: doc.data().yearId,
+                    semesterKey: doc.data().semesterKey,
+                    evaluations: doc.data().evaluations || [],
+                    coefficient: doc.data().coefficient || 1,
+                    credits: doc.data().credits || 0,
+                    noteEliminatoire: doc.data().noteEliminatoire
+                }));
+                populateSemestreSelect();
+            } catch (error) {
+                console.error('Erreur lors du chargement des modules:', error);
+                modulePlaceholder.textContent = 'Erreur lors du chargement des modules.';
+            }
+        }
+
+        // Populate Dropdowns
+        function populateAnneeSelect() {
+            anneeSelect.innerHTML = '<option value="">--Sélectionnez--</option>';
+            years.forEach(year => {
+                const option = document.createElement('option');
+                option.value = year.id;
+                option.textContent = year.name;
+                anneeSelect.appendChild(option);
+            });
+            if (years.length > 0) anneeSelect.value = years[0].id;
+            populateSpecialiteSelect();
+        }
+
+        function populateSpecialiteSelect() {
+            const selectedYearId = anneeSelect.value;
+            specialiteSelect.innerHTML = '<option value="">--Sélectionnez--</option>';
             semestreSelect.innerHTML = '<option value="">--Sélectionnez--</option>';
-
-            if (specialite && universiteBejaiaData["1ere Année Licence"][specialite]) {
-                const semesters = Object.keys(universiteBejaiaData["1ere Année Licence"][specialite]);
-                semesters.forEach(semester => {
-                    const option = document.createElement('option');
-                    option.value = semester;
-                    option.textContent = semester;
-                    semestreSelect.appendChild(option);
-                });
-            } else if (specialite === 'Biologie') {
-                semestreSelect.innerHTML = `
-                    <option value="semestre1">Semestre 1</option>
-                    <option value="semestre2">Semestre 2</option>
-                `;
+            specialiteSelect.disabled = !selectedYearId;
+            semestreSelect.disabled = true;
+            const filteredSpecialties = specialties.filter(s => s.yearId === selectedYearId);
+            filteredSpecialties.forEach(spec => {
+                const option = document.createElement('option');
+                option.value = spec.id;
+                option.textContent = spec.name;
+                specialiteSelect.appendChild(option);
+            });
+            if (filteredSpecialties.length > 0) {
+                specialiteSelect.value = filteredSpecialties[0].id;
+                specialiteSelect.disabled = false;
             }
-        });
+            fetchModules();
+        }
 
-        function showSemesters() {
-            const speciality = document.getElementById('speciality').value;
-            const semesterContainer = document.getElementById('semester-container');
-            const semesterSelect = document.getElementById('semester');
+        function populateSemestreSelect() {
+            const semesterKeys = [...new Set(allModules.map(m => m.semesterKey))].sort();
+            semestreSelect.innerHTML = '<option value="">--Sélectionnez--</option>';
+            semesterKeys.forEach(key => {
+                const option = document.createElement('option');
+                option.value = key;
+                option.textContent = key || 'Inconnu';
+                semestreSelect.appendChild(option);
+            });
+            if (semesterKeys.length > 0) {
+                semestreSelect.value = semesterKeys[0];
+                semestreSelect.disabled = false;
+            }
+            displayModules();
+        }
 
-            if (speciality === 'biologie') {
-                semesterContainer.classList.remove('hidden');
-                semesterSelect.innerHTML = `
-                    <option value="semestre1">Semestre 1</option>
-                    <option value="semestre2">Semestre 2</option>
+        // Display Modules
+        function displayModules() {
+            const selectedSpecialtyId = specialiteSelect.value;
+            const selectedSemesterKey = semestreSelect.value;
+            noteForm.innerHTML = '';
+            currentModulesData = [];
+            resultatsDiv.classList.remove('visible');
+            whatIfSection.classList.add('hidden');
+            modulePlaceholder.classList.remove('hidden');
+
+            if (selectedSpecialtyId && selectedSemesterKey) {
+                currentModulesData = allModules.filter(m => m.specialtyId === selectedSpecialtyId && m.semesterKey === selectedSemesterKey);
+                if (currentModulesData.length > 0) {
+                    currentModulesData.forEach((module, index) => {
+                        const card = createModuleCard(module, index);
+                        noteForm.appendChild(card);
+                    });
+                    modulePlaceholder.classList.add('hidden');
+                    whatIfSection.classList.remove('hidden');
+                    loadGrades();
+                } else {
+                    modulePlaceholder.textContent = 'Aucun module trouvé.';
+                }
+            }
+            enableDisableControls();
+        }
+
+        function createModuleCard(module, index) {
+            const card = document.createElement('div');
+            card.className = 'module-card';
+            card.setAttribute('data-aos', 'fade-up');
+            card.setAttribute('data-aos-delay', index * 50);
+            card.dataset.moduleId = module.id;
+            card.dataset.coefficient = module.coefficient;
+            card.dataset.credits = module.credits;
+            card.dataset.noteElim = module.noteEliminatoire !== undefined ? module.noteEliminatoire : '';
+
+            let inputsHTML = '';
+            module.evaluations.forEach(type => {
+                const inputId = `${module.id}-${type.toLowerCase()}`;
+                inputsHTML += `
+                    <div class="note-field">
+                        <label for="${inputId}">${type}</label>
+                        <input type="text" id="${inputId}" inputmode="decimal" class="custom-input module-grade-input" placeholder="--" oninput="validateGradeInput(this); calculateModuleAverage(this.closest('.module-card'));">
+                    </div>
                 `;
-            } else if (speciality === 'informatique') {
-                semesterContainer.classList.remove('hidden');
-                semesterSelect.innerHTML = `
-                    <option value="semestre1">Semestre 1</option>
-                    <option value="semestre2">Semestre 2</option>
-                `;
-            } else if (speciality === 'science-technologie') {
-                semesterContainer.classList.remove('hidden');
-                semesterSelect.innerHTML = `
-                    <option value="semestre1">Semestre 1</option>
-                    <option value="semestre2">Semestre 2</option>
-                `;
+            });
+
+            const hasExam = module.evaluations.includes('Examen');
+            const minExamButtonHTML = hasExam ? `<button class="min-exam-btn" onclick="calculateMinExamGrade('${module.id}')">Note Min. Examen</button>` : '';
+
+            card.innerHTML = `
+                <h3 class="text-lg font-semibold mb-2">${module.name}</h3>
+                <div class="flex flex-wrap gap-3 mb-4 text-sm">
+                    <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full">Coef: ${module.coefficient}</span>
+                    <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full">Crédits: ${module.credits}</span>
+                    ${module.noteEliminatoire !== undefined ? `<span class="bg-red-100 text-red-700 px-3 py-1 rounded-full">Élim: ${module.noteEliminatoire}</span>` : ''}
+                </div>
+                <div class="note-inputs">${inputsHTML}</div>
+                <div class="module-footer">
+                    <div class="avg-text" id="avg-${module.id}">Moy: --</div>
+                    ${minExamButtonHTML}
+                </div>
+            `;
+            return card;
+        }
+
+        // Input Validation
+        function validateGradeInput(inputElement) {
+            let value = inputElement.value.trim();
+            if (value === '') {
+                inputElement.classList.remove('input-error');
+                return;
+            }
+            value = value.replace(',', '.').replace(/[^0-9.]/g, '');
+            const parts = value.split('.');
+            if (parts.length > 2) value = parts[0] + '.' + parts.slice(1).join('');
+            if (parts[1] && parts[1].length > 2) value = parts[0] + '.' + parts[1].substring(0, 2);
+            inputElement.value = value;
+            const numericValue = parseFloat(value);
+            if (isNaN(numericValue) || numericValue < 0 || numericValue > 20) {
+                inputElement.classList.add('input-error');
             } else {
-                semesterContainer.classList.add('hidden');
-                semesterSelect.innerHTML = '';
-                document.getElementById('modules-container').classList.add('hidden');
+                inputElement.classList.remove('input-error');
             }
         }
 
-        function showModules() {
-            const semester = document.getElementById('semester').value;
-            const modulesContainer = document.getElementById('modules-container');
-
-            if (semester) {
-                modulesContainer.classList.remove('hidden');
-                modulesContainer.innerHTML = '';
-
-                const modules = {
-                    'biologie': {
-                        'semestre1': ['Module 1', 'Module 2', 'Module 3'],
-                        'semestre2': ['Module 4', 'Module 5', 'Module 6']
-                    },
-                    'informatique': {
-                        'semestre1': ['Module 1', 'Module 2', 'Module 3'],
-                        'semestre2': ['Module 4', 'Module 5', 'Module 6']
-                    },
-                    'science-technologie': {
-                        'semestre1': ['Module 1', 'Module 2', 'Module 3'],
-                        'semestre2': ['Module 4', 'Module 5', 'Module 6']
-                    }
-                };
-
-                const speciality = document.getElementById('speciality').value;
-                const selectedModules = modules[speciality][semester];
-
-                selectedModules.forEach(module => {
-                    const moduleCard = document.createElement('div');
-                    moduleCard.className = 'module-card';
-                    moduleCard.innerHTML = `
-                        <h3 class="text-xl font-semibold mb-2">${module}</h3>
-                        <div class="note-inputs">
-                            <div class="note-field">
-                                <label for="${module}-td" class="block text-gray-700 font-bold mb-2">TD</label>
-                                <input type="number" id="${module}-td" name="${module}-td" class="custom-input" min="0" max="20">
-                            </div>
-                            <div class="note-field">
-                                <label for="${module}-tp" class="block text-gray-700 font-bold mb-2">TP</label>
-                                <input type="number" id="${module}-tp" name="${module}-tp" class="custom-input" min="0" max="20">
-                            </div>
-                            <div class="note-field">
-                                <label for="${module}-exam" class="block text-gray-700 font-bold mb-2">Examen</label>
-                                <input type="number" id="${module}-exam" name="${module}-exam" class="custom-input" min="0" max="20">
-                            </div>
-                        </div>
-                    `;
-                    modulesContainer.appendChild(moduleCard);
-                });
-            } else {
-                modulesContainer.classList.add('hidden');
-                modulesContainer.innerHTML = '';
-            }
+        // Parse Grade
+        function parseGrade(value) {
+            if (!value || value.trim() === '') return { num: null, valid: false };
+            const cleaned = value.replace(',', '.').trim();
+            const num = parseFloat(cleaned);
+            const isValid = !isNaN(num) && num >= 0 && num <= 20;
+            return { num: isValid ? num : null, valid: isValid };
         }
-    </script>
 
-    <!-- Mobile Navigation Bar -->
-    <nav id="mobile-nav" class="fixed bottom-0 left-0 right-0 bg-white bg-opacity-95 backdrop-filter backdrop-blur-lg shadow-lg border-t border-gray-200 py-3 px-2 flex justify-around items-center z-30 md:hidden">
-        <!-- Home Button -->
-        <a href="index.html" class="mobile-nav-item">
-            <div class="icon-container">
-                <i class="fas fa-home"></i>
-            </div>
-            <span>Accueil</span>
-        </a>
-        
-        <!-- Courses Button -->
-        <a href="bib.html" class="mobile-nav-item">
-            <div class="icon-container">
-                <i class="fas fa-book-open"></i>
-            </div>
-            <span>Cours</span>
-        </a>
-        
-        <!-- Calculator Button - Active on this page -->
-        <a href="calculator.html" class="mobile-nav-item active-nav-item">
-            <div class="icon-container">
-                <i class="fas fa-calculator"></i>
-            </div>
-            <span>Moyenne</span>
-        </a>
-        
-        <!-- Profile Button -->
-        <a href="#" onclick="checkProfileAccess(event)" class="mobile-nav-item">
-            <div class="icon-container">
-                <i class="fas fa-user"></i>
-            </div>
-            <span>Profil</span>
-        </a>
-    </nav>
+        // Calculate Module Average
+        function calculateModuleAverage(moduleCardElement) {
+            const moduleId = moduleCardElement.dataset.moduleId;
+            const moduleData = currentModulesData.find(m => m.id === moduleId);
+            if (!moduleData) return;
 
-    <!-- Add navigation scripts and styles -->
-    <script>
-        // Define the checkProfileAccess function if not already defined
-        function checkProfileAccess(event) {
-            event.preventDefault();
-            const userData = localStorage.getItem('userData');
-            if (!userData) {
-                window.location.href = 'auth.html?redirect=profile';
-            } else {
-                window.location.href = 'profile.html';
-            }
+            const evals = moduleData.evaluations || [];
+            const grades = {};
+            evals.forEach(type => {
+                const input = moduleCardElement.querySelector(`#${moduleId}-${type.toLowerCase()}`);
+                grades[type.toLowerCase()] = input ? parseGrade(input.value) : { num: null, valid: false };
+            });
+
+            let sum = 0, weightSum = 0, canCalculate = true, isEliminated = false;
+            const elimNote = parseFloat(moduleCardElement.dataset.noteElim);
+
+            const addGrade = (gradeInfo, weight) => {
+                if (gradeInfo.num === null) canCalculate = false;
+                else {
+                    sum += gradeInfo.num * weight;
+                    weightSum += weight;
+                }
+            };
+
+            const hasTD = evals.includes('TD'), hasTP = evals.includes('TP'), hasExam = evals.includes('Examen');
+            if (hasTD && hasTP && hasExam) {
+                addGrade(grades['td'], 0.2);
+                addGrade(grades['tp'], 0.2);
+                addGrade(grades['examen'], 0.6);
+            } else if (hasTP && hasExam) {
+                addGrade(grades['tp'], 0.4);
+                addGrade(grades['examen'], 0.6);
+            } else if (hasTD && hasExam) {
+                addGrade(grades['td'], 0.4);
+                addGrade(grades['examen'], 0.6);
+            } else if (hasExam) addGrade(grades['examen'], 1.0);
+            else if (hasTP) addGrade(grades['tp'], 1.0);
+            else if (hasTD) addGrade(grades['td'], 1.0);
+            else canCalculate = false;
+
+            const average = canCalculate && weightSum > 0 ? sum / weightSum : null;
+            if (!isNaN(elimNote) && average !== null && average < elimNote) isEliminated = true;
+
+            const avgDisplay = moduleCardElement.querySelector(`#avg-${moduleId}`);
+            const avgText = average !== null ? average.toFixed(2) : '--';
+            avgDisplay.textContent = `Moy: ${avgText}${isEliminated ? ' (Élim.)' : ''}`;
+            avgDisplay.style.color = average !== null ? (average >= 10 && !isEliminated ? '#10b981' : '#ef4444') : '#6b7280';
+
+            return { average, isEliminated, isValid: canCalculate && weightSum > 0 };
         }
-        
-        // Set active item in the mobile nav based on current page
-        function setActiveMobileNavItem() {
-            const currentPath = window.location.pathname;
-            const navItems = document.querySelectorAll('.mobile-nav-item');
-            
-            navItems.forEach(item => {
-                // Remove active class from all items
-                item.classList.remove('active-nav-item');
-                
-                // Get the href value
-                const href = item.getAttribute('href');
-                
-                // Skip items with "#" or JavaScript function calls
-                if (href === "#") return;
-                
-                // Check if this is the current page
-                if (currentPath.endsWith(href) || 
-                   (currentPath.endsWith('/') && href === 'index.html')) {
-                    item.classList.add('active-nav-item');
+
+        // Calculate General Average
+        function calculerMoyenneGenerale() {
+            let totalWeightedSum = 0, totalCoeff = 0, totalCreditsAttempted = 0, totalCreditsValidated = 0, hasEliminations = false;
+            let allModulesCalculated = true;
+
+            const moduleCards = document.querySelectorAll('.module-card');
+            moduleCards.forEach(card => {
+                const result = calculateModuleAverage(card);
+                if (result.isValid && result.average !== null) {
+                    const coeff = parseFloat(card.dataset.coefficient) || 1;
+                    const credits = parseFloat(card.dataset.credits) || 0;
+                    totalWeightedSum += result.average * coeff;
+                    totalCoeff += coeff;
+                    totalCreditsAttempted += credits;
+                    if (result.average >= 10 && !result.isEliminated) totalCreditsValidated += credits;
+                    if (result.isEliminated) hasEliminations = true;
+                } else {
+                    allModulesCalculated = false;
                 }
             });
-            
-            // Add logged in indicator for profile if user data exists
-            const userData = localStorage.getItem('userData');
-            const profileNavItem = document.querySelector('.mobile-nav-item[onclick*="checkProfileAccess"]');
-            if (userData && profileNavItem) {
-                profileNavItem.classList.add('logged-in');
+
+            modulesResultsDiv.innerHTML = '';
+            currentModulesData.forEach(module => {
+                const card = document.querySelector(`.module-card[data-module-id="${module.id}"]`);
+                const result = card ? calculateModuleAverage(card) : { average: null, isEliminated: false, isValid: false };
+                const moduleResultCard = document.createElement('div');
+                moduleResultCard.className = 'module-result-card';
+                const avgText = result.average !== null ? result.average.toFixed(2) : '--';
+                const elimText = result.isEliminated ? '<span class="module-result-elim">(Élim.)</span>' : '';
+                const color = result.average !== null ? (result.average >= 10 && !result.isEliminated ? '#10b981' : '#ef4444') : '#6b7280';
+                moduleResultCard.innerHTML = `
+                    <div class="module-result-title">${module.name}</div>
+                    <div class="module-result-avg" style="color: ${color}">${avgText} ${elimText}</div>
+                `;
+                modulesResultsDiv.appendChild(moduleResultCard);
+            });
+
+            if (!allModulesCalculated) {
+                alert("Entrez toutes les notes valides (0-20).");
+                moyenneGeneraleDiv.textContent = '--';
+                validationStatusDiv.textContent = 'Notes manquantes';
+                validationStatusDiv.style.color = '#6b7280';
+                creditsAttemptedSpan.textContent = 'Crédits Tentés: --';
+                creditsValidatedSpan.textContent = 'Crédits Validés: --';
+                resultatsDiv.classList.add('visible');
+                return;
             }
+
+            const moyenneFinale = totalCoeff > 0 ? totalWeightedSum / totalCoeff : null;
+            moyenneGeneraleDiv.textContent = moyenneFinale !== null ? moyenneFinale.toFixed(2) : '--';
+            const isValidated = moyenneFinale !== null && moyenneFinale >= 10 && !hasEliminations;
+            validationStatusDiv.textContent = isValidated ? 'Semestre Validé' : hasEliminations ? 'Non Validé (Élimination)' : 'Non Validé';
+            validationStatusDiv.style.color = isValidated ? '#10b981' : '#ef4444';
+            creditsAttemptedSpan.textContent = `Crédits Tentés: ${totalCreditsAttempted}`;
+            creditsValidatedSpan.textContent = `Crédits Validés: ${totalCreditsValidated}`;
+            resultatsDiv.classList.add('visible');
+            resultatsDiv.scrollIntoView({ behavior: 'smooth' });
         }
-        
-        // Initialize mobile nav on page load
+
+        // Storage Functions
+        function getStorageKey() {
+            const year = anneeSelect.value;
+            const spec = specialiteSelect.value;
+            const sem = semestreSelect.value;
+            return year && spec && sem ? `@calculatorGrades_${year}_${spec}_${sem}` : null;
+        }
+
+        function saveGrades() {
+            const key = getStorageKey();
+            if (!key) return alert('Sélectionnez Année, Spécialité et Semestre.');
+            const gradesToSave = {};
+            let hasGrades = false;
+            document.querySelectorAll('.module-grade-input').forEach(input => {
+                const moduleId = input.id.split('-')[0];
+                const type = input.id.split('-')[1];
+                if (!gradesToSave[moduleId]) gradesToSave[moduleId] = {};
+                gradesToSave[moduleId][type] = input.value;
+                if (input.value.trim() !== '') hasGrades = true;
+            });
+            if (!hasGrades) return alert("Aucune note à sauvegarder.");
+            const loader = document.getElementById('saveLoader');
+            loader.classList.remove('hidden');
+            saveBtn.disabled = true;
+            localStorage.setItem(key, JSON.stringify(gradesToSave));
+            setTimeout(() => {
+                alert('Notes sauvegardées.');
+                loader.classList.add('hidden');
+                saveBtn.disabled = false;
+            }, 300);
+        }
+
+        function loadGrades() {
+            const key = getStorageKey();
+            if (!key && event?.target === loadBtn) return alert('Sélectionnez Année, Spécialité et Semestre.');
+            if (!key) return;
+            const loader = document.getElementById('loadLoader');
+            loader.classList.remove('hidden');
+            loadBtn.disabled = true;
+            const savedGrades = localStorage.getItem(key);
+            setTimeout(() => {
+                if (savedGrades) {
+                    const parsedGrades = JSON.parse(savedGrades);
+                    document.querySelectorAll('.module-grade-input').forEach(input => {
+                        const moduleId = input.id.split('-')[0];
+                        const type = input.id.split('-')[1];
+                        input.value = parsedGrades[moduleId]?.[type] || '';
+                        validateGradeInput(input);
+                        calculateModuleAverage(input.closest('.module-card'));
+                    });
+                    if (event?.target === loadBtn) alert('Notes chargées.');
+                } else if (event?.target === loadBtn) {
+                    alert('Aucune note sauvegardée.');
+                }
+                loader.classList.add('hidden');
+                loadBtn.disabled = false;
+            }, 300);
+        }
+
+        function clearGrades() {
+            if (!confirm("Effacer toutes les notes ?")) return;
+            document.querySelectorAll('.module-grade-input').forEach(input => {
+                input.value = '';
+                input.classList.remove('input-error');
+                calculateModuleAverage(input.closest('.module-card'));
+            });
+            resultatsDiv.classList.remove('visible');
+            const key = getStorageKey();
+            if (key) localStorage.removeItem(key);
+            alert('Notes effacées.');
+        }
+
+        // "What If" Calculation
+        function calculateWhatIf() {
+            const targetAvg = parseFloat(targetAverageInput.value.replace(',', '.'));
+            if (isNaN(targetAvg) || targetAvg < 0 || targetAvg > 20) return alert('Moyenne cible invalide (0-20).');
+
+            let weightedSum = 0, totalCoeff = 0, examWeightCoeff = 0, canCalculate = true;
+            currentModulesData.forEach(module => {
+                const card = document.querySelector(`.module-card[data-module-id="${module.id}"]`);
+                if (!card) { canCalculate = false; return; }
+                const evals = module.evaluations || [];
+                const coeff = parseFloat(card.dataset.coefficient) || 1;
+                totalCoeff += coeff;
+
+                const tdInput = card.querySelector(`#${module.id}-td`);
+                const tpInput = card.querySelector(`#${module.id}-tp`);
+                const tdInfo = tdInput ? parseGrade(tdInput.value) : { num: null };
+                const tpInfo = tpInput ? parseGrade(tpInput.value) : { num: null };
+
+                if (evals.includes('TD') && tdInfo.num === null) canCalculate = false;
+                if (evals.includes('TP') && tpInfo.num === null) canCalculate = false;
+                if (!canCalculate) return;
+
+                let sumWithoutExam = 0, examWeight = 0;
+                if (evals.includes('TD') && evals.includes('TP') && evals.includes('Examen')) {
+                    sumWithoutExam = (tdInfo.num || 0) * 0.2 + (tpInfo.num || 0) * 0.2;
+                    examWeight = 0.6;
+                } else if (evals.includes('TP') && evals.includes('Examen')) {
+                    sumWithoutExam = (tpInfo.num || 0) * 0.4;
+                    examWeight = 0.6;
+                } else if (evals.includes('TD') && evals.includes('Examen')) {
+                    sumWithoutExam = (tdInfo.num || 0) * 0.4;
+                    examWeight = 0.6;
+                } else if (evals.includes('Examen')) examWeight = 1.0;
+
+                weightedSum += sumWithoutExam * coeff;
+                if (examWeight > 0) examWeightCoeff += examWeight * coeff;
+            });
+
+            if (!canCalculate) return alert('Entrez toutes les notes TD/TP.');
+            if (examWeightCoeff <= 0) return alert('Aucun examen à calculer.');
+            const neededExamAvg = (targetAvg * totalCoeff - weightedSum) / examWeightCoeff;
+            const message = neededExamAvg <= 0 ? 'Cible atteinte.' : neededExamAvg > 20 ? 'Impossible.' : `Il faut ${neededExamAvg.toFixed(2)}/20 aux examens.`;
+            alert('Calcul "Et Si":\n' + message);
+        }
+
+        // Calculate Minimum Exam Grade
+        function calculateMinExamGrade(moduleId) {
+            const card = document.querySelector(`.module-card[data-module-id="${moduleId}"]`);
+            const moduleData = currentModulesData.find(m => m.id === moduleId);
+            if (!card || !moduleData || !moduleData.evaluations.includes('Examen')) return alert('Pas d’examen.');
+
+            const evals = moduleData.evaluations;
+            const tdInput = card.querySelector(`#${moduleId}-td`);
+            const tpInput = card.querySelector(`#${moduleId}-tp`);
+            const tdInfo = tdInput ? parseGrade(tdInput.value) : { num: null };
+            const tpInfo = tpInput ? parseGrade(tpInput.value) : { num: null };
+
+            const hasTD = evals.includes('TD'), hasTP = evals.includes('TP');
+            if ((hasTD && tdInfo.num === null) || (hasTP && tpInfo.num === null)) {
+                const missing = [];
+                if (hasTD && tdInfo.num === null) missing.push('TD');
+                if (hasTP && tpInfo.num === null) missing.push('TP');
+                return alert(`Entrez ${missing.join(' et ')}.`);
+            }
+
+            let tdWeight = 0, tpWeight = 0, examWeight = 0;
+            if (hasTD && hasTP) { tdWeight = 0.2; tpWeight = 0.2; examWeight = 0.6; }
+            else if (hasTP) { tpWeight = 0.4; examWeight = 0.6; }
+            else if (hasTD) { tdWeight = 0.4; examWeight = 0.6; }
+            else { examWeight = 1.0; }
+
+            const currentSum = (tdInfo.num || 0) * tdWeight + (tpInfo.num || 0) * tpWeight;
+            const target = Math.max(10, moduleData.noteEliminatoire || 0);
+            const examGrade = examWeight > 0 ? (target - currentSum) / examWeight : Infinity;
+            const message = examGrade <= 0 ? 'Validé.' : examGrade > 20 ? 'Impossible.' : `Il faut ${examGrade.toFixed(2)}/20.`;
+            alert(`Note Min (${moduleData.name}):\n` + message);
+        }
+
+        // Enable/Disable Controls
+        function enableDisableControls() {
+            const modulesLoaded = currentModulesData.length > 0;
+            calculateBtn.disabled = !modulesLoaded;
+            saveBtn.disabled = !modulesLoaded;
+            loadBtn.disabled = !modulesLoaded;
+            clearBtn.disabled = !modulesLoaded;
+            targetAverageInput.disabled = !modulesLoaded;
+            document.querySelector('.what-if-btn').disabled = !modulesLoaded;
+        }
+
+        // Event Listeners
+        anneeSelect.addEventListener('change', populateSpecialiteSelect);
+        specialiteSelect.addEventListener('change', fetchModules);
+        semestreSelect.addEventListener('change', displayModules);
+
+        // Initial Load
         document.addEventListener('DOMContentLoaded', () => {
-            setActiveMobileNavItem();
+            fetchInitialData();
+            setTimeout(() => alert("Moyennes calculées après rattrapage."), 1500);
         });
     </script>
-
-    <style>
-        @media (max-width: 768px) {
-            body {
-                padding-bottom: 60px;
-            }
-        }
-
-        /* Enhanced Mobile Navigation Styling */
-        #mobile-nav {
-            transition: transform 0.3s ease-in-out;
-        }
-        
-        /* When scrolling down, hide the navbar (added via JS) */
-        #mobile-nav.nav-hidden {
-            transform: translateY(100%);
-        }
-        
-        .mobile-nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 4px 0;
-            color: #64748b; /* Tailwind text-gray-500 */
-            transition: all 0.3s ease;
-            position: relative;
-            width: 23%;
-            border-radius: 0.75rem;
-        }
-        
-        .mobile-nav-item .icon-container {
-            position: relative;
-            margin-bottom: 4px;
-            font-size: 1.25rem;
-        }
-        
-        .mobile-nav-item span {
-            font-size: 0.7rem;
-            font-weight: 500;
-            transition: all 0.2s ease;
-        }
-        
-        /* Active state for the current page */
-        .mobile-nav-item.active-nav-item {
-            color: #3b82f6; /* Tailwind blue-500 */
-            font-weight: 600;
-        }
-        
-        .mobile-nav-item.active-nav-item::before {
-            content: '';
-            position: absolute;
-            bottom: -3px;
-            left: 25%;
-            width: 50%;
-            height: 3px;
-            background: linear-gradient(to right, #3b82f6, #2563eb);
-            border-radius: 3px;
-        }
-        
-        /* Hover and tap effects */
-        .mobile-nav-item:hover, .mobile-nav-item:active {
-            color: #3b82f6; /* Tailwind blue-500 */
-            transform: translateY(-2px);
-        }
-        
-        /* Small icon indicator for profile when logged in */
-        .mobile-nav-item.logged-in::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 25%;
-            width: 8px;
-            height: 8px;
-            background-color: #10b981; /* Tailwind green-500 */
-            border-radius: 50%;
-            border: 2px solid white;
-        }
-    </style>
 </body>
 </html>
