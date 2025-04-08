@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,34 +16,50 @@
     <meta property="og:description" content="Calcul de Moyenne Université de Bejaia">
     <meta property="og:image" content="https://masterpiecer-images.s3.yandex.net/b08e69b27e0b11eeb532aaafe6635749:upscaled">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="">
-    <!--link rel="stylesheet" href="assets/css/style.css"--> <!-- Removed - Inlining Styles -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+        crossorigin="">
+    <!--link rel="stylesheet" href="assets/css/style.css"-->
+    <!-- Removed - Inlining Styles -->
     <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico">
     <link rel="stylesheet" href="assets/css/floating-menu.css">
 
     <!-- Google AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7539806376887582" crossorigin="anonymous"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7539806376887582"
+        crossorigin="anonymous"></script>
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-4QK3R858YJ"></script>
     <!-- Add this right after the Google tag script -->
 
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-4QK3R858YJ');
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+        gtag('config', 'G-4QK3R858YJ');
     </script>
 
     <!-- Firebase SDK -->
     <script type="module">
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js';
-        import { getFirestore, collection, getDocs, query, where, orderBy } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js';
+        import {
+            getFirestore,
+            collection,
+            getDocs,
+            query,
+            where,
+            orderBy
+        } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js';
 
         const firebaseConfig = {
             apiKey: "AIzaSyB5XYqWKhHdiVDXJx4iOwtpxD8eUCPRfKU", // Replace with your actual API key
@@ -56,11 +73,17 @@
 
         const app = initializeApp(firebaseConfig);
         window.db = getFirestore(app);
-        window.firestoreFunctions = { collection, getDocs, query, where, orderBy };
+        window.firestoreFunctions = {
+            collection,
+            getDocs,
+            query,
+            where,
+            orderBy
+        };
     </script>
 
     <style>
-       /* General reset and theme */
+        /* General reset and theme */
         body {
             font-family: 'Poppins', sans-serif;
             margin: 0;
@@ -83,82 +106,59 @@
             margin-bottom: 30px;
         }
 
-        /* Style Adjustments for Enhanced Mobile Navigation */
-        #mobile-nav {
-            transition: transform 0.3s ease-in-out;
-        }
-
-        #mobile-nav.nav-hidden {
-            transform: translateY(100%);
-        }
-
-        .mobile-nav-item {
+        /* New Styles */
+        .header-container {
             display: flex;
-            flex-direction: column;
+            justify-content: space-between;
             align-items: center;
-            padding: 4px 0;
-            transition: all 0.3s ease;
-            position: relative;
-            width: 23%;
-            border-radius: 0.75rem;
+            margin-bottom: 20px;
         }
 
-        .mobile-nav-item .icon-container {
-            position: relative;
-            margin-bottom: 4px;
-            font-size: 1.25rem;
+        .header-container a {
+            color: #fff;
+            text-decoration: none;
         }
 
-        .mobile-nav-item span {
-            font-size: 0.7rem;
-            font-weight: 500;
-            transition: all 0.2s ease;
+        .header-container img {
+            max-width: 200px;
         }
 
-        .mobile-nav-item.active-nav-item {
-            font-weight: 600;
+        .logo-container {
+            text-align: center;
         }
 
-        .mobile-nav-item.active-nav-item::before {
-            content: '';
-            position: absolute;
-            bottom: -3px;
-            left: 25%;
-            width: 50%;
-            height: 3px;
-            border-radius: 3px;
+        /* Selection styles */
+        select {
+            color: #fff;
+            /* Default text color */
         }
 
-        .mobile-nav-item:hover,
-        .mobile-nav-item:active {
-            transform: translateY(-2px);
+        select option {
+            background-color: #334155;
+            /* Option background */
+            color: #fff;
         }
 
-        .mobile-nav-item.logged-in::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 25%;
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            border: 2px solid white;
+        select:hover,
+        select:focus {
+            border-color: #64748b;
+            /* Hovered/Focused border */
         }
 
+        /* Make it good for mobile  */
         @media (max-width: 768px) {
-            body {
-                padding-bottom: 60px;
+            .container {
+                width: 95%;
             }
 
-            .mobile-nav-item span {
-                font-size: 0.65rem; /* Adjust size for very small screens */
+            .header-container {
+                flex-direction: column;
+                align-items: center;
             }
-        }
 
-        /* Calculator Styles */
-        .calculator-container {
-            max-width: 900px;
-            margin: 0 auto;
+            .header-container a {
+                margin-bottom: 10px;
+            }
         }
 
         .glass-card {
@@ -199,160 +199,30 @@
             box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
         }
 
-        /* Module Styles */
-        .module-card {
-            background-color: rgba(255, 255, 255, 0.08);
-            border-radius: 0.75rem;
-            padding: 1.25rem;
-            margin-bottom: 1rem;
-            border-left: 4px solid #007bff;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .module-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .note-inputs {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-            gap: 1rem;
-            margin: 0.75rem 0;
-        }
-
-        /* Results Styles */
-        .results-container {
-            margin-top: 2rem;
-            padding: 1.5rem;
-            border-radius: 0.75rem;
-            background-color: rgba(255, 255, 255, 0.08);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .general-average {
-            font-size: 2.5rem;
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-        }
-
-        .validation-status {
-            font-weight: 600;
-            color: #a8dadc;
-        }
-
-        /* Button Styles */
-        .calculate-btn {
-            background-color: #007bff;
-            color: #fff;
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.5rem;
-            border: none;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-        }
-
-        .calculate-btn:hover {
-            background-color: #0056b3;
-            transform: translateY(-2px);
-        }
-
-        .note-inputs-wrapper {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start; /* Adjusted alignment for better spacing */
-            margin-bottom: 10px; /* Added margin for visual separation */
-        }
-
-        .note-inputs-wrapper label {
-            margin-bottom: 5px;
-            color: #e2e8f0;
-            font-size: 0.9em;
-        }
-
-        .note-input {
-            padding: 0.75rem;
-            border-radius: 0.5rem;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            background-color: rgba(255, 255, 255, 0.1);
-            color: #fff;
-            transition: border-color 0.3s ease;
-            width: 100%; /* Expand input to fill container */
-            box-sizing: border-box; /* Important for padding to be included in the width */
-        }
-
-        /* New Styles */
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .header-container a {
-            color: #fff;
-            text-decoration: none;
-        }
-
-        .header-container img {
-            max-width: 200px;
-        }
-
-        .logo-container {
-            text-align: center;
-        }
-
-        /* Selection styles */
-        select {
-            color: #fff; /* Default text color */
-        }
-
-        select option {
-            background-color: #334155; /* Option background */
-            color: #fff;
-        }
-
-        select:hover,
-        select:focus {
-            border-color: #64748b; /* Hovered/Focused border */
-        }
-
-        /* Make it good for mobile  */
-        @media (max-width: 768px) {
-            .container {
-                width: 95%;
-            }
-
-            .header-container {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .header-container a {
-                margin-bottom: 10px;
-            }
-        }
-
-                /* New Back Button Styles */
+        /* New Back Button Styles */
         .back-button {
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            color: #fff; /* Changed to white */
+            color: #fff;
+            /* Changed to white */
             font-weight: 500;
             font-size: 0.9rem;
             padding: 0.5rem 1rem;
             border-radius: 9999px;
-            background: rgba(255, 255, 255, 0.05); /* Glass effect background */
-            border: 1px solid rgba(255, 255, 255, 0.1); /* Glass effect border */
+            background: rgba(255, 255, 255, 0.05);
+            /* Glass effect background */
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            /* Glass effect border */
             transition: background-color 0.3s ease;
             margin-bottom: 1rem;
         }
 
         .back-button:hover {
-            background-color: rgba(255, 255, 255, 0.1); /* Hover effect */
-            text-decoration: none; /* Remove underline if it's an <a> tag */
+            background-color: rgba(255, 255, 255, 0.1);
+            /* Hover effect */
+            text-decoration: none;
+            /* Remove underline if it's an <a> tag */
         }
 
         .back-button i {
@@ -378,6 +248,7 @@
             background-size: 1.2rem;
             touch-action: manipulation;
         }
+
         .selection-input:focus {
             border-color: #64748b;
             box-shadow: 0 0 0 4px rgba(100, 116, 139, 0.25);
@@ -386,17 +257,21 @@
 
         /* Styles for select options */
         select option {
-            background-color: #1e293b; /* Darker background for contrast */
+            background-color: #1e293b;
+            /* Darker background for contrast */
             color: #fff;
         }
-                /* Module card styles */
+
+        /* Module card styles */
         .module-card {
-            background: rgba(255, 255, 255, 0.05); /* Glass effect background */
+            background: rgba(255, 255, 255, 0.05);
+            /* Glass effect background */
             border-radius: 12px;
             padding: 1.25rem;
             margin-bottom: 1.25rem;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-            border-left: 5px solid #007bff; /* Accent border */
+            border-left: 5px solid #007bff;
+            /* Accent border */
             transition: all 0.3s ease;
         }
 
@@ -408,7 +283,8 @@
         /* Note inputs grid */
         .note-inputs {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(85px, 1fr)); /* Responsive columns */
+            grid-template-columns: repeat(auto-fit, minmax(85px, 1fr));
+            /* Responsive columns */
             gap: 1rem;
             margin: 0.75rem 0;
         }
@@ -417,14 +293,17 @@
         .note-field label {
             font-size: 0.85rem;
             font-weight: 600;
-            color: #b0b0d0; /* Lighter text for labels */
+            color: #b0b0d0;
+            /* Lighter text for labels */
             margin-bottom: 0.3rem;
         }
 
         /* Input with error */
         .input-error {
-            border-color: #e63946; /* Error border color */
-            background-color: #2a1a1a; /* Darker background for error state */
+            border-color: #e63946;
+            /* Error border color */
+            background-color: #2a1a1a;
+            /* Darker background for error state */
         }
 
         /* Module footer with average and buttons */
@@ -434,8 +313,10 @@
             align-items: center;
             margin-top: 1rem;
             padding-top: 0.75rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
-            flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            /* Subtle border */
+            flex-wrap: wrap;
+            /* Allow items to wrap on smaller screens */
             gap: 0.75rem;
         }
 
@@ -453,7 +334,8 @@
         /* Buttons for minimum exam grade and clearing the module */
         .min-exam-btn,
         .clear-module-btn {
-            background: linear-gradient(to right, #007bff, #0056b3); /* Gradient background */
+            background: linear-gradient(to right, #007bff, #0056b3);
+            /* Gradient background */
             color: #fff;
             padding: 0.35rem 0.75rem;
             border-radius: 6px;
@@ -466,7 +348,8 @@
 
         /* Style for the clear module button */
         .clear-module-btn {
-            background: linear-gradient(to right, #e63946, #b71c1c); /* Red gradient */
+            background: linear-gradient(to right, #e63946, #b71c1c);
+            /* Red gradient */
         }
 
         .min-exam-btn:hover,
@@ -475,7 +358,8 @@
         }
 
         .min-exam-btn:hover {
-            background: linear-gradient(to right, #0056b3, #007bff); /* Switch colors on hover */
+            background: linear-gradient(to right, #0056b3, #007bff);
+            /* Switch colors on hover */
         }
 
         .clear-module-btn:hover {
@@ -491,7 +375,8 @@
         }
 
         #resultats.visible {
-            max-height: 2000px; /* A large value to accommodate content */
+            max-height: 2000px;
+            /* A large value to accommodate content */
             opacity: 1;
         }
 
@@ -502,7 +387,8 @@
             padding: 0.75rem;
             text-align: center;
             font-size: 0.9rem;
-            background: rgba(255, 255, 255, 0.05); /* Glass effect */
+            background: rgba(255, 255, 255, 0.05);
+            /* Glass effect */
             transition: transform 0.2s ease;
         }
 
@@ -513,7 +399,8 @@
         /* Title of the module result card */
         .module-result-title {
             font-weight: 600;
-            color: #eee; /* Light color for title */
+            color: #eee;
+            /* Light color for title */
             margin-bottom: 0.3rem;
         }
 
@@ -532,7 +419,8 @@
 
         /* General average display */
         .moyenne-generale {
-            background: linear-gradient(120deg, #007bff, #0056b3, #007bff); /* Gradient background */
+            background: linear-gradient(120deg, #007bff, #0056b3, #007bff);
+            /* Gradient background */
             background-size: 200% 200%;
             color: #fff;
             border-radius: 15px;
@@ -540,7 +428,8 @@
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
             position: relative;
             overflow: hidden;
-            animation: gradientShift 5s ease infinite; /* Animated gradient */
+            animation: gradientShift 5s ease infinite;
+            /* Animated gradient */
             text-align: center;
         }
 
@@ -561,7 +450,8 @@
 
         /* Validate class for validated results */
         .moyenne-generale.validated {
-            box-shadow: 0 0 20px rgba(0, 123, 255, 0.8), 0 0 40px rgba(0, 123, 255, 0.5); /* Glowing effect */
+            box-shadow: 0 0 20px rgba(0, 123, 255, 0.8), 0 0 40px rgba(0, 123, 255, 0.5);
+            /* Glowing effect */
         }
 
         /* Hover effect on general average */
@@ -573,7 +463,8 @@
         .moyenne-generale-val {
             font-size: 3rem;
             font-weight: 800;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Text shadow for emphasis */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            /* Text shadow for emphasis */
             transition: all 0.5s ease;
         }
 
@@ -591,7 +482,8 @@
         .progress-bar-fill {
             height: 100%;
             background: #007bff;
-            transition: width 1s ease; /* Animated width transition */
+            transition: width 1s ease;
+            /* Animated width transition */
         }
 
         /* Credits row */
@@ -606,7 +498,8 @@
 
         /* What-if section */
         .what-if-card {
-            background: rgba(255, 255, 255, 0.05); /* Glass effect */
+            background: rgba(255, 255, 255, 0.05);
+            /* Glass effect */
             border: 2px dashed rgba(255, 255, 255, 0.2);
             border-radius: 10px;
             padding: 1.25rem;
@@ -625,14 +518,16 @@
             padding: 8px;
             border-radius: 6px;
             width: 90px;
-            background: rgba(255, 255, 255, 0.1); /* Glass effect */
+            background: rgba(255, 255, 255, 0.1);
+            /* Glass effect */
             color: #fff;
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         /* What-if button */
         .what-if-btn {
-            background: linear-gradient(to right, #007bff, #0056b3); /* Gradient */
+            background: linear-gradient(to right, #007bff, #0056b3);
+            /* Gradient */
             color: #fff;
             padding: 0.5rem 1rem;
             border-radius: 6px;
@@ -641,7 +536,8 @@
         }
 
         .what-if-btn:hover {
-            background: linear-gradient(to right, #0056b3, #007bff); /* Switch colors */
+            background: linear-gradient(to right, #0056b3, #007bff);
+            /* Switch colors */
             transform: translateY(-2px);
         }
 
@@ -653,7 +549,8 @@
             gap: 1rem;
             margin-top: 1.5rem;
             padding-top: 1.5rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            /* Subtle border */
         }
 
         /* Individual action button */
@@ -680,7 +577,8 @@
             top: -2.5rem;
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(255, 255, 255, 0.05); /* Glass effect */
+            background: rgba(255, 255, 255, 0.05);
+            /* Glass effect */
             color: #fff;
             padding: 0.3rem 0.8rem;
             border-radius: 6px;
@@ -693,44 +591,53 @@
 
         /* Style for save and load buttons */
         .save-load-btn {
-            background: linear-gradient(to right, #007bff, #0056b3); /* Gradient */
+            background: linear-gradient(to right, #007bff, #0056b3);
+            /* Gradient */
             color: #fff;
         }
 
         .save-load-btn:hover {
-            background: linear-gradient(to right, #0056b3, #007bff); /* Switch colors */
+            background: linear-gradient(to right, #0056b3, #007bff);
+            /* Switch colors */
         }
 
         /* Style for clear button */
         .clear-btn {
-            background: linear-gradient(to right, #e63946, #b71c1c); /* Red gradient */
+            background: linear-gradient(to right, #e63946, #b71c1c);
+            /* Red gradient */
             color: #fff;
         }
 
         .clear-btn:hover {
-            background: linear-gradient(to right, #b71c1c, #e63946); /* Switch colors */
+            background: linear-gradient(to right, #b71c1c, #e63946);
+            /* Switch colors */
         }
 
         /* Style for calculate button */
         .calculate-btn {
-            background: linear-gradient(to right, #007bff, #0056b3); /* Blue gradient */
+            background: linear-gradient(to right, #007bff, #0056b3);
+            /* Blue gradient */
             padding: 0.75rem 1.5rem;
-            box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4); /* Shadow */
+            box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4);
+            /* Shadow */
         }
 
         .calculate-btn:hover {
-            background: linear-gradient(to right, #0056b3, #007bff); /* Switch colors */
+            background: linear-gradient(to right, #0056b3, #007bff);
+            /* Switch colors */
             transform: scale(1.05);
         }
 
         /* Style for recalculate button */
         .recalculate-btn {
-            background: linear-gradient(to right, #007bff, #0056b3); /* Blue gradient */
+            background: linear-gradient(to right, #007bff, #0056b3);
+            /* Blue gradient */
             color: #fff;
         }
 
         .recalculate-btn:hover {
-            background: linear-gradient(to right, #0056b3, #007bff); /* Switch colors */
+            background: linear-gradient(to right, #0056b3, #007bff);
+            /* Switch colors */
         }
 
         /* Loader animation */
@@ -756,7 +663,8 @@
 
         /* Footer styles */
         footer {
-            background: rgba(255, 255, 255, 0.05); /* Glass effect */
+            background: rgba(255, 255, 255, 0.05);
+            /* Glass effect */
             color: #fff;
             padding: 2rem 1rem;
             border-top-left-radius: 2rem;
@@ -793,12 +701,14 @@
             font-size: 0.9rem;
             padding: 0.5rem 1rem;
             border-radius: 9999px;
-            background-color: rgba(255, 255, 255, 0.05); /* Glass effect */
+            background-color: rgba(255, 255, 255, 0.05);
+            /* Glass effect */
             transition: all 0.2s ease;
         }
 
         .back-button:hover {
-            background-color: rgba(255, 255, 255, 0.1); /* Lighter on hover */
+            background-color: rgba(255, 255, 255, 0.1);
+            /* Lighter on hover */
             transform: scale(1.05);
         }
 
@@ -817,7 +727,8 @@
         }
 
         .modal-content {
-            background: rgba(255, 255, 255, 0.05); /* Glass effect */
+            background: rgba(255, 255, 255, 0.05);
+            /* Glass effect */
             padding: 1.5rem;
             border-radius: 12px;
             text-align: center;
@@ -846,7 +757,8 @@
             position: absolute;
             top: 0.5rem;
             right: 0.5rem;
-            background: #e63946; /* Red color */
+            background: #e63946;
+            /* Red color */
             color: #fff;
             border: none;
             border-radius: 50%;
@@ -858,7 +770,8 @@
         }
 
         .modal-close:hover {
-            background: #b71c1c; /* Darker red */
+            background: #b71c1c;
+            /* Darker red */
         }
 
         /* Buttons container in modals */
@@ -879,32 +792,39 @@
 
         /* Confirm button style */
         .modal-btn.confirm {
-            background: #007bff; /* Blue color */
+            background: #007bff;
+            /* Blue color */
             color: #fff;
         }
 
         .modal-btn.confirm:hover {
-            background: #0056b3; /* Darker blue */
+            background: #0056b3;
+            /* Darker blue */
         }
 
         /* Cancel button style */
         .modal-btn.cancel {
-            background: #e63946; /* Red color */
+            background: #e63946;
+            /* Red color */
             color: #fff;
         }
 
         .modal-btn.cancel:hover {
-            background: #b71c1c; /* Darker red */
+            background: #b71c1c;
+            /* Darker red */
         }
                 /* Sticky header */
         .sticky-header {
             position: sticky;
             top: 0;
-            background: rgba(15, 12, 41, 0.9); /* Glass effect, fallback color */
-            backdrop-filter: blur(10px); /* Apply blur */
+            background: rgba(15, 12, 41, 0.9);
+            /* Glass effect, fallback color */
+            backdrop-filter: blur(10px);
+            /* Apply blur */
             z-index: 10;
             padding: 1rem 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            /* Subtle border */
         }
 
         /* Responsive adjustments */
@@ -934,7 +854,8 @@
 
         @media (max-width: 768px) {
             .note-inputs {
-                grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); /* Adjust grid */
+                grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+                /* Adjust grid */
             }
 
             .glass-card {
@@ -946,11 +867,13 @@
             }
 
             body {
-                padding-bottom: 80px; /* Add padding for mobile nav */
+                padding-bottom: 80px;
+                /* Add padding for mobile nav */
             }
 
             .moyenne-generale-val {
-                font-size: 2.5rem; /* Adjusted font size */
+                font-size: 2.5rem;
+                /* Adjusted font size */
             }
         }
 
@@ -974,8 +897,7 @@
                 padding: 1.5rem 0.5rem;
             }
 
-            .container {
-                padding-left: 1rem;
+            .container {                padding-left: 1rem;
                 padding-right: 1rem;
             }
 
@@ -990,32 +912,30 @@
             }
         }
 
-                /* Styles for select options */
-        select option {
-            background-color: #1e293b; /* Darker background for contrast */
-            color: #fff;
-        }
-                /* Custom input field */
+        /* Custom input field */
         .custom-input {
             width: 100%;
             padding: 10px 15px;
             border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 8px;
-            background-color: rgba(255, 255, 255, 0.1); /* Glass effect */
+            background-color: rgba(255, 255, 255, 0.1);
+            /* Glass effect */
             color: #fff;
             transition: all 0.3s ease;
             font-size: 0.95rem;
-            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+            /* Subtle shadow */
             text-align: center;
             font-weight: 500;
         }
 
         .custom-input:focus {
-            border-color: #64748b; /* Focused border color */
-            box-shadow: 0 0 0 4px rgba(100, 116, 139, 0.25); /* Focused shadow */
+            border-color: #64748b;
+            /* Focused border color */
+            box-shadow: 0 0 0 4px rgba(100, 116, 139, 0.25);
+            /* Focused shadow */
             outline: none;
         }
-
     </style>
 </head>
 
@@ -1024,13 +944,18 @@
         <header class="mb-6" data-aos="fade-down">
             <div class="flex justify-between items-center border-b border-white pb-4">
                 <a href="index.html" class="back-button"><i class="fas fa-arrow-left"></i> Retour</a>
-                <img src="assets/img/LOGO.png" alt="E-Campus Bejaia Logo" class="h-12">
             </div>
         </header>
 
-        <div class="text-center p-6 rounded-xl shadow-lg mb-8 bg-gradient-to-r from-[#007bff] to-[#0056b3] text-[#fff]" data-aos="zoom-in">
+        <div class="logo-container">
+            <img src="assets/img/LOGO.png" alt="Université de Bejaia" class="max-w-[200px]">
+        </div>
+
+        <div class="text-center p-6 rounded-xl shadow-lg mb-8 bg-gradient-to-r from-[#007bff] to-[#0056b3] text-[#fff]"
+            data-aos="zoom-in">
             <h1 class="text-3xl sm:text-4xl font-bold">Calculateur de Moyenne</h1>
-            <p class="text-sm sm:text-base mt-3 opacity-90">Développé par <span class="font-semibold">Amara Mehdi</span></p>
+            <p class="text-sm sm:text-base mt-3 opacity-90">Développé par <span class="font-semibold">Amara
+                    Mehdi</span></p>
         </div>
 
         <div class="glass-card">
@@ -1052,15 +977,18 @@
             </div>
 
             <div id="noteForm" class="space-y-4">
-                <p id="module-placeholder" class="text-center text-[#eee] py-8">Chargement des données... <span class="loader"></span></p>
+                <p id="module-placeholder" class="text-center text-[#eee] py-8">Chargement des données... <span
+                        class="loader"></span></p>
             </div>
 
             <div id="what-if-section" class="what-if-card hidden" data-aos="fade-up" data-aos-delay="100">
                 <h3 class="text-lg font-semibold mb-3 text-[#fff]">Calcul "Et Si ?"</h3>
                 <div class="what-if-row">
                     <label for="targetAverage" class="what-if-label text-[#eee]">Moyenne Cible :</label>
-                    <input type="number" id="targetAverage" class="what-if-input" min="0" max="20" step="0.01" value="10.00">
-                    <button onclick="calculateWhatIf()" class="what-if-btn"><i class="fas fa-magic mr-2"></i> Calculer et Remplir</button>
+                    <input type="number" id="targetAverage" class="what-if-input" min="0" max="20" step="0.01"
+                        value="10.00">
+                    <button onclick="calculateWhatIf()" class="what-if-btn"><i class="fas fa-magic mr-2"></i> Calculer
+                        et Remplir</button>
                 </div>
             </div>
 
@@ -1077,14 +1005,17 @@
                     <i class="fas fa-trash-alt"></i> Effacer
                     <span class="tooltip">Effacer toutes les notes</span>
                 </button>
-                <button id="calculateBtn" onclick="calculerMoyenneGenerale()" class="action-btn calculate-btn" disabled>
+                <button id="calculateBtn" onclick="calculerMoyenneGenerale()" class="action-btn calculate-btn"
+                    disabled>
                     <i class="fas fa-calculator mr-2"></i> Calculer
                     <span class="tooltip">Calculer la moyenne générale</span>
                 </button>
             </div>
 
-            <div id="resultats" class="mt-8 p-6 rounded-xl bg-rgba(255, 255, 255, 0.05) shadow-lg border border-white" data-aos="fade-up" data-aos-delay="200">
-                <h2 class="text-xl font-bold mb-4 text-center text-[#fff] border-b pb-3 border-white">Résultats Détaillés</h2>
+            <div id="resultats" class="mt-8 p-6 rounded-xl bg-rgba(255, 255, 255, 0.05) shadow-lg border border-white"
+                data-aos="fade-up" data-aos-delay="200">
+                <h2 class="text-xl font-bold mb-4 text-center text-[#fff] border-b pb-3 border-white">Résultats
+                    Détaillés</h2>
                 <div id="modules-results" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6"></div>
                 <div id="moyenneGenerale" class="moyenne-generale">
                     <h3 class="text-lg font-semibold mb-2">Moyenne Générale</h3>
@@ -1108,13 +1039,15 @@
     <footer class="text-center text-[#fff]">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl">
             <p class="text-sm sm:text-base">© 2025 Université de Bejaia. Tous droits réservés.</p>
-            <p class="mt-2 text-sm">Conçu et développé par <a href="mailto:mehdi.amara@tech.univ-bejaia.dz" class="font-medium">Amara Mehdi</a> | Version 1.0.0</p>
+            <p class="mt-2 text-sm">Conçu et développé par <a href="mailto:mehdi.amara@tech.univ-bejaia.dz"
+                    class="font-medium">Amara Mehdi</a> | Version 1.0.0</p>
             <div class="mt-4 flex justify-center gap-6">
                 <a href="#" class="footer-icon"><i class="fab fa-github"></i></a>
                 <a href="#" class="footer-icon"><i class="fab fa-linkedin"></i></a>
                 <a href="mailto:support@univ-bejaia.dz" class="footer-icon"><i class="fas fa-envelope"></i></a>
             </div>
-            <p class="mt-2 text-xs opacity-70">Pour toute question, <a href="mailto:support@univ-bejaia.dz" class="underline">contactez-nous</a>.</p>
+            <p class="mt-2 text-xs opacity-70">Pour toute question, <a href="mailto:support@univ-bejaia.dz"
+                    class="underline">contactez-nous</a>.</p>
         </div>
     </footer>
 
@@ -1141,7 +1074,11 @@
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ duration: 800, once: true, offset: 100 });
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
 
         // DOM Elements
         const anneeSelect = document.getElementById('anneeSelect');
@@ -1181,7 +1118,7 @@
         // Debounce Utility
         function debounce(func, wait) {
             let timeout;
-            return function (...args) {
+            return function(...args) {
                 clearTimeout(timeout);
                 timeout = setTimeout(() => func.apply(this, args), wait);
             };
@@ -1428,10 +1365,16 @@
             const grades = {};
             evals.forEach(type => {
                 const input = moduleCardElement.querySelector(`#${moduleId}-${type.toLowerCase()}`);
-                grades[type.toLowerCase()] = input ? parseGrade(input.value) : { num: null, valid: false };
+                grades[type.toLowerCase()] = input ? parseGrade(input.value) : {
+                    num: null,
+                    valid: false
+                };
             });
 
-            let sum = 0, weightSum = 0, canCalculate = true, isEliminated = false;
+            let sum = 0,
+                weightSum = 0,
+                canCalculate = true,
+                isEliminated = false;
             const elimNote = parseFloat(moduleCardElement.dataset.noteElim);
 
             const addGrade = (gradeInfo, weight) => {
@@ -1442,7 +1385,9 @@
                 }
             };
 
-            const hasTD = evals.includes('TD'), hasTP = evals.includes('TP'), hasExam = evals.includes('Examen');
+            const hasTD = evals.includes('TD'),
+                hasTP = evals.includes('TP'),
+                hasExam = evals.includes('Examen');
             if (hasTD && hasTP && hasExam) {
                 addGrade(grades['td'], 0.2);
                 addGrade(grades['tp'], 0.2);
@@ -1464,14 +1409,23 @@
             const avgDisplay = moduleCardElement.querySelector(`#avg-${moduleId}`);
             const avgText = average !== null ? average.toFixed(2) : '--';
             avgDisplay.textContent = `Moy: ${avgText}${isEliminated ? ' (Élim.)' : ''}`;
-            avgDisplay.style.color = average !== null ? (average >= 10 && !isEliminated ? '#007bff' : '#e63946') : '#eee';
+            avgDisplay.style.color = average !== null ? (average >= 10 && !isEliminated ? '#007bff' : '#e63946') :
+                '#eee';
 
-            return { average, isEliminated, isValid: canCalculate && weightSum > 0 };
+            return {
+                average,
+                isEliminated,
+                isValid: canCalculate && weightSum > 0
+            };
         }
 
         // Calculate General Average
         function calculerMoyenneGenerale() {
-            let totalWeightedSum = 0, totalCoeff = 0, totalCreditsAttempted = 0, totalCreditsValidated = 0, hasEliminations = false;
+            let totalWeightedSum = 0,
+                totalCoeff = 0,
+                totalCreditsAttempted = 0,
+                totalCreditsValidated = 0,
+                hasEliminations = false;
             let allModulesCalculated = true;
 
             const moduleCards = document.querySelectorAll('.module-card');
@@ -1493,12 +1447,17 @@
             modulesResultsDiv.innerHTML = '';
             currentModulesData.forEach(module => {
                 const card = document.querySelector(`.module-card[data-module-id="${module.id}"]`);
-                const result = card ? calculateModuleAverage(card) : { average: null, isEliminated: false, isValid: false };
+                const result = card ? calculateModuleAverage(card) : {
+                    average: null,
+                    isEliminated: false,
+                    isValid: false
+                };
                 const moduleResultCard = document.createElement('div');
                 moduleResultCard.className = 'module-result-card';
                 const avgText = result.average !== null ? result.average.toFixed(2) : '--';
                 const elimText = result.isEliminated ? '<span class="module-result-elim">(Élim.)</span>' : '';
-                const color = result.average !== null ? (result.average >= 10 && !result.isEliminated ? '#007bff' : '#e63946') : '#eee';
+                const color = result.average !== null ? (result.average >= 10 && !result.isEliminated ?
+                    '#007bff' : '#e63946') : '#eee';
                 moduleResultCard.innerHTML = `
                     <div class="module-result-title">${module.name}</div>
                     <div class="module-result-avg" style="color: ${color}">${avgText} ${elimText}</div>
@@ -1522,11 +1481,12 @@
             const moyenneFinale = totalCoeff > 0 ? totalWeightedSum / totalCoeff : null;
             moyenneGeneraleDiv.textContent = moyenneFinale !== null ? moyenneFinale.toFixed(2) : '--';
             const isValidated = moyenneFinale !== null && moyenneFinale >= 10 && !hasEliminations;
-            validationStatusDiv.textContent = isValidated ? 'Semestre Validé' : hasEliminations ? 'Non Validé (Élimination)' : 'Non Validé';
+            validationStatusDiv.textContent = isValidated ? 'Semestre Validé' : hasEliminations ?
+                'Non Validé (Élimination)' : 'Non Validé';
             validationStatusDiv.style.color = isValidated ? '#007bff' : '#e63946';
             creditsAttemptedSpan.textContent = `Crédits Tentés: ${totalCreditsAttempted}`;
             creditsValidatedSpan.textContent = `Crédits Validés: ${totalCreditsValidated}`;
-            
+
             // Update progress bar
             const progress = moyenneFinale !== null ? (moyenneFinale / 20) * 100 : 0;
             progressBarFill.style.width = `${progress}%`;
@@ -1538,7 +1498,9 @@
             }
 
             resultatsDiv.classList.add('visible');
-            resultatsDiv.scrollIntoView({ behavior: 'smooth' });
+            resultatsDiv.scrollIntoView({
+                behavior: 'smooth'
+            });
             reattachInputListeners(); // Ensure inputs remain editable
         }
 
@@ -1638,12 +1600,18 @@
             const targetAvg = parseFloat(targetAverageInput.value.replace(',', '.'));
             if (isNaN(targetAvg) || targetAvg < 0 || targetAvg > 20) return alert('Moyenne cible invalide (0-20).');
 
-            let weightedSum = 0, totalCoeff = 0, examWeightCoeff = 0, canCalculate = true;
+            let weightedSum = 0,
+                totalCoeff = 0,
+                examWeightCoeff = 0,
+                canCalculate = true;
             const modulesToFill = [];
 
             currentModulesData.forEach(module => {
                 const card = document.querySelector(`.module-card[data-module-id="${module.id}"]`);
-                if (!card) { canCalculate = false; return; }
+                if (!card) {
+                    canCalculate = false;
+                    return;
+                }
                 const evals = module.evaluations || [];
                 const coeff = parseFloat(card.dataset.coefficient) || 1;
                 totalCoeff += coeff;
@@ -1651,15 +1619,22 @@
                 const tdInput = card.querySelector(`#${module.id}-td`);
                 const tpInput = card.querySelector(`#${module.id}-tp`);
                 const examInput = card.querySelector(`#${module.id}-examen`);
-                const tdInfo = tdInput ? parseGrade(tdInput.value) : { num: null };
-                const tpInfo = tpInput ? parseGrade(tpInput.value) : { num: null };
-                const examInfo = examInput ? parseGrade(examInput.value) : { num: null };
+                const tdInfo = tdInput ? parseGrade(tdInput.value) : {
+                    num: null
+                };
+                const tpInfo = tpInput ? parseGrade(tpInput.value) : {
+                    num: null
+                };
+                const examInfo = examInput ? parseGrade(examInput.value) : {
+                    num: null
+                };
 
                 if (evals.includes('TD') && tdInfo.num === null) canCalculate = false;
                 if (evals.includes('TP') && tpInfo.num === null) canCalculate = false;
                 if (!canCalculate) return;
 
-                let sumWithoutExam = 0, examWeight = 0;
+                let sumWithoutExam = 0,
+                    examWeight = 0;
                 if (evals.includes('TD') && evals.includes('TP') && evals.includes('Examen')) {
                     sumWithoutExam = (tdInfo.num || 0) * 0.2 + (tpInfo.num || 0) * 0.2;
                     examWeight = 0.6;
@@ -1675,7 +1650,12 @@
                 if (examWeight > 0) {
                     examWeightCoeff += examWeight * coeff;
                     if (examInfo.num === null) {
-                        modulesToFill.push({ card, examInput, examWeight, coeff });
+                        modulesToFill.push({
+                            card,
+                            examInput,
+                            examWeight,
+                            coeff
+                        });
                     } else {
                         weightedSum += examInfo.num * examWeight * coeff;
                         examWeightCoeff -= examWeight * coeff;
@@ -1696,13 +1676,17 @@
                 return;
             }
 
-            modulesToFill.forEach(({ examInput }) => {
+            modulesToFill.forEach(({
+                examInput
+            }) => {
                 examInput.value = neededExamAvg.toFixed(2);
                 validateGradeInput(examInput);
                 calculateModuleAverage(examInput.closest('.module-card'));
             });
 
-            alert(`Examens remplis avec ${neededExamAvg.toFixed(2)}/20 pour atteindre ${targetAvg.toFixed(2)} de moyenne générale.`);
+            alert(
+                `Examens remplis avec ${neededExamAvg.toFixed(2)}/20 pour atteindre ${targetAvg.toFixed(2)} de moyenne générale.`
+            );
             reattachInputListeners();
         }
 
@@ -1718,10 +1702,15 @@
             const evals = moduleData.evaluations;
             const tdInput = card.querySelector(`#${moduleId}-td`);
             const tpInput = card.querySelector(`#${moduleId}-tp`);
-            const tdInfo = tdInput ? parseGrade(tdInput.value) : { num: null };
-            const tpInfo = tpInput ? parseGrade(tpInput.value) : { num: null };
+            const tdInfo = tdInput ? parseGrade(tdInput.value) : {
+                num: null
+            };
+            const tpInfo = tpInput ? parseGrade(tpInput.value) : {
+                num: null
+            };
 
-            const hasTD = evals.includes('TD'), hasTP = evals.includes('TP');
+            const hasTD = evals.includes('TD'),
+                hasTP = evals.includes('TP');
             if ((hasTD && tdInfo.num === null) || (hasTP && tpInfo.num === null)) {
                 const missing = [];
                 if (hasTD && tdInfo.num === null) missing.push('TD');
@@ -1730,16 +1719,28 @@
                 return;
             }
 
-            let tdWeight = 0, tpWeight = 0, examWeight = 0;
-            if (hasTD && hasTP) { tdWeight = 0.2; tpWeight = 0.2; examWeight = 0.6; }
-            else if (hasTP) { tpWeight = 0.4; examWeight = 0.6; }
-            else if (hasTD) { tdWeight = 0.4; examWeight = 0.6; }
-            else { examWeight = 1.0; }
+            let tdWeight = 0,
+                tpWeight = 0,
+                examWeight = 0;
+            if (hasTD && hasTP) {
+                tdWeight = 0.2;
+                tpWeight = 0.2;
+                examWeight = 0.6;
+            } else if (hasTP) {
+                tpWeight = 0.4;
+                examWeight = 0.6;
+            } else if (hasTD) {
+                tdWeight = 0.4;
+                examWeight = 0.6;
+            } else {
+                examWeight = 1.0;
+            }
 
             const currentSum = (tdInfo.num || 0) * tdWeight + (tpInfo.num || 0) * tpWeight;
             const target = Math.max(10, moduleData.noteEliminatoire || 0);
             const examGrade = examWeight > 0 ? (target - currentSum) / examWeight : Infinity;
-            const message = examGrade <= 0 ? 'Module déjà validé.' : examGrade > 20 ? 'Impossible à valider avec les notes actuelles.' : `Il vous faut <strong>${examGrade.toFixed(2)}/20</strong> à l'examen pour valider ce module.`;
+            const message = examGrade <= 0 ? 'Module déjà validé.' : examGrade > 20 ?
+                'Impossible à valider avec les notes actuelles.' : `Il vous faut <strong>${examGrade.toFixed(2)}/20</strong> à l'examen pour valider ce module.`;
 
             document.getElementById('minExamMessage').innerHTML = `<strong>${moduleData.name}</strong><br>${message}`;
             openModal('minExamModal');
@@ -1774,4 +1775,5 @@
         });
     </script>
 </body>
+
 </html>
