@@ -1,783 +1,695 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr"> <!-- NO 'dark' class here initially, JS will add it -->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calcul de Moyenne Université de Bejaia</title>
-    <meta name="description" content="Calcul de Moyenne Université de Bejaia">
+    <title>Portail Étudiant - Université de Bejaia</title>
+    <meta name="description" content="Portail étudiant non officiel pour l'Université de Bejaia - Campus El-Kseur. Accédez aux cours, calculez votre moyenne, consultez les notes et plus.">
     <meta name="author" content="Amara Mehdi">
-    <meta name="keywords" content="Université de Bejaia, Moyenne, Calcul">
+    <meta name="keywords" content="Université de Bejaia, Portail Étudiant, Campus El-Kseur, Moyenne, Cours, Notes, Emploi du temps">
     <meta name="robots" content="index, follow">
     <link rel="icon" type="image/png" href="assets/img/icon.png">
-    <meta property="og:url" content="https://amaramehdi.github.io/moyenne-universite-bejaia/">
+    <meta property="og:url" content="https://icosium.store/"> <!-- Update with your actual URL -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Calcul de Moyenne Université de Bejaia">
-    <meta property="og:description" content="Calcul de Moyenne Université de Bejaia">
-    <meta property="og:image" content="https://masterpiecer-images.s3.yandex.net/b08e69b27e0b11eeb532aaafe6635749:upscaled">
+    <meta property="og:title" content="Portail Étudiant - Université de Bejaia">
+    <meta property="og:description" content="Votre plateforme pour gérer votre parcours académique à l'Université de Bejaia.">
+    <meta property="og:image" content="https://icosium.store/assets/img/og-image.png"> <!-- Create an OG image -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="">
-    <link rel="stylesheet" href="assets/css/style.css">
     <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico">
-    <link rel="stylesheet" href="assets/css/floating-menu.css">
+    <!-- Base custom styles (can include non-theme specific things) -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <!-- Removed floating menu CSS unless needed -->
+    <!-- <link rel="stylesheet" href="assets/css/floating-menu.css"> -->
 
     <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7539806376887582" crossorigin="anonymous"></script>
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-4QK3R858YJ"></script>
-    <!-- Add this right after the Google tag script -->
-
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'G-4QK3R858YJ');
     </script>
-  
+
     <style>
-        .warning-box {
-            background-color: #ffcc00; /* Couleur de fond différente */
-            color: #000; /* Couleur du texte */
-            padding: 15px;
-            margin: 20px 0;
-            border-radius: 5px;
-            text-align: center;
+        /* --- Base Theme Variables (Light - :root) --- */
+        :root {
+            /* --- Core --- */
+            --bg-color: #f9fafb; /* bg-gray-50 */
+            --text-color: #1f2937; /* text-gray-800 */
+            --text-color-secondary: #4b5563; /* text-gray-600 */
+            --heading-color: #11182d; /* text-gray-900 */
+            /* --- Cards --- */
+            --card-bg: #ffffff;
+            --card-border: #e5e7eb; /* gray-200 */
+            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+            /* --- Accents --- */
+            --primary-color: #3b82f6; /* blue-500 */
+            --primary-color-darker: #2563eb; /* blue-700 */
+            --secondary-color: #10b981; /* green-500 */
+            --secondary-color-darker: #059669; /* green-700 */
+            /* --- Links & Buttons --- */
+            --link-color: #2563eb;
+            --link-hover-color: #1d4ed8;
+            --button-text: #ffffff;
+            /* --- Specific Components --- */
+            --welcome-box-bg: linear-gradient(135deg, #60a5fa, #3b82f6); /* blue-400 to blue-600 */
+            --auth-button-bg: var(--primary-color);
+            --auth-button-hover-bg: var(--primary-color-darker);
+            --auth-button-secondary-bg: var(--secondary-color);
+            --auth-button-secondary-hover-bg: var(--secondary-color-darker);
+            --service-card-bg: #ffffff;
+            --service-card-hover-bg: #f9fafb;
+            --service-card-text-color: var(--text-color-secondary);
+            --service-card-heading-color: var(--heading-color);
+            --warning-box-bg: #ffedd5; /* orange-100 */
+            --warning-box-text: #9a3412; /* orange-800 */
+            --weather-widget-bg: #e0f2fe; /* blue-100 */
+            --weather-widget-text: #1e3a8a; /* blue-800 */
+            /* --- Footer --- */
+            --footer-bg: linear-gradient(to right, #f0f9ff, #ecfdf5); /* blue-50 to green-50 */
+            --footer-text: #4b5563; /* gray-600 */
+            --footer-heading-color: #1f2937; /* gray-800 */
+            --footer-link-color: #4b5563;
+            --footer-link-hover-color: var(--primary-color);
+            --footer-bubble-bg: radial-gradient(circle, rgba(59, 130, 246, 0.05) 0%, rgba(16, 185, 129, 0.05) 100%);
+            --footer-dev-card-bg: #ffffff;
+            --footer-dev-card-border: #e5e7eb;
+            --footer-social-icon-bg: linear-gradient(to right, #f0f9ff, #e0f2fe); /* blue-50 to blue-100 */
+            --footer-social-icon-text: var(--primary-color);
+            --footer-social-icon-hover-bg: linear-gradient(to right, var(--primary-color), #2563eb); /* blue-600 */
+            --footer-social-icon-hover-text: #ffffff;
+            /* --- Mobile Nav --- */
+            --mobile-nav-bg: rgba(255, 255, 255, 0.95);
+            --mobile-nav-border: #e5e7eb; /* gray-200 */
+            --mobile-nav-text: #64748b; /* gray-500 */
+            --mobile-nav-active: #3b82f6; /* blue-500 */
+            /* --- Theme Toggle --- */
+            --theme-toggle-bg: rgba(255, 255, 255, 0.8);
+            --theme-toggle-border: rgba(0, 0, 0, 0.1);
+            --theme-toggle-text: #4b5563;
+            --theme-toggle-hover-bg: #e5e7eb;
+
+            /* Map Tailwind Defaults used in HTML (for dark mode override) */
+             --tw-gradient-from-blue-400: #60a5fa;
+             --tw-gradient-to-blue-600: #2563eb;
+             --tw-text-gray-800: #1f2937;
+             --tw-text-gray-600: #4b5563;
+             --tw-text-blue-600: #2563eb;
+             --tw-text-green-600: #059669;
+             --tw-text-indigo-600: #4f46e5;
+             --tw-text-purple-600: #7c3aed;
+             --tw-text-red-600: #dc2626;
+             --tw-bg-blue-100: #dbeafe;
+             --tw-text-blue-800: #1e40af;
+             --tw-bg-green-100: #d1fae5;
+             --tw-bg-white: #ffffff;
+             --tw-border-gray-200: #e5e7eb;
+             --tw-bg-gradient-to-r-from-blue-50-to-green-50: linear-gradient(to right, #eff6ff, #ecfdf5);
+             --tw-bg-blue-50: #eff6ff;
+             --tw-bg-green-50: #ecfdf5;
+             --tw-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+             --tw-shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+             --tw-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+             --tw-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
         }
 
-        .affichage-section .service-card {
-            padding: 2rem;
-            border-radius: 1rem;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .affichage-section .service-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px -5px rgba(0, 0, 0, 0.2);
-        }
-
-        .affichage-section .service-icon {
-            width: 70px;
-            height: 70px;
-            border-radius: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1.5rem;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(5px);
-        }
-
-        @media (max-width: 768px) {
-            .affichage-section .service-card {
-                padding: 1.5rem;
-            }
-            
-            .affichage-section .service-icon {
-                width: 60px;
-                height: 60px;
-            }
-        }
-
-        .affichage-section {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .affichage-section .service-icon {
-            width: 60px;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        @media (max-width: 768px) {
-            .affichage-section .welcome-box {
-                padding: 1rem;
-            }
-            
-            .affichage-section .service-icon {
-                width: 50px;
-                height: 50px;
-            }
-        }
-
-        .affichage-card {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .affichage-card .service-icon {
-            transition: all 0.3s ease;
-        }
-
-        .affichage-card:hover .service-icon {
-            transform: scale(1.1);
-        }
-
-        .affichage-card:hover .fa-arrow-right {
-            animation: bounceRight 1s infinite;
-        }
-
-        @keyframes bounceRight {
-            0%, 100% { transform: translateX(0); }
-            50% { transform: translateX(5px); }
-        }
-
-        @media (max-width: 768px) {
-            .affichage-card .service-icon {
-                padding: 0.75rem;
-            }
-            
-            .affichage-card h2 {
-                font-size: 1.5rem;
-            }
-
-            .affichage-card p {
-                font-size: 0.875rem;
-            }
-        }
-
-        @keyframes wave {
-            0% { transform: translateX(-100%); }
-            50% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
-        }
-
-        .animate-wave {
-            animation: wave 8s infinite linear;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-        }
-
-        .rotate-on-hover {
-            transition: transform 0.5s ease;
-        }
-
-        .affichage-card:hover .rotate-on-hover {
-            transform: rotate(15deg);
-        }
-
-        .glow-text {
-            text-shadow: 0 0 10px rgba(255,255,255,0.5);
-        }
-
-        .arrow-animate {
-            animation: bounceX 2s infinite;
-        }
-
-        @keyframes bounceX {
-            0%, 100% { transform: translateX(0); }
-            50% { transform: translateX(10px); }
-        }
-
-        .live-timestamp {
-            position: relative;
-        }
-
-        .live-timestamp::before {
-            content: '';
-            position: absolute;
-            left: -20px;
-            top: 50%;
-            width: 8px;
-            height: 8px;
-            background-color: #22c55e;
-            border-radius: 50%;
-            transform: translateY(-50%);
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: translateY(-50%) scale(1); opacity: 1; }
-            50% { transform: translateY(-50%) scale(1.5); opacity: 0.5; }
-            100% { transform: translateY(-50%) scale(1); opacity: 1; }
-        }
-
-        /* Ramadan Theme */
-        .ramadan-theme {
-            --bg-color: #00111cff;
-            --text-color: #ffffff;
-            --primary-color: #002137ff;
-            --secondary-color: #003a61ff;
-            --accent-color: #00406cff;
-        }
-
-        .ramadan-theme body {
+        /* --- Base Styles using Variables (Apply to BOTH themes) --- */
+        body {
             background-color: var(--bg-color);
             color: var(--text-color);
+            font-family: 'Poppins', sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        h1, h2, h3, h4 {
+            color: var(--heading-color);
+            transition: color 0.3s ease;
+        }
+        p {
+            color: var(--text-color-secondary);
+             transition: color 0.3s ease;
+        }
+        a {
+            color: var(--link-color);
+            transition: color 0.3s ease;
+        }
+        a:hover {
+            color: var(--link-hover-color);
         }
 
-        .ramadan-theme .welcome-box {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        /* Header */
+        .header-container {
+            display: flex;
+            justify-content: center; /* Center logo if no back button */
+            align-items: center;
         }
 
-        .ramadan-theme .auth-button {
-            background-color: var(--accent-color);
+        /* Welcome Section */
+        .welcome-box {
+            background: var(--welcome-box-bg);
+            color: var(--button-text); /* Use button text color for contrast */
+            padding: 1.5rem; /* Adjust padding */
+            border-radius: 0.75rem; /* rounded-lg */
+            box-shadow: var(--tw-shadow-lg);
+            transition: background 0.3s ease;
         }
+        .welcome-box h1 { color: var(--button-text); } /* Ensure h1 is white */
+        .welcome-box p { color: rgba(255, 255, 255, 0.9); } /* Slightly transparent white */
 
-        .ramadan-theme .auth-button:hover {
-            background-color: var(--secondary-color);
-        }
-
-        .ramadan-theme .service-card {
-            background-color: var(--primary-color);
-            color: var(--text-color);
-        }
-
-        .ramadan-theme .service-card:hover {
-            background-color: var(--secondary-color);
-        }
-
-        .ramadan-theme .service-icon {
-            background-color: var(--accent-color);
-        }
-
-        .ramadan-theme .service-icon i {
-            color: var(--text-color);
-        }
-
-        .ramadan-theme .live-timestamp::before {
-            background-color: var(--accent-color);
-        }
-
-        /* Ramadan Theme with multiple color variables */
-        .ramadan-theme {
-            --bg-color: #081c2d;
-            --text-color: #fefaf3;
-            --primary-color: #102b49;
-            --secondary-color: #1a446b;
-            --accent-color: #eeb85c;
-            --banner-color: #2b5978;
-            --box-bg-color: #132a3b;
-            --box-hover-color: #1f3f59;
-        }
-
-        /* Entire page: background & text color */
-        .ramadan-theme body {
-            background: linear-gradient(120deg, var(--bg-color), #0d2e46);
-            color: var(--text-color);
-            transition: background 2s ease, color 2s ease;
-        }
-
-        /* Example welcome box style */
-        .ramadan-theme .welcome-box {
-            background: linear-gradient(135deg, var(--box-bg-color), var(--banner-color));
-            transition: background 2s ease;
-        }
-
-        /* General service cards */
-        .ramadan-theme .service-card {
-            background-color: var(--box-bg-color);
-            color: var(--text-color);
-            transition: all 2s ease;
-        }
-        .ramadan-theme .service-card:hover {
-            background-color: var(--box-hover-color);
-        }
-
-        /* Service icon style */
-        .ramadan-theme .service-icon {
-            background-color: var(--accent-color);
-        }
-
-        /* Footer, warning boxes, etc. can follow similar patterns */
-        .ramadan-theme footer,
-        .ramadan-theme .warning-box {
-            background-color: var(--primary-color);
-        }
-
-        /* Live animations */
-        .ramadan-theme .animate-fade-in {
-            animation: fadeIn 2s ease-in-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .ramadan-theme .animate-wave {
-            animation: wave 8s infinite linear;
-        }
-
-        @keyframes wave {
-            0% { transform: translateX(-100%); }
-            50% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
-        }
-
-        .ramadan-theme .rotate-on-hover {
-            transition: transform 0.5s ease;
-        }
-
-        .ramadan-theme .affichage-card:hover .rotate-on-hover {
-            transform: rotate(15deg);
-        }
-
-        .ramadan-theme .glow-text {
-            text-shadow: 0 0 10px rgba(255,255,255,0.5);
-        }
-
-        .ramadan-theme .arrow-animate {
-            animation: bounceX 2s infinite;
-        }
-
-        @keyframes bounceX {
-            0%, 100% { transform: translateX(0); }
-            50% { transform: translateX(10px); }
-        }
-
-        .ramadan-theme .live-timestamp {
-            position: relative;
-        }
-
-        .ramadan-theme .live-timestamp::before {
-            content: '';
-            position: absolute;
-            left: -20px;
-            top: 50%;
-            width: 8px;
-            height: 8px;
-            background-color: var(--accent-color);
-            border-radius: 50%;
-            transform: translateY(-50%);
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: translateY(-50%) scale(1); opacity: 1; }
-            50% { transform: translateY(-50%) scale(1.5); opacity: 0.5; }
-            100% { transform: translateY(-50%) scale(1); opacity: 1; }
-        }
-
-        /* Ramadan Theme with specified color variables */
-        .ramadan-theme {
-            --bg-color: #000e14ff;
-            --text-color: #fefaf3;
-            --primary-color: #002233ff;
-            --secondary-color: #003047ff;
-            --accent-color: #eeb85c;
-            --banner-color: #003652ff;
-            --box-bg-color: #001b29ff;
-            --box-hover-color: #003d5cff;
-        }
-
-        /* Entire page: background & text color */
-        .ramadan-theme body {
-            background: linear-gradient(120deg, var(--bg-color), #0d2e46);
-            color: var(--text-color);
-            transition: background 5s ease, color 5s ease;
-        }
-
-        /* Example welcome box style */
-        .ramadan-theme .welcome-box {
-            background: linear-gradient(135deg, var(--box-bg-color), var (--banner-color));
-            transition: background 5s ease;
-        }
-
-        /* General service cards */
-        .ramadan-theme .service-card {
-            background-color: var (--box-bg-color);
-            color: var(--text-color);
-            transition: all 5s ease;
-        }
-        .ramadan-theme .service-card:hover {
-            background-color: var(--box-hover-color);
-        }
-
-        /* Service icon style */
-        .ramadan-theme .service-icon {
-            background-color: var(--accent-color);
-        }
-
-        /* Footer, warning boxes, etc. can follow similar patterns */
-        .ramadan-theme footer,
-        .ramadan-theme .warning-box {
-            background-color: var(--primary-color);
-        }
-
-        /* Live animations */
-        .ramadan-theme .animate-fade-in {
-            animation: fadeIn 5s ease-in-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .ramadan-theme .animate-wave {
-            animation: wave 8s infinite linear;
-        }
-
-        @keyframes wave {
-            0% { transform: translateX(-100%); }
-            50% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
-        }
-
-        .ramadan-theme .rotate-on-hover {
-            transition: transform 0.5s ease;
-        }
-
-        .ramadan-theme .affichage-card:hover .rotate-on-hover {
-            transform: rotate(15deg);
-        }
-
-        .ramadan-theme .glow-text {
-            text-shadow: 0 0 10px rgba(255,255,255,0.5);
-        }
-
-        .ramadan-theme .arrow-animate {
-            animation: bounceX 2s infinite;
-        }
-
-        @keyframes bounceX {
-            0%, 100% { transform: translateX(0); }
-            50% { transform: translateX(10px); }
-        }
-
-        .ramadan-theme .live-timestamp {
-            position: relative;
-        }
-
-        .ramadan-theme .live-timestamp::before {
-            content: '';
-            position: absolute;
-            left: -20px;
-            top: 50%;
-            width: 8px;
-            height: 8px;
-            background-color: var(--accent-color);
-            border-radius: 50%;
-            transform: translateY(-50%);
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: translateY(-50%) scale(1); opacity: 1; }
-            50% { transform: translateY(-50%) scale(1.5); opacity: 0.5; }
-            100% { transform: translateY(-50%) scale(1); opacity: 1; }
-        }
-
-        /* Add these styles to your existing <style> section */
-        .ramadan-btn {
-            background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
-            color: #eeb85c;
-            border: 2px solid #eeb85c;
-            position: relative;
+        /* Auth Buttons */
+        .auth-button {
             transition: all 0.3s ease;
+            color: var(--button-text);
+             box-shadow: var(--tw-shadow-lg);
+        }
+        .auth-button[href="auth.html"]:first-of-type { /* Login */
+            background-color: var(--auth-button-bg);
+        }
+        .auth-button[href="auth.html"]:first-of-type:hover {
+            background-color: var(--auth-button-hover-bg);
+        }
+        .auth-button[href="auth.html"]:nth-of-type(2) { /* Register */
+            background-color: var(--auth-button-secondary-bg);
+        }
+         .auth-button[href="auth.html"]:nth-of-type(2):hover {
+            background-color: var(--auth-button-secondary-hover-bg);
+        }
+        /* Other specific buttons */
+        a.bg-purple-600 { background-color: var(--tw-text-purple-600); } /* Use mapped var */
+        a.bg-indigo-600 { background-color: var(--tw-text-indigo-600); }
+        a.bg-purple-600:hover, a.bg-indigo-600:hover { filter: brightness(1.15); }
+
+
+        /* Warning Box */
+        .warning-box {
+            background-color: var(--warning-box-bg);
+            color: var(--warning-box-text);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0.375rem; /* rounded-md */
+            text-align: center;
+            border: 1px solid rgba(154, 52, 18, 0.2); /* Darker orange border */
         }
 
-        .ramadan-btn:hover {
-            background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
-            box-shadow: 0 0 20px rgba(238, 184, 92, 0.3);
-            transform: translateY(-2px);
+        /* Weather Widget */
+        #weather-widget {
+            background-color: var(--weather-widget-bg);
+            color: var(--weather-widget-text);
+             padding: 1rem;
+             border-radius: 0.5rem; /* rounded-lg */
+             margin: 1rem 0;
+        }
+        #weather-widget p { color: var(--weather-widget-text); }
+
+        /* Service Cards */
+        .service-card {
+            background-color: var(--service-card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 0.75rem; /* rounded-lg */
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: var(--card-shadow);
+        }
+        .service-card:hover {
+            transform: translateY(-5px) scale(1.03);
+            background-color: var(--service-card-hover-bg);
+            box-shadow: var(--tw-shadow-md); /* Use Tailwind var for consistency */
+        }
+         .service-card h3 { color: var(--service-card-heading-color); }
+         .service-card p { color: var(--service-card-text-color); }
+         .service-icon { /* Center icon */
+             margin: 0 auto 1rem;
+             width: 60px; height: 60px;
+             display: flex; align-items: center; justify-content: center;
+         }
+        /* Apply icon colors using mapped Tailwind vars */
+        .service-icon.text-blue-600 i { color: var(--tw-text-blue-600); }
+        .service-icon.text-green-600 i { color: var(--tw-text-green-600); }
+        .service-icon.text-indigo-600 i { color: var(--tw-text-indigo-600); }
+        .service-icon.text-red-600 i { color: var(--tw-text-red-600); }
+
+
+        /* Footer */
+        footer {
+            background: var(--footer-bg);
+            border-top: 1px solid var(--card-border);
+            color: var(--footer-text);
+        }
+        .footer-bubble {
+            background: var(--footer-bubble-bg);
+        }
+        footer h3, footer h4 { color: var(--footer-heading-color); }
+        footer p, footer li a, footer span { color: var(--footer-text); }
+        footer a:hover { color: var(--footer-link-hover-color); }
+        footer .text-gray-500 { color: var(--text-color-secondary); } /* Footer bottom text */
+        footer .bg-green-100 { background-color: var(--tw-bg-green-100); }
+        footer .text-green-600 { color: var(--tw-text-green-600); }
+        footer .text-blue-600 { color: var(--tw-text-blue-600); }
+        footer .text-blue-800 { color: var(--tw-text-blue-800); }
+        footer .bg-blue-50 { background-color: var(--tw-bg-blue-50); }
+        footer .border-gray-100 { border-color: var(--card-border); }
+        footer .border-t { border-color: var(--card-border); }
+        footer .shadow-sm { box-shadow: var(--tw-shadow-sm); }
+        footer .shadow-md { box-shadow: var(--tw-shadow-md); }
+        footer .bg-white { background-color: var(--tw-bg-white); }
+
+
+        footer .developer-card {
+            background-color: var(--footer-dev-card-bg);
+            border-color: var(--footer-dev-card-border);
+        }
+         footer .developer-card p, footer .developer-card a { color: var(--footer-text); } /* Adjust text color */
+         footer .developer-card a:hover { color: var(--footer-link-hover-color); }
+
+
+        footer .social-icon {
+            background: var(--footer-social-icon-bg);
+            color: var(--footer-social-icon-text);
+        }
+        footer .social-icon:hover {
+            background: var(--footer-social-icon-hover-bg);
+            color: var(--footer-social-icon-hover-text);
         }
 
-        .icon-wrapper {
-            position: relative;
-            width: 24px;
-            height: 24px;
+        /* Mobile Nav */
+        #mobile-nav {
+            background-color: var(--mobile-nav-bg);
+            border-top: 1px solid var(--mobile-nav-border);
+            backdrop-filter: blur(10px);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+        .mobile-nav-item {
+             color: var(--mobile-nav-text);
+             transition: color 0.3s ease;
+             display: flex; flex-direction: column; align-items: center; padding: 4px 0; position: relative; width: 23%; border-radius: 0.75rem;
+        }
+        .mobile-nav-item.active-nav-item,
+        .mobile-nav-item:hover,
+        .mobile-nav-item:active {
+            color: var(--mobile-nav-active);
+        }
+        .mobile-nav-item.active-nav-item::before {
+            content: ''; position: absolute; bottom: -3px; left: 25%; width: 50%; height: 3px; border-radius: 3px;
+            background: linear-gradient(to right, var(--mobile-nav-active), var(--primary-color));
+        }
+        .mobile-nav-item.logged-in::after {
+             content: ''; position: absolute; top: 0; right: 25%; width: 8px; height: 8px; border-radius: 50%;
+             background-color: var(--secondary-color);
+             border: 2px solid var(--mobile-nav-bg);
+             transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+        #mobile-nav { transition: transform 0.3s ease-in-out; }
+        #mobile-nav.nav-hidden { transform: translateY(100%); }
+        .mobile-nav-item .icon-container { position: relative; margin-bottom: 4px; font-size: 1.25rem; }
+        .mobile-nav-item span { font-size: 0.7rem; font-weight: 500; transition: all 0.2s ease; }
+        .mobile-nav-item.active-nav-item { font-weight: 600; }
+        .mobile-nav-item:hover, .mobile-nav-item:active { transform: translateY(-2px); }
+
+
+        /* Theme Toggle Button */
+        #theme-toggle {
+            background-color: var(--theme-toggle-bg);
+            color: var(--theme-toggle-text);
+            border: 1px solid var(--theme-toggle-border);
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+            position: fixed; /* Ensure it stays in place */
+            bottom: 5rem; /* Adjust position above mobile nav */
+            right: 1rem;
+            z-index: 50;
+            width: 44px; /* Explicit size */
+            height: 44px;
             display: flex;
             align-items: center;
             justify-content: center;
-        }
-
-        .moon-icon {
-            color: #eeb85c;
-            font-size: 1.2em;
-        }
-
-        .star-icon {
-            position: absolute;
-            top: -3px;
-            right: -3px;
-            font-size: 0.7em;
-            color: #ffffff;
-            animation: star-twinkle 2s ease-in-out infinite;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
-        }
-
-        @keyframes border-animation {
-            0% { transform: rotate(0deg); opacity: 0.7; }
-            50% { opacity: 0.9; }
-            100% { transform: rotate(360deg); opacity: 0.7; }
-        }
-
-        @keyframes moon-glow {
-            0%, 100% { filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.8)); }
-            50% { filter: drop-shadow(0 0 15px rgba(255, 215, 0, 1)); }
-        }
-
-        @keyframes star-twinkle {
-            0%, 100% { opacity: 1; transform: scale(1) rotate(0deg); }
-            50% { opacity: 0.6; transform: scale(0.7) rotate(180deg); }
-        }
-
-        /* Ramadan theme specific style */
-        .ramadan-theme .ramadan-btn {
-            background: linear-gradient(135deg, #001b29 0%, #002137 100%);
-            border-color: #eeb85c;
-        }
-
-        .ramadan-theme .ramadan-btn:hover {
-            background: linear-gradient(135deg, #002137 0%, #001b29 100%);
-            box-shadow: 0 0 25px rgba(238, 184, 92, 0.6);
-        }
-
-        @media (max-width: 768px) {
-            body {
-                padding-bottom: 60px;
-            }
-        }
-
-        /* Enhanced Mobile Navigation Styling */
-        #mobile-nav {
-            transition: transform 0.3s ease-in-out;
-        }
-        
-        /* When scrolling down, hide the navbar (added via JS) */
-        #mobile-nav.nav-hidden {
-            transform: translateY(100%);
-        }
-        
-        .mobile-nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 4px 0;
-            color: #64748b; /* Tailwind text-gray-500 */
-            transition: all 0.3s ease;
-            position: relative;
-            width: 23%;
-            border-radius: 0.75rem;
-        }
-        
-        .mobile-nav-item .icon-container {
-            position: relative;
-            margin-bottom: 4px;
-            font-size: 1.25rem;
-        }
-        
-        .mobile-nav-item span {
-            font-size: 0.7rem;
-            font-weight: 500;
-            transition: all 0.2s ease;
-        }
-        
-        /* Active state for the current page */
-        .mobile-nav-item.active-nav-item {
-            color: #3b82f6; /* Tailwind blue-500 */
-            font-weight: 600;
-        }
-        
-        .mobile-nav-item.active-nav-item::before {
-            content: '';
-            position: absolute;
-            bottom: -3px;
-            left: 25%;
-            width: 50%;
-            height: 3px;
-            background: linear-gradient(to right, #3b82f6, #2563eb);
-            border-radius: 3px;
-        }
-        
-        /* Hover and tap effects */
-        .mobile-nav-item:hover, .mobile-nav-item:active {
-            color: #3b82f6; /* Tailwind blue-500 */
-            transform: translateY(-2px);
-        }
-        
-        /* Small icon indicator for profile when logged in */
-        .mobile-nav-item.logged-in::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 25%;
-            width: 8px;
-            height: 8px;
-            background-color: #10b981; /* Tailwind green-500 */
             border-radius: 50%;
-            border: 2px solid white;
+             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
+        #theme-toggle:hover {
+            background-color: var(--theme-toggle-hover-bg);
+            transform: scale(1.1);
+        }
+        #theme-toggle i { font-size: 1.25rem; } /* Adjust icon size */
+        #theme-toggle .fa-moon { display: inline-block; }
+        #theme-toggle .fa-sun { display: none; } /* Initially hidden */
+
+
+        /* --- Dark Theme Variables & Overrides --- */
+        html.dark {
+            /* --- Core Color Palette --- */
+            --bg-color: #121827; /* Dark blueish background */
+            --text-color: #cbd5e1; /* slate-300 */
+            --text-color-secondary: #94a3b8; /* slate-400 */
+            --heading-color: #f1f5f9; /* slate-100 */
+
+            /* --- Card & Glassmorphism --- */
+            --card-bg: rgba(30, 41, 59, 0.7); /* slate-800 with transparency */
+            --card-border: rgba(255, 255, 255, 0.15);
+            --card-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37); /* Darker shadow */
+
+            /* --- Accent Colors --- */
+            --primary-color: #60a5fa; /* blue-400 */
+            --primary-color-darker: #3b82f6; /* blue-500 */
+            --secondary-color: #34d399; /* green-400 */
+            --secondary-color-darker: #10b981; /* green-500 */
+
+            /* --- Links & Buttons --- */
+            --link-color: #60a5fa; /* blue-400 */
+            --link-hover-color: #93c5fd; /* blue-300 */
+            --button-text: #ffffff;
+
+            /* --- Component Specific Backgrounds --- */
+            --welcome-box-bg: linear-gradient(135deg, #1a202c, #2d3748); /* Darker gradient */
+            --auth-button-bg: var(--primary-color); /* Use primary dark color */
+            --auth-button-hover-bg: var(--primary-color-darker);
+            --auth-button-secondary-bg: var(--secondary-color); /* Use secondary dark color */
+            --auth-button-secondary-hover-bg: var(--secondary-color-darker);
+            --service-card-bg: var(--card-bg); /* Use general dark card bg */
+            --service-card-hover-bg: rgba(51, 65, 85, 0.8); /* Slightly lighter dark hover */
+            --service-card-text-color: var(--text-color-secondary);
+            --service-card-heading-color: var(--heading-color);
+            --warning-box-bg: #4a2e00; /* Dark orange/brown */
+            --warning-box-text: #ffedd5; /* Light orange text */
+            --weather-widget-bg: rgba(59, 130, 246, 0.15); /* Like blue campus section */
+            --weather-widget-text: #93c5fd; /* blue-300 */
+
+            /* --- Footer --- */
+            --footer-bg: #0f172a; /* slate-900 */
+            --footer-text: #cbd5e1; /* slate-300 */
+            --footer-heading-color: #f1f5f9; /* slate-100 */
+            --footer-link-color: #60a5fa; /* blue-400 */
+            --footer-link-hover-color: #93c5fd; /* blue-300 */
+            --footer-bubble-bg: radial-gradient(circle, rgba(96, 165, 250, 0.08) 0%, rgba(52, 211, 153, 0.08) 100%); /* Dimmer bubbles */
+            --footer-dev-card-bg: rgba(51, 65, 85, 0.5); /* slate-700 semi-transparent */
+            --footer-dev-card-border: rgba(255, 255, 255, 0.1);
+            --footer-social-icon-bg: rgba(51, 65, 85, 0.5); /* slate-700 */
+            --footer-social-icon-text: #94a3b8; /* slate-400 */
+            --footer-social-icon-hover-bg: var(--primary-color);
+            --footer-social-icon-hover-text: #ffffff;
+
+            /* --- Mobile Navigation --- */
+            --mobile-nav-bg: rgba(15, 23, 42, 0.9); /* slate-900 transparent */
+            --mobile-nav-border: rgba(255, 255, 255, 0.15);
+            --mobile-nav-text: #94a3b8; /* slate-400 */
+            --mobile-nav-active: #60a5fa; /* blue-400 */
+
+            /* --- Theme Toggle Button --- */
+            --theme-toggle-bg: rgba(30, 41, 59, 0.7); /* slate-800 transparent */
+            --theme-toggle-border: rgba(255, 255, 255, 0.15);
+            --theme-toggle-text: #cbd5e1; /* slate-300 */
+            --theme-toggle-hover-bg: rgba(51, 65, 85, 0.9); /* slate-700 transparent */
+
+             /* Map Tailwind Defaults for Dark Mode */
+             --tw-gradient-from-blue-400: #3b82f6; /* Brighter blue for dark mode link */
+             --tw-gradient-to-blue-600: #60a5fa;
+             --tw-text-gray-800: var(--heading-color); /* Map Tailwind to CSS vars */
+             --tw-text-gray-600: var(--text-color-secondary);
+             --tw-text-blue-600: var(--primary-color);
+             --tw-text-green-600: var(--secondary-color);
+             --tw-text-indigo-600: #818cf8; /* Example: Adjust as needed */
+             --tw-text-purple-600: #a78bfa;/* Example: Adjust as needed */
+             --tw-text-red-600: #f87171; /* Example: Adjust as needed */
+             --tw-bg-blue-100: rgba(59, 130, 246, 0.1);
+             --tw-text-blue-800: var(--primary-color);
+             --tw-bg-green-100: rgba(16, 185, 129, 0.1);
+             --tw-bg-white: var(--card-bg); /* Map white bg to card bg */
+             --tw-border-gray-200: var(--card-border);
+             --tw-bg-gradient-to-r-from-blue-50-to-green-50: transparent; /* Override light footer gradient */
+             --tw-bg-blue-50: rgba(59, 130, 246, 0.05); /* Adjust light colors */
+             --tw-bg-green-50: rgba(16, 185, 129, 0.05);
+             --tw-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -4px rgba(0, 0, 0, 0.3); /* Darker shadow */
+             --tw-shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.5); /* Darker shadow */
+             --tw-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.15); /* Darker shadow */
+             --tw-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -2px rgba(0, 0, 0, 0.2); /* Darker shadow */
+        }
+
+        /* --- Specific Dark Theme Overrides --- */
+
+        /* Apply the gradient background to the body in dark mode */
+        html.dark body {
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+        }
+
+        /* Apply specific overrides using variables */
+        html.dark .welcome-box {
+            background: var(--welcome-box-bg);
+            color: var(--text-color); /* Use main text color */
+        }
+        html.dark .welcome-box h1, html.dark .welcome-box p { color: var(--button-text); } /* Ensure white text */
+
+        html.dark .auth-button[href="auth.html"]:first-of-type { background-color: var(--auth-button-bg); }
+        html.dark .auth-button[href="auth.html"]:first-of-type:hover { background-color: var(--auth-button-hover-bg); }
+        html.dark .auth-button[href="auth.html"]:nth-of-type(2) { background-color: var(--auth-button-secondary-bg); }
+        html.dark .auth-button[href="auth.html"]:nth-of-type(2):hover { background-color: var(--auth-button-secondary-hover-bg); }
+        html.dark a.bg-purple-600 { background-color: var(--tw-text-purple-600); }
+        html.dark a.bg-indigo-600 { background-color: var(--tw-text-indigo-600); }
+        html.dark a.bg-purple-600:hover, html.dark a.bg-indigo-600:hover { filter: brightness(1.2); }
+
+        html.dark .service-card {
+            background-color: var(--service-card-bg);
+            color: var(--service-card-text-color);
+            border-color: var(--card-border);
+            box-shadow: var(--card-shadow);
+        }
+        html.dark .service-card:hover {
+            background-color: var(--service-card-hover-bg);
+            box-shadow: 0 10px 25px 0 rgba(0, 0, 0, 0.35);
+        }
+        html.dark .service-card h3 { color: var(--service-card-heading-color); }
+        html.dark .service-card p { color: var(--service-card-text-color); }
+        /* Icon color mapping */
+        html.dark .service-icon.text-blue-600 i { color: var(--tw-text-blue-600); }
+        html.dark .service-icon.text-green-600 i { color: var(--tw-text-green-600); }
+        html.dark .service-icon.text-indigo-600 i { color: var(--tw-text-indigo-600); }
+        html.dark .service-icon.text-red-600 i { color: var(--tw-text-red-600); }
+
+
+        html.dark footer {
+            background: var(--footer-bg);
+            border-color: var(--card-border);
+            color: var(--footer-text);
+        }
+        html.dark .footer-bubble { background: var(--footer-bubble-bg); }
+        html.dark footer h3, html.dark footer h4 { color: var(--footer-heading-color); }
+        html.dark footer p, html.dark footer li a, html.dark footer span { color: var(--footer-text); }
+        html.dark footer a:hover { color: var(--footer-link-hover-color); }
+        html.dark footer .developer-card { background-color: var(--footer-dev-card-bg); border-color: var(--footer-dev-card-border); }
+        html.dark footer .developer-card p, html.dark footer .developer-card a { color: var(--text-color); }
+        html.dark footer .developer-card a:hover { color: var(--footer-link-hover-color); }
+        html.dark footer .social-icon { background: var(--footer-social-icon-bg); color: var(--footer-social-icon-text); }
+        html.dark footer .social-icon:hover { background: var(--footer-social-icon-hover-bg); color: var(--footer-social-icon-hover-text); }
+        html.dark footer .text-gray-500 { color: var(--text-color-secondary); }
+
+        html.dark .warning-box {
+            background-color: var(--warning-box-bg);
+            color: var(--warning-box-text);
+            border: 1px solid rgba(255, 237, 213, 0.3);
+        }
+        html.dark #weather-widget {
+            background-color: var(--weather-widget-bg);
+            color: var(--weather-widget-text);
+        }
+        html.dark #weather-widget p { color: var(--weather-widget-text); }
+
+        /* Map Tailwind shadows */
+        html.dark .shadow-lg { box-shadow: var(--tw-shadow-lg); }
+        html.dark .shadow-2xl { box-shadow: var(--tw-shadow-2xl); }
+        html.dark .shadow-sm { box-shadow: var(--tw-shadow-sm); }
+        html.dark .shadow-md { box-shadow: var(--tw-shadow-md); }
+        html.dark .border-t { border-color: var(--tw-border-gray-200); }
+        html.dark .border { border-color: var(--tw-border-gray-200); }
+
+        /* Apply Tailwind color overrides via variables */
+        html.dark .text-gray-800 { color: var(--tw-text-gray-800) !important; }
+        html.dark .text-gray-600 { color: var(--tw-text-gray-600) !important; }
+        html.dark .text-blue-600 { color: var(--tw-text-blue-600) !important; }
+        html.dark .text-green-600 { color: var(--tw-text-green-600) !important; }
+        html.dark .text-indigo-600 { color: var(--tw-text-indigo-600) !important; }
+        html.dark .text-purple-600 { color: var(--tw-text-purple-600) !important; }
+        html.dark .text-red-600 { color: var(--tw-text-red-600) !important; }
+        html.dark .bg-blue-100 { background-color: var(--tw-bg-blue-100) !important; }
+        html.dark .text-blue-800 { color: var(--tw-text-blue-800) !important; }
+        html.dark .bg-green-100 { background-color: var(--tw-bg-green-100) !important; }
+        html.dark .bg-white { background-color: var(--tw-bg-white) !important; }
+
+        /* Ensure footer gradient is removed in dark mode */
+        html.dark footer.bg-gradient-to-r { background-image: none; }
+
+
+        /* Theme toggle icon visibility */
+        html.dark #theme-toggle .fa-moon { display: none; }
+        html.dark #theme-toggle .fa-sun { display: inline-block; }
+
+
+        /* --- Keep Ramadan Theme Styles (Optional) --- */
+        /* Include the .ramadan-theme styles from your original code here if desired */
+        /* ... */
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            body { padding-bottom: 70px; }
+        }
+
+        /* Keep other specific styles (animations, etc.) from original inline */
+        .animate-fade-in { animation: fadeIn 1s ease-out; } /* Shorten fade */
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-wave { /* ... */ }
+        .rotate-on-hover { /* ... */ }
+        .glow-text { /* ... */ }
+        .arrow-animate { /* ... */ }
+        .live-timestamp::before { /* ... */ }
+        @keyframes wave { /* ... */ }
+        @keyframes bounceX { /* ... */ }
+        @keyframes pulse { /* ... */ }
+        /* Footer Specific Animations */
+        @keyframes float { /* ... */ }
+        .pulse-animation { /* ... */ }
+        .hover-slide-animation::after { /* ... */ }
+        .social-icons-container .social-icon { /* ... */ }
+        .footer-links li a { /* ... */ }
+        .footer-column { /* ... */ }
+        .developer-card { /* ... */ }
+        .typing-animation { /* ... */ }
+        @keyframes typing { /* ... */ }
+        .social-icon { /* ... */ }
+         /* ... other specific keyframes and styles ... */
+
     </style>
 </head>
-<body class="flex flex-col min-h-screen bg-gray-50" data-aos-easing="ease-out-cubic">
-    <!-- Top banner -->
-    <div>
-        <script type="text/javascript">
-            aclib.runBanner({
-                zoneId: '9521434',
-            });
-        </script>
-    </div>
+<body class="flex flex-col min-h-screen" data-aos-easing="ease-out-cubic">
+
+    <!-- Top banner (AdSense/Other) -->
+    <!-- ... your banner script ... -->
+
     <div class="container mx-auto px-4 max-w-7xl flex-grow">
         <header class="mb-12 mt-8" data-aos="fade-down">
             <div class="header-container">
-                <img src="assets/img/LOGO.png" alt="Université de Bejaia" class="max-w-[200px]">
+                <img src="assets/img/LOGO.png" alt="Université de Bejaia" class="max-w-[200px] h-auto"> <!-- Adjusted height -->
             </div>
         </header>
 
         <div class="welcome-section text-center py-8" data-aos="fade-up">
-            <div class="welcome-box p-6 rounded-lg shadow-lg bg-gradient-to-r from-blue-400 to-blue-600 text-white animate-fade-in">
+            <!-- Welcome Box (styles applied via CSS variables now) -->
+            <div class="welcome-box p-6 rounded-lg text-white animate-fade-in"> <!-- Removed shadow/gradient classes -->
                 <h1 id="welcome-heading" class="text-4xl font-bold mb-4"></h1>
                 <p class="text-xl mb-4">Université de Béjaïa - Campus El-Kseur</p>
                 <p class="text-lg mb-6">Votre plateforme pour gérer votre parcours académique, accéder aux ressources éducatives et bien plus encore.</p>
                 <div class="flex flex-wrap justify-center gap-4 mt-8">
-                    <a href="auth.html" class="auth-button w-full sm:w-auto px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transform hover:scale-105 transition-all duration-300 shadow-lg">
-                        <i class="fas fa-sign-in-alt mr-2"></i>
-                        Connexion
+                    <!-- Buttons (styles applied via CSS variables now) -->
+                    <a href="auth.html" class="auth-button w-full sm:w-auto px-6 py-3 rounded-lg transform hover:scale-105 transition-all duration-300">
+                        <i class="fas fa-sign-in-alt mr-2"></i> Connexion
                     </a>
-                    <a href="auth.html" class="auth-button w-full sm:w-auto px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transform hover:scale-105 transition-all duration-300 shadow-lg">
-                        <i class="fas fa-user-plus mr-2"></i>
-                        Créer un compte
+                    <a href="auth.html" class="auth-button w-full sm:w-auto px-6 py-3 rounded-lg transform hover:scale-105 transition-all duration-300">
+                        <i class="fas fa-user-plus mr-2"></i> Créer un compte
                     </a>
-                    <a href="bib.html" class="w-full sm:w-auto px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transform hover:scale-105 transition-all duration-300 shadow-lg">
-                        <i class="fas fa-book mr-2"></i>
-                        Espace Cours
+                    <a href="bib.html" class="auth-button w-full sm:w-auto px-6 py-3 rounded-lg transform hover:scale-105 transition-all duration-300 bg-purple-600 hover:bg-purple-700"> <!-- Keep base color class for JS/CSS mapping if needed, but style via var -->
+                        <i class="fas fa-book mr-2"></i> Espace Cours
                     </a>
-                    <a href="#" onclick="checkProfileAccess(event)" class="w-full sm:w-auto px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transform hover:scale-105 transition-all duration-300 shadow-lg">
-                        <i class="fas fa-user mr-2"></i>
-                        Mon Profil
+                    <a href="#" onclick="checkProfileAccess(event)" class="auth-button w-full sm:w-auto px-6 py-3 rounded-lg transform hover:scale-105 transition-all duration-300 bg-indigo-600 hover:bg-indigo-700">
+                        <i class="fas fa-user mr-2"></i> Mon Profil
                     </a>
                 </div>
             </div>
+            <!-- Warning Box -->
             <div class="warning-box my-4">
                 Avertissement: Le site n'est pas affilié avec l'université de Béjaïa et c'est un projet étudiant.
             </div>
-            <div id="weather-widget" class="bg-blue-100 text-blue-800 p-4 rounded-lg my-4 hidden">
-  <p class="font-semibold" id="weather-location">Météo: Chargement...</p>
-  <p id="weather-temp"></p>
-</div>
+            <!-- Weather Widget -->
+            <div id="weather-widget" class="p-4 rounded-lg my-4 hidden"> <!-- Removed bg/text classes -->
+                <p class="font-semibold" id="weather-location">Météo: Chargement...</p>
+                <p id="weather-temp"></p>
+            </div>
 
-            <!-- Replace the existing affichage-card div -->
-
-<!-- Add this right after the existing affichage-card div -->
-<div class="affichage-card mt-8" data-aos="fade-up" style="display: none;">
-    <div class="p-8 rounded-2xl shadow-2xl bg-gradient-to-br from-red-600 via-red-500 to-red-400 hover:from-red-700 hover:via-red-600 hover:to-red-500 transform hover:-translate-y-1 transition-all duration-500 relative overflow-hidden">
-        <!-- Animated background effect -->
-        <div class="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent animate-wave"></div>
-        
-        <div class="flex items-center justify-between relative z-10">
-            <div class="flex items-center space-x-6">
-                <div class="service-icon bg-white/15 backdrop-blur-xl p-5 rounded-2xl rotate-on-hover">
-                    <i class="fas fa-search text-4xl text-white animate-pulse"></i>
+            <!-- Objet Perdu Section -->
+             <!-- ... (keep the HTML structure, styles will adapt via CSS) ... -->
+             <div class="affichage-card mt-8" data-aos="fade-up" style="display: none;">
+                <div class="p-8 rounded-2xl shadow-2xl bg-gradient-to-br from-red-600 via-red-500 to-red-400 hover:from-red-700 hover:via-red-600 hover:to-red-500 transform hover:-translate-y-1 transition-all duration-500 relative overflow-hidden">
+                     <div class="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent animate-wave"></div>
+                     <div class="flex items-center justify-between relative z-10">
+                        <div class="flex items-center space-x-6">
+                            <div class="service-icon bg-white/15 backdrop-blur-xl p-5 rounded-2xl rotate-on-hover"><i class="fas fa-search text-4xl text-white animate-pulse"></i></div>
+                            <div class="flex-1">
+                                <h2 class="text-3xl font-bold text-white mb-2 glow-text">Objet Perdu et Trouvé</h2>
+                                <p class="text-red-100 text-lg">Déclarez et consultez les objets trouvés</p>
+                            </div>
+                        </div>
+                         <div class="hidden md:flex items-center text-white/90"><i class="fas fa-arrow-right text-2xl arrow-animate"></i></div>
+                    </div>
+                     <div class="mt-6 flex flex-wrap gap-4"> <!-- Added flex-wrap and gap -->
+                        <a href="perdu.html" class="bg-white text-red-600 px-4 py-2 rounded-full hover:bg-red-50 transition-all duration-300">Déclarer un objet trouvé</a>
+                        <a href="trouver.html" class="bg-white text-red-600 px-4 py-2 rounded-full hover:bg-red-50 transition-all duration-300">Les objets trouvés</a>
+                    </div>
+                     <div class="mt-6 flex items-center justify-end relative z-10">
+                        <div class="inline-flex items-center bg-white/15 backdrop-blur-xl rounded-xl px-4 py-2 border border-white/10">
+                            <i class="fas fa-clock text-red-200 mr-2 animate-pulse"></i>
+                            <span class="text-red-100 live-timestamp">Dernière mise à jour: <span class="font-semibold" id="lastUpdateTime"></span></span>
+                        </div>
+                    </div>
                 </div>
-                <div class="flex-1">
-                    <h2 class="text-3xl font-bold text-white mb-2 glow-text">Objet Perdu et Trouvé</h2>
-                    <p class="text-red-100 text-lg">Déclarez et consultez les objets trouvés</p>
-                </div>
             </div>
-            <div class="hidden md:flex items-center text-white/90">
-                <i class="fas fa-arrow-right text-2xl arrow-animate"></i>
-            </div>
-        </div>
-        
-        <div class="mt-6 flex space-x-4">
-            <a href="perdu.html" class="bg-white text-red-600 px-4 py-2 rounded-full hover:bg-red-50 transition-all duration-300">Déclarer un objet trouvé</a>
-            <a href="trouver.html" class="bg-white text-red-600 px-4 py-2 rounded-full hover:bg-red-50 transition-all duration-300">Les objets trouvés</a>
-        </div>
-        
-        <div class="mt-6 flex items-center justify-end relative z-10">
-            <div class="inline-flex items-center bg-white/15 backdrop-blur-xl rounded-xl px-4 py-2 border border-white/10">
-                <i class="fas fa-clock text-red-200 mr-2 animate-pulse"></i>
-                <span class="text-red-100 live-timestamp">
-                    Dernière mise à jour: <span class="font-semibold" id="lastUpdateTime"></span>
-                </span>
-            </div>
-        </div>
-    </div>
-</div>
 
-            <!-- Middle banner before services grid -->
-            <div>
-                <script type="text/javascript">
-                    aclib.runBanner({
-                        zoneId: '9521434',
-                    });
-                </script>
-            </div>
+
+            <!-- Middle banner (AdSense/Other) -->
+            <!-- ... your banner script ... -->
         </div>
 
-        <div class="services-grid grid grid-cols-1 md:grid-cols-3 gap-8">
-            <a href="bib.html" class="service-card" data-aos="fade-up" data-aos-delay="400">
-                <div class="service-icon text-indigo-600">
-                    <i class="fas fa-book-open text-4xl"></i>
-                </div>
-                <h3 class="text-xl font-bold text-gray-800">Bibliothèque</h3>
-                <p class="text-gray-600">Accédez aux ressources académiques</p>
+        <!-- Service Cards Grid -->
+        <div class="services-grid grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+            <a href="bib.html" class="service-card" data-aos="fade-up" data-aos-delay="100">
+                 <!-- Keep text-indigo-600 class for CSS mapping -->
+                <div class="service-icon text-indigo-600"><i class="fas fa-book-open text-4xl"></i></div>
+                <h3>Bibliothèque</h3>
+                <p>Accédez aux ressources</p>
             </a>
-
-            <a href="calculator.html" class="service-card" data-aos="fade-up">
-                <div class="service-icon">
-                    <i class="fas fa-calculator text-4xl text-blue-600"></i>
-                </div>
-                <h3 class="text-xl font-semibold mb-2">Calculer la moyenne</h3>
-                <p class="text-gray-600">Calculez votre moyenne semestrielle facilement</p>
+            <a href="calculator.html" class="service-card" data-aos="fade-up" data-aos-delay="200">
+                 <!-- Keep text-blue-600 class -->
+                <div class="service-icon text-blue-600"><i class="fas fa-calculator text-4xl"></i></div>
+                <h3>Calculer la moyenne</h3>
+                <p>Calculez votre moyenne</p>
             </a>
-
-            <a href="notes.html" class="service-card" data-aos="fade-up" data-aos-delay="200">
-                <div class="service-icon text-green-600">
-                    <i class="fas fa-graduation-cap text-4xl"></i>
-                </div>
-                <h3 class="text-xl font-semibold mb-2">Notes</h3>
-                <p class="text-gray-600">Consultez vos notes et résultats</p>
+            <a href="notes.html" class="service-card" data-aos="fade-up" data-aos-delay="300">
+                 <!-- Keep text-green-600 class -->
+                <div class="service-icon text-green-600"><i class="fas fa-graduation-cap text-4xl"></i></div>
+                <h3>Notes</h3>
+                <p>Consultez vos résultats</p>
             </a>
-
             <a href="emplois.html" class="service-card" data-aos="fade-up" data-aos-delay="100">
-                <div class="service-icon text-blue-600">
-                    <i class="fas fa-calendar-alt text-4xl"></i>
-                </div>
-                <h3 class="text-xl font-bold text-gray-800">Emplois du Temps</h3>
-                <p class="text-gray-600">Consultez les emplois du temps</p>
+                 <!-- Keep text-blue-600 class -->
+                <div class="service-icon text-blue-600"><i class="fas fa-calendar-alt text-4xl"></i></div>
+                <h3>Emplois du Temps</h3>
+                <p>Consultez les emplois</p>
             </a>
-
-            <a href="bib.html" class="service-card" data-aos="fade-up">
-                <div class="service-icon">
-                    <i class="fas fa-building text-4xl text-blue-600"></i>
-                </div>
-                <h3 class="text-xl font-bold text-gray-800">Facultés</h3>
-                <p class="text-gray-600">Découvrez nos facultés par campus</p>
+            <a href="map.html" class="service-card" data-aos="fade-up" data-aos-delay="200">
+                 <!-- Keep text-green-600 class -->
+                <div class="service-icon text-green-600"><i class="fas fa-map-marked-alt text-4xl"></i></div>
+                <h3>Plan du Campus</h3>
+                <p>Trouvez les salles</p>
             </a>
-
             <a href="guide/guide.html" class="service-card" data-aos="fade-up" data-aos-delay="300">
-                <div class="service-icon text-red-600">
-                    <i class="fas fa-book text-4xl"></i>
-                </div>
-                <h3 class="text-xl font-bold text-gray-800">Guide</h3>
-                <p class="text-gray-600">Guide d'utilisation et informations</p>
-            </a>
-
-            <a href="map.html" class="service-card" data-aos="fade-up">
-                <div class="service-icon text-green-600">
-                    <i class="fas fa-map-marked-alt text-4xl"></i>
-                </div>
-                <h3 class="text-xl font-bold text-gray-800">Plan du Campus</h3>
-                <p class="text-gray-600">Trouvez facilement les salles et bâtiments</p>
+                 <!-- Keep text-red-600 class -->
+                <div class="service-icon text-red-600"><i class="fas fa-book text-4xl"></i></div>
+                <h3>Guide</h3>
+                <p>Infos & utilisation</p>
             </a>
         </div>
     </div>
 
-    <!-- Password Protection Overlay -->
-    <footer class="py-8 bg-gradient-to-r from-blue-50 to-green-50 border-t border-gray-200 mt-auto relative overflow-hidden">
-        <!-- Animated background elements -->
+    <!-- Footer -->
+     <footer class="py-8 border-t mt-auto relative overflow-hidden"> <!-- Removed gradient class -->
         <div class="absolute inset-0 overflow-hidden pointer-events-none">
-            <div class="footer-bubble" style="top: 10%; left: 5%; width: 250px; height: 250px; background: radial-gradient(circle, rgba(59, 130, 246, 0.05) 0%, rgba(16, 185, 129, 0.05) 100%); animation: float 15s ease-in-out infinite;"></div>
-            <div class="footer-bubble" style="top: 60%; left: 75%; width: 300px; height: 300px; background: radial-gradient(circle, rgba(16, 185, 129, 0.05) 0%, rgba(59, 130, 246, 0.05) 100%); animation: float 20s ease-in-out infinite alternate;"></div>
-            <div class="footer-bubble" style="top: 30%; left: 40%; width: 200px; height: 200px; background: radial-gradient(circle, rgba(249, 168, 212, 0.05) 0%, rgba(16, 185, 129, 0.05) 100%); animation: float 17s ease-in-out infinite alternate-reverse;"></div>
+            <div class="footer-bubble" style="top: 10%; left: 5%; width: 250px; height: 250px; animation: float 15s ease-in-out infinite;"></div>
+            <div class="footer-bubble" style="top: 60%; left: 75%; width: 300px; height: 300px; animation: float 20s ease-in-out infinite alternate;"></div>
+            <div class="footer-bubble" style="top: 30%; left: 40%; width: 200px; height: 200px; animation: float 17s ease-in-out infinite alternate-reverse;"></div>
         </div>
-        
         <div class="container mx-auto px-4 relative z-10">
-            <!-- Main Footer Content -->
             <div class="flex flex-col md:flex-row items-center justify-between mb-6">
                 <div class="mb-6 md:mb-0 text-center md:text-left">
                     <div class="flex items-center justify-center md:justify-start mb-3 transform transition hover:scale-105 duration-300">
@@ -785,501 +697,277 @@
                             <img src="assets/img/LOGO.png" alt="Logo" class="h-8">
                         </div>
                         <div>
-                            <h3 class="text-lg font-bold text-gray-800">Université de Béjaia</h3>
-                            <p class="text-sm text-gray-600">Faculté de Technologie</p>
+                            <h3>Université de Béjaia</h3>
+                            <p class="text-sm">Faculté de Technologie</p> <!-- Adjusted text size -->
                         </div>
                     </div>
-                    <p class="text-sm text-gray-600 mt-2 hover-slide-animation">Plateforme de ressources académiques pour les étudiants</p>
+                    <p class="text-sm mt-2 hover-slide-animation">Plateforme de ressources académiques pour les étudiants</p>
                 </div>
-                
                 <div class="flex flex-col items-center md:items-end">
                     <div class="mb-4 transform transition hover:scale-105 duration-300">
                         <span class="inline-block px-4 py-1 bg-green-100 text-green-600 rounded-full text-sm font-medium">
                             <i class="fas fa-check-circle mr-1 animate-pulse"></i> Mise à jour Mars 2025
                         </span>
                     </div>
-                    
                     <div class="flex space-x-3 mb-3 social-icons-container">
-                        <a href="https://www.facebook.com/univ.bejaia" class="social-icon bg-gradient-to-r from-blue-50 to-blue-100 text-blue-600 hover:from-blue-600 hover:to-blue-500 hover:text-white transform transition-all duration-300" aria-label="Facebook">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a href="https://www.linkedin.com/school/universit%C3%A9-de-bejaia/" class="social-icon bg-gradient-to-r from-blue-50 to-blue-100 text-blue-600 hover:from-blue-600 hover:to-blue-500 hover:text-white transform transition-all duration-300" aria-label="LinkedIn">
-                            <i class="fab fa-linkedin-in"></i>
-                        </a>
-                        <a href="https://twitter.com/exspottedbejaia" class="social-icon bg-gradient-to-r from-blue-50 to-blue-100 text-blue-600 hover:from-blue-600 hover:to-blue-500 hover:text-white transform transition-all duration-300" aria-label="Twitter">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="https://instagram.com/spot_campuselkseur" class="social-icon bg-gradient-to-r from-blue-50 to-blue-100 text-blue-600 hover:from-blue-600 hover:to-blue-500 hover:text-white transform transition-all duration-300" aria-label="Instagram">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="https://snapchat.com/add/campuselkseur" class="social-icon bg-gradient-to-r from-blue-50 to-blue-100 text-blue-600 hover:from-blue-600 hover:to-blue-500 hover:text-white transform transition-all duration-300" aria-label="Snapchat">
-                            <i class="fab fa-snapchat-ghost"></i>
-                        </a>
+                         <a href="https://www.facebook.com/univ.bejaia" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                         <a href="https://www.linkedin.com/school/universit%C3%A9-de-bejaia/" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                         <a href="https://twitter.com/exspottedbejaia" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                         <a href="https://instagram.com/spot_campuselkseur" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                         <a href="https://snapchat.com/add/campuselkseur" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Snapchat"><i class="fab fa-snapchat-ghost"></i></a>
                     </div>
                 </div>
             </div>
-            
-            <!-- Navigation Links -->
-            <div class="border-t border-gray-200 pt-6 mt-2">
+            <div class="border-t pt-6 mt-2">
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 text-sm">
                     <div class="text-center sm:text-left footer-column">
-                        <h4 class="font-semibold text-gray-800 mb-3 flex items-center justify-center sm:justify-start">
-                            <i class="fas fa-link text-green-500 mr-2"></i>
-                            Liens Rapides
-                        </h4>
-                        <ul class="space-y-2 footer-links">
-                            <li><a href="/" class="text-gray-600 hover:text-blue-600 transition-colors flex items-center justify-center sm:justify-start"><i class="fas fa-chevron-right text-xs text-green-500 mr-2"></i>Accueil</a></li>
-                            <li><a href="/specialites.html" class="text-gray-600 hover:text-blue-600 transition-colors flex items-center justify-center sm:justify-start"><i class="fas fa-chevron-right text-xs text-green-500 mr-2"></i>Spécialités</a></li>
-                            <li><a href="/contact.html" class="text-gray-600 hover:text-blue-600 transition-colors flex items-center justify-center sm:justify-start"><i class="fas fa-chevron-right text-xs text-green-500 mr-2"></i>Contact</a></li>
-                        </ul>
-                    </div>
-                    
-                    <div class="text-center sm:text-left footer-column">
-                        <h4 class="font-semibold text-gray-800 mb-3 flex items-center justify-center sm:justify-start">
-                            <i class="fas fa-question-circle text-green-500 mr-2"></i>
-                            Support
-                        </h4>
-                        <ul class="space-y-2 footer-links">
-                            <li><a href="#" onclick="showPopup('faq'); return false;" class="text-gray-600 hover:text-blue-600 transition-colors flex items-center justify-center sm:justify-start"><i class="fas fa-chevron-right text-xs text-green-500 mr-2"></i>FAQ</a></li>
-                            <li><a href="#" onclick="showPopup('signaler'); return false;" class="text-gray-600 hover:text-blue-600 transition-colors flex items-center justify-center sm:justify-start"><i class="fas fa-chevron-right text-xs text-green-500 mr-2"></i>Signaler un problème</a></li>
-                            <li><a href="#" onclick="showPopup('contribuer'); return false;" class="text-gray-600 hover:text-blue-600 transition-colors flex items-center justify-center sm:justify-start"><i class="fas fa-chevron-right text-xs text-green-500 mr-2"></i>Contribuer</a></li>
-                        </ul>
-                    </div>
-                    
-                    <div class="text-center sm:text-left footer-column">
-                        <h4 class="font-semibold text-gray-800 mb-3 flex items-center justify-center sm:justify-start">
-                            <i class="fas fa-shield-alt text-green-500 mr-2"></i>
-                            Légal
-                        </h4>
-                        <ul class="space-y-2 footer-links">
-                            <li><a href="#" onclick="showPopup('conditions'); return false;" class="text-gray-600 hover:text-blue-600 transition-colors flex items-center justify-center sm:justify-start"><i class="fas fa-chevron-right text-xs text-green-500 mr-2"></i>Conditions d'utilisation</a></li>
-                            <li><a href="#" onclick="showPopup('conditions'); return false;" class="text-gray-600 hover:text-blue-600 transition-colors flex items-center justify-center sm:justify-start"><i class="fas fa-chevron-right text-xs text-green-500 mr-2"></i>Politique de confidentialité</a></li>
-                        </ul>
-                    </div>
-                    
-                    <div class="text-center sm:text-left footer-column">
-                        <h4 class="font-semibold text-gray-800 mb-3 flex items-center justify-center sm:justify-start">
-                            <i class="fas fa-code text-green-500 mr-2"></i>
-                            Développeur
-                        </h4>
-                        <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100 developer-card transform transition hover:shadow-md duration-300">
-                            <div class="flex items-center justify-center sm:justify-start mb-2">
-                                <div class="w-10 h-10 bg-blue-50 rounded-full flex items-center justify-center mr-3">
-                                    <i class="fas fa-user-circle text-blue-500 text-lg"></i>
-                                </div>
-                                <div>
-                                    <p class="font-medium text-gray-800">Amara Mehdi</p>
-                                    <a href="mailto:mehdi.amara@tech.univ-bejaia.dz" class="text-blue-600 hover:text-blue-800 text-xs">mehdi.amara@tech.univ-bejaia.dz</a>
-                                </div>
-                            </div>
-                            <div class="text-xs text-gray-500 mt-2">
-                                <p>Version 1.2.5</p>
-                                <p>&copy; 2025 Tous droits réservés</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Footer bottom -->
-            <div class="mt-8 pt-6 border-t border-gray-200 text-center">
-                <p class="text-sm text-gray-500">
-                    <span class="typing-animation">Campus Elkseur, Université de Béjaia - Créé avec <i class="fas fa-heart text-red-500 animate-pulse"></i> pour les étudiants</span>
-                </p>
-            </div>
-        </div>
-    </footer>
-    
-    <style>
-        /* Footer animations */
-        @keyframes float {
-            0% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(5deg); }
-            100% { transform: translateY(0) rotate(0deg); }
-        }
-        
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-        
-        .pulse-animation {
-            animation: pulse 3s infinite ease-in-out;
-        }
-        
-        .hover-slide-animation {
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .hover-slide-animation::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 1px;
-            background-color: #3b82f6;
-            transition: width 0.3s ease;
-        }
-        
-        .hover-slide-animation:hover::after {
-            width: 100%;
-        }
-        
-        /* Social icons container with animation */
-        .social-icons-container {
-            display: flex;
-        }
-        
-        .social-icons-container .social-icon {
-            transition: all 0.3s ease;
-        }
-        
-        .social-icons-container:hover .social-icon {
-            transform: translateY(-3px);
-        }
-        
-        .social-icons-container .social-icon:hover {
-            transform: translateY(-7px) scale(1.1);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-        }
-        
-        /* Footer links animation */
-        .footer-links li a {
-            position: relative;
-            transition: transform 0.3s ease, color 0.3s ease;
-            padding-left: 0;
-        }
-        
-        .footer-links li a:hover {
-            transform: translateX(5px);
-        }
-        
-        .footer-links li a i {
-            transition: transform 0.3s ease;
-        }
-        
-        .footer-links li a:hover i {
-            transform: translateX(3px);
-        }
-        
-        /* Footer column animation */
-        .footer-column {
-            transition: transform 0.3s ease;
-        }
-        
-        .footer-column:hover {
-            transform: translateY(-5px);
-        }
-        
-        /* Developer card animation */
-        .developer-card {
-            transition: all 0.3s ease;
-            border-left: 3px solid transparent;
-        }
-        
-        .developer-card:hover {
-            border-left-color: #3b82f6;
-            transform: translateX(5px);
-        }
-        
-        /* Typing animation */
-        .typing-animation {
-            display: inline-block;
-            overflow: hidden;
-            white-space: nowrap;
-            animation: typing 10s steps(40, end) infinite;
-        }
-        
-        @keyframes typing {
-            0%, 100% { width: 0 }
-            50% { width: 100% }
-        }
-        
-        /* Footer social icons */
-        .social-icon {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            transition: all 0.3s ease;
-        }
-        
-        /* Active state for touch devices */
-        .social-icon:active {
-            transform: scale(0.9);
-        }
-        
-        /* Mobile optimization for footer */
-        @media (max-width: 640px) {
-            .social-icon {
-                width: 40px; /* Larger tap target on mobile */
-                height: 40px;
-            }
-            
-            .footer-bubble {
-                opacity: 0.3;
-            }
-            
-            .typing-animation {
-                white-space: normal;
-                animation: none;
-            }
-            
-            footer {
-                text-align: center;
-            }
-            
-            footer .grid {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-            
-            footer h4::after {
-                content: '';
-                display: block;
-                width: 40px;
-                height: 2px;
-                background-color: #3b82f6;
-                margin: 0.5rem auto 0;
-            }
-        }
-    </style>
+                         <h4 class="font-semibold mb-3 flex items-center justify-center sm:justify-start"><i class="fas fa-link text-green-500 mr-2"></i>Liens Rapides</h4>
+                         <ul class="space-y-2 footer-links">
+                             <li><a href="/" class="flex items-center justify-center sm:justify-start"><i class="fas fa-chevron-right text-xs text-green-500 mr-2"></i>Accueil</a></li>
+                             <li><a href="/specialites.html" class="flex items-center justify-center sm:justify-start"><i class="fas fa-chevron-right text-xs text-green-500 mr-2"></i>Spécialités</a></li>
+                             <li><a href="/contact.html" class="flex items-center justify-center sm:justify-start"><i class="fas fa-chevron-right text-xs text-green-500 mr-2"></i>Contact</a></li>
+                         </ul>
+                     </div>
+                     <div class="text-center sm:text-left footer-column">
+                         <h4 class="font-semibold mb-3 flex items-center justify-center sm:justify-start"><i class="fas fa-question-circle text-green-500 mr-2"></i>Support</h4>
+                         <ul class="space-y-2 footer-links">
+                             <li><a href="#" onclick="showPopup('faq'); return false;" class="flex items-center justify-center sm:justify-start"><i class="fas fa-chevron-right text-xs text-green-500 mr-2"></i>FAQ</a></li>
+                             <li><a href="#" onclick="showPopup('signaler'); return false;" class="flex items-center justify-center sm:justify-start"><i class="fas fa-chevron-right text-xs text-green-500 mr-2"></i>Signaler</a></li>
+                             <li><a href="#" onclick="showPopup('contribuer'); return false;" class="flex items-center justify-center sm:justify-start"><i class="fas fa-chevron-right text-xs text-green-500 mr-2"></i>Contribuer</a></li>
+                         </ul>
+                     </div>
+                     <div class="text-center sm:text-left footer-column">
+                         <h4 class="font-semibold mb-3 flex items-center justify-center sm:justify-start"><i class="fas fa-shield-alt text-green-500 mr-2"></i>Légal</h4>
+                         <ul class="space-y-2 footer-links">
+                             <li><a href="#" onclick="showPopup('conditions'); return false;" class="flex items-center justify-center sm:justify-start"><i class="fas fa-chevron-right text-xs text-green-500 mr-2"></i>Conditions</a></li>
+                             <li><a href="#" onclick="showPopup('conditions'); return false;" class="flex items-center justify-center sm:justify-start"><i class="fas fa-chevron-right text-xs text-green-500 mr-2"></i>Confidentialité</a></li>
+                         </ul>
+                     </div>
+                     <div class="text-center sm:text-left footer-column">
+                        <h4 class="font-semibold mb-3 flex items-center justify-center sm:justify-start"><i class="fas fa-code text-green-500 mr-2"></i>Développeur</h4>
+                         <div class="p-4 rounded-lg border developer-card"> <!-- Removed bg-white shadow border-gray-100 -->
+                             <div class="flex items-center justify-center sm:justify-start mb-2">
+                                 <div class="w-10 h-10 bg-blue-50 rounded-full flex items-center justify-center mr-3"><i class="fas fa-user-circle text-blue-500 text-lg"></i></div>
+                                 <div>
+                                     <p class="font-medium">Amara Mehdi</p>
+                                     <a href="mailto:mehdi.amara@univ-bejaia.dz" class="text-blue-600 hover:text-blue-800 text-xs">mehdi.amara@univ-bejaia.dz</a>
+                                 </div>
+                             </div>
+                             <div class="text-xs mt-2">
+                                 <p>Version 1.2.5</p>
+                                 <p>© 2025 Tous droits réservés</p>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+             <div class="mt-8 pt-6 border-t text-center">
+                 <p class="text-sm text-gray-500">
+                     <span class="typing-animation">Campus Elkseur, Université de Béjaia - Créé avec <i class="fas fa-heart text-red-500 animate-pulse"></i> pour les étudiants</span>
+                 </p>
+             </div>
+         </div>
+     </footer>
 
+
+    <!-- Theme Toggle Button -->
+    <button id="theme-toggle" title="Changer le thème"> <!-- Added title -->
+        <i class="fas fa-moon"></i>
+        <i class="fas fa-sun"></i>
+    </button>
+
+    <!-- Mobile Navigation Bar -->
+    <nav id="mobile-nav" class="fixed bottom-0 left-0 right-0 backdrop-filter backdrop-blur-lg shadow-lg py-3 px-2 flex justify-around items-center z-30 md:hidden">
+        <a href="index.html" class="mobile-nav-item"> <!-- Active state set by JS -->
+            <div class="icon-container"><i class="fas fa-home"></i></div>
+            <span>Accueil</span>
+        </a>
+        <a href="bib.html" class="mobile-nav-item">
+            <div class="icon-container"><i class="fas fa-book-open"></i></div>
+            <span>Cours</span>
+        </a>
+        <a href="calculator.html" class="mobile-nav-item">
+            <div class="icon-container"><i class="fas fa-calculator"></i></div>
+            <span>Moyenne</span>
+        </a>
+        <a href="#" onclick="checkProfileAccess(event)" class="mobile-nav-item">
+            <div class="icon-container"><i class="fas fa-user"></i></div>
+            <span>Profil</span>
+        </a>
+    </nav>
+
+    <!-- Scripts -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
+        // --- Initialize AOS ---
         AOS.init({
             duration: 800,
             once: true
         });
 
+        // --- Theme Switcher Logic ---
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+
+        const applyTheme = (theme) => {
+            if (theme === 'dark') {
+                htmlElement.classList.add('dark');
+            } else {
+                htmlElement.classList.remove('dark');
+            }
+            // CSS handles icon visibility based on .dark class
+        };
+
+        // Check local storage on load - DEFAULT TO DARK
+        const savedTheme = localStorage.getItem('theme') || 'dark'; // <-- Default set to 'dark'
+        applyTheme(savedTheme);
+
+        // Toggle theme on button click
+        themeToggleBtn.addEventListener('click', () => {
+            const currentTheme = htmlElement.classList.contains('dark') ? 'dark' : 'light';
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            applyTheme(newTheme);
+            localStorage.setItem('theme', newTheme);
+        });
+
+        // --- Authentication & UI Updates ---
+        function updateAuthButtons() {
+            const authButtons = document.querySelectorAll('.auth-button');
+            const userData = localStorage.getItem('userData');
+
+            authButtons.forEach(button => {
+                if (userData && button.getAttribute('href') === 'auth.html') {
+                    button.style.display = 'none';
+                } else if (!userData && button.getAttribute('href') === 'auth.html') {
+                    button.style.display = 'inline-flex';
+                }
+            });
+        }
+
+        function updateWelcomeMessage() {
+            const userData = localStorage.getItem('userData');
+            const heading = document.getElementById('welcome-heading');
+            if (!heading) return;
+
+            if (userData) {
+                try {
+                    const userObj = JSON.parse(userData);
+                    heading.textContent = `Bienvenue, ${userObj.fullName || userObj.name || 'Utilisateur'} !`;
+                } catch (e) {
+                    console.error('Error parsing user data:', e);
+                    heading.textContent = 'Bienvenue sur le Portail Étudiant';
+                }
+            } else {
+                heading.textContent = 'Bienvenue sur le Portail Étudiant';
+            }
+        }
+
         function checkProfileAccess(event) {
             event.preventDefault();
-            const token = localStorage.getItem('token');
-            if (!token) {
+            const userData = localStorage.getItem('userData');
+            if (!userData) {
                 window.location.href = 'auth.html?redirect=profile';
             } else {
                 window.location.href = 'profile.html';
             }
         }
-    </script>
-    <script type="text/javascript">
-        aclib.runAutoTag({
-            zoneId: '1hqerebunb',
-        });
-    </script>
-    <script>
-    // Existing initialization
-    AOS.init({
-        duration: 800,
-        once: true
-    });
 
-    // Function to check auth status and update UI
-    function updateAuthButtons() {
-        const authButtons = document.querySelectorAll('.auth-button');
-        const userData = localStorage.getItem('userData');
-        
-        authButtons.forEach(button => {
-            if (userData) {
-                // User is logged in, hide auth buttons
-                if (button.getAttribute('href') === 'auth.html') {
-                    button.style.display = 'none';
-                }
-            } else {
-                // User is logged out, show auth buttons
-                if (button.getAttribute('href') === 'auth.html') {
-                    button.style.display = 'inline-flex';
-                }
-            }
-        });
-    }
-
-    // Check auth status on page load
-    document.addEventListener('DOMContentLoaded', () => {
-        updateWelcomeMessage();
-        updateAuthButtons();
-    });
-
-    function checkProfileAccess(event) {
-        event.preventDefault();
-        const userData = localStorage.getItem('userData');
-        if (!userData) {
-            window.location.href = 'auth.html?redirect=profile';
-        } else {
-            window.location.href = 'profile.html';
+        // --- Other Functionality ---
+        function updateTimestamp() {
+             const element = document.getElementById('lastUpdateTime');
+             if (!element) return;
+            const now = new Date();
+            const options = { hour: '2-digit', minute: '2-digit', second: '2-digit' }; // Show seconds
+            element.textContent = now.toLocaleTimeString('fr-FR', options);
         }
-    }
 
-    // Add class to auth buttons for easier selection
-    document.querySelectorAll('[href="auth.html"]').forEach(button => {
-        button.classList.add('auth-button');
-    });
+        async function loadWeatherData() {
+            const widget = document.getElementById('weather-widget');
+            const locationEl = document.getElementById('weather-location');
+            const tempEl = document.getElementById('weather-temp');
+            if (!widget || !locationEl || !tempEl) return;
 
-    // Live timestamp update
-    function updateTimestamp() {
-        const now = new Date();
-        const options = {
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit'
-        };
-        document.getElementById('lastUpdateTime').textContent = 
-            now.toLocaleDateString('fr-FR', options);
-    }
-
-    // Update timestamp immediately and every minute
-    updateTimestamp();
-    setInterval(updateTimestamp, 60000);
-
-    // Fetch basic weather data for demonstration
-    async function loadWeatherData() {
-        try {
-            // Example city name; replace or detect location
-            const city = 'Bejaia';
-            const apiKey = 'DEMO_KEY';
-            // Minimal example from OpenWeather
-            const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
-            const response = await fetch(url);
-            const data = await response.json();
-            document.getElementById('weather-location').textContent = `Météo à ${data.name}`;
-            document.getElementById('weather-temp').textContent = `Temp: ${Math.round(data.main.temp)}°C`;
-            // Show widget
-            document.getElementById('weather-widget').classList.remove('hidden');
-        } catch (error) {
-            console.error('Weather Error:', error);
-        }
-    }
-
-    // Call weather load on DOMContentLoaded
-    document.addEventListener('DOMContentLoaded', () => {
-        loadWeatherData();
-    });
-
-    // Replace the updateWelcomeMessage function with this improved version
-
-    function updateWelcomeMessage() {
-        const userData = localStorage.getItem('userData');
-        const heading = document.getElementById('welcome-heading');
-        if (userData) {
             try {
-                const userObj = JSON.parse(userData);
-                // Use fullName if available (from auth.html registration), otherwise fallback
-                heading.textContent = `Bienvenue, ${userObj.fullName || userObj.name || 'Utilisateur'}`;
-            } catch (e) {
-                console.error('Error parsing user data:', e);
-                heading.textContent = 'Bienvenue sur le Portail Étudiant';
+                 const city = 'Bejaia';
+                 const apiKey = 'YOUR_OPENWEATHERMAP_API_KEY'; // IMPORTANT: Replace with your key
+                 if (apiKey === 'YOUR_OPENWEATHERMAP_API_KEY' || !apiKey) {
+                     console.warn("Clé API OpenWeatherMap non configurée. Widget météo désactivé.");
+                     locationEl.textContent = "Météo indisponible";
+                     widget.classList.remove('hidden');
+                     return;
+                 }
+                const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric&lang=fr`;
+                const response = await fetch(url);
+                if (!response.ok) throw new Error(`Erreur HTTP! Statut: ${response.status}`);
+                const data = await response.json();
+
+                locationEl.textContent = `Météo à ${data.name}: ${data.weather[0]?.description || ''}`;
+                tempEl.textContent = `Temp: ${Math.round(data.main.temp)}°C (Ressenti: ${Math.round(data.main.feels_like)}°C)`;
+                widget.classList.remove('hidden');
+            } catch (error) {
+                console.error('Erreur de chargement de la météo:', error);
+                locationEl.textContent = "Impossible de charger la météo.";
+                 widget.classList.remove('hidden');
             }
-        } else {
-            heading.textContent = 'Bienvenue sur le Portail Étudiant';
         }
-    }
 
-    // Make sure this is called when DOM is loaded
-    document.addEventListener('DOMContentLoaded', () => {
-        updateWelcomeMessage();
-        updateAuthButtons();
-        loadWeatherData();
-    });
-</script>
+         // --- Mobile Nav Logic ---
+         function setActiveMobileNavItem() {
+            const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+            const navItems = document.querySelectorAll('.mobile-nav-item');
+            const userData = localStorage.getItem('userData');
+            const profileNavItem = document.querySelector('.mobile-nav-item[onclick*="checkProfileAccess"]');
 
-<!-- Replace the existing mobile navigation bar with this improved version -->
+            navItems.forEach(item => {
+                item.classList.remove('active-nav-item');
+                const href = item.getAttribute('href');
+                if (href && href !== '#') {
+                     const linkPath = href.split('/').pop() || 'index.html';
+                      // Make comparison robust for root vs index.html
+                     const isCurrentPage = (currentPath === linkPath) || (currentPath === '' && linkPath === 'index.html');
+                     if (isCurrentPage) {
+                        item.classList.add('active-nav-item');
+                     }
+                }
+            });
 
-<!-- Mobile Navigation Bar -->
-<nav id="mobile-nav" class="fixed bottom-0 left-0 right-0 bg-white bg-opacity-95 backdrop-filter backdrop-blur-lg shadow-lg border-t border-gray-200 py-3 px-2 flex justify-around items-center z-30 md:hidden">
-    <!-- Home Button - Active by default on index page -->
-    <a href="index.html" class="mobile-nav-item active-nav-item">
-        <div class="icon-container">
-            <i class="fas fa-home"></i>
-        </div>
-        <span>Accueil</span>
-    </a>
-    
-    <!-- Courses Button -->
-    <a href="bib.html" class="mobile-nav-item">
-        <div class="icon-container">
-            <i class="fas fa-book-open"></i>
-        </div>
-        <span>Cours</span>
-    </a>
-    
-    <!-- Calculator Button -->
-    <a href="calculator.html" class="mobile-nav-item">
-        <div class="icon-container">
-            <i class="fas fa-calculator"></i>
-        </div>
-        <span>Moyenne</span>
-    </a>
-    
-    <!-- Profile Button -->
-    <a href="#" onclick="checkProfileAccess(event)" class="mobile-nav-item">
-        <div class="icon-container">
-            <i class="fas fa-user"></i>
-        </div>
-        <span>Profil</span>
-    </a>
-</nav>
+            if (userData && profileNavItem) { profileNavItem.classList.add('logged-in'); }
+            else if (profileNavItem) { profileNavItem.classList.remove('logged-in'); }
+        }
 
-<!-- Add this script to handle the mobile navigation -->
-<script>
-    // Set active item in the mobile nav based on current page
-    function setActiveMobileNavItem() {
-        const currentPath = window.location.pathname;
-        const navItems = document.querySelectorAll('.mobile-nav-item');
-        
-        navItems.forEach(item => {
-            // Remove active class from all items
-            item.classList.remove('active-nav-item');
-            
-            // Get the href value
-            const href = item.getAttribute('href');
-            
-            // Skip items with "#" or JavaScript function calls
-            if (href === "#") return;
-            
-            // Check if this is the current page
-            if (currentPath.endsWith(href) || 
-               (currentPath.endsWith('/') && href === 'index.html')) {
-                item.classList.add('active-nav-item');
+        let lastScrollTop = 0;
+        function handleNavScroll() {
+             const mobileNav = document.getElementById('mobile-nav');
+             if (!mobileNav) return;
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            if (scrollTop > lastScrollTop && scrollTop > 150) { // Hide after scrolling down a bit
+                mobileNav.classList.add('nav-hidden');
+            } else {
+                mobileNav.classList.remove('nav-hidden');
             }
+            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+        }
+
+        // --- Initialize on page load ---
+        document.addEventListener('DOMContentLoaded', () => {
+            updateWelcomeMessage();
+            updateAuthButtons();
+            updateTimestamp(); // Initial timestamp
+            loadWeatherData();
+            setActiveMobileNavItem();
+            window.addEventListener('scroll', handleNavScroll, { passive: true });
+            setInterval(updateTimestamp, 1000); // Update timestamp every second
         });
-        
-        // Add logged in indicator for profile if user data exists
-        const userData = localStorage.getItem('userData');
-        const profileNavItem = document.querySelector('.mobile-nav-item[onclick*="checkProfileAccess"]');
-        if (userData && profileNavItem) {
-            profileNavItem.classList.add('logged-in');
+
+        // Dummy showPopup function for footer links
+        function showPopup(type) {
+             alert(`Affichage du popup pour : ${type}. Fonctionnalité à implémenter.`);
         }
-    }
-    
-    // Hide navbar when scrolling down, show when scrolling up
-    let lastScrollTop = 0;
-    function handleNavScroll() {
-        const mobileNav = document.getElementById('mobile-nav');
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        
-        if (scrollTop > lastScrollTop && scrollTop > 200) {
-            // Scrolling down & not at the top
-            mobileNav.classList.add('nav-hidden');
-        } else {
-            // Scrolling up or at the top
-            mobileNav.classList.remove('nav-hidden');
-        }
-        
-        lastScrollTop = scrollTop;
-    }
-    
-    // Initialize mobile nav on page load
-    document.addEventListener('DOMContentLoaded', () => {
-        setActiveMobileNavItem();
-        window.addEventListener('scroll', handleNavScroll, { passive: true });
-    });
-</script>
+
+    </script>
+    <!-- Ad script (ensure it's correctly placed and configured) -->
+    <!-- <script type="text/javascript" src="//cdn.appsha1.com/acdlib/aclib.js"></script> -->
+    <!-- <script type="text/javascript">aclib.runAutoTag({zoneId: '1hqerebunb'});</script> -->
 
 </body>
 </html>

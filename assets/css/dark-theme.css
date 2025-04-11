@@ -1,0 +1,100 @@
+/* assets/css/dark-theme.css */
+
+/* --- Dark Theme Variables & Overrides --- */
+html.dark {
+    /* --- Core Color Palette --- */
+    --bg-color: #121827; /* Dark blueish background */
+    --text-color: #cbd5e1; /* slate-300 */
+    --text-color-secondary: #94a3b8; /* slate-400 */
+    --heading-color: #f1f5f9; /* slate-100 */
+
+    /* --- Card & Glassmorphism --- */
+    --card-bg: rgba(30, 41, 59, 0.7); /* slate-800 with transparency */
+    --card-border: rgba(255, 255, 255, 0.15);
+    --card-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37); /* Darker shadow */
+
+    /* --- Accent Colors --- */
+    --primary-color: #60a5fa; /* blue-400 */
+    --primary-color-darker: #3b82f6; /* blue-500 */
+    --secondary-color: #34d399; /* green-400 */
+    --secondary-color-darker: #10b981; /* green-500 */
+
+    /* --- Links & Buttons --- */
+    --link-color: #60a5fa; /* blue-400 */
+    --link-hover-color: #93c5fd; /* blue-300 */
+    --button-text: #ffffff;
+
+    /* --- Component Specific Backgrounds --- */
+    --campus-elksuer-bg: rgba(59, 130, 246, 0.15); /* transparent blue */
+    --campus-elksuer-text: #93c5fd; /* blue-300 */
+    --campus-elksuer-border: #60a5fa; /* blue-400 */
+    --campus-aboudaou-bg: rgba(52, 211, 153, 0.15); /* transparent green */
+    --campus-aboudaou-text: #6ee7b7; /* green-300 */
+    --campus-aboudaou-border: #34d399; /* green-400 */
+    --disabled-card-bg: #334155; /* slate-700 */
+    --disabled-card-text: #94a3b8; /* slate-400 */
+
+    /* --- Footer --- */
+    --footer-bg: #0f172a; /* slate-900 */
+    --footer-text: #cbd5e1; /* slate-300 */
+    --footer-link: #60a5fa; /* blue-400 */
+    --footer-link-hover: #93c5fd; /* blue-300 */
+
+    /* --- Modal --- */
+    --modal-bg: #1e293b; /* slate-800 */
+    --modal-text: #f1f5f9; /* slate-100 */
+    --modal-overlay-bg: rgba(17, 24, 39, 0.7); /* Darker overlay */
+
+    /* --- Mobile Navigation --- */
+    --mobile-nav-bg: rgba(15, 23, 42, 0.9); /* slate-900 transparent */
+    --mobile-nav-border: rgba(255, 255, 255, 0.15);
+    --mobile-nav-text: #94a3b8; /* slate-400 */
+    --mobile-nav-active: #60a5fa; /* blue-400 */
+
+    /* --- Theme Toggle Button --- */
+    --theme-toggle-bg: rgba(30, 41, 59, 0.7); /* slate-800 transparent */
+    --theme-toggle-border: rgba(255, 255, 255, 0.15);
+    --theme-toggle-text: #cbd5e1; /* slate-300 */
+    --theme-toggle-hover-bg: rgba(51, 65, 85, 0.9); /* slate-700 transparent */
+}
+
+/* --- Specific Dark Theme Overrides --- */
+
+/* Apply the gradient background to the body in dark mode */
+html.dark body {
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+}
+
+/* Optional: Darker header background */
+/*
+html.dark header {
+    background: rgba(15, 23, 42, 0.5);
+    backdrop-filter: blur(5px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+*/
+
+/* Dark mode specific hover/style adjustments */
+html.dark .service-card:hover {
+    box-shadow: 0 10px 25px 0 rgba(0, 0, 0, 0.35); /* Darker shadow on hover */
+}
+
+html.dark #semesterModal.bg-gray-600 { /* Specific override for modal backdrop */
+    background-color: var(--modal-overlay-bg);
+    backdrop-filter: blur(4px);
+}
+
+/* Theme toggle icon visibility */
+html.dark #theme-toggle .fa-moon {
+    display: none;
+}
+html.dark #theme-toggle .fa-sun {
+    display: inline-block; /* Or block, depending on layout */
+}
+
+/* Invert logo in dark mode (optional - uncomment if needed) */
+/*
+html.dark .header-container img {
+    filter: invert(1) hue-rotate(180deg);
+}
+*/
