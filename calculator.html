@@ -4,27 +4,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calcul de Moyenne - Université de Bejaia</title> <!-- Slightly improved title -->
-    <meta name="description" content="Calculateur de moyenne simple et efficace pour les étudiants de l'Université de Bejaia."> <!-- Improved description -->
+    <title>Calculateur de Moyenne - Université de Bejaia</title>
+    <meta name="description" content="Calculateur de moyenne simple et efficace pour les étudiants de l'Université de Bejaia. Calculez votre moyenne par semestre et module.">
     <meta name="author" content="Amara Mehdi">
-    <meta name="keywords" content="Université de Bejaia, Moyenne, Calcul, Notes, Étudiant, E-Campus"> <!-- Added keywords -->
+    <meta name="keywords" content="Université de Bejaia, Moyenne, Calcul, Notes, Étudiant, E-Campus, FS sciences, calculatrice moyenne, rattrapage, compensation, LMD">
     <meta name="robots" content="index, follow">
-    <link rel="icon" type="image/png" href="assets/img/icon.png"> <!-- Make sure this path is correct -->
+    <link rel="icon" type="image/png" href="assets/img/icon.png">
     <meta property="og:url" content="https://amaramehdi.github.io/moyenne-universite-bejaia/">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Calcul de Moyenne Université de Bejaia">
-    <meta property="og:description" content="Calculateur de moyenne simple et efficace pour les étudiants de l'Université de Bejaia.">
+    <meta property="og:title" content="Calculateur de Moyenne Université de Bejaia">
+    <meta property="og:description" content="Calculez facilement votre moyenne universitaire par semestre à l'Université de Bejaia.">
     <meta property="og:image"
-        content="https://masterpiecer-images.s3.yandex.net/b08e69b27e0b11eeb532aaafe6635749:upscaled"> <!-- Consider a custom OG image -->
+        content="https://masterpiecer-images.s3.yandex.net/b08e69b27e0b11eeb532aaafe6635749:upscaled">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" /> <!-- Updated Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"> <!-- Added 800 weight -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Orbitron:wght@400..900&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
-    <!-- Leaflet CSS removed as it wasn't used -->
-    <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico"> <!-- Make sure this path is correct -->
-    <!-- <link rel="stylesheet" href="assets/css/floating-menu.css"> --> <!-- Assuming this is not needed -->
+    <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico">
 
     <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7539806376887582"
@@ -35,38 +37,56 @@
 
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
         gtag('js', new Date());
         gtag('config', 'G-4QK3R858YJ');
     </script>
 
     <!-- Firebase SDK -->
     <script type="module">
-        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js';
-        import { getFirestore, collection, getDocs, query, where, orderBy } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js';
+        import {
+            initializeApp
+        } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js';
+        import {
+            getFirestore,
+            collection,
+            getDocs,
+            query,
+            where,
+            orderBy
+        } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js';
 
         // --- IMPORTANT: REPLACE WITH YOUR ACTUAL FIREBASE CONFIG ---
         const firebaseConfig = {
-            apiKey: "AIzaSyB5XYqWKhHdiVDXJx4iOwtpxD8eUCPRfKU",
-            authDomain: "universite-de-bejaia-547fc.firebaseapp.com",
-            projectId: "universite-de-bejaia-547fc",
-            storageBucket: "universite-de-bejaia-547fc.firebasestorage.app",
-            messagingSenderId: "517622731583",
-            appId: "1:517622731583:web:25453d5e01226585bf798a",
-            measurementId: "G-SQ0WWSCS7B"
+            apiKey: "AIzaSyB5XYqWKhHdiVDXJx4iOwtpxD8eUCPRfKU", // Replace with your actual API Key
+            authDomain: "universite-de-bejaia-547fc.firebaseapp.com", // Replace with your actual Auth Domain
+            projectId: "universite-de-bejaia-547fc", // Replace with your actual Project ID
+            storageBucket: "universite-de-bejaia-547fc.firebasestorage.app", // Replace with your actual Storage Bucket
+            messagingSenderId: "517622731583", // Replace with your actual Messaging Sender ID
+            appId: "1:517622731583:web:25453d5e01226585bf798a", // Replace with your actual App ID
+            measurementId: "G-SQ0WWSCS7B" // Replace with your actual Measurement ID
         };
         // ---------------------------------------------------------
 
         try {
             const app = initializeApp(firebaseConfig);
             window.db = getFirestore(app);
-            window.firestoreFunctions = { collection, getDocs, query, where, orderBy };
+            window.firestoreFunctions = {
+                collection,
+                getDocs,
+                query,
+                where,
+                orderBy
+            };
             console.log("Firebase initialized successfully.");
         } catch (error) {
             console.error("Firebase initialization failed:", error);
             const placeholder = document.getElementById('module-placeholder');
             if (placeholder) {
-                placeholder.textContent = 'Erreur d\'initialisation de la base de données. Vérifiez la console.';
+                placeholder.textContent = 'Erreur d\'initialisation de la base de données. Veuillez réessayer plus tard.';
             }
         }
     </script>
@@ -76,13 +96,15 @@
         :root {
             --primary-color: #007bff;
             --secondary-color: #0056b3;
-            --accent-color: #00e6e6; /* Aqua accent */
+            --accent-color: #00e6e6;
+            /* Aqua accent */
             --bg-gradient-start: #0f0c29;
             --bg-gradient-mid: #302b63;
             --bg-gradient-end: #24243e;
             --text-light: #eee;
             --text-dark: #fff;
-            --card-bg: rgba(255, 255, 255, 0.07); /* Slightly more opaque card */
+            --card-bg: rgba(255, 255, 255, 0.07);
+            /* Slightly more opaque card */
             --card-border: rgba(255, 255, 255, 0.15);
             --input-bg: rgba(255, 255, 255, 0.1);
             --input-border: rgba(255, 255, 255, 0.2);
@@ -94,7 +116,9 @@
             --shadow-color-light: rgba(0, 0, 0, 0.2);
         }
 
-        html { scroll-behavior: smooth; }
+        html {
+            scroll-behavior: smooth;
+        }
 
         body {
             font-family: 'Poppins', sans-serif;
@@ -110,76 +134,98 @@
 
         .container {
             width: 90%;
-            max-width: 1100px; /* Slightly narrower max-width */
+            max-width: 1100px;
+            /* Slightly narrower max-width */
             margin: 0 auto;
             padding: 20px;
-            flex-grow: 1; /* Allow container to grow */
+            flex-grow: 1;
+            /* Allow container to grow */
         }
 
         /* Improved Header */
         .main-header {
-            padding: 1rem 0; /* Vertical padding */
-            margin-bottom: 1.5rem; /* Space below header */
-            position: relative; /* For back button positioning */
+            padding: 1rem 0;
+            /* Vertical padding */
+            margin-bottom: 1.5rem;
+            /* Space below header */
+            position: relative;
+            /* For back button positioning */
         }
 
         .header-content {
             display: flex;
-            justify-content: center; /* Center logo */
+            justify-content: center;
+            /* Center logo */
             align-items: center;
-            position: relative; /* Keep context for back button */
+            position: relative;
+            /* Keep context for back button */
         }
 
-         .back-button {
+        .back-button {
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            color: var(--accent-color); /* Use accent color */
+            color: var(--accent-color);
+            /* Use accent color */
             font-weight: 500;
             font-size: 0.9rem;
-            padding: 0.6rem 1.2rem; /* Slightly larger padding */
+            padding: 0.6rem 1.2rem;
+            /* Slightly larger padding */
             border-radius: 9999px;
             background: var(--card-bg);
             border: 1px solid var(--card-border);
             transition: all 0.3s ease;
             position: absolute;
-            top: 50%; /* Vertically center relative to header content */
-            left: 0; /* Position to the far left */
-            transform: translateY(-50%); /* Precise vertical centering */
+            top: 50%;
+            /* Vertically center relative to header content */
+            left: 0;
+            /* Position to the far left */
+            transform: translateY(-50%);
+            /* Precise vertical centering */
             z-index: 10;
         }
+
         .back-button:hover {
             background-color: rgba(255, 255, 255, 0.15);
             color: var(--text-dark);
-            transform: translateY(-50%) scale(1.05); /* Keep vertical centering */
+            transform: translateY(-50%) scale(1.05);
+            /* Keep vertical centering */
             box-shadow: 0 2px 10px var(--shadow-color-light);
             text-decoration: none;
         }
-        .back-button i { font-size: 1rem; }
+
+        .back-button i {
+            font-size: 1rem;
+        }
 
         .logo-container img {
-             max-width: 220px; /* Adjusted logo size */
-             height: auto;
+            max-width: 220px;
+            /* Adjusted logo size */
+            height: auto;
         }
 
         /* Title Banner */
         .title-banner {
-             background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-             color: var(--text-dark);
-             padding: 1.8rem;
-             border-radius: 1rem;
-             box-shadow: 0 8px 20px rgba(0, 86, 179, 0.25);
-             text-align: center;
-             margin-bottom: 2.5rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--text-dark);
+            padding: 1.8rem;
+            border-radius: 1rem;
+            box-shadow: 0 8px 20px rgba(0, 86, 179, 0.25);
+            text-align: center;
+            margin-bottom: 2.5rem;
         }
+
         .title-banner h1 {
-             font-size: 2rem; /* Adjusted size */
-             font-weight: 700;
-             margin-bottom: 0.5rem;
-             text-shadow: 1px 1px 3px var(--shadow-color-light);
+            font-size: 2rem;
+            /* Adjusted size */
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-shadow: 1px 1px 3px var(--shadow-color-light);
         }
+
         .title-banner p {
-            font-size: 0.95rem; /* Adjusted size */
+            font-size: 0.95rem;
+            /* Adjusted size */
             opacity: 0.9;
         }
 
@@ -187,9 +233,12 @@
         /* Main Card Styling */
         .glass-card {
             background: var(--card-bg);
-            backdrop-filter: blur(12px); /* Slightly more blur */
-            border-radius: 1.2rem; /* Slightly larger radius */
-            padding: clamp(1.5rem, 5vw, 2.5rem); /* Responsive padding */
+            backdrop-filter: blur(12px);
+            /* Slightly more blur */
+            border-radius: 1.2rem;
+            /* Slightly larger radius */
+            padding: clamp(1.5rem, 5vw, 2.5rem);
+            /* Responsive padding */
             box-shadow: 0 8px 32px 0 var(--shadow-color-light);
             border: 1px solid var(--card-border);
             margin-bottom: 2.5rem;
@@ -197,7 +246,8 @@
 
         /* Selection Inputs Area */
         .selection-area {
-            padding-bottom: 1.5rem; /* Only padding bottom */
+            padding-bottom: 1.5rem;
+            /* Only padding bottom */
             border-bottom: 1px solid var(--card-border);
             margin-bottom: 2rem;
         }
@@ -205,31 +255,53 @@
         .selection-inputs {
             display: flex;
             flex-direction: column;
-            gap: 1rem; /* Adjusted gap */
+            gap: 1rem;
+            /* Adjusted gap */
         }
 
-        .form-group { margin-bottom: 0; }
+        .form-group {
+            margin-bottom: 0;
+        }
 
         label {
             display: block;
             font-weight: 500;
             margin-bottom: 0.5rem;
             color: var(--text-light);
-            font-size: 0.9rem; /* Slightly smaller label */
+            font-size: 0.9rem;
+            /* Slightly smaller label */
         }
 
         select,
-        input[type="text"], /* Apply to text inputs as well */
+        input[type="text"],
+        /* Apply to text inputs as well */
         input[type="number"] {
             width: 100%;
-            padding: 0.8rem 1rem; /* Adjust padding */
-            border-radius: 0.6rem; /* Slightly smaller radius */
+            padding: 0.8rem 1rem;
+            /* Adjust padding */
+            border-radius: 0.6rem;
+            /* Slightly smaller radius */
             border: 1px solid var(--input-border);
             background-color: var(--input-bg);
             color: var(--text-dark);
             transition: all 0.3s ease;
             font-size: 0.95rem;
+            line-height: 1.5;
+            /* Ensure consistent height */
         }
+
+        input[type="number"] {
+            -moz-appearance: textfield;
+            /* Hide arrows in Firefox */
+        }
+
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            /* Hide arrows in Chrome/Safari */
+            margin: 0;
+        }
+
 
         select:focus,
         input:focus {
@@ -239,27 +311,31 @@
         }
 
         .selection-input {
-             padding: 12px 15px;
-             border-radius: 10px;
-             box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
-             appearance: none;
-             -webkit-appearance: none;
-             -moz-appearance: none;
-             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23fff' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
-             background-repeat: no-repeat;
-             background-position: right 1rem center;
-             background-size: 1.2rem;
-             touch-action: manipulation;
-             cursor: pointer; /* Indicate it's clickable */
+            padding: 12px 15px;
+            border-radius: 10px;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23fff' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 1.2rem;
+            touch-action: manipulation;
+            cursor: pointer;
+            /* Indicate it's clickable */
         }
+
         .selection-input:disabled {
-             opacity: 0.5;
-             cursor: not-allowed;
+            opacity: 0.5;
+            cursor: not-allowed;
         }
+
         .selection-input:focus {
             border-color: var(--accent-color);
             box-shadow: 0 0 0 4px rgba(0, 230, 230, 0.25);
         }
+
         select option {
             background-color: #1e293b;
             color: var(--text-dark);
@@ -276,6 +352,7 @@
             border-left: 5px solid var(--primary-color);
             transition: all 0.3s ease-out;
         }
+
         .module-card:hover {
             transform: translateY(-5px) scale(1.02);
             box-shadow: 0 8px 25px var(--shadow-color);
@@ -300,7 +377,11 @@
         .custom-input {
             text-align: center;
             font-weight: 500;
+            padding-left: 0.5rem !important;
+            /* Adjust padding for center text */
+            padding-right: 0.5rem !important;
         }
+
         .custom-input:focus {
             border-color: var(--accent-color);
             box-shadow: 0 0 0 3px rgba(0, 230, 230, 0.3);
@@ -321,8 +402,18 @@
             flex-wrap: wrap;
             gap: 0.75rem;
         }
-        .avg-text { font-weight: 700; font-size: 1rem; }
-        .elim-text { font-size: 0.8rem; font-style: italic; margin-left: 0.3rem; color: var(--error-color); }
+
+        .avg-text {
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .elim-text {
+            font-size: 0.8rem;
+            font-style: italic;
+            margin-left: 0.3rem;
+            color: var(--error-color);
+        }
 
         .min-exam-btn,
         .clear-module-btn {
@@ -336,7 +427,11 @@
             cursor: pointer;
             transition: all 0.2s ease;
         }
-        .clear-module-btn { background: linear-gradient(to right, var(--error-color), #b71c1c); }
+
+        .clear-module-btn {
+            background: linear-gradient(to right, var(--error-color), #b71c1c);
+        }
+
         .min-exam-btn:hover,
         .clear-module-btn:hover {
             transform: translateY(-2px);
@@ -345,13 +440,18 @@
 
         /* Detailed results section */
         #resultats {
-            transition: max-height 0.7s ease-out, opacity 0.5s ease-out; /* Smoother transitions */
+            transition: max-height 0.7s ease-out, opacity 0.5s ease-out;
+            /* Smoother transitions */
             max-height: 0;
             opacity: 0;
             overflow: hidden;
             margin-top: 2.5rem;
         }
-        #resultats.visible { max-height: 2000px; opacity: 1; }
+
+        #resultats.visible {
+            max-height: 2000px;
+            opacity: 1;
+        }
 
         .module-result-card {
             border: 1px solid var(--card-border);
@@ -362,55 +462,101 @@
             background: rgba(255, 255, 255, 0.05);
             transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
+
         .module-result-card:hover {
             transform: scale(1.03);
-             box-shadow: 0 4px 15px var(--shadow-color-light);
+            box-shadow: 0 4px 15px var(--shadow-color-light);
         }
-        .module-result-title { font-weight: 600; color: var(--text-light); margin-bottom: 0.3rem; }
-        .module-result-avg { font-weight: 700; font-size: 1.1rem; }
-        .module-result-elim { font-size: 0.75rem; font-style: italic; margin-left: 0.3rem; color: var(--error-color); }
+
+        .module-result-title {
+            font-weight: 600;
+            color: var(--text-light);
+            margin-bottom: 0.3rem;
+            font-size: 0.95rem;
+            /* Slightly larger title */
+        }
+
+        .module-result-avg {
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .module-result-elim {
+            font-size: 0.75rem;
+            font-style: italic;
+            margin-left: 0.3rem;
+            color: var(--error-color);
+        }
 
         /* General average display - Enhanced */
         .moyenne-generale {
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
-            background-size: 250% 250%;
+            background: linear-gradient(135deg, var(--bg-gradient-mid), var(--bg-gradient-end)); /* Darker base gradient */
             color: var(--text-dark);
-            border-radius: 1rem; /* Consistent radius */
+            border-radius: 1rem;
             padding: 2rem 1.5rem;
-            box-shadow: 0 10px 35px rgba(0, 123, 255, 0.3);
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.3);
             position: relative;
             overflow: hidden;
-            animation: gradientShift 7s ease infinite, subtlePulse 3s infinite alternate;
+            animation: subtlePulse 3s infinite alternate;
             text-align: center;
             transition: transform 0.4s ease, box-shadow 0.4s ease;
+            border: 1px solid var(--card-border);
         }
+
         .moyenne-generale:hover {
-             transform: scale(1.02);
-             box-shadow: 0 14px 45px rgba(0, 123, 255, 0.4);
+            transform: scale(1.02);
+            box-shadow: 0 14px 45px rgba(0, 0, 0, 0.4);
         }
 
         @keyframes subtlePulse {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.015); } /* Very subtle pulse */
-        }
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+            0% {
+                transform: scale(1);
+            }
+
+            100% {
+                transform: scale(1.015);
+            }
+            /* Very subtle pulse */
         }
 
         .moyenne-generale.validated {
-            box-shadow: 0 0 20px var(--accent-color), 0 0 40px var(--primary-color); /* Accent glow */
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%); /* Bright validated gradient */
+            animation: gradientShift 7s ease infinite, subtlePulse 3s infinite alternate;
+            box-shadow: 0 0 20px var(--accent-color), 0 0 40px var(--primary-color);
+            /* Accent glow */
         }
+         .moyenne-generale.eliminated {
+              background: linear-gradient(135deg, var(--error-color) 0%, #b71c1c 100%); /* Error gradient */
+              box-shadow: 0 0 20px var(--error-color), 0 0 40px #b71c1c;
+         }
+
 
         .moyenne-generale-val {
-            font-size: 3.2rem; /* Slightly adjusted */
+            font-family: 'Orbitron', sans-serif;
+            /* Futuristic font */
+            font-size: 3.2rem;
+            /* Slightly adjusted */
             font-weight: 800;
             text-shadow: 0 2px 5px var(--shadow-color);
             transition: all 0.5s ease;
             margin-bottom: 0.75rem;
-             line-height: 1; /* Ensure tight line height */
+            line-height: 1;
+            /* Ensure tight line height */
+            color: white;
+            /* Ensure text is white by default */
         }
+
+        .moyenne-generale.validated .moyenne-generale-val {
+            color: var(--accent-color);
+            /* Accent color when validated */
+            text-shadow: 0 0 8px var(--accent-color);
+        }
+
+        .moyenne-generale.eliminated .moyenne-generale-val {
+            color: var(--text-dark); /* White text on red gradient */
+            text-shadow: 0 0 8px rgba(0,0,0,0.5);
+        }
+
 
         .progress-bar {
             width: 100%;
@@ -420,87 +566,206 @@
             margin-top: 1.5rem;
             overflow: hidden;
         }
+
         .progress-bar-fill {
             height: 100%;
-            background: linear-gradient(to right, var(--accent-color), var(--primary-color)); /* Accent gradient */
+            background: linear-gradient(to right, var(--accent-color), var(--primary-color));
+            /* Accent gradient */
             transition: width 1.5s cubic-bezier(0.25, 1, 0.5, 1);
             border-radius: 5px;
         }
+        .moyenne-generale.eliminated .progress-bar-fill { background: linear-gradient(to right, var(--error-color), #b71c1c); }
+
 
         #validation-status {
             margin-top: 1.2rem;
             font-weight: 600;
-            font-size: 1.05rem; /* Adjusted size */
+            font-size: 1.05rem;
+            /* Adjusted size */
             text-shadow: 1px 1px 2px var(--shadow-color-light);
-            min-height: 1.5em; /* Prevent layout shift */
+            min-height: 1.5em;
+            /* Prevent layout shift */
         }
-        #validation-status.validated-status { color: var(--success-color); }
-        #validation-status.eliminated-status { color: var(--error-color); }
-        #validation-status.not-validated-status { color: var(--warning-color); }
+
+        #validation-status.validated-status {
+            color: var(--success-color);
+        }
+
+        #validation-status.eliminated-status {
+            color: var(--error-color);
+        }
+
+        #validation-status.not-validated-status {
+            color: var(--warning-color);
+        }
 
         .credits-row {
             display: flex;
             justify-content: space-around;
+            align-items: center;
+            /* Align items vertically */
             margin-top: 1.2rem;
             padding-top: 1rem;
             border-top: 1px solid var(--card-border);
             font-size: 0.95rem;
+            flex-wrap: wrap;
+            /* Allow wrapping on small screens */
+            gap: 0.75rem;
+            /* Space between items when wrapped */
         }
 
+        .credits-row span {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-weight: 500; /* Make credit numbers stand out */
+        }
+
+        .credits-row i {
+            font-size: 1.1em;
+        }
+
+        #credits-validated {
+            color: var(--success-color);
+        }
+
+        #credits-attempted {
+            color: var(--text-light);
+            /* Or a neutral color */
+        }
+
+
+        /* Guidance Section */
+        #guidance-section {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--card-border);
+            border-left: 5px solid var(--accent-color);
+            /* Accent border */
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            box-shadow: 0 4px 15px var(--shadow-color-light);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        #guidance-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        #guidance-section.eliminated-guidance {
+             border-left-color: var(--error-color);
+        }
+        #guidance-section.warning-guidance {
+             border-left-color: var(--warning-color);
+        }
+
+
+        #guidance-section h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+            /* Title color */
+        }
+         #guidance-section.eliminated-guidance h3 { color: var(--error-color); }
+         #guidance-section.warning-guidance h3 { color: var(--warning-color); }
+
+
+        #guidance-section p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+        }
+
+        #guidance-section a {
+            color: var(--primary-color);
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        #guidance-section a:hover {
+            color: var(--text-dark);
+            text-decoration: underline;
+        }
+
+
         /* Instagram Button */
-         .instagram-btn {
-             display: inline-flex;
-             align-items: center;
-             justify-content: center; /* Center icon */
-             margin-top: 1.5rem; /* Space above button */
-             padding: 0.6rem 1rem;
-             border-radius: 8px;
-             background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-             color: white;
-             text-decoration: none;
-             font-weight: 600;
-             font-size: 0.9rem;
-             transition: all 0.3s ease;
-             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-         }
-         .instagram-btn:hover {
-             transform: translateY(-2px) scale(1.05);
-             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-             filter: brightness(1.1);
-         }
-         .instagram-btn i {
-             font-size: 1.3em; /* Larger icon */
-             margin-right: 0.5rem;
-         }
+        .instagram-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            /* Center icon */
+            margin-top: 1.5rem;
+            /* Space above button */
+            padding: 0.6rem 1rem;
+            border-radius: 8px;
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .instagram-btn:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+            filter: brightness(1.1);
+        }
+
+        .instagram-btn i {
+            font-size: 1.3em;
+            /* Larger icon */
+            margin-right: 0.5rem;
+        }
 
         /* What-if section */
         .what-if-card {
             background: rgba(255, 255, 255, 0.05);
             border: 2px dashed var(--card-border);
             border-radius: 10px;
-            padding: 1.5rem; /* Increased padding */
+            padding: 1.5rem;
+            /* Increased padding */
             margin-top: 2.5rem;
             box-shadow: 0 4px 15px var(--shadow-color-light);
         }
+
         .what-if-row {
             display: flex;
             align-items: center;
             gap: 1rem;
             flex-wrap: wrap;
         }
+
+        .what-if-label {
+            font-weight: 500;
+            /* Match label weight */
+            min-width: 120px;
+            /* Give labels some width */
+        }
+
         .what-if-input {
-            padding: 8px 10px; /* Adjust padding */
+            padding: 8px 10px;
+            /* Adjust padding */
             border-radius: 6px;
             width: 90px;
             background: var(--input-bg);
             color: var(--text-dark);
             border: 1px solid var(--input-border);
             font-size: 0.9rem;
+            text-align: center;
+            /* Center text */
         }
-         .what-if-input:focus {
-             border-color: var(--accent-color);
-             box-shadow: 0 0 0 3px rgba(0, 230, 230, 0.3);
-         }
+
+        .what-if-input:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(0, 230, 230, 0.3);
+        }
+
         .what-if-btn {
             background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
             color: var(--text-dark);
@@ -508,15 +773,19 @@
             border-radius: 6px;
             font-weight: 600;
             transition: all 0.3s ease;
-             border: none;
-             cursor: pointer;
+            border: none;
+            cursor: pointer;
         }
+
         .what-if-btn:hover {
             background: linear-gradient(to right, var(--secondary-color), var(--primary-color));
             transform: translateY(-2px);
             filter: brightness(1.1);
         }
-        .what-if-btn i { margin-right: 0.4rem; }
+
+        .what-if-btn i {
+            margin-right: 0.4rem;
+        }
 
         /* Action buttons row */
         .action-buttons-row {
@@ -524,12 +793,15 @@
             justify-content: center;
             flex-wrap: wrap;
             gap: 1rem;
-            margin-top: 2rem; /* Increased margin */
+            margin-top: 2rem;
+            /* Increased margin */
             padding-top: 1.5rem;
             border-top: 1px solid var(--card-border);
         }
+
         .action-btn {
-            padding: 0.7rem 1.4rem; /* Slightly larger */
+            padding: 0.7rem 1.4rem;
+            /* Slightly larger */
             border-radius: 8px;
             font-weight: 600;
             transition: all 0.3s ease;
@@ -539,22 +811,25 @@
             gap: 0.5rem;
             border: none;
             cursor: pointer;
-             box-shadow: 0 2px 5px var(--shadow-color-light);
+            box-shadow: 0 2px 5px var(--shadow-color-light);
         }
+
         .action-btn:hover {
-             transform: translateY(-2px) scale(1.03);
-             box-shadow: 0 4px 10px var(--shadow-color);
+            transform: translateY(-2px) scale(1.03);
+            box-shadow: 0 4px 10px var(--shadow-color);
         }
+
         .action-btn:disabled {
-             opacity: 0.5;
-             cursor: not-allowed;
-             transform: none;
-             box-shadow: none;
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
         }
 
         .tooltip {
             position: absolute;
-            bottom: 130%; /* Further above */
+            bottom: 130%;
+            /* Further above */
             left: 50%;
             transform: translateX(-50%);
             background: rgba(0, 0, 0, 0.85);
@@ -567,187 +842,434 @@
             transition: all 0.2s ease-in-out;
             white-space: nowrap;
             z-index: 20;
+            pointer-events: none;
+            /* Don't interfere with clicks */
         }
+
         .tooltip::after {
-             content: "";
-             position: absolute;
-             top: 100%; left: 50%; margin-left: -5px;
-             border-width: 5px; border-style: solid;
-             border-color: rgba(0, 0, 0, 0.85) transparent transparent transparent;
-         }
-         .action-btn:hover .tooltip { opacity: 1; visibility: visible; }
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: rgba(0, 0, 0, 0.85) transparent transparent transparent;
+        }
+
+        .action-btn:hover .tooltip {
+            opacity: 1;
+            visibility: visible;
+        }
 
 
-        .save-load-btn { background: linear-gradient(to right, var(--primary-color), var(--secondary-color)); color: var(--text-dark); }
-        .clear-btn { background: linear-gradient(to right, var(--error-color), #b71c1c); color: var(--text-dark); }
-        .calculate-btn { background: linear-gradient(135deg, var(--accent-color), var(--primary-color)); color: var(--text-dark); } /* Accent gradient */
+        .save-load-btn {
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            color: var(--text-dark);
+        }
+
+        .clear-btn {
+            background: linear-gradient(to right, var(--error-color), #b71c1c);
+            color: var(--text-dark);
+        }
+
+        .calculate-btn {
+            background: linear-gradient(135deg, var(--accent-color), var(--primary-color));
+            color: var(--text-dark);
+        }
+        /* Accent gradient */
 
 
         /* Loader animation */
         .loader {
             border: 4px solid rgba(255, 255, 255, 0.2);
-            border-top: 4px solid var(--accent-color); /* Use accent color */
+            border-top: 4px solid var(--accent-color);
+            /* Use accent color */
             border-radius: 50%;
             width: 24px;
             height: 24px;
             animation: spin 1s linear infinite;
             margin-left: 10px;
-            display: inline-block; /* Ensure it takes space */
+            display: inline-block;
+            /* Ensure it takes space */
+            vertical-align: middle;
+            /* Align with text */
         }
-        .action-btn .loader { width: 18px; height: 18px; border-width: 3px; } /* Smaller loader in buttons */
+
+        .action-btn .loader {
+            width: 18px;
+            height: 18px;
+            border-width: 3px;
+            margin-left: 0.5rem;
+            /* Space after icon/text */
+        }
 
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
 
         /* Modal styles */
         .modal {
             display: none;
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.75); /* Darker overlay */
-            backdrop-filter: blur(5px); /* Blur background */
-            justify-content: center; align-items: center;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            /* Darker overlay */
+            backdrop-filter: blur(5px);
+            /* Blur background */
+            justify-content: center;
+            align-items: center;
             z-index: 1000;
         }
+
         .modal-content {
-            background: rgba(30, 41, 59, 0.95); /* Darker modal */
+            background: rgba(30, 41, 59, 0.95);
+            /* Darker modal */
             backdrop-filter: blur(10px);
-            padding: 2rem; /* More padding */
+            padding: 2rem;
+            /* More padding */
             border-radius: 1rem;
             text-align: center;
-            max-width: 90%; width: 450px; /* Slightly wider */
+            max-width: 90%;
+            width: 450px;
+            /* Slightly wider */
             box-shadow: 0 10px 40px var(--shadow-color);
             position: relative;
-            animation: slideIn 0.4s cubic-bezier(0.25, 1, 0.5, 1); /* Smoother slide */
+            animation: slideIn 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            /* Smoother slide */
             color: var(--text-dark);
             border: 1px solid var(--card-border);
         }
+
         @keyframes slideIn {
-            from { transform: translateY(-30px) scale(0.95); opacity: 0; }
-            to { transform: translateY(0) scale(1); opacity: 1; }
+            from {
+                transform: translateY(-30px) scale(0.95);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
         }
 
         .modal-close {
-            position: absolute; top: 0.75rem; right: 0.75rem;
-            background: var(--error-color); color: var(--text-dark);
-            border: none; border-radius: 50%;
-            width: 30px; height: 30px; cursor: pointer;
-            font-size: 1rem; line-height: 30px; text-align: center;
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            background: var(--error-color);
+            color: var(--text-dark);
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            font-size: 1rem;
+            line-height: 30px;
+            text-align: center;
             transition: all 0.2s ease;
         }
-        .modal-close:hover { background: #b71c1c; transform: scale(1.1); }
 
-        .modal-buttons { display: flex; justify-content: center; gap: 1rem; margin-top: 1.5rem; }
+        .modal-close:hover {
+            background: #b71c1c;
+            transform: scale(1.1);
+        }
+
+        .modal-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
         .modal-btn {
-            padding: 0.6rem 1.8rem; /* Adjust padding */
-            border-radius: 8px; font-weight: 600; cursor: pointer;
+            padding: 0.6rem 1.8rem;
+            /* Adjust padding */
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
             transition: transform 0.2s ease, filter 0.2s ease;
             border: none;
-             box-shadow: 0 2px 5px var(--shadow-color-light);
+            box-shadow: 0 2px 5px var(--shadow-color-light);
         }
-        .modal-btn:hover { transform: scale(1.05); filter: brightness(1.1); }
-        .modal-btn.confirm { background: var(--primary-color); color: var(--text-dark); }
-        .modal-btn.cancel { background: var(--error-color); color: var(--text-dark); }
+
+        .modal-btn:hover {
+            transform: scale(1.05);
+            filter: brightness(1.1);
+        }
+
+        .modal-btn.confirm {
+            background: var(--primary-color);
+            color: var(--text-dark);
+        }
+
+        .modal-btn.cancel {
+            background: var(--error-color);
+            color: var(--text-dark);
+        }
+
+        /* Ad Placeholder Styling */
+        .ad-container {
+            margin: 2rem auto;
+            text-align: center;
+            max-width: 728px;
+            /* Common ad size */
+            /* Add padding/border if you want a visual box even if ad doesn't load */
+             /* background: rgba(255,255,255,0.03); */
+             /* border: 1px dashed rgba(255,255,255,0.1); */
+             /* border-radius: 8px; */
+        }
+         .ad-container ins {
+              display: block !important; /* Ensure AdSense ins tag takes space */
+         }
+
 
         /* Responsive adjustments */
         @media (min-width: 768px) {
-             .selection-inputs {
-                 flex-direction: row;
-                 justify-content: space-between;
-                 gap: 1.5rem; /* Gap between items */
-             }
-             .form-group {
-                 flex: 1; /* Allow groups to grow equally */
-                 min-width: 0; /* Prevent overflow issues with flex */
-             }
-             .back-button {
-                 left: 1rem; /* Adjust position */
-             }
+            .selection-inputs {
+                flex-direction: row;
+                justify-content: space-between;
+                gap: 1.5rem;
+                /* Gap between items */
+            }
+
+            .form-group {
+                flex: 1;
+                /* Allow groups to grow equally */
+                min-width: 0;
+                /* Prevent overflow issues with flex */
+            }
+
+            .back-button {
+                left: 1rem;
+                /* Adjust position */
+            }
         }
 
         @media (max-width: 768px) {
-             .note-inputs { grid-template-columns: repeat(auto-fit, minmax(75px, 1fr)); } /* Adjust grid */
-             .glass-card { padding: 1.2rem; }
-             .module-card { padding: 1rem; }
-             body { padding-bottom: 60px; } /* Space for potential bottom nav */
-             .moyenne-generale-val { font-size: 2.8rem; }
-             .title-banner h1 { font-size: 1.8rem; }
-             .selection-inputs { flex-direction: column; gap: 1rem; }
-             .form-group { width: 100%; }
-             .main-header { margin-bottom: 1rem; } /* Reduce margin */
-             .header-content { flex-direction: column; align-items: center;} /* Center logo above button */
-             .back-button { position: static; margin-bottom: 1rem; } /* Reset button position */
-             .logo-container { margin-bottom: 1.5rem; } /* Adjust space */
-             .action-buttons-row { gap: 0.75rem; }
-             .action-btn { padding: 0.7rem 1.2rem; }
+            .note-inputs {
+                grid-template-columns: repeat(auto-fit, minmax(75px, 1fr));
+            }
+            /* Adjust grid */
+
+            .glass-card {
+                padding: 1.2rem;
+            }
+
+            .module-card {
+                padding: 1rem;
+            }
+
+            body {
+                padding-bottom: 60px;
+            }
+            /* Space for potential bottom nav */
+
+            .moyenne-generale-val {
+                font-size: 2.8rem;
+            }
+
+            .title-banner h1 {
+                font-size: 1.8rem;
+            }
+
+            .selection-inputs {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .form-group {
+                width: 100%;
+            }
+
+            .main-header {
+                margin-bottom: 1rem;
+            }
+            /* Reduce margin */
+
+            .header-content {
+                flex-direction: column;
+                align-items: center;
+            }
+            /* Center logo above button */
+
+            .back-button {
+                position: static;
+                margin-bottom: 1rem;
+            }
+            /* Reset button position */
+
+            .logo-container {
+                margin-bottom: 1.5rem;
+            }
+            /* Adjust space */
+
+            .action-buttons-row {
+                gap: 0.75rem;
+            }
+
+            .action-btn {
+                padding: 0.7rem 1.2rem;
+            }
+
+            .modal-content {
+                padding: 1.5rem;
+                width: 95%;
+            }
+
+            .moyenne-generale-val {
+                font-size: 2.5rem;
+            }
+
+            .title-banner h1 {
+                font-size: 1.6rem;
+            }
+
+            .title-banner {
+                padding: 1.5rem;
+            }
+
+            .credits-row {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+             .what-if-label { min-width: auto; } /* Reset min-width */
+             .what-if-row { justify-content: center; } /* Center items */
+             .what-if-input { width: 100%; max-width: 120px; }
         }
 
         @media (max-width: 480px) {
-             .selection-input, .custom-input { font-size: 0.9rem; padding: 10px 12px; }
-             .what-if-row { flex-direction: column; align-items: stretch; gap: 0.75rem; }
-             .what-if-input { width: 100px; }
-             footer { padding: 1.5rem 0.75rem; }
-             .container { padding-left: 0.75rem; padding-right: 0.75rem; }
-             .action-btn { padding: 0.7rem; font-size: 0.9rem; gap: 0.4rem; }
-             .modal-content { padding: 1.5rem; width: 95%; }
-             .moyenne-generale-val { font-size: 2.5rem; }
-             .title-banner h1 { font-size: 1.6rem; }
-             .title-banner { padding: 1.5rem; }
+            .selection-input,
+            .custom-input {
+                font-size: 0.9rem;
+                padding: 10px 12px;
+            }
+
+            .what-if-row {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0.75rem;
+            }
+
+            .what-if-input {
+                width: 100%;
+                /* Full width on tiny screens */
+                max-width: 120px;
+                /* Limit max width */
+                margin: 0 auto;
+                /* Center it */
+            }
+
+            footer {
+                padding: 1.5rem 0.75rem;
+            }
+
+            .container {
+                padding-left: 0.75rem;
+                padding-right: 0.75rem;
+            }
+
+            .action-btn {
+                padding: 0.7rem;
+                font-size: 0.9rem;
+                gap: 0.4rem;
+            }
+
+            .modal-content {
+                padding: 1.5rem;
+                width: 95%;
+            }
+
+            .moyenne-generale-val {
+                font-size: 2.5rem;
+            }
+
+            .title-banner h1 {
+                font-size: 1.6rem;
+            }
+
+            .title-banner {
+                padding: 1.5rem;
+            }
+
+            .what-if-label {
+                min-width: auto;
+            }
+            /* Reset min-width */
         }
 
         /* Footer styles */
         footer {
-            background: rgba(15, 12, 41, 0.8); /* Darker, slightly transparent */
+            background: rgba(15, 12, 41, 0.8);
+            /* Darker, slightly transparent */
             backdrop-filter: blur(5px);
-            color: #b0b0d0; /* Lighter gray text */
-            padding: 2.5rem 1rem; /* More padding */
+            color: #b0b0d0;
+            /* Lighter gray text */
+            padding: 2.5rem 1rem;
+            /* More padding */
             border-top-left-radius: 1.5rem;
             border-top-right-radius: 1.5rem;
             box-shadow: 0 -5px 25px rgba(0, 0, 0, 0.35);
-            margin-top: auto; /* Stick to bottom */
+            margin-top: auto;
+            /* Stick to bottom */
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             text-align: center;
         }
 
         footer a {
-            color: var(--accent-color); /* Use accent color for links */
+            color: var(--accent-color);
+            /* Use accent color for links */
             transition: color 0.2s ease, text-shadow 0.2s ease;
         }
 
         footer a:hover {
-            color: #fff; /* White on hover */
-            text-shadow: 0 0 5px var(--accent-color); /* Glow effect */
+            color: #fff;
+            /* White on hover */
+            text-shadow: 0 0 5px var(--accent-color);
+            /* Glow effect */
         }
 
         .footer-icon {
-            color: var(--text-light); /* Lighter icon color */
+            color: var(--text-light);
+            /* Lighter icon color */
             transition: transform 0.3s ease, color 0.2s ease;
-            font-size: 1.4rem; /* Larger icons */
+            font-size: 1.4rem;
+            /* Larger icons */
         }
 
         .footer-icon:hover {
             transform: scale(1.2) translateY(-2px);
             color: var(--accent-color);
         }
+
         .footer-links {
-             margin-top: 1rem;
-             display: flex;
-             justify-content: center;
-             gap: 1.5rem; /* Space out icons */
+            margin-top: 1rem;
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            /* Space out icons */
         }
+
         footer p {
-             margin-bottom: 0.5rem; /* Spacing between paragraphs */
-             font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            /* Spacing between paragraphs */
+            font-size: 0.9rem;
         }
+
         footer .copyright {
-             font-size: 0.85rem;
-             opacity: 0.7;
-             margin-top: 1.5rem;
+            font-size: 0.85rem;
+            opacity: 0.7;
+            margin-top: 1.5rem;
         }
-
-
     </style>
 </head>
 
@@ -755,9 +1277,10 @@
     <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl flex-grow py-6">
         <header class="main-header" data-aos="fade-down">
             <div class="header-content">
-                <a href="index.html" class="back-button"><i class="fas fa-arrow-left"></i> Retour</a>
+                <a href="index.html" class="back-button" aria-label="Retour à la page d'accueil"><i
+                        class="fas fa-arrow-left"></i> Retour</a>
                 <div class="logo-container">
-                     <img src="assets/img/LOGO.png" alt="Université de Bejaia" class="mx-auto">
+                    <img src="assets/img/LOGO.png" alt="Université de Bejaia" class="mx-auto">
                 </div>
             </div>
         </header>
@@ -766,6 +1289,19 @@
             <h1>Calculateur de Moyenne</h1>
             <p>Développé par <span class="font-semibold">Amara Mehdi</span></p>
         </div>
+
+        <!-- AdSense Ad Unit 1: Below Title Banner -->
+         <div class="ad-container">
+             <ins class="adsbygoogle"
+                  style="display:block"
+                  data-ad-client="ca-pub-7539806376887582"
+                  data-ad-slot="YOUR_AD_SLOT_1"
+                  data-ad-format="auto"
+                  data-full-width-responsive="true"></ins>
+             <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+         </div>
+         <!-- End AdSense Ad Unit 1 -->
+
 
         <div class="glass-card">
             <div class="selection-area">
@@ -792,31 +1328,37 @@
 
             <div id="what-if-section" class="what-if-card hidden" data-aos="fade-up" data-aos-delay="100">
                 <h3 class="text-lg font-semibold mb-3 text-[#fff]">Calcul "Et Si ?"</h3>
+                <p class="text-sm text-gray-400 mb-4">Entrez vos notes de TD/TP pour calculer la note d'examen nécessaire afin d'atteindre une moyenne cible.</p>
                 <div class="what-if-row">
                     <label for="targetAverage" class="what-if-label text-[#eee]">Moyenne Cible :</label>
-                    <input type="number" id="targetAverage" min="0" max="20" step="0.01" value="10.00"> <!-- Removed class, using general input style -->
-                    <button onclick="calculateWhatIf()" class="what-if-btn"><i class="fas fa-calculator mr-2"></i> <!-- Changed icon -->
+                    <input type="number" id="targetAverage" class="what-if-input" min="0" max="20" step="0.01" value="10.00" aria-label="Moyenne cible pour le calcul Et Si">
+                    <button onclick="calculateWhatIf()" class="what-if-btn" aria-label="Calculer la note minimale d'examen pour la moyenne cible"><i class="fas fa-flask mr-2"></i>
                         Calculer Notes Examen</button>
                 </div>
             </div>
 
             <div class="action-buttons-row">
-                <button id="saveBtn" onclick="saveGrades()" class="action-btn save-load-btn" disabled>
-                    <i class="fas fa-save"></i> Sauvegarder <span id="saveLoader" class="loader hidden"></span>
-                    <span class="tooltip">Sauvegarder vos notes</span>
+                <button id="saveBtn" onclick="saveGrades()" class="action-btn save-load-btn" disabled
+                    aria-label="Sauvegarder les notes">
+                    <i class="fas fa-save"></i> <span class="button-text">Sauvegarder</span> <span id="saveLoader"
+                        class="loader hidden"></span>
+                    <span class="tooltip">Sauvegarder vos notes dans votre navigateur</span>
                 </button>
-                <button id="loadBtn" onclick="loadGrades()" class="action-btn save-load-btn" disabled>
-                    <i class="fas fa-download"></i> Charger <span id="loadLoader" class="loader hidden"></span>
-                    <span class="tooltip">Charger les notes sauvegardées</span>
+                <button id="loadBtn" onclick="loadGrades()" class="action-btn save-load-btn" disabled
+                    aria-label="Charger les notes sauvegardées">
+                    <i class="fas fa-download"></i> <span class="button-text">Charger</span> <span id="loadLoader"
+                        class="loader hidden"></span>
+                    <span class="tooltip">Charger les notes précédemment sauvegardées</span>
                 </button>
-                <button id="clearBtn" onclick="clearGrades()" class="action-btn clear-btn" disabled>
-                    <i class="fas fa-trash-alt"></i> Effacer
-                    <span class="tooltip">Effacer toutes les notes</span>
+                <button id="clearBtn" onclick="clearGrades()" class="action-btn clear-btn" disabled
+                    aria-label="Effacer toutes les notes">
+                    <i class="fas fa-trash-alt"></i> <span class="button-text">Effacer</span>
+                    <span class="tooltip">Effacer toutes les notes de ce semestre</span>
                 </button>
                 <button id="calculateBtn" onclick="calculerMoyenneGenerale()" class="action-btn calculate-btn"
-                    disabled>
-                    <i class="fas fa-chart-line mr-2"></i> Calculer Moyenne <!-- Changed icon -->
-                    <span class="tooltip">Calculer la moyenne générale</span>
+                    disabled aria-label="Calculer la moyenne générale du semestre">
+                    <i class="fas fa-calculator mr-2"></i> <span class="button-text">Calculer Moyenne</span>
+                    <span class="tooltip">Calculer la moyenne générale du semestre</span>
                 </button>
             </div>
 
@@ -825,36 +1367,61 @@
                     Détaillés</h2>
                 <div id="modules-results" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6"></div>
                 <div id="moyenneGenerale" class="moyenne-generale">
-                    <h3 class="text-lg font-semibold mb-2">Moyenne Générale</h3>
+                    <h3 class="text-lg font-semibold mb-2">Moyenne Générale du Semestre</h3>
                     <div id="moyenne-generale-val" class="moyenne-generale-val">--</div>
                     <div class="progress-bar">
                         <div id="progressBarFill" class="progress-bar-fill" style="width: 0%"></div>
                     </div>
                     <p id="validation-status" class="mt-3 font-medium text-base"></p>
                     <div id="credits-results" class="credits-row">
-                        <span id="credits-attempted">Crédits Tentés: --</span>
-                        <span id="credits-validated">Crédits Validés: --</span>
+                        <span id="credits-attempted"><i class="fas fa-cube"></i> Crédits Semestre: --</span>
+                        <span id="credits-validated"><i class="fas fa-check-circle"></i> Crédits Validés: --</span>
                     </div>
                     <!-- Instagram Button -->
-                    <a href="https://www.instagram.com/spot_campuselkseur/" target="_blank" rel="noopener noreferrer" class="instagram-btn">
-                         <i class="fab fa-instagram"></i> Voir sur Instagram
+                    <a href="https://www.instagram.com/spot_campuselkseur/" target="_blank" rel="noopener noreferrer"
+                        class="instagram-btn">
+                        <i class="fab fa-instagram"></i> Suivre Spot Campus El Kseur
                     </a>
                 </div>
             </div>
+
+            <!-- Guidance Section -->
+            <div id="guidance-section" class="hidden" data-aos="fade-up" data-aos-delay="300">
+                <h3 id="guidance-title"></h3>
+                <p id="guidance-text"></p>
+            </div>
+            <!-- End Guidance Section -->
+
         </div>
+
+        <!-- AdSense Ad Unit 2: Below Main Card -->
+         <div class="ad-container">
+             <ins class="adsbygoogle"
+                  style="display:block"
+                  data-ad-client="ca-pub-7539806376887582"
+                  data-ad-slot="YOUR_AD_SLOT_2"
+                  data-ad-format="auto"
+                  data-full-width-responsive="true"></ins>
+             <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+         </div>
+         <!-- End AdSense Ad Unit 2 -->
+
     </div>
 
     <footer class="text-center">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl">
-            <p>Conçu et développé avec <i class="fas fa-heart text-red-500"></i> par <a href="mailto:mehdi.amara@tech.univ-bejaia.dz"
-                    class="font-medium">Amara Mehdi</a>.</p>
+            <p>Conçu et développé avec <i class="fas fa-heart text-red-500"></i> par <a
+                    href="mailto:mehdi.amara@tech.univ-bejaia.dz" class="font-medium">Amara Mehdi</a>.</p>
             <div class="footer-links">
-                <a href="#" class="footer-icon" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                <a href="#" class="footer-icon" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                <a href="mailto:support@univ-bejaia.dz" class="footer-icon" aria-label="Email Support"><i class="fas fa-envelope"></i></a>
+                <!-- Replace # with actual links -->
+                <a href="https://github.com/AmaraMehdi" target="_blank" rel="noopener noreferrer" class="footer-icon" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/amara-mehdi/" target="_blank" rel="noopener noreferrer" class="footer-icon" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="mailto:mehdi.amara@tech.univ-bejaia.dz" class="footer-icon" aria-label="Contact Email"><i
+                        class="fas fa-envelope"></i></a>
             </div>
-             <p class="copyright">© 2025 Université de Bejaia. Tous droits réservés. | Version 0.4.9.5</p> <!-- Updated year/version -->
-             <p class="text-xs opacity-70 mt-2">Pour toute question ou suggestion, <a href="mailto:mehdi.amara@tech.univ-bejaia.dz" class="underline">contactez-nous</a>.</p>
+            <p class="copyright">© <span id="currentYear">2024</span> Université de Bejaia. Tous droits réservés. | Version 0.5.1</p> <!-- Updated version -->
+            <p class="text-xs opacity-70 mt-2">Pour toute question ou suggestion, <a
+                    href="mailto:mehdi.amara@tech.univ-bejaia.dz" class="underline">contactez le développeur</a>.</p>
         </div>
     </footer>
 
@@ -862,8 +1429,8 @@
     <!-- Modals -->
     <div id="minExamModal" class="modal">
         <div class="modal-content">
-            <button class="modal-close" onclick="closeModal('minExamModal')" aria-label="Fermer">×</button> <!-- Added aria-label -->
-            <h3 class="text-lg font-semibold mb-3">Note Minimale Examen Requis</h3>
+            <button class="modal-close" onclick="closeModal('minExamModal')" aria-label="Fermer">×</button>
+            <h3 class="text-lg font-semibold mb-3">Note Requise</h3>
             <p id="minExamMessage" class="text-[#eee]"></p>
         </div>
     </div>
@@ -872,7 +1439,8 @@
         <div class="modal-content">
             <button class="modal-close" onclick="closeModal('clearConfirmModal')" aria-label="Fermer">×</button>
             <h3 class="text-lg font-semibold mb-3">Confirmer l'effacement</h3>
-            <p class="text-[#eee]">Voulez-vous vraiment effacer toutes les notes ? Cette action est irréversible.</p>
+            <p class="text-[#eee]">Voulez-vous vraiment effacer toutes les notes ? Cette action est irréversible et les
+                notes sauvegardées localement pour cette sélection seront supprimées.</p>
             <div class="modal-buttons">
                 <button class="modal-btn confirm" onclick="confirmClearGrades()">Oui, Effacer</button>
                 <button class="modal-btn cancel" onclick="closeModal('clearConfirmModal')">Annuler</button>
@@ -887,6 +1455,10 @@
             once: true,
             offset: 100
         });
+
+        // Set current year in footer
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
 
         // --- DOM Element Caching ---
         const anneeSelect = document.getElementById('anneeSelect');
@@ -910,21 +1482,28 @@
         const targetAverageInput = document.getElementById('targetAverage');
         const saveLoader = document.getElementById('saveLoader');
         const loadLoader = document.getElementById('loadLoader');
+        const guidanceSection = document.getElementById('guidance-section');
+        const guidanceTitle = document.getElementById('guidance-title');
+        const guidanceText = document.getElementById('guidance-text');
+
 
         // --- State Variables ---
         let years = [];
         let specialties = [];
         let allModules = []; // Cache for modules of the selected specialty
         let currentModulesData = []; // Modules currently displayed for the selected semester
+        let calculatedResults = {}; // Store results from the last calculation
+
 
         // --- Modal Functions ---
         function openModal(modalId) {
             const modal = document.getElementById(modalId);
-            if(modal) modal.style.display = 'flex';
+            if (modal) modal.style.display = 'flex';
         }
+
         function closeModal(modalId) {
-             const modal = document.getElementById(modalId);
-             if(modal) modal.style.display = 'none';
+            const modal = document.getElementById(modalId);
+            if (modal) modal.style.display = 'none';
         }
 
         // --- Debounce Utility ---
@@ -939,11 +1518,9 @@
         // --- Event Delegation for Inputs ---
         noteForm.addEventListener('input', debounce((event) => {
             if (event.target.classList.contains('module-grade-input')) {
-                 console.log(`Input event triggered for: ${event.target.id}`); // Debug
                 validateGradeInput(event.target);
-                 // No need to call calculateModuleAverage here, validateGradeInput handles it
             }
-        }, 350)); // Slightly increased debounce time
+        }, 350));
 
 
         // --- Data Fetching ---
@@ -951,6 +1528,7 @@
             if (!window.db || !window.firestoreFunctions) {
                 console.error("Firestore non initialisé. Impossible de récupérer les données.");
                 modulePlaceholder.textContent = 'Erreur: Connexion base de données échouée.';
+                enableDisableControls(); // Ensure controls are disabled on failure
                 return;
             }
             modulePlaceholder.innerHTML = 'Chargement initial... <span class="loader"></span>';
@@ -963,30 +1541,37 @@
                     window.firestoreFunctions.getDocs(window.firestoreFunctions.collection(window.db, 'specialties'))
                 ]);
 
-                years = yearsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-                specialties = specialtiesSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                years = yearsSnapshot.docs.map(doc => ({
+                    id: doc.id,
+                    ...doc.data()
+                }));
+                specialties = specialtiesSnapshot.docs.map(doc => ({
+                    id: doc.id,
+                    ...doc.data()
+                }));
 
-                populateAnneeSelect();
-                modulePlaceholder.textContent = 'Sélectionnez une année, spécialité et semestre.';
+                populateAnneeSelect(); // This will chain to populateSpecialiteSelect
+                // Initial placeholder text is set in populateSpecialiteSelect
             } catch (error) {
                 console.error('Erreur fetchInitialData:', error);
-                modulePlaceholder.textContent = 'Erreur de chargement initial. Vérifiez la connexion.';
-            } finally {
-                 enableDisableControls(); // Update control states after fetching
+                modulePlaceholder.textContent = 'Erreur de chargement initial. Veuillez vérifier votre connexion ou réessayer.';
+                enableDisableControls(); // Ensure controls are disabled on failure
             }
         }
 
         async function fetchModules() {
-             if (!window.db || !window.firestoreFunctions) {
+            if (!window.db || !window.firestoreFunctions) {
                 console.error("Firestore non initialisé. Impossible de récupérer les modules.");
-                 modulePlaceholder.textContent = 'Erreur: Chargement modules impossible.';
-                 return;
+                modulePlaceholder.textContent = 'Erreur: Chargement modules impossible.';
+                return;
             }
             const selectedSpecialtyId = specialiteSelect.value;
             allModules = []; // Reset cache before fetching
             populateSemestreSelect(); // Update semester dropdown (will show 'loading' or 'none')
 
             if (!selectedSpecialtyId) {
+                modulePlaceholder.textContent = 'Sélectionnez une spécialité.';
+                enableDisableControls();
                 return; // Exit if no specialty selected
             }
 
@@ -997,13 +1582,17 @@
                     window.firestoreFunctions.where('specialtyId', '==', selectedSpecialtyId)
                 );
                 const modulesSnapshot = await window.firestoreFunctions.getDocs(modulesQuery);
-                allModules = modulesSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                allModules = modulesSnapshot.docs.map(doc => ({
+                    id: doc.id,
+                    ...doc.data()
+                }));
                 console.log(`Fetched ${allModules.length} modules for specialty ${selectedSpecialtyId}`);
             } catch (error) {
                 console.error('Erreur fetchModules:', error);
                 modulePlaceholder.textContent = 'Erreur chargement modules.';
             } finally {
-                populateSemestreSelect(); // Populate semesters based on fetched modules
+                populateSemestreSelect(); // Populate semesters based on fetched modules (or show error)
+                enableDisableControls(); // Update control states after fetching
             }
         }
 
@@ -1012,17 +1601,16 @@
         function populateAnneeSelect() {
             anneeSelect.innerHTML = '<option value="">-- Sélection Année --</option>';
             years.forEach(year => {
-                const option = new Option(year.name, year.id); // Use Option constructor
-                anneeSelect.add(option);
+                anneeSelect.add(new Option(year.name, year.id));
             });
             anneeSelect.disabled = false;
-            populateSpecialiteSelect();
+            populateSpecialiteSelect(); // Always trigger the next dropdown state
         }
 
         function populateSpecialiteSelect() {
             const selectedYearId = anneeSelect.value;
             specialiteSelect.innerHTML = '<option value="">-- Sélection Spécialité --</option>';
-            specialiteSelect.disabled = !selectedYearId;
+            specialiteSelect.disabled = true;
 
             semestreSelect.innerHTML = '<option value="">-- Sélection Semestre --</option>';
             semestreSelect.disabled = true;
@@ -1033,63 +1621,77 @@
                 const filteredSpecialties = specialties.filter(s => s.yearId === selectedYearId);
                 if (filteredSpecialties.length > 0) {
                     filteredSpecialties.forEach(spec => {
-                        const option = new Option(spec.name, spec.id);
-                        specialiteSelect.add(option);
+                        specialiteSelect.add(new Option(spec.name, spec.id));
                     });
                     specialiteSelect.disabled = false;
+                    modulePlaceholder.textContent = 'Sélectionnez une spécialité.';
                 } else {
-                     specialiteSelect.innerHTML = '<option value="">-- Aucune Spécialité --</option>';
+                    specialiteSelect.innerHTML = '<option value="">-- Aucune Spécialité --</option>';
+                    modulePlaceholder.textContent = 'Aucune spécialité trouvée pour cette année.';
                 }
-                fetchModules(); // Fetch modules for the selected year
+                // Fetch modules only when a year is selected. They will be filtered by specialty later.
+                // Delaying fetch until specialty selected is also a valid approach, depends on data size.
+                // Let's stick to fetching all for the year for now, as it simplifies semester population.
+                 fetchModules();
+
             } else {
                 modulePlaceholder.textContent = 'Sélectionnez une année.';
+                allModules = []; // Clear modules if year is unselected
             }
-             enableDisableControls();
+            enableDisableControls();
         }
 
         function populateSemestreSelect() {
             const selectedSpecialtyId = specialiteSelect.value;
             semestreSelect.innerHTML = '<option value="">-- Sélection Semestre --</option>';
-            semestreSelect.disabled = !selectedSpecialtyId || allModules.length === 0;
+            semestreSelect.disabled = true;
 
             resetCalculatorState(); // Clear form and results
 
             if (selectedSpecialtyId && allModules.length > 0) {
-                const semesterKeys = [...new Set(allModules.map(m => m.semesterKey).filter(Boolean))].sort(); // Filter out undefined/null keys
+                // Filter modules by selected specialty ID *first*
+                const modulesForSpecialty = allModules.filter(m => m.specialtyId === selectedSpecialtyId);
+                const semesterKeys = [...new Set(modulesForSpecialty.map(m => m.semesterKey).filter(Boolean))].sort(); // Filter out undefined/null keys
+
                 if (semesterKeys.length > 0) {
                     semesterKeys.forEach(key => {
-                        const option = new Option(key, key); // Display key directly
-                        semestreSelect.add(option);
+                        semestreSelect.add(new Option(key, key));
                     });
                     semestreSelect.disabled = false;
+                    modulePlaceholder.textContent = 'Sélectionnez un semestre.';
                 } else {
-                     semestreSelect.innerHTML = '<option value="">-- Aucun Semestre --</option>';
-                     modulePlaceholder.textContent = 'Aucun semestre défini pour cette spécialité.';
+                    semestreSelect.innerHTML = '<option value="">-- Aucun Semestre --</option>';
+                    modulePlaceholder.textContent = 'Aucun semestre défini pour cette spécialité.';
                 }
             } else if (selectedSpecialtyId) {
-                 modulePlaceholder.textContent = 'Chargement des modules ou aucun module trouvé.';
+                // Case where specialty is selected but no modules were fetched (error or empty)
+                modulePlaceholder.textContent = allModules.length === 0 ? 'Chargement des modules ou aucun module trouvé pour cette spécialité.' : 'Sélectionnez un semestre.';
             } else {
-                 modulePlaceholder.textContent = 'Sélectionnez une année et une spécialité.';
+                modulePlaceholder.textContent = 'Sélectionnez une spécialité.';
             }
-             enableDisableControls();
+            enableDisableControls();
         }
 
-         // --- Reset UI State ---
-         function resetCalculatorState() {
-             noteForm.innerHTML = '';
-             currentModulesData = [];
-             resultatsDiv.classList.remove('visible');
-             whatIfSection.classList.add('hidden');
-             modulePlaceholder.classList.remove('hidden');
-             // Reset overall average display
-             moyenneGeneraleDiv.textContent = '--';
-             validationStatusDiv.textContent = '';
-             validationStatusDiv.className = 'mt-3 font-medium text-base';
-             creditsAttemptedSpan.textContent = 'Crédits Tentés: --';
-             creditsValidatedSpan.textContent = 'Crédits Validés: --';
-             progressBarFill.style.width = '0%';
-             moyenneGeneraleContainer.classList.remove('validated');
-         }
+
+        // --- Reset UI State ---
+        function resetCalculatorState() {
+            noteForm.innerHTML = '';
+            currentModulesData = [];
+            resultatsDiv.classList.remove('visible');
+            whatIfSection.classList.add('hidden');
+            modulePlaceholder.classList.remove('hidden');
+            guidanceSection.classList.add('hidden'); // Hide guidance
+            guidanceSection.className = ''; // Reset guidance classes
+            calculatedResults = {}; // Clear results cache
+            // Reset overall average display
+            moyenneGeneraleDiv.textContent = '--';
+            validationStatusDiv.textContent = '';
+            validationStatusDiv.className = 'mt-3 font-medium text-base'; // Reset classes
+            creditsAttemptedSpan.innerHTML = '<i class="fas fa-cube"></i> Crédits Semestre: --'; // Reset with icon
+            creditsValidatedSpan.innerHTML = '<i class="fas fa-check-circle"></i> Crédits Validés: --'; // Reset with icon
+            progressBarFill.style.width = '0%';
+            moyenneGeneraleContainer.classList.remove('validated', 'eliminated'); // Remove status classes
+        }
 
 
         // --- Module Display & Card Creation ---
@@ -1100,7 +1702,11 @@
             resetCalculatorState(); // Start fresh
 
             if (selectedSpecialtyId && selectedSemesterKey) {
-                currentModulesData = allModules.filter(m => m.semesterKey === selectedSemesterKey);
+                // Filter from the fetched allModules based on *both* specialty and semester
+                currentModulesData = allModules.filter(m =>
+                    m.specialtyId === selectedSpecialtyId &&
+                    m.semesterKey === selectedSemesterKey
+                );
 
                 if (currentModulesData.length > 0) {
                     currentModulesData.forEach((module, index) => {
@@ -1113,29 +1719,29 @@
                     const firstInput = noteForm.querySelector('.module-grade-input');
                     if (firstInput) firstInput.focus();
                 } else {
-                    modulePlaceholder.textContent = 'Aucun module trouvé pour ce semestre.';
+                    modulePlaceholder.textContent = 'Aucun module trouvé pour ce semestre et spécialité.';
                 }
             } else {
-                 if (!selectedSpecialtyId) modulePlaceholder.textContent = 'Sélectionnez une spécialité.';
-                 else if (!selectedSemesterKey) modulePlaceholder.textContent = 'Sélectionnez un semestre.';
+                // These cases are handled by populateSemestreSelect now, but good fallback
+                if (!selectedSpecialtyId) modulePlaceholder.textContent = 'Sélectionnez une spécialité.';
+                else if (!selectedSemesterKey) modulePlaceholder.textContent = 'Sélectionnez un semestre.';
             }
-             enableDisableControls();
+            enableDisableControls();
         }
 
-        function createModuleCard(module, index) {
-             // Simplified card creation (styles handled by CSS)
+        function createModuleCard(moduleData, index) { // Renamed parameter to avoid conflict
             const card = document.createElement('div');
             card.className = 'module-card';
             card.setAttribute('data-aos', 'fade-up');
             card.setAttribute('data-aos-delay', index * 50);
-            card.dataset.moduleId = module.id;
-            card.dataset.coefficient = module.coefficient || 0; // Default coefficient
-            card.dataset.credits = module.credits || 0;       // Default credits
-            card.dataset.noteElim = module.noteEliminatoire ?? ''; // Use nullish coalescing
+            card.dataset.moduleId = moduleData.id;
+            card.dataset.coefficient = moduleData.coefficient || 0;
+            card.dataset.credits = moduleData.credits || 0;
+            card.dataset.noteElim = moduleData.noteEliminatoire ?? '';
 
-            const evaluations = Array.isArray(module.evaluations) ? module.evaluations : [];
+            const evaluations = Array.isArray(moduleData.evaluations) ? moduleData.evaluations : [];
             let inputsHTML = evaluations.map(type => {
-                const inputId = `${module.id}-${type.toLowerCase()}`;
+                const inputId = `${moduleData.id}-${type.toLowerCase().replace(/\s+/g, '-')}`; // Sanitize type for ID
                 return `
                     <div class="note-field">
                         <label for="${inputId}">${type}</label>
@@ -1145,25 +1751,25 @@
             }).join('');
 
             if (evaluations.length === 0) {
-                 inputsHTML = '<p class="text-xs text-gray-400 col-span-full text-center">Aucun type d\'évaluation défini.</p>'; // Span full width
+                inputsHTML = '<p class="text-xs text-gray-400 col-span-full text-center">Aucun type d\'évaluation défini pour ce module.</p>';
             }
 
-            const hasExam = evaluations.includes('Examen');
-            const minExamButtonHTML = hasExam ? `<button class="min-exam-btn" onclick="calculateMinExamGrade('${module.id}')">Note Min. Examen</button>` : '';
+            const hasExam = evaluations.map(e => e.toLowerCase()).includes('examen');
+            const minExamButtonHTML = hasExam ? `<button class="min-exam-btn" onclick="calculateMinExamGrade('${moduleData.id}')">Note Min. Examen</button>` : '';
 
             card.innerHTML = `
-                <h3 class="text-base font-semibold mb-2 text-[#fff]">${module.name || 'Module Sans Nom'}</h3>
+                <h3 class="text-base font-semibold mb-2 text-[#fff]">${moduleData.name || 'Module Sans Nom'}</h3>
                 <div class="flex flex-wrap gap-2 mb-3 text-xs">
-                    <span class="bg-rgba(255, 255, 255, 0.05) text-[#eee] px-2 py-1 rounded-full">Coef: ${module.coefficient || 'N/A'}</span>
-                    <span class="bg-rgba(255, 255, 255, 0.05) text-[#eee] px-2 py-1 rounded-full">Crédits: ${module.credits || 'N/A'}</span>
-                    ${module.noteEliminatoire !== undefined ? `<span class="bg-[#2a1a1a] text-[#e63946] px-2 py-1 rounded-full">Élim: ${module.noteEliminatoire}</span>` : ''}
+                    <span class="bg-rgba(255, 255, 255, 0.05) text-[#eee] px-2 py-1 rounded-full">Coef: ${moduleData.coefficient || 'N/A'}</span>
+                    <span class="bg-rgba(255, 255, 255, 0.05) text-[#eee] px-2 py-1 rounded-full">Crédits: ${moduleData.credits || 'N/A'}</span>
+                    ${moduleData.noteEliminatoire !== undefined && moduleData.noteEliminatoire !== '' ? `<span class="bg-[#2a1a1a] text-[#e63946] px-2 py-1 rounded-full">Élim: ${moduleData.noteEliminatoire}</span>` : ''}
                 </div>
                 <div class="note-inputs">${inputsHTML}</div>
                 <div class="module-footer">
-                    <div class="avg-text" id="avg-${module.id}">Moy: --</div>
-                    <div class="flex gap-2">
+                    <div class="avg-text" id="avg-${moduleData.id}">Moy: --</div>
+                    <div class="flex gap-2 flex-wrap justify-end">
                         ${minExamButtonHTML}
-                        <button class="clear-module-btn" onclick="clearModuleGrades('${module.id}')">Effacer</button>
+                        <button class="clear-module-btn" onclick="clearModuleGrades('${moduleData.id}')">Effacer</button>
                     </div>
                 </div>
             `;
@@ -1174,245 +1780,366 @@
         // --- Input Handling & Validation ---
         function validateGradeInput(inputElement) {
             let value = inputElement.value.trim();
-             const card = inputElement.closest('.module-card'); // Get parent card
+            const card = inputElement.closest('.module-card');
 
             if (value === '') {
                 inputElement.classList.remove('input-error');
-                 if (card) calculateModuleAverage(card); // Recalculate average when cleared
+                if (card) calculateModuleAverage(card);
                 return;
             }
 
-            value = value.replace(',', '.').replace(/[^0-9.]/g, ''); // Allow only numbers and dot
+            value = value.replace(',', '.').replace(/[^0-9.]/g, '');
             const parts = value.split('.');
-            if (parts.length > 2) value = parts[0] + '.' + parts.slice(1).join(''); // Only one dot
-            // Allow partial input like "1." or "." temporarily but mark as error
-            const isPartial = value === '.' || (value.endsWith('.') && value.length > 1 && isNaN(parseFloat(value.slice(0, -1))));
+            if (parts.length > 2) value = parts[0] + '.' + parts.slice(1).join('');
 
-            inputElement.value = value; // Update input field
+            inputElement.value = value;
 
-            const numericValue = parseFloat(value); // Try parsing
+            const numericValue = parseFloat(value);
+            const isInvalidFormat = value === '.' || (value.endsWith('.') && value.length > 1 && isNaN(parseFloat(value.slice(0, -1))));
 
-            if (isPartial || isNaN(numericValue) || numericValue < 0 || numericValue > 20) {
+
+            if (isInvalidFormat || isNaN(numericValue) || numericValue < 0 || numericValue > 20) {
                 inputElement.classList.add('input-error');
-                 // Clear module average display if input is invalid/partial
-                 if (card) {
-                     const avgDisplay = card.querySelector('.avg-text');
-                     if (avgDisplay) avgDisplay.textContent = 'Moy: --';
-                 }
+                if (card) {
+                    const avgDisplay = card.querySelector('.avg-text');
+                    if (avgDisplay) avgDisplay.textContent = 'Moy: --';
+                    avgDisplay.style.color = '#ccc';
+                }
             } else {
                 inputElement.classList.remove('input-error');
-                if (card) calculateModuleAverage(card); // Calculate only if fully valid
+                if (card) calculateModuleAverage(card);
             }
         }
 
         function parseGrade(value) {
-            if (!value || typeof value !== 'string') return { num: null, valid: false };
+            if (!value || typeof value !== 'string') return {
+                num: null,
+                valid: false
+            };
             value = value.trim();
-            if (value === '' || value === '.') return { num: null, valid: false };
+            if (value === '' || value === '.') return {
+                num: null,
+                valid: false
+            };
 
             const cleaned = value.replace(',', '.');
-            // Handle "1." -> parse as 1, but only if it's the only dot
-            const num = parseFloat(cleaned.endsWith('.') && cleaned.indexOf('.') === cleaned.length - 1 ? cleaned.slice(0, -1) : cleaned);
+            if (cleaned.endsWith('.') && cleaned.length > 1) return {
+                num: null,
+                valid: false
+            };
+
+            const num = parseFloat(cleaned);
 
             const isValid = !isNaN(num) && num >= 0 && num <= 20;
-            return { num: isValid ? num : null, valid: isValid };
+            return {
+                num: isValid ? num : null,
+                valid: isValid
+            };
         }
 
 
         // --- Calculation Logic ---
         function calculateModuleAverage(moduleCardElement) {
-             if (!moduleCardElement) return { average: null, isEliminated: false, isValid: false };
-
             const moduleId = moduleCardElement.dataset.moduleId;
-            const moduleData = currentModulesData.find(m => m.id === moduleId);
-            const avgDisplay = moduleCardElement.querySelector(`#avg-${moduleId}`); // Cache selector
+            const moduleData = currentModulesData.find(m => m.id === moduleId); // Get the module data object
+            const avgDisplay = moduleCardElement.querySelector(`#avg-${moduleId}`);
 
             if (!moduleData || !avgDisplay) {
-                 if(avgDisplay) avgDisplay.textContent = 'Moy: Err'; // Indicate error finding data
-                 return { average: null, isEliminated: false, isValid: false };
+                if (avgDisplay) avgDisplay.textContent = 'Moy: Err';
+                return {
+                    average: null,
+                    isEliminated: false,
+                    isValid: false,
+                    grades: {}
+                };
             }
 
-            const evals = Array.isArray(moduleData.evaluations) ? moduleData.evaluations : [];
-            if (evals.length === 0) {
-                 avgDisplay.textContent = 'Moy: N/A';
-                 avgDisplay.style.color = '#ccc';
-                 return { average: null, isEliminated: false, isValid: false };
-            }
-
+            const evals = Array.isArray(moduleData.evaluations) ? moduleData.evaluations.map(type => type.toLowerCase().replace(/\s+/g, '-')) : [];
             const grades = {};
             let allInputsValidAndFilled = true;
 
             for (const type of evals) {
-                const input = moduleCardElement.querySelector(`#${moduleId}-${type.toLowerCase()}`);
-                const gradeInfo = input ? parseGrade(input.value) : { num: null, valid: false };
-                grades[type.toLowerCase()] = gradeInfo;
+                const inputId = `${moduleData.id}-${type}`; // Use sanitized type
+                const input = moduleCardElement.querySelector(`#${inputId}`);
+                const gradeInfo = input ? parseGrade(input.value) : {
+                    num: null,
+                    valid: false
+                };
+                grades[type] = gradeInfo;
                 if (!gradeInfo.valid) {
                     allInputsValidAndFilled = false;
                 }
             }
 
-             // If any input is invalid/empty, show '--' and return invalid
-             if (!allInputsValidAndFilled) {
-                 avgDisplay.textContent = 'Moy: --';
+            if (!allInputsValidAndFilled) {
+                avgDisplay.textContent = 'Moy: --';
+                avgDisplay.style.color = '#ccc';
+                return {
+                    average: null,
+                    isEliminated: false,
+                    isValid: false,
+                    grades
+                };
+            }
+
+            let sum = 0,
+                weightSum = 0;
+            const elimNote = parseFloat(moduleData.noteEliminatoire); // Use moduleData for elim note
+
+            // Determine weights based on defined evals (must match the logic in createModuleCard and WhatIf)
+            let tdWeight = 0,
+                tpWeight = 0,
+                examWeight = 0;
+            const hasTD = evals.includes('td');
+            const hasTP = evals.includes('tp');
+            const hasExam = evals.includes('examen');
+
+            if (hasTD && hasTP && hasExam) { tdWeight = 0.2; tpWeight = 0.2; examWeight = 0.6; weightSum = 1.0; }
+            else if (hasTD && hasExam) { tdWeight = 0.4; examWeight = 0.6; weightSum = 1.0; }
+            else if (hasTP && hasExam) { tpWeight = 0.4; examWeight = 0.6; weightSum = 1.0; }
+            else if (hasExam) { examWeight = 1.0; weightSum = 1.0; }
+            else if (hasTD) { tdWeight = 1.0; weightSum = 1.0; }
+            else if (hasTP) { tpWeight = 1.0; weightSum = 1.0; }
+             // Add logic for other combinations if they exist in your data
+             else { // No standard evaluation types found or combination not supported
+                 console.warn(`Module ${moduleData.name} has evaluations ${evals.join(', ')} but no matching standard weight pattern. Average N/A.`);
+                 avgDisplay.textContent = 'Moy: N/A';
                  avgDisplay.style.color = '#ccc';
-                 return { average: null, isEliminated: false, isValid: false };
+                 return { average: null, isEliminated: false, isValid: false, grades };
              }
 
 
-            let sum = 0, weightSum = 0;
-            const elimNote = parseFloat(moduleCardElement.dataset.noteElim);
-            let isEliminated = false;
-
-            const hasTD = evals.includes('TD');
-            const hasTP = evals.includes('TP');
-            const hasExam = evals.includes('Examen');
-
-            // Calculate weighted sum based on defined evals
-            if (hasTD && hasTP && hasExam) {
-                 sum += (grades['td']?.num ?? 0) * 0.2 + (grades['tp']?.num ?? 0) * 0.2 + (grades['examen']?.num ?? 0) * 0.6;
-                 weightSum = 1.0;
-             } else if (hasTP && hasExam) {
-                 sum += (grades['tp']?.num ?? 0) * 0.4 + (grades['examen']?.num ?? 0) * 0.6;
-                 weightSum = 1.0;
-             } else if (hasTD && hasExam) {
-                 sum += (grades['td']?.num ?? 0) * 0.4 + (grades['examen']?.num ?? 0) * 0.6;
-                 weightSum = 1.0;
-             } else if (hasExam) {
-                 sum += (grades['examen']?.num ?? 0) * 1.0;
-                 weightSum = 1.0;
-             } else if (hasTP) {
-                 sum += (grades['tp']?.num ?? 0) * 1.0;
-                 weightSum = 1.0;
-             } else if (hasTD) {
-                 sum += (grades['td']?.num ?? 0) * 1.0;
-                 weightSum = 1.0;
-             }
-             // If none match, weightSum remains 0
+            sum += (grades['td']?.num ?? 0) * tdWeight;
+            sum += (grades['tp']?.num ?? 0) * tpWeight;
+            sum += (grades['examen']?.num ?? 0) * examWeight;
 
             const average = weightSum > 0 ? sum / weightSum : null;
 
+            let isEliminated = false;
             if (average !== null && !isNaN(elimNote) && average < elimNote) {
                 isEliminated = true;
             }
 
-            // Update display
             const avgText = average !== null ? average.toFixed(2) : '--';
             avgDisplay.textContent = `Moy: ${avgText}${isEliminated ? ' (Élim.)' : ''}`;
-            avgDisplay.style.color = average !== null
-                ? (average >= 10 && !isEliminated ? 'var(--success-color)' : 'var(--error-color)')
-                : '#ccc';
+            avgDisplay.style.color = average !== null ?
+                (average >= 10 && !isEliminated ? 'var(--success-color)' : 'var(--error-color)') :
+                '#ccc';
 
-            return { average, isEliminated, isValid: average !== null };
+
+            return {
+                average,
+                isEliminated,
+                isValid: average !== null,
+                grades
+            };
         }
 
         function calculerMoyenneGenerale() {
-            let totalWeightedSum = 0,
-                totalCoeff = 0,
-                totalCreditsAttempted = 0,
-                totalCreditsValidated = 0,
-                hasEliminations = false;
+            let totalWeightedSum = 0;
+            let totalCoeff = 0;
+            let totalCreditsAttempted = 0; // Sum of credits for all modules in the semester
+            let totalCreditsValidatedModules = 0; // Credits from individual validated modules
+            let hasEliminations = false;
             let allModulesHaveValidAverage = true;
+            let moduleCalculationResults = {};
 
             const moduleCards = document.querySelectorAll('.module-card');
-             if (moduleCards.length === 0) {
-                 alert("Aucun module affiché pour calculer la moyenne.");
-                 return;
-             }
+            if (moduleCards.length === 0) {
+                alert("Aucun module affiché pour calculer la moyenne.");
+                resetOverallResultsAndGuidance(); // Clear previous results if any
+                return;
+            }
 
-            // First pass: ensure all module averages can be calculated
+            // First pass: Calculate and store results for each module
             moduleCards.forEach(card => {
+                const moduleId = card.dataset.moduleId;
                 const result = calculateModuleAverage(card);
+                moduleCalculationResults[moduleId] = result;
+
                 if (!result.isValid) {
                     allModulesHaveValidAverage = false;
-                    // Highlight the problematic module card (optional)
-                     // card.style.borderColor = 'var(--warning-color)';
-                } else {
-                    // Reset border if previously highlighted (optional)
-                     // card.style.borderColor = ''; // Or set back to default
+                }
+
+                // Sum up total credits attempted using the module data, regardless of validity
+                const moduleData = currentModulesData.find(m => m.id === moduleId);
+                if (moduleData) {
+                     totalCreditsAttempted += parseFloat(moduleData.credits) || 0;
                 }
             });
 
-             // Update detailed results display first
-             modulesResultsDiv.innerHTML = '';
-             currentModulesData.forEach(module => {
-                 const card = noteForm.querySelector(`.module-card[data-module-id="${module.id}"]`);
-                 const result = card ? calculateModuleAverage(card) : { average: null, isEliminated: false, isValid: false };
-                 const moduleResultCard = document.createElement('div');
-                 moduleResultCard.className = 'module-result-card';
-                 const avgText = result.average !== null ? result.average.toFixed(2) : '--';
-                 const elimText = result.isEliminated ? '<span class="module-result-elim">(Élim.)</span>' : '';
-                 const color = result.isValid
-                     ? (result.average >= 10 && !result.isEliminated ? 'var(--success-color)' : 'var(--error-color)')
-                     : '#ccc';
-                 moduleResultCard.innerHTML = `
-                     <div class="module-result-title">${module.name || 'Module Inconnu'}</div>
-                     <div class="module-result-avg" style="color: ${color}">${avgText} ${elimText}</div>
-                 `;
-                 modulesResultsDiv.appendChild(moduleResultCard);
-             });
+            // Update detailed results display first
+            modulesResultsDiv.innerHTML = '';
+            currentModulesData.forEach(module => {
+                const result = moduleCalculationResults[module.id] || {
+                    average: null,
+                    isEliminated: false,
+                    isValid: false
+                };
+                const moduleResultCard = document.createElement('div');
+                moduleResultCard.className = 'module-result-card';
+                const avgText = result.average !== null ? result.average.toFixed(2) : '--';
+                const elimText = result.isEliminated ? '<span class="module-result-elim">(Élim.)</span>' : '';
+                const color = result.isValid ?
+                    (result.average >= 10 && !result.isEliminated ? 'var(--success-color)' : 'var(--error-color)') :
+                    '#ccc';
+                moduleResultCard.innerHTML = `
+                    <div class="module-result-title">${module.name || 'Module Inconnu'}</div>
+                    <div class="module-result-avg" style="color: ${color}">${avgText} ${elimText}</div>
+                `;
+                modulesResultsDiv.appendChild(moduleResultCard);
+            });
+
 
             if (!allModulesHaveValidAverage) {
                 alert("Veuillez entrer toutes les notes valides (0-20) pour chaque module avant de calculer la moyenne générale.");
                 // Update UI to reflect error state
                 moyenneGeneraleDiv.textContent = '--';
                 validationStatusDiv.textContent = 'Notes manquantes/invalides';
-                validationStatusDiv.className = 'mt-3 font-medium text-base not-validated-status'; // Use warning color
-                creditsAttemptedSpan.textContent = 'Crédits Tentés: --';
-                creditsValidatedSpan.textContent = 'Crédits Validés: --';
+                validationStatusDiv.className = 'mt-3 font-medium text-base not-validated-status';
+                creditsAttemptedSpan.innerHTML = `<i class="fas fa-cube"></i> Crédits Semestre: ${totalCreditsAttempted}`; // Still show total credits possible
+                creditsValidatedSpan.innerHTML = '<i class="fas fa-check-circle"></i> Crédits Validés: --';
                 progressBarFill.style.width = '0%';
+                moyenneGeneraleContainer.classList.remove('validated', 'eliminated');
                 resultatsDiv.classList.add('visible');
-                moyenneGeneraleContainer.classList.remove('validated');
+                guidanceSection.classList.add('hidden');
                 return;
             }
 
             // Second pass: Calculate totals now that we know all modules are valid
-            moduleCards.forEach(card => {
-                 const result = calculateModuleAverage(card); // Get the validated result again
-                 const coeff = parseFloat(card.dataset.coefficient) || 0;
-                 const credits = parseFloat(card.dataset.credits) || 0;
+            currentModulesData.forEach(module => {
+                const result = moduleCalculationResults[module.id];
+                const coeff = parseFloat(module.coefficient) || 0;
+                const credits = parseFloat(module.credits) || 0; // Use module data for credits
 
-                 totalWeightedSum += result.average * coeff;
-                 totalCoeff += coeff;
-                 totalCreditsAttempted += credits;
+                totalWeightedSum += result.average * coeff;
+                totalCoeff += coeff;
 
-                 if (result.average >= 10 && !result.isEliminated) {
-                     totalCreditsValidated += credits;
-                 }
-                 if (result.isEliminated) {
-                     hasEliminations = true;
-                 }
+                if (result.average >= 10 && !result.isEliminated) {
+                    totalCreditsValidatedModules += credits; // Credits from modules >= 10 and not eliminated
+                }
+                if (result.isEliminated) {
+                    hasEliminations = true;
+                }
             });
 
 
             // Calculate and display final results
-            const moyenneFinale = totalCoeff > 0 ? totalWeightedSum / totalCoeff : null;
-            moyenneGeneraleDiv.textContent = moyenneFinale !== null ? moyenneFinale.toFixed(2) : '--';
-            const isValidated = moyenneFinale !== null && moyenneFinale >= 10 && !hasEliminations;
+            const moyenneFinale = totalCoeff > 0 ? totalWeightedSum / totalCoeff : 0;
+            moyenneGeneraleDiv.textContent = moyenneFinale.toFixed(2);
 
-            validationStatusDiv.className = 'mt-3 font-medium text-base'; // Reset classes
+            const isValidatedByAverage = moyenneFinale >= 10;
+            const isValidated = isValidatedByAverage && !hasEliminations;
+
+            validationStatusDiv.className = 'mt-3 font-medium text-base';
+            moyenneGeneraleContainer.classList.remove('validated', 'eliminated');
+
+            let validationMessage = '';
+            let totalCreditsValidatedFinal = 0;
+
             if (isValidated) {
-                validationStatusDiv.textContent = 'Semestre Validé';
+                validationMessage = 'Semestre Validé';
                 validationStatusDiv.classList.add('validated-status');
                 moyenneGeneraleContainer.classList.add('validated');
+                totalCreditsValidatedFinal = totalCreditsAttempted; // All credits if semester is validated
             } else if (hasEliminations) {
-                validationStatusDiv.textContent = 'Non Validé (Élimination)';
-                validationStatusDiv.classList.add('eliminated-status');
-                moyenneGeneraleContainer.classList.remove('validated');
-            } else {
-                validationStatusDiv.textContent = 'Non Validé';
-                validationStatusDiv.classList.add('not-validated-status');
-                moyenneGeneraleContainer.classList.remove('validated');
+                 validationMessage = 'Non Validé (Élimination)';
+                 validationStatusDiv.classList.add('eliminated-status');
+                 moyenneGeneraleContainer.classList.add('eliminated');
+                 totalCreditsValidatedFinal = totalCreditsValidatedModules; // Only credits from individually validated modules
+            } else if (moyenneFinale < 10) {
+                validationMessage = 'Non Validé';
+                 if (moyenneFinale >= 9.5) {
+                      validationStatusDiv.classList.add('not-validated-status'); // Warning color for close call
+                 } else {
+                       validationStatusDiv.classList.add('eliminated-status'); // Error color for clearly failed
+                       moyenneGeneraleContainer.classList.add('eliminated');
+                 }
+                totalCreditsValidatedFinal = totalCreditsValidatedModules; // Only credits from individually validated modules
             }
 
-            creditsAttemptedSpan.textContent = `Crédits Tentés: ${totalCreditsAttempted}`;
-            creditsValidatedSpan.textContent = `Crédits Validés: ${totalCreditsValidated}`;
 
-            const progress = moyenneFinale !== null ? Math.min(100, (moyenneFinale / 20) * 100) : 0;
+            validationStatusDiv.textContent = validationMessage;
+            creditsAttemptedSpan.innerHTML = `<i class="fas fa-cube"></i> Crédits Semestre: ${totalCreditsAttempted}`;
+            creditsValidatedSpan.innerHTML = `<i class="fas fa-check-circle"></i> Crédits Validés: ${totalCreditsValidatedFinal}`;
+
+            const progress = Math.min(100, Math.max(0, (moyenneFinale / 20) * 100));
             progressBarFill.style.width = `${progress}%`;
 
             resultatsDiv.classList.add('visible');
-            resultatsDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            resultatsDiv.scrollIntoView({
+                behavior: 'smooth',
+                block: 'nearest'
+            });
+
+            // Store results for guidance
+            calculatedResults = {
+                 moyenneFinale,
+                 isValidated,
+                 hasEliminations,
+                 totalCreditsAttempted,
+                 totalCreditsValidatedFinal,
+                 isValidatedByAverage // Useful for guidance messages
+            };
+
+            displayGuidance(calculatedResults);
         }
+
+        // --- Post-Calculation Guidance ---
+        function displayGuidance(results) {
+            guidanceSection.classList.remove('hidden', 'visible', 'validated-guidance', 'eliminated-guidance', 'warning-guidance');
+
+            let title = "Conseils pour votre Semestre";
+            let text = "";
+
+            if (results.isValidated) {
+                title = "Félicitations ! Semestre Validé ! 🎉";
+                text = "Excellent travail ! Votre persévérance a porté ses fruits. Continuez sur cette lancée pour le semestre prochain. Chaque semestre réussi vous rapproche de votre objectif. Keep up the great work!";
+                 guidanceSection.classList.add('validated-guidance');
+            } else if (results.moyenneFinale >= 9.5 && results.moyenneFinale < 10 && !results.hasEliminations) {
+                title = "Presque ! Le Semestre est à Portée ! 💪";
+                text = `Votre moyenne de ${results.moyenneFinale.toFixed(2)} est très encourageante ! Vous êtes à la limite. Ne perdez pas espoir.`;
+                if (results.totalCreditsValidatedFinal > 0) {
+                     text += ` Vous avez déjà validé ${results.totalCreditsValidatedFinal} crédits sur ${results.totalCreditsAttempted}.`;
+                }
+                 text += ` Vous pouvez peut-être valider par compensation avec le Semestre 2, ou en ciblant les rattrapages pour améliorer certaines notes. Identifiez les modules où une petite augmentation ferait une grande différence.`;
+                 guidanceSection.classList.add('warning-guidance');
+            } else if (results.hasEliminations) {
+                 title = "Attention : Modules Éliminés ❌";
+                 text = `Votre moyenne actuelle est de ${results.moyenneFinale.toFixed(2)}. La présence de modules éliminés rend la validation directe impossible. Concentrez-vous sur les rattrapages des modules éliminés pour les valider individuellement.`;
+                 if (results.totalCreditsValidatedFinal > 0) {
+                     text += ` Vous avez validé ${results.totalCreditsValidatedFinal} crédits via les modules non éliminés.`;
+                 }
+                 text += ` Courage pour les rattrapages !`;
+                 guidanceSection.classList.add('eliminated-guidance');
+            }
+             else if (results.moyenneFinale < 9.5) {
+                 title = "Courage pour la Suite ! 🙏";
+                 text = `Votre moyenne actuelle est de ${results.moyenneFinale.toFixed(2)}. Un semestre non validé n'est pas une fin en soi. Analysez les modules qui vous ont posé problème.`;
+                 if (results.totalCreditsValidatedFinal > 0) {
+                     text += ` Vous avez validé ${results.totalCreditsValidatedFinal} crédits sur ${results.totalCreditsAttempted}.`;
+                 }
+                 text += ` Préparez-vous pour les rattrapages ou concentrez-vous sur l'excellence au Semestre 2 pour viser la compensation. N'hésitez pas à demander de l'aide si nécessaire.`;
+                 guidanceSection.classList.add('eliminated-guidance'); // Use error color for low average
+            } else {
+                 title = "Résultats du Semestre";
+                 text = `Votre moyenne est de ${results.moyenneFinale.toFixed(2)}.`; // Default message
+                 guidanceSection.classList.add('warning-guidance');
+            }
+
+            // Add the contact info always
+            text += `\n\nPour des analyses plus détaillées, des conseils personnalisés ou toute autre question, n'hésitez pas à contacter <a href="https://www.instagram.com/spot_campuselkseur/" target="_blank" rel="noopener noreferrer">@spot_campuselkseur</a> sur Instagram.`;
+
+
+            guidanceTitle.textContent = title;
+            guidanceText.innerHTML = text.replace(/\n/g, '<br>'); // Use innerHTML to parse the link
+            // Re-trigger AOS animation by adding the visible class after a small delay
+            setTimeout(() => {
+                 guidanceSection.classList.add('visible');
+            }, 50);
+
+        }
+
 
         // --- Storage Functions ---
         function getStorageKey() {
@@ -1424,33 +2151,45 @@
 
         function saveGrades() {
             const key = getStorageKey();
-            if (!key) return alert('Sélectionnez Année, Spécialité et Semestre.');
+            if (!key) {
+                alert('Sélectionnez Année, Spécialité et Semestre pour sauvegarder.');
+                return;
+            }
             const gradesToSave = {};
-            let hasGrades = false;
-            noteForm.querySelectorAll('.module-grade-input').forEach(input => { // Target inputs within noteForm
-                const card = input.closest('.module-card');
-                if (!card) return;
-                const moduleId = card.dataset.moduleId;
-                const type = input.id.split('-').pop(); // Get last part (td, tp, examen)
-                if (!moduleId || !type) return;
-                if (!gradesToSave[moduleId]) gradesToSave[moduleId] = {};
-                gradesToSave[moduleId][type] = input.value;
-                if (input.value.trim() !== '') hasGrades = true;
+            let hasAnyGrade = false;
+            noteForm.querySelectorAll('.module-card').forEach(card => {
+                 const moduleId = card.dataset.moduleId;
+                 if (!moduleId) return;
+                 const moduleGrades = {};
+                 let hasModuleGrade = false;
+                 card.querySelectorAll('.module-grade-input').forEach(input => {
+                      const type = input.id.split('-').pop();
+                      if (type) {
+                           const value = input.value.trim();
+                           moduleGrades[type] = value;
+                           if (value !== '') hasModuleGrade = true;
+                      }
+                 });
+                 if (hasModuleGrade) {
+                      gradesToSave[moduleId] = moduleGrades;
+                      hasAnyGrade = true;
+                 }
             });
 
-            // No alert if saving empty state
-            // if (!hasGrades) { return alert("Aucune note à sauvegarder."); }
+            // Allow saving empty state (e.g., clearing everything and saving)
+             saveLoader.classList.remove('hidden');
+             saveBtn.disabled = true;
+             saveBtn.querySelector('.button-text').textContent = 'Sauvegarde...';
 
-            saveLoader.classList.remove('hidden');
-            saveBtn.disabled = true;
             try {
                 localStorage.setItem(key, JSON.stringify(gradesToSave));
                 setTimeout(() => {
-                    saveBtn.innerHTML = '<i class="fas fa-check"></i> Sauvegardé';
+                    saveBtn.querySelector('.button-text').textContent = 'Sauvegardé';
+                    saveBtn.querySelector('i').className = 'fas fa-check';
                     setTimeout(() => {
-                        saveBtn.innerHTML = '<i class="fas fa-save"></i> Sauvegarder';
-                        saveBtn.disabled = false; // Re-enable based on controls logic if needed
-                        enableDisableControls(); // Re-evaluate button states
+                        saveBtn.querySelector('.button-text').textContent = 'Sauvegarder';
+                        saveBtn.querySelector('i').className = 'fas fa-save';
+                        enableDisableControls();
                     }, 1500);
                     saveLoader.classList.add('hidden');
                 }, 300);
@@ -1458,13 +2197,15 @@
                 console.error("Erreur sauvegarde localStorage:", e);
                 alert("Erreur lors de la sauvegarde.");
                 saveLoader.classList.add('hidden');
+                saveBtn.querySelector('.button-text').textContent = 'Sauvegarder'; // Reset text
+                 saveBtn.querySelector('i').className = 'fas fa-save'; // Reset icon
                 enableDisableControls();
             }
         }
 
         function loadGrades() {
             const key = getStorageKey();
-            const wasClicked = event?.target && event.target.closest('#loadBtn'); // Check if click originated from button
+            const wasClicked = event?.target && event.target.closest('#loadBtn');
 
             if (!key) {
                 if (wasClicked) alert('Sélectionnez Année, Spécialité et Semestre pour charger.');
@@ -1473,6 +2214,8 @@
 
             loadLoader.classList.remove('hidden');
             loadBtn.disabled = true;
+            if (wasClicked) loadBtn.querySelector('.button-text').textContent = 'Chargement...';
+
             const savedGrades = localStorage.getItem(key);
 
             setTimeout(() => {
@@ -1480,42 +2223,60 @@
                 if (savedGrades) {
                     try {
                         const parsedGrades = JSON.parse(savedGrades);
-                        noteForm.querySelectorAll('.module-grade-input').forEach(input => { // Target inputs within noteForm
-                             const card = input.closest('.module-card');
-                             if (!card) return;
-                             const moduleId = card.dataset.moduleId;
-                             const type = input.id.split('-').pop();
-                             if (!moduleId || !type) return;
-                             input.value = parsedGrades?.[moduleId]?.[type] ?? '';
-                             validateGradeInput(input); // Validate after setting value
+                        noteForm.querySelectorAll('.module-card').forEach(card => {
+                            const moduleId = card.dataset.moduleId;
+                            if (!moduleId || !parsedGrades[moduleId]) {
+                                // Clear inputs if no saved data for this module
+                                card.querySelectorAll('.module-grade-input').forEach(input => {
+                                    input.value = '';
+                                    validateGradeInput(input);
+                                });
+                                return; // Skip to next module
+                            }
+
+                            card.querySelectorAll('.module-grade-input').forEach(input => {
+                                const type = input.id.split('-').pop();
+                                if (type && parsedGrades[moduleId][type] !== undefined) {
+                                    input.value = parsedGrades[moduleId][type];
+                                } else {
+                                     input.value = ''; // Clear if no saved data for this specific input
+                                }
+                                validateGradeInput(input);
+                            });
                         });
                         loadedSuccessfully = true;
                         if (wasClicked) {
-                             loadBtn.innerHTML = '<i class="fas fa-check"></i> Chargé';
-                             setTimeout(() => {
-                                 loadBtn.innerHTML = '<i class="fas fa-download"></i> Charger';
-                                 enableDisableControls(); // Re-evaluate button states
-                             }, 1500);
-                         }
+                            loadBtn.querySelector('.button-text').textContent = 'Chargé';
+                            loadBtn.querySelector('i').className = 'fas fa-check';
+                            setTimeout(() => {
+                                loadBtn.querySelector('.button-text').textContent = 'Charger';
+                                loadBtn.querySelector('i').className = 'fas fa-download';
+                                enableDisableControls();
+                            }, 1500);
+                        }
                     } catch (e) {
                         console.error("Erreur analyse localStorage:", e);
                         if (wasClicked) alert("Erreur lors du chargement des notes sauvegardées.");
+                        // If error, still clear potentially bad inputs
+                        noteForm.querySelectorAll('.module-grade-input').forEach(input => {
+                            input.value = '';
+                            validateGradeInput(input);
+                        });
                     }
                 } else {
                     if (wasClicked) alert('Aucune note sauvegardée pour cette sélection.');
                     // Clear inputs if nothing was saved for this specific selection
-                     noteForm.querySelectorAll('.module-grade-input').forEach(input => {
-                         input.value = '';
-                         input.classList.remove('input-error');
-                          const card = input.closest('.module-card');
-                          if (card) calculateModuleAverage(card); // Update display
-                     });
+                    noteForm.querySelectorAll('.module-grade-input').forEach(input => {
+                        input.value = '';
+                        validateGradeInput(input);
+                    });
                 }
                 loadLoader.classList.add('hidden');
-                if (!wasClicked || !loadedSuccessfully) { // Re-enable immediately if not clicked or failed
+                if (!wasClicked || !loadedSuccessfully) {
                     enableDisableControls();
                 }
-                // No need to reattach listeners due to event delegation
+                 // Clear results/guidance after loading, as grades might have changed
+                 resetOverallResultsAndGuidance();
             }, 300);
         }
 
@@ -1525,20 +2286,13 @@
         }
 
         function confirmClearGrades() {
-            noteForm.querySelectorAll('.module-grade-input').forEach(input => { // Target inputs within noteForm
+            noteForm.querySelectorAll('.module-grade-input').forEach(input => {
                 input.value = '';
                 input.classList.remove('input-error');
                 const card = input.closest('.module-card');
-                if(card) calculateModuleAverage(card);
+                if (card) calculateModuleAverage(card);
             });
-            resultatsDiv.classList.remove('visible');
-            moyenneGeneraleDiv.textContent = '--';
-            validationStatusDiv.textContent = '';
-            validationStatusDiv.className = 'mt-3 font-medium text-base';
-            creditsAttemptedSpan.textContent = 'Crédits Tentés: --';
-            creditsValidatedSpan.textContent = 'Crédits Validés: --';
-            progressBarFill.style.width = '0%';
-            moyenneGeneraleContainer.classList.remove('validated');
+            resetOverallResultsAndGuidance(); // Also clear results and guidance
 
             const key = getStorageKey();
             if (key) {
@@ -1546,32 +2300,50 @@
                 console.log("Cleared saved grades for key:", key);
             }
 
-            clearBtn.innerHTML = '<i class="fas fa-check"></i> Effacé';
+            clearBtn.querySelector('.button-text').textContent = 'Effacé';
+            clearBtn.querySelector('i').className = 'fas fa-check';
             setTimeout(() => {
-                clearBtn.innerHTML = '<i class="fas fa-trash-alt"></i> Effacer';
+                clearBtn.querySelector('.button-text').textContent = 'Effacer';
+                clearBtn.querySelector('i').className = 'fas fa-trash-alt';
             }, 1500);
 
             closeModal('clearConfirmModal');
-             // No need to reattach listeners
         }
 
         function clearModuleGrades(moduleId) {
-            const card = noteForm.querySelector(`.module-card[data-module-id="${moduleId}"]`); // Target within noteForm
+            const card = noteForm.querySelector(`.module-card[data-module-id="${moduleId}"]`);
             if (card) {
                 card.querySelectorAll('.module-grade-input').forEach(input => {
                     input.value = '';
                     input.classList.remove('input-error');
                 });
-                 calculateModuleAverage(card);
-                 // Optionally show subtle feedback instead of alert
-                 const avgDisplay = card.querySelector('.avg-text');
-                 if(avgDisplay) {
+                calculateModuleAverage(card);
+                 // Show subtle feedback
+                const avgDisplay = card.querySelector('.avg-text');
+                if (avgDisplay) {
                      avgDisplay.style.transition = 'color 0.3s ease';
-                     avgDisplay.style.color = 'var(--warning-color)'; // Flash yellow
-                     setTimeout(() => { avgDisplay.style.color = ''; }, 500); // Revert color
-                 }
+                     avgDisplay.style.color = 'var(--warning-color)';
+                     setTimeout(() => { calculateModuleAverage(card); }, 500); // Recalculate to set final color
+                }
+                 // After clearing a module, also clear the overall results/guidance
+                 resetOverallResultsAndGuidance();
             }
         }
+
+        function resetOverallResultsAndGuidance() {
+            resultatsDiv.classList.remove('visible');
+            guidanceSection.classList.add('hidden');
+            guidanceSection.className = ''; // Reset guidance classes
+            moyenneGeneraleDiv.textContent = '--';
+            validationStatusDiv.textContent = '';
+            validationStatusDiv.className = 'mt-3 font-medium text-base';
+            creditsAttemptedSpan.innerHTML = '<i class="fas fa-cube"></i> Crédits Semestre: --';
+            creditsValidatedSpan.innerHTML = '<i class="fas fa-check-circle"></i> Crédits Validés: --';
+            progressBarFill.style.width = '0%';
+            moyenneGeneraleContainer.classList.remove('validated', 'eliminated');
+             calculatedResults = {}; // Clear results cache
+        }
+
 
         // --- "What If" Calculation ---
         function calculateWhatIf() {
@@ -1587,85 +2359,147 @@
                 return;
             }
 
-            let weightedSum = 0, totalCoeff = 0, examWeightCoeff = 0;
-            let canCalculate = true, missingInputs = false;
-            const modulesToFill = [];
+            let weightedSumOfFixedParts = 0; // Sum of weighted averages for modules *excluding* the exam part
+            let totalCoeff = 0;
+            let examWeightCoeffSum = 0; // Sum of (exam weight * coefficient) for modules needing exam fill
+            const modulesToFillExam = [];
+            let hasMissingOrInvalidNonExamInputs = false; // Flag if any TD/TP input is bad
 
-            currentModulesData.forEach(module => {
-                if (!canCalculate) return;
-                const card = noteForm.querySelector(`.module-card[data-module-id="${module.id}"]`);
-                if (!card) { canCalculate = false; return; }
-
-                const evals = Array.isArray(module.evaluations) ? module.evaluations : [];
-                const coeff = parseFloat(module.coefficient) || 0;
-                totalCoeff += coeff;
-
-                const tdInput = card.querySelector(`#${module.id}-td`);
-                const tpInput = card.querySelector(`#${module.id}-tp`);
-                const examInput = card.querySelector(`#${module.id}-examen`);
-
-                const tdInfo = tdInput ? parseGrade(tdInput.value) : { num: null };
-                const tpInfo = tpInput ? parseGrade(tpInput.value) : { num: null };
-                const examInfo = examInput ? parseGrade(examInput.value) : { num: null };
-
-                const hasTD = evals.includes('TD');
-                const hasTP = evals.includes('TP');
-                const hasExam = evals.includes('Examen');
-
-                if ((hasTD && tdInfo.num === null) || (hasTP && tpInfo.num === null)) {
-                     missingInputs = true;
-                }
-
-                let sumWithoutExam = 0;
-                let examWeight = 0;
-
-                if (hasTD && hasTP && hasExam) { sumWithoutExam = (tdInfo.num ?? 0) * 0.2 + (tpInfo.num ?? 0) * 0.2; examWeight = 0.6; }
-                else if (hasTP && hasExam) { sumWithoutExam = (tpInfo.num ?? 0) * 0.4; examWeight = 0.6; }
-                else if (hasTD && hasExam) { sumWithoutExam = (tdInfo.num ?? 0) * 0.4; examWeight = 0.6; }
-                else if (hasExam) { examWeight = 1.0; }
-                else { // No exam, contribute its average if possible
-                    const moduleAvgResult = calculateModuleAverage(card);
-                    if(moduleAvgResult.isValid) { weightedSum += moduleAvgResult.average * coeff; }
-                    else { missingInputs = true; } // Treat uncalculable non-exam module as missing input
+            currentModulesData.forEach(moduleData => { // Iterate through module data
+                const card = noteForm.querySelector(`.module-card[data-module-id="${moduleData.id}"]`);
+                if (!card) {
+                    console.warn(`Card not found for module ${moduleData.id}`);
+                    hasMissingOrInvalidNonExamInputs = true; // Treat as error if card is missing
                     return;
                 }
 
-                if (!missingInputs) { // Only add non-exam part if TD/TP were valid (or not present)
-                    weightedSum += sumWithoutExam * coeff;
-                }
+                const evals = Array.isArray(moduleData.evaluations) ? moduleData.evaluations.map(type => type.toLowerCase().replace(/\s+/g, '-')) : [];
+                const coeff = parseFloat(moduleData.coefficient) || 0;
+                totalCoeff += coeff; // Sum up total coefficient
 
-                if (hasExam && examInput) {
-                    if (examInfo.num === null) {
-                        modulesToFill.push({ card, examInput, examWeight, coeff });
-                        examWeightCoeff += examWeight * coeff;
-                    } else {
-                        weightedSum += examInfo.num * examWeight * coeff; // Add existing exam contribution
-                    }
+                const tdInput = card.querySelector(`#${moduleData.id}-td`);
+                const tpInput = card.querySelector(`#${moduleData.id}-tp`);
+                const examInput = card.querySelector(`#${moduleData.id}-examen`);
+
+                const tdInfo = tdInput ? parseGrade(tdInput.value) : { num: null, valid: true }; // Assume valid if input element doesn't exist
+                const tpInfo = tpInput ? parseGrade(tpInput.value) : { num: null, valid: true };
+                const examInfo = examInput ? parseGrade(examInput.value) : { num: null, valid: true }; // Assume valid if input element doesn't exist
+
+                const hasTD = evals.includes('td');
+                const hasTP = evals.includes('tp');
+                const hasExam = evals.includes('examen');
+
+                 // Check if mandatory non-exam inputs for *this* module are missing/invalid
+                 if ((hasTD && !tdInfo.valid) || (hasTP && !tpInfo.valid)) {
+                     hasMissingOrInvalidNonExamInputs = true;
+                     return; // Cannot calculate this module's non-exam part, skip it
+                 }
+
+                let currentModuleSumWithoutExam = 0;
+                let moduleExamWeight = 0;
+                let moduleWeightSum = 0; // Total weight for this module
+
+                 // Determine weights and current sum based on common structures
+                 if (hasTD && hasTP && hasExam) { currentModuleSumWithoutExam = (tdInfo.num ?? 0) * 0.2 + (tpInfo.num ?? 0) * 0.2; moduleExamWeight = 0.6; moduleWeightSum = 1.0; }
+                 else if (hasTD && hasExam) { currentModuleSumWithoutExam = (tdInfo.num ?? 0) * 0.4; moduleExamWeight = 0.6; moduleWeightSum = 1.0; }
+                 else if (hasTP && hasExam) { currentModuleSumWithoutExam = (tpInfo.num ?? 0) * 0.4; moduleExamWeight = 0.6; moduleWeightSum = 1.0; }
+                 else if (hasExam) { moduleExamWeight = 1.0; moduleWeightSum = 1.0; }
+                 else if (hasTD) { currentModuleSumWithoutExam = (tdInfo.num ?? 0) * 1.0; moduleWeightSum = 1.0; } // Only TD? Assume 100% TD
+                 else if (hasTP) { currentModuleSumWithoutExam = (tpInfo.num ?? 0) * 1.0; moduleWeightSum = 1.0; } // Only TP? Assume 100% TP
+                 else { // Module has no standard structure for averaging, or no evals
+                      console.warn(`Module ${moduleData.name} cannot be used in What-If calculation due to unconventional evaluation structure or missing data.`);
+                      // If the module has valid grades and can calculate its own average, add it as a fixed contribution
+                     const moduleAvgResult = calculateModuleAverage(card); // Recalculate to check validity
+                     if(moduleAvgResult.isValid) {
+                          weightedSumOfFixedParts += moduleAvgResult.average * coeff;
+                     } else {
+                          // If a non-exam module also has invalid grades, flag it
+                          hasMissingOrInvalidNonExamInputs = true;
+                     }
+                     return; // Skip this module for the exam calculation part
+                 }
+
+                // Add the fixed part of this module's average to the total weighted sum
+                 // Only add if the non-exam inputs were valid (checked above)
+                 if (!hasMissingOrInvalidNonExamInputs) {
+                     weightedSumOfFixedParts += currentModuleSumWithoutExam * coeff;
+                 }
+
+
+                if (hasExam && examInput && examInfo.num === null) {
+                    // This is a module where we need to fill the exam grade
+                    modulesToFillExam.push({ examInput, moduleExamWeight, coeff });
+                    examWeightCoeffSum += moduleExamWeight * coeff;
+                } else if (hasExam && examInput && examInfo.num !== null) {
+                     // This module has an exam and it's already filled with a valid grade
+                     weightedSumOfFixedParts += examInfo.num * moduleExamWeight * coeff; // Add its full contribution
                 } else if (hasExam && !examInput) {
-                     console.warn(`Exam input missing for module ${module.name}`);
-                     canCalculate = false;
+                     // Module has 'Examen' defined but no input element found - critical error or data mismatch
+                     console.error(`Exam input element not found for module ${moduleData.name} (${moduleId}). Cannot perform What-If.`);
+                     hasMissingOrInvalidNonExamInputs = true; // Treat as uncalculable
+                     return;
                 }
-            });
+                 // If hasExam is false, the module's contribution is already fully added as fixed (or flagged as invalid)
+            }); // End moduleData.forEach
 
-            if (missingInputs) { alert('Veuillez entrer toutes les notes valides pour TD et TP avant d\'utiliser le calcul "Et Si?".'); return; }
-            if (!canCalculate) { alert('Erreur lors de la préparation du calcul "Et Si?".'); return; }
-            if (modulesToFill.length === 0) { alert('Tous les examens sont déjà remplis.'); return; }
-            if (examWeightCoeff <= 0) { alert('Erreur: Pondération des examens invalide.'); return; }
+            if (hasMissingOrInvalidNonExamInputs) {
+                 alert('Veuillez entrer toutes les notes valides pour TD et TP (dans tous les modules concernés) avant d\'utiliser le calcul "Et Si?". Certains modules ont des notes manquantes ou invalides.');
+                 return;
+            }
 
-            const neededTotalExamWeightedSum = (targetAvg * totalCoeff) - weightedSum;
-            const neededExamAvg = neededTotalExamWeightedSum / examWeightCoeff;
+            if (modulesToFillExam.length === 0) {
+                 const currentOverallAvg = totalCoeff > 0 ? (weightedSumOfFixedParts / totalCoeff) : 0;
+                 if (totalCoeff === 0) {
+                     alert('Aucun module chargé.');
+                 } else if (Math.abs(targetAvg - currentOverallAvg) < 0.001) {
+                     alert(`Votre moyenne actuelle est de ${currentOverallAvg.toFixed(2)}. Vous avez déjà atteint la moyenne cible de ${targetAvg.toFixed(2)}.`);
+                 } else {
+                      alert(`Impossible d'atteindre ${targetAvg.toFixed(2)}. Aucun examen à remplir pour ajuster la moyenne.`);
+                 }
+                 return;
+            }
 
-            if (neededExamAvg > 20) { alert(`Impossible d’atteindre ${targetAvg.toFixed(2)}. Il faudrait ${neededExamAvg.toFixed(2)}/20 aux examens restants.`); return; }
-            if (neededExamAvg < 0) { alert(`Moyenne cible de ${targetAvg.toFixed(2)} déjà atteinte ! Note nécessaire aux examens: ${neededExamAvg.toFixed(2)}/20.`); return; }
+            // The total weighted sum needed across all modules is targetAvg * totalCoeff.
+            // This must equal the sum of weighted fixed parts + the weighted contribution from exams to fill.
+            // targetAvg * totalCoeff = weightedSumOfFixedParts + (Needed Exam Avg * examWeightCoeffSum)
+            // (Needed Exam Avg * examWeightCoeffSum) = (targetAvg * totalCoeff) - weightedSumOfFixedParts
+            // Needed Exam Avg = ((targetAvg * totalCoeff) - weightedSumOfFixedParts) / examWeightCoeffSum
 
-            modulesToFill.forEach(({ examInput }) => {
-                examInput.value = neededExamAvg.toFixed(2);
-                validateGradeInput(examInput);
-            });
+            const neededExamWeightedSumContribution = (targetAvg * totalCoeff) - weightedSumOfFixedParts;
 
-            alert(`Examens remplis avec ${neededExamAvg.toFixed(2)}/20 pour tenter d'atteindre ${targetAvg.toFixed(2)}.`);
-            // Re-calculate main average after filling inputs (optional)
-            // calculerMoyenneGenerale();
+            if (examWeightCoeffSum <= 0) { // Should not happen if modulesToFillExam.length > 0, but safety check
+                 console.error("Error: Calculated total exam weight is zero.");
+                 alert("Erreur interne lors du calcul 'Et Si?'.");
+                 return;
+            }
+
+            const neededExamAvg = neededExamWeightedSumContribution / examWeightCoeffSum;
+
+
+            let message = '';
+            if (neededExamAvg < 0) {
+                 // Calculate the average if all exams were 0
+                 const avgWithZeroExams = totalCoeff > 0 ? weightedSumOfFixedParts / totalCoeff : 0;
+                 message = `Moyenne cible de ${targetAvg.toFixed(2)} déjà atteinte ou dépassée (moyenne avec 0 aux examens: ${avgWithZeroExams.toFixed(2)}) ! Il faudrait une note de <strong>${neededExamAvg.toFixed(2)}/20</strong> aux examens restants.`;
+            } else if (neededExamAvg <= 20) {
+                message = `Pour atteindre ${targetAvg.toFixed(2)}, il vous faut en moyenne <strong>${neededExamAvg.toFixed(2)}/20</strong> aux examens restants.`;
+            } else {
+                message = `Impossible d’atteindre ${targetAvg.toFixed(2)}. Il faudrait une note de <strong>${neededExamAvg.toFixed(2)}/20</strong> aux examens restants.`;
+            }
+
+            document.getElementById('minExamMessage').innerHTML = `<strong>Calcul "Et Si ?"</strong><br>${message}`;
+            openModal('minExamModal');
+
+
+            if (neededExamAvg >= 0 && neededExamAvg <= 20) {
+                 // Fill the inputs only if the required average is within the valid range [0, 20]
+                 modulesToFillExam.forEach(({ examInput }) => {
+                     examInput.value = neededExamAvg.toFixed(2);
+                     validateGradeInput(examInput); // This will update the module average display
+                 });
+                 // Optionally recalculate overall average after filling inputs
+                  calculerMoyenneGenerale();
+             }
         }
 
 
@@ -1674,39 +2508,76 @@
             const card = noteForm.querySelector(`.module-card[data-module-id="${moduleId}"]`);
             const moduleData = currentModulesData.find(m => m.id === moduleId);
 
-            if (!card || !moduleData) { alert("Module non trouvé."); return; }
-            const evals = Array.isArray(moduleData.evaluations) ? moduleData.evaluations : [];
-            if (!evals.includes('Examen')) { alert('Pas d’examen défini pour ce module.'); return; }
+            if (!card || !moduleData) {
+                alert("Module non trouvé.");
+                return;
+            }
+            const evals = Array.isArray(moduleData.evaluations) ? moduleData.evaluations.map(type => type.toLowerCase().replace(/\s+/g, '-')) : [];
+            if (!evals.includes('examen')) {
+                alert('Pas d’examen défini pour ce module.');
+                return;
+            }
 
             const tdInput = card.querySelector(`#${moduleId}-td`);
             const tpInput = card.querySelector(`#${moduleId}-tp`);
-            const tdInfo = tdInput ? parseGrade(tdInput.value) : { num: null };
-            const tpInfo = tpInput ? parseGrade(tpInput.value) : { num: null };
 
-            const hasTD = evals.includes('TD');
-            const hasTP = evals.includes('TP');
-            let missingPrerequisites = [];
-            if (hasTD && tdInfo.num === null) missingPrerequisites.push('TD');
-            if (hasTP && tpInfo.num === null) missingPrerequisites.push('TP');
+             const tdInfo = tdInput ? parseGrade(tdInput.value) : { num: null, valid: true };
+             const tpInfo = tpInput ? parseGrade(tpInput.value) : { num: null, valid: true };
 
-            if (missingPrerequisites.length > 0) { alert(`Entrez une note valide pour ${missingPrerequisites.join(' et ')}.`); return; }
+             let missingPrerequisites = [];
+             if (evals.includes('td') && !tdInfo.valid) missingPrerequisites.push('TD');
+             if (evals.includes('tp') && !tpInfo.valid) missingPrerequisites.push('TP');
 
-            let tdWeight = 0, tpWeight = 0, examWeight = 0;
-            if (hasTD && hasTP) { tdWeight = 0.2; tpWeight = 0.2; examWeight = 0.6; }
-            else if (hasTP) { tpWeight = 0.4; examWeight = 0.6; }
-            else if (hasTD) { tdWeight = 0.4; examWeight = 0.6; }
-            else { examWeight = 1.0; }
+             if (missingPrerequisites.length > 0) { alert(`Entrez une note valide pour ${missingPrerequisites.join(' et ')} avant de calculer la note minimale d'examen.`); return; }
 
-            if (examWeight <= 0) { alert("Erreur: Pondération d'examen invalide."); return; }
 
-            const currentSum = (tdInfo.num ?? 0) * tdWeight + (tpInfo.num ?? 0) * tpWeight;
-            const target = Math.max(10, parseFloat(moduleData.noteEliminatoire) || 0);
-            const neededExamGrade = (target - currentSum) / examWeight;
+            let tdWeight = 0,
+                tpWeight = 0,
+                examWeight = 0;
+            let moduleWeightSum = 0;
+            // Weights must match the calculateModuleAverage function
+            if (evals.includes('td') && evals.includes('tp') && evals.includes('examen')) { tdWeight = 0.2; tpWeight = 0.2; examWeight = 0.6; moduleWeightSum = 1.0; }
+            else if (evals.includes('td') && evals.includes('examen')) { tdWeight = 0.4; examWeight = 0.6; moduleWeightSum = 1.0; }
+            else if (evals.includes('tp') && evals.includes('examen')) { tpWeight = 0.4; examWeight = 0.6; moduleWeightSum = 1.0; }
+            else if (evals.includes('examen')) { examWeight = 1.0; moduleWeightSum = 1.0; }
+            // If exam exists but weight is 0 (or moduleWeightSum is 0 unexpectedly), it's an error
+            if (examWeight <= 0 || moduleWeightSum <= 0) {
+                 console.error(`Exam exists but weight is zero or total weight is zero for module ${moduleData.name}.`);
+                 alert("Erreur: Structure d'évaluation invalide pour ce module.");
+                 return;
+            }
+
+
+            const currentSumWithoutExam = (tdInfo.num ?? 0) * tdWeight + (tpInfo.num ?? 0) * tpWeight;
+            const elimNote = parseFloat(moduleData.noteEliminatoire);
+            // Target is the minimum required average for the module, which is max(10, elimination note if defined).
+            const targetAverage = Math.max(10, isNaN(elimNote) ? 0 : elimNote);
+
+
+            // Target Average = (currentSumWithoutExam + neededExamGrade * examWeight) / moduleWeightSum
+            // Target Average * moduleWeightSum = currentSumWithoutExam + neededExamGrade * examWeight
+            // neededExamGrade * examWeight = (Target Average * moduleWeightSum) - currentSumWithoutExam
+            // neededExamGrade = ((Target Average * moduleWeightSum) - currentSumWithoutExam) / examWeight
+
+            const neededExamGrade = ((targetAverage * moduleWeightSum) - currentSumWithoutExam) / examWeight;
+
 
             let message = '';
-            if (neededExamGrade <= 0) { message = `Module déjà validé (ou validable avec 0). Note nécessaire: ${neededExamGrade.toFixed(2)}/20.`; }
-            else if (neededExamGrade > 20) { message = `Validation impossible. Il faudrait <strong>${neededExamGrade.toFixed(2)}/20</strong> à l'examen.`; }
-            else { message = `Il vous faut au moins <strong>${neededExamGrade.toFixed(2)}/20</strong> à l'examen pour atteindre ${target}/20.`; }
+            if (neededExamGrade < 0) {
+                // Calculate the actual average with 0 on exam to see if it's already validated
+                 const avgWithZeroExam = (currentSumWithoutExam + 0 * examWeight) / moduleWeightSum;
+                 if (avgWithZeroExam >= targetAverage) {
+                     message = `Module déjà validé (ou validable avec 0 à l'examen). Note nécessaire: <strong>${neededExamGrade.toFixed(2)}/20</strong>.`;
+                 } else {
+                      // This case shouldn't typically happen if targetAverage is >= 10 or elim note
+                      message = `Calculé note nécessaire négative (${neededExamGrade.toFixed(2)}). Erreur possible dans les poids ou la note éliminatoire.`;
+                 }
+
+            } else if (neededExamGrade <= 20) {
+                message = `Il vous faut au moins <strong>${neededExamGrade.toFixed(2)}/20</strong> à l'examen pour valider ce module (atteindre ${targetAverage}/20).`;
+            } else {
+                message = `Validation impossible pour ce module. Il faudrait <strong>${neededExamGrade.toFixed(2)}/20</strong> à l'examen.`;
+            }
 
             document.getElementById('minExamMessage').innerHTML = `<strong>${moduleData.name}</strong><br>${message}`;
             openModal('minExamModal');
@@ -1718,41 +2589,69 @@
             const yearSelected = !!anneeSelect.value;
             const specialtySelected = !!specialiteSelect.value;
             const semesterSelected = !!semestreSelect.value;
-            const modulesReady = currentModulesData.length > 0;
+            const modulesReady = currentModulesData.length > 0; // Checks if modules are loaded AND filtered for the semester
 
             const enableActions = yearSelected && specialtySelected && semesterSelected && modulesReady;
 
             calculateBtn.disabled = !enableActions;
             saveBtn.disabled = !enableActions;
-            loadBtn.disabled = !enableActions; // Enable load if selection is complete
+            loadBtn.disabled = !enableActions;
             clearBtn.disabled = !enableActions;
             targetAverageInput.disabled = !enableActions;
-            document.querySelector('.what-if-btn').disabled = !enableActions;
+            const whatIfButton = document.querySelector('#what-if-section .what-if-btn');
+            if (whatIfButton) {
+                whatIfButton.disabled = !enableActions;
+            }
 
-            // Ensure dropdowns are correctly enabled/disabled based *only* on previous selections
-            specialiteSelect.disabled = !yearSelected;
-            semestreSelect.disabled = !specialtySelected;
+            // Manage dropdown disabled states
+            specialiteSelect.disabled = !yearSelected || specialties.filter(s => s.yearId === anneeSelect.value).length === 0;
+            semestreSelect.disabled = !specialtySelected || allModules.filter(m => m.specialtyId === specialiteSelect.value).length === 0;
+
+
+            // Manage placeholder text visibility and content
+            if (!yearSelected) {
+                 modulePlaceholder.textContent = 'Sélectionnez une année.';
+                 modulePlaceholder.classList.remove('hidden');
+             } else if (!specialtySelected) {
+                 modulePlaceholder.textContent = 'Sélectionnez une spécialité.';
+                  modulePlaceholder.classList.remove('hidden');
+             } else if (!semesterSelected) {
+                 modulePlaceholder.textContent = 'Sélectionnez un semestre.';
+                  modulePlaceholder.classList.remove('hidden');
+             } else if (modulesReady) {
+                 modulePlaceholder.classList.add('hidden'); // Hide if modules are displayed
+             } else {
+                 // This case means year, spec, semester selected, but no modules were found after filtering
+                 modulePlaceholder.textContent = 'Aucun module trouvé pour cette sélection.';
+                 modulePlaceholder.classList.remove('hidden');
+             }
         }
 
 
         // --- Event Listeners Setup ---
         anneeSelect.addEventListener('change', () => {
-            specialiteSelect.value = ''; // Reset specialty
-            semestreSelect.value = '';   // Reset semester
-            allModules = [];             // Clear module cache
-            populateSpecialiteSelect();  // Trigger update chain
+            specialiteSelect.value = '';
+            semestreSelect.value = '';
+            allModules = [];
+            populateSpecialiteSelect();
         });
         specialiteSelect.addEventListener('change', () => {
-            semestreSelect.value = '';   // Reset semester
-            allModules = [];             // Clear module cache
-            fetchModules();              // Fetch modules for new specialty
+            semestreSelect.value = '';
+            allModules = [];
+            // Only fetch modules if a specialty is selected
+             if(specialiteSelect.value) {
+                fetchModules();
+             } else {
+                 populateSemestreSelect(); // Update semester dropdown to empty/disabled state
+                 enableDisableControls(); // Update buttons/placeholder
+             }
         });
-        semestreSelect.addEventListener('change', displayModules); // Display modules for selected semester
+        semestreSelect.addEventListener('change', displayModules);
 
 
         // --- Initial Load ---
         document.addEventListener('DOMContentLoaded', () => {
-            enableDisableControls(); // Set initial disabled state
+            enableDisableControls();
             fetchInitialData();
         });
     </script>
