@@ -11,25 +11,438 @@
     <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
     <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico">
     <link rel="stylesheet" href="assets/css/style.css">
+    <!-- Add Quill Rich Text Editor -->
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <style>
+      /* Enhanced styles */
+      .speciality-card {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .speciality-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(45deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+        animation: shimmer 2s infinite;
+      }
+
+      @keyframes shimmer {
+        0% { transform: translateX(-100%); }
+        100% { transform: translateX(100%); }
+      }
+
+      .speciality-card:hover {
+        transform: translateY(-5px) scale(1.02);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      }
+
+      .modal-content {
+        animation: modalSlideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        backdrop-filter: blur(5px);
+      }
+
+      @keyframes modalSlideIn {
+        from {
+          transform: translateY(-20px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      .tag-wrapper input[type="radio"]:checked ~ .tag {
+        transform: scale(1.05);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      }
+
+      .progress-bar {
+        transition: width 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .notification {
+        animation: notificationSlideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      }
+
+      @keyframes notificationSlideIn {
+        from {
+          transform: translateX(100%);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+
+      .file-preview {
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .file-preview:hover {
+        transform: scale(1.02);
+      }
+
+      .file-preview::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(45deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+        animation: shimmer 2s infinite;
+      }
+
+      .rich-text-editor {
+        min-height: 200px;
+        border: 1px solid #e5e7eb;
+        border-radius: 0.5rem;
+        padding: 1rem;
+      }
+
+      .rich-text-editor:focus {
+        outline: none;
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+      }
+
+      /* Enhanced toggle switch */
+      .toggle {
+        position: relative;
+        display: inline-block;
+        width: 3.5rem;
+        height: 1.75rem;
+      }
+
+      .toggle input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+
+      .toggle-slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #e5e7eb;
+        transition: .4s;
+        border-radius: 1.75rem;
+      }
+
+      .toggle-slider:before {
+        position: absolute;
+        content: "";
+        height: 1.25rem;
+        width: 1.25rem;
+        left: 0.25rem;
+        bottom: 0.25rem;
+        background-color: white;
+        transition: .4s;
+        border-radius: 50%;
+      }
+
+      input:checked + .toggle-slider {
+        background-color: #3b82f6;
+      }
+
+      input:checked + .toggle-slider:before {
+        transform: translateX(1.75rem);
+      }
+
+      /* Enhanced theme options */
+      .theme-option {
+        transition: all 0.3s ease;
+      }
+
+      .theme-option input:checked + div {
+        border-color: #3b82f6;
+        background-color: rgba(59, 130, 246, 0.05);
+      }
+
+      /* Enhanced progress bar */
+      #progressBar {
+        background: linear-gradient(90deg, #3b82f6 0%, #60a5fa 100%);
+        animation: progressPulse 2s infinite;
+      }
+
+      @keyframes progressPulse {
+        0% { opacity: 1; }
+        50% { opacity: 0.8; }
+        100% { opacity: 1; }
+      }
+
+      /* Enhanced notification styles */
+      .notification.success {
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      }
+
+      .notification.error {
+        background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+      }
+
+      /* Dark mode support */
+      @media (prefers-color-scheme: dark) {
+        body.dark {
+          background-color: #1a1a1a;
+          color: #f3f4f6;
+        }
+
+        body.dark .bg-white {
+          background-color: #2d2d2d;
+        }
+
+        body.dark .text-gray-800 {
+          color: #f3f4f6;
+        }
+
+        body.dark .text-gray-600 {
+          color: #d1d5db;
+        }
+
+        body.dark .border-gray-300 {
+          border-color: #4b5563;
+        }
+
+        body.dark .bg-gray-100 {
+          background-color: #374151;
+        }
+
+        body.dark .text-gray-500 {
+          color: #9ca3af;
+        }
+      }
+
+      /* Responsive improvements */
+      @media (max-width: 768px) {
+        .modal-content {
+          margin: 1rem;
+          padding: 1rem;
+        }
+
+        .grid {
+          grid-template-columns: 1fr;
+        }
+
+        .flex-wrap {
+          flex-wrap: wrap;
+        }
+      }
+
+      /* Accessibility improvements */
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+          scroll-behavior: auto !important;
+        }
+      }
+
+      /* Print styles */
+      @media print {
+        .no-print {
+          display: none;
+        }
+
+        .print-only {
+          display: block;
+        }
+      }
+
+      /* Enhanced modal styles */
+      .modal-content {
+        animation: modalSlideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      @keyframes modalSlideIn {
+        from {
+          transform: translateY(-20px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      /* Enhanced tag styles */
+      .tag {
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+        font-size: 0.875rem;
+        font-weight: 500;
+        display: inline-flex;
+        align-items: center;
+        transition: all 0.3s ease;
+      }
+
+      .tag-examens {
+        background-color: #fee2e2;
+        color: #dc2626;
+      }
+
+      .tag-emplois {
+        background-color: #e0e7ff;
+        color: #4f46e5;
+      }
+
+      .tag-notes {
+        background-color: #d1fae5;
+        color: #059669;
+      }
+
+      .tag-annonces {
+        background-color: #fef3c7;
+        color: #d97706;
+      }
+
+      .tag-wrapper input[type="radio"]:checked ~ .tag {
+        transform: scale(1.05);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      }
+
+      /* Enhanced file upload styles */
+      #dropZone {
+        transition: all 0.3s ease;
+      }
+
+      #dropZone.border-blue-500 {
+        background-color: rgba(59, 130, 246, 0.05);
+      }
+
+      .file-preview {
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .file-preview:hover {
+        transform: scale(1.02);
+      }
+
+      /* Enhanced form styles */
+      input[type="text"],
+      input[type="datetime-local"] {
+        transition: all 0.3s ease;
+      }
+
+      input[type="text"]:focus,
+      input[type="datetime-local"]:focus {
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+      }
+
+      /* Enhanced checkbox styles */
+      .form-checkbox {
+        transition: all 0.3s ease;
+      }
+
+      .form-checkbox:checked {
+        background-color: currentColor;
+      }
+    </style>
   </head>
   <body class="bg-gray-50 min-h-screen flex flex-col" data-aos-easing="ease-out-cubic">
-    <header class="bg-blue-600 py-4 shadow-lg" data-aos="fade-down">
+    <header class="bg-gradient-to-r from-blue-600 to-indigo-700 py-4 shadow-lg" data-aos="fade-down">
       <div class="container mx-auto px-4">
-        <h1 class="text-white text-3xl font-bold">
-          <i class="fas fa-user-shield mr-2"></i>
+        <div class="flex justify-between items-center">
+          <h1 class="text-white text-3xl font-bold flex items-center gap-2">
+            <i class="fas fa-user-shield"></i>
           Administration
         </h1>
+          <div class="flex items-center gap-4">
+            <button class="bg-white bg-opacity-20 hover:bg-opacity-30 text-white px-4 py-2 rounded-lg transition-all">
+              <i class="fas fa-cog mr-2"></i>Paramètres
+            </button>
+            <button class="bg-white bg-opacity-20 hover:bg-opacity-30 text-white px-4 py-2 rounded-lg transition-all">
+              <i class="fas fa-sign-out-alt mr-2"></i>Déconnexion
+            </button>
+          </div>
+        </div>
       </div>
     </header>
 
     <main class="container mx-auto px-4 py-8 flex-grow">
       <div class="max-w-7xl mx-auto">
-        <!-- Header Section -->
+        <!-- Enhanced Header Section -->
         <div class="text-center mb-12" data-aos="fade-down">
-          <h2 class="text-3xl font-bold text-gray-800 mb-4">Gestion des Annonces</h2>
-          <p class="text-gray-600 max-w-2xl mx-auto">
+          <h2 class="text-4xl font-bold text-gray-800 mb-4">Gestion des Annonces</h2>
+          <p class="text-gray-600 max-w-2xl mx-auto text-lg">
             Gérez les annonces pour chaque spécialité. Sélectionnez une section pour ajouter ou modifier des annonces.
           </p>
+        </div>
+
+        <!-- Statistics Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8" data-aos="fade-up">
+          <div class="bg-white rounded-xl shadow-lg p-6">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-gray-500 text-sm">Total Annonces</p>
+                <h3 class="text-2xl font-bold text-gray-800" id="totalAnnouncements">0</h3>
+              </div>
+              <div class="bg-blue-100 p-3 rounded-lg">
+                <i class="fas fa-bullhorn text-blue-600 text-xl"></i>
+              </div>
+            </div>
+          </div>
+          <div class="bg-white rounded-xl shadow-lg p-6">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-gray-500 text-sm">Annonces Aujourd'hui</p>
+                <h3 class="text-2xl font-bold text-gray-800" id="todayAnnouncements">0</h3>
+              </div>
+              <div class="bg-green-100 p-3 rounded-lg">
+                <i class="fas fa-calendar-day text-green-600 text-xl"></i>
+              </div>
+            </div>
+          </div>
+          <div class="bg-white rounded-xl shadow-lg p-6">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-gray-500 text-sm">Annonces Prioritaires</p>
+                <h3 class="text-2xl font-bold text-gray-800" id="priorityAnnouncements">0</h3>
+              </div>
+              <div class="bg-red-100 p-3 rounded-lg">
+                <i class="fas fa-exclamation-circle text-red-600 text-xl"></i>
+              </div>
+            </div>
+          </div>
+          <div class="bg-white rounded-xl shadow-lg p-6">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-gray-500 text-sm">Fichiers Joints</p>
+                <h3 class="text-2xl font-bold text-gray-800" id="totalFiles">0</h3>
+              </div>
+              <div class="bg-purple-100 p-3 rounded-lg">
+                <i class="fas fa-paperclip text-purple-600 text-xl"></i>
+              </div>
+            </div>
+          </div>
+          <div class="bg-white rounded-xl shadow-lg p-6">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-gray-500 text-sm">Total Vues</p>
+                <h3 class="text-2xl font-bold text-gray-800" id="totalViews">0</h3>
+              </div>
+              <div class="bg-yellow-100 p-3 rounded-lg">
+                <i class="fas fa-eye text-yellow-600 text-xl"></i>
+              </div>
+            </div>
+          </div>
         </div>
 
         <!-- Specialities Grid -->
@@ -137,262 +550,140 @@
       </div>
     </main>
 
-    <footer class="bg-gray-800 text-gray-200 text-center py-4" data-aos="fade-up">
-      <p class="text-sm">&copy; 2025 Université de Bejaia - Campus El-Kseur</p>
-    </footer>
-
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-      AOS.init({ 
-        duration: 800, 
-        once: true, 
-        offset: 100, 
-        delay: 50,
-        easing: 'ease-out-cubic',
-        anchorPlacement: 'top-bottom'
-      });
-    </script>
-    <script>
-      function showAnnouncementModal(speciality) {
-        const modal = document.getElementById('announcementModal');
-        modal.classList.remove('hidden');
-        modal.classList.add('flex');
-        document.getElementById('selectedSpeciality').textContent = speciality;
-      }
-
-      function closeAnnouncementModal() {
-        const modal = document.getElementById('announcementModal');
-        modal.classList.add('hidden');
-        modal.classList.remove('flex');
-        // Reset form
-        document.getElementById('announcementTitle').value = '';
-        document.getElementById('mainContent').value = '';
-        document.getElementById('hiddenContent').value = '';
-        document.getElementById('attachments').value = '';
-        document.getElementById('isPriority').checked = false;
-        document.querySelectorAll('input[name="tag"]').forEach(radio => radio.checked = false);
-      }
-    </script>
-    <style>
-        /* Tag styles */
-        .tag {
-            padding: 0.35rem 0.75rem;
-            border-radius: 9999px;
-            font-size: 0.875rem;
-            font-weight: 500;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .tag-examens {
-            background-color: #fee2e2;
-            color: #dc2626;
-        }
-
-        .tag-emplois {
-            background-color: #e0e7ff;
-            color: #4f46e5;
-        }
-
-        .tag-notes {
-            background-color: #d1fae5;
-            color: #059669;
-        }
-
-        .tag-annonces {
-            background-color: #fef3c7;
-            color: #d97706;
-        }
-
-        .tag-divers {
-            background-color: #f3e8ff;
-            color: #7e22ce;
-        }
-
-        /* Add these styles at the end of your existing styles */
-        .speciality-card {
-          transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .speciality-card:hover {
-          transform: translateY(-5px);
-          box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        }
-
-        .speciality-card .icon-container {
-          transition: transform 0.3s ease;
-        }
-
-        .speciality-card:hover .icon-container {
-          transform: scale(1.1);
-        }
-
-        .modal-content {
-          animation: slideIn 0.3s ease-out;
-        }
-
-        @keyframes slideIn {
-          from {
-            transform: translateY(-10px);
-            opacity: 0;
-          }
-          to {
-            transform: translateY(0);
-            opacity: 1;
-          }
-        }
-
-        /* Improved form styling */
-        .form-input:focus, .form-textarea:focus {
-          box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
-        }
-
-        /* Tag animation */
-        .tag {
-          transition: all 0.2s ease;
-        }
-
-        .tag:hover {
-          transform: scale(1.05);
-        }
-
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-          width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-          background: #f1f1f1;
-          border-radius: 4px;
-        }
-
-        ::-webkit-scrollbar-thumb {
-          background: #cbd5e1;
-          border-radius: 4px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-          background: #94a3b8;
-        }
-
-          .tag-wrapper input[type="radio"]:checked ~ .tag {
-          transform: scale(1.05);
-          box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .tag-wrapper input[type="radio"]:checked ~ .tag-examens {
-          background-color: #dc2626;
-          color: white;
-        }
-
-        .tag-wrapper input[type="radio"]:checked ~ .tag-emplois {
-          background-color: #4f46e5;
-          color: white;
-        }
-
-        .tag-wrapper input[type="radio"]:checked ~ .tag-notes {
-          background-color: #059669;
-          color: white;
-        }
-
-        .tag-wrapper input[type="radio"]:checked ~ .tag-annonces {
-          background-color: #d97706;
-          color: white;
-        }
-
-        .tag {
-          transition: all 0.2s ease;
-          user-select: none;
-        }
-
-        /* Add these styles to your existing styles */
-        #publishButton {
-          position: relative;
-          overflow: hidden;
-        }
-
-        #progressBar {
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          width: 100%;
-          height: 2px;
-          background: rgba(255, 255, 255, 0.8);
-          transform: translateX(-100%);
-          transition: transform 0.8s ease-in-out;
-        }
-
-        /* Loading spinner animation */
-        @keyframes spin {
-          to { transform: rotate(360deg); }
-        }
-
-        .fa-spin {
-          animation: spin 1s linear infinite;
-        }
-
-        /* Notification animation */
-        @keyframes slideIn {
-          from {
-            transform: translateY(-20px);
-            opacity: 0;
-          }
-          to {
-            transform: translateY(0);
-            opacity: 1;
-          }
-        }
-
-        /* Add to your existing styles */
-        #progressBar {
-          transition: width 0.7s ease-in-out;
-        }
-
-        #publishProgress {
-          animation: fadeIn 0.3s ease-out;
-        }
-
-        @keyframes fadeIn {
-          from {
-            opacity: 0;
-          }
-          to {
-            opacity: 1;
-          }
-        }
-
-        #errorMessage {
-          animation: shake 0.5s ease-in-out;
-        }
-
-        @keyframes shake {
-          0%, 100% { transform: translateX(0); }
-          25% { transform: translateX(-5px); }
-          75% { transform: translateX(5px); }
-        }
-    </style>
-    <!-- Update the modal div -->
-    <div id="announcementModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 hidden items-center justify-center z-50 p-4">
+    <!-- Add Settings Modal -->
+    <div id="settingsModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 hidden items-center justify-center z-50 p-4">
       <div class="modal-content bg-white rounded-xl shadow-2xl p-8 max-w-2xl w-full mx-auto max-h-[90vh] overflow-y-auto">
-        <h3 class="text-2xl font-bold mb-4">Nouvelle Annonce - <span id="selectedSpeciality"></span></h3>
+        <div class="flex justify-between items-center mb-6">
+          <h3 class="text-2xl font-bold">Paramètres</h3>
+          <button onclick="closeSettingsModal()" class="text-gray-500 hover:text-gray-700">
+            <i class="fas fa-times text-xl"></i>
+          </button>
+        </div>
         
-        <!-- Title input -->
-        <div class="mb-4">
-          <label class="block text-gray-700 text-sm font-bold mb-2" for="announcementTitle">
+        <form id="settingsForm" class="space-y-6">
+          <!-- Theme Settings -->
+          <div class="space-y-4">
+            <h4 class="text-lg font-semibold">Thème</h4>
+            <div class="grid grid-cols-3 gap-4">
+              <label class="theme-option">
+                <input type="radio" name="theme" value="light" class="hidden" checked>
+                <div class="p-4 border rounded-lg cursor-pointer hover:border-blue-500">
+                  <i class="fas fa-sun text-2xl mb-2 text-yellow-500"></i>
+                  <p class="text-sm">Clair</p>
+                </div>
+              </label>
+              <label class="theme-option">
+                <input type="radio" name="theme" value="dark" class="hidden">
+                <div class="p-4 border rounded-lg cursor-pointer hover:border-blue-500">
+                  <i class="fas fa-moon text-2xl mb-2 text-indigo-500"></i>
+                  <p class="text-sm">Sombre</p>
+                </div>
+              </label>
+              <label class="theme-option">
+                <input type="radio" name="theme" value="system" class="hidden">
+                <div class="p-4 border rounded-lg cursor-pointer hover:border-blue-500">
+                  <i class="fas fa-desktop text-2xl mb-2 text-gray-500"></i>
+                  <p class="text-sm">Système</p>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Notification Settings -->
+          <div class="space-y-4">
+            <h4 class="text-lg font-semibold">Notifications</h4>
+            <div class="space-y-2">
+              <label class="flex items-center justify-between">
+                <span>Notifications par email</span>
+                <input type="checkbox" class="toggle" id="emailNotifications">
+              </label>
+              <label class="flex items-center justify-between">
+                <span>Notifications push</span>
+                <input type="checkbox" class="toggle" id="pushNotifications">
+              </label>
+              <label class="flex items-center justify-between">
+                <span>Notifications sonores</span>
+                <input type="checkbox" class="toggle" id="soundNotifications">
+              </label>
+            </div>
+          </div>
+
+          <!-- Language Settings -->
+          <div class="space-y-4">
+            <h4 class="text-lg font-semibold">Langue</h4>
+            <select class="w-full p-2 border rounded-lg" id="languageSelect">
+              <option value="fr">Français</option>
+              <option value="ar">العربية</option>
+              <option value="en">English</option>
+            </select>
+          </div>
+
+          <!-- Backup Settings -->
+          <div class="space-y-4">
+            <h4 class="text-lg font-semibold">Sauvegarde</h4>
+            <div class="space-y-2">
+              <button type="button" onclick="exportData()" class="w-full p-3 bg-blue-100 text-blue-600 rounded-lg hover:bg-blue-200">
+                <i class="fas fa-download mr-2"></i>Exporter les données
+              </button>
+              <button type="button" onclick="importData()" class="w-full p-3 bg-green-100 text-green-600 rounded-lg hover:bg-green-200">
+                <i class="fas fa-upload mr-2"></i>Importer les données
+              </button>
+            </div>
+          </div>
+
+          <!-- Action buttons -->
+          <div class="flex justify-end space-x-4 pt-6">
+            <button type="button" onclick="closeSettingsModal()" 
+                    class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300 transition-all">
+              Annuler
+            </button>
+            <button type="button" onclick="saveSettings()"
+                    class="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-all">
+              Enregistrer
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Enhanced Announcement Modal -->
+    <div id="announcementModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 hidden items-center justify-center z-50 p-4">
+      <div class="modal-content bg-white rounded-xl shadow-2xl p-8 max-w-4xl w-full mx-auto max-h-[90vh] overflow-y-auto">
+        <div class="flex justify-between items-center mb-6">
+          <div>
+            <h3 class="text-2xl font-bold text-gray-800">Nouvelle Annonce</h3>
+            <p class="text-gray-500">Département: <span id="selectedSpeciality" class="font-semibold text-gray-700"></span></p>
+          </div>
+          <div class="flex items-center gap-2">
+            <button onclick="saveDraft()" class="p-2 text-gray-500 hover:text-gray-700 transition-colors">
+              <i class="fas fa-save"></i>
+            </button>
+            <button onclick="closeAnnouncementModal()" class="p-2 text-gray-500 hover:text-gray-700 transition-colors">
+              <i class="fas fa-times text-xl"></i>
+            </button>
+          </div>
+        </div>
+        
+        <form id="announcementForm" class="space-y-6">
+          <!-- Title input with character counter -->
+          <div>
+            <div class="flex justify-between items-center mb-2">
+              <label class="block text-gray-700 text-sm font-bold" for="announcementTitle">
             Titre de l'annonce
           </label>
+              <span class="text-sm text-gray-500" id="titleCounter">0/100</span>
+            </div>
           <input type="text" id="announcementTitle" 
-                 class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500"
-                 placeholder="Entrez le titre...">
+                   class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 transition-all"
+                   placeholder="Entrez le titre..." maxlength="100" required>
         </div>
 
-        <!-- Tag Selection -->
-        <div class="mb-4">
+          <!-- Tag Selection with preview -->
+          <div>
           <label class="block text-gray-700 text-sm font-bold mb-2">Type d'annonce</label>
           <div class="flex flex-wrap gap-3">
             <label class="tag-wrapper">
-              <input type="radio" name="tag" value="examens" class="hidden">
+                <input type="radio" name="tag" value="examens" class="hidden" required>
               <span class="tag tag-examens cursor-pointer transform transition-all hover:scale-105">
                 <i class="fas fa-file-alt mr-1"></i>
                 Examens
@@ -422,44 +713,91 @@
           </div>
         </div>
 
-        <!-- Main Content -->
-        <div class="mb-4">
-          <label class="block text-gray-700 text-sm font-bold mb-2">
+          <!-- Rich Text Editor with toolbar -->
+          <div>
+            <div class="flex justify-between items-center mb-2">
+              <label class="block text-gray-700 text-sm font-bold">
             Contenu principal
           </label>
-          <textarea id="mainContent" 
-                    class="w-full h-32 p-3 border rounded-lg focus:ring-2 focus:ring-blue-500"
-                    placeholder="Contenu principal visible..."></textarea>
+              <div class="flex items-center gap-2">
+                <button type="button" onclick="insertTemplate()" class="text-sm text-blue-600 hover:text-blue-700">
+                  <i class="fas fa-file-alt mr-1"></i>Insérer un modèle
+                </button>
+                <button type="button" onclick="previewContent()" class="text-sm text-blue-600 hover:text-blue-700">
+                  <i class="fas fa-eye mr-1"></i>Aperçu
+                </button>
+              </div>
+            </div>
+            <div id="mainContentEditor" class="h-48"></div>
         </div>
 
-        <!-- Hidden Content -->
-        <div class="mb-4">
-          <label class="block text-gray-700 text-sm font-bold mb-2">
+          <!-- Hidden Content with toggle -->
+          <div>
+            <div class="flex justify-between items-center mb-2">
+              <label class="block text-gray-700 text-sm font-bold">
             Contenu détaillé (Voir plus)
           </label>
-          <textarea id="hiddenContent" 
-                    class="w-full h-32 p-3 border rounded-lg focus:ring-2 focus:ring-blue-500"
-                    placeholder="Contenu qui apparaîtra après 'Voir plus'..."></textarea>
+              <button type="button" onclick="toggleHiddenContent()" class="text-sm text-blue-600 hover:text-blue-700">
+                <i class="fas fa-chevron-down mr-1"></i>Basculer
+              </button>
+            </div>
+            <div id="hiddenContentEditor" class="h-48 hidden"></div>
         </div>
 
-        <!-- Files -->
-        <div class="mb-6">
+          <!-- File Upload with drag & drop -->
+          <div>
           <label class="block text-gray-700 text-sm font-bold mb-2">
             Fichiers joints
           </label>
-          <input type="file" id="attachments" multiple
-                 class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-blue-500">
+            <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center" 
+                 id="dropZone" 
+                 ondragover="event.preventDefault(); this.classList.add('border-blue-500');" 
+                 ondragleave="this.classList.remove('border-blue-500');" 
+                 ondrop="handleDrop(event)">
+              <input type="file" id="attachments" multiple class="hidden">
+              <label for="attachments" class="cursor-pointer">
+                <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-2"></i>
+                <p class="text-gray-500">Glissez-déposez vos fichiers ici ou cliquez pour sélectionner</p>
+                <p class="text-sm text-gray-400 mt-2">Formats acceptés: PDF, DOC, DOCX, XLS, XLSX, JPG, PNG</p>
+              </label>
+              <div id="filePreviews" class="mt-4 grid grid-cols-2 gap-4"></div>
+            </div>
         </div>
 
-        <!-- Priority toggle -->
-        <div class="mb-6">
+          <!-- Advanced Options -->
+          <div class="space-y-4">
+            <h4 class="text-lg font-semibold">Options avancées</h4>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <!-- Priority and Schedule -->
+              <div class="space-y-2">
           <label class="flex items-center space-x-2 cursor-pointer">
             <input type="checkbox" id="isPriority" class="form-checkbox text-red-600">
             <span class="text-gray-700">Annonce prioritaire</span>
           </label>
+                <div class="flex items-center space-x-2">
+                  <label class="flex items-center space-x-2 cursor-pointer">
+                    <input type="checkbox" id="schedulePost" class="form-checkbox text-blue-600">
+                    <span class="text-gray-700">Programmer la publication</span>
+                  </label>
+                  <input type="datetime-local" id="scheduleDate" class="hidden">
+                </div>
         </div>
 
-        <!-- Action buttons -->
+              <!-- Additional Options -->
+              <div class="space-y-2">
+                <label class="flex items-center space-x-2 cursor-pointer">
+                  <input type="checkbox" id="sendNotification" class="form-checkbox text-green-600">
+                  <span class="text-gray-700">Envoyer une notification</span>
+                </label>
+                <label class="flex items-center space-x-2 cursor-pointer">
+                  <input type="checkbox" id="pinToTop" class="form-checkbox text-purple-600">
+                  <span class="text-gray-700">Épingler en haut</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Action buttons with progress -->
         <div class="flex flex-col space-y-4">
           <!-- Progress bar -->
           <div id="publishProgress" class="hidden">
@@ -476,11 +814,11 @@
 
           <!-- Buttons -->
           <div class="flex justify-end space-x-4">
-            <button onclick="closeAnnouncementModal()" 
+              <button type="button" onclick="closeAnnouncementModal()" 
                     class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300 transition-all">
               Annuler
             </button>
-            <button id="publishButton"
+              <button type="button" id="publishButton"
                     onclick="handlePublish()"
                     class="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-all flex items-center gap-2">
               <i class="fas fa-paper-plane"></i>
@@ -488,14 +826,50 @@
             </button>
           </div>
         </div>
+        </form>
       </div>
     </div>
+
+    <footer class="bg-gray-800 text-gray-200 py-6">
+      <div class="container mx-auto px-4">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+          <div class="mb-4 md:mb-0">
+            <p class="text-sm">&copy; 2025 Université de Bejaia - Campus El-Kseur</p>
+          </div>
+          <div class="flex space-x-4">
+            <a href="#" class="hover:text-white transition-colors">
+              <i class="fab fa-facebook"></i>
+            </a>
+            <a href="#" class="hover:text-white transition-colors">
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a href="#" class="hover:text-white transition-colors">
+              <i class="fab fa-linkedin"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init({ 
+        duration: 800, 
+        once: true, 
+        offset: 100, 
+        delay: 50,
+        easing: 'ease-out-cubic',
+        anchorPlacement: 'top-bottom'
+      });
+    </script>
+
     <script type="module">
   // Import Firebase utilities
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-  import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+      import { getFirestore, collection, addDoc, serverTimestamp, getDocs, query, where, writeBatch, doc } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+      import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-storage.js";
 
-  // Your web app's Firebase configuration
+      // Firebase configuration
   const firebaseConfig = {
     apiKey: "AIzaSyB5XYqWKhHdiVDXJx4iOwtpxD8eUCPRfKU",
     authDomain: "universite-de-bejaia-547fc.firebaseapp.com",
@@ -509,13 +883,142 @@
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
+      const storage = getStorage(app);
 
-  // Wait for DOM to load
-  document.addEventListener('DOMContentLoaded', () => {
-    const publishButton = document.getElementById('publishButton');
-    
-    if (publishButton) {
-      publishButton.addEventListener('click', handlePublish);
+      // Initialize Quill editors
+      const mainContentEditor = new Quill('#mainContentEditor', {
+        theme: 'snow',
+        modules: {
+          toolbar: [
+            ['bold', 'italic', 'underline', 'strike'],
+            ['blockquote', 'code-block'],
+            [{ 'header': 1 }, { 'header': 2 }],
+            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+            [{ 'script': 'sub'}, { 'script': 'super' }],
+            [{ 'indent': '-1'}, { 'indent': '+1' }],
+            [{ 'direction': 'rtl' }],
+            [{ 'size': ['small', false, 'large', 'huge'] }],
+            [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+            [{ 'color': [] }, { 'background': [] }],
+            [{ 'font': [] }],
+            [{ 'align': [] }],
+            ['clean']
+          ]
+        }
+      });
+
+      const hiddenContentEditor = new Quill('#hiddenContentEditor', {
+        theme: 'snow',
+        modules: {
+          toolbar: [
+            ['bold', 'italic', 'underline', 'strike'],
+            ['blockquote', 'code-block'],
+            [{ 'header': 1 }, { 'header': 2 }],
+            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+            [{ 'script': 'sub'}, { 'script': 'super' }],
+            [{ 'indent': '-1'}, { 'indent': '+1' }],
+            [{ 'direction': 'rtl' }],
+            [{ 'size': ['small', false, 'large', 'huge'] }],
+            [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+            [{ 'color': [] }, { 'background': [] }],
+            [{ 'font': [] }],
+            [{ 'align': [] }],
+            ['clean']
+          ]
+        }
+      });
+
+      // Load statistics
+      async function loadStatistics() {
+        try {
+          const today = new Date();
+          today.setHours(0, 0, 0, 0);
+
+          const announcementsRef = collection(db, 'st_announcements');
+          const q = query(announcementsRef);
+          const snapshot = await getDocs(q);
+
+          let total = 0;
+          let todayCount = 0;
+          let priorityCount = 0;
+          let fileCount = 0;
+          let totalViews = 0;
+
+          snapshot.forEach(doc => {
+            const data = doc.data();
+            total++;
+            
+            if (data.createdAt?.toDate() >= today) {
+              todayCount++;
+            }
+            
+            if (data.isPriority) {
+              priorityCount++;
+            }
+            
+            if (data.fileUrls?.length) {
+              fileCount += data.fileUrls.length;
+            }
+
+            if (data.views) {
+              totalViews += data.views;
+            }
+          });
+
+          document.getElementById('totalAnnouncements').textContent = total;
+          document.getElementById('todayAnnouncements').textContent = todayCount;
+          document.getElementById('priorityAnnouncements').textContent = priorityCount;
+          document.getElementById('totalFiles').textContent = fileCount;
+
+          // Add views to statistics if element exists
+          const viewsElement = document.getElementById('totalViews');
+          if (viewsElement) {
+            viewsElement.textContent = totalViews;
+          }
+
+        } catch (error) {
+          console.error('Error loading statistics:', error);
+        }
+      }
+
+      // File upload handling
+      const attachmentsInput = document.getElementById('attachments');
+      const filePreviews = document.getElementById('filePreviews');
+
+      attachmentsInput.addEventListener('change', (e) => {
+        filePreviews.innerHTML = '';
+        Array.from(e.target.files).forEach(file => {
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            const preview = document.createElement('div');
+            preview.className = 'file-preview bg-gray-100 p-3 rounded-lg';
+            preview.innerHTML = `
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <i class="fas fa-file text-gray-500"></i>
+                  <span class="text-sm text-gray-700">${file.name}</span>
+                </div>
+                <button class="text-red-500 hover:text-red-700" onclick="removeFile(this)">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+            `;
+            filePreviews.appendChild(preview);
+          };
+          reader.readAsDataURL(file);
+        });
+      });
+
+      // Schedule post functionality
+      const schedulePost = document.getElementById('schedulePost');
+      const scheduleDate = document.getElementById('scheduleDate');
+
+      schedulePost.addEventListener('change', (e) => {
+        scheduleDate.classList.toggle('hidden', !e.target.checked);
+        if (e.target.checked) {
+          scheduleDate.required = true;
+        } else {
+          scheduleDate.required = false;
     }
   });
 
@@ -540,10 +1043,14 @@
       // Get form values
       const speciality = document.getElementById('selectedSpeciality').textContent;
       const title = document.getElementById('announcementTitle').value;
-      const mainContent = document.getElementById('mainContent').value;
-      const hiddenContent = document.getElementById('hiddenContent').value;
+          const mainContent = mainContentEditor.root.innerHTML;
+          const hiddenContent = hiddenContentEditor.root.innerHTML;
       const tag = document.querySelector('input[name="tag"]:checked')?.value;
       const isPriority = document.getElementById('isPriority').checked;
+          const isScheduled = document.getElementById('schedulePost').checked;
+          const scheduledDate = document.getElementById('scheduleDate').value;
+          const sendNotification = document.getElementById('sendNotification').checked;
+          const pinToTop = document.getElementById('pinToTop').checked;
 
       // Validate
       if (!title || !mainContent || !tag) {
@@ -552,6 +1059,25 @@
 
       // Update progress
       progressBar.style.width = '60%';
+          publishStatus.textContent = 'Téléchargement des fichiers...';
+
+          // Upload files with progress tracking
+          const fileUrls = [];
+          const files = document.getElementById('attachments').files;
+          for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            try {
+              const url = await handleFileUpload(file);
+              fileUrls.push(url);
+              publishStatus.textContent = `Téléchargement des fichiers (${i + 1}/${files.length})...`;
+            } catch (error) {
+              console.error('Error uploading file:', error);
+              throw new Error(`Erreur lors du téléchargement de ${file.name}: ${error.message}`);
+            }
+          }
+
+          // Update progress
+          progressBar.style.width = '80%';
       publishStatus.textContent = 'Enregistrement de l\'annonce...';
 
       // Create announcement object
@@ -562,7 +1088,14 @@
         hiddenContent,
         tag,
         isPriority,
-        createdAt: serverTimestamp()
+            fileUrls,
+            createdAt: serverTimestamp(),
+            status: isScheduled ? 'scheduled' : 'published',
+            scheduledDate: isScheduled ? new Date(scheduledDate) : null,
+            sendNotification,
+            pinToTop,
+            views: 0,
+            lastUpdated: serverTimestamp()
       };
 
       // Get collection name
@@ -579,6 +1112,11 @@
       const docRef = await addDoc(collection(db, collectionName), announcement);
       console.log('Document written with ID:', docRef.id);
 
+          // Send notification if enabled
+          if (sendNotification) {
+            await sendPushNotification(announcement);
+          }
+
       // Update progress
       progressBar.style.width = '100%';
       publishStatus.textContent = 'Publication réussie!';
@@ -586,9 +1124,13 @@
       // Show success message
       window.showNotification('Annonce publiée avec succès!', 'success');
 
+          // Clear draft
+          localStorage.removeItem('announcementDraft');
+
       // Close modal after delay
       setTimeout(() => {
         closeAnnouncementModal();
+            loadStatistics(); // Reload statistics
       }, 1500);
 
     } catch (error) {
@@ -612,17 +1154,100 @@
     }
   }
 
+      // Push notification function
+      async function sendPushNotification(announcement) {
+        try {
+          // Get all subscribed users
+          const usersRef = collection(db, 'users');
+          const q = query(usersRef, where('notificationsEnabled', '==', true));
+          const snapshot = await getDocs(q);
+
+          // Send notification to each user
+          const notifications = snapshot.docs.map(doc => {
+            const user = doc.data();
+            return {
+              userId: doc.id,
+              title: announcement.title,
+              body: announcement.mainContent.replace(/<[^>]*>/g, '').substring(0, 100),
+              data: {
+                announcementId: doc.id,
+                type: announcement.tag
+              },
+              timestamp: serverTimestamp()
+            };
+          });
+
+          // Batch write notifications
+          const batch = writeBatch(db);
+          notifications.forEach(notification => {
+            const notificationRef = doc(collection(db, 'notifications'));
+            batch.set(notificationRef, notification);
+          });
+          await batch.commit();
+
+          console.log('Notifications sent successfully');
+        } catch (error) {
+          console.error('Error sending notifications:', error);
+        }
+      }
+
+      // Enhanced file handling
+      async function handleFileUpload(file) {
+        const validTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 
+                           'application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                           'image/jpeg', 'image/png'];
+        
+        if (!validTypes.includes(file.type)) {
+          throw new Error('Type de fichier non supporté');
+        }
+
+        const maxSize = 10 * 1024 * 1024; // 10MB
+        if (file.size > maxSize) {
+          throw new Error('Fichier trop volumineux (max 10MB)');
+        }
+
+        const storageRef = ref(storage, `announcements/${Date.now()}_${file.name}`);
+        await uploadBytes(storageRef, file);
+        return await getDownloadURL(storageRef);
+      }
+
   // Make functions available globally
   window.handlePublish = handlePublish;
+      window.removeFile = (button) => {
+        button.closest('.file-preview').remove();
+      };
+      window.showAnnouncementModal = (speciality) => {
+        const modal = document.getElementById('announcementModal');
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        document.getElementById('selectedSpeciality').textContent = speciality;
+      };
+      window.closeAnnouncementModal = () => {
+        const modal = document.getElementById('announcementModal');
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        // Reset form
+        document.getElementById('announcementTitle').value = '';
+        mainContentEditor.root.innerHTML = '';
+        hiddenContentEditor.root.innerHTML = '';
+        document.getElementById('attachments').value = '';
+        document.getElementById('isPriority').checked = false;
+        document.getElementById('schedulePost').checked = false;
+        document.getElementById('scheduleDate').classList.add('hidden');
+        document.querySelectorAll('input[name="tag"]').forEach(radio => radio.checked = false);
+      };
+
+      // Load statistics on page load
+      loadStatistics();
 </script>
+
 <script>
-  // Global notification function
+      // Enhanced notification function
   function showNotification(message, type = 'success') {
-    // Create notification element
     const notification = document.createElement('div');
     notification.className = `fixed top-4 right-4 p-4 rounded-lg shadow-lg text-white ${
       type === 'success' ? 'bg-green-500' : 'bg-red-500'
-    } transform translate-y-[-20px] opacity-0 transition-all duration-300 z-50`;
+        } notification transform translate-x-full opacity-0 transition-all duration-300 z-50`;
     
     notification.innerHTML = `
       <div class="flex items-center gap-2">
@@ -635,13 +1260,13 @@
     
     // Trigger animation
     setTimeout(() => {
-      notification.style.transform = 'translateY(0)';
+          notification.style.transform = 'translateX(0)';
       notification.style.opacity = '1';
     }, 100);
 
     // Remove notification after delay
     setTimeout(() => {
-      notification.style.transform = 'translateY(-20px)';
+          notification.style.transform = 'translateX(100%)';
       notification.style.opacity = '0';
       setTimeout(() => notification.remove(), 300);
     }, 3000);
@@ -650,5 +1275,504 @@
   // Make it globally available
   window.showNotification = showNotification;
 </script>
+
+    <script>
+    // Add these new functions to handle settings and enhanced features
+    function showSettingsModal() {
+      const modal = document.getElementById('settingsModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      loadSettings();
+    }
+
+    function closeSettingsModal() {
+      const modal = document.getElementById('settingsModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function loadSettings() {
+      const settings = JSON.parse(localStorage.getItem('adminSettings') || '{}');
+      document.getElementById('emailNotifications').checked = settings.emailNotifications || false;
+      document.getElementById('pushNotifications').checked = settings.pushNotifications || false;
+      document.getElementById('soundNotifications').checked = settings.soundNotifications || false;
+      document.getElementById('languageSelect').value = settings.language || 'fr';
+      document.querySelector(`input[name="theme"][value="${settings.theme || 'light'}"]`).checked = true;
+    }
+
+    function saveSettings() {
+      const settings = {
+        emailNotifications: document.getElementById('emailNotifications').checked,
+        pushNotifications: document.getElementById('pushNotifications').checked,
+        soundNotifications: document.getElementById('soundNotifications').checked,
+        language: document.getElementById('languageSelect').value,
+        theme: document.querySelector('input[name="theme"]:checked').value
+      };
+      localStorage.setItem('adminSettings', JSON.stringify(settings));
+      applySettings(settings);
+      closeSettingsModal();
+      showNotification('Paramètres enregistrés avec succès!', 'success');
+    }
+
+    function applySettings(settings) {
+      // Apply theme
+      document.body.classList.remove('light', 'dark');
+      if (settings.theme === 'system') {
+        const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        document.body.classList.add(systemTheme);
+      } else {
+        document.body.classList.add(settings.theme);
+      }
+
+      // Apply language
+      document.documentElement.lang = settings.language;
+    }
+
+    // Enhanced announcement features
+    function saveDraft() {
+      const draft = {
+        title: document.getElementById('announcementTitle').value,
+        mainContent: mainContentEditor.root.innerHTML,
+        hiddenContent: hiddenContentEditor.root.innerHTML,
+        tag: document.querySelector('input[name="tag"]:checked')?.value,
+        isPriority: document.getElementById('isPriority').checked,
+        isScheduled: document.getElementById('schedulePost').checked,
+        scheduledDate: document.getElementById('scheduleDate').value,
+        files: Array.from(document.getElementById('attachments').files).map(file => ({
+          name: file.name,
+          size: file.size,
+          type: file.type
+        }))
+      };
+      localStorage.setItem('announcementDraft', JSON.stringify(draft));
+      showNotification('Brouillon enregistré!', 'success');
+    }
+
+    function loadDraft() {
+      const draft = JSON.parse(localStorage.getItem('announcementDraft') || '{}');
+      if (draft.title) {
+        document.getElementById('announcementTitle').value = draft.title;
+        mainContentEditor.root.innerHTML = draft.mainContent;
+        hiddenContentEditor.root.innerHTML = draft.hiddenContent;
+        if (draft.tag) document.querySelector(`input[name="tag"][value="${draft.tag}"]`).checked = true;
+        document.getElementById('isPriority').checked = draft.isPriority;
+        document.getElementById('schedulePost').checked = draft.isScheduled;
+        if (draft.isScheduled) {
+          document.getElementById('scheduleDate').classList.remove('hidden');
+          document.getElementById('scheduleDate').value = draft.scheduledDate;
+        }
+        showNotification('Brouillon chargé!', 'success');
+      }
+    }
+
+    function insertTemplate() {
+      const templates = {
+        examens: '<h2>Examen</h2><p>Date: [DATE]</p><p>Durée: [DURÉE]</p><p>Matériel autorisé: [MATÉRIEL]</p>',
+        emplois: '<h2>Emploi du temps</h2><p>Période: [PÉRIODE]</p><p>Changements: [CHANGEMENTS]</p>',
+        notes: '<h2>Résultats</h2><p>Module: [MODULE]</p><p>Date de publication: [DATE]</p>',
+        annonces: '<h2>Annonce</h2><p>Objet: [OBJET]</p><p>Date limite: [DATE]</p>'
+      };
+      
+      const selectedTag = document.querySelector('input[name="tag"]:checked')?.value;
+      if (selectedTag && templates[selectedTag]) {
+        mainContentEditor.clipboard.dangerouslyPasteHTML(0, templates[selectedTag]);
+        showNotification('Modèle inséré!', 'success');
+      }
+    }
+
+    function previewContent() {
+      const preview = window.open('', '_blank');
+      preview.document.write(`
+        <html>
+          <head>
+            <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+          </head>
+          <body class="p-8">
+            <h1 class="text-2xl font-bold mb-4">${document.getElementById('announcementTitle').value}</h1>
+            <div class="prose max-w-none">
+              ${mainContentEditor.root.innerHTML}
+            </div>
+          </body>
+        </html>
+      `);
+    }
+
+    function toggleHiddenContent() {
+      const editor = document.getElementById('hiddenContentEditor');
+      editor.classList.toggle('hidden');
+    }
+
+    function handleDrop(event) {
+      event.preventDefault();
+      event.stopPropagation();
+      const dropZone = event.currentTarget;
+      dropZone.classList.remove('border-blue-500');
+      
+      const files = event.dataTransfer.files;
+      if (files.length > 0) {
+        document.getElementById('attachments').files = files;
+        const event = new Event('change');
+        document.getElementById('attachments').dispatchEvent(event);
+      }
+    }
+
+    // Make functions available globally
+    window.showSettingsModal = showSettingsModal;
+    window.closeSettingsModal = closeSettingsModal;
+    window.saveDraft = saveDraft;
+    window.loadDraft = loadDraft;
+    window.insertTemplate = insertTemplate;
+    window.previewContent = previewContent;
+    window.toggleHiddenContent = toggleHiddenContent;
+    window.handleDrop = handleDrop;
+
+    // Initialize settings on page load
+    document.addEventListener('DOMContentLoaded', () => {
+      const settings = JSON.parse(localStorage.getItem('adminSettings') || '{}');
+      applySettings(settings);
+      
+      // Add character counter for title
+      const titleInput = document.getElementById('announcementTitle');
+      const titleCounter = document.getElementById('titleCounter');
+      titleInput.addEventListener('input', () => {
+        titleCounter.textContent = `${titleInput.value.length}/100`;
+      });
+    });
+    </script>
+
+    <script type="module">
+    // Add these new features to the existing module
+
+    // Enhanced file handling
+    async function handleFileUpload(file) {
+      const validTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 
+                         'application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                         'image/jpeg', 'image/png'];
+      
+      if (!validTypes.includes(file.type)) {
+        throw new Error('Type de fichier non supporté');
+      }
+
+      const maxSize = 10 * 1024 * 1024; // 10MB
+      if (file.size > maxSize) {
+        throw new Error('Fichier trop volumineux (max 10MB)');
+      }
+
+      const storageRef = ref(storage, `announcements/${Date.now()}_${file.name}`);
+      await uploadBytes(storageRef, file);
+      return await getDownloadURL(storageRef);
+    }
+
+    // Enhanced announcement handling
+    async function handlePublish() {
+      const publishButton = document.getElementById('publishButton');
+      const progressBar = document.getElementById('progressBar');
+      const publishProgress = document.getElementById('publishProgress');
+      const publishStatus = document.getElementById('publishStatus');
+      const errorMessage = document.getElementById('errorMessage');
+      const errorText = document.getElementById('errorText');
+
+      try {
+        // Show progress and disable button
+        errorMessage.classList.add('hidden');
+        publishProgress.classList.remove('hidden');
+        publishButton.disabled = true;
+        
+        // Update progress
+        progressBar.style.width = '30%';
+        publishStatus.textContent = 'Validation des données...';
+
+        // Get form values
+        const speciality = document.getElementById('selectedSpeciality').textContent;
+        const title = document.getElementById('announcementTitle').value;
+        const mainContent = mainContentEditor.root.innerHTML;
+        const hiddenContent = hiddenContentEditor.root.innerHTML;
+        const tag = document.querySelector('input[name="tag"]:checked')?.value;
+        const isPriority = document.getElementById('isPriority').checked;
+        const isScheduled = document.getElementById('schedulePost').checked;
+        const scheduledDate = document.getElementById('scheduleDate').value;
+        const sendNotification = document.getElementById('sendNotification').checked;
+        const pinToTop = document.getElementById('pinToTop').checked;
+
+        // Validate
+        if (!title || !mainContent || !tag) {
+          throw new Error('Veuillez remplir tous les champs obligatoires (titre, contenu et type d\'annonce)');
+        }
+
+        // Update progress
+        progressBar.style.width = '60%';
+        publishStatus.textContent = 'Téléchargement des fichiers...';
+
+        // Upload files with progress tracking
+        const fileUrls = [];
+        const files = document.getElementById('attachments').files;
+        for (let i = 0; i < files.length; i++) {
+          const file = files[i];
+          try {
+            const url = await handleFileUpload(file);
+            fileUrls.push(url);
+            publishStatus.textContent = `Téléchargement des fichiers (${i + 1}/${files.length})...`;
+          } catch (error) {
+            console.error('Error uploading file:', error);
+            throw new Error(`Erreur lors du téléchargement de ${file.name}: ${error.message}`);
+          }
+        }
+
+        // Update progress
+        progressBar.style.width = '80%';
+        publishStatus.textContent = 'Enregistrement de l\'annonce...';
+
+        // Create announcement object
+        const announcement = {
+          speciality,
+          title,
+          mainContent,
+          hiddenContent,
+          tag,
+          isPriority,
+          fileUrls,
+          createdAt: serverTimestamp(),
+          status: isScheduled ? 'scheduled' : 'published',
+          scheduledDate: isScheduled ? new Date(scheduledDate) : null,
+          sendNotification,
+          pinToTop,
+          views: 0,
+          lastUpdated: serverTimestamp()
+        };
+
+        // Get collection name
+        const collectionMap = {
+          'ST/SM': 'st_announcements',
+          'Biologie': 'bio_announcements',
+          'Informatique': 'info_announcements',
+          'Architecture': 'archi_announcements'
+        };
+
+        const collectionName = collectionMap[speciality];
+        
+        // Add to Firestore
+        const docRef = await addDoc(collection(db, collectionName), announcement);
+        console.log('Document written with ID:', docRef.id);
+
+        // Send notification if enabled
+        if (sendNotification) {
+          await sendPushNotification(announcement);
+        }
+
+        // Update progress
+        progressBar.style.width = '100%';
+        publishStatus.textContent = 'Publication réussie!';
+
+        // Show success message
+        window.showNotification('Annonce publiée avec succès!', 'success');
+
+        // Clear draft
+        localStorage.removeItem('announcementDraft');
+
+        // Close modal after delay
+        setTimeout(() => {
+          closeAnnouncementModal();
+          loadStatistics(); // Reload statistics
+        }, 1500);
+
+      } catch (error) {
+        console.error('Error:', error);
+        
+        // Show error in modal
+        errorText.textContent = error.message;
+        errorMessage.classList.remove('hidden');
+        
+        // Reset progress
+        publishProgress.classList.add('hidden');
+        progressBar.style.width = '0%';
+        
+        // Show error notification
+        window.showNotification(error.message, 'error');
+      } finally {
+        // Reset button state after delay
+        setTimeout(() => {
+          publishButton.disabled = false;
+        }, 1000);
+      }
+    }
+
+    // Push notification function
+    async function sendPushNotification(announcement) {
+      try {
+        // Get all subscribed users
+        const usersRef = collection(db, 'users');
+        const q = query(usersRef, where('notificationsEnabled', '==', true));
+        const snapshot = await getDocs(q);
+
+        // Send notification to each user
+        const notifications = snapshot.docs.map(doc => {
+          const user = doc.data();
+          return {
+            userId: doc.id,
+            title: announcement.title,
+            body: announcement.mainContent.replace(/<[^>]*>/g, '').substring(0, 100),
+            data: {
+              announcementId: doc.id,
+              type: announcement.tag
+            },
+            timestamp: serverTimestamp()
+          };
+        });
+
+        // Batch write notifications
+        const batch = writeBatch(db);
+        notifications.forEach(notification => {
+          const notificationRef = doc(collection(db, 'notifications'));
+          batch.set(notificationRef, notification);
+        });
+        await batch.commit();
+
+        console.log('Notifications sent successfully');
+      } catch (error) {
+        console.error('Error sending notifications:', error);
+      }
+    }
+
+    // Export/Import functions
+    async function exportData() {
+      try {
+        const announcementsRef = collection(db, 'st_announcements');
+        const snapshot = await getDocs(announcementsRef);
+        
+        const data = [];
+        snapshot.forEach(doc => {
+          data.push({
+            id: doc.id,
+            ...doc.data()
+          });
+        });
+
+        const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `announcements_${new Date().toISOString().split('T')[0]}.json`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+
+        showNotification('Données exportées avec succès!', 'success');
+      } catch (error) {
+        console.error('Error exporting data:', error);
+        showNotification('Erreur lors de l\'exportation des données', 'error');
+      }
+    }
+
+    async function importData() {
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.accept = '.json';
+      
+      input.onchange = async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        try {
+          const text = await file.text();
+          const data = JSON.parse(text);
+
+          const batch = writeBatch(db);
+          const announcementsRef = collection(db, 'st_announcements');
+
+          for (const item of data) {
+            const { id, ...announcementData } = item;
+            const docRef = doc(announcementsRef, id);
+            batch.set(docRef, announcementData);
+          }
+
+          await batch.commit();
+          showNotification('Données importées avec succès!', 'success');
+          loadStatistics();
+        } catch (error) {
+          console.error('Error importing data:', error);
+          showNotification('Erreur lors de l\'importation des données', 'error');
+        }
+      };
+
+      input.click();
+    }
+
+    // Make new functions available globally
+    window.exportData = exportData;
+    window.importData = importData;
+    window.sendPushNotification = sendPushNotification;
+
+    // Initialize enhanced features
+    document.addEventListener('DOMContentLoaded', () => {
+      // Load draft if exists
+      loadDraft();
+
+      // Initialize file drop zone
+      const dropZone = document.getElementById('dropZone');
+      if (dropZone) {
+        dropZone.addEventListener('dragover', (e) => {
+          e.preventDefault();
+          dropZone.classList.add('border-blue-500');
+        });
+
+        dropZone.addEventListener('dragleave', () => {
+          dropZone.classList.remove('border-blue-500');
+        });
+
+        dropZone.addEventListener('drop', handleDrop);
+      }
+    });
+    </script>
+
+    <!-- Add keyboard shortcuts -->
+    <script>
+    document.addEventListener('keydown', (e) => {
+      // Ctrl/Cmd + S to save draft
+      if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+        e.preventDefault();
+        saveDraft();
+      }
+
+      // Ctrl/Cmd + P to publish
+      if ((e.ctrlKey || e.metaKey) && e.key === 'p') {
+        e.preventDefault();
+        handlePublish();
+      }
+
+      // Esc to close modals
+      if (e.key === 'Escape') {
+        closeAnnouncementModal();
+        closeSettingsModal();
+      }
+    });
+    </script>
+
+    <!-- Add print button -->
+    <button onclick="window.print()" class="fixed bottom-4 right-4 bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition-all no-print">
+      <i class="fas fa-print"></i>
+    </button>
+
+    <!-- Add loading overlay -->
+    <div id="loadingOverlay" class="fixed inset-0 bg-gray-900 bg-opacity-50 hidden items-center justify-center z-50">
+      <div class="bg-white p-8 rounded-lg shadow-xl text-center">
+        <div class="w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+        <p class="text-gray-700" id="loadingText">Chargement...</p>
+      </div>
+    </div>
+
+    <!-- Add error boundary -->
+    <div id="errorBoundary" class="fixed inset-0 bg-gray-900 bg-opacity-50 hidden items-center justify-center z-50">
+      <div class="bg-white p-8 rounded-lg shadow-xl text-center max-w-md">
+        <i class="fas fa-exclamation-triangle text-red-500 text-4xl mb-4"></i>
+        <h3 class="text-xl font-bold mb-2">Une erreur est survenue</h3>
+        <p class="text-gray-600 mb-4" id="errorBoundaryMessage"></p>
+        <button onclick="location.reload()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+          Recharger la page
+        </button>
+      </div>
+    </div>
   </body>
 </html>

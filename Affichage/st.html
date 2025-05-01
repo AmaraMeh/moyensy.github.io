@@ -3,419 +3,708 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ST/SM - Affichage</title>
-    <!-- Tailwind CSS -->
+    <title>Sciences et Technologies - Affichage | Université de Bejaia</title>
+    <meta name="description" content="Affichage des actualités - Sciences et Technologies - Université de Bejaia">
+    <meta name="author" content="Amara Mehdi">
+    <meta name="keywords" content="Université de Bejaia, Sciences et Technologies, Affichage, Actualités">
+    <link rel="icon" type="image/png" href="../assets/img/icon.png">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- AOS for animations -->
-    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
-    <link rel="icon" type="image/x-icon" href="../assets/img/favicon.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
     <style>
+        /* Dark mode variables */
         :root {
-            --primary-color: #4f46e5;
-            --secondary-color: #7c3aed;
-            --accent-color: #a78bfa;
-            --text-color: #1f2937;
             --bg-color: #f9fafb;
+            --text-color: #1f2937;
+            --text-color-secondary: #4b5563;
             --card-bg: #ffffff;
-            --border-color: #e5e7eb;
+            --card-border: #e5e7eb;
+            --primary-color: #3b82f6;
+            --secondary-color: #10b981;
+            --header-bg: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            --filter-bg: rgba(255, 255, 255, 0.9);
+            --dropdown-bg: #ffffff;
+            --dropdown-hover: #f3f4f6;
+            --shadow-color: rgba(0, 0, 0, 0.1);
         }
 
-        [data-theme="dark"] {
-            --primary-color: #6366f1;
-            --secondary-color: #8b5cf6;
-            --accent-color: #a78bfa;
-            --text-color: #f3f4f6;
-            --bg-color: #111827;
-            --card-bg: #1f2937;
-            --border-color: #374151;
+        /* Dark theme */
+        html.dark {
+            --bg-color: #121827;
+            --text-color: #cbd5e1;
+            --text-color-secondary: #94a3b8;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --card-border: rgba(255, 255, 255, 0.15);
+            --primary-color: #60a5fa;
+            --secondary-color: #34d399;
+            --header-bg: linear-gradient(135deg, #1a202c, #2d3748);
+            --filter-bg: rgba(30, 41, 59, 0.9);
+            --dropdown-bg: #1e293b;
+            --dropdown-hover: #2d3748;
+            --shadow-color: rgba(0, 0, 0, 0.3);
         }
 
         body {
+            font-family: 'Poppins', sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
             transition: background-color 0.3s ease, color 0.3s ease;
         }
 
-        .announcement-card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
+        /* Enhanced Header */
+        .department-header {
+            background: var(--header-bg);
+            padding: 3rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .department-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+            animation: shimmer 2s infinite;
+        }
+
+        /* Enhanced News Cards */
+        .news-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 15px var(--shadow-color);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 20px 40px -5px var(--shadow-color);
+        }
+
+        /* Enhanced Filter Section */
+        .filter-section {
+            background: var(--filter-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 15px var(--shadow-color);
+            position: sticky;
+            top: 1rem;
+            z-index: 10;
+        }
+
+        .filter-button {
+            background: var(--card-bg);
+            color: var(--text-color);
+            border: 1px solid var(--card-border);
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.75rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .filter-button:hover {
+            transform: translateY(-2px);
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .filter-button.active {
+            background: var(--primary-color);
+            color: white;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+        }
+
+        /* Enhanced Search Bar */
+        .search-bar {
+            position: relative;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 1rem 1.5rem 1rem 3rem;
+            border: 1px solid var(--card-border);
+            border-radius: 1rem;
+            background: var(--card-bg);
+            color: var(--text-color);
             transition: all 0.3s ease;
         }
 
-        .announcement-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        .search-bar input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+            outline: none;
         }
 
+        .search-bar i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-color-secondary);
+            transition: color 0.3s ease;
+        }
+
+        /* Enhanced Tags */
         .tag {
-            padding: 0.35rem 0.75rem;
-            border-radius: 9999px;
+            display: inline-flex;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
             font-size: 0.875rem;
             font-weight: 500;
-            display: inline-flex;
+            transition: all 0.3s ease;
+        }
+
+        .tag:hover {
+            transform: scale(1.05);
+            filter: brightness(1.1);
+        }
+
+        /* Enhanced Dropdown */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            min-width: 200px;
+            background: var(--dropdown-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 15px var(--shadow-color);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            z-index: 20;
+        }
+
+        .dropdown:hover .dropdown-content,
+        .dropdown-content.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-item {
+            padding: 0.75rem 1rem;
+            color: var(--text-color);
+            transition: all 0.3s ease;
+            display: flex;
             align-items: center;
             gap: 0.5rem;
         }
 
-        .tag-examens {
-            background-color: #fee2e2;
-            color: #dc2626;
+        .dropdown-item:hover {
+            background: var(--dropdown-hover);
+            color: var(--primary-color);
         }
 
-        .tag-emplois {
-            background-color: #e0e7ff;
-            color: #4f46e5;
+        /* Enhanced Animations */
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
         }
 
-        .tag-notes {
-            background-color: #d1fae5;
-            color: #059669;
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        .tag-annonces {
-            background-color: #fef3c7;
-            color: #d97706;
+        .slide-in {
+            animation: slideIn 0.5s ease forwards;
         }
 
-        .tag-divers {
-            background-color: #f3e8ff;
-            color: #7e22ce;
+        /* Mobile Enhancements */
+        @media (max-width: 768px) {
+            .department-header {
+                padding: 2rem 1rem;
+            }
+
+            .filter-section {
+                padding: 1rem;
+                margin: 1rem;
+                position: relative;
+                top: 0;
+            }
+
+            .filter-button {
+                padding: 0.5rem 1rem;
+                font-size: 0.875rem;
+            }
+
+            .news-card {
+                margin: 1rem;
+                padding: 1rem;
+            }
+
+            .search-bar {
+                margin: 1rem;
+            }
+
+            .dropdown-content {
+                position: fixed;
+                top: auto;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                width: 100%;
+                border-radius: 1rem 1rem 0 0;
+                transform: translateY(100%);
+            }
+
+            .dropdown-content.show {
+                transform: translateY(0);
+            }
         }
 
-        .theme-toggle {
+        /* Theme Toggle Button */
+        #theme-toggle {
             position: fixed;
             bottom: 2rem;
             right: 2rem;
-            z-index: 50;
-            background: var(--primary-color);
-            color: white;
-            border-radius: 50%;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            color: var(--text-color);
             width: 3rem;
             height: 3rem;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             transition: all 0.3s ease;
+            z-index: 50;
+            box-shadow: 0 4px 12px var(--shadow-color);
         }
 
-        .theme-toggle:hover {
+        #theme-toggle:hover {
             transform: scale(1.1);
         }
 
-        .notification {
-            position: fixed;
-            top: 1rem;
-            right: 1rem;
-            padding: 1rem;
-            border-radius: 0.5rem;
+        /* Loading Animation */
+        .loading-spinner {
+            width: 3rem;
+            height: 3rem;
+            border: 3px solid var(--card-border);
+            border-radius: 50%;
+            border-top-color: var(--primary-color);
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: var(--card-bg);
+            border-radius: 1rem;
+            box-shadow: 0 4px 15px var(--shadow-color);
+        }
+
+        .empty-state i {
+            font-size: 4rem;
+            color: var(--text-color-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .news-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            color: var(--text-color);
+        }
+
+        .news-card h2 {
+            color: var(--text-color);
+        }
+
+        .news-card .prose {
+            color: var(--text-color-secondary);
+        }
+
+        .filter-button {
+            background: var(--card-bg);
+            color: var(--text-color);
+            border: 1px solid var(--card-border);
+        }
+
+        .filter-button:hover,
+        .filter-button.active {
             background: var(--primary-color);
             color: white;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transform: translateX(120%);
-            transition: transform 0.3s ease;
-            z-index: 1000;
         }
 
-        .notification.show {
-            transform: translateX(0);
+        .search-bar input {
+            background: var(--card-bg);
+            color: var(--text-color);
+            border: 1px solid var(--card-border);
         }
 
-        .back-button {
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .back-button:hover {
-            transform: translateX(-5px);
-        }
-
-        .announcement-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out;
-        }
-
-        .announcement-content.expanded {
-            max-height: 1000px;
-        }
-
-        .priority-badge {
-            position: absolute;
-            top: 0.5rem;
-            right: 0.5rem;
-            background: linear-gradient(135deg, #ef4444, #dc2626);
-            color: white;
-            padding: 0.25rem 0.5rem;
-            border-radius: 0.25rem;
-            font-size: 0.75rem;
-            font-weight: 600;
-        }
-
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
-        }
-
-        .welcome-section {
-            animation: float 4s ease-in-out infinite;
+        .search-bar input:focus {
+            border-color: var(--primary-color);
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col">
-    <!-- Theme Toggle Button -->
-    <button class="theme-toggle" onclick="toggleTheme()">
-        <i class="fas fa-moon"></i>
-    </button>
-
-    <!-- Notification Container -->
-    <div id="notification" class="notification hidden">
-        <div class="flex items-center">
-            <i class="fas fa-info-circle mr-2"></i>
-            <span id="notification-message"></span>
-        </div>
-    </div>
-
-    <div class="container mx-auto px-4 max-w-7xl my-8 flex-grow">
-        <!-- Back button -->
-        <div class="mb-6">
-            <a href="../affichage.html" class="back-button inline-flex items-center px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-all duration-300 shadow-lg">
-                <i class="fas fa-arrow-left"></i>
-                Retour
-            </a>
-        </div>
-
-        <!-- Welcome section -->
-        <div class="welcome-section text-center py-8 mb-8 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-xl shadow-xl" data-aos="fade-up">
-            <h2 class="text-3xl font-bold mb-6 text-white">ST/SM - Sciences et Technologies</h2>
-            <p class="text-white opacity-90">Espace d'affichage des annonces et informations</p>
-        </div>
-
-        <!-- Filter Section -->
-        <div class="mb-8 bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6" data-aos="fade-up">
-            <div class="flex flex-wrap gap-4 items-center justify-between">
-                <div class="flex flex-wrap gap-2">
-                    <button class="tag tag-examens active" data-filter="examens">
-                        <i class="fas fa-file-alt"></i>
-                        Examens
-                    </button>
-                    <button class="tag tag-emplois" data-filter="emplois">
-                        <i class="fas fa-calendar-alt"></i>
-                        Emplois
-                    </button>
-                    <button class="tag tag-notes" data-filter="notes">
-                        <i class="fas fa-chart-bar"></i>
-                        Notes
-                    </button>
-                    <button class="tag tag-annonces" data-filter="annonces">
-                        <i class="fas fa-bullhorn"></i>
-                        Annonces
-                    </button>
+<body class="min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50 dark:bg-gray-800">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between h-16">
+                <div class="flex">
+                    <a href="../index.html" class="flex items-center">
+                        <img src="../assets/img/LOGO.png" alt="Logo" class="h-10 w-auto">
+                    </a>
                 </div>
-                <div class="relative">
-                    <input type="text" placeholder="Rechercher..." 
-                           class="pl-10 pr-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 
-                                  focus:ring-2 focus:ring-indigo-500 focus:border-transparent
-                                  dark:bg-gray-700 dark:text-white">
-                    <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                <div class="flex items-center space-x-4">
+                    <a href="../index.html" class="nav-link">
+                        <i class="fas fa-home mr-2"></i>Accueil
+                    </a>
+                    <a href="../affichage.html" class="nav-link">
+                        <i class="fas fa-bullhorn mr-2"></i>Affichage
+                    </a>
+                    <button onclick="toggleTheme()" class="nav-link" title="Changer le thème">
+                        <i class="fas fa-moon"></i>
+                    </button>
                 </div>
             </div>
         </div>
+    </nav>
 
-        <!-- Announcements Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="announcementsGrid">
-            <!-- Announcement cards will be dynamically inserted here -->
+    <!-- Department Header -->
+    <div class="department-header" data-aos="fade-down">
+        <div class="max-w-4xl mx-auto text-white">
+            <h1 class="text-4xl font-bold mb-3">Sciences et Technologies</h1>
+            <p class="text-xl opacity-90">Affichage des actualités et annonces</p>
+            <div class="mt-4 flex justify-center gap-4">
+                <span class="bg-white bg-opacity-20 px-4 py-2 rounded-full">
+                    <i class="fas fa-users mr-2"></i>1,234 Étudiants
+                </span>
+                <span class="bg-white bg-opacity-20 px-4 py-2 rounded-full">
+                    <i class="fas fa-graduation-cap mr-2"></i>45 Enseignants
+                </span>
+            </div>
         </div>
     </div>
 
-    <!-- AOS & custom scripts -->
+    <!-- Main Content -->
+    <main class="flex-grow">
+        <div class="news-container max-w-7xl mx-auto px-4 py-8">
+            <!-- Search Bar -->
+            <div class="search-bar" data-aos="fade-up">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Rechercher une annonce..." 
+                       oninput="filterAnnouncements(this.value)">
+            </div>
+
+            <!-- Filters -->
+            <div class="filter-section" data-aos="fade-up">
+                <div class="flex flex-wrap justify-center gap-3">
+                    <button class="filter-button active" data-filter="all">
+                        <i class="fas fa-layer-group mr-2"></i>Tous
+                    </button>
+                    <button class="filter-button" data-filter="examens">
+                        <i class="fas fa-file-alt mr-2"></i>Examens
+                    </button>
+                    <button class="filter-button" data-filter="emplois">
+                        <i class="fas fa-calendar-alt mr-2"></i>Emplois
+                    </button>
+                    <button class="filter-button" data-filter="notes">
+                        <i class="fas fa-chart-bar mr-2"></i>Notes
+                    </button>
+                    <button class="filter-button" data-filter="annonces">
+                        <i class="fas fa-bullhorn mr-2"></i>Annonces
+                    </button>
+                </div>
+            </div>
+
+            <!-- News Feed -->
+            <div class="news-feed" id="newsFeed">
+                <!-- Announcements will be dynamically inserted here -->
+            </div>
+
+            <!-- Loading Spinner -->
+            <div id="loadingSpinner" class="flex justify-center my-8">
+                <div class="loading-spinner"></div>
+            </div>
+
+            <!-- Empty State -->
+            <div id="emptyState" class="empty-state hidden">
+                <i class="fas fa-inbox"></i>
+                <p class="text-lg">Aucune annonce ne correspond à votre recherche.</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Theme toggle button -->
+    <button id="theme-toggle" onclick="toggleTheme()">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <!-- Fix AOS script loading -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <!-- Initialize AOS -->
     <script>
-        // Initialize AOS
-        AOS.init({ 
-            duration: 800, 
+    document.addEventListener('DOMContentLoaded', () => {
+        AOS.init({
+            duration: 800,
             once: true,
             offset: 100,
             delay: 50,
             easing: 'ease-out-cubic'
         });
+    });
+    </script>
 
-        // Theme toggle functionality
-        function toggleTheme() {
-            const body = document.body;
-            const themeToggle = document.querySelector('.theme-toggle i');
-            
-            if (body.getAttribute('data-theme') === 'dark') {
-                body.removeAttribute('data-theme');
-                themeToggle.classList.remove('fa-sun');
-                themeToggle.classList.add('fa-moon');
-            } else {
-                body.setAttribute('data-theme', 'dark');
-                themeToggle.classList.remove('fa-moon');
-                themeToggle.classList.add('fa-sun');
+    <!-- Firebase script -->
+    <script type="module">
+        // Import Firebase utilities
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+        import { getFirestore, collection, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyB5XYqWKhHdiVDXJx4iOwtpxD8eUCPRfKU",
+            authDomain: "universite-de-bejaia-547fc.firebaseapp.com",
+            projectId: "universite-de-bejaia-547fc",
+            storageBucket: "universite-de-bejaia-547fc.firebasestorage.app",
+            messagingSenderId: "517622731583",
+            appId: "1:517622731583:web:25453d5e01226585bf798a",
+            measurementId: "G-SQ0WWSCS7B"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Create query for ST/SM announcements
+        const q = query(
+            collection(db, 'st_announcements'),
+            orderBy('createdAt', 'desc')
+        );
+
+        // Show loading spinner initially
+        const loadingSpinner = document.getElementById('loadingSpinner');
+        const emptyState = document.getElementById('emptyState');
+        const newsFeed = document.getElementById('newsFeed');
+
+        // Real-time listener for announcements
+        onSnapshot(q, (snapshot) => {
+            loadingSpinner.classList.add('hidden');
+
+            if (snapshot.empty) {
+                newsFeed.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                return;
             }
+
+            emptyState.classList.add('hidden');
+            newsFeed.innerHTML = '';
+
+            snapshot.forEach((doc, index) => {
+                const data = doc.data();
+                const date = data.createdAt?.toDate() || new Date();
+                
+                const articleHTML = `
+                    <article class="news-card ${data.isPriority ? 'border-l-4 border-red-500' : ''}" 
+                             data-aos="fade-up" 
+                             data-aos-delay="${index * 100}">
+                        ${data.isPriority ? '<span class="absolute top-4 right-4 bg-red-100 text-red-600 px-3 py-1 rounded-full text-sm font-medium"><i class="fas fa-exclamation-circle mr-1"></i>Prioritaire</span>' : ''}
+                        
+                        <div class="flex items-center text-sm text-gray-500 mb-4">
+                            <span class="flex items-center">
+                                <i class="far fa-calendar-alt mr-2"></i>
+                                ${date.toLocaleDateString()}
+                            </span>
+                            <span class="mx-2">•</span>
+                            <span class="flex items-center">
+                                <i class="far fa-clock mr-2"></i>
+                                ${date.toLocaleTimeString()}
+                            </span>
+                        </div>
+
+                        <h2 class="text-xl font-semibold mb-4">${data.title}</h2>
+
+                        <div class="prose max-w-none mb-4">
+                            ${data.mainContent}
+                            ${data.hiddenContent ? `
+                                <div class="hidden-content hidden mt-4">
+                                    ${data.hiddenContent}
+                                </div>
+                            ` : ''}
+                        </div>
+
+                        ${data.fileUrls?.length ? `
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                ${data.fileUrls.map(url => `
+                                    <a href="${url}" target="_blank" 
+                                       class="flex items-center gap-2 px-3 py-2 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
+                                        <i class="fas fa-paperclip"></i>
+                                        <span class="text-sm">${url.split('/').pop()}</span>
+                                    </a>
+                                `).join('')}
+                            </div>
+                        ` : ''}
+
+                        <div class="flex items-center justify-between mt-4">
+                            <span class="tag ${getTagClass(data.tag)}">
+                                <i class="fas ${getTagIcon(data.tag)} mr-2"></i>
+                                ${data.tag}
+                            </span>
+                            ${data.hiddenContent ? `
+                                <button onclick="toggleContent(this)" 
+                                        class="flex items-center gap-2 text-primary-color hover:text-primary-color-darker transition-colors">
+                                    <span>Voir plus</span>
+                                    <i class="fas fa-chevron-down transition-transform duration-300"></i>
+                                </button>
+                            ` : ''}
+                        </div>
+                    </article>
+                `;
+                
+                newsFeed.insertAdjacentHTML('beforeend', articleHTML);
+            });
+
+            // Refresh AOS after content is loaded
+            AOS.refresh();
+        });
+
+        // Helper functions
+        function getTagClass(tag) {
+            const classes = {
+                examens: 'bg-red-100 text-red-600',
+                emplois: 'bg-blue-100 text-blue-600',
+                notes: 'bg-green-100 text-green-600',
+                annonces: 'bg-yellow-100 text-yellow-600'
+            };
+            return classes[tag] || 'bg-gray-100 text-gray-600';
         }
 
-        // Notification system
-        function showNotification(message, type = 'info') {
-            const notification = document.getElementById('notification');
-            const notificationMessage = document.getElementById('notification-message');
-            
-            notificationMessage.textContent = message;
-            notification.className = `notification ${type}`;
-            notification.classList.remove('hidden');
-            notification.classList.add('show');
-            
-            setTimeout(() => {
-                notification.classList.remove('show');
-                setTimeout(() => {
-                    notification.classList.add('hidden');
-                }, 300);
-            }, 3000);
+        function getTagIcon(tag) {
+            const icons = {
+                examens: 'fa-file-alt',
+                emplois: 'fa-calendar-alt',
+                notes: 'fa-chart-bar',
+                annonces: 'fa-bullhorn'
+            };
+            return icons[tag] || 'fa-tag';
         }
 
-        // Filter functionality
-        document.querySelectorAll('[data-filter]').forEach(button => {
+        // Make functions available globally
+        window.getTagClass = getTagClass;
+        window.getTagIcon = getTagIcon;
+    </script>
+
+    <!-- Add missing functionality -->
+    <script>
+    // Filter functionality
+    window.filterAnnouncements = function(searchTerm, filter = 'all') {
+        const announcements = document.querySelectorAll('.news-card');
+        const searchTermLower = searchTerm.toLowerCase();
+        let visibleCount = 0;
+        
+        announcements.forEach((announcement, index) => {
+            const title = announcement.querySelector('h2').textContent.toLowerCase();
+            const content = announcement.querySelector('.prose').textContent.toLowerCase();
+            const tag = announcement.querySelector('.tag').textContent.toLowerCase();
+            
+            const matchesSearch = title.includes(searchTermLower) || 
+                                content.includes(searchTermLower);
+            const matchesFilter = filter === 'all' || tag.includes(filter);
+            
+            if (matchesSearch && matchesFilter) {
+                announcement.style.display = 'block';
+                announcement.style.animationDelay = `${index * 100}ms`;
+                visibleCount++;
+            } else {
+                announcement.style.display = 'none';
+            }
+        });
+
+        const emptyState = document.getElementById('emptyState');
+        if (visibleCount === 0) {
+            emptyState.classList.remove('hidden');
+        } else {
+            emptyState.classList.add('hidden');
+        }
+    };
+
+    // Toggle content functionality
+    window.toggleContent = function(button) {
+        const card = button.closest('.news-card');
+        const hiddenContent = card.querySelector('.hidden-content');
+        const icon = button.querySelector('i');
+        
+        hiddenContent.classList.toggle('hidden');
+        icon.style.transform = hiddenContent.classList.contains('hidden') ? 
+            'rotate(0deg)' : 'rotate(180deg)';
+        button.querySelector('span').textContent = 
+            hiddenContent.classList.contains('hidden') ? 'Voir plus' : 'Voir moins';
+    };
+
+    // Initialize filter buttons
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.filter-button').forEach(button => {
             button.addEventListener('click', () => {
-                // Remove active class from all buttons
-                document.querySelectorAll('[data-filter]').forEach(btn => {
+                document.querySelectorAll('.filter-button').forEach(btn => {
                     btn.classList.remove('active');
                 });
-                // Add active class to clicked button
                 button.classList.add('active');
-                // Filter announcements
-                filterAnnouncements(button.dataset.filter);
+                filterAnnouncements(
+                    document.querySelector('.search-bar input').value,
+                    button.dataset.filter
+                );
             });
         });
+    });
 
-        function filterAnnouncements(filter) {
-            const announcements = document.querySelectorAll('.announcement-card');
-            announcements.forEach(announcement => {
-                if (filter === 'all' || announcement.dataset.category === filter) {
-                    announcement.style.display = 'block';
-                } else {
-                    announcement.style.display = 'none';
-                }
-            });
-        }
+    // Theme toggle functionality
+    window.toggleTheme = function() {
+        document.documentElement.classList.toggle('dark');
+        localStorage.setItem('theme', 
+            document.documentElement.classList.contains('dark') ? 'dark' : 'light'
+        );
+        
+        const icon = document.querySelector('.nav-link i.fas.fa-moon, .nav-link i.fas.fa-sun');
+        icon.className = document.documentElement.classList.contains('dark') ? 
+            'fas fa-sun' : 'fas fa-moon';
+    };
 
-        // Search functionality
-        const searchInput = document.querySelector('input[type="text"]');
-        searchInput.addEventListener('input', (e) => {
-            const searchTerm = e.target.value.toLowerCase();
-            const announcements = document.querySelectorAll('.announcement-card');
-            
-            announcements.forEach(announcement => {
-                const title = announcement.querySelector('.announcement-title').textContent.toLowerCase();
-                const content = announcement.querySelector('.announcement-content').textContent.toLowerCase();
-                
-                if (title.includes(searchTerm) || content.includes(searchTerm)) {
-                    announcement.style.display = 'block';
-                } else {
-                    announcement.style.display = 'none';
-                }
-            });
-        });
-
-        // Toggle announcement content
-        function toggleContent(button) {
-            const content = button.nextElementSibling;
-            content.classList.toggle('expanded');
-            button.querySelector('i').classList.toggle('fa-chevron-down');
-            button.querySelector('i').classList.toggle('fa-chevron-up');
-        }
-
-        // Load announcements from Firebase
-        async function loadAnnouncements() {
-            try {
-                const announcementsGrid = document.getElementById('announcementsGrid');
-                // This would be replaced with actual Firebase data
-                const announcements = [
-                    {
-                        title: "Examen de Physique",
-                        content: "L'examen de physique aura lieu le 15 juin 2024.",
-                        category: "examens",
-                        priority: true,
-                        date: "2024-06-01"
-                    },
-                    // Add more sample announcements
-                ];
-
-                announcements.forEach(announcement => {
-                    const card = createAnnouncementCard(announcement);
-                    announcementsGrid.appendChild(card);
-                });
-            } catch (error) {
-                showNotification('Erreur lors du chargement des annonces', 'error');
-            }
-        }
-
-        function createAnnouncementCard(announcement) {
-            const card = document.createElement('div');
-            card.className = 'announcement-card rounded-xl p-6 shadow-lg';
-            card.dataset.category = announcement.category;
-            
-            const priorityBadge = announcement.priority ? 
-                '<div class="priority-badge">Prioritaire</div>' : '';
-            
-            card.innerHTML = `
-                ${priorityBadge}
-                <div class="flex items-center justify-between mb-4">
-                    <span class="tag tag-${announcement.category}">
-                        <i class="fas fa-${getCategoryIcon(announcement.category)}"></i>
-                        ${getCategoryName(announcement.category)}
-                    </span>
-                    <span class="text-sm text-gray-500">${formatDate(announcement.date)}</span>
-                </div>
-                <h3 class="announcement-title text-xl font-semibold mb-4">${announcement.title}</h3>
-                <div class="announcement-content">
-                    <p class="text-gray-600 dark:text-gray-300">${announcement.content}</p>
-                </div>
-                <button onclick="toggleContent(this)" class="mt-4 text-indigo-600 hover:text-indigo-700 flex items-center">
-                    <span>Voir plus</span>
-                    <i class="fas fa-chevron-down ml-2"></i>
-                </button>
-            `;
-            
-            return card;
-        }
-
-        function getCategoryIcon(category) {
-            const icons = {
-                'examens': 'file-alt',
-                'emplois': 'calendar-alt',
-                'notes': 'chart-bar',
-                'annonces': 'bullhorn',
-                'divers': 'info-circle'
-            };
-            return icons[category] || 'info-circle';
-        }
-
-        function getCategoryName(category) {
-            const names = {
-                'examens': 'Examens',
-                'emplois': 'Emplois',
-                'notes': 'Notes',
-                'annonces': 'Annonces',
-                'divers': 'Divers'
-            };
-            return names[category] || 'Divers';
-        }
-
-        function formatDate(dateString) {
-            const options = { year: 'numeric', month: 'long', day: 'numeric' };
-            return new Date(dateString).toLocaleDateString('fr-FR', options);
-        }
-
-        // Load announcements when page loads
-        document.addEventListener('DOMContentLoaded', () => {
-            loadAnnouncements();
-        });
+    // Initialize theme
+    if (localStorage.getItem('theme') === 'dark' || 
+        (!localStorage.getItem('theme') && 
+         window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+        const icon = document.querySelector('.nav-link i.fas.fa-moon');
+        if (icon) icon.className = 'fas fa-sun';
+    }
     </script>
 </body>
 </html>
