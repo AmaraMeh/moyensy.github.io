@@ -32,7 +32,7 @@
 
         /* Dark theme */
         html.dark {
-            --bg-color: #121827;
+            --bg-color: #0f172a;
             --text-color: #cbd5e1;
             --text-color-secondary: #94a3b8;
             --card-bg: rgba(30, 41, 59, 0.7);
@@ -44,6 +44,12 @@
             --dropdown-bg: #1e293b;
             --dropdown-hover: #2d3748;
             --shadow-color: rgba(0, 0, 0, 0.3);
+        }
+
+        /* Add gradient background for dark mode */
+        html.dark body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            background-attachment: fixed;
         }
 
         body {
