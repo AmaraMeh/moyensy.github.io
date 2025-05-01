@@ -408,13 +408,28 @@
         <div class="max-w-4xl mx-auto text-white">
             <h1 class="text-4xl font-bold mb-3">Sciences et Technologies</h1>
             <p class="text-xl opacity-90">Affichage des actualités et annonces</p>
-            <div class="mt-4 flex justify-center gap-4">
-                <span class="bg-white bg-opacity-20 px-4 py-2 rounded-full">
-                    <i class="fas fa-users mr-2"></i>1,234 Étudiants
-                </span>
-                <span class="bg-white bg-opacity-20 px-4 py-2 rounded-full">
-                    <i class="fas fa-graduation-cap mr-2"></i>45 Enseignants
-                </span>
+            <div class="mt-4 flex justify-center">
+                <div class="bg-white bg-opacity-20 px-6 py-3 rounded-lg">
+                    <h3 class="text-lg font-semibold mb-2">Examens 2ème Semestre (Session Normal)</h3>
+                    <div id="countdown" class="flex gap-4 justify-center text-center">
+                        <div>
+                            <span id="days" class="text-2xl font-bold">00</span>
+                            <p class="text-sm">Jours</p>
+                        </div>
+                        <div>
+                            <span id="hours" class="text-2xl font-bold">00</span>
+                            <p class="text-sm">Heures</p>
+                        </div>
+                        <div>
+                            <span id="minutes" class="text-2xl font-bold">00</span>
+                            <p class="text-sm">Minutes</p>
+                        </div>
+                        <div>
+                            <span id="seconds" class="text-2xl font-bold">00</span>
+                            <p class="text-sm">Secondes</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -486,6 +501,61 @@
             delay: 50,
             easing: 'ease-out-cubic'
         });
+
+        // Countdown Timer
+        const examDate = new Date('2025-05-24T00:00:00').getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = examDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('days').textContent = String(days).padStart(2, '0');
+            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+
+            if (distance < 0) {
+                clearInterval(countdownTimer);
+                document.getElementById('countdown').innerHTML = '<p class="text-2xl font-bold">Les examens ont commencé!</p>';
+            }
+        }
+
+        const countdownTimer = setInterval(updateCountdown, 1000);
+        updateCountdown(); // Initial call
+
+        // Notification functionality
+        if ('Notification' in window) {
+            const notificationButton = document.createElement('button');
+            notificationButton.className = 'fixed bottom-20 right-4 bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition-all z-50';
+            notificationButton.innerHTML = '<i class="fas fa-bell"></i>';
+            notificationButton.title = 'Activer les notifications';
+            document.body.appendChild(notificationButton);
+
+            notificationButton.addEventListener('click', async () => {
+                try {
+                    const permission = await Notification.requestPermission();
+                    if (permission === 'granted') {
+                        // Save to Firebase that this user wants notifications
+                        const notification = new Notification('Notifications activées!', {
+                            body: 'Vous recevrez des notifications pour les nouvelles annonces.',
+                            icon: '../assets/img/icon.png'
+                        });
+                        notificationButton.style.backgroundColor = '#059669'; // Change to green
+                        notificationButton.innerHTML = '<i class="fas fa-check"></i>';
+                        setTimeout(() => {
+                            notificationButton.remove();
+                        }, 3000);
+                    }
+                } catch (error) {
+                    console.error('Error requesting notification permission:', error);
+                }
+            });
+        }
     });
     </script>
 
