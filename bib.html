@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bibliothèque - Université de Bejaia</title> <!-- Updated Title -->
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.mi<n.css" rel="stylesheet">
+    <title>Bibliothèque - Université de Bejaia</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="icon" type="image/png" href="assets/img/icon.png"> <!-- Assuming icon path -->
-    <link rel="stylesheet" href="assets/css/style.css"> <!-- Keep your base styles -->
+    <link rel="icon" type="image/png" href="assets/img/icon.png">
+    <link rel="stylesheet" href="assets/css/style.css">
 
     <style>
         /* --- Base Theme Variables (Light) --- */
@@ -440,7 +440,7 @@
                                         </div>
                                         <h3 class="text-xl font-semibold mb-2">Science de la matière</h3>
                                     </a>
-                                    <a href="javascript:void(0);" onclick="openModalSTIng()" class="service-card"> <!-- Updated onClick -->
+                                    <a href="javascript:void(0);" onclick="openModalSTIng()" class="service-card">
                                         <div class="service-icon">
                                             <i class="fas fa-cogs text-4xl text-blue-600"></i>
                                         </div>
@@ -772,27 +772,26 @@
     </footer>
 
     <!-- Theme Toggle Button -->
-    <button id="theme-toggle" class="fixed bottom-20 right-4 z-50 p-3 rounded-full shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-        <i class="fas fa-moon text-xl"></i> <!-- Moon icon visible in light mode -->
-        <i class="fas fa-sun text-xl hidden"></i> <!-- Sun icon visible in dark mode -->
+    <button id="theme-toggle" class="fixed bottom-20 right-4 z-50 p-3 rounded-full shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300">
+        <i class="fas fa-moon text-xl"></i>
+        <i class="fas fa-sun text-xl hidden"></i>
     </button>
 
     <!-- Mobile Navigation Bar -->
-    <nav id="mobile-nav" class="fixed bottom-0 left-0 right-0 backdrop-filter backdrop-blur-lg shadow-lg py-3 px-2 flex justify-around items-center z-30 md:hidden">
-        <!-- Items remain the same -->
-         <a href="index.html" class="mobile-nav-item">
+    <nav id="mobile-nav" class="fixed bottom-0 left-0 right-0 backdrop-filter backdrop-blur-lg shadow-lg py-3 px-2 flex justify-around items-center z-30 md:hidden bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
+        <a href="index.html" class="mobile-nav-item text-gray-600 dark:text-gray-300">
             <div class="icon-container"><i class="fas fa-home"></i></div>
             <span>Accueil</span>
         </a>
-        <a href="bib.html" class="mobile-nav-item active-nav-item">
+        <a href="bib.html" class="mobile-nav-item active-nav-item text-blue-600 dark:text-blue-400">
             <div class="icon-container"><i class="fas fa-book-open"></i></div>
             <span>Cours</span>
         </a>
-        <a href="calculator.html" class="mobile-nav-item">
+        <a href="calculator.html" class="mobile-nav-item text-gray-600 dark:text-gray-300">
             <div class="icon-container"><i class="fas fa-calculator"></i></div>
             <span>Moyenne</span>
         </a>
-        <a href="#" onclick="checkProfileAccess(event)" class="mobile-nav-item">
+        <a href="#" onclick="checkProfileAccess(event)" class="mobile-nav-item text-gray-600 dark:text-gray-300">
             <div class="icon-container"><i class="fas fa-user"></i></div>
             <span>Profil</span>
         </a>
@@ -800,14 +799,9 @@
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({
-            duration: 800,
-            once: true
-        });
-
         // --- Theme Switcher Logic ---
         const themeToggleBtn = document.getElementById('theme-toggle');
-        const htmlElement = document.documentElement; // Target <html> element
+        const htmlElement = document.documentElement;
 
         // Function to apply theme based on preference
         const applyTheme = (theme) => {
@@ -819,7 +813,7 @@
         };
 
         // Check local storage on load
-        const savedTheme = localStorage.getItem('theme') || 'light'; // Default to light
+        const savedTheme = localStorage.getItem('theme') || 'light';
         applyTheme(savedTheme);
 
         // Toggle theme on button click
@@ -827,11 +821,10 @@
             const currentTheme = htmlElement.classList.contains('dark') ? 'dark' : 'light';
             const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
             applyTheme(newTheme);
-            localStorage.setItem('theme', newTheme); // Save preference
+            localStorage.setItem('theme', newTheme);
         });
 
-
-        // --- Existing JavaScript ---
+        // --- Redirection Functions ---
         function redirectSpecialty(specialty) {
             // Add specific redirects or default to coming soon
             const pages = {
@@ -840,69 +833,66 @@
                 'informatique-lmd': 'specialite-informatique-lmd.html',
                 'segc': 'Aboudaou 1er annes-1/segc.html',
                 'medcine': 'medcine.html',
-                'informatique-ing': 'modules-informatique-ing-semestre2.html', // Example: Direct link or use modal like ST Ing
+                'informatique-ing': 'modules-informatique-ing-semestre2.html',
                 'genie-procedes-2': '/2eme annes Targa Ouzemour/modules-GP-semestre4.html',
                 'automatique-2': '/2eme annes Targa Ouzemour/speciality.auto.html',
-                'genie-civil-2': '/2eme annes Targa Ouzemour/modules-GC-semestre4.html',
-                // Add other known direct links here
+                'genie-civil-2': '/2eme annes Targa Ouzemour/modules-GC-semestre4.html'
             };
 
             if (pages[specialty]) {
-                 window.location.href = pages[specialty];
+                window.location.href = pages[specialty];
             } else {
-                // Default for unlinked specialties
-                console.log(`Redirecting to coming soon for: ${specialty}`);
-                window.location.href = 'coming-soon.html'; // Or show an alert/modal
+                // Show coming soon modal or redirect to coming soon page
+                window.location.href = 'coming-soon.html';
             }
         }
 
-        // --- Modal Logic for ST Ingénieur ---
-        const modalSTIng = document.getElementById('semesterModalSTIng');
-
+        // --- Modal Functions ---
         function openModalSTIng() {
-             if (modalSTIng) modalSTIng.classList.remove('hidden');
+            const modal = document.getElementById('semesterModalSTIng');
+            if (modal) {
+                modal.classList.remove('hidden');
+            }
         }
 
         function closeModalSTIng() {
-             if (modalSTIng) modalSTIng.classList.add('hidden');
+            const modal = document.getElementById('semesterModalSTIng');
+            if (modal) {
+                modal.classList.add('hidden');
+            }
         }
 
         function redirectToSemester(specialty, semester) {
-            // Example: Redirect to a specific page for ST Ing Sem 1 / Sem 2
-            // Adjust the file naming convention as needed
-             window.location.href = `modules-${specialty}-semestre${semester}.html`;
-             // closeModalSTIng(); // Optionally close modal after redirecting
+            window.location.href = `modules-${specialty}-semestre${semester}.html`;
         }
 
-        // --- Collapse Logic ---
+        // --- Collapse Functions ---
         function toggleCollapse(id) {
             const content = document.getElementById(id);
             if (!content) return;
 
             if (!content.style.maxHeight || content.style.maxHeight === "0px") {
-                // Calculate scrollHeight within a frame to ensure accurate measurement
-                 requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
                     content.style.maxHeight = content.scrollHeight + "px";
-                 });
+                });
             } else {
                 content.style.maxHeight = "0";
             }
         }
 
-
-        // --- Mobile Nav Logic ---
+        // --- Mobile Navigation Functions ---
         function checkProfileAccess(event) {
             event.preventDefault();
             const userData = localStorage.getItem('userData');
             if (!userData) {
-                window.location.href = 'auth.html?redirect=profile'; // Redirect to login if not logged in
+                window.location.href = 'auth.html?redirect=profile';
             } else {
                 window.location.href = 'profile.html';
             }
         }
 
         function setActiveMobileNavItem() {
-            const currentPath = window.location.pathname.split('/').pop() || 'index.html'; // Get last part of path
+            const currentPath = window.location.pathname.split('/').pop() || 'index.html';
             const navItems = document.querySelectorAll('.mobile-nav-item');
             const userData = localStorage.getItem('userData');
             const profileNavItem = document.querySelector('.mobile-nav-item[onclick*="checkProfileAccess"]');
@@ -915,38 +905,25 @@
                 }
             });
 
-            // Ensure bib.html is active on bib.html page
             if (currentPath === 'bib.html') {
-                 document.querySelector('.mobile-nav-item[href="bib.html"]')?.classList.add('active-nav-item');
+                document.querySelector('.mobile-nav-item[href="bib.html"]')?.classList.add('active-nav-item');
             }
 
             if (userData && profileNavItem) {
-                 profileNavItem.classList.add('logged-in');
+                profileNavItem.classList.add('logged-in');
             } else if (profileNavItem) {
-                 profileNavItem.classList.remove('logged-in');
+                profileNavItem.classList.remove('logged-in');
             }
         }
-
-        // Add scroll listener for hiding/showing mobile nav (optional, uncomment if needed)
-        /*
-        let lastScrollTop = 0;
-        const mobileNav = document.getElementById('mobile-nav');
-        window.addEventListener('scroll', function() {
-            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            if (scrollTop > lastScrollTop && scrollTop > 100) { // Scrolling down
-                mobileNav.classList.add('nav-hidden');
-            } else { // Scrolling up
-                mobileNav.classList.remove('nav-hidden');
-            }
-            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // For Mobile or negative scrolling
-        }, false);
-        */
 
         // Initialize on page load
         document.addEventListener('DOMContentLoaded', () => {
             setActiveMobileNavItem();
-            // Close any open collapse sections on load (optional)
-            // document.querySelectorAll('.overflow-hidden[id^="campus-"], .overflow-hidden[id^="collapse-"]').forEach(el => el.style.maxHeight = '0');
+            // Initialize AOS
+            AOS.init({
+                duration: 800,
+                once: true
+            });
         });
     </script>
     <!-- Keep library-features.js if it contains relevant functionality -->
