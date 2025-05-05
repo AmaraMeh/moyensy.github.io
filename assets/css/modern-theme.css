@@ -1,0 +1,197 @@
+/* Modern Theme Overrides */
+:root {
+    --primary-gradient: linear-gradient(135deg, #ff0080, #7928ca);
+    --secondary-gradient: linear-gradient(135deg, #00ff8f, #00c9ff);
+    --card-gradient: linear-gradient(to right bottom, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.3));
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.18);
+    --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    --text-primary: #1f2937;
+    --text-secondary: #4b5563;
+    --accent-blue: #3b82f6;
+    --accent-green: #10b981;
+    --accent-purple: #8b5cf6;
+}
+
+/* Base Styles */
+body {
+    background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+    color: var(--text-primary);
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Confetti Animation */
+@keyframes confetti-fall {
+  0% {
+    transform: translateY(-10vh) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+@keyframes confetti-side {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(20px);
+  }
+  100% {
+    transform: translateX(-20px);
+  }
+}
+
+.bg-confetti {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+  background-image: 
+    radial-gradient(circle, #ff0080 2px, transparent 4px),
+    radial-gradient(circle, #5f5fff 2px, transparent 4px),
+    radial-gradient(circle, #ffbf00 2px, transparent 4px),
+    radial-gradient(circle, #00ff8f 2px, transparent 4px),
+    radial-gradient(circle, #00c9ff 2px, transparent 4px);
+  background-size: 300px 300px;
+  background-position: 0 0, 100px 100px, 200px 50px, 50px 200px, 150px 150px;
+}
+
+/* Modern Glass Cards */
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.45);
+}
+
+/* Modern Buttons */
+.modern-button {
+  background: var(--primary-gradient);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.modern-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.modern-button.secondary {
+  background: var(--secondary-gradient);
+}
+
+/* Modern Navigation */
+.modern-nav {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--glass-border);
+  padding: 1rem 0;
+}
+
+/* Modern Welcome Box */
+.modern-welcome {
+  background: var(--primary-gradient);
+  color: white;
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+}
+
+/* Modern Footer */
+.modern-footer {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid var(--glass-border);
+  padding: 3rem 0;
+}
+
+/* Service Icons */
+.service-icon {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px);
+}
+
+.service-icon i {
+  font-size: 1.5rem;
+}
+
+/* Confetti Container */
+.confetti-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Individual confetti pieces */
+.confetti-1 { left: 10%; animation-delay: 0.1s; background-color: #ff80ed; width: 10px; height: 10px; border-radius: 50%; }
+.confetti-2 { left: 20%; animation-delay: 0.3s; background-color: #65db60; width: 12px; height: 8px; }
+.confetti-3 { left: 30%; animation-delay: 0.6s; background-color: #ff9a00; width: 8px; height: 12px; border-radius: 50%; }
+.confetti-4 { left: 40%; animation-delay: 0.4s; background-color: #00c8ff; width: 14px; height: 6px; }
+.confetti-5 { left: 50%; animation-delay: 0.5s; background-color: #8a2be2; width: 7px; height: 14px; border-radius: 50%; }
+
+/* Add more confetti pieces as needed */
+.confetti-piece {
+  position: absolute;
+  animation: confetti-fall 3s ease-in-out infinite, confetti-side 2s ease-in-out infinite;
+  opacity: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .modern-nav {
+    padding: 0.5rem 0;
+  }
+  
+  .modern-welcome {
+    padding: 1.5rem;
+  }
+  
+  .glass-card {
+    padding: 1rem;
+  }
+  
+  .service-icon {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .service-icon i {
+    font-size: 1.25rem;
+  }
+} 
