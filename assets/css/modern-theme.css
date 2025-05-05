@@ -1,25 +1,34 @@
-/* Modern Theme Overrides */
+/* Modern Dark Theme */
 :root {
-    --primary-gradient: linear-gradient(135deg, #ff0080, #7928ca);
-    --secondary-gradient: linear-gradient(135deg, #00ff8f, #00c9ff);
-    --card-gradient: linear-gradient(to right bottom, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.3));
-    --glass-bg: rgba(255, 255, 255, 0.7);
-    --glass-border: rgba(255, 255, 255, 0.18);
-    --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-    --text-primary: #1f2937;
-    --text-secondary: #4b5563;
-    --accent-blue: #3b82f6;
-    --accent-green: #10b981;
-    --accent-purple: #8b5cf6;
+    /* Dark Theme Colors - University Theme */
+    --primary-gradient: linear-gradient(135deg, #1a365d, #2c5282);
+    --secondary-gradient: linear-gradient(135deg, #2d3748, #4a5568);
+    --card-gradient: linear-gradient(to right bottom, rgba(26, 32, 44, 0.9), rgba(45, 55, 72, 0.7));
+    --glass-bg: rgba(26, 32, 44, 0.85);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    --text-primary: #f7fafc;
+    --text-secondary: #e2e8f0;
+    --accent-blue: #4299e1;
+    --accent-green: #48bb78;
+    --accent-purple: #9f7aea;
+    --accent-yellow: #ecc94b;
+    --bg-primary: #1a202c;
+    --bg-secondary: #2d3748;
+    --bg-tertiary: #4a5568;
+    --success: #48bb78;
+    --warning: #ed8936;
+    --error: #f56565;
 }
 
 /* Base Styles */
 body {
-    background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+    background: linear-gradient(135deg, var(--bg-primary), var(--bg-secondary));
     color: var(--text-primary);
     font-family: 'Poppins', sans-serif;
     min-height: 100vh;
     overflow-x: hidden;
+    line-height: 1.6;
 }
 
 /* Confetti Animation */
@@ -56,13 +65,14 @@ body {
   pointer-events: none;
   overflow: hidden;
   background-image: 
-    radial-gradient(circle, #ff0080 2px, transparent 4px),
-    radial-gradient(circle, #5f5fff 2px, transparent 4px),
-    radial-gradient(circle, #ffbf00 2px, transparent 4px),
-    radial-gradient(circle, #00ff8f 2px, transparent 4px),
-    radial-gradient(circle, #00c9ff 2px, transparent 4px);
+    radial-gradient(circle, #2c5282 2px, transparent 4px),
+    radial-gradient(circle, #4299e1 2px, transparent 4px),
+    radial-gradient(circle, #48bb78 2px, transparent 4px),
+    radial-gradient(circle, #9f7aea 2px, transparent 4px),
+    radial-gradient(circle, #ecc94b 2px, transparent 4px);
   background-size: 300px 300px;
   background-position: 0 0, 100px 100px, 200px 50px, 50px 200px, 150px 150px;
+  opacity: 0.03;
 }
 
 /* Modern Glass Cards */
@@ -74,12 +84,32 @@ body {
   box-shadow: var(--glass-shadow);
   border-radius: 1rem;
   padding: 1.5rem;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: all 0.3s ease;
+  color: var(--text-primary);
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--card-gradient);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
 }
 
 .glass-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.45);
+  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.4);
+}
+
+.glass-card:hover::before {
+  opacity: 1;
 }
 
 /* Modern Buttons */
@@ -90,13 +120,35 @@ body {
   padding: 0.75rem 1.5rem;
   border-radius: 0.5rem;
   font-weight: 600;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.modern-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 .modern-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.modern-button:hover::before {
+  opacity: 1;
 }
 
 .modern-button.secondary {
@@ -110,6 +162,71 @@ body {
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--glass-border);
   padding: 1rem 0;
+  transition: all 0.3s ease;
+}
+
+/* Mobile Navigation */
+#mobile-nav {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid var(--glass-border);
+}
+
+.mobile-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--text-primary);
+  text-decoration: none;
+  padding: 0.5rem;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.mobile-nav-item::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--primary-gradient);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.mobile-nav-item:hover {
+  color: var(--accent-blue);
+}
+
+.mobile-nav-item:hover::after {
+  transform: scaleX(1);
+}
+
+.mobile-nav-item.active-nav-item {
+  color: var(--accent-blue);
+}
+
+.mobile-nav-item.active-nav-item::after {
+  transform: scaleX(1);
+}
+
+.icon-container {
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.25rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.mobile-nav-item:hover .icon-container {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1);
 }
 
 /* Modern Welcome Box */
@@ -118,7 +235,25 @@ body {
   color: white;
   border-radius: 1rem;
   padding: 2rem;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.modern-welcome::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, rgba(255, 255, 255, 0.1), transparent);
+  z-index: 0;
+}
+
+.modern-welcome > * {
+  position: relative;
+  z-index: 1;
 }
 
 /* Modern Footer */
@@ -128,6 +263,7 @@ body {
   -webkit-backdrop-filter: blur(16px);
   border-top: 1px solid var(--glass-border);
   padding: 3rem 0;
+  color: var(--text-primary);
 }
 
 /* Service Icons */
@@ -141,35 +277,34 @@ body {
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(5px);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.service-icon::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, rgba(255, 255, 255, 0.1), transparent);
+  transition: opacity 0.3s ease;
+}
+
+.service-icon:hover {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.service-icon:hover::before {
+  opacity: 0.5;
 }
 
 .service-icon i {
   font-size: 1.5rem;
-}
-
-/* Confetti Container */
-.confetti-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  pointer-events: none;
-}
-
-/* Individual confetti pieces */
-.confetti-1 { left: 10%; animation-delay: 0.1s; background-color: #ff80ed; width: 10px; height: 10px; border-radius: 50%; }
-.confetti-2 { left: 20%; animation-delay: 0.3s; background-color: #65db60; width: 12px; height: 8px; }
-.confetti-3 { left: 30%; animation-delay: 0.6s; background-color: #ff9a00; width: 8px; height: 12px; border-radius: 50%; }
-.confetti-4 { left: 40%; animation-delay: 0.4s; background-color: #00c8ff; width: 14px; height: 6px; }
-.confetti-5 { left: 50%; animation-delay: 0.5s; background-color: #8a2be2; width: 7px; height: 14px; border-radius: 50%; }
-
-/* Add more confetti pieces as needed */
-.confetti-piece {
-  position: absolute;
-  animation: confetti-fall 3s ease-in-out infinite, confetti-side 2s ease-in-out infinite;
-  opacity: 0;
+  position: relative;
+  z-index: 1;
 }
 
 /* Responsive Design */
@@ -194,4 +329,128 @@ body {
   .service-icon i {
     font-size: 1.25rem;
   }
+
+  #mobile-nav {
+    display: flex;
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { 
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-tertiary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent-blue);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-purple);
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+h1 {
+  font-size: 2.5rem;
+  background: linear-gradient(to right, var(--text-primary), var(--accent-blue));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+p {
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+/* Links */
+a {
+  color: var(--accent-blue);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--accent-purple);
+}
+
+/* Form Elements */
+input, select, textarea {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.2);
+}
+
+/* Utility Classes */
+.text-gradient {
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.bg-gradient {
+  background: var(--primary-gradient);
+}
+
+.shadow-lg {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.rounded-xl {
+  border-radius: 1rem;
+}
+
+/* Status Colors */
+.text-success {
+  color: var(--success);
+}
+
+.text-warning {
+  color: var(--warning);
+}
+
+.text-error {
+  color: var(--error);
 } 
