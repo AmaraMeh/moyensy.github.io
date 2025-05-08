@@ -3,783 +3,1342 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Informatique LMD - Semestre 2 </title>
+    <title>Informatique LMD - Semestre 2 - ISET'COM</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script id="aclib" type="text/javascript" src="//acscdn.com/script/aclib.js"></script>
+
+    <style>
+        :root {
+            --background: 0 0% 100%;
+            --foreground: 222.2 84% 4.9%;
+            --card: 0 0% 100%;
+            --card-foreground: 222.2 84% 4.9%;
+            --primary: 221.2 83.2% 53.3%; /* Blueish */
+            --primary-foreground: 210 40% 98%;
+            --secondary: 210 40% 96.1%;
+            --secondary-foreground: 222.2 47.4% 11.2%;
+            --muted: 210 40% 96.1%;
+            --muted-foreground: 215.4 16.3% 46.9%;
+            --accent: 210 40% 96.1%; /* Light gray / subtle accent */
+            --accent-foreground: 222.2 47.4% 11.2%;
+            --border: 214.3 31.8% 91.4%;
+            --input: 214.3 31.8% 91.4%;
+            --ring: 221.2 83.2% 53.3%; /* Same as primary for this theme */
+            --radius: 0.75rem; /* Slightly larger radius */
+            --success: 142.1 76.2% 36.3%; /* Green */
+            --warning: 38 92% 50%; /* Yellow / Orange */
+            --error: 0 84.2% 60.2%; /* Red */
+        }
+
+        .dark {
+            --background: 222.2 84% 4.9%;
+            --foreground: 210 40% 98%;
+            --card: 222.2 84% 4.9%;
+            --card-foreground: 210 40% 98%;
+            --primary: 217.2 91.2% 59.8%;
+            --primary-foreground: 222.2 47.4% 11.2%;
+            --secondary: 217.2 32.6% 17.5%;
+            --secondary-foreground: 210 40% 98%;
+            --muted: 217.2 32.6% 17.5%;
+            --muted-foreground: 215 20.2% 65.1%;
+            --accent: 217.2 32.6% 17.5%;
+            --accent-foreground: 210 40% 98%;
+            --border: 217.2 32.6% 17.5%;
+            --input: 217.2 32.6% 17.5%;
+            --ring: 224.3 76.3% 48%;
+            --success: 142.1 70.6% 45.3%;
+            --warning: 48 96.5% 53.9%;
+            --error: 0 84.2% 60.2%;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: hsl(var(--background));
+            color: hsl(var(--foreground));
+            min-height: 100vh;
+            -webkit-tap-highlight-color: transparent;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            z-index: -10;
+            overflow: hidden;
+        }
+
+        .gradient-blob {
+            position: absolute;
+            border-radius: 9999px;
+            filter: blur(80px); /* Increased blur */
+            opacity: 0.4; /* Slightly reduced opacity */
+        }
+
+        .gradient-blob-1 { /* Main accent: green-to-blue */
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 500px;
+            background: linear-gradient(to bottom right, hsl(var(--success) / 0.4), hsl(var(--primary) / 0.2), hsl(var(--accent) / 0.1));
+            transform: translateY(-50%);
+        }
+
+        .gradient-blob-2 { /* Secondary accent: blue-to-green */
+            bottom: 0;
+            right: 0;
+            width: 500px;
+            height: 500px;
+            background: linear-gradient(to top right, hsl(var(--primary) / 0.3), hsl(var(--success) / 0.2), transparent);
+        }
+        
+        .floating-dot {
+            position: absolute;
+            border-radius: 9999px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        .main-content-card { /* Renamed from glass-card for clarity */
+            background: hsl(var(--card) / 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid hsl(var(--border));
+            border-radius: var(--radius);
+            padding: 2rem; /* Adjusted padding */
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.1);
+            margin-top: 2rem; /* Added margin for header spacing */
+        }
+        
+        .dark .main-content-card {
+            background: hsl(var(--card) / 0.9);
+        }
+
+        .module-card {
+            background: hsl(var(--card) / 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid hsl(var(--border));
+            border-radius: var(--radius);
+            padding: 1.5rem; /* Adjusted padding */
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden; /* Changed to hidden for pseudo-elements */
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .module-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+            border-color: hsl(var(--primary));
+        }
+
+        .module-card::before { /* Subtle gradient overlay on hover */
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(45deg, 
+                hsl(var(--success) / 0.05), 
+                hsl(var(--primary) / 0.05), 
+                hsl(var(--accent) / 0.05)
+            );
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .module-card:hover::before {
+            opacity: 1;
+        }
+        
+        .module-icon-wrapper { /* Wrapper for icon for better layout */
+            display: flex;
+            align-items: center;
+            gap: 1rem; /* Space between icon and title */
+            margin-bottom: 1.5rem; /* Spacing below icon/title block */
+        }
+
+        .module-icon { /* Actual icon container */
+            width: 60px; /* Adjusted size */
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* Gradient for icons based on their original color hint */
+            border-radius: 50%;
+            color: hsl(var(--primary-foreground));
+            transition: all 0.3s ease;
+            position: relative;
+            box-shadow: 0 6px 12px hsla(0, 0%, 0%, 0.15);
+        }
+         /* Specific module icon colors - using original hints */
+        .module-icon.bg-blue-100 { background: linear-gradient(135deg, hsl(221.2, 83.2%, 53.3%), hsl(221.2, 83.2%, 60%)); } /* Analyse */
+        .module-icon.bg-green-100 { background: linear-gradient(135deg, hsl(142.1, 76.2%, 36.3%), hsl(142.1, 76.2%, 42%)); } /* Algèbre */
+        .module-icon.bg-yellow-100 { background: linear-gradient(135deg, hsl(38, 92%, 50%), hsl(38, 92%, 55%)); } /* ProbaStat */
+        .module-icon.bg-red-100 { background: linear-gradient(135deg, hsl(0, 84.2%, 60.2%), hsl(0, 84.2%, 65%)); } /* Algo2 */
+        .module-icon.bg-indigo-100 { background: linear-gradient(135deg, hsl(250, 60%, 55%), hsl(250, 60%, 60%)); } /* Structure */
+        .module-icon.bg-amber-100 { background: linear-gradient(135deg, hsl(36, 90%, 50%), hsl(36, 90%, 55%)); } /* Electricite */
+        .module-icon.bg-cyan-100 { background: linear-gradient(135deg, hsl(180, 70%, 50%), hsl(180, 70%, 55%)); } /* MATLAB */
+
+        .module-card:hover .module-icon {
+            transform: scale(1.1) rotate(3deg);
+        }
+        
+        .module-card h3 { /* Title style */
+            font-size: 1.25rem; /* Adjusted size */
+            font-weight: 600;
+            color: hsl(var(--foreground));
+            z-index: 1;
+        }
+
+        .dark .module-card h3 {
+            color: hsl(var(--foreground));
+        }
+
+        .module-buttons-wrapper { /* Wrapper for buttons to push to bottom */
+             margin-top: auto;
+             display: flex;
+             flex-wrap: wrap;
+             gap: 0.5rem; /* Space between buttons */
+             z-index: 1;
+        }
+
+        .module-btn {
+            flex-grow: 1; /* Make buttons take available space */
+            display: inline-flex;
+            align-items: center;
+            justify-content: center; /* Center content in button */
+            padding: 0.6rem 1rem; /* Adjusted padding */
+            border-radius: calc(var(--radius) / 1.5); /* Slightly less rounded */
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: white;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            position: relative;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .module-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .module-btn i {
+            margin-right: 0.5rem;
+        }
+        /* Specific button colors */
+        .module-btn.bg-blue-500 { background: hsl(var(--primary)); } /* Cours */
+        .module-btn.bg-green-500 { background: hsl(var(--success)); } /* TD */
+        .module-btn.bg-purple-500 { background: hsl(260, 70%, 60%); } /* Examen */
+
+        .module-btn.bg-blue-500:hover { background: hsl(var(--primary) / 0.9); }
+        .module-btn.bg-green-500:hover { background: hsl(var(--success) / 0.9); }
+        .module-btn.bg-purple-500:hover { background: hsl(260, 70%, 55%); }
+
+
+        .dark .module-card {
+            background: hsl(var(--card) / 0.9);
+        }
+
+        .theme-toggle {
+            position: fixed;
+            bottom: 1rem;
+            right: 1rem;
+            z-index: 100; /* Ensure it's above popups if they don't cover full screen */
+            width: 3rem;
+            height: 3rem;
+            border-radius: 9999px;
+            background: hsl(var(--card));
+            border: 1px solid hsl(var(--border));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .theme-toggle:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .theme-toggle i {
+            font-size: 1.25rem;
+            color: hsl(var(--primary));
+            transition: transform 0.4s ease, color 0.3s ease;
+        }
+        
+        .dark .theme-toggle i { color: hsl(var(--warning)); }
+
+
+        .theme-toggle:hover i {
+            transform: rotate(20deg) scale(1.1);
+        }
+
+        .dark .theme-toggle {
+            background: hsl(var(--card) / 0.9);
+            border-color: hsl(var(--border));
+        }
+        
+        .floating-particles {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: -5;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.7;
+            animation: float 10s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+                opacity: 0.3;
+            }
+            50% {
+                transform: translate(var(--x), var(--y)) scale(1.2);
+                opacity: 0.8;
+            }
+        }
+
+        .popup {
+            position: fixed;
+            inset: 0;
+            background: hsla(var(--background), 0.5); /* Use theme background with alpha */
+            backdrop-filter: blur(8px); /* Increased blur */
+            display: none; /* Hidden by default */
+            align-items: center;
+            justify-content: center;
+            z-index: 50;
+            padding: 1rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .popup.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .popup-content-wrapper { /* Renamed for clarity, was popup-content */
+            background: hsl(var(--card));
+            border: 1px solid hsl(var(--border));
+            border-radius: var(--radius);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+            width: 100%;
+            max-width: 800px; /* Max width for larger screens */
+            max-height: 90vh; /* Max height */
+            overflow: hidden; /* To manage border-radius with scrollable content */
+            display: flex;
+            flex-direction: column;
+            transform: scale(0.95) translateY(10px);
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        
+        .popup.active .popup-content-wrapper {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+        }
+
+        .dark .popup-content-wrapper {
+            background: hsl(var(--card) / 0.95); /* Slightly more transparent for depth */
+        }
+
+        .popup-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid hsl(var(--border));
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: hsl(var(--card) / 0.9); /* Slight transparency for header */
+            backdrop-filter: blur(5px);
+            z-index: 1; /* Keep header above scrolling content */
+        }
+
+        .popup-header h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            /* Gradient text for title */
+            background: linear-gradient(135deg, hsl(var(--success)), hsl(var(--primary)));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .dark .popup-header h2 {
+             background: linear-gradient(135deg, hsl(var(--success)), hsl(var(--primary)));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+
+        .popup-body { /* This will be the scrollable area */
+            padding: 1.5rem;
+            overflow-y: auto;
+            flex-grow: 1;
+        }
+        /* Custom scrollbar for popup body */
+        .popup-body::-webkit-scrollbar {
+            width: 8px;
+        }
+        .popup-body::-webkit-scrollbar-track {
+            background: hsl(var(--secondary));
+            border-radius: 10px;
+        }
+        .popup-body::-webkit-scrollbar-thumb {
+            background: hsl(var(--primary) / 0.5);
+            border-radius: 10px;
+        }
+        .popup-body::-webkit-scrollbar-thumb:hover {
+            background: hsl(var(--primary) / 0.7);
+        }
+        .dark .popup-body::-webkit-scrollbar-track { background: hsl(var(--secondary) / 0.5); }
+        .dark .popup-body::-webkit-scrollbar-thumb { background: hsl(var(--primary) / 0.3); }
+        .dark .popup-body::-webkit-scrollbar-thumb:hover { background: hsl(var(--primary) / 0.5); }
+
+
+        .close-popup-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.2rem;
+            border-radius: calc(var(--radius) / 1.5);
+            background: hsl(var(--error));
+            color: white;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .close-popup-btn:hover {
+            background: hsl(var(--error) / 0.9);
+            transform: translateY(-1px) scale(1.03);
+        }
+        
+        .close-popup-btn span {
+            font-size: 0.875rem;
+        }
+
+
+        .content-grid { /* Used inside popup-body */
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem; /* If section headers are present */
+        }
+
+        .university-section { /* For Bejaia/Autres sections inside popup */
+            background: hsl(var(--card) / 0.5);
+            border: 1px solid hsl(var(--border) / 0.7);
+            border-radius: var(--radius);
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        
+        .dark .university-section {
+            background: hsl(var(--secondary) / 0.3);
+            border-color: hsl(var(--border) / 0.5);
+        }
+
+        .section-header { /* Header for Bejaia/Autres sections */
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid hsl(var(--border) / 0.7);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: hsl(var(--card) / 0.3);
+        }
+        
+        .dark .section-header {
+             background: hsl(var(--secondary) / 0.2);
+             border-bottom-color: hsl(var(--border) / 0.5);
+        }
+
+
+        .section-header h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        /* Specific color for Bejaia section header */
+        .section-header.bejaia h3 { color: hsl(var(--success)); }
+        /* Specific color for Autres section header */
+        .section-header.autres h3 { color: hsl(var(--warning)); }
+        /* Specific color for Recommandé section header */
+        .section-header.recommande h3 { color: hsl(var(--primary)); }
+
+        .content-item { /* Individual link/resource item inside popup */
+            background: hsl(var(--secondary) / 0.5);
+            border: 1px solid hsl(var(--border));
+            border-radius: calc(var(--radius) / 1.5);
+            padding: 1rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .content-item:hover {
+            transform: translateY(-2px) translateX(2px);
+            border-color: hsl(var(--primary) / 0.5);
+            box-shadow: 0 4px 12px hsl(var(--primary) / 0.08);
+            background: hsl(var(--secondary));
+        }
+        
+        .dark .content-item {
+            background: hsl(var(--secondary) / 0.2);
+            border-color: hsl(var(--border) / 0.5);
+        }
+        .dark .content-item:hover {
+            background: hsl(var(--secondary) / 0.3);
+            border-color: hsl(var(--primary) / 0.3);
+        }
+
+
+        .content-item .icon-wrapper { /* Icon for the resource type */
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin-right: 0.75rem;
+            transition: transform 0.3s ease;
+        }
+        .content-item:hover .icon-wrapper {
+            transform: scale(1.1);
+        }
+        
+        .content-item .text-content h4 {
+            font-weight: 500;
+            color: hsl(var(--foreground));
+        }
+
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            background: hsl(var(--primary) / 0.1);
+            color: hsl(var(--primary));
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .download-btn:hover {
+            background: hsl(var(--primary) / 0.2);
+            transform: translateY(-1px) scale(1.02);
+        }
+        
+        .dark .download-btn {
+             background: hsl(var(--primary) / 0.15);
+             color: hsl(var(--primary));
+        }
+        .dark .download-btn:hover {
+            background: hsl(var(--primary) / 0.25);
+        }
+
+        @media (max-width: 768px) {
+            .popup { padding: 0.5rem; }
+            .popup-content-wrapper { max-height: 95vh; }
+            .popup-header { padding: 1rem; }
+            .popup-header h2 { font-size: 1.25rem; }
+            .popup-body { padding: 1rem; }
+            .content-grid { grid-template-columns: 1fr; }
+            .close-popup-btn { padding: 0.5rem; }
+            .close-popup-btn span { display: none; } /* Hide text on small screens */
+            .section-header { padding: 0.75rem 1rem; }
+            .section-header h3 { font-size: 1.125rem; }
+            .download-btn span.hidden-mobile { display: none; }
+        }
+
+        .exclusive-box { /* For main page title section */
+            background: linear-gradient(135deg, hsl(var(--success) / 0.05), hsl(var(--primary) / 0.05));
+            border: 1px solid hsl(var(--success) / 0.15);
+            border-radius: var(--radius);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .dark .exclusive-box {
+            background: linear-gradient(135deg, hsl(var(--card) / 0.8), hsl(var(--card) / 0.7));
+            border-color: hsl(var(--border));
+        }
+        .dark .exclusive-box p, .dark .exclusive-box span {
+            color: hsl(var(--muted-foreground));
+        }
+        .dark .exclusive-box .bg-white\/80 {
+            background: hsl(var(--card) / 0.8);
+            border-color: hsl(var(--border));
+        }
+        .dark .exclusive-box a { color: hsl(var(--primary)); }
+        .dark .exclusive-box a:hover { color: hsl(var(--primary) / 0.8); }
+
+        /* Decorative elements for exclusive-box */
+        .exclusive-box .decorative-blob-top-right {
+            position: absolute; top: 0; right: 0; width: 8rem; height: 8rem;
+            margin-right: -2rem; margin-top: -2rem;
+            background: linear-gradient(to bottom right, hsl(var(--success) / 0.2), hsl(var(--primary) / 0.2));
+            border-radius: 9999px; opacity: 0.3; filter: blur(10px);
+        }
+        .exclusive-box .decorative-blob-bottom-left {
+            position: absolute; bottom: 0; left: 0; width: 6rem; height: 6rem;
+            margin-left: -1.5rem; margin-bottom: -1.5rem;
+            background: linear-gradient(to top right, hsl(var(--primary) / 0.2), hsl(var(--success) / 0.2));
+            border-radius: 9999px; opacity: 0.3; filter: blur(10px);
+        }
+
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            background: hsl(var(--primary) / 0.1);
+            color: hsl(var(--primary));
+            transition: all 0.3s ease;
+        }
+        .badge i { margin-right: 0.5rem; }
+        .badge:hover {
+            background: hsl(var(--primary) / 0.15);
+            transform: translateY(-1px);
+        }
+        .dark .badge {
+            background: hsl(var(--primary) / 0.2);
+            color: hsl(var(--primary));
+        }
+        .dark .badge:hover { background: hsl(var(--primary) / 0.3); }
+        
+        /* For the "Ressources Exclusives 2024-2025" banner button */
+        .exclusive-resources-button {
+            background: linear-gradient(135deg, hsl(var(--warning)), hsl(var(--primary)));
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            font-weight: 600; /* Bolder */
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem; /* Increased gap */
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 5px 15px hsl(var(--warning) / 0.3);
+        }
+        .exclusive-resources-button:hover {
+            transform: translateY(-3px) scale(1.03); /* More pronounced hover */
+            box-shadow: 0 8px 20px hsl(var(--warning) / 0.4);
+        }
+        .exclusive-resources-button .new-badge {
+            background: white;
+            color: hsl(var(--primary));
+            padding: 0.2rem 0.5rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            animation: pulse-badge 1.5s infinite;
+        }
+        @keyframes pulse-badge {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: hsl(var(--primary));
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            background: hsl(var(--primary) / 0.08);
+        }
+        .back-button:hover {
+            background: hsl(var(--primary) / 0.15);
+            transform: translateX(-3px);
+        }
+
+        /* Styling for "Ressources Exclusives 2024-2025" popup content */
+        #popup-exclusive .popup-header h2 { /* Special title for exclusive popup */
+             background: linear-gradient(135deg, hsl(var(--warning)), hsl(var(--ring)));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        #popup-exclusive .university-section h3 { /* Module titles within exclusive popup */
+            font-size: 1.35rem; /* Larger */
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: hsl(var(--primary));
+            border-bottom: 2px solid hsl(var(--primary) / 0.2);
+            padding-bottom: 0.5rem;
+        }
+         #popup-exclusive .university-section h4 { /* Cours/TD/Examen sub-titles */
+            font-size: 1rem;
+            font-weight: 500;
+            color: hsl(var(--foreground) / 0.85);
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        #popup-exclusive .info-banner { /* For the "Tous les examens..." message */
+            background: hsl(var(--warning) / 0.1);
+            border: 1px solid hsl(var(--warning) / 0.3);
+            color: hsl(var(--warning) / 0.9);
+            border-radius: var(--radius);
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+        .dark #popup-exclusive .info-banner {
+            background: hsl(var(--warning) / 0.15);
+            border-color: hsl(var(--warning) / 0.4);
+            color: hsl(var(--warning));
+        }
+
+        /* Fallback for ISET'COM logo if path is relative like in example */
+        img[alt="ISET'COM"] {
+            max-width: 150px; /* Adjust as needed */
+            filter: brightness(1.1); /* Slight enhancement */
+        }
+        .dark img[alt="ISET'COM"] {
+            filter: contrast(1.2) brightness(0.9); /* Adjust for dark mode */
+        }
+    </style>
 </head>
-<body class="flex flex-col min-h-screen bg-gray-50">
-    <div>
+<body class="flex flex-col"> <!-- Removed min-h-screen, container will handle grow -->
+    <!-- Hero Background -->
+    <div class="hero-bg">
+        <div class="gradient-blob gradient-blob-1"></div>
+        <div class="gradient-blob gradient-blob-2"></div>
+        <div class="floating-dot w-4 h-4 bg-green-500 top-1/4 left-1/4"></div>
+        <div class="floating-dot w-3 h-3 bg-blue-500 top-1/3 right-1/4"></div>
+        <div class="floating-dot w-2 h-2 bg-green-400 bottom-1/4 left-1/3"></div>
+        <div class="floating-dot w-3 h-3 bg-blue-400 top-2/3 right-1/3"></div>
+    </div>
+
+    <!-- Floating Particles -->
+    <div class="floating-particles" id="particles"></div>
+    
+    <!-- Ad Banner -->
+    <div class="text-center py-2 bg-gray-100 dark:bg-gray-800">
         <script type="text/javascript">
-            aclib.runBanner({
-                zoneId: '9521434',
-            });
+            aclib.runBanner({ zoneId: '9521434' });
         </script>
     </div>
-    <div class="container mx-auto px-4 max-w-6xl flex-grow">
-        <header class="mb-12 mt-8" data-aos="fade-down">
-            <div class="header-container">
-                <a href="specialite-informatique-lmd.html" class="back-button hover:scale-110 transform transition-all duration-300">
+
+    <div class="container mx-auto px-4 max-w-6xl flex-grow py-8">
+        <header class="mb-8" data-aos="fade-down">
+            <div class="flex justify-between items-center">
+                <a href="specialite-informatique-lmd.html" class="back-button">
                     <i class="fas fa-arrow-left"></i>
                     Retour
                 </a>
-                <img src="assets/img/LOGO.png" alt="ISET'COM" class="max-w-[200px]">
+                <img src="assets/img/LOGO.png" alt="ISET'COM" class="max-w-[150px] md:max-w-[180px]">
             </div>
         </header>
 
-        <div class="glass-card" data-aos="fade-up">
-            <div class="exclusive-box mb-8 p-6 rounded-2xl border-2 border-green-300 bg-gradient-to-r from-green-50 to-blue-50 shadow-lg relative overflow-hidden">
-                <!-- Add decorative elements -->
-                <div class="absolute top-0 right-0 w-32 h-32 -mr-8 -mt-8 bg-gradient-to-br from-green-200 to-blue-200 rounded-full opacity-20"></div>
-                <div class="absolute bottom-0 left-0 w-24 h-24 -ml-6 -mb-6 bg-gradient-to-tr from-blue-200 to-green-200 rounded-full opacity-20"></div>
+        <div class="main-content-card" data-aos="fade-up">
+            <div class="exclusive-box mb-10 p-6 rounded-xl shadow-lg relative overflow-hidden">
+                <div class="decorative-blob-top-right"></div>
+                <div class="decorative-blob-bottom-left"></div>
                 
                 <div class="flex flex-col md:flex-row justify-between items-center relative z-10">
                     <div>
-                        <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-2">
-                            <span class="text-green-600 mr-2"><i class="fas fa-graduation-cap"></i></span>
-                            <span class="text-green-600 border-b-2 border-green-400 pb-1">Informatique LMD</span> - Semestre 2
-                        </h2>
-                        <p class="text-gray-600 text-sm md:text-base">Ressources pédagogiques pour les étudiants en informatique</p>
-                        
-                        <!-- Date de mise à jour animée -->
-                        <div class="text-gray-700 font-semibold text-sm mt-3 flex items-center animate-pulse">
-                            <i class="fas fa-history mr-2 text-green-600"></i>
-                            <span class="text-center md:text-left">Dernière mise à jour le 12 mars 2025 à 18:00 au campus Targa Ouzemour</span>
+                        <div class="badge mb-3 bg-green-100 text-green-700">
+                            <i class="fas fa-graduation-cap"></i>
+                            Informatique LMD
                         </div>
+                        <h2 class="text-3xl md:text-4xl font-bold mb-2 text-transparent bg-clip-text bg-gradient-to-r from-green-600 via-blue-600 to-green-500">
+                             Semestre 2
+                        </h2>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm md:text-base">Ressources pédagogiques pour les étudiants en informatique</p>
                         
-                        <!-- Bouton pour le contenu exclusif -->
-                        <div class="mt-4">
+                        <div class="text-gray-700 dark:text-gray-300 font-semibold text-sm mt-3 flex items-center">
+                            <i class="fas fa-history mr-2 text-green-600"></i>
+                            <span class="text-center md:text-left">Dernière mise à jour le 12 mars 2025</span>
                         </div>
                     </div>
-                    <div class="flex flex-col items-end mt-4 md:mt-0">
-                        <div class="bg-blue-50 px-4 py-2 rounded-lg border border-blue-200 shadow-sm">
-                            <span class="text-gray-600 block text-sm">Développé par</span>
-                            <a href="mailto:mehdi.amara@tech.univ-bejaia.dz" class="font-semibold text-blue-600 hover:text-blue-800 hover:underline flex items-center gap-2 text-lg">
+                    <div class="flex flex-col items-end mt-6 md:mt-0">
+                        <div class="bg-white/80 dark:bg-gray-700/50 backdrop-blur-sm px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-600 shadow-sm">
+                            <span class="text-gray-600 dark:text-gray-400 block text-sm">Développé par</span>
+                            <a href="mailto:mehdi.amara@tech.univ-bejaia.dz" class="font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 hover:underline flex items-center gap-2 text-lg">
                                 <i class="fas fa-code"></i>
                                 Amara Mehdi
                             </a>
                         </div>
-                        <span class="text-xs text-gray-500 mt-1">Université de Béjaia</span>
+                        <span class="text-xs text-gray-500 dark:text-gray-400 mt-1">Université de Béjaia</span>
                     </div>
                 </div>
             </div>
             
-            <div>
+            <div class="text-center my-8">
                 <script type="text/javascript">
-                    aclib.runBanner({
-                        zoneId: '9521434',
-                    });
+                    aclib.runBanner({ zoneId: '9521434' });
                 </script>
             </div>
 
             <!-- Banner pour les ressources exclusives 2024-2025 -->
-            <div class="mb-8 p-4 rounded-xl bg-gradient-to-r from-indigo-50 via-purple-50 to-pink-50 border border-indigo-200 shadow-md">
-                <div class="flex flex-col md:flex-row items-center justify-between">
-                    <div class="flex items-center gap-3 mb-4 md:mb-0">
-                        <div class="w-12 h-12 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg">
-                            <i class="fas fa-crown text-yellow-300 text-xl"></i>
+            <div class="mb-10 p-4 rounded-xl bg-gradient-to-r from-yellow-50 via-orange-50 to-red-50 dark:from-yellow-900/30 dark:via-orange-900/30 dark:to-red-900/30 border border-yellow-200 dark:border-yellow-700 shadow-md text-center" data-aos="zoom-in-up">
+                <div class="flex flex-col items-center justify-center">
+                     <div class="flex items-center gap-3 mb-3">
+                        <div class="w-12 h-12 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center shadow-lg">
+                            <i class="fas fa-crown text-white text-xl"></i>
                         </div>
                         <div>
-                            <h3 class="text-lg font-bold text-indigo-800">Ressources Exclusives 2024-2025</h3>
-                            <p class="text-sm text-gray-600">Documents mis à jour pour tous les modules</p>
+                            <h3 class="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-600 to-orange-700 dark:from-yellow-400 dark:to-orange-500">Ressources Exclusives 2024-2025</h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">Documents mis à jour pour tous les modules</p>
                         </div>
                     </div>
-                    <button onclick="document.getElementById('popup-exclusive').classList.remove('hidden')" 
-                           class="bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-4 py-2 rounded-lg 
-                                  shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-105">
-                        <i class="fas fa-eye mr-2"></i>Voir toutes les ressources
+                    <button onclick="document.getElementById('popup-exclusive').classList.add('active'); document.body.style.overflow = 'hidden';" 
+                           class="exclusive-resources-button group">
+                        <i class="fas fa-eye mr-2 transform group-hover:scale-110 transition-transform"></i>
+                        Voir toutes les ressources
+                        <span class="new-badge ml-2">NEW</span>
                     </button>
                 </div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-    <!-- Analyse 2 -->
-    <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
-        <div class="flex items-center gap-3 mb-4">
-            <div class="module-icon bg-blue-100 p-3 rounded-full text-blue-600">
-                <i class="fas fa-chart-line fa-lg"></i>
+                <!-- Analyse 2 -->
+                <div class="module-card" data-aos="fade-up">
+                    <div class="module-icon-wrapper">
+                        <div class="module-icon bg-blue-100"><i class="fas fa-chart-line fa-2x"></i></div>
+                        <h3 class="text-gray-800">Analyse 2</h3>
+                    </div>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-4 flex-grow">Cours, TD et examens pour le module d'Analyse mathématique 2.</p>
+                    <div class="module-buttons-wrapper">
+                        <button class="module-btn bg-blue-500" onclick="showContent('analyse2', 'cours')">
+                            <i class="fas fa-book"></i> Cours
+                        </button>
+                        <button class="module-btn bg-green-500" onclick="showContent('analyse2', 'td')">
+                            <i class="fas fa-pencil-alt"></i> TD
+                        </button>
+                        <button class="module-btn bg-purple-500" onclick="showContent('analyse2', 'examen')">
+                            <i class="fas fa-file-alt"></i> Examen
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Algèbre 2 -->
+                <div class="module-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="module-icon-wrapper">
+                        <div class="module-icon bg-green-100"><i class="fas fa-square-root-alt fa-2x"></i></div>
+                        <h3 class="text-gray-800">Algèbre 2</h3>
+                    </div>
+                     <p class="text-sm text-gray-600 dark:text-gray-400 mb-4 flex-grow">Ressources pour le module d'Algèbre linéaire et bilinéaire.</p>
+                    <div class="module-buttons-wrapper">
+                        <button class="module-btn bg-blue-500" onclick="showContent('algebre2', 'cours')">
+                            <i class="fas fa-book"></i> Cours
+                        </button>
+                        <button class="module-btn bg-green-500" onclick="showContent('algebre2', 'td')">
+                            <i class="fas fa-pencil-alt"></i> TD
+                        </button>
+                        <button class="module-btn bg-purple-500" onclick="showContent('algebre2', 'examen')">
+                            <i class="fas fa-file-alt"></i> Examen
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Probabilités et Statistiques -->
+                <div class="module-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="module-icon-wrapper">
+                        <div class="module-icon bg-yellow-100"><i class="fas fa-chart-bar fa-2x"></i></div>
+                        <h3 class="text-gray-800">Probabilités et Statistiques</h3>
+                    </div>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-4 flex-grow">Matériel pédagogique pour les probabilités et statistiques.</p>
+                    <div class="module-buttons-wrapper">
+                        <button class="module-btn bg-blue-500" onclick="showContent('probastat', 'cours')">
+                            <i class="fas fa-book"></i> Cours
+                        </button>
+                        <button class="module-btn bg-green-500" onclick="showContent('probastat', 'td')">
+                            <i class="fas fa-pencil-alt"></i> TD
+                        </button>
+                        <button class="module-btn bg-purple-500" onclick="showContent('probastat', 'examen')">
+                            <i class="fas fa-file-alt"></i> Examen
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Algorithmique et Structure de Données 2 -->
+                <div class="module-card" data-aos="fade-up">
+                    <div class="module-icon-wrapper">
+                        <div class="module-icon bg-red-100"><i class="fas fa-code fa-2x"></i></div>
+                        <h3 class="text-gray-800">Algorithmique et Structure de Données 2</h3>
+                    </div>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-4 flex-grow">Approfondissement des algorithmes et structures de données.</p>
+                    <div class="module-buttons-wrapper">
+                        <button class="module-btn bg-blue-500" onclick="showContent('algo2', 'cours')">
+                            <i class="fas fa-book"></i> Cours
+                        </button>
+                        <button class="module-btn bg-green-500" onclick="showContent('algo2', 'td')">
+                            <i class="fas fa-pencil-alt"></i> TD
+                        </button>
+                        <button class="module-btn bg-purple-500" onclick="showContent('algo2', 'examen')">
+                            <i class="fas fa-file-alt"></i> Examen
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Structure Machine 2 -->
+                <div class="module-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="module-icon-wrapper">
+                        <div class="module-icon bg-indigo-100"><i class="fas fa-microchip fa-2x"></i></div>
+                        <h3 class="text-gray-800">Structure Machine 2</h3>
+                    </div>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-4 flex-grow">Suite du module sur l'architecture des ordinateurs.</p>
+                    <div class="module-buttons-wrapper">
+                        <button class="module-btn bg-blue-500" onclick="showContent('structure2', 'cours')">
+                            <i class="fas fa-book"></i> Cours
+                        </button>
+                        <button class="module-btn bg-green-500" onclick="showContent('structure2', 'td')">
+                            <i class="fas fa-pencil-alt"></i> TD
+                        </button>
+                        <button class="module-btn bg-purple-500" onclick="showContent('structure2', 'examen')">
+                            <i class="fas fa-file-alt"></i> Examen
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Électricité -->
+                <div class="module-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="module-icon-wrapper">
+                        <div class="module-icon bg-amber-100"><i class="fas fa-bolt fa-2x"></i></div>
+                        <h3 class="text-gray-800">Électricité</h3>
+                    </div>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-4 flex-grow">Principes fondamentaux de l'électricité et circuits.</p>
+                    <div class="module-buttons-wrapper">
+                        <button class="module-btn bg-blue-500" onclick="showContent('electricite', 'cours')">
+                            <i class="fas fa-book"></i> Cours
+                        </button>
+                        <button class="module-btn bg-green-500" onclick="showContent('electricite', 'td')">
+                            <i class="fas fa-pencil-alt"></i> TD
+                        </button>
+                        <button class="module-btn bg-purple-500" onclick="showContent('electricite', 'examen')">
+                            <i class="fas fa-file-alt"></i> Examen
+                        </button>
+                    </div>
+                </div>
+
+                <!-- MATLAB -->
+                <div class="module-card" data-aos="fade-up">
+                     <div class="module-icon-wrapper">
+                        <div class="module-icon bg-cyan-100"><i class="fas fa-calculator fa-2x"></i></div>
+                        <h3 class="text-gray-800">MATLAB</h3>
+                    </div>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-4 flex-grow">Introduction à l'utilisation du logiciel MATLAB.</p>
+                    <div class="module-buttons-wrapper">
+                        <button class="module-btn bg-blue-500" onclick="showContent('matlab', 'cours')">
+                            <i class="fas fa-book"></i> Cours
+                        </button>
+                        <!-- Add other buttons if TD/Examen content for MATLAB exists in moduleContent -->
+                    </div>
+                </div>
             </div>
-            <h3 class="text-xl font-semibold text-gray-800">Analyse 2</h3>
-        </div>
-        <div class="mt-auto flex flex-wrap gap-2">
-            <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('analyse2', 'cours')">
-                <i class="fas fa-book mr-1"></i> Cours
-            </button>
-            <button class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('analyse2', 'td')">
-                <i class="fas fa-pencil-alt mr-1"></i> TD
-            </button>
-            <button class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('analyse2', 'examen')">
-                <i class="fas fa-file-alt mr-1"></i> Examen
-            </button>
-        </div>
-    </div>
+        </div> <!-- End of main-content-card -->
+    </div> <!-- End of container -->
 
-    <!-- Algèbre 2 -->
-    <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
-        <div class="flex items-center gap-3 mb-4">
-            <div class="module-icon bg-green-100 p-3 rounded-full text-green-600">
-                <i class="fas fa-square-root-alt fa-lg"></i>
-            </div>
-            <h3 class="text-xl font-semibold text-gray-800">Algèbre 2</h3>
-        </div>
-        <div class="mt-auto flex flex-wrap gap-2">
-            <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('algebre2', 'cours')">
-                <i class="fas fa-book mr-1"></i> Cours
-            </button>
-            <button class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('algebre2', 'td')">
-                <i class="fas fa-pencil-alt mr-1"></i> TD
-            </button>
-            <button class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('algebre2', 'examen')">
-                <i class="fas fa-file-alt mr-1"></i> Examen
-            </button>
-        </div>
-    </div>
-
-    <!-- Probabilités et Statistiques -->
-    <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
-        <div class="flex items-center gap-3 mb-4">
-            <div class="module-icon bg-yellow-100 p-3 rounded-full text-yellow-600">
-                <i class="fas fa-chart-bar fa-lg"></i>
-            </div>
-            <h3 class="text-xl font-semibold text-gray-800">Probabilités et Statistiques</h3>
-        </div>
-        <div class="mt-auto flex flex-wrap gap-2">
-            <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('probastat', 'cours')">
-                <i class="fas fa-book mr-1"></i> Cours
-            </button>
-            <button class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('probastat', 'td')">
-                <i class="fas fa-pencil-alt mr-1"></i> TD
-            </button>
-            <button class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('probastat', 'examen')">
-                <i class="fas fa-file-alt mr-1"></i> Examen
-            </button>
-        </div>
-    </div>
-
-    <!-- Algorithmique et Structure de Données 2 -->
-    <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
-        <div class="flex items-center gap-3 mb-4">
-            <div class="module-icon bg-red-100 p-3 rounded-full text-red-600">
-                <i class="fas fa-code fa-lg"></i>
-            </div>
-            <h3 class="text-xl font-semibold text-gray-800">Algorithmique et Structure de Données 2</h3>
-        </div>
-        <div class="mt-auto flex flex-wrap gap-2">
-            <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('algo2', 'cours')">
-                <i class="fas fa-book mr-1"></i> Cours
-            </button>
-            <button class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('algo2', 'td')">
-                <i class="fas fa-pencil-alt mr-1"></i> TD
-            </button>
-            <button class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('algo2', 'examen')">
-                <i class="fas fa-file-alt mr-1"></i> Examen
-            </button>
-        </div>
-    </div>
-
-    <!-- Structure Machine 2 -->
-    <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
-        <div class="flex items-center gap-3 mb-4">
-            <div class="module-icon bg-indigo-100 p-3 rounded-full text-indigo-600">
-                <i class="fas fa-microchip fa-lg"></i>
-            </div>
-            <h3 class="text-xl font-semibold text-gray-800">Structure Machine 2</h3>
-        </div>
-        <div class="mt-auto flex flex-wrap gap-2">
-            <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('structure2', 'cours')">
-                <i class="fas fa-book mr-1"></i> Cours
-            </button>
-            <button class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('structure2', 'td')">
-                <i class="fas fa-pencil-alt mr-1"></i> TD
-            </button>
-            <button class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('structure2', 'examen')">
-                <i class="fas fa-file-alt mr-1"></i> Examen
-            </button>
-        </div>
-    </div>
-
-    <!-- Électricité -->
-    <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
-        <div class="flex items-center gap-3 mb-4">
-            <div class="module-icon bg-amber-100 p-3 rounded-full text-amber-600">
-                <i class="fas fa-bolt fa-lg"></i>
-            </div>
-            <h3 class="text-xl font-semibold text-gray-800">Électricité</h3>
-        </div>
-        <div class="mt-auto flex flex-wrap gap-2">
-            <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('electricite', 'cours')">
-                <i class="fas fa-book mr-1"></i> Cours
-            </button>
-            <button class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('electricite', 'td')">
-                <i class="fas fa-pencil-alt mr-1"></i> TD
-            </button>
-            <button class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('electricite', 'examen')">
-                <i class="fas fa-file-alt mr-1"></i> Examen
-            </button>
-        </div>
-    </div>
-
-    <!-- MATLAB -->
-    <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
-        <div class="flex items-center gap-3 mb-4">
-            <div class="module-icon bg-cyan-100 p-3 rounded-full text-cyan-600">
-                <i class="fas fa-calculator fa-lg"></i>
-            </div>
-            <h3 class="text-xl font-semibold text-gray-800">MATLAB</h3>
-        </div>
-        <div class="mt-auto flex flex-wrap gap-2">
-            <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('matlab', 'cours')">
-                <i class="fas fa-book mr-1"></i> Cours
-            </button>
-        </div>
-    </div>
-</div>
-
-<!-- Algèbre 2 Section -->
-<div class="university-section mb-10" data-aos="fade-up" data-aos-delay="100">
-    <div class="bg-gradient-to-r from-blue-500 to-blue-600 p-3 rounded-t-lg">
-        <h3 class="text-xl font-bold text-white flex items-center">
-            <i class="fas fa-square-root-alt mr-2"></i>Algèbre 2
-        </h3>
-    </div>
-    
-    <div class="bg-white rounded-b-lg shadow-md p-5 border border-gray-100">
-        <h4 class="font-semibold text-gray-700 mt-3 mb-2 flex items-center">
-            <i class="fas fa-book-open text-blue-500 mr-2"></i>Cours
-        </h4>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
-            <a href="https://drive.google.com/file/d/1ZMrIavkD56-l9I9fymkzr10ngIalKr4t/view?usp=drive_link" target="_blank" 
-               class="bg-white rounded p-3 shadow-sm hover:bg-blue-50 transition-all duration-300 border border-gray-100 transform hover:-translate-y-1 hover:shadow-md">
-                <i class="fas fa-book text-indigo-500 mr-2"></i>Chapitre 1
-            </a>
-            <a href="https://drive.google.com/file/d/1msQ9Aks8oeUZKHWh4lZpe9UMAysJotBU/view?usp=drive_link" target="_blank" 
-               class="bg-white rounded p-3 shadow-sm hover:bg-blue-50 transition-all duration-300 border border-gray-100 transform hover:-translate-y-1 hover:shadow-md">
-                <i class="fas fa-book text-indigo-500 mr-2"></i>Chapitre 2
-            </a>
-            <a href="https://drive.google.com/file/d/15RWypRogyfurlE3URSVBWrSuExyBqVEK/view?usp=drive_link" target="_blank" 
-               class="bg-white rounded p-3 shadow-sm hover:bg-blue-50 transition-all duration-300 border border-gray-100 transform hover:-translate-y-1 hover:shadow-md">
-                <i class="fas fa-book text-indigo-500 mr-2"></i>Chapitre 3
-            </a>
-            <a href="https://drive.google.com/file/d/1JMQjgnqnPCAgbksZW3jR_vNgLGp9UgtX/view?usp=drive_link" target="_blank" 
-               class="bg-white rounded p-3 shadow-sm hover:bg-blue-50 transition-all duration-300 border border-gray-100 transform hover:-translate-y-1 hover:shadow-md">
-                <i class="fas fa-book text-indigo-500 mr-2"></i>Chapitre 4
-            </a>
-        </div>
-        
-        <h4 class="font-semibold text-gray-700 mt-5 mb-2 flex items-center">
-            <i class="fas fa-tasks text-green-500 mr-2"></i>Travaux Dirigés
-        </h4>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
-            <a href="https://drive.google.com/file/d/1aj7zmLWtUeiJ-qi-CKe7Vim8Um8EK2zk/view?usp=drive_link" target="_blank" 
-               class="bg-white rounded p-3 shadow-sm hover:bg-blue-50 transition-all duration-300 border border-gray-100 transform hover:-translate-y-1 hover:shadow-md">
-                <i class="fas fa-file-alt text-blue-500 mr-2"></i>TD 1
-            </a>
-            <a href="https://drive.google.com/file/d/1hjRrls_f0iAbxXmrsGNfaGeeO6965yAh/view?usp=drive_link" target="_blank" 
-               class="bg-white rounded p-3 shadow-sm hover:bg-blue-50 transition-all duration-300 border border-gray-100 transform hover:-translate-y-1 hover:shadow-md">
-                <i class="fas fa-file-alt text-blue-500 mr-2"></i>TD 2
-            </a>
-            <a href="https://drive.google.com/file/d/18dcdxpk1mySymkSLK5nSh8Yz2Y_Iu_c9/view?usp=drive_link" target="_blank" 
-               class="bg-white rounded p-3 shadow-sm hover:bg-blue-50 transition-all duration-300 border border-gray-100 transform hover:-translate-y-1 hover:shadow-md">
-                <i class="fas fa-file-alt text-blue-500 mr-2"></i>TD 3
-            </a>
-            <a href="https://drive.google.com/drive/folders/1zPs6eWPC7WntXctVm5DTBrSNo4gYsmyX?usp=drive_link" target="_blank" 
-               class="bg-white rounded p-3 shadow-sm hover:bg-green-50 transition-all duration-300 border border-gray-100 transform hover:-translate-y-1 hover:shadow-md">
-                <i class="fas fa-check-circle text-green-500 mr-2"></i>Corrigé TD 1
-            </a>
-            <a href="https://drive.google.com/drive/folders/1ccLVrWtYrNBgPjsOSQqBwsONYf4oCJb2?usp=drive_link" target="_blank" 
-               class="bg-white rounded p-3 shadow-sm hover:bg-green-50 transition-all duration-300 border border-gray-100 transform hover:-translate-y-1 hover:shadow-md">
-                <i class="fas fa-check-circle text-green-500 mr-2"></i>Corrigé TD 2
-            </a>
-            <a href="https://drive.google.com/drive/folders/11hgi_jlD_YAuAXCkKcrNgRWBLU9TFPho?usp=drive_link" target="_blank" 
-               class="bg-white rounded p-3 shadow-sm hover:bg-green-50 transition-all duration-300 border border-gray-100 transform hover:-translate-y-1 hover:shadow-md">
-                <i class="fas fa-check-circle text-green-500 mr-2"></i>Corrigé TD 3
-            </a>
-        </div>
-        
-        <h4 class="font-semibold text-gray-700 mt-5 mb-2 flex items-center">
-            <i class="fas fa-file-signature text-red-500 mr-2"></i>Examens
-        </h4>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-            <a href="https://drive.google.com/file/d/16wRZ6sNzm_bEd2H4diyDgicxPXn6kJ02/view?usp=drive_link" target="_blank" 
-               class="bg-white rounded p-3 shadow-sm hover:bg-red-50 transition-all duration-300 border border-gray-100 transform hover:-translate-y-1 hover:shadow-md">
-                <i class="fas fa-file-alt text-red-500 mr-2"></i>Examen 2022+2019 + corrigé
-            </a>
-            <a href="https://drive.google.com/file/d/1FILlMsmVEFVUvFcY0U5kBKmvYvl_lml1/view?usp=drive_link" target="_blank" 
-               class="bg-white rounded p-3 shadow-sm hover:bg-red-50 transition-all duration-300 border border-gray-100 transform hover:-translate-y-1 hover:shadow-md">
-                <i class="fas fa-file-alt text-red-500 mr-2"></i>Examen 2024 avec corrigé
-            </a>
-        </div>
-    </div>
-</div>
-        </div>
-    </div>
-
-    <footer class="text-center text-gray-600 text-sm py-4">
-        <div>&copy; 2025 Université de Bejaia. Développé par Amara Mehdi <a href="mailto:mehdi.amara@tech.univ-bejaia.dz" class="text-blue-500 hover:text-blue-700">Amara Mehdi</a></div>
+    <footer class="text-center text-gray-600 dark:text-gray-400 text-sm py-6 border-t border-gray-200 dark:border-gray-700">
+        &copy; <span id="currentYear"></span> Université de Bejaia. Développé par 
+        <a href="mailto:mehdi.amara@tech.univ-bejaia.dz" class="text-blue-500 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-semibold">Amara Mehdi</a>
     </footer>
 
-    <div id="popup-cours" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
-        <div class="bg-white rounded-lg shadow-lg p-6 max-w-3xl w-full glass-card">
-            <div class="flex justify-between items-center mb-6">
-                <h2 id="popup-title-cours" class="text-2xl font-bold text-gray-800"></h2>
-                <button type="button" class="close-popup-btn px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-300 flex items-center gap-2">
-                    <i class="fas fa-times"></i><span>Fermer</span>
+    <!-- Popups (Cours, TD, Examen) -->
+    <div id="popup-cours" class="popup">
+        <div class="popup-content-wrapper">
+            <div class="popup-header">
+                <h2 id="popup-title-cours"></h2>
+                <button type="button" class="close-popup-btn" onclick="closePopup('popup-cours')">
+                    <i class="fas fa-times"></i><span class="hidden md:inline">Fermer</span>
                 </button>
             </div>
-            <div id="popup-content-cours" class="space-y-6 popup-content"></div>
+            <div id="popup-content-cours" class="popup-body"></div>
         </div>
     </div>
 
-    <div id="popup-td" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
-        <div class="bg-white rounded-lg shadow-lg p-6 max-w-3xl w-full glass-card">
-            <div class="flex justify-between items-center mb-6">
-                <h2 id="popup-title-td" class="text-2xl font-bold text-gray-800"></h2>
-                <button type="button" class="close-popup-btn px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-300 flex items-center gap-2">
-                    <i class="fas fa-times"></i><span>Fermer</span>
+    <div id="popup-td" class="popup">
+        <div class="popup-content-wrapper">
+            <div class="popup-header">
+                <h2 id="popup-title-td"></h2>
+                <button type="button" class="close-popup-btn" onclick="closePopup('popup-td')">
+                    <i class="fas fa-times"></i><span class="hidden md:inline">Fermer</span>
                 </button>
             </div>
-            <div id="popup-content-td" class="space-y-6 popup-content"></div>
+            <div id="popup-content-td" class="popup-body"></div>
         </div>
     </div>
 
-    <div id="popup-examen" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
-        <div class="bg-white rounded-lg shadow-lg p-6 max-w-3xl w-full glass-card">
-            <div class="flex justify-between items-center mb-6">
-                <h2 id="popup-title-examen" class="text-2xl font-bold text-gray-800"></h2>
-                <button type="button" class="close-popup-btn px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-300 flex items-center gap-2">
-                    <i class="fas fa-times"></i><span>Fermer</span>
+    <div id="popup-examen" class="popup">
+        <div class="popup-content-wrapper">
+            <div class="popup-header">
+                <h2 id="popup-title-examen"></h2>
+                <button type="button" class="close-popup-btn" onclick="closePopup('popup-examen')">
+                    <i class="fas fa-times"></i><span class="hidden md:inline">Fermer</span>
                 </button>
             </div>
-            <div id="popup-content-examen" class="space-y-6 popup-content"></div>
+            <div id="popup-content-examen" class="popup-body"></div>
         </div>
     </div>
 
     <!-- Popup pour la nouvelle section exclusive -->
-    <div id="popup-exclusive" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
-        <div class="glass-card max-w-4xl w-full mx-4 relative">
-            <button onclick="closePopup('popup-exclusive')" class="close-popup-btn absolute top-2 right-2 text-gray-500 hover:text-gray-800 text-2xl">
-                <i class="fas fa-times"></i>
-            </button>
-            <div class="popup-content">
-                <div class="bg-gradient-to-r from-blue-500 to-purple-600 text-white p-4 rounded-t-lg">
-                    <h2 class="text-2xl font-bold flex items-center">
-                        <i class="fas fa-crown text-yellow-300 mr-2"></i>
-                        Ressources Exclusives 2024-2025
-                    </h2>
-                    <p class="text-sm font-light mt-1">Nouvelles ressources mises à jour pour les étudiants en Informatique LMD</p>
+    <div id="popup-exclusive" class="popup">
+        <div class="popup-content-wrapper">
+             <div class="popup-header">
+                <h2 class="text-2xl font-bold flex items-center">
+                    <i class="fas fa-crown text-yellow-400 mr-2"></i>
+                    Ressources Exclusives 2024-2025
+                </h2>
+                <button onclick="closePopup('popup-exclusive')" class="close-popup-btn">
+                    <i class="fas fa-times"></i><span class="hidden md:inline">Fermer</span>
+                </button>
+            </div>
+            <div class="popup-body">
+                <p class="text-sm font-light mt-1 mb-4 text-gray-600 dark:text-gray-400">Nouvelles ressources mises à jour pour les étudiants en Informatique LMD.</p>
+                
+                <div class="info-banner mb-6">
+                    <p class="font-semibold"><i class="fas fa-info-circle mr-2"></i> Tous les examens possèdent leurs corrigés.</p>
                 </div>
                 
-                <div class="p-6">
-                    <div class="mb-8 p-4 bg-yellow-50 rounded-lg border-2 border-yellow-200">
-                        <p class="text-yellow-800 font-bold"><i class="fas fa-info-circle mr-2"></i> Tous les examens possèdent leurs corrigés</p>
+                <!-- Algèbre 2 -->
+                <div class="university-section mb-6">
+                    <h3 class="text-xl font-bold text-blue-600 dark:text-blue-400 mb-2">Algèbre 2</h3>
+                    
+                    <h4 class="font-semibold text-gray-700 dark:text-gray-300 mt-3 mb-1">Travaux Dirigés</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                        <a href="https://drive.google.com/file/d/1aj7zmLWtUeiJ-qi-CKe7Vim8Um8EK2zk/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-file-alt text-blue-500 mr-2"></i>TD 1</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                        <a href="https://drive.google.com/file/d/1hjRrls_f0iAbxXmrsGNfaGeeO6965yAh/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-file-alt text-blue-500 mr-2"></i>TD 2</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                        <a href="https://drive.google.com/file/d/18dcdxpk1mySymkSLK5nSh8Yz2Y_Iu_c9/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-file-alt text-blue-500 mr-2"></i>TD 3</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                        <a href="https://drive.google.com/drive/folders/1zPs6eWPC7WntXctVm5DTBrSNo4gYsmyX?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i>Corrigé TD 1</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                        <a href="https://drive.google.com/drive/folders/1ccLVrWtYrNBgPjsOSQqBwsONYf4oCJb2?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i>Corrigé TD 2</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                        <a href="https://drive.google.com/drive/folders/11hgi_jlD_YAuAXCkKcrNgRWBLU9TFPho?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i>Corrigé TD 3</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
                     </div>
                     
-                    <!-- Algèbre 2 -->
-                    <div class="university-section">
-                        <h3 class="text-xl font-bold text-blue-600 mb-2">Algèbre 2</h3>
-                        
-                        <h4 class="font-semibold text-gray-700 mt-3 mb-1">Travaux Dirigés</h4>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-                            <a href="https://drive.google.com/file/d/1aj7zmLWtUeiJ-qi-CKe7Vim8Um8EK2zk/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-file-alt text-blue-500 mr-2"></i>TD 1
-                            </a>
-                            <a href="https://drive.google.com/file/d/1hjRrls_f0iAbxXmrsGNfaGeeO6965yAh/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-file-alt text-blue-500 mr-2"></i>TD 2
-                            </a>
-                            <a href="https://drive.google.com/file/d/18dcdxpk1mySymkSLK5nSh8Yz2Y_Iu_c9/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-file-alt text-blue-500 mr-2"></i>TD 3
-                            </a>
-                            <a href="https://drive.google.com/drive/folders/1zPs6eWPC7WntXctVm5DTBrSNo4gYsmyX?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-check-circle text-green-500 mr-2"></i>Corrigé TD 1
-                            </a>
-                            <a href="https://drive.google.com/drive/folders/1ccLVrWtYrNBgPjsOSQqBwsONYf4oCJb2?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-check-circle text-green-500 mr-2"></i>Corrigé TD 2
-                            </a>
-                            <a href="https://drive.google.com/drive/folders/11hgi_jlD_YAuAXCkKcrNgRWBLU9TFPho?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-check-circle text-green-500 mr-2"></i>Corrigé TD 3
-                            </a>
-                        </div>
-                        
-                        <h4 class="font-semibold text-gray-700 mt-3 mb-1">Cours</h4>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-                            <a href="https://drive.google.com/file/d/1ZMrIavkD56-l9I9fymkzr10ngIalKr4t/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-book text-indigo-500 mr-2"></i>Chapitre 1
-                            </a>
-                            <a href="https://drive.google.com/file/d/1msQ9Aks8oeUZKHWh4lZpe9UMAysJotBU/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-book text-indigo-500 mr-2"></i>Chapitre 2
-                            </a>
-                            <a href="https://drive.google.com/file/d/15RWypRogyfurlE3URSVBWrSuExyBqVEK/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-book text-indigo-500 mr-2"></i>Chapitre 3
-                            </a>
-                            <a href="https://drive.google.com/file/d/1JMQjgnqnPCAgbksZW3jR_vNgLGp9UgtX/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-book text-indigo-500 mr-2"></i>Chapitre 4
-                            </a>
-                        </div>
-
-                        <h4 class="font-semibold text-gray-700 mt-3 mb-1">Examens</h4>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-                            <a href="https://drive.google.com/file/d/16wRZ6sNzm_bEd2H4diyDgicxPXn6kJ02/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-file-alt text-purple-500 mr-2"></i>Examen 2022+2019 + corriger
-                            </a>
-                            <a href="https://drive.google.com/file/d/1FILlMsmVEFVUvFcY0U5kBKmvYvl_lml1/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-file-alt text-purple-500 mr-2"></i>Examen 2024 avec corriger
-                            </a>
-                        </div>
+                    <h4 class="font-semibold text-gray-700 dark:text-gray-300 mt-3 mb-1">Cours</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                        <a href="https://drive.google.com/file/d/1ZMrIavkD56-l9I9fymkzr10ngIalKr4t/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-book text-indigo-500 mr-2"></i>Chapitre 1</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                        <a href="https://drive.google.com/file/d/1msQ9Aks8oeUZKHWh4lZpe9UMAysJotBU/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-book text-indigo-500 mr-2"></i>Chapitre 2</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                        <a href="https://drive.google.com/file/d/15RWypRogyfurlE3URSVBWrSuExyBqVEK/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-book text-indigo-500 mr-2"></i>Chapitre 3</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                        <a href="https://drive.google.com/file/d/1JMQjgnqnPCAgbksZW3jR_vNgLGp9UgtX/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-book text-indigo-500 mr-2"></i>Chapitre 4</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
                     </div>
 
-                    <!-- Analyse 2 -->
-                    <div class="university-section">
-                        <h3 class="text-xl font-bold text-blue-600 mb-2">Analyse 2</h3>
-                        
-                        <h4 class="font-semibold text-gray-700 mt-3 mb-1">Cours</h4>
-                        <div class="grid grid-cols-1 gap-2">
-                            <a href="https://drive.google.com/file/d/15xe6R8dT1mYnzgLZif_upE1aiTtP02hw/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-book text-indigo-500 mr-2"></i>Tous les cours
-                            </a>
-                        </div>
-                        
-                        <h4 class="font-semibold text-gray-700 mt-3 mb-1">Travaux Dirigés</h4>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-                            <a href="https://drive.google.com/file/d/19PwWxjou6rIpheyfUGp6Tiqz6iXAkFyS/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-file-alt text-blue-500 mr-2"></i>TD 1
-                            </a>
-                            <a href="https://drive.google.com/file/d/1ZnewSF4VvezkCUj2IX2QBDM89QusjaA-/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-file-alt text-blue-500 mr-2"></i>TD 2
-                            </a>
-                            <a href="https://drive.google.com/drive/folders/19h2iPu5JGaeVb_pRlwC-LkD2aYiSfkpH?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-check-circle text-green-500 mr-2"></i>Corrigé TD 1
-                            </a>
-                            <a href="https://drive.google.com/drive/folders/1suA0BbVbW_4tvA1Gj1H5AZKhlMnx_Yx-?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-check-circle text-green-500 mr-2"></i>Corrigé TD 2
-                            </a>
-                        </div>
-                        
-                        <h4 class="font-semibold text-gray-700 mt-3 mb-1">Examens</h4>
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
-                            <a href="https://drive.google.com/file/d/1IJ1JjvEAzGSy9QD8PLZ5r2AOa-YqqbUM/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-file-alt text-red-500 mr-2"></i>Examen 2012
-                            </a>
-                            <a href="https://drive.google.com/file/d/1BGELjBjVWJqTGSshKweUvOVzOLd36g4z/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-file-alt text-red-500 mr-2"></i>Examen 2015
-                            </a>
-                            <a href="https://drive.google.com/file/d/1_CU03uUEee6j5EMML2vGvTfARP55Rj7U/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-file-alt text-red-500 mr-2"></i>Examen 2017
-                            </a>
-                            <a href="https://drive.google.com/file/d/1vIrRPGw06vs9LoYGX1hKM2GVHeP7maPB/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-file-alt text-red-500 mr-2"></i>Examen 2018
-                            </a>
-                            <a href="https://drive.google.com/file/d/1xkV_tf1GAgIFgFh43L_SfSsMZEshPfsZ/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-file-alt text-red-500 mr-2"></i>Examen 2019
-                            </a>
-                            <a href="https://drive.google.com/file/d/1TBJPefPCUHYdsjzuB6OYEa5B7eKNVK5h/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-file-alt text-red-500 mr-2"></i>Examen 2021
-                            </a>
-                            <a href="https://drive.google.com/file/d/1YCNLgcNcwSKR4pE0ZX3ZpYNEAVqdNEgV/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-file-alt text-red-500 mr-2"></i>Examen 2023
-                            </a>
-                            <a href="https://drive.google.com/file/d/1n8gw7a-qz_Jk2cOkKsfEqE1UjJYjdYMA/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-file-alt text-red-500 mr-2"></i>Examen 2024
-                            </a>
-                        </div>
+                    <h4 class="font-semibold text-gray-700 dark:text-gray-300 mt-3 mb-1">Examens</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                        <a href="https://drive.google.com/file/d/16wRZ6sNzm_bEd2H4diyDgicxPXn6kJ02/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-file-alt text-purple-500 mr-2"></i>Examen 2022+2019 + corriger</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                        <a href="https://drive.google.com/file/d/1FILlMsmVEFVUvFcY0U5kBKmvYvl_lml1/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-file-alt text-purple-500 mr-2"></i>Examen 2024 avec corriger</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                    </div>
+                </div>
+
+                <!-- Analyse 2 -->
+                <div class="university-section mb-6">
+                    <h3 class="text-xl font-bold text-blue-600 dark:text-blue-400 mb-2">Analyse 2</h3>
+                    
+                    <h4 class="font-semibold text-gray-700 dark:text-gray-300 mt-3 mb-1">Cours</h4>
+                    <div class="grid grid-cols-1 gap-2">
+                        <a href="https://drive.google.com/file/d/15xe6R8dT1mYnzgLZif_upE1aiTtP02hw/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-book text-indigo-500 mr-2"></i>Tous les cours</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
                     </div>
                     
-                    <!-- MATLAB -->
-                    <div class="university-section">
-                        <h3 class="text-xl font-bold text-blue-600 mb-2">MATLAB</h3>
-                        
-                        <h4 class="font-semibold text-gray-700 mt-3 mb-1">Cours</h4>
-                        <div class="grid grid-cols-1 gap-2">
-                            <a href="https://drive.google.com/file/d/1f-qnkDXLvFturme2BxPZQsL5IoI9NE7C/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-book text-indigo-500 mr-2"></i>Tous les cours
-                            </a>
-                        </div>
-                        
-                        <h4 class="font-semibold text-gray-700 mt-3 mb-1">Travaux Pratiques</h4>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-                            <a href="https://drive.google.com/file/d/1yjzKGM-6t1pQd2ixwgV2I6qaGTDOy6Lj/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-laptop-code text-blue-500 mr-2"></i>TP 1
-                            </a>
-                            <a href="https://drive.google.com/file/d/1Pd5z6pSrHc4GxcA42VovOwyzW-OHFVZ2/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-laptop-code text-blue-500 mr-2"></i>TP 2
-                            </a>
-                            <a href="https://drive.google.com/file/d/1A-zJSVc4XxHyZSMXCs0x8ccye_VMguTS/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-laptop-code text-blue-500 mr-2"></i>TP 3
-                            </a>
-                            <a href="https://drive.google.com/file/d/1tdL8jNmMEeZFFdfE4B0FMiYXDxqP3QYq/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-laptop-code text-blue-500 mr-2"></i>TP 4
-                            </a>
-                            <a href="https://drive.google.com/file/d/15ObeR545Sydtq6nZkCSWWXy68ok32WaH/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-laptop-code text-blue-500 mr-2"></i>TP 5
-                            </a>
-                        </div>
-                        
-                        <h4 class="font-semibold text-gray-700 mt-3 mb-1">Corrigés TP</h4>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-                            <a href="https://drive.google.com/drive/folders/1qhB--5muDT04pMGQHlQoL2_f4P7qEYHs?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-check-circle text-green-500 mr-2"></i>Corrigé TP 2
-                            </a>
-                            <a href="https://drive.google.com/drive/folders/14e6z0mg2mwMzFk8bkO_oyCHPNPYGI-Gc?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-check-circle text-green-500 mr-2"></i>Corrigé TP 3
-                            </a>
-                            <a href="https://drive.google.com/drive/folders/18RwjVcU8ar_lDyZgJyqYDuNl7Owt76th?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-check-circle text-green-500 mr-2"></i>Corrigé TP 4
-                            </a>
-                            <a href="https://drive.google.com/drive/folders/1MOysR2whFuu_MUVTREdUjtwIr6xjtqcR?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-check-circle text-green-500 mr-2"></i>Corrigé TP 5
-                            </a>
-                        </div>
-                        
-                        <h4 class="font-semibold text-gray-700 mt-3 mb-1">Tests</h4>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-                            <a href="https://drive.google.com/file/d/1_UXjKippa9PRPWtzYFc0jyek7y_BeGyw/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-tasks text-orange-500 mr-2"></i>Test 1 (TD)
-                            </a>
-                            <a href="https://drive.google.com/file/d/16_cHHElg551Wq199UzZ4m-U8Q4X4gyyW/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-tasks text-orange-500 mr-2"></i>Test 2
-                            </a>
-                            <a href="https://drive.google.com/file/d/1Be0sXqrITCos2T2xRmO3oYbw7Gy_1g7O/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-tasks text-orange-500 mr-2"></i>Test 3
-                            </a>
-                            <a href="https://drive.google.com/file/d/1s8vgQoPijherofCi8BzYX9TEjq-9Xi13/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-tasks text-orange-500 mr-2"></i>Test 4
-                            </a>
-                            <a href="https://drive.google.com/file/d/1Ltq3JvTF3dJQz7xzmzlF31MSNrh1A88R/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-tasks text-orange-500 mr-2"></i>Test 5
-                            </a>
-                            <a href="https://drive.google.com/file/d/1_v5fSXvD9q7Grg_pWvI6Lh2g63AoqorZ/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-tasks text-orange-500 mr-2"></i>Test 6
-                            </a>
-                            <a href="https://drive.google.com/drive/folders/1IBLGECQzQccrl8SsOqNuYt2SiYU8uLZx?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-check-circle text-green-500 mr-2"></i>Corrigés tests 1-6
-                            </a>
-                        </div>
-                        
-                        <h4 class="font-semibold text-gray-700 mt-3 mb-1">Examens</h4>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-                            <a href="https://drive.google.com/file/d/1hG79hC8Yg51nIya8KTCDMB8sQQac1jOt/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-file-alt text-red-500 mr-2"></i>Examen 2023 avec corrigé
-                            </a>
-                            <a href="https://drive.google.com/file/d/1XQi2llgaz5ZUtUcoDXPiNx6OKq6RS-ue/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-file-alt text-red-500 mr-2"></i>Examen 2024 avec corrigé
-                            </a>
-                        </div>
+                    <h4 class="font-semibold text-gray-700 dark:text-gray-300 mt-3 mb-1">Travaux Dirigés</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                        <a href="https://drive.google.com/file/d/19PwWxjou6rIpheyfUGp6Tiqz6iXAkFyS/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-file-alt text-blue-500 mr-2"></i>TD 1</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                        <a href="https://drive.google.com/file/d/1ZnewSF4VvezkCUj2IX2QBDM89QusjaA-/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-file-alt text-blue-500 mr-2"></i>TD 2</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                        <a href="https://drive.google.com/drive/folders/19h2iPu5JGaeVb_pRlwC-LkD2aYiSfkpH?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i>Corrigé TD 1</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                        <a href="https://drive.google.com/drive/folders/1suA0BbVbW_4tvA1Gj1H5AZKhlMnx_Yx-?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i>Corrigé TD 2</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
                     </div>
                     
-                    <!-- Plus de modules... -->
-                    <!-- Algorithme 2 -->
-                    <div class="university-section">
-                        <h3 class="text-xl font-bold text-blue-600 mb-2">Algorithme 2</h3>
-                        
-                        <h4 class="font-semibold text-gray-700 mt-3 mb-1">Cours</h4>
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
-                            <a href="https://drive.google.com/file/d/1T4UJNVt5dIa71sUB03G9gR3KSXaa4Oix/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-book text-indigo-500 mr-2"></i>Chapitre 5
-                            </a>
-                            <a href="https://drive.google.com/file/d/1QxJykkxdMJjTxWxGDrVcFhaUUUdNupbE/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-book text-indigo-500 mr-2"></i>Chapitre 6
-                            </a>
-                            <a href="https://drive.google.com/file/d/1jhHgkDiJfw3Uki_KU212emWKbor1B3wN/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-book text-indigo-500 mr-2"></i>Chapitre 7
-                            </a>
-                        </div>
-                        
-                        <h4 class="font-semibold text-gray-700 mt-3 mb-1">Travaux Dirigés</h4>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-                            <a href="https://drive.google.com/file/d/1RNIAzcsNDGdDBdO1paxEBkr-aLpQLAOw/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-file-alt text-blue-500 mr-2"></i>TD 5
-                            </a>
-                            <a href="https://drive.google.com/file/d/1-mTk2OP74NTGDYGvTlW8PbzlsoO0uCeL/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-file-alt text-blue-500 mr-2"></i>TD 6
-                            </a>
-                            <a href="https://drive.google.com/file/d/1b5IwEaU2fpMzaksmN-M4ygatQLwGUy8j/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-file-alt text-blue-500 mr-2"></i>TD 7
-                            </a>
-                            <a href="https://drive.google.com/file/d/1m0S8FSEUh3kHxii2OJHJ2YUzK7wD3lnY/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-check-circle text-green-500 mr-2"></i>Corrigé TD 7
-                            </a>
-                            <a href="https://drive.google.com/file/d/1XnX7XPaJ7s12c_Xdo66sqJ8bR5_6ygwU/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-check-circle text-green-500 mr-2"></i>Corrigé TD 6
-                            </a>
-                            <a href="https://drive.google.com/file/d/1JlRh5P1WWSh_iAyTMPDNVBFsmIP2epuK/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-check-circle text-green-500 mr-2"></i>Corrigé TD 5
-                            </a>
-                            <a href="https://drive.google.com/file/d/1NU1Yc7nSFnv-HaXBg70AI9k4mTrzNoUT/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-tasks text-orange-500 mr-2"></i>Interro (TD)
-                            </a>
-                            <a href="https://drive.google.com/file/d/1iUaUtuSMImCRopwWuxXoePMogcMraZZl/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-check-circle text-green-500 mr-2"></i>Corrigé Interro
-                            </a>
-                        </div>
-                        
-                        <h4 class="font-semibold text-gray-700 mt-3 mb-1">TP</h4>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-                            <a href="https://drive.google.com/file/d/1tZjYh4QCd_-_TQhlCUTx04alr7eVoor_/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-flask text-green-500 mr-2"></i>TP 6
-                            </a>
-                            <a href="https://drive.google.com/file/d/1KKKvf8PXAEwj8hQ4oPM3PcMOjggYNJ88/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-flask text-green-500 mr-2"></i>TP 5
-                            </a>
-                        </div>
-                        
-                        <h4 class="font-semibold text-gray-700 mt-3 mb-1">Examens</h4>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-                            <a href="https://drive.google.com/file/d/1jJMoN3IonMMewZVI5VKWTUAVe70g4XbF/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-file-alt text-purple-500 mr-2"></i>Examen 2016 part 1
-                            </a>
-                            <a href="https://drive.google.com/file/d/15_oYRdvcdeYJHRTtETv-q1_msiw1i6RW/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-file-alt text-purple-500 mr-2"></i>Examen 2016 part 2
-                            </a>
-                            <a href="https://drive.google.com/file/d/1VCM_WVRHpx7OSuS6bJoO0yYURaz3amvh/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-check-circle text-green-500 mr-2"></i>Corrigé 2016
-                            </a>
-                            <a href="https://drive.google.com/file/d/1CAv5Sad1HqRm5-Lhlrs1BH8ydNO8ZP0c/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-file-alt text-purple-500 mr-2"></i>Examen 2017
-                            </a>
-                        </div>
+                    <h4 class="font-semibold text-gray-700 dark:text-gray-300 mt-3 mb-1">Examens</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+                        <a href="https://drive.google.com/file/d/1IJ1JjvEAzGSy9QD8PLZ5r2AOa-YqqbUM/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-file-alt text-red-500 mr-2"></i>Examen 2012</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                        <a href="https://drive.google.com/file/d/1BGELjBjVWJqTGSshKweUvOVzOLd36g4z/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-file-alt text-red-500 mr-2"></i>Examen 2015</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                        <a href="https://drive.google.com/file/d/1_CU03uUEee6j5EMML2vGvTfARP55Rj7U/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-file-alt text-red-500 mr-2"></i>Examen 2017</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                        <a href="https://drive.google.com/file/d/1vIrRPGw06vs9LoYGX1hKM2GVHeP7maPB/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-file-alt text-red-500 mr-2"></i>Examen 2018</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                        <a href="https://drive.google.com/file/d/1xkV_tf1GAgIFgFh43L_SfSsMZEshPfsZ/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-file-alt text-red-500 mr-2"></i>Examen 2019</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                        <a href="https://drive.google.com/file/d/1TBJPefPCUHYdsjzuB6OYEa5B7eKNVK5h/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-file-alt text-red-500 mr-2"></i>Examen 2021</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                        <a href="https://drive.google.com/file/d/1YCNLgcNcwSKR4pE0ZX3ZpYNEAVqdNEgV/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-file-alt text-red-500 mr-2"></i>Examen 2023</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                        <a href="https://drive.google.com/file/d/1n8gw7a-qz_Jk2cOkKsfEqE1UjJYjdYMA/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-file-alt text-red-500 mr-2"></i>Examen 2024</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                    </div>
+                </div>
+                
+                <!-- MATLAB -->
+                <div class="university-section mb-6">
+                    <h3 class="text-xl font-bold text-blue-600 dark:text-blue-400 mb-2">MATLAB</h3>
+                    
+                    <h4 class="font-semibold text-gray-700 dark:text-gray-300 mt-3 mb-1">Cours</h4>
+                    <div class="grid grid-cols-1 gap-2">
+                        <a href="https://drive.google.com/file/d/1f-qnkDXLvFturme2BxPZQsL5IoI9NE7C/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-book text-indigo-500 mr-2"></i>Tous les cours</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
                     </div>
                     
-                    <!-- Probabilités et Statistiques -->
-                    <div class="university-section">
-                        <h3 class="text-xl font-bold text-blue-600 mb-2">Probabilités et Statistiques</h3>
-                        
-                        <h4 class="font-semibold text-gray-700 mt-3 mb-1">Cours</h4>
-                        <div class="grid grid-cols-1 gap-2">
-                            <a href="https://drive.google.com/file/d/1DSdzzrXNQh2fiqU9nOrt5x42em2je_2C/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-book text-indigo-500 mr-2"></i>Cours 1+2+3
-                            </a>
-                        </div>
-                        
-                        <h4 class="font-semibold text-gray-700 mt-3 mb-1">Travaux Dirigés</h4>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-                            <a href="https://drive.google.com/file/d/1-jRgyHwS7CjQmGDVSugFLTt4hnq6DdxJ/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-file-alt text-blue-500 mr-2"></i>TD 3
-                            </a>
-                            <a href="https://drive.google.com/file/d/1PvrUjxffY9-te9dmhtpsLxewt5yb4_Km/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-file-alt text-blue-500 mr-2"></i>TD 4
-                            </a>
-                        </div>
-                        
-                        <h4 class="font-semibold text-gray-700 mt-3 mb-1">Examens</h4>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-                            <a href="https://drive.google.com/file/d/1QH2pv0ZxTwota8Gb7awCoo1mOoWrge4T/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-file-alt text-red-500 mr-2"></i>Examen 2018 avec corriger
-                            </a>
-                            <a href="https://drive.google.com/file/d/1GWu4351k8zWUBuFaysPkmIDk-29xACih/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-file-alt text-red-500 mr-2"></i>Examen 2023
-                            </a>
-                            <a href="https://drive.google.com/file/d/14zneFVZoWuJ_0Xq95OeIJEN5eRmj5yvb/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-file-alt text-red-500 mr-2"></i>Examen 2024
-                            </a>
-                            <a href="https://drive.google.com/file/d/1SnWzm7JVqU2DWrO5kfohmwLN9yKfhNqm/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-file-alt text-red-500 mr-2"></i>Intero 1 avec corriger
-                            </a>
-                            <a href="https://drive.google.com/file/d/1dCDHKa_AHPLRSAiR-5iNM89MOfIZjeCL/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-file-alt text-red-500 mr-2"></i>Intero 2
-                            </a>
-                        </div>
+                    <h4 class="font-semibold text-gray-700 dark:text-gray-300 mt-3 mb-1">Travaux Pratiques</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                        <a href="https://drive.google.com/file/d/1yjzKGM-6t1pQd2ixwgV2I6qaGTDOy6Lj/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-laptop-code text-blue-500 mr-2"></i>TP 1</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                        <a href="https://drive.google.com/file/d/1Pd5z6pSrHc4GxcA42VovOwyzW-OHFVZ2/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-laptop-code text-blue-500 mr-2"></i>TP 2</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                        <a href="https://drive.google.com/file/d/1A-zJSVc4XxHyZSMXCs0x8ccye_VMguTS/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-laptop-code text-blue-500 mr-2"></i>TP 3</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                        <a href="https://drive.google.com/file/d/1tdL8jNmMEeZFFdfE4B0FMiYXDxqP3QYq/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-laptop-code text-blue-500 mr-2"></i>TP 4</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                        <a href="https://drive.google.com/file/d/15ObeR545Sydtq6nZkCSWWXy68ok32WaH/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-laptop-code text-blue-500 mr-2"></i>TP 5</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
                     </div>
-
-                    <!-- Structure Machine 2 -->
-                    <div class="university-section">
-                        <h3 class="text-xl font-bold text-blue-600 mb-2">Structure Machine 2</h3>
-                        
-                        <h4 class="font-semibold text-gray-700 mt-3 mb-1">Cours</h4>
-                        <div class="grid grid-cols-1 gap-2">
-                            <a href="https://drive.google.com/file/d/1UjYu7gH_BGJ_R28X_DTRvw1UzjrnnrrJ/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-book text-indigo-500 mr-2"></i>Cours complet
-                            </a>
-                        </div>
-                        
-                        <h4 class="font-semibold text-gray-700 mt-3 mb-1">Travaux Dirigés</h4>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-                            <a href="https://drive.google.com/file/d/1wk7sZehHG7FHJimeNROKKJPOkZlAdkZv/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-file-alt text-blue-500 mr-2"></i>TD 1
-                            </a>
-                            <a href="https://drive.google.com/file/d/11r6qWOmJlQe10bMeBgP_nOj3W7JbjYR-/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-file-alt text-blue-500 mr-2"></i>TD 2
-                            </a>
-                            <a href="https://drive.google.com/drive/folders/1KJM5UXMKBEwwiIBaLBS19ywJtP1u6nYw?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-check-circle text-green-500 mr-2"></i>Corriger TD 1
-                            </a>
-                            <a href="https://drive.google.com/drive/folders/1NuVa_P15XSM0RT2ztONCguX8DFEVsKkG?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-check-circle text-green-500 mr-2"></i>Corriger TD 2
-                            </a>
-                        </div>
-                        
-                        <h4 class="font-semibold text-gray-700 mt-3 mb-1">Examens</h4>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-                            <a href="https://drive.google.com/file/d/1l1NMvWkOOks9NfNnJ3uyjDZbBjy7tLcX/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-file-alt text-red-500 mr-2"></i>Examen 2023 avec corriger
-                            </a>
-                            <a href="https://drive.google.com/file/d/1SWAXs0LFRTS1BMbuL9qZUTPuder3GaPy/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-file-alt text-red-500 mr-2"></i>Examen 2024 avec corriger
-                            </a>
-                        </div>
+                    
+                    <h4 class="font-semibold text-gray-700 dark:text-gray-300 mt-3 mb-1">Corrigés TP</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                        <a href="https://drive.google.com/drive/folders/1qhB--5muDT04pMGQHlQoL2_f4P7qEYHs?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i>Corrigé TP 2</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                        <a href="https://drive.google.com/drive/folders/14e6z0mg2mwMzFk8bkO_oyCHPNPYGI-Gc?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i>Corrigé TP 3</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                        <a href="https://drive.google.com/drive/folders/18RwjVcU8ar_lDyZgJyqYDuNl7Owt76th?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i>Corrigé TP 4</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                        <a href="https://drive.google.com/drive/folders/1MOysR2whFuu_MUVTREdUjtwIr6xjtqcR?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i>Corrigé TP 5</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
                     </div>
+                    
+                    <h4 class="font-semibold text-gray-700 dark:text-gray-300 mt-3 mb-1">Tests</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                        <a href="https://drive.google.com/file/d/1_UXjKippa9PRPWtzYFc0jyek7y_BeGyw/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-tasks text-orange-500 mr-2"></i>Test 1 (TD)</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                        <a href="https://drive.google.com/file/d/16_cHHElg551Wq199UzZ4m-U8Q4X4gyyW/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-tasks text-orange-500 mr-2"></i>Test 2</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                        <a href="https://drive.google.com/file/d/1Be0sXqrITCos2T2xRmO3oYbw7Gy_1g7O/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-tasks text-orange-500 mr-2"></i>Test 3</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                        <a href="https://drive.google.com/file/d/1s8vgQoPijherofCi8BzYX9TEjq-9Xi13/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-tasks text-orange-500 mr-2"></i>Test 4</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                        <a href="https://drive.google.com/file/d/1Ltq3JvTF3dJQz7xzmzlF31MSNrh1A88R/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-tasks text-orange-500 mr-2"></i>Test 5</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                        <a href="https://drive.google.com/file/d/1_v5fSXvD9q7Grg_pWvI6Lh2g63AoqorZ/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-tasks text-orange-500 mr-2"></i>Test 6</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                        <a href="https://drive.google.com/drive/folders/1IBLGECQzQccrl8SsOqNuYt2SiYU8uLZx?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i>Corrigés tests 1-6</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                    </div>
+                    
+                    <h4 class="font-semibold text-gray-700 dark:text-gray-300 mt-3 mb-1">Examens</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                        <a href="https://drive.google.com/file/d/1hG79hC8Yg51nIya8KTCDMB8sQQac1jOt/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-file-alt text-red-500 mr-2"></i>Examen 2023 avec corrigé</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                        <a href="https://drive.google.com/file/d/1XQi2llgaz5ZUtUcoDXPiNx6OKq6RS-ue/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-file-alt text-red-500 mr-2"></i>Examen 2024 avec corrigé</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                    </div>
+                </div>
+                
+                <!-- Algorithme 2 -->
+                <div class="university-section mb-6">
+                    <h3 class="text-xl font-bold text-blue-600 dark:text-blue-400 mb-2">Algorithme 2</h3>
+                    
+                    <h4 class="font-semibold text-gray-700 dark:text-gray-300 mt-3 mb-1">Cours</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
+                        <a href="https://drive.google.com/file/d/1T4UJNVt5dIa71sUB03G9gR3KSXaa4Oix/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-book text-indigo-500 mr-2"></i>Chapitre 5</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                        <a href="https://drive.google.com/file/d/1QxJykkxdMJjTxWxGDrVcFhaUUUdNupbE/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-book text-indigo-500 mr-2"></i>Chapitre 6</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                        <a href="https://drive.google.com/file/d/1jhHgkDiJfw3Uki_KU212emWKbor1B3wN/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-book text-indigo-500 mr-2"></i>Chapitre 7</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                    </div>
+                    
+                    <h4 class="font-semibold text-gray-700 dark:text-gray-300 mt-3 mb-1">Travaux Dirigés</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                        <a href="https://drive.google.com/file/d/1RNIAzcsNDGdDBdO1paxEBkr-aLpQLAOw/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-file-alt text-blue-500 mr-2"></i>TD 5</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                        <a href="https://drive.google.com/file/d/1-mTk2OP74NTGDYGvTlW8PbzlsoO0uCeL/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-file-alt text-blue-500 mr-2"></i>TD 6</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                        <a href="https://drive.google.com/file/d/1b5IwEaU2fpMzaksmN-M4ygatQLwGUy8j/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-file-alt text-blue-500 mr-2"></i>TD 7</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                        <a href="https://drive.google.com/file/d/1m0S8FSEUh3kHxii2OJHJ2YUzK7wD3lnY/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i>Corrigé TD 7</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                        <a href="https://drive.google.com/file/d/1XnX7XPaJ7s12c_Xdo66sqJ8bR5_6ygwU/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i>Corrigé TD 6</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                        <a href="https://drive.google.com/file/d/1JlRh5P1WWSh_iAyTMPDNVBFsmIP2epuK/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i>Corrigé TD 5</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                        <a href="https://drive.google.com/file/d/1NU1Yc7nSFnv-HaXBg70AI9k4mTrzNoUT/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-tasks text-orange-500 mr-2"></i>Interro (TD)</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                        <a href="https://drive.google.com/file/d/1iUaUtuSMImCRopwWuxXoePMogcMraZZl/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i>Corrigé Interro</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                    </div>
+                    
+                    <h4 class="font-semibold text-gray-700 dark:text-gray-300 mt-3 mb-1">TP</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                        <a href="https://drive.google.com/file/d/1tZjYh4QCd_-_TQhlCUTx04alr7eVoor_/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-flask text-green-500 mr-2"></i>TP 6</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                        <a href="https://drive.google.com/file/d/1KKKvf8PXAEwj8hQ4oPM3PcMOjggYNJ88/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-flask text-green-500 mr-2"></i>TP 5</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                    </div>
+                    
+                    <h4 class="font-semibold text-gray-700 dark:text-gray-300 mt-3 mb-1">Examens</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                        <a href="https://drive.google.com/file/d/1jJMoN3IonMMewZVI5VKWTUAVe70g4XbF/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-file-alt text-purple-500 mr-2"></i>Examen 2016 part 1</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                        <a href="https://drive.google.com/file/d/15_oYRdvcdeYJHRTtETv-q1_msiw1i6RW/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-file-alt text-purple-500 mr-2"></i>Examen 2016 part 2</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                        <a href="https://drive.google.com/file/d/1VCM_WVRHpx7OSuS6bJoO0yYURaz3amvh/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i>Corrigé 2016</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                        <a href="https://drive.google.com/file/d/1CAv5Sad1HqRm5-Lhlrs1BH8ydNO8ZP0c/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-file-alt text-purple-500 mr-2"></i>Examen 2017</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                    </div>
+                </div>
+                
+                <!-- Probabilités et Statistiques -->
+                <div class="university-section mb-6">
+                    <h3 class="text-xl font-bold text-blue-600 dark:text-blue-400 mb-2">Probabilités et Statistiques</h3>
+                    
+                    <h4 class="font-semibold text-gray-700 dark:text-gray-300 mt-3 mb-1">Cours</h4>
+                    <div class="grid grid-cols-1 gap-2">
+                        <a href="https://drive.google.com/file/d/1DSdzzrXNQh2fiqU9nOrt5x42em2je_2C/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-book text-indigo-500 mr-2"></i>Cours 1+2+3</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                    </div>
+                    
+                    <h4 class="font-semibold text-gray-700 dark:text-gray-300 mt-3 mb-1">Travaux Dirigés</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                        <a href="https://drive.google.com/file/d/1-jRgyHwS7CjQmGDVSugFLTt4hnq6DdxJ/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-file-alt text-blue-500 mr-2"></i>TD 3</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                        <a href="https://drive.google.com/file/d/1PvrUjxffY9-te9dmhtpsLxewt5yb4_Km/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-file-alt text-blue-500 mr-2"></i>TD 4</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                    </div>
+                    
+                    <h4 class="font-semibold text-gray-700 dark:text-gray-300 mt-3 mb-1">Examens</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                        <a href="https://drive.google.com/file/d/1QH2pv0ZxTwota8Gb7awCoo1mOoWrge4T/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-file-alt text-red-500 mr-2"></i>Examen 2018 avec corriger</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                        <a href="https://drive.google.com/file/d/1GWu4351k8zWUBuFaysPkmIDk-29xACih/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-file-alt text-red-500 mr-2"></i>Examen 2023</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                        <a href="https://drive.google.com/file/d/14zneFVZoWuJ_0Xq95OeIJEN5eRmj5yvb/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-file-alt text-red-500 mr-2"></i>Examen 2024</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                        <a href="https://drive.google.com/file/d/1SnWzm7JVqU2DWrO5kfohmwLN9yKfhNqm/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-file-alt text-red-500 mr-2"></i>Intero 1 avec corriger</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                        <a href="https://drive.google.com/file/d/1dCDHKa_AHPLRSAiR-5iNM89MOfIZjeCL/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-file-alt text-red-500 mr-2"></i>Intero 2</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                    </div>
+                </div>
 
-                    <!-- Électricité -->
-                    <div class="university-section">
-                        <h3 class="text-xl font-bold text-blue-600 mb-2">Électricité</h3>
-                        
-                        <h4 class="font-semibold text-gray-700 mt-3 mb-1">Cours</h4>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-                            <a href="https://drive.google.com/file/d/1Oco7rjdO0WcN3R8bRZM34nDYPmYAr_EY/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-book text-indigo-500 mr-2"></i>Résumé 1
-                            </a>
-                            <a href="https://drive.google.com/file/d/1GE2rdXjAz8DXYk2hVP53fCC39_FcNZgF/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-book text-indigo-500 mr-2"></i>Résumé 2
-                            </a>
-                            <a href="https://drive.google.com/file/d/1P8_xutz_REgenhv0G-RfvbbRC-V5eGKE/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-book text-indigo-500 mr-2"></i>Chapitre 1
-                            </a>
-                            <a href="https://drive.google.com/file/d/1KxmE_k_fL_LuCMsErRv51wJCTIMp5WQy/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-book text-indigo-500 mr-2"></i>Chapitre 2
-                            </a>
-                            <a href="https://drive.google.com/file/d/1kWx4fTQ6HI3RcVPKUdDtLdWwbBq6mPIl/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-book text-indigo-500 mr-2"></i>Chapitre 3
-                            </a>
-                        </div>
-                        
-                        <h4 class="font-semibold text-gray-700 mt-3 mb-1">Travaux Dirigés</h4>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-                            <a href="https://drive.google.com/file/d/1pqkjdvJ2Eoho76kmwKbyNw6k1hPHnVc7/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-file-alt text-blue-500 mr-2"></i>TD 1
-                            </a>
-                            <a href="https://drive.google.com/file/d/1pf5Au8iKg6vVKtmk6sZO_HcPnjElDIh2/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-file-alt text-blue-500 mr-2"></i>TD 2
-                            </a>
-                            <a href="https://drive.google.com/file/d/1lpcb11dXF2PLacsq9vZJPZ_Zk-rDC1jD/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-file-alt text-blue-500 mr-2"></i>TD 3
-                            </a>
-                            <a href="https://drive.google.com/file/d/18mbB5-9H4r8B6kyoFQGRN_NIyIFed8KW/view?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-file-alt text-blue-500 mr-2"></i>TD 4
-                            </a>
-                            <a href="https://drive.google.com/drive/folders/1wgcBT5MmsVrz12U6odiPuBWSn1GCuNn4?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-check-circle text-green-500 mr-2"></i>Corriger TD 1
-                            </a>
-                            <a href="https://drive.google.com/drive/folders/1wsPZ7iKogfpoK1LrXIwDycnQDFZJlVQF?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-check-circle text-green-500 mr-2"></i>Corriger TD 2
-                            </a>
-                            <a href="https://drive.google.com/drive/folders/1vl7ZXqaf4PjMxj70HH5NG_cLyxqBhABc?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-check-circle text-green-500 mr-2"></i>Corriger TD 3
-                            </a>
-                            <a href="https://drive.google.com/drive/folders/1FUDRl_wZ1CPccqUuQptZ1V2I_guSkU2o?usp=drive_link" target="_blank" class="bg-white rounded p-2 shadow-sm hover:bg-blue-50">
-                                <i class="fas fa-check-circle text-green-500 mr-2"></i>Corriger TD 4
-                            </a>
-                        </div>
+                <!-- Structure Machine 2 -->
+                <div class="university-section mb-6">
+                    <h3 class="text-xl font-bold text-blue-600 dark:text-blue-400 mb-2">Structure Machine 2</h3>
+                    
+                    <h4 class="font-semibold text-gray-700 dark:text-gray-300 mt-3 mb-1">Cours</h4>
+                    <div class="grid grid-cols-1 gap-2">
+                        <a href="https://drive.google.com/file/d/1UjYu7gH_BGJ_R28X_DTRvw1UzjrnnrrJ/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-book text-indigo-500 mr-2"></i>Cours complet</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                    </div>
+                    
+                    <h4 class="font-semibold text-gray-700 dark:text-gray-300 mt-3 mb-1">Travaux Dirigés</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                        <a href="https://drive.google.com/file/d/1wk7sZehHG7FHJimeNROKKJPOkZlAdkZv/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-file-alt text-blue-500 mr-2"></i>TD 1</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                        <a href="https://drive.google.com/file/d/11r6qWOmJlQe10bMeBgP_nOj3W7JbjYR-/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-file-alt text-blue-500 mr-2"></i>TD 2</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                        <a href="https://drive.google.com/drive/folders/1KJM5UXMKBEwwiIBaLBS19ywJtP1u6nYw?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i>Corriger TD 1</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                        <a href="https://drive.google.com/drive/folders/1NuVa_P15XSM0RT2ztONCguX8DFEVsKkG?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i>Corriger TD 2</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                    </div>
+                    
+                    <h4 class="font-semibold text-gray-700 dark:text-gray-300 mt-3 mb-1">Examens</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                        <a href="https://drive.google.com/file/d/1l1NMvWkOOks9NfNnJ3uyjDZbBjy7tLcX/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-file-alt text-red-500 mr-2"></i>Examen 2023 avec corriger</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                        <a href="https://drive.google.com/file/d/1SWAXs0LFRTS1BMbuL9qZUTPuder3GaPy/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-file-alt text-red-500 mr-2"></i>Examen 2024 avec corriger</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                    </div>
+                </div>
+
+                <!-- Électricité -->
+                <div class="university-section mb-6">
+                    <h3 class="text-xl font-bold text-blue-600 dark:text-blue-400 mb-2">Électricité</h3>
+                    
+                    <h4 class="font-semibold text-gray-700 dark:text-gray-300 mt-3 mb-1">Cours</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                        <a href="https://drive.google.com/file/d/1Oco7rjdO0WcN3R8bRZM34nDYPmYAr_EY/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-book text-indigo-500 mr-2"></i>Résumé 1</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                        <a href="https://drive.google.com/file/d/1GE2rdXjAz8DXYk2hVP53fCC39_FcNZgF/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-book text-indigo-500 mr-2"></i>Résumé 2</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                        <a href="https://drive.google.com/file/d/1P8_xutz_REgenhv0G-RfvbbRC-V5eGKE/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-book text-indigo-500 mr-2"></i>Chapitre 1</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                        <a href="https://drive.google.com/file/d/1KxmE_k_fL_LuCMsErRv51wJCTIMp5WQy/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-book text-indigo-500 mr-2"></i>Chapitre 2</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                        <a href="https://drive.google.com/file/d/1kWx4fTQ6HI3RcVPKUdDtLdWwbBq6mPIl/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-book text-indigo-500 mr-2"></i>Chapitre 3</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                    </div>
+                    
+                    <h4 class="font-semibold text-gray-700 dark:text-gray-300 mt-3 mb-1">Travaux Dirigés</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                        <a href="https://drive.google.com/file/d/1pqkjdvJ2Eoho76kmwKbyNw6k1hPHnVc7/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-file-alt text-blue-500 mr-2"></i>TD 1</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                        <a href="https://drive.google.com/file/d/1pf5Au8iKg6vVKtmk6sZO_HcPnjElDIh2/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-file-alt text-blue-500 mr-2"></i>TD 2</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                        <a href="https://drive.google.com/file/d/1lpcb11dXF2PLacsq9vZJPZ_Zk-rDC1jD/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-file-alt text-blue-500 mr-2"></i>TD 3</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                        <a href="https://drive.google.com/file/d/18mbB5-9H4r8B6kyoFQGRN_NIyIFed8KW/view?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-file-alt text-blue-500 mr-2"></i>TD 4</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                        <a href="https://drive.google.com/drive/folders/1wgcBT5MmsVrz12U6odiPuBWSn1GCuNn4?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i>Corriger TD 1</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                        <a href="https://drive.google.com/drive/folders/1wsPZ7iKogfpoK1LrXIwDycnQDFZJlVQF?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i>Corriger TD 2</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                        <a href="https://drive.google.com/drive/folders/1vl7ZXqaf4PjMxj70HH5NG_cLyxqBhABc?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i>Corriger TD 3</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
+                        <a href="https://drive.google.com/drive/folders/1FUDRl_wZ1CPccqUuQptZ1V2I_guSkU2o?usp=drive_link" target="_blank" class="content-item"><span class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-2"></i>Corriger TD 4</span> <span class="download-btn"><i class="fas fa-download"></i> <span class="hidden-mobile">Ouvrir</span></span></a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        AOS.init({ duration: 800, once: true });
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+        <i class="fas fa-moon"></i>
+    </button>
 
-        // Add these objects before your showContent function
+    <script>
+        AOS.init({ duration: 800, once: true, offset: 50 });
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // Theme toggle functionality
+        function toggleTheme() {
+            const body = document.body;
+            const themeToggleIcon = document.querySelector('.theme-toggle i');
+            
+            if (body.classList.contains('dark')) {
+                body.classList.remove('dark');
+                themeToggleIcon.classList.remove('fa-sun');
+                themeToggleIcon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.classList.add('dark');
+                themeToggleIcon.classList.remove('fa-moon');
+                themeToggleIcon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            if (!particlesContainer) return;
+            const colors = ['hsl(var(--primary))', 'hsl(var(--success))', 'hsl(var(--warning))'];
+            
+            for (let i = 0; i < 20; i++) { // Reduced particle count
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.left = `${Math.random() * 100}vw`;
+                particle.style.top = `${Math.random() * 100}vh`;
+                const size = Math.random() * 2.5 + 1; // Slightly smaller
+                particle.style.width = `${size}px`;
+                particle.style.height = particle.style.width;
+                
+                // Set custom properties for animation
+                particle.style.setProperty('--x', `${Math.random() * 150 - 75}px`);
+                particle.style.setProperty('--y', `${Math.random() * 150 - 75}px`);
+                particle.style.animationDuration = `${Math.random() * 15 + 8}s`; // Adjusted speed
+                particle.style.animationDelay = `${Math.random() * 3}s`;
+
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        function closePopup(popupId) {
+            const popup = document.getElementById(popupId);
+            if (popup) {
+                popup.classList.remove('active');
+                // Small delay to allow animation before enabling scroll
+                setTimeout(() => {
+                    if (!document.querySelector('.popup.active')) {
+                         document.body.style.overflow = '';
+                    }
+                }, 300);
+            }
+        }
+
+        // Check for saved theme preference and initialize particles
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark');
+                document.querySelector('.theme-toggle i').classList.replace('fa-moon', 'fa-sun');
+            }
+            createParticles();
+
+            // Close popups with Escape key or click outside
+            document.querySelectorAll('.popup').forEach(popup => {
+                popup.addEventListener('click', function(e) {
+                    if (e.target === this) { // Click on backdrop
+                        closePopup(this.id);
+                    }
+                });
+            });
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    document.querySelectorAll('.popup.active').forEach(activePopup => {
+                        closePopup(activePopup.id);
+                    });
+                }
+            });
+        });
+
+
         const moduleMapping = {
             'analyse2': 'Analyse 2',
             'algebre2': 'Algèbre 2',
@@ -790,7 +1349,6 @@
             'matlab': 'MATLAB'
         };
 
-        // Updated moduleContent with separated university sections
         const moduleContent = {
             'Analyse 2': {
                 'bejaia': {
@@ -982,7 +1540,7 @@
             },
             'MATLAB': {
                 'bejaia': {
-                    'cours': [],
+                    'cours': [], // Empty, so only 'autres' will show if available
                     'td': [],
                     'examen': []
                 },
@@ -993,7 +1551,7 @@
                         { title: "Chapitre 3", url: "https://drive.google.com/file/d/1Kw4EpB_YrR0LoTLQoRpuTK8U01INK22e/view?usp=drive_link" },
                         { title: "Chapitre 4", url: "https://drive.google.com/file/d/1YpqKu5urXaGjWGqDaN2J3-lZZ8S0P9Oo/view?usp=drive_link" }
                     ],
-                    "cours conseiller": [],
+                    "cours conseiller": [], // No recommended courses for MATLAB in this data
                     'td': [],
                     'examen': []
                 }
@@ -1001,524 +1559,174 @@
         };
 
         function showContent(moduleShortName, type) {
-            // Map short module name to full module name
             const moduleName = moduleMapping[moduleShortName];
             if (!moduleName || !moduleContent[moduleName]) {
                 showEmptyPopup(moduleShortName, type);
                 return;
             }
 
-            const popup = document.getElementById(`popup-${type}`);
+            const popupId = `popup-${type}`;
+            const popup = document.getElementById(popupId);
             const popupTitle = document.getElementById(`popup-title-${type}`);
-            const popupContent = document.getElementById(`popup-content-${type}`);
+            const popupContentContainer = document.getElementById(`popup-content-${type}`);
             
-            // Set popup title
+            if (!popup || !popupTitle || !popupContentContainer) {
+                console.error(`Popup elements not found for type: ${type}`);
+                return;
+            }
+            
             popupTitle.textContent = `${moduleName} - ${capitalizeFirstLetter(type)}`;
+            popupContentContainer.innerHTML = ""; // Clear existing content
             
-            // Clear existing content
-            popupContent.innerHTML = "";
-            
-            // Get module data
-            const module = moduleContent[moduleName];
+            const moduleData = moduleContent[moduleName];
             let contentAdded = false;
             
-            // Create university section for Béjaia resources if they exist
-            if (module.bejaia && module.bejaia[type] && module.bejaia[type].length > 0) {
-                const bejaiaSection = document.createElement('div');
-                bejaiaSection.className = 'university-section mb-6 transform transition-all duration-300 hover:scale-105 border-l-4 border-green-600';
-                
-                // Create section header
-                const sectionHeader = document.createElement('div');
-                sectionHeader.className = 'section-header bg-green-50 p-4 rounded-t-lg border-b-2 border-green-200';
-                sectionHeader.innerHTML = `
-                    <h3 class="text-xl font-bold text-green-600 flex items-center gap-2">
-                        <i class="fas fa-university"></i>
-                        Université de Béjaia
-                    </h3>
-                `;
-                
-                // Create content grid
-                const contentGrid = document.createElement('div');
-                contentGrid.className = 'content-grid grid gap-4 p-4';
-                
-                // Add each item from Béjaia resources
-                module.bejaia[type].forEach(item => {
-                    const contentItem = createContentItem(item, type, false);
-                    contentGrid.appendChild(contentItem);
-                });
-                
-                // Add TP items if handling tdtp
-                if (type === 'td' && module.bejaia['tp'] && module.bejaia['tp'].length > 0) {
-                    module.bejaia['tp'].forEach(item => {
-                        const contentItem = createContentItem(item, 'tp', false);
-                        contentGrid.appendChild(contentItem);
+            // Function to create section (Bejaia, Autres, Recommandé)
+            const createSection = (title, items, sectionTypeClass, itemType, isRecommended = false) => {
+                if (items && items.length > 0) {
+                    const sectionDiv = document.createElement('div');
+                    sectionDiv.className = 'university-section mb-6';
+                    
+                    const headerDiv = document.createElement('div');
+                    headerDiv.className = `section-header ${sectionTypeClass}`; // e.g., 'bejaia', 'autres', 'recommande'
+                    headerDiv.innerHTML = `<h3><i class="fas ${getUniversityIcon(sectionTypeClass)}"></i>${title}</h3>`;
+                    sectionDiv.appendChild(headerDiv);
+                    
+                    const gridDiv = document.createElement('div');
+                    gridDiv.className = 'content-grid p-4'; // Added p-4 for padding around grid
+                    items.forEach(item => {
+                        gridDiv.appendChild(createContentItem(item, itemType, isRecommended));
                     });
+                    sectionDiv.appendChild(gridDiv);
+                    
+                    popupContentContainer.appendChild(sectionDiv);
+                    return true;
                 }
-                
-                // Assemble and add to popup
-                bejaiaSection.appendChild(sectionHeader);
-                bejaiaSection.appendChild(contentGrid);
-                popupContent.appendChild(bejaiaSection);
-                contentAdded = true;
+                return false;
+            };
+
+            // Béjaia University resources
+            if (moduleData.bejaia && moduleData.bejaia[type] && moduleData.bejaia[type].length > 0) {
+                if(createSection('Université de Béjaia', moduleData.bejaia[type], 'bejaia', type)) contentAdded = true;
+            }
+            // TD also includes TP for Bejaia
+            if (type === 'td' && moduleData.bejaia && moduleData.bejaia['tp'] && moduleData.bejaia['tp'].length > 0) {
+                 if(createSection('Université de Béjaia - TP', moduleData.bejaia['tp'], 'bejaia', 'tp')) contentAdded = true;
+            }
+
+            // Autres Universités resources
+            if (moduleData.autres && moduleData.autres[type] && moduleData.autres[type].length > 0) {
+                if(createSection('Autres Universités', moduleData.autres[type], 'autres', type)) contentAdded = true;
             }
             
-            // Create section for other university resources if they exist
-            if (module.autres && 
-                ((module.autres[type] && module.autres[type].length > 0) || 
-                (type === 'cours' && module.autres["cours conseiller"] && module.autres["cours conseiller"].length > 0))) {
-                
-                // Regular resources
-                if (module.autres[type] && module.autres[type].length > 0) {
-                    const autresSection = document.createElement('div');
-                    autresSection.className = 'university-section mb-6 transform transition-all duration-300 hover:scale-105 border-l-4 border-red-600';
-                    
-                    const sectionHeader = document.createElement('div');
-                    sectionHeader.className = 'section-header bg-red-50 p-4 rounded-t-lg border-b-2 border-red-200';
-                    sectionHeader.innerHTML = `
-                        <h3 class="text-xl font-bold text-red-600 flex items-center gap-2">
-                            <i class="fas fa-university"></i>
-                            Autres Universités
-                        </h3>
-                    `;
-                    
-                    const contentGrid = document.createElement('div');
-                    contentGrid.className = 'content-grid grid gap-4 p-4';
-                    
-                    module.autres[type].forEach(item => {
-                        const contentItem = createContentItem(item, type, false);
-                        contentGrid.appendChild(contentItem);
-                    });
-                    
-                    autresSection.appendChild(sectionHeader);
-                    autresSection.appendChild(contentGrid);
-                    popupContent.appendChild(autresSection);
-                    contentAdded = true;
-                }
-                
-                // Recommended courses if available (only for cours type)
-                if (type === 'cours' && module.autres["cours conseiller"] && module.autres["cours conseiller"].length > 0) {
-                    const recommendedSection = document.createElement('div');
-                    recommendedSection.className = 'university-section mb-6 transform transition-all duration-300 hover:scale-105 border-l-4 border-blue-600 recommended-content';
-                    
-                    const recommendedHeader = document.createElement('div');
-                    recommendedHeader.className = 'section-header bg-blue-50 p-4 rounded-t-lg border-b-2 border-blue-200';
-                    recommendedHeader.innerHTML = `
-                        <h3 class="text-xl font-bold text-blue-600 flex items-center gap-2">
-                            <i class="fas fa-star"></i>
-                            Cours Conseillés
-                            <span class="ml-2 text-sm bg-blue-500 text-white px-2 py-1 rounded">Recommandé</span>
-                        </h3>
-                    `;
-                    
-                    const recommendedGrid = document.createElement('div');
-                    recommendedGrid.className = 'content-grid grid gap-4 p-4';
-                    
-                    module.autres["cours conseiller"].forEach(item => {
-                        const contentItem = createContentItem(item, 'cours', true);
-                        recommendedGrid.appendChild(contentItem);
-                    });
-                    
-                    recommendedSection.appendChild(recommendedHeader);
-                    recommendedSection.appendChild(recommendedGrid);
-                    popupContent.appendChild(recommendedSection);
-                    contentAdded = true;
-                }
+            // Cours Conseillés (only for 'cours' type and if 'autres' section exists)
+            if (type === 'cours' && moduleData.autres && moduleData.autres["cours conseiller"] && moduleData.autres["cours conseiller"].length > 0) {
+                if(createSection('Cours Conseillés', moduleData.autres["cours conseiller"], 'recommande', 'cours', true)) contentAdded = true;
             }
             
-            // Display "no content" message if nothing was added
             if (!contentAdded) {
-                popupContent.innerHTML = `
+                popupContentContainer.innerHTML = `
                     <div class="text-center p-8">
-                        <i class="fas fa-exclamation-circle text-5xl text-gray-400 mb-4"></i>
-                        <p class="text-gray-500">Aucun contenu disponible pour ce module</p>
+                        <i class="fas fa-folder-open text-5xl text-gray-400 dark:text-gray-500 mb-4"></i>
+                        <p class="text-gray-600 dark:text-gray-400 text-lg">Aucun contenu disponible pour ce module.</p>
+                        <p class="text-gray-500 dark:text-gray-500 text-sm mt-1">Veuillez vérifier ultérieurement.</p>
                     </div>
                 `;
             }
             
-            // Show the popup
-            popup.classList.remove('hidden');
-            
-            // Add hover effects to links and animations
-            const links = popupContent.querySelectorAll('a');
-            links.forEach(link => {
-                link.addEventListener('mouseenter', e => {
-                    const item = e.target.closest('.content-item');
-                    if (item) item.style.transform = 'translateY(-5px)';
-                });
-                
-                link.addEventListener('mouseleave', e => {
-                    const item = e.target.closest('.content-item');
-                    if (item) item.style.transform = '';
-                });
-            });
+            popup.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevent background scroll
+        }
+        
+        function getUniversityIcon(sectionTypeClass) {
+            if (sectionTypeClass === 'bejaia') return 'fa-university';
+            if (sectionTypeClass === 'autres') return 'fa-globe-americas';
+            if (sectionTypeClass === 'recommande') return 'fa-star';
+            return 'fa-folder';
         }
 
         function createContentItem(item, type, isRecommended) {
-            const contentItem = document.createElement('div');
-            contentItem.className = 'content-item bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 transform hover:scale-102 border border-gray-100';
+            const itemDiv = document.createElement('a'); // Make the whole item clickable
+            itemDiv.href = item.url;
+            itemDiv.target = "_blank";
+            itemDiv.className = 'content-item group'; // Added group for potential group-hover states
             
             const iconClass = getIconByType(type);
-            const bgColor = isRecommended ? 'rgba(59, 130, 246, 0.1)' : 'rgba(34, 197, 94, 0.1)';
-            const textColor = isRecommended ? 'text-blue-500' : 'text-green-500';
-            const btnClass = isRecommended ? 'bg-blue-50 hover:bg-blue-100 text-blue-600' : 'bg-green-50 hover:bg-green-100 text-green-600';
+            let iconColorClass = 'text-green-600 dark:text-green-400'; // Default to success color
+            let iconBgClass = 'bg-green-100 dark:bg-green-900/50';
+
+            if (type === 'cours') {
+                iconColorClass = 'text-blue-600 dark:text-blue-400';
+                iconBgClass = 'bg-blue-100 dark:bg-blue-900/50';
+            } else if (type === 'examen') {
+                iconColorClass = 'text-purple-600 dark:text-purple-400';
+                iconBgClass = 'bg-purple-100 dark:bg-purple-900/50';
+            } else if (type === 'tp') {
+                iconColorClass = 'text-orange-600 dark:text-orange-400';
+                iconBgClass = 'bg-orange-100 dark:bg-orange-900/50';
+            }
+
+            if (isRecommended) {
+                iconColorClass = 'text-yellow-500 dark:text-yellow-400';
+                iconBgClass = 'bg-yellow-100 dark:bg-yellow-900/50';
+            }
             
-            contentItem.innerHTML = `
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-3">
-                        <div class="icon-wrapper ${textColor}" style="background:${bgColor};">
-                            <i class="fas ${iconClass} text-xl"></i>
-                        </div>
-                        <div class="text-content">
-                            <h4 class="font-semibold text-gray-800">${item.title}</h4>
-                        </div>
+            itemDiv.innerHTML = `
+                <div class="flex items-center flex-grow">
+                    <div class="icon-wrapper ${iconBgClass} ${iconColorClass}">
+                        <i class="fas ${iconClass} text-xl"></i>
                     </div>
-                    <a href="${item.url}" target="_blank" 
-                       class="download-btn ${btnClass} px-4 py-2 rounded-full flex items-center gap-2 transition-all duration-300">
-                        <span class="text-sm">Télécharger</span>
-                        <i class="fas fa-download"></i>
-                    </a>
+                    <div class="text-content">
+                        <h4 class="font-medium text-gray-800 dark:text-gray-200 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                            ${item.title}
+                        </h4>
+                    </div>
                 </div>
+                <span class="download-btn ml-2">
+                    <i class="fas fa-external-link-alt"></i>
+                    <span class="hidden-mobile">Ouvrir</span>
+                </span>
             `;
-            
-            return contentItem;
+            return itemDiv;
         }
 
         function getIconByType(type) {
             const icons = {
-                'cours': 'fa-book',
-                'td': 'fa-pencil-alt',
+                'cours': 'fa-book-open',
+                'td': 'fa-pencil-ruler',
                 'tp': 'fa-flask',
-                'examen': 'fa-file-alt'
+                'examen': 'fa-file-signature'
             };
-            return icons[type] || 'fa-file';
+            return icons[type] || 'fa-file-alt';
         }
 
         function showEmptyPopup(moduleShortName, type) {
-            const popup = document.getElementById(`popup-${type}`);
+            const popupId = `popup-${type}`;
+            const popup = document.getElementById(popupId);
             const popupTitle = document.getElementById(`popup-title-${type}`);
-            const popupContent = document.getElementById(`popup-content-${type}`);
-            
-            popupTitle.textContent = `${moduleShortName} - ${capitalizeFirstLetter(type)}`;
-            
-            popupContent.innerHTML = `
+            const popupContentContainer = document.getElementById(`popup-content-${type}`);
+
+            if (!popup || !popupTitle || !popupContentContainer) return;
+
+            popupTitle.textContent = `${moduleMapping[moduleShortName] || moduleShortName} - ${capitalizeFirstLetter(type)}`;
+            popupContentContainer.innerHTML = `
                 <div class="text-center p-8">
-                    <i class="fas fa-exclamation-circle text-5xl text-gray-400 mb-4"></i>
-                    <p class="text-gray-500">Contenu non disponible pour ce module</p>
+                    <i class="fas fa-folder-open text-5xl text-gray-400 dark:text-gray-500 mb-4"></i>
+                    <p class="text-gray-600 dark:text-gray-400 text-lg">Contenu non disponible pour ce module.</p>
+                     <p class="text-gray-500 dark:text-gray-500 text-sm mt-1">Veuillez vérifier ultérieurement.</p>
                 </div>
             `;
-            
-            popup.classList.remove('hidden');
+            popup.classList.add('active');
+            document.body.style.overflow = 'hidden';
         }
 
         function capitalizeFirstLetter(string) {
             return string.charAt(0).toUpperCase() + string.slice(1);
         }
-
-        // Update the popup close functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            // Close popup when clicking the close button
-            const closeButtons = document.querySelectorAll('.close-popup-btn');
-            closeButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const popup = this.closest('[id^="popup-"]');
-                    if (popup) {
-                        popup.classList.add('hidden');
-                    }
-                });
-            });
-
-            // Close popup when clicking outside the content
-            const popups = document.querySelectorAll('[id^="popup-"]');
-            popups.forEach(popup => {
-                popup.addEventListener('click', function(e) {
-                    if (e.target === this) {
-                        this.classList.add('hidden');
-                    }
-                });
-            });
-        });
     </script>
-
-    <style>
-        /* Module card styling */
-        .module-card {
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 15px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        
-        .module-card:hover {
-            box-shadow: 0 8px 12px rgba(0,0,0,0.15);
-        }
-        
-        /* Glass effect for popup */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.5);
-            border-radius: 20px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-            backdrop-filter: blur(8px);
-            padding: 2rem;
-            max-height: 80vh;
-            overflow-y: auto;
-        }
-        
-        .close-popup-btn:hover {
-            transform: scale(1.05);
-        }
-        
-        .popup-content {
-            max-height: 70vh;
-            overflow-y: auto;
-        }
-
-        .university-section {
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 10px;
-            padding: 1rem;
-            margin-bottom: 1rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-        }
-
-        .university-section:hover {
-            transform: translateX(5px);
-            box-shadow: 0 4px 6px rgba(0,0,0,0.15);
-        }
-
-        .university-section h3 {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .university-section h3::before {
-            content: '';
-            width: 4px;
-            height: 1.5rem;
-            background-color: currentColor;
-            border-radius: 2px;
-        }
-
-        .university-section a {
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            padding: 0.5rem;
-            border-radius: 5px;
-            text-decoration: none;
-        }
-
-        .university-section a:hover {
-            background: rgba(59, 130, 246, 0.1);
-            transform: translateX(10px);
-        }
-
-        .exclusive-2025 {
-            animation: glow 2s ease-in-out infinite alternate;
-        }
-
-        .exclusive-link {
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .exclusive-link:hover {
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        }
-
-        @keyframes glow {
-            from {
-                box-shadow: 0 0 5px rgba(34, 197, 94, 0.2);
-            }
-            to {
-                box-shadow: 0 0 20px rgba(34, 197, 94, 0.4);
-            }
-        }
-
-        .recommended-content {
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        .recommended-link {
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .recommended-link:hover {
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        }
-
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.02);
-            }
-            100% {
-                transform: scale(1);
-            }
-        }
-
-        .content-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1rem;
-        }
-
-        .content-item {
-            background: white;
-            border-radius: 0.5rem;
-            transition: all 0.3s ease;
-        }
-
-        .content-item:hover {
-            transform: translateY(-2px);
-        }
-
-        .icon-wrapper {
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            background: rgba(34, 197, 94, 0.1);
-        }
-
-        .download-btn {
-            font-size: 0.875rem;
-            transition: all 0.3s ease;
-        }
-
-        .download-btn:hover {
-            transform: translateY(-1px);
-        }
-
-        /* Animations */
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .content-item {
-            animation: slideIn 0.3s ease-out forwards;
-        }
-
-        /* Scroll styling */
-        .popup-content {
-            scrollbar-width: thin;
-            scrollbar-color: rgba(34, 197, 94, 0.5) rgba(229, 231, 235, 0.5);
-        }
-
-        .popup-content::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        .popup-content::-webkit-scrollbar-track {
-            background: rgba(229, 231, 235, 0.5);
-            border-radius: 4px;
-        }
-
-        .popup-content::-webkit-scrollbar-thumb {
-            background: rgba(34, 197, 94, 0.5);
-            border-radius: 4px;
-        }
-
-        .popup-content::-webkit-scrollbar-thumb:hover {
-            background: rgba(34, 197, 94, 0.7);
-        }
-
-        /* Improved close button style */
-        .close-popup-btn {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            background-color: #ef4444;
-            color: white;
-            border-radius: 0.5rem;
-            transition: all 0.2s ease;
-        }
-        
-        .close-popup-btn:hover {
-            background-color: #dc2626;
-            transform: scale(1.05);
-        }
-        
-        /* Ensure popup is centered and scrollable */
-        .glass-card {
-            max-height: 80vh;
-            overflow-y: auto;
-            width: 100%;
-            max-width: 800px;
-        }
-        
-        /* Ensure popup content is visible */
-        .popup-content {
-            padding: 1rem 0;
-        }
-        
-        /* Fix z-index to ensure popups appear on top */
-        [id^="popup-"] {
-            z-index: 50;
-        }
-
-        /* Enhanced module card styling */
-        .module-card {
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 15px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .module-card:hover {
-            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
-            border-color: rgba(59, 130, 246, 0.3);
-        }
-        
-        .module-icon {
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.08);
-        }
-        
-        .module-btn {
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            font-weight: 500;
-            transition: all 0.2s ease;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            display: inline-flex;
-            align-items: center;
-        }
-        
-        .module-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 6px rgba(0,0,0,0.15);
-        }
-        
-        .module-btn:active {
-            transform: translateY(0px);
-        }
-    </style>
     <script type="module">
-        import features from '/js/features-integration.js';
+        // Assuming features-integration.js is present and needed
+        // import features from '/js/features-integration.js';
         // Features are automatically initialized
     </script>
 </body>
