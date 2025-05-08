@@ -589,15 +589,20 @@
             border-radius: 1rem; /* Slightly smaller radius than main glass card */
             padding: 1.5rem; /* Adjusted padding */
             max-width: 90%;
-            width: 600px; /* Set a default width */
+            width: 700px; /* Increased default width */
             box-shadow: 0 10px 40px hsl(var(--background) / 0.2); /* Use background for shadow */
             border: 1px solid hsl(var(--border)); /* Use border */
-            max-height: 90vh; /* Allow content to scroll */
+            max-height: 95vh; /* Allow content to scroll, take more height */
             /* overflow-y: auto; */ /* Scrolling handled by popup-body */
              display: flex; /* Use flex to control inner layout */
              flex-direction: column;
              position: relative; /* Needed for close button */
              transition: opacity 0.2s ease-out, transform 0.2s ease-out; /* Transition for the modal itself */
+
+             /* Responsive width */
+             @media (max-width: 768px) {
+                  width: 95%; /* Take more width on smaller screens */
+             }
         }
          /* Prevent overflow issues with flex */
          [id^="popup-"] .glass-card .popup-container {
@@ -1529,6 +1534,8 @@
 
 
             let contentHtml = ''; // Use a string to build the content
+             let contentAdded = false; // Flag to track if any content was added
+
 
             contentArray.forEach(item => {
                 if (item.exclusive && Array.isArray(item.files)) { // Check for exclusive property and files array
@@ -1556,6 +1563,7 @@
                             </div>
                         </div>
                     `;
+                    contentAdded = true;
                 } else if (item.recommended && Array.isArray(item.files)) { // Check for recommended property and files array
                      contentHtml += `
                          <div class="col-span-full recommended-content mb-6">
@@ -1581,6 +1589,7 @@
                              </div>
                          </div>
                      `;
+                     contentAdded = true;
                 } else if (typeof item.url === 'string' && typeof item.title === 'string') {
                     // Regular content item (check for required properties)
                     const icon = getIconByType(type); // Use the correct icon for the type
@@ -1602,6 +1611,7 @@
                              </a>
                          </div>
                     `;
+                    contentAdded = true;
                 } else {
                     console.warn("Unexpected item structure in Bejaia data for module", module, "type", type, ":", item);
                 }
