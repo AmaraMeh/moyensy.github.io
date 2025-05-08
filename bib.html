@@ -287,9 +287,10 @@
         /* Responsive adjustment for back button */
         @media (max-width: 768px) {
             .back-button {
-                position: static; /* Reset position on mobile */
-                transform: none; /* Reset transform */
-                margin-bottom: 1rem; /* Add space below button */
+                position: absolute;
+                left: 1rem;
+                top: 50%;
+                transform: translateY(-50%);
             }
              header .container {
                  flex-direction: column; /* Stack items */
@@ -589,81 +590,10 @@
          }
 
 
-        /* Mobile Navigation */
-        #mobile-nav {
-            background-color: hsl(var(--mobile-nav-bg) / 0.9); /* Use background with transparency */
-            border-top: 1px solid hsl(var(--mobile-nav-border)); /* Use border */
-            backdrop-filter: blur(10px); /* Keep blur effect */
-            transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease; /* Add transform transition */
-            position: fixed;
-            bottom: 0; left: 0; right: 0;
-            box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1); /* Add shadow */
-            padding: 8px 0; /* Adjusted padding */
-            display: flex;
-            justify-around;
-            align-items: center;
-            z-index: 30;
-        }
-        @media (min-width: 769px) {
-            #mobile-nav { display: none; } /* Hide on larger screens */
-             body { padding-bottom: 0 !important; } /* Remove body padding when nav is hidden */
-        }
-         @media (max-width: 768px) {
-            body { padding-bottom: 70px; } /* Ensure space for mobile nav + theme toggle */
-        }
-
-
-        .mobile-nav-item {
-             color: hsl(var(--mobile-nav-text));
-             transition: color 0.3s ease, transform 0.2s ease;
-             display: flex;
-             flex-direction: column;
-             align-items: center;
-             padding: 4px 0;
-             position: relative;
-             width: 23%;
-             border-radius: 0.75rem;
-             text-decoration: none; /* Remove underline */
-             outline: none; /* Remove default focus */
-        }
-         .mobile-nav-item .icon-container { position: relative; margin-bottom: 4px; font-size: 1.25rem; }
-         .mobile-nav-item span { font-size: 0.7rem; font-weight: 500; transition: all 0.2s ease; }
-
-        .mobile-nav-item.active-nav-item,
-        .mobile-nav-item:hover,
-        .mobile-nav-item:focus { /* Combined hover and active and focus */
-            color: hsl(var(--mobile-nav-active));
-             font-weight: 600;
-        }
-         .mobile-nav-item:hover {
-             transform: translateY(-2px);
-         }
-         .mobile-nav-item:active { /* Keep active state for touch feedback */
-             transform: translateY(1px);
-         }
-         .mobile-nav-item:focus {
-             box-shadow: 0 0 0 3px hsl(var(--mobile-nav-active) / 0.3);
-         }
-
-        .mobile-nav-item.active-nav-item::before {
-            content: ''; position: absolute; bottom: -3px; left: 25%; width: 50%; height: 3px; border-radius: 3px;
-            background: linear-gradient(to right, hsl(var(--mobile-nav-active)), hsl(var(--primary) / 0.8)); /* Adjusted gradient */
-        }
-
-        /* Logged-in indicator dot */
-        .mobile-nav-item.logged-in::after {
-             content: ''; position: absolute; top: 0; right: 25%; width: 8px; height: 8px; border-radius: 50%;
-             background-color: hsl(var(--accent)); /* Use accent (primary) for contrast */
-             border: 2px solid hsl(var(--mobile-nav-bg)); /* Match nav background */
-             transition: background-color 0.3s ease, border-color 0.3s ease;
-        }
-         #mobile-nav.nav-hidden { transform: translateY(100%); }
-
-
         /* Theme Toggle Button */
         #theme-toggle {
              position: fixed;
-             bottom: 6.5rem; /* Position above mobile nav */
+             bottom: 1rem;
              right: 1rem;
              z-index: 50;
              width: 3rem;
@@ -694,6 +624,41 @@
         #theme-toggle .fa-sun { display: inline-block; }
         html:not(.dark) #theme-toggle .fa-moon { display: inline-block; }
         html:not(.dark) #theme-toggle .fa-sun { display: none; }
+
+        /* Remove all mobile navigation related styles */
+        #mobile-nav,
+        .mobile-nav-item,
+        .mobile-nav-item .icon-container,
+        .mobile-nav-item.active-nav-item,
+        .mobile-nav-item.logged-in,
+        .nav-hidden {
+            display: none !important;
+        }
+
+        /* Remove body padding that was for mobile nav */
+        body {
+            padding-bottom: 0 !important;
+        }
+
+        /* Adjust theme toggle position */
+        #theme-toggle {
+            bottom: 1rem;
+            right: 1rem;
+        }
+
+        /* Remove mobile nav media query */
+        @media (max-width: 768px) {
+            .back-button {
+                position: absolute;
+                left: 1rem;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+            header .container {
+                flex-direction: row;
+                justify-content: center;
+            }
+        }
 
     </style>
 
@@ -1107,26 +1072,6 @@
         <i class="fas fa-moon text-xl"></i>
         <i class="fas fa-sun text-xl hidden"></i>
     </button>
-
-    <!-- Mobile Navigation Bar -->
-    <nav id="mobile-nav" class="fixed bottom-0 left-0 right-0 backdrop-filter backdrop-blur-lg shadow-lg py-3 px-2 flex justify-around items-center z-30 md:hidden">
-        <a href="index.html" class="mobile-nav-item">
-            <div class="icon-container"><i class="fas fa-home"></i></div>
-            <span>Accueil</span>
-        </a>
-        <a href="bib.html" class="mobile-nav-item active-nav-item">
-            <div class="icon-container"><i class="fas fa-book-open"></i></div>
-            <span>Cours</span>
-        </a>
-        <a href="calculator.html" class="mobile-nav-item">
-            <div class="icon-container"><i class="fas fa-calculator"></i></div>
-            <span>Moyenne</span>
-        </a>
-        <a href="#" onclick="checkProfileAccess(event)" class="mobile-nav-item">
-            <div class="icon-container"><i class="fas fa-user"></i></div>
-            <span>Profil</span>
-        </a>
-    </nav>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
