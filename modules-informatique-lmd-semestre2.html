@@ -733,6 +733,80 @@
         .dark img[alt="ISET'COM"] {
             filter: contrast(1.2) brightness(0.9); /* Adjust for dark mode */
         }
+
+        /* Replace with new styles */
+        .exclusive-content-card {
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(8px);
+            transition: all 0.3s ease;
+        }
+
+        .exclusive-content-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                45deg,
+                hsl(var(--primary) / 0.1),
+                hsl(var(--success) / 0.1),
+                hsl(var(--primary) / 0.1)
+            );
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .exclusive-content-card:hover::before {
+            opacity: 1;
+        }
+
+        .exclusive-content-button {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .exclusive-content-button::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                45deg,
+                hsl(var(--primary) / 0.2),
+                hsl(var(--success) / 0.2),
+                hsl(var(--primary) / 0.2)
+            );
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .exclusive-content-button:hover::after {
+            opacity: 1;
+        }
+
+        @keyframes shine {
+            from {
+                transform: translateX(-100%) rotate(45deg);
+            }
+            to {
+                transform: translateX(100%) rotate(45deg);
+            }
+        }
+
+        .shine-effect {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                hsl(var(--primary) / 0.2),
+                transparent
+            );
+            animation: shine 2s infinite;
+        }
     </style>
 </head>
 <body class="flex flex-col"> <!-- Removed min-h-screen, container will handle grow -->
@@ -759,7 +833,7 @@
     <div class="container mx-auto px-4 max-w-6xl flex-grow py-8">
         <header class="mb-8" data-aos="fade-down">
             <div class="flex justify-between items-center">
-                <a href="specialite-informatique-lmd.html" class="back-button">
+                <a href="bib.html" class="back-button">
                     <i class="fas fa-arrow-left"></i>
                     Retour
                 </a>
@@ -808,22 +882,25 @@
             </div>
 
             <!-- Banner pour les ressources exclusives 2024-2025 -->
-            <div class="mb-10 p-4 rounded-xl bg-gradient-to-r from-yellow-50 via-orange-50 to-red-50 dark:from-yellow-900/30 dark:via-orange-900/30 dark:to-red-900/30 border border-yellow-200 dark:border-yellow-700 shadow-md text-center" data-aos="zoom-in-up">
+            <div class="mb-10 p-6 rounded-xl bg-gradient-to-r from-blue-50/50 via-purple-50/50 to-pink-50/50 dark:from-blue-900/20 dark:via-purple-900/20 dark:to-pink-900/20 border border-blue-200/20 dark:border-purple-300/30 shadow-lg backdrop-blur-sm" data-aos="zoom-in-up">
                 <div class="flex flex-col items-center justify-center">
-                     <div class="flex items-center gap-3 mb-3">
-                        <div class="w-12 h-12 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center shadow-lg">
-                            <i class="fas fa-crown text-white text-xl"></i>
+                     <div class="flex items-center gap-4 mb-4">
+                        <div class="w-14 h-14 bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 rounded-xl flex items-center justify-center shadow-lg transform hover:scale-105 transition-transform">
+                            <i class="fas fa-crown text-white text-2xl"></i>
                         </div>
                         <div>
-                            <h3 class="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-600 to-orange-700 dark:from-yellow-400 dark:to-orange-500">Ressources Exclusives 2024-2025</h3>
-                            <p class="text-sm text-gray-600 dark:text-gray-400">Documents mis à jour pour tous les modules</p>
+                            <h3 class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600">Ressources Exclusives 2024-2025</h3>
+                            <p class="text-sm text-muted-foreground">Documents mis à jour pour tous les modules</p>
                         </div>
                     </div>
                     <button onclick="document.getElementById('popup-exclusive').classList.add('active'); document.body.style.overflow = 'hidden';" 
-                           class="exclusive-resources-button group">
-                        <i class="fas fa-eye mr-2 transform group-hover:scale-110 transition-transform"></i>
-                        Voir toutes les ressources
-                        <span class="new-badge ml-2">NEW</span>
+                           class="group relative px-6 py-3 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white rounded-full font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 overflow-hidden">
+                        <span class="absolute inset-0 bg-white/20 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-500"></span>
+                        <span class="relative flex items-center gap-2">
+                            <i class="fas fa-eye transform group-hover:scale-110 transition-transform"></i>
+                            Voir toutes les ressources
+                            <span class="ml-2 px-2 py-0.5 bg-white/90 text-blue-600 rounded-full text-xs font-bold animate-pulse">NEW</span>
+                        </span>
                     </button>
                 </div>
             </div>
