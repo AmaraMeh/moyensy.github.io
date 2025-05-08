@@ -2,396 +2,733 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Bibliothèque - Université de Bejaia</title>
+    <meta name="description" content="Portail étudiant non officiel pour l'Université de Bejaia - Campus El-Kseur. Accédez à la calculatrice et à la bibliothèque.">
+    <meta name="author" content="Amara Mehdi">
+    <link rel="icon" type="image/png" href="assets/img/icon.png">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="icon" type="image/png" href="assets/img/icon.png">
-    <link rel="stylesheet" href="assets/css/style.css">
+    <!-- Removed link to original style.css -->
 
     <style>
-        /* --- Base Theme Variables (Light) --- */
+        /* --- Theme Variables (Synced with calculator) --- */
         :root {
-            --bg-color: #f9fafb; /* bg-gray-50 */
-            --text-color: #1f2937; /* text-gray-800 */
-            --text-color-secondary: #4b5563; /* text-gray-600 */
-            --heading-color: #11182d; /* text-gray-900 */
-            --card-bg: rgba(255, 255, 255, 0.8);
-            --card-border: rgba(0, 0, 0, 0.1);
-            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --primary-color: #3b82f6; /* blue-500 */
-            --primary-color-darker: #2563eb; /* blue-700 */
-            --secondary-color: #10b981; /* green-500 */
-            --secondary-color-darker: #059669; /* green-700 */
-            --link-color: #2563eb;
-            --link-hover-color: #1d4ed8;
-            --button-text: #ffffff;
-            --campus-elksuer-bg: #e0f2fe; /* blue-100 */
-            --campus-elksuer-text: #1e40af; /* blue-800 */
-            --campus-elksuer-border: #1e40af;
-            --campus-aboudaou-bg: #d1fae5; /* green-100 */
-            --campus-aboudaou-text: #065f46; /* green-800 */
-            --campus-aboudaou-border: #065f46;
-            --disabled-card-bg: #e5e7eb; /* gray-200 */
-            --disabled-card-text: #1f2937;
-            --footer-bg: #11182d; /* gray-900 */
-            --footer-text: #ffffff;
-            --footer-link: #60a5fa; /* blue-400 */
-            --footer-link-hover: #3b82f6; /* blue-500 */
-            --modal-bg: #ffffff;
-            --modal-text: #1f2937;
-            --mobile-nav-bg: rgba(255, 255, 255, 0.95);
-            --mobile-nav-border: #e5e7eb; /* gray-200 */
-            --mobile-nav-text: #64748b; /* gray-500 */
-            --mobile-nav-active: #3b82f6; /* blue-500 */
-            --theme-toggle-bg: rgba(255, 255, 255, 0.8);
-            --theme-toggle-border: rgba(0, 0, 0, 0.1);
-            --theme-toggle-text: #4b5563;
-            --theme-toggle-hover-bg: #e5e7eb;
+            --background: 0 0% 100%;
+            --foreground: 222.2 84% 4.9%;
+            --card: 0 0% 100%;
+            --card-foreground: 222.2 84% 4.9%;
+            --primary: 221.2 83.2% 53.3%;
+            --primary-foreground: 210 40% 98%;
+            --secondary: 210 40% 96.1%; /* Muted/Border color */
+            --secondary-foreground: 222.2 47.4% 11.2%;
+            --muted: 210 40% 96.1%;
+            --muted-foreground: 215.4 16.3% 46.9%;
+            --accent: 221.2 83.2% 53.3%; /* Using primary for general accent */
+            --accent-foreground: 210 40% 98%;
+            --border: 214.3 31.8% 91.4%;
+            --input: 214.3 31.8% 91.4%;
+            --ring: 221.2 83.2% 53.3%; /* Using primary again for ring */
+
+            /* Specific colors derived from Shadcn defaults (no green) */
+            --error: 0 84.2% 60.2%; /* Red */
+            --success: 221.2 83.2% 53.3%; /* Using primary for success (validation isn't a concept here, just a color name) */
+            --warning: 48 95.7% 64.9%; /* Amber */
+
+             /* Campus Colors - Now unified with the primary theme */
+            --campus-bg: 210 40% 96.1%; /* Use muted/secondary */
+            --campus-text: 222.2 84% 4.9%; /* Use foreground */
+            --campus-border: 214.3 31.8% 91.4%; /* Use border */
+            --campus-accent-border: 221.2 83.2% 53.3%; /* Use primary for left border */
+
+
+            --disabled-card-bg: 214.3 31.8% 91.4%; /* Use border */
+            --disabled-card-text: 215.4 16.3% 46.9%; /* Use muted foreground */
+
+            --footer-bg: 222.2 84% 4.9%; /* Use dark background */
+            --footer-text: 210 40% 98%; /* Use foreground */
+            --footer-link: 221.2 83.2% 53.3%; /* Use primary */
+
+            --modal-bg: 0 0% 100%; /* Use card */
+            --modal-text: 222.2 84% 4.9%; /* Use foreground */
+
+            --mobile-nav-bg: 0 0% 100%; /* Use card */
+            --mobile-nav-border: 214.3 31.8% 91.4%; /* Use border */
+            --mobile-nav-text: 215.4 16.3% 46.9%; /* Use muted foreground */
+            --mobile-nav-active: 221.2 83.2% 53.3%; /* Use primary */
+
+            --theme-toggle-bg: 0 0% 100%; /* Use card */
+            --theme-toggle-border: 214.3 31.8% 91.4%; /* Use border */
+            --theme-toggle-text: 215.4 16.3% 46.9%; /* Use muted foreground */
+            --theme-toggle-hover-bg: 210 40% 96.1%; /* Use muted */
+
+            --radius: 0.5rem;
         }
 
-        /* --- Dark Theme Variables --- */
         html.dark {
-            --bg-color: #121827; /* Dark blueish background */
-            --text-color: #cbd5e1; /* slate-300 */
-            --text-color-secondary: #94a3b8; /* slate-400 */
-            --heading-color: #f1f5f9; /* slate-100 */
-            --card-bg: rgba(30, 41, 59, 0.6); /* slate-800 with transparency */
-            --card-border: rgba(255, 255, 255, 0.15);
-            --card-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-            --primary-color: #60a5fa; /* blue-400 */
-            --primary-color-darker: #3b82f6; /* blue-500 */
-            --secondary-color: #34d399; /* green-400 */
-            --secondary-color-darker: #10b981; /* green-500 */
-            --link-color: #60a5fa;
-            --link-hover-color: #93c5fd; /* blue-300 */
-            --button-text: #ffffff;
-            --campus-elksuer-bg: rgba(59, 130, 246, 0.15); /* transparent blue */
-            --campus-elksuer-text: #93c5fd; /* blue-300 */
-            --campus-elksuer-border: #60a5fa;
-            --campus-aboudaou-bg: rgba(52, 211, 153, 0.15); /* transparent green */
-            --campus-aboudaou-text: #6ee7b7; /* green-300 */
-            --campus-aboudaou-border: #34d399;
-            --disabled-card-bg: #334155; /* slate-700 */
-            --disabled-card-text: #94a3b8; /* slate-400 */
-            --footer-bg: #0f172a; /* slate-900 */
-            --footer-text: #cbd5e1; /* slate-300 */
-            --footer-link: #60a5fa;
-            --footer-link-hover: #93c5fd;
-            --modal-bg: #1e293b; /* slate-800 */
-            --modal-text: #f1f5f9; /* slate-100 */
-            --mobile-nav-bg: rgba(15, 23, 42, 0.9); /* slate-900 transparent */
-            --mobile-nav-border: rgba(255, 255, 255, 0.15);
-            --mobile-nav-text: #94a3b8; /* slate-400 */
-            --mobile-nav-active: #60a5fa; /* blue-400 */
-            --theme-toggle-bg: rgba(30, 41, 59, 0.7);
-            --theme-toggle-border: rgba(255, 255, 255, 0.15);
-            --theme-toggle-text: #cbd5e1;
-            --theme-toggle-hover-bg: rgba(51, 65, 85, 0.9); /* slate-700 */
+            --background: 222.2 84% 4.9%;
+            --foreground: 210 40% 98%;
+            --card: 222.2 84% 4.9%;
+            --card-foreground: 210 40% 98%;
+            --primary: 217.2 91.2% 59.8%;
+            --primary-foreground: 222.2 47.4% 11.2%;
+            --secondary: 217.2 32.6% 17.5%;
+            --secondary-foreground: 210 40% 98%;
+            --muted: 217.2 32.6% 17.5%;
+            --muted-foreground: 215 20.2% 65.1%;
+            --accent: 217.2 91.2% 59.8%; /* Using primary for general accent */
+            --accent-foreground: 222.2 47.4% 11.2%;
+            --border: 217.2 32.6% 17.5%;
+            --input: 217.2 32.6% 17.5%;
+            --ring: 224.3 76.3% 48%; /* Slightly different blue for ring */
+
+            /* Specific colors derived from Shadcn defaults (no green) */
+            --error: 0 84.2% 60.2%; /* Red */
+            --success: 217.2 91.2% 59.8%; /* Using primary dark for success */
+            --warning: 48 91.9% 69.2%; /* Amber */
+
+             /* Campus Colors (Dark Mode) - Now unified */
+            --campus-bg: 217.2 32.6% 17.5%; /* Use muted/secondary dark */
+            --campus-text: 210 40% 98%; /* Use foreground dark */
+            --campus-border: 217.2 32.6% 17.5%; /* Use border dark */
+            --campus-accent-border: 217.2 91.2% 59.8%; /* Use primary dark for left border */
+
+            --disabled-card-bg: 217.2 32.6% 17.5%; /* Use border dark */
+            --disabled-card-text: 215 20.2% 65.1%; /* Use muted foreground dark */
+
+            --footer-bg: 222.2 84% 4.9%; /* Use dark background */
+            --footer-text: 210 40% 98%; /* Use foreground */
+            --footer-link: 217.2 91.2% 59.8%; /* Use primary dark */
+
+            --modal-bg: 222.2 84% 4.9%; /* Use card dark */
+            --modal-text: 210 40% 98%; /* Use foreground dark */
+
+            --mobile-nav-bg: 222.2 84% 4.9%; /* Use card dark */
+            --mobile-nav-border: 217.2 32.6% 17.5%; /* Use border dark */
+            --mobile-nav-text: 215 20.2% 65.1%; /* Use muted foreground dark */
+            --mobile-nav-active: 217.2 91.2% 59.8%; /* Use primary dark */
+
+            --theme-toggle-bg: 222.2 84% 4.9%; /* Use card dark */
+            --theme-toggle-border: 217.2 32.6% 17.5%; /* Use border dark */
+            --theme-toggle-text: 210 40% 98%; /* Use foreground dark */
+            --theme-toggle-hover-bg: 217.2 32.6% 17.5%; /* Use muted dark */
         }
 
-        /* --- Base Styles using Variables --- */
+        /* --- Background Effects (Synced with calculator) --- */
+        .hero-bg {
+            position: fixed; /* Use fixed to cover viewport behind everything */
+            inset: 0;
+            z-index: -10;
+            overflow: hidden;
+            pointer-events: none; /* Allow clicks through */
+        }
+
+        .gradient-blob {
+            position: absolute;
+            border-radius: 9999px;
+            filter: blur(60px);
+            opacity: 0.4; /* Slightly less opaque */
+        }
+
+        .gradient-blob-1 {
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 500px;
+            background: linear-gradient(to bottom right, hsl(var(--primary) / 0.4), hsl(var(--ring) / 0.2), hsl(var(--accent) / 0.1));
+            transform: translateY(-50%);
+        }
+
+        .gradient-blob-2 {
+            bottom: 0;
+            right: 0;
+            width: 500px;
+            height: 500px;
+            background: linear-gradient(to top right, hsl(var(--ring) / 0.3), hsl(var(--accent) / 0.2), transparent);
+        }
+
+        .floating-dot {
+            position: absolute;
+            border-radius: 9999px;
+            animation: pulse 2s infinite;
+            z-index: -9; /* Ensure dots are above blobs but below content */
+            /* Using Tailwind classes for dot colors */
+         }
+
+         /* Pulse variations for particles */
+         @keyframes pulse { 0%, 100% { opacity: 0.5; transform: scale(1); } 50% { opacity: 1; transform: scale(1.2); } }
+         @keyframes pulse1 { 0%, 100% { opacity: 0.4; transform: scale(0.8); } 50% { opacity: 0.9; transform: scale(1.1); } }
+         @keyframes pulse2 { 0%, 100% { opacity: 0.6; transform: scale(1.1); } 50% { opacity: 0.7; transform: scale(0.9); } }
+
+
+        .floating-particles {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: -5; /* Below content, above blobs/dots */
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.7;
+            animation: float 10s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+                opacity: 0.3;
+            }
+            50% {
+                transform: translate(var(--x), var(--y)) scale(1.2);
+                opacity: 0.8;
+            }
+        }
+
+
+        /* --- General Styles using Variables --- */
         body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            background-color: hsl(var(--background)); /* Use theme variable */
+            color: hsl(var(--foreground)); /* Use theme variable */
             font-family: 'Poppins', sans-serif;
-            transition: background-color 0.3s ease, color 0.3s ease;
+            transition: background-color 0.3s ease, color 0.3s ease; /* Smooth page transition */
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .container {
+             width: 90%;
+             max-width: 1100px; /* Adjusted max-width slightly */
+             margin: 0 auto;
+             padding: 20px;
+             flex-grow: 1;
+             position: relative; /* Needed for z-index */
+             z-index: 1; /* Ensure content is above background */
         }
 
         h1, h2, h3 {
-            color: var(--heading-color);
+            color: hsl(var(--heading-color)); /* Use theme variable */
             transition: color 0.3s ease;
         }
 
-        /* Header */
-        .header-container {
-            /* No specific background needed if body bg shows */
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        /* Header - Synced with calculator's new header style */
+        header {
+            background: hsl(var(--background) / 0.8); /* Use background with transparency */
+            backdrop-filter: blur(8px); /* Add blur */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Add shadow */
+            padding: 1rem 0; /* Vertical padding */
+            margin-bottom: 2.5rem; /* Space below header */
+            position: sticky; /* Make header sticky */
+            top: 0; /* Stick to the top */
+            width: 100%; /* Full width */
+            z-index: 20; /* Ensure header is above content */
+            border-bottom: 1px solid hsl(var(--border)); /* Add subtle border */
+            text-align: center; /* Center content */
         }
+
+        header .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0 1rem; /* Adjust container padding for header */
+        }
+
+         header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0; /* No margin below title in simplified header */
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1); /* Keep dark shadow for contrast */
+             color: hsl(var(--foreground)); /* Use foreground color for title */
+         }
+
+
         .back-button {
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            color: var(--link-color);
+            color: hsl(var(--primary)); /* Use primary color */
             font-weight: 500;
-            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+            padding: 0.4rem 0.8rem; /* Adjusted padding */
             border-radius: 9999px;
-            background-color: var(--card-bg);
-            border: 1px solid var(--card-border);
+            background: hsl(var(--card) / 0.1); /* Use transparent card background */
+            border: 1px solid hsl(var(--border)); /* Use border color */
             transition: all 0.3s ease;
+            position: absolute;
+            top: 50%;
+            left: 1rem; /* Position to the far left */
+            transform: translateY(-50%);
+            z-index: 10;
+            text-decoration: none;
+            outline: none; /* Remove default focus outline */
         }
+
         .back-button:hover {
-            background-color: var(--theme-toggle-hover-bg); /* Use similar hover as toggle */
-            color: var(--link-hover-color);
-            transform: scale(1.05);
+            background-color: hsl(var(--card) / 0.2);
+            color: hsl(var(--foreground));
+            transform: translateY(-50%) scale(1.05);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
-        .back-button i { font-size: 1rem; }
-        /* Dark mode logo invert - uncomment if needed */
-        /* html.dark .header-container img { filter: invert(1) hue-rotate(180deg); } */
+         .back-button:focus {
+             box-shadow: 0 0 0 3px hsl(var(--primary) / 0.5); /* Add focus outline */
+         }
 
 
-        /* Main Card */
+        .back-button i {
+            font-size: 1rem;
+        }
+
+        /* Responsive adjustment for back button */
+        @media (max-width: 768px) {
+            .back-button {
+                position: static; /* Reset position on mobile */
+                transform: none; /* Reset transform */
+                margin-bottom: 1rem; /* Add space below button */
+            }
+             header .container {
+                 flex-direction: column; /* Stack items */
+             }
+        }
+
+        /* Removed logo styles */
+
+
+        /* Main Card (Glass card container) */
         .glass-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border-radius: 1.2rem;
-            padding: clamp(1.5rem, 5vw, 2.5rem);
-            box-shadow: var(--card-shadow);
-            border: 1px solid var(--card-border);
+            background: hsl(var(--card) / 0.07); /* Use transparent card background */
+            backdrop-filter: blur(12px); /* Slightly more blur */
+            border-radius: 1.2rem; /* Slightly larger radius */
+            padding: clamp(1.5rem, 5vw, 2.5rem); /* Responsive padding */
+            box-shadow: 0 8px 32px 0 hsl(var(--background) / 0.1); /* Use background for shadow */
+            border: 1px solid hsl(var(--border)); /* Use border color */
             margin-bottom: 2.5rem;
             transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
-        /* Campus Sections */
+        /* Campus Sections - Now Unified Style */
         .campus-section {
             padding: 1.5rem;
-            border-radius: 0.75rem; /* Tailwind rounded-lg */
-            box-shadow: var(--card-shadow);
+            border-radius: 0.75rem;
+            box-shadow: hsl(var(--background) / 0.1); /* Use background for shadow */
             margin-bottom: 2rem;
             transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid hsl(var(--campus-border)); /* Consistent border */
+            background-color: hsl(var(--campus-bg)); /* Consistent background */
+             border-left: 5px solid hsl(var(--campus-accent-border)); /* Add accent border */
         }
-        .campus-section.bg-blue-100 { /* El Kseur */
-            background-color: var(--campus-elksuer-bg);
-        }
-        .campus-section.bg-blue-100 h3 {
-             color: var(--campus-elksuer-text);
-        }
-        .campus-section.bg-blue-100 button {
-             color: var(--campus-elksuer-text);
-             border-color: var(--campus-elksuer-border);
+
+         /* Campus Section Headers */
+         .campus-section h3 {
+             color: hsl(var(--campus-text)); /* Consistent text color */
+             display: flex; /* Allow icon positioning */
+             justify-content: space-between; /* Space between text and icon */
+             align-items: center;
+             cursor: pointer;
+         }
+          /* Arrow icon rotation for collapse */
+         .campus-section h3 i {
+             transition: transform 0.3s ease;
+             font-size: 1.2rem;
+         }
+         .campus-section h3.collapsed i { transform: rotate(0deg); }
+         .campus-section h3:not(.collapsed) i { transform: rotate(90deg); }
+
+
+         /* Campus Section Buttons - Style as Outline Button */
+         .campus-section button.toggle-button {
+             font-weight: 600; /* Slightly bolder text */
+             background-color: transparent; /* No background */
+             border: 1px solid hsl(var(--campus-text)); /* Border using campus text color */
+             color: hsl(var(--campus-text)); /* Text color using campus text color */
+             padding: 0.5rem 1rem; /* Comfortable padding */
+             border-radius: 0.5rem; /* Rounded corners */
              transition: all 0.3s ease;
-        }
-         .campus-section.bg-blue-100 button:hover {
-              background-color: var(--campus-elksuer-text);
-              color: var(--bg-color); /* Invert color for hover */
+             cursor: pointer;
+             display: inline-block; /* Ensure it's a button, not full-width div */
+             outline: none; /* Remove default focus outline */
          }
-
-        .campus-section.bg-green-100 { /* Aboudaou */
-            background-color: var(--campus-aboudaou-bg);
-        }
-         .campus-section.bg-green-100 h3 {
-             color: var(--campus-aboudaou-text);
+         .campus-section button.toggle-button:hover {
+              background-color: hsl(var(--campus-text)); /* Fill on hover */
+              color: hsl(var(--background)); /* Invert color on hover (using general background) */
          }
-         .campus-section.bg-green-100 button {
-             color: var(--campus-aboudaou-text);
-             border-color: var(--campus-aboudaou-border);
-             transition: all 0.3s ease;
-         }
-         .campus-section.bg-green-100 button:hover {
-              background-color: var(--campus-aboudaou-text);
-              color: var(--bg-color); /* Invert color for hover */
-         }
+          .campus-section button.toggle-button:focus {
+              box-shadow: 0 0 0 3px hsl(var(--campus-text) / 0.5); /* Add focus outline */
+          }
 
 
-        /* Specialty Cards */
+        /* Specialty Cards (Links) - Style as Clickable Cards */
         .service-card {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
+            background: hsl(var(--card) / 0.08); /* Use transparent card background */
+            border: 1px solid hsl(var(--border)); /* Use border color */
             border-radius: 0.75rem;
             padding: 1.5rem;
             text-align: center;
             transition: all 0.3s ease;
-            box-shadow: var(--card-shadow);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            color: hsl(var(--foreground)); /* Default text color for card */
+            text-decoration: none; /* Remove underline from link */
+            display: block; /* Make the whole card clickable */
+            position: relative; /* Needed for pseudo-element outline */
+            outline: none; /* Remove default focus outline */
+            cursor: pointer; /* Indicate clickable */
         }
+        html.dark .service-card {
+             box-shadow: 0 4px 15px hsl(var(--background) / 0.1); /* Darker shadow in dark mode */
+        }
+
+        /* Add Clickable Indicator Outline/Glow on Hover/Focus */
+        .service-card::after {
+            content: '';
+            position: absolute;
+            inset: -2px; /* Make outline slightly outside the border */
+            border-radius: 0.85rem; /* Match card radius + inset */
+            border: 2px solid transparent; /* Default transparent border */
+            transition: all 0.3s ease;
+            pointer-events: none; /* Don't interfere with clicks */
+            opacity: 0; /* Hidden by default */
+        }
+
+        .service-card:hover::after,
+        .service-card:focus::after {
+             border-color: hsl(var(--primary)); /* Primary color outline on hover/focus */
+             opacity: 1; /* Show outline */
+             box-shadow: 0 0 8px hsl(var(--primary) / 0.5); /* Add subtle glow */
+        }
+
+
         .service-card:hover {
             transform: translateY(-5px) scale(1.03);
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Enhanced shadow */
-            /* Dark mode specific hover shadow */
-            /* html.dark & { box-shadow: 0 10px 25px var(--card-shadow); } */
         }
         html.dark .service-card:hover {
              box-shadow: 0 10px 25px 0 rgba(0, 0, 0, 0.35); /* Darker shadow on hover */
         }
 
-        .service-card .service-icon i {
-            transition: color 0.3s ease;
-            color: var(--primary-color); /* Default icon color */
+        .service-card .service-icon {
+            margin: 0 auto 1rem; /* Adjusted margin */
+            width: 80px; /* Adjusted size */
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, hsl(var(--primary) / 0.8), hsl(var(--ring) / 0.6)); /* Subtle gradient */
+            border-radius: 50%;
+            color: hsl(var(--primary-foreground)); /* Use foreground on primary */
+            transition: all 0.3s ease;
+            position: relative;
+            box-shadow: 0 4px 8px hsl(var(--primary) / 0.2);
+             font-size: 2.5rem; /* Icon size relative to container */
         }
-        /* Specific icon colors handled by Tailwind classes, adjust if needed */
-         /* html.dark .service-card .service-icon i.text-blue-600 { color: var(--primary-color); }
-         html.dark .service-card .service-icon i.text-green-600 { color: var(--secondary-color); } */
+         .service-card:hover .service-icon {
+             transform: scale(1.1) rotate(5deg);
+             box-shadow: 0 6px 12px hsl(var(--primary) / 0.3);
+         }
+         .service-card .service-icon i { color: inherit; } /* Inherit color from parent icon div */
+
 
         .service-card h3 {
-            color: var(--text-color);
+            color: hsl(var(--foreground)); /* Use foreground color */
             transition: color 0.3s ease;
+            font-size: 1.1rem; /* Adjusted font size */
         }
 
         /* Disabled ("Bientôt disponible") Card */
-        .service-card.bg-gray-200 {
-            background-color: var(--disabled-card-bg);
-            color: var(--disabled-card-text);
+        .service-card.disabled { /* Use disabled class instead of bg-gray-200 */
+            background-color: hsl(var(--disabled-card-bg));
+            color: hsl(var(--disabled-card-text));
             cursor: not-allowed;
         }
-         .service-card.bg-gray-200:hover {
+         .service-card.disabled:hover {
             transform: none; /* Disable hover effect */
-            box-shadow: var(--card-shadow); /* Reset shadow */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* Reset shadow */
+             html.dark & { box-shadow: 0 4px 15px hsl(var(--background) / 0.1); } /* Dark mode reset shadow */
         }
-         .service-card.bg-gray-200 h3 {
-            color: var(--disabled-card-text);
+         .service-card.disabled h3 {
+            color: hsl(var(--disabled-card-text));
          }
+         .service-card.disabled .service-icon {
+             opacity: 0.5;
+             filter: grayscale(100%);
+             box-shadow: none;
+             transform: none; /* Reset hover transform */
+         }
+          /* Disabled card outline */
+         .service-card.disabled::after { display: none; } /* Hide outline on disabled cards */
 
 
         /* Collapsible Content */
-        .overflow-hidden {
-            transition: max-height 0.5s ease-in-out;
+        .collapse-content {
+             max-height: 0; /* Start closed */
+             overflow: hidden;
+             transition: max-height 0.5s ease-in-out; /* Apply transition */
         }
+         .collapse-content.is-expanded {
+            /* max-height is set via JS */
+            /* overflow is handled by the base class */
+         }
+
 
         /* Modal */
-        #semesterModal .bg-white { /* Target the inner modal box */
-             background-color: var(--modal-bg);
-             color: var(--modal-text);
+        #semesterModal .bg-white { /* Target the inner modal box (Semantic mapping) */
+             background-color: hsl(var(--modal-bg));
+             color: hsl(var(--modal-text));
              border-radius: 0.75rem;
              padding: 1.5rem;
-             box-shadow: var(--card-shadow);
-             transition: background-color 0.3s ease, color 0.3s ease;
+             box-shadow: 0 10px 25px hsl(var(--background) / 0.2); /* Use background for shadow */
+             transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+             position: relative; /* Needed for close button positioning */
         }
          #semesterModal h2 {
-            color: var(--heading-color);
+            color: hsl(var(--heading-color));
          }
-         #semesterModal button.bg-blue-500 {
-             background-color: var(--primary-color);
-             color: var(--button-text);
-             transition: background-color 0.3s ease;
+         /* Modal Close Button */
+         .modal-close {
+             position: absolute;
+             top: 0.75rem;
+             right: 0.75rem;
+             background: hsl(var(--error)); /* Use error color */
+             color: hsl(var(--primary-foreground)); /* Use foreground on primary for contrast */
+             border: none;
+             border-radius: 50%;
+             width: 30px;
+             height: 30px;
+             cursor: pointer;
+             font-size: 1rem;
+             line-height: 30px;
+             text-align: center;
+             transition: all 0.2s ease;
+             outline: none; /* Remove default focus */
+         }
+         .modal-close:hover {
+             background: hsl(var(--error) / 0.8); /* Darker error on hover */
+             transform: scale(1.1);
+         }
+          .modal-close:focus {
+             box-shadow: 0 0 0 3px hsl(var(--error) / 0.5);
+          }
+
+
+         #semesterModal button.bg-blue-500 { /* Semantic mapping to primary button */
+             background-color: hsl(var(--primary));
+             color: hsl(var(--primary-foreground));
+             transition: background-color 0.3s ease, color 0.3s ease;
+             padding: 0.6rem 1.2rem; /* Consistent button padding */
+             border-radius: 0.5rem; /* Consistent border radius */
+             font-weight: 600;
+             display: block; /* Full width buttons */
+             width: 100%;
+             text-align: center;
+             outline: none; /* Remove default focus */
          }
          #semesterModal button.bg-blue-500:hover {
-              background-color: var(--primary-color-darker);
+              background-color: hsl(var(--primary) / 0.9); /* Slightly different hover */
          }
-          #semesterModal button.text-gray-600 {
-             color: var(--text-color-secondary);
-             transition: color 0.3s ease;
+          #semesterModal button.bg-blue-500:focus {
+              box-shadow: 0 0 0 3px hsl(var(--primary) / 0.5);
+          }
+
+          #semesterModal button.text-gray-600 { /* Semantic mapping to secondary/cancel button */
+             color: hsl(var(--muted-foreground));
+             transition: color 0.3s ease, background 0.3s ease; /* Add background transition */
+             background: transparent;
+             border: none;
+             padding: 0.6rem 1.2rem;
+             border-radius: 0.5rem;
+             font-weight: 500;
+             display: block;
+             width: 100%;
+             text-align: center;
+              outline: none; /* Remove default focus */
          }
          #semesterModal button.text-gray-600:hover {
-              color: var(--text-color);
+              color: hsl(var(--foreground));
+              background: hsl(var(--border)); /* Subtle background on hover */
          }
+          #semesterModal button.text-gray-600:focus {
+               box-shadow: 0 0 0 3px hsl(var(--border) / 0.5);
+          }
+
          /* Modal Backdrop */
-         #semesterModal.bg-gray-600 {
-             background-color: rgba(17, 24, 39, 0.7); /* Darker overlay */
+         #semesterModal.bg-gray-600 { /* Semantic mapping */
+             background-color: hsl(var(--background) / 0.75); /* Darker overlay */
              backdrop-filter: blur(4px);
-         }
-         html:not(.dark) #semesterModal.bg-gray-600 {
-            background-color: rgba(75, 85, 99, 0.5); /* Default gray overlay */
-            backdrop-filter: none;
+              transition: background-color 0.3s ease, backdrop-filter 0.3s ease; /* Smooth transition for overlay */
          }
 
 
         /* Footer */
         footer {
-            background-color: var(--footer-bg);
-            color: var(--footer-text);
+            background-color: hsl(var(--background) / 0.8); /* Use background with transparency */
+            backdrop-filter: blur(5px);
+            color: hsl(var(--muted-foreground)); /* Use muted foreground */
             transition: background-color 0.3s ease, color 0.3s ease;
+            text-align: center;
+            font-size: 0.9rem; /* Slightly smaller font */
+            padding: 1.5rem 1rem; /* Adjusted padding */
+            margin-top: auto; /* Push to the bottom */
+             border-top: 1px solid hsl(var(--border) / 0.5); /* Subtle border */
         }
         footer a {
-            color: var(--footer-link);
+            color: hsl(var(--primary)); /* Use primary color */
             transition: color 0.3s ease;
+            text-decoration: none; /* Remove underline */
+            outline: none; /* Remove default focus */
         }
         footer a:hover {
-            color: var(--footer-link-hover);
+            color: hsl(var(--primary) / 0.8); /* Slightly darker on hover */
+            text-decoration: underline;
         }
+         footer a:focus {
+              box-shadow: 0 0 0 3px hsl(var(--primary) / 0.3);
+         }
+
 
         /* Mobile Navigation */
         #mobile-nav {
-            background-color: var(--mobile-nav-bg);
-            border-top: 1px solid var(--mobile-nav-border);
+            background-color: hsl(var(--mobile-nav-bg) / 0.9); /* Use background with transparency */
+            border-top: 1px solid hsl(var(--mobile-nav-border)); /* Use border */
             backdrop-filter: blur(10px); /* Keep blur effect */
-            transition: background-color 0.3s ease, border-color 0.3s ease;
+            transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease; /* Add transform transition */
+            position: fixed;
+            bottom: 0; left: 0; right: 0;
+            box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1); /* Add shadow */
+            padding: 8px 0; /* Adjusted padding */
+            display: flex;
+            justify-around;
+            align-items: center;
+            z-index: 30;
         }
+        @media (min-width: 769px) {
+            #mobile-nav { display: none; } /* Hide on larger screens */
+             body { padding-bottom: 0 !important; } /* Remove body padding when nav is hidden */
+        }
+         @media (max-width: 768px) {
+            body { padding-bottom: 70px; } /* Ensure space for mobile nav + theme toggle */
+        }
+
+
         .mobile-nav-item {
-             color: var(--mobile-nav-text);
-             transition: color 0.3s ease;
+             color: hsl(var(--mobile-nav-text));
+             transition: color 0.3s ease, transform 0.2s ease;
+             display: flex;
+             flex-direction: column;
+             align-items: center;
+             padding: 4px 0;
+             position: relative;
+             width: 23%;
+             border-radius: 0.75rem;
+             text-decoration: none; /* Remove underline */
+             outline: none; /* Remove default focus */
         }
+         .mobile-nav-item .icon-container { position: relative; margin-bottom: 4px; font-size: 1.25rem; }
+         .mobile-nav-item span { font-size: 0.7rem; font-weight: 500; transition: all 0.2s ease; }
+
         .mobile-nav-item.active-nav-item,
         .mobile-nav-item:hover,
-        .mobile-nav-item:active {
-            color: var(--mobile-nav-active);
+        .mobile-nav-item:focus { /* Combined hover and active and focus */
+            color: hsl(var(--mobile-nav-active));
+             font-weight: 600;
         }
+         .mobile-nav-item:hover {
+             transform: translateY(-2px);
+         }
+         .mobile-nav-item:active { /* Keep active state for touch feedback */
+             transform: translateY(1px);
+         }
+         .mobile-nav-item:focus {
+             box-shadow: 0 0 0 3px hsl(var(--mobile-nav-active) / 0.3);
+         }
+
         .mobile-nav-item.active-nav-item::before {
-            background: linear-gradient(to right, var(--mobile-nav-active), var(--primary-color)); /* Adjust gradient if needed */
+            content: ''; position: absolute; bottom: -3px; left: 25%; width: 50%; height: 3px; border-radius: 3px;
+            background: linear-gradient(to right, hsl(var(--mobile-nav-active)), hsl(var(--primary) / 0.8)); /* Adjusted gradient */
         }
+
         /* Logged-in indicator dot */
         .mobile-nav-item.logged-in::after {
-             background-color: var(--secondary-color); /* Use secondary for contrast */
-             border: 2px solid var(--mobile-nav-bg); /* Match nav background */
+             content: ''; position: absolute; top: 0; right: 25%; width: 8px; height: 8px; border-radius: 50%;
+             background-color: hsl(var(--accent)); /* Use accent (primary) for contrast */
+             border: 2px solid hsl(var(--mobile-nav-bg)); /* Match nav background */
              transition: background-color 0.3s ease, border-color 0.3s ease;
         }
+         #mobile-nav.nav-hidden { transform: translateY(100%); }
 
 
         /* Theme Toggle Button */
         #theme-toggle {
-            background-color: var(--theme-toggle-bg);
-            color: var(--theme-toggle-text);
-            border: 1px solid var(--theme-toggle-border);
-            backdrop-filter: blur(5px);
-            transition: all 0.3s ease;
+             position: fixed;
+             bottom: 6.5rem; /* Position above mobile nav */
+             right: 1rem;
+             z-index: 50;
+             width: 3rem;
+             height: 3rem;
+             border-radius: 9999px;
+             background: hsl(var(--theme-toggle-bg) / 0.8); /* Use theme variable with transparency */
+             backdrop-filter: blur(8px); /* Add blur */
+             border: 1px solid hsl(var(--theme-toggle-border)); /* Use theme variable */
+             display: flex;
+             align-items: center;
+             justify-content: center;
+             cursor: pointer;
+             transition: all 0.3s ease;
+             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+             color: hsl(var(--theme-toggle-text)); /* Use theme variable for icon color */
+             outline: none; /* Remove default focus */
         }
         #theme-toggle:hover {
-            background-color: var(--theme-toggle-hover-bg);
-            transform: scale(1.1);
+            background-color: hsl(var(--theme-toggle-hover-bg) / 0.9); /* Use theme variable */
+            transform: translateY(-2px) scale(1.05); /* Slight hover effect */
         }
-        /* Icon visibility */
-        html.dark #theme-toggle .fa-moon { display: none; }
-        html.dark #theme-toggle .fa-sun { display: inline-block; }
-        html:not(.dark) #theme-toggle .fa-moon { display: inline-block; }
-        html:not(.dark) #theme-toggle .fa-sun { display: none; }
-
-        /* Add specific styles from the calculator.html if needed */
-        html.dark body {
-             background: linear-gradient(135deg, #0f0c29, #302b63, #24243e); /* Dark gradient background */
-        }
-
-        /* Refine glass card for dark mode like calculator */
-        html.dark .glass-card {
-             background: rgba(30, 41, 59, 0.7); /* Darker, slightly more opaque */
-             backdrop-filter: blur(12px);
-             border: 1px solid rgba(255, 255, 255, 0.15);
-             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-        }
-
-        /* Optional: Adjust header for dark mode */
-         html.dark header {
-             /* background: rgba(15, 23, 42, 0.5); /* Darker header bg */
-             /* backdrop-filter: blur(5px); */
-             /* border-bottom: 1px solid rgba(255, 255, 255, 0.1); */
+         #theme-toggle:focus {
+              box-shadow: 0 0 0 3px hsl(var(--primary) / 0.5);
          }
 
-
-        /* Keep existing style.css styles */
-        @media (max-width: 768px) {
-            body { padding-bottom: 70px; } /* Ensure space for mobile nav + theme toggle */
-        }
-        /* Enhanced Mobile Navigation Styling from original */
-        #mobile-nav { transition: transform 0.3s ease-in-out; }
-        #mobile-nav.nav-hidden { transform: translateY(100%); }
-        .mobile-nav-item { display: flex; flex-direction: column; align-items: center; padding: 4px 0; position: relative; width: 23%; border-radius: 0.75rem; }
-        .mobile-nav-item .icon-container { position: relative; margin-bottom: 4px; font-size: 1.25rem; }
-        .mobile-nav-item span { font-size: 0.7rem; font-weight: 500; transition: all 0.2s ease; }
-        .mobile-nav-item.active-nav-item { font-weight: 600; }
-        .mobile-nav-item.active-nav-item::before { content: ''; position: absolute; bottom: -3px; left: 25%; width: 50%; height: 3px; border-radius: 3px; }
-        .mobile-nav-item:hover, .mobile-nav-item:active { transform: translateY(-2px); }
-        .mobile-nav-item.logged-in::after { content: ''; position: absolute; top: 0; right: 25%; width: 8px; height: 8px; border-radius: 50%; }
+        /* Icon visibility */
+        #theme-toggle .fa-moon { display: none; }
+        #theme-toggle .fa-sun { display: inline-block; }
+        html:not(.dark) #theme-toggle .fa-moon { display: inline-block; }
+        html:not(.dark) #theme-toggle .fa-sun { display: none; }
 
     </style>
 
 </head>
-<body class="flex flex-col min-h-screen"> <!-- Removed bg-gray-50, handled by CSS var -->
-    <div class="container mx-auto px-4 max-w-6xl flex-grow">
-        <header class="mb-12 mt-8" data-aos="fade-down">
-            <div class="header-container">
-                 <a href="index.html" class="back-button"> <!-- Removed hover scale, handled in CSS -->
-                    <i class="fas fa-arrow-left"></i>
-                    Retour
-                </a>
-                <!-- Logo stays the same -->
-                <img src="assets/img/LOGO.png" alt="Université de Bejaia" class="max-w-[200px] h-auto">
-            </div>
-        </header>
+<body class="flex flex-col min-h-screen">
+    <!-- Hero Background (Synced with calculator) -->
+    <div class="hero-bg">
+        <div class="gradient-blob gradient-blob-1"></div>
+        <div class="gradient-blob gradient-blob-2"></div>
+        <!-- Using Tailwind classes for dot colors - Changed from specific colors -->
+        <div class="floating-dot w-4 h-4 bg-blue-500 top-1/4 left-1/4"></div>
+        <div class="floating-dot w-3 h-3 bg-purple-500 top-1/3 right-1/4"></div>
+        <div class="floating-dot w-2 h-2 bg-indigo-500 bottom-1/4 left-1/3"></div>
+        <div class="floating-dot w-3 h-3 bg-orange-500 top-2/3 right-1/3"></div>
+    </div>
 
+    <!-- Floating Particles (Synced with calculator) -->
+    <div class="floating-particles" id="particles"></div>
+
+    <!-- Header - Updated structure -->
+    <header data-aos="fade-down">
+        <div class="container"> <!-- Keep container for centering -->
+            <a href="index.html" class="back-button" aria-label="Retour à la page d'accueil">
+                <i class="fas fa-arrow-left"></i>
+                Retour
+            </a>
+            <h1 class="text-3xl font-bold">Bibliothèque</h1>
+            <!-- Removed logo image -->
+        </div>
+    </header>
+
+
+    <div class="container mx-auto px-4 max-w-6xl flex-grow">
         <main>
             <div class="glass-card" data-aos="fade-up">
-                <h1 class="text-3xl font-bold mb-8 text-center">Bibliothèque</h1>
 
                 <!-- Year sections -->
                 <div class="year-sections space-y-8">
@@ -399,279 +736,271 @@
                     <div class="year-section">
                         <h2 class="text-2xl font-bold mb-4">1ère année</h2>
 
-                        <!-- Campus El-Kseur -->
-                        <div class="campus-section bg-blue-100 mb-8"> <!-- Base Tailwind class for identification -->
-                            <h3 class="text-xl font-semibold mb-4 cursor-pointer" onclick="toggleCollapse('campus-elksuer-content')">
-                                Campus El-Kseur
+                        <!-- Campus El-Kseur - Removed bg-blue-100 class -->
+                        <div class="campus-section mb-8">
+                             <!-- Added icon next to heading -->
+                            <h3 class="text-xl font-semibold mb-4" onclick="toggleCollapse('campus-elksuer-content', this)">
+                                Campus El-Kseur <i class="fas fa-chevron-right"></i>
                             </h3>
-                            <button class="text-xl font-semibold bg-transparent border px-4 py-2 rounded mt-2 transition-all duration-300" onclick="toggleCollapse('campus-elksuer-content')">
+                            <!-- Removed separate button -->
+                            <!-- <button class="text-xl font-semibold bg-transparent border px-4 py-2 rounded mt-2 transition-all duration-300" onclick="toggleCollapse('campus-elksuer-content')">
                                 Voir les spécialités
-                            </button>
-                            <div id="campus-elksuer-content" class="overflow-hidden" style="max-height: 0;">
-                                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-6"> <!-- Added padding-top -->
-                                    <!-- Links remain the same -->
+                            </button> -->
+                            <div id="campus-elksuer-content" class="collapse-content"> <!-- Added collapse-content class -->
+                                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-6">
+                                    <!-- Links remain the same, icon colors handled by CSS -->
                                     <a href="specialite-science-technologie.html" class="service-card">
-                                        <div class="service-icon">
-                                            <i class="fas fa-flask text-4xl text-blue-600"></i>
-                                        </div>
+                                        <div class="service-icon"><i class="fas fa-flask"></i></div>
                                         <h3 class="text-xl font-semibold mb-2">Science et Technologie LMD</h3>
                                     </a>
                                     <a href="specialite-informatique-lmd.html" class="service-card">
-                                        <div class="service-icon">
-                                            <i class="fas fa-laptop-code text-4xl text-blue-600"></i>
-                                        </div>
+                                        <div class="service-icon"><i class="fas fa-laptop-code"></i></div>
                                         <h3 class="text-xl font-semibold mb-2">Informatique LMD</h3>
                                     </a>
                                     <a href="specialite-biologie.html" class="service-card">
-                                        <div class="service-icon">
-                                            <i class="fas fa-dna text-4xl text-blue-600"></i>
-                                        </div>
+                                        <div class="service-icon"><i class="fas fa-dna"></i></div>
                                         <h3 class="text-xl font-semibold mb-2">Biologie</h3>
                                     </a>
                                     <a href="javascript:void(0);" onclick="redirectSpecialty('mathematiques')" class="service-card">
-                                        <div class="service-icon">
-                                            <i class="fas fa-square-root-alt text-4xl text-blue-600"></i>
-                                        </div>
+                                        <div class="service-icon"><i class="fas fa-square-root-alt"></i></div>
                                         <h3 class="text-xl font-semibold mb-2">Mathématiques</h3>
                                     </a>
                                     <a href="javascript:void(0);" onclick="redirectSpecialty('science-matiere')" class="service-card">
-                                        <div class="service-icon">
-                                            <i class="fas fa-atom text-4xl text-blue-600"></i>
-                                        </div>
+                                        <div class="service-icon"><i class="fas fa-atom"></i></div>
                                         <h3 class="text-xl font-semibold mb-2">Science de la matière</h3>
                                     </a>
                                     <a href="javascript:void(0);" onclick="openModalSTIng()" class="service-card">
-                                        <div class="service-icon">
-                                            <i class="fas fa-cogs text-4xl text-blue-600"></i>
-                                        </div>
+                                        <div class="service-icon"><i class="fas fa-cogs"></i></div>
                                         <h3 class="text-xl font-semibold mb-2">Science et Technologie Ingénieur</h3>
                                     </a>
                                     <a href="javascript:void(0);" onclick="redirectSpecialty('informatique-ing')" class="service-card">
-                                        <div class="service-icon">
-                                            <i class="fas fa-desktop text-4xl text-blue-600"></i>
-                                        </div>
+                                        <div class="service-icon"><i class="fas fa-desktop"></i></div>
                                         <h3 class="text-xl font-semibold mb-2">Informatique ING</h3>
                                     </a>
                                     <a href="javascript:void(0);" onclick="redirectSpecialty('architecture')" class="service-card">
-                                        <div class="service-icon">
-                                            <i class="fas fa-building text-4xl text-blue-600"></i>
-                                        </div>
+                                        <div class="service-icon"><i class="fas fa-building"></i></div>
                                         <h3 class="text-xl font-semibold mb-2">Architecture</h3>
                                     </a>
-                                    <!-- Removed duplicate Informatique ING -->
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Campus Aboudaou -->
-                        <div class="campus-section bg-green-100 mb-8"> <!-- Base Tailwind class -->
-                             <h3 class="text-xl font-semibold mb-4 cursor-pointer" onclick="toggleCollapse('campus-aboudaou-content')">
-                                Campus Aboudaou
+                        <!-- Campus Aboudaou - Removed bg-green-100 class -->
+                        <div class="campus-section mb-8">
+                             <!-- Added icon next to heading -->
+                             <h3 class="text-xl font-semibold mb-4" onclick="toggleCollapse('campus-aboudaou-content', this)">
+                                Campus Aboudaou <i class="fas fa-chevron-right"></i>
                             </h3>
-                            <button class="text-xl font-semibold bg-transparent border px-4 py-2 rounded mt-2 transition-all duration-300" onclick="toggleCollapse('campus-aboudaou-content')">
+                            <!-- Removed separate button -->
+                            <!-- <button class="text-xl font-semibold bg-transparent border px-4 py-2 rounded mt-2 transition-all duration-300" onclick="toggleCollapse('campus-aboudaou-content')">
                                 Voir les spécialités
-                            </button>
-                            <div id="campus-aboudaou-content" class="overflow-hidden" style="max-height: 0;">
-                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-6"> <!-- Added padding-top -->
-                                    <!-- Links remain the same -->
+                            </button> -->
+                            <div id="campus-aboudaou-content" class="collapse-content"> <!-- Added collapse-content class -->
+                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-6">
+                                    <!-- Links remain the same, icon colors handled by CSS -->
                                     <a href="medcine.html" class="service-card">
-                                        <div class="service-icon"><i class="fas fa-stethoscope text-4xl text-green-600"></i></div>
+                                        <div class="service-icon"><i class="fas fa-stethoscope"></i></div>
                                         <h3 class="text-xl font-semibold mb-2">Médecine</h3>
                                     </a>
                                      <a href="javascript:void(0);" onclick="redirectSpecialty('pharmacie')" class="service-card">
-                                        <div class="service-icon"><i class="fas fa-pills text-4xl text-green-600"></i></div>
+                                        <div class="service-icon"><i class="fas fa-pills"></i></div>
                                         <h3 class="text-xl font-semibold mb-2">Pharmacie</h3>
                                     </a>
                                     <a href="javascript:void(0);" onclick="redirectSpecialty('droit')" class="service-card">
-                                        <div class="service-icon"><i class="fas fa-gavel text-4xl text-green-600"></i></div>
+                                        <div class="service-icon"><i class="fas fa-gavel"></i></div>
                                         <h3 class="text-xl font-semibold mb-2">Droit</h3>
                                     </a>
                                     <a href="Aboudaou 1er annes-1/segc.html" class="service-card">
-                                        <div class="service-icon"><i class="fas fa-balance-scale text-4xl text-green-600"></i></div>
+                                        <div class="service-icon"><i class="fas fa-balance-scale"></i></div>
                                         <h3 class="text-xl font-semibold mb-2">SEGC</h3>
                                     </a>
                                     <a href="javascript:void(0);" onclick="redirectSpecialty('langue-francaise')" class="service-card">
-                                        <div class="service-icon"><i class="fas fa-language text-4xl text-green-600"></i></div>
+                                        <div class="service-icon"><i class="fas fa-language"></i></div>
                                         <h3 class="text-xl font-semibold mb-2">Langue Française</h3>
                                     </a>
                                      <a href="javascript:void(0);" onclick="redirectSpecialty('langue-arabe')" class="service-card">
-                                        <div class="service-icon"><i class="fas fa-language text-4xl text-green-600"></i></div>
+                                        <div class="service-icon"><i class="fas fa-language"></i></div>
                                         <h3 class="text-xl font-semibold mb-2">Langue Arabe</h3>
                                     </a>
                                      <a href="javascript:void(0);" onclick="redirectSpecialty('langue-tamazight')" class="service-card">
-                                        <div class="service-icon"><i class="fas fa-language text-4xl text-green-600"></i></div>
+                                        <div class="service-icon"><i class="fas fa-language"></i></div>
                                         <h3 class="text-xl font-semibold mb-2">Langue Tamazight</h3>
                                     </a>
                                     <a href="javascript:void(0);" onclick="redirectSpecialty('langue-anglaise')" class="service-card">
-                                        <div class="service-icon"><i class="fas fa-language text-4xl text-green-600"></i></div>
+                                        <div class="service-icon"><i class="fas fa-language"></i></div>
                                         <h3 class="text-xl font-semibold mb-2">Langue Anglaise</h3>
                                     </a>
                                     <a href="javascript:void(0);" onclick="redirectSpecialty('science-sociale')" class="service-card">
-                                        <div class="service-icon"><i class="fas fa-users text-4xl text-green-600"></i></div>
+                                        <div class="service-icon"><i class="fas fa-users"></i></div>
                                         <h3 class="text-xl font-semibold mb-2">Science Sociale</h3>
                                     </a>
                                     <a href="javascript:void(0);" onclick="redirectSpecialty('traduction')" class="service-card">
-                                        <div class="service-icon"><i class="fas fa-exchange-alt text-4xl text-green-600"></i></div>
+                                        <div class="service-icon"><i class="fas fa-exchange-alt"></i></div>
                                         <h3 class="text-xl font-semibold mb-2">Traduction</h3>
                                     </a>
                                 </div>
                             </div>
                         </div>
-                        <!-- Removed Targa Ouzemour from 1ere annee as it wasn't standard -->
                     </div>
 
                     <!-- 2ème année -->
-                     <div class="year-section"> <!-- Removed bg-white, handled by CSS var -->
+                     <div class="year-section">
                         <h2 class="text-2xl font-bold mb-4">2ème année</h2>
 
-                        <!-- Campus Targa Ouzemour -->
-                        <div class="campus-section bg-blue-100 mb-8"> <!-- Use blue style like El Kseur -->
-                            <h3 class="text-xl font-semibold mb-4 cursor-pointer" onclick="toggleCollapse('collapse-2eme-targa')">
-                                Campus Targa Ouzemour
+                        <!-- Campus Targa Ouzemour - Removed bg-blue-100 class -->
+                        <div class="campus-section mb-8">
+                            <!-- Added icon next to heading -->
+                            <h3 class="text-xl font-semibold mb-4" onclick="toggleCollapse('collapse-2eme-targa', this)">
+                                Campus Targa Ouzemour <i class="fas fa-chevron-right"></i>
                             </h3>
-                             <button class="text-xl font-semibold bg-transparent border px-4 py-2 rounded mt-2 transition-all duration-300" onclick="toggleCollapse('collapse-2eme-targa')">
+                            <!-- Removed separate button -->
+                            <!-- <button class="text-xl font-semibold bg-transparent border px-4 py-2 rounded mt-2 transition-all duration-300" onclick="toggleCollapse('collapse-2eme-targa')">
                                 Voir les spécialités
-                            </button>
-                            <div id="collapse-2eme-targa" class="overflow-hidden" style="max-height: 0;">
+                            </button> -->
+                            <div id="collapse-2eme-targa" class="collapse-content"> <!-- Added collapse-content class -->
                                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-6">
-                                    <!-- Links remain the same, adjust hrefs as needed -->
+                                    <!-- Links remain the same, adjust hrefs as needed, icon colors handled by CSS -->
                                     <a href="/2eme annes Targa Ouzemour/modules-GP-semestre4.html" class="service-card">
-                                        <div class="service-icon"><i class="fas fa-industry text-4xl text-blue-600"></i></div>
+                                        <div class="service-icon"><i class="fas fa-industry"></i></div>
                                         <h3 class="text-xl font-semibold mb-2">Génie des Procédés</h3>
                                     </a>
                                     <a href="/2eme annes Targa Ouzemour/speciality.auto.html" class="service-card">
-                                        <div class="service-icon"><i class="fas fa-robot text-4xl text-blue-600"></i></div>
+                                        <div class="service-icon"><i class="fas fa-robot"></i></div>
                                         <h3 class="text-xl font-semibold mb-2">Automatique</h3>
                                     </a>
-                                    <a href="javascript:void(0);" onclick="redirectSpecialty('exploitation-mines-2')" class="service-card">
-                                        <div class="service-icon"><i class="fas fa-mountain text-4xl text-blue-600"></i></div>
+                                    <!-- Added disabled class for 'coming-soon' links -->
+                                    <a href="javascript:void(0);" onclick="redirectSpecialty('exploitation-mines-2')" class="service-card disabled">
+                                        <div class="service-icon"><i class="fas fa-mountain"></i></div>
                                         <h3 class="text-xl font-semibold mb-2">Exploitation des mines</h3>
                                     </a>
                                     <a href="/2eme annes Targa Ouzemour/modules-GC-semestre4.html" class="service-card">
-                                        <div class="service-icon"><i class="fas fa-building text-4xl text-blue-600"></i></div>
+                                        <div class="service-icon"><i class="fas fa-building"></i></div>
                                         <h3 class="text-xl font-semibold mb-2">Génie Civil</h3>
                                     </a>
-                                    <a href="javascript:void(0);" onclick="redirectSpecialty('telecom-2')" class="service-card">
-                                        <div class="service-icon"><i class="fas fa-wifi text-4xl text-blue-600"></i></div>
+                                     <!-- Added disabled class for 'coming-soon' links -->
+                                    <a href="javascript:void(0);" onclick="redirectSpecialty('telecom-2')" class="service-card disabled">
+                                        <div class="service-icon"><i class="fas fa-wifi"></i></div>
                                         <h3 class="text-xl font-semibold mb-2">Télécommunications</h3>
                                     </a>
-                                     <a href="javascript:void(0);" onclick="redirectSpecialty('valorisation-rm-2')" class="service-card">
-                                        <div class="service-icon"><i class="fas fa-gem text-4xl text-blue-600"></i></div>
+                                     <a href="javascript:void(0);" onclick="redirectSpecialty('valorisation-rm-2')" class="service-card disabled">
+                                        <div class="service-icon"><i class="fas fa-gem"></i></div>
                                         <h3 class="text-xl font-semibold mb-2">Valorisation des ressources minérales</h3>
                                     </a>
-                                    <a href="javascript:void(0);" onclick="redirectSpecialty('electronique-2')" class="service-card">
-                                        <div class="service-icon"><i class="fas fa-microchip text-4xl text-blue-600"></i></div>
+                                    <a href="javascript:void(0);" onclick="redirectSpecialty('electronique-2')" class="service-card disabled">
+                                        <div class="service-icon"><i class="fas fa-microchip"></i></div>
                                         <h3 class="text-xl font-semibold mb-2">Électronique</h3>
                                     </a>
-                                    <a href="javascript:void(0);" onclick="redirectSpecialty('genie-materiaux-2')" class="service-card">
-                                        <div class="service-icon"><i class="fas fa-cube text-4xl text-blue-600"></i></div>
+                                    <a href="javascript:void(0);" onclick="redirectSpecialty('genie-materiaux-2')" class="service-card disabled">
+                                        <div class="service-icon"><i class="fas fa-cube"></i></div>
                                         <h3 class="text-xl font-semibold mb-2">Génie des matériaux</h3>
                                     </a>
-                                     <a href="javascript:void(0);" onclick="redirectSpecialty('maintenance-ind-2')" class="service-card">
-                                        <div class="service-icon"><i class="fas fa-toolbox text-4xl text-blue-600"></i></div>
+                                     <a href="javascript:void(0);" onclick="redirectSpecialty('maintenance-ind-2')" class="service-card disabled">
+                                        <div class="service-icon"><i class="fas fa-toolbox"></i></div>
                                         <h3 class="text-xl font-semibold mb-2">Maintenance industrielle</h3>
                                     </a>
-                                     <a href="javascript:void(0);" onclick="redirectSpecialty('electromeca-2')" class="service-card">
-                                        <div class="service-icon"><i class="fas fa-cog text-4xl text-blue-600"></i></div>
+                                     <a href="javascript:void(0);" onclick="redirectSpecialty('electromeca-2')" class="service-card disabled">
+                                        <div class="service-icon"><i class="fas fa-cog"></i></div>
                                         <h3 class="text-xl font-semibold mb-2">Électromécanique</h3>
                                     </a>
-                                     <a href="javascript:void(0);" onclick="redirectSpecialty('construction-meca-2')" class="service-card">
-                                        <div class="service-icon"><i class="fas fa-wrench text-4xl text-blue-600"></i></div>
+                                     <a href="javascript:void(0);" onclick="redirectSpecialty('construction-meca-2')" class="service-card disabled">
+                                        <div class="service-icon"><i class="fas fa-wrench"></i></div>
                                         <h3 class="text-xl font-semibold mb-2">Construction mécanique</h3>
                                     </a>
-                                    <a href="javascript:void(0);" onclick="redirectSpecialty('electrotech-2')" class="service-card">
-                                        <div class="service-icon"><i class="fas fa-bolt text-4xl text-blue-600"></i></div>
+                                     <a href="javascript:void(0);" onclick="redirectSpecialty('electrotech-2')" class="service-card disabled">
+                                        <div class="service-icon"><i class="fas fa-bolt"></i></div>
                                         <h3 class="text-xl font-semibold mb-2">Électrotechnique</h3>
                                     </a>
-                                     <a href="javascript:void(0);" onclick="redirectSpecialty('energetique-2')" class="service-card">
-                                        <div class="service-icon"><i class="fas fa-fire text-4xl text-blue-600"></i></div>
+                                     <a href="javascript:void(0);" onclick="redirectSpecialty('energetique-2')" class="service-card disabled">
+                                        <div class="service-icon"><i class="fas fa-fire"></i></div>
                                         <h3 class="text-xl font-semibold mb-2">Énergétique</h3>
                                     </a>
-                                     <a href="javascript:void(0);" onclick="redirectSpecialty('chimie-2')" class="service-card">
-                                        <div class="service-icon"><i class="fas fa-flask text-4xl text-blue-600"></i></div>
+                                     <a href="javascript:void(0);" onclick="redirectSpecialty('chimie-2')" class="service-card disabled">
+                                        <div class="service-icon"><i class="fas fa-flask"></i></div>
                                         <h3 class="text-xl font-semibold mb-2">Chimie</h3>
                                     </a>
-                                     <a href="javascript:void(0);" onclick="redirectSpecialty('physique-2')" class="service-card">
-                                        <div class="service-icon"><i class="fas fa-atom text-4xl text-blue-600"></i></div>
+                                     <a href="javascript:void(0);" onclick="redirectSpecialty('physique-2')" class="service-card disabled">
+                                        <div class="service-icon"><i class="fas fa-atom"></i></div>
                                         <h3 class="text-xl font-semibold mb-2">Physique</h3>
                                     </a>
-                                     <a href="javascript:void(0);" onclick="redirectSpecialty('math-app-2')" class="service-card">
-                                        <div class="service-icon"><i class="fas fa-square-root-alt text-4xl text-blue-600"></i></div>
+                                     <a href="javascript:void(0);" onclick="redirectSpecialty('math-app-2')" class="service-card disabled">
+                                        <div class="service-icon"><i class="fas fa-square-root-alt"></i></div>
                                         <h3 class="text-xl font-semibold mb-2">Mathématiques appliquées</h3>
                                     </a>
-                                    <a href="javascript:void(0);" onclick="redirectSpecialty('informatique-2')" class="service-card">
-                                        <div class="service-icon"><i class="fas fa-laptop-code text-4xl text-blue-600"></i></div>
+                                    <a href="javascript:void(0);" onclick="redirectSpecialty('informatique-2')" class="service-card disabled">
+                                        <div class="service-icon"><i class="fas fa-laptop-code"></i></div>
                                         <h3 class="text-xl font-semibold mb-2">Informatique</h3>
                                     </a>
-                                    <a href="javascript:void(0);" onclick="redirectSpecialty('sciences-bio-2')" class="service-card">
-                                        <div class="service-icon"><i class="fas fa-dna text-4xl text-blue-600"></i></div>
+                                    <a href="javascript:void(0);" onclick="redirectSpecialty('sciences-bio-2')" class="service-card disabled">
+                                        <div class="service-icon"><i class="fas fa-dna"></i></div>
                                         <h3 class="text-xl font-semibold mb-2">Sciences biologiques</h3>
                                     </a>
-                                     <a href="javascript:void(0);" onclick="redirectSpecialty('ecologie-env-2')" class="service-card">
-                                        <div class="service-icon"><i class="fas fa-leaf text-4xl text-blue-600"></i></div>
+                                     <a href="javascript:void(0);" onclick="redirectSpecialty('ecologie-env-2')" class="service-card disabled">
+                                        <div class="service-icon"><i class="fas fa-leaf"></i></div>
                                         <h3 class="text-xl font-semibold mb-2">Ecologie et environnement</h3>
                                     </a>
-                                    <a href="javascript:void(0);" onclick="redirectSpecialty('sciences-alim-2')" class="service-card">
-                                        <div class="service-icon"><i class="fas fa-apple-alt text-4xl text-blue-600"></i></div>
+                                    <a href="javascript:void(0);" onclick="redirectSpecialty('sciences-alim-2')" class="service-card disabled">
+                                        <div class="service-icon"><i class="fas fa-apple-alt"></i></div>
                                         <h3 class="text-xl font-semibold mb-2">Sciences alimentaires</h3>
                                     </a>
-                                    <a href="javascript:void(0);" onclick="redirectSpecialty('biotech-2')" class="service-card">
-                                        <div class="service-icon"><i class="fas fa-dna text-4xl text-blue-600"></i></div>
+                                    <a href="javascript:void(0);" onclick="redirectSpecialty('biotech-2')" class="service-card disabled">
+                                        <div class="service-icon"><i class="fas fa-dna"></i></div>
                                         <h3 class="text-xl font-semibold mb-2">Biotechnologies</h3>
                                     </a>
-                                     <a href="javascript:void(0);" onclick="redirectSpecialty('hydrobio-2')" class="service-card">
-                                        <div class="service-icon"><i class="fas fa-water text-4xl text-blue-600"></i></div>
+                                     <a href="javascript:void(0);" onclick="redirectSpecialty('hydrobio-2')" class="service-card disabled">
+                                        <div class="service-icon"><i class="fas fa-water"></i></div>
                                         <h3 class="text-xl font-semibold mb-2">Hydrobiologie marine et continentale</h3>
                                     </a>
-                                    <!-- Added missing L2 specialties based on comments -->
-                                     <a href="javascript:void(0);" onclick="redirectSpecialty('chimie-fond-2')" class="service-card">
-                                        <div class="service-icon"><i class="fas fa-flask text-4xl text-blue-600"></i></div>
+                                     <!-- Added disabled class for 'coming-soon' links -->
+                                     <a href="javascript:void(0);" onclick="redirectSpecialty('chimie-fond-2')" class="service-card disabled">
+                                        <div class="service-icon"><i class="fas fa-flask"></i></div>
                                         <h3 class="text-xl font-semibold mb-2">Chimie fondamentale</h3>
                                     </a>
-                                     <a href="javascript:void(0);" onclick="redirectSpecialty('physique-fond-2')" class="service-card">
-                                        <div class="service-icon"><i class="fas fa-atom text-4xl text-blue-600"></i></div>
+                                     <a href="javascript:void(0);" onclick="redirectSpecialty('physique-fond-2')" class="service-card disabled">
+                                        <div class="service-icon"><i class="fas fa-atom"></i></div>
                                         <h3 class="text-xl font-semibold mb-2">Physique fondamentale</h3>
                                     </a>
-                                     <a href="javascript:void(0);" onclick="redirectSpecialty('math-stats-2')" class="service-card">
-                                        <div class="service-icon"><i class="fas fa-chart-pie text-4xl text-blue-600"></i></div>
+                                     <a href="javascript:void(0);" onclick="redirectSpecialty('math-stats-2')" class="service-card disabled">
+                                        <div class="service-icon"><i class="fas fa-chart-pie"></i></div>
                                         <h3 class="text-xl font-semibold mb-2">Mathématiques Statistiques et traitement informatique des données</h3>
                                     </a>
-                                    <a href="javascript:void(0);" onclick="redirectSpecialty('systemes-info-2')" class="service-card">
-                                         <div class="service-icon"><i class="fas fa-network-wired text-4xl text-blue-600"></i></div>
+                                    <a href="javascript:void(0);" onclick="redirectSpecialty('systemes-info-2')" class="service-card disabled">
+                                         <div class="service-icon"><i class="fas fa-network-wired"></i></div>
                                          <h3 class="text-xl font-semibold mb-2">Systèmes informatiques</h3>
                                      </a>
-                                     <a href="javascript:void(0);" onclick="redirectSpecialty('biochimie-2')" class="service-card">
-                                         <div class="service-icon"><i class="fas fa-vial text-4xl text-blue-600"></i></div>
+                                     <a href="javascript:void(0);" onclick="redirectSpecialty('biochimie-2')" class="service-card disabled">
+                                         <div class="service-icon"><i class="fas fa-vial"></i></div>
                                          <h3 class="text-xl font-semibold mb-2">Biochimie</h3>
                                      </a>
-                                     <a href="javascript:void(0);" onclick="redirectSpecialty('microbio-2')" class="service-card">
-                                         <div class="service-icon"><i class="fas fa-bacteria text-4xl text-blue-600"></i></div>
+                                     <a href="javascript:void(0);" onclick="redirectSpecialty('microbio-2')" class="service-card disabled">
+                                         <div class="service-icon"><i class="fas fa-bacteria"></i></div>
                                          <h3 class="text-xl font-semibold mb-2">Microbiologie</h3>
                                      </a>
-                                     <a href="javascript:void(0);" onclick="redirectSpecialty('bio-physio-anim-2')" class="service-card">
-                                         <div class="service-icon"><i class="fas fa-paw text-4xl text-blue-600"></i></div>
+                                     <a href="javascript:void(0);" onclick="redirectSpecialty('bio-physio-anim-2')" class="service-card disabled">
+                                         <div class="service-icon"><i class="fas fa-paw"></i></div>
                                          <h3 class="text-xl font-semibold mb-2">Biologie et physiologie animale</h3>
                                      </a>
-                                     <a href="javascript:void(0);" onclick="redirectSpecialty('bio-physio-veg-2')" class="service-card">
-                                         <div class="service-icon"><i class="fas fa-seedling text-4xl text-blue-600"></i></div>
+                                     <a href="javascript:void(0);" onclick="redirectSpecialty('bio-physio-veg-2')" class="service-card disabled">
+                                         <div class="service-icon"><i class="fas fa-seedling"></i></div>
                                          <h3 class="text-xl font-semibold mb-2">Biologie et physiologie végétale</h3>
                                      </a>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Campus Aboudaou (2ème Année) -->
-                        <div class="campus-section bg-green-100 mb-8">
-                            <h3 class="text-xl font-semibold mb-4 cursor-pointer" onclick="toggleCollapse('collapse-2eme-aboudaou')">
-                                Campus Aboudaou
+                        <!-- Campus Aboudaou (2ème Année) - Removed bg-green-100 class -->
+                        <div class="campus-section mb-8">
+                             <!-- Added icon next to heading -->
+                            <h3 class="text-xl font-semibold mb-4" onclick="toggleCollapse('collapse-2eme-aboudaou', this)">
+                                Campus Aboudaou <i class="fas fa-chevron-right"></i>
                             </h3>
-                             <button class="text-xl font-semibold bg-transparent border px-4 py-2 rounded mt-2 transition-all duration-300" onclick="toggleCollapse('collapse-2eme-aboudaou')">
+                            <!-- Removed separate button -->
+                            <!-- <button class="text-xl font-semibold bg-transparent border px-4 py-2 rounded mt-2 transition-all duration-300" onclick="toggleCollapse('collapse-2eme-aboudaou')">
                                 Voir les spécialités
-                            </button>
-                            <div id="collapse-2eme-aboudaou" class="overflow-hidden" style="max-height: 0;">
+                            </button> -->
+                            <div id="collapse-2eme-aboudaou" class="collapse-content"> <!-- Added collapse-content class -->
                                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-6">
                                     <!-- Add 2nd year Aboudaou specialties here if any -->
-                                     <p class="text-center col-span-full text-lg font-medium py-4">Aucune spécialité listée pour le moment.</p>
+                                     <p class="text-center col-span-full text-lg font-medium py-4 text-muted-foreground">Aucune spécialité listée pour le moment.</p>
                                 </div>
                             </div>
                         </div>
@@ -679,45 +1008,41 @@
 
 
                     <!-- 3ème année -->
-                     <div class="year-section"> <!-- Removed bg-white -->
+                     <div class="year-section">
                          <h2 class="text-2xl font-bold mb-4">3ème année</h2>
 
-                        <!-- Campus Targa Ouzemour (3ème Année) -->
-                        <div class="campus-section bg-blue-100 mb-8">
-                            <h3 class="text-xl font-semibold mb-4 cursor-pointer" onclick="toggleCollapse('collapse-3eme-targa')">
-                                Campus Targa Ouzemour
+                        <!-- Campus Targa Ouzemour (3ème Année) - Removed bg-blue-100 class -->
+                        <div class="campus-section mb-8">
+                            <!-- Added icon next to heading -->
+                            <h3 class="text-xl font-semibold mb-4" onclick="toggleCollapse('collapse-3eme-targa', this)">
+                                Campus Targa Ouzemour <i class="fas fa-chevron-right"></i>
                             </h3>
-                            <button class="text-xl font-semibold bg-transparent border px-4 py-2 rounded mt-2 transition-all duration-300" onclick="toggleCollapse('collapse-3eme-targa')">
+                            <!-- Removed separate button -->
+                            <!-- <button class="text-xl font-semibold bg-transparent border px-4 py-2 rounded mt-2 transition-all duration-300" onclick="toggleCollapse('collapse-3eme-targa')">
                                 Voir les spécialités
-                            </button>
-                            <div id="collapse-3eme-targa" class="overflow-hidden" style="max-height: 0;">
+                            </button> -->
+                            <div id="collapse-3eme-targa" class="collapse-content"> <!-- Added collapse-content class -->
                                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-6">
                                      <!-- Add 3rd year Targa Ouzemour specialties -->
-                                     <p class="text-center col-span-full text-lg font-medium py-4">Spécialités de 3ème année à venir.</p>
-                                     <!-- Example structure (replace with actual data) -->
-                                     <!--
-                                     <a href="javascript:void(0);" onclick="redirectSpecialty('genie-procedes-3')" class="service-card">
-                                         <div class="service-icon"><i class="fas fa-industry text-4xl text-blue-600"></i></div>
-                                         <h3 class="text-xl font-semibold mb-2">Génie des Procédés (L3)</h3>
-                                     </a>
-                                     ... other L3 specialties ...
-                                     -->
+                                     <p class="text-center col-span-full text-lg font-medium py-4 text-muted-foreground">Spécialités de 3ème année à venir.</p>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Campus Aboudaou (3ème Année) -->
-                        <div class="campus-section bg-green-100 mb-8">
-                            <h3 class="text-xl font-semibold mb-4 cursor-pointer" onclick="toggleCollapse('collapse-3eme-aboudaou')">
-                                Campus Aboudaou
+                        <!-- Campus Aboudaou (3ème Année) - Removed bg-green-100 class -->
+                        <div class="campus-section mb-8">
+                            <!-- Added icon next to heading -->
+                            <h3 class="text-xl font-semibold mb-4" onclick="toggleCollapse('collapse-3eme-aboudaou', this)">
+                                Campus Aboudaou <i class="fas fa-chevron-right"></i>
                             </h3>
-                             <button class="text-xl font-semibold bg-transparent border px-4 py-2 rounded mt-2 transition-all duration-300" onclick="toggleCollapse('collapse-3eme-aboudaou')">
+                            <!-- Removed separate button -->
+                            <!-- <button class="text-xl font-semibold bg-transparent border px-4 py-2 rounded mt-2 transition-all duration-300" onclick="toggleCollapse('collapse-3eme-aboudaou')">
                                 Voir les spécialités
-                            </button>
-                            <div id="collapse-3eme-aboudaou" class="overflow-hidden" style="max-height: 0;">
+                            </button> -->
+                            <div id="collapse-3eme-aboudaou" class="collapse-content"> <!-- Added collapse-content class -->
                                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-6">
                                      <!-- Add 3rd year Aboudaou specialties -->
-                                     <p class="text-center col-span-full text-lg font-medium py-4">Aucune spécialité listée pour le moment.</p>
+                                     <p class="text-center col-span-full text-lg font-medium py-4 text-muted-foreground">Aucune spécialité listée pour le moment.</p>
                                 </div>
                             </div>
                         </div>
@@ -728,7 +1053,9 @@
                     <div class="year-section">
                         <h2 class="text-2xl font-bold mb-4">4ème année (Master 1)</h2>
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                            <div class="service-card bg-gray-200 p-6 rounded-lg text-center">
+                            <!-- Added disabled class -->
+                            <div class="service-card disabled p-6 rounded-lg text-center">
+                                <div class="service-icon"><i class="fas fa-hourglass-half"></i></div> <!-- Generic icon for coming soon -->
                                 <h3 class="text-xl font-semibold mb-2">Bientôt disponible</h3>
                             </div>
                         </div>
@@ -738,7 +1065,9 @@
                     <div class="year-section">
                          <h2 class="text-2xl font-bold mb-4">5ème année (Master 2)</h2>
                          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                             <div class="service-card bg-gray-200 p-6 rounded-lg text-center">
+                             <!-- Added disabled class -->
+                             <div class="service-card disabled p-6 rounded-lg text-center">
+                                 <div class="service-icon"><i class="fas fa-hourglass-half"></i></div> <!-- Generic icon for coming soon -->
                                 <h3 class="text-xl font-semibold mb-2">Bientôt disponible</h3>
                              </div>
                          </div>
@@ -750,6 +1079,7 @@
         <!-- Modal for semester selection (Science et Technologie Ingénieur) -->
         <div id="semesterModalSTIng" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50">
             <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full mx-4"> <!-- Added max-w and w-full -->
+                <button class="modal-close" onclick="closeModalSTIng()" aria-label="Fermer">×</button> <!-- Added close button -->
                 <h2 class="text-xl font-bold mb-4 text-center">Choisir le semestre (ST Ingénieur)</h2>
                 <div class="flex flex-col space-y-4">
                     <button onclick="redirectToSemester('science-technologie-ingenieur', 1)" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700 transition duration-300">Semestre 1</button>
@@ -760,11 +1090,12 @@
         </div>
     </div> <!-- End container -->
 
-    <footer class="text-center text-sm py-4 mt-auto"> <!-- Removed bg-gray-900, text-white, mt-8 -->
+    <!-- Footer -->
+    <footer>
         <div class="container mx-auto">
             <p>© 2025 Université de Bejaia • Développé par Amara Mehdi • Tous les droits réservés</p>
             <p>
-                <a href="mailto:mehdi.amara@univ-bejaia.dz" class="transition-colors duration-300"> <!-- Removed text-blue-400 hover:text-blue-600 -->
+                <a href="mailto:mehdi.amara@univ-bejaia.dz">
                     Contact
                 </a>
             </p>
@@ -772,26 +1103,26 @@
     </footer>
 
     <!-- Theme Toggle Button -->
-    <button id="theme-toggle" class="fixed bottom-20 right-4 z-50 p-3 rounded-full shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300">
+    <button id="theme-toggle" class="fixed bottom-20 right-4 z-50 p-3 rounded-full shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
         <i class="fas fa-moon text-xl"></i>
         <i class="fas fa-sun text-xl hidden"></i>
     </button>
 
     <!-- Mobile Navigation Bar -->
-    <nav id="mobile-nav" class="fixed bottom-0 left-0 right-0 backdrop-filter backdrop-blur-lg shadow-lg py-3 px-2 flex justify-around items-center z-30 md:hidden bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
-        <a href="index.html" class="mobile-nav-item text-gray-600 dark:text-gray-300">
+    <nav id="mobile-nav" class="fixed bottom-0 left-0 right-0 backdrop-filter backdrop-blur-lg shadow-lg py-3 px-2 flex justify-around items-center z-30 md:hidden">
+        <a href="index.html" class="mobile-nav-item">
             <div class="icon-container"><i class="fas fa-home"></i></div>
             <span>Accueil</span>
         </a>
-        <a href="bib.html" class="mobile-nav-item active-nav-item text-blue-600 dark:text-blue-400">
+        <a href="bib.html" class="mobile-nav-item active-nav-item">
             <div class="icon-container"><i class="fas fa-book-open"></i></div>
             <span>Cours</span>
         </a>
-        <a href="calculator.html" class="mobile-nav-item text-gray-600 dark:text-gray-300">
+        <a href="calculator.html" class="mobile-nav-item">
             <div class="icon-container"><i class="fas fa-calculator"></i></div>
             <span>Moyenne</span>
         </a>
-        <a href="#" onclick="checkProfileAccess(event)" class="mobile-nav-item text-gray-600 dark:text-gray-300">
+        <a href="#" onclick="checkProfileAccess(event)" class="mobile-nav-item">
             <div class="icon-container"><i class="fas fa-user"></i></div>
             <span>Profil</span>
         </a>
@@ -799,7 +1130,7 @@
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // --- Theme Switcher Logic ---
+        // --- Theme Switcher Logic (Synced with calculator) ---
         const themeToggleBtn = document.getElementById('theme-toggle');
         const htmlElement = document.documentElement;
 
@@ -822,9 +1153,68 @@
             const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
             applyTheme(newTheme);
             localStorage.setItem('theme', newTheme);
+             // Re-create particles on theme change for instant color update
+             setTimeout(createParticles, 100);
         });
 
-        // --- Redirection Functions ---
+        // --- Particle Creation Function (Synced with calculator) ---
+         function createParticles() {
+             const particlesContainer = document.getElementById('particles');
+             // Use HSL colors based on theme variables for particles
+             // Removed green from particle colors
+             const lightColors = ['hsl(var(--primary))', 'hsl(var(--ring))', 'hsl(var(--accent))', 'hsl(var(--warning))', 'hsl(var(--muted-foreground))'];
+             const darkColors = ['hsl(var(--primary))', 'hsl(var(--ring))', 'hsl(var(--accent))', 'hsl(var(--warning)))', 'hsl(var(--muted-foreground))'];
+
+             // Function to get colors based on current theme
+             function getThemeColors() {
+                 return document.body.classList.contains('dark') ? darkColors : lightColors;
+             }
+
+             // Clear existing particles before adding new ones
+             particlesContainer.innerHTML = '';
+
+             const colors = getThemeColors();
+
+             for (let i = 0; i < 30; i++) {
+                 const particle = document.createElement('div');
+                 particle.className = 'particle';
+
+                 // Random position
+                 const x = Math.random() * 100;
+                 const y = Math.random() * 100;
+
+                 // Random size
+                 const size = Math.random() * 5 + 2;
+
+                 // Random color
+                 const color = colors[Math.floor(Math.random() * colors.length)];
+
+                 // Random movement
+                 const moveX = (Math.random() - 0.5) * 50;
+                 const moveY = (Math.random() - 0.5) * 50;
+
+                 // Set styles
+                 particle.style.cssText = `
+                     left: ${x}%;
+                     top: ${y}%;
+                     width: ${size}px;
+                     height: ${size}px;
+                     background-color: ${color};
+                     --x: ${moveX}px;
+                     --y: ${moveY}px;
+                     animation-delay: ${Math.random() * 5}s;
+                     /* Add animation duration variation */
+                     animation-duration: ${10 + Math.random() * 10}s;
+                     /* Add different animation names for variety */
+                     animation-name: float, pulse${Math.floor(Math.random() * 3)}; /* Use pulse variations */
+                 `;
+
+                 particlesContainer.appendChild(particle);
+             }
+         }
+
+
+        // --- Redirection Functions (Kept) ---
         function redirectSpecialty(specialty) {
             // Add specific redirects or default to coming soon
             const pages = {
@@ -833,21 +1223,66 @@
                 'informatique-lmd': 'specialite-informatique-lmd.html',
                 'segc': 'Aboudaou 1er annes-1/segc.html',
                 'medcine': 'medcine.html',
-                'informatique-ing': 'modules-informatique-ing-semestre2.html',
+                'informatique-ing': 'modules-informatique-ing-semestre2.html', // Assuming this is the correct page for ING
                 'genie-procedes-2': '/2eme annes Targa Ouzemour/modules-GP-semestre4.html',
                 'automatique-2': '/2eme annes Targa Ouzemour/speciality.auto.html',
-                'genie-civil-2': '/2eme annes Targa Ouzemour/modules-GC-semestre4.html'
+                'genie-civil-2': '/2eme annes Targa Ouzemour/modules-GC-semestre4.html',
+                // Add redirects for other 2nd and 3rd year specialties if pages exist
+                 'exploitation-mines-2': 'coming-soon.html',
+                 'telecom-2': 'coming-soon.html',
+                 'valorisation-rm-2': 'coming-soon.html',
+                 'electronique-2': 'coming-soon.html',
+                 'genie-materiaux-2': 'coming-soon.html',
+                 'maintenance-ind-2': 'coming-soon.html',
+                 'electromeca-2': 'coming-soon.html',
+                 'construction-meca-2': 'coming-soon.html',
+                 'electrotech-2': 'coming-soon.html',
+                 'energetique-2': 'coming-soon.html',
+                 'chimie-2': 'coming-soon.html',
+                 'physique-2': 'coming-soon.html',
+                 'math-app-2': 'coming-soon.html',
+                 'informatique-2': 'coming-soon.html',
+                 'sciences-bio-2': 'coming-soon.html',
+                 'ecologie-env-2': 'coming-soon.html',
+                 'sciences-alim-2': 'coming-soon.html',
+                 'biotech-2': 'coming-soon.html',
+                 'hydrobio-2': 'coming-soon.html',
+                 'chimie-fond-2': 'coming-soon.html',
+                 'physique-fond-2': 'coming-soon.html',
+                 'math-stats-2': 'coming-soon.html',
+                 'systemes-info-2': 'coming-soon.html',
+                 'biochimie-2': 'coming-soon.html',
+                 'microbio-2': 'coming-soon.html',
+                 'bio-physio-anim-2': 'coming-soon.html',
+                 'bio-physio-veg-2': 'coming-soon.html',
+
+                 // Aboudaou 1st year
+                 'pharmacie': 'coming-soon.html',
+                 'droit': 'coming-soon.html',
+                 'langue-francaise': 'coming-soon.html',
+                 'langue-arabe': 'coming-soon.html',
+                 'langue-tamazight': 'coming-soon.html',
+                 'langue-anglaise': 'coming-soon.html',
+                 'science-sociale': 'coming-soon.html',
+                 'traduction': 'coming-soon.html'
             };
 
             if (pages[specialty]) {
+                 // Prevent navigation for disabled cards (handled by CSS, but double-check here)
+                 const clickedElement = event.target.closest('.service-card');
+                 if (clickedElement && clickedElement.classList.contains('disabled')) {
+                     // Optionally show a "Coming Soon" message
+                     // alert("Cette section est bientôt disponible !");
+                     return; // Do nothing
+                 }
                 window.location.href = pages[specialty];
             } else {
-                // Show coming soon modal or redirect to coming soon page
+                // Default redirect for unspecified specialties
                 window.location.href = 'coming-soon.html';
             }
         }
 
-        // --- Modal Functions ---
+        // --- Modal Functions (Kept) ---
         function openModalSTIng() {
             const modal = document.getElementById('semesterModalSTIng');
             if (modal) {
@@ -863,24 +1298,39 @@
         }
 
         function redirectToSemester(specialty, semester) {
+            // Adjust path based on your file structure if needed
             window.location.href = `modules-${specialty}-semestre${semester}.html`;
         }
 
-        // --- Collapse Functions ---
-        function toggleCollapse(id) {
+        // --- Collapse Functions (Improved) ---
+        function toggleCollapse(id, headingElement) {
             const content = document.getElementById(id);
-            if (!content) return;
+            if (!content || !headingElement) return;
 
-            if (!content.style.maxHeight || content.style.maxHeight === "0px") {
-                requestAnimationFrame(() => {
-                    content.style.maxHeight = content.scrollHeight + "px";
-                });
-            } else {
+            // Toggle the collapsed class on the heading
+            headingElement.classList.toggle('collapsed');
+
+            // Get the current state
+            const isCollapsed = headingElement.classList.contains('collapsed');
+
+            if (isCollapsed) {
+                // Close state
+                content.style.maxHeight = content.scrollHeight + "px";
+                // Force reflow
+                content.offsetHeight;
                 content.style.maxHeight = "0";
+            } else {
+                // Open state
+                content.style.maxHeight = content.scrollHeight + "px";
+                // Use transitionend to remove max-height after animation
+                content.addEventListener('transitionend', function handler() {
+                    content.style.maxHeight = 'none';
+                    content.removeEventListener('transitionend', handler);
+                }, { once: true });
             }
         }
 
-        // --- Mobile Navigation Functions ---
+        // --- Mobile Navigation Functions (Kept) ---
         function checkProfileAccess(event) {
             event.preventDefault();
             const userData = localStorage.getItem('userData');
@@ -905,6 +1355,7 @@
                 }
             });
 
+            // Explicitly set active class for bib.html
             if (currentPath === 'bib.html') {
                 document.querySelector('.mobile-nav-item[href="bib.html"]')?.classList.add('active-nav-item');
             }
@@ -916,15 +1367,40 @@
             }
         }
 
-        // Initialize on page load
+
+        // --- Initialize on page load (Synced with calculator) ---
         document.addEventListener('DOMContentLoaded', () => {
-            setActiveMobileNavItem();
+            setActiveMobileNavItem(); // Initialize mobile nav active state
             // Initialize AOS
             AOS.init({
                 duration: 800,
                 once: true
             });
+
+            // --- Apply saved theme on load ---
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            applyTheme(savedTheme);
+
+            // --- Initialize particles after theme is set ---
+            createParticles();
+
+             // Initialize collapse sections to closed state visually
+             document.querySelectorAll('.collapse-content').forEach(content => {
+                  content.style.maxHeight = '0'; // Ensure they start closed
+                  // Add collapsed class to headings initially
+                  const heading = content.previousElementSibling; // Assuming the heading is the direct previous sibling
+                   if (heading && heading.tagName === 'H3') {
+                       heading.classList.add('collapsed');
+                   }
+             });
         });
+
+         // Re-create particles on theme change for instant color update
+          document.querySelector('#theme-toggle').addEventListener('click', () => {
+             // Small delay to allow theme class to apply before creating particles
+             setTimeout(createParticles, 100);
+          });
+
     </script>
     <!-- Keep library-features.js if it contains relevant functionality -->
     <!-- <script type="module" src="js/library-features.js"></script> -->
