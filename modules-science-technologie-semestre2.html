@@ -1048,6 +1048,19 @@
         </div>
     </div>
 
+    <!-- Added popup for Interrogation -->
+     <div id="popup-interrogation" class="hidden" aria-hidden="true">
+        <div class="glass-card popup-modal-content">
+             <div class="popup-container">
+                <div class="popup-header">
+                    <h2 id="popup-title-interrogation"></h2>
+                    <button class="modal-close" aria-label="Fermer la fenêtre">×</button>
+                </div>
+                <div id="popup-content-interrogation" class="popup-body popup-content"></div>
+            </div>
+        </div>
+    </div>
+
 
     <footer class="text-center text-sm py-4">
         <div>&copy; 2025 Université de Bejaia. Développé par <a href="mailto:mehdi.amara@tech.univ-bejaia.dz">Amara Mehdi</a>. Tous les droits réservés.</div>
@@ -1174,6 +1187,30 @@
                 ],
                 'examen': [
                     { title: 'Examens', url: 'https://drive.google.com/file/d/1yoE52_yvsvrM5XcNvD0Zebm5hbiJbcq6/view?usp=drive_link' }
+                ],
+                'interrogation': [
+                    {
+                        exclusive: true,
+                        files: [
+                            { title: 'Interrogation 1 – Sujet + Corrigé', url: 'https://drive.google.com/file/d/1tNAwzUKgRBNmI2CEpbhhOFmGiHVYD_LZ/view?usp=drivesdk' },
+                            { title: 'Interrogation 2 – Sujet + Corrigé', url: 'https://drive.google.com/file/d/1CEkLUgvLah3s9ty20_3mCL4rRUppbwIg/view?usp=drivesdk' }
+                        ]
+                    },
+                    {
+                        title: 'Interrogation 1 - 2023/2024',
+                        files: [
+                            { title: 'Sujet 1 + Corrigé', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=398082' },
+                            { title: 'Sujet 2 + Corrigé', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=398083' },
+                            { title: 'Sujet 3 + Corrigé', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=398084' }
+                        ]
+                    },
+                    {
+                        title: 'Interrogation 2 - 2023/2024',
+                        files: [
+                            { title: 'Sujet 1 + Corrigé', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=401456' },
+                            { title: 'Sujet 2 + Corrigé', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=401457' }
+                        ]
+                    }
                 ]
             },
             'Physique 2': {
@@ -1431,10 +1468,7 @@
             modulesToDisplay.forEach(moduleInfo => {
                 const moduleName = moduleInfo.name;
                 const card = document.createElement('div');
-                // Added role="button" and aria-haspopup/aria-expanded for accessibility if the whole card were clickable
-                // Keeping the button structure for clarity, adding tabindex to buttons instead
-                card.className = 'module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105'; // Added base classes
-                 // card.setAttribute('tabindex', '0'); // Make card focusable for outline - removed as buttons are focusable
+                card.className = 'module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105';
 
 
                  // Determine if there's ANY content for this module across ANY type (Bejaia or Blida)
@@ -1467,7 +1501,10 @@
                  buttons.forEach(button => {
                      const type = button.dataset.contentType; // Get type from data attribute
                      const icon = getIconByType(type);
-                     button.innerHTML = `<i class="fas ${icon} mr-1"></i> ${button.textContent.trim()}`;
+                     // Add icons only if they weren't already in the text
+                     if (!button.querySelector('i')) {
+                          button.innerHTML = `<i class="fas ${icon} mr-1"></i> ${button.textContent.trim()}`;
+                     }
 
                      // Add event listener instead of onclick attribute
                      button.addEventListener('click', function() {
@@ -1488,15 +1525,14 @@
 
         function getBejaiaContentHtml(module, type) {
             const contentArray = moduleContentData[module]?.[type];
-            if (!contentArray || contentArray.length === 0) return null; // Return null if no content
+            if (!contentArray || contentArray.length === 0) return null;
 
 
-            let html = '<div class="content-grid grid grid-cols-1 md:grid-cols-2 gap-4">';
-            let contentAdded = false; // Flag to track if any content was added
+            let contentHtml = ''; // Use a string to build the content
 
             contentArray.forEach(item => {
-                if (item.exclusive && item.files) {
-                    html += `
+                if (item.exclusive && Array.isArray(item.files)) { // Check for exclusive property and files array
+                    contentHtml += `
                         <div class="col-span-full exclusive-2025 bejaia-exclusive mb-6">
                             <h4 class="text-xl font-bold mb-3 flex items-center">
                                 <span>2025</span>
@@ -1520,9 +1556,8 @@
                             </div>
                         </div>
                     `;
-                    contentAdded = true;
-                } else if (item.recommended && item.files) {
-                     html += `
+                } else if (item.recommended && Array.isArray(item.files)) { // Check for recommended property and files array
+                     contentHtml += `
                          <div class="col-span-full recommended-content mb-6">
                              <h4 class="text-xl font-bold mb-3 flex items-center">
                                  <span><i class="fas fa-thumbs-up"></i></span>
@@ -1546,11 +1581,10 @@
                              </div>
                          </div>
                      `;
-                     contentAdded = true;
                 } else if (typeof item.url === 'string' && typeof item.title === 'string') {
                     // Regular content item (check for required properties)
                     const icon = getIconByType(type); // Use the correct icon for the type
-                    html += `
+                    contentHtml += `
                         <div class="content-item p-4 rounded-lg shadow hover:shadow-md">
                             <a href="${item.url}"
                                class="flex items-center justify-between w-full"
@@ -1568,15 +1602,20 @@
                              </a>
                          </div>
                     `;
-                    contentAdded = true;
                 } else {
                     console.warn("Unexpected item structure in Bejaia data for module", module, "type", type, ":", item);
                 }
             });
 
-            html += '</div>'; // Close content-grid
+            // Wrap content items in a grid if there are any regular items
+            // This might need adjustment based on desired layout - originally it seemed all links were in a grid
+            // Let's wrap *all* generated content HTML in the grid container
+            if (contentHtml) {
+                return '<div class="content-grid grid grid-cols-1 md:grid-cols-2 gap-4">' + contentHtml + '</div>';
+            }
 
-            return contentAdded ? html : null; // Return html only if something was added
+
+            return null; // Return null if no valid content was generated
         }
 
         function getBlidaContentHtml(module, type) { // Renamed function for clarity
@@ -1584,13 +1623,13 @@
             const contentArray = moduleContentData['_blida_data']?.[module]?.[type];
             if (!contentArray || contentArray.length === 0) return null;
 
-             let html = '<div class="content-grid grid grid-cols-1 md:grid-cols-2 gap-4">';
+             let contentHtml = '';
              let contentAdded = false; // Flag to track if any content was added
 
 
             contentArray.forEach(item => {
-                 if (item.exclusive && item.files) { // Check for exclusive property and files array
-                      html += `
+                 if (item.exclusive && Array.isArray(item.files)) { // Check for exclusive property and files array
+                      contentHtml += `
                           <div class="col-span-full exclusive-2025 blida-exclusive mb-6">
                               <h4 class="text-xl font-bold mb-3 flex items-center">
                                   <span><i class="fas fa-star"></i></span>
@@ -1618,7 +1657,7 @@
                  } else if (typeof item.url === 'string' && typeof item.title === 'string') {
                     // Regular content item (check for required properties)
                     const icon = getIconByType(type); // Use the correct icon for the type
-                    html += `
+                    contentHtml += `
                         <div class="content-item p-4 rounded-lg shadow hover:shadow-md">
                             <a href="${item.url}"
                                class="flex items-center justify-between w-full"
@@ -1642,9 +1681,13 @@
                 }
             });
 
-            html += '</div>'; // Close content-grid
+             // Wrap content items in a grid if there are any regular items
+             if (contentHtml) {
+                return '<div class="content-grid grid grid-cols-1 md:grid-cols-2 gap-4">' + contentHtml + '</div>';
+             }
 
-             return contentAdded ? html : null; // Return html only if something was added
+
+            return null; // Return null if no valid content was generated
         }
 
 
