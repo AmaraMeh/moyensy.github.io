@@ -328,6 +328,7 @@
             align-items: center;
             justify-content: center;
             z-index: 50;
+            padding: 1rem;
         }
 
         .popup.active {
@@ -339,12 +340,13 @@
             border: 1px solid hsl(var(--border));
             border-radius: var(--radius);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            max-width: 90%;
-            width: 800px;
+            width: 100%;
+            max-width: 800px;
             max-height: 90vh;
             overflow-y: auto;
             transform: scale(0.95);
             transition: transform 0.3s ease;
+            position: relative;
         }
 
         .popup.active .popup-content {
@@ -357,6 +359,19 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+            position: sticky;
+            top: 0;
+            background: hsl(var(--card));
+            z-index: 1;
+        }
+
+        .popup-header h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--ring)));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
 
         .popup-body {
@@ -380,6 +395,188 @@
         .close-popup-btn:hover {
             background: hsl(var(--error) / 0.9);
             transform: translateY(-2px);
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .university-section {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(139, 92, 246, 0.05));
+            border-radius: var(--radius);
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+        }
+
+        .section-header {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(59, 130, 246, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
+        }
+
+        .section-header h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6, #ec4899);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .content-item {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(139, 92, 246, 0.05));
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            border-radius: var(--radius);
+            padding: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .content-item:hover {
+            transform: translateY(-2px);
+            border-color: rgba(59, 130, 246, 0.2);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
+        }
+
+        .content-item a {
+            color: hsl(var(--foreground));
+            text-decoration: none;
+        }
+
+        .content-item .icon-wrapper {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(139, 92, 246, 0.2));
+            color: #3b82f6;
+        }
+
+        .content-item .download-btn {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(139, 92, 246, 0.2));
+            color: #3b82f6;
+        }
+
+        .content-item .download-btn:hover {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.3), rgba(139, 92, 246, 0.3));
+        }
+
+        .dark .university-section {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.02), rgba(139, 92, 246, 0.02));
+            border-color: rgba(59, 130, 246, 0.05);
+        }
+
+        .dark .section-header {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(139, 92, 246, 0.05));
+            border-bottom-color: rgba(59, 130, 246, 0.1);
+        }
+
+        .dark .content-item {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.02), rgba(139, 92, 246, 0.02));
+            border-color: rgba(59, 130, 246, 0.05);
+        }
+
+        .dark .content-item:hover {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(139, 92, 246, 0.05));
+            border-color: rgba(59, 130, 246, 0.1);
+        }
+
+        .dark .content-item .icon-wrapper {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(139, 92, 246, 0.15));
+            color: #60a5fa;
+        }
+
+        .dark .content-item .download-btn {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(139, 92, 246, 0.15));
+            color: #60a5fa;
+        }
+
+        .dark .content-item .download-btn:hover {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.25), rgba(139, 92, 246, 0.25));
+        }
+
+        .exclusive-link, .recommended-link {
+            background: hsl(var(--card));
+            border: 1px solid hsl(var(--border));
+            border-radius: var(--radius);
+            padding: 1rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .exclusive-link:hover, .recommended-link:hover {
+            transform: translateY(-2px);
+            border-color: hsl(var(--primary));
+            box-shadow: 0 4px 12px hsl(var(--primary) / 0.1);
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            background: hsl(var(--primary) / 0.1);
+            color: hsl(var(--primary));
+            font-size: 0.875rem;
+            transition: all 0.3s ease;
+        }
+
+        .download-btn:hover {
+            background: hsl(var(--primary) / 0.2);
+            transform: translateY(-1px);
+        }
+
+        @media (max-width: 768px) {
+            .popup {
+                padding: 0.5rem;
+            }
+
+            .popup-content {
+                max-height: 95vh;
+            }
+
+            .popup-header {
+                padding: 1rem;
+            }
+
+            .popup-header h2 {
+                font-size: 1.25rem;
+            }
+
+            .popup-body {
+                padding: 1rem;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .close-popup-btn {
+                padding: 0.5rem;
+            }
+
+            .close-popup-btn span {
+                display: none;
+            }
+
+            .section-header {
+                padding: 0.75rem;
+            }
+
+            .section-header h3 {
+                font-size: 1.125rem;
+            }
         }
 
         .exclusive-box {
@@ -426,23 +623,85 @@
             transform: translateX(-4px);
         }
 
-        .content-item {
-            background: hsl(var(--card));
-            border: 1px solid hsl(var(--border));
-            border-radius: var(--radius);
-            padding: 1rem;
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            background: hsl(var(--primary) / 0.1);
+            color: hsl(var(--primary));
             transition: all 0.3s ease;
         }
 
-        .content-item:hover {
-            transform: translateY(-2px);
-            border-color: hsl(var(--primary));
-            box-shadow: 0 4px 12px hsl(var(--primary) / 0.1);
+        .badge i {
+            margin-right: 0.5rem;
         }
 
-        .exclusive-link, .recommended-link {
-            background: hsl(var(--card));
-            border: 1px solid hsl(var(--border));
+        .badge:hover {
+            background: hsl(var(--primary) / 0.2);
+            transform: translateY(-1px);
+        }
+
+        .dark .badge {
+            background: hsl(var(--primary) / 0.2);
+            color: hsl(var(--primary));
+        }
+
+        .dark .badge:hover {
+            background: hsl(var(--primary) / 0.3);
+        }
+
+        .dark .exclusive-box {
+            background: linear-gradient(to right, hsl(var(--card) / 0.8), hsl(var(--card) / 0.6));
+            border-color: hsl(var(--border));
+        }
+
+        .dark .exclusive-box p {
+            color: hsl(var(--muted-foreground));
+        }
+
+        .dark .exclusive-box .bg-white\/80 {
+            background: hsl(var(--card) / 0.8);
+            border-color: hsl(var(--border));
+        }
+
+        .dark .exclusive-box a {
+            color: hsl(var(--primary));
+        }
+
+        .dark .exclusive-box a:hover {
+            color: hsl(var(--primary) / 0.8);
+        }
+
+        .exclusive-2025 h4 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6, #ec4899);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .exclusive-2025 .badge {
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .exclusive-link {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
+            border: 1px solid rgba(59, 130, 246, 0.2);
             border-radius: var(--radius);
             padding: 1rem;
             transition: all 0.3s ease;
@@ -452,29 +711,39 @@
             gap: 1rem;
         }
 
-        .exclusive-link:hover, .recommended-link:hover {
+        .exclusive-link:hover {
             transform: translateY(-2px);
-            border-color: hsl(var(--primary));
-            box-shadow: 0 4px 12px hsl(var(--primary) / 0.1);
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(139, 92, 246, 0.15));
+            border-color: rgba(59, 130, 246, 0.3);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
         }
 
-        @media (max-width: 768px) {
-            .module-card {
-                padding: 1.5rem;
-            }
+        .exclusive-link .download-btn {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(139, 92, 246, 0.2));
+            color: #3b82f6;
+        }
 
-            .popup-content {
-                width: 95%;
-                max-height: 95vh;
-            }
+        .exclusive-link .download-btn:hover {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.3), rgba(139, 92, 246, 0.3));
+        }
 
-            .popup-header {
-                padding: 1rem;
-            }
+        .dark .exclusive-link {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(139, 92, 246, 0.05));
+            border-color: rgba(59, 130, 246, 0.1);
+        }
 
-            .popup-body {
-                padding: 1rem;
-            }
+        .dark .exclusive-link:hover {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
+            border-color: rgba(59, 130, 246, 0.2);
+        }
+
+        .dark .exclusive-link .download-btn {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(139, 92, 246, 0.15));
+            color: #60a5fa;
+        }
+
+        .dark .exclusive-link .download-btn:hover {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.25), rgba(139, 92, 246, 0.25));
         }
     </style>
 </head>
@@ -503,21 +772,24 @@
         </header>
 
         <div class="glass-card" data-aos="fade-up">
-            <div class="exclusive-box mb-8 p-6 rounded-2xl border-2 border-green-300 bg-gradient-to-r from-green-50 to-blue-50 shadow-lg relative overflow-hidden">
+            <div class="exclusive-box mb-8 p-6 rounded-2xl border-2 border-blue-300 bg-gradient-to-r from-blue-50 to-purple-50 shadow-lg relative overflow-hidden">
                 <!-- Add decorative elements -->
-                <div class="absolute top-0 right-0 w-32 h-32 -mr-8 -mt-8 bg-gradient-to-br from-green-200 to-blue-200 rounded-full opacity-20"></div>
-                <div class="absolute bottom-0 left-0 w-24 h-24 -ml-6 -mb-6 bg-gradient-to-tr from-blue-200 to-green-200 rounded-full opacity-20"></div>
+                <div class="absolute top-0 right-0 w-32 h-32 -mr-8 -mt-8 bg-gradient-to-br from-blue-200 to-purple-200 rounded-full opacity-20"></div>
+                <div class="absolute bottom-0 left-0 w-24 h-24 -ml-6 -mb-6 bg-gradient-to-tr from-purple-200 to-blue-200 rounded-full opacity-20"></div>
                 
                 <div class="flex flex-col md:flex-row justify-between items-center relative z-10">
                     <div>
-                        <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-2">
-                            <span class="text-green-600 mr-2"><i class="fas fa-graduation-cap"></i></span>
-                            <span class="text-green-600 border-b-2 border-green-400 pb-1">Science et Technologie LMD</span> - Semestre 2
+                        <div class="badge mb-4">
+                            <i class="fas fa-graduation-cap"></i>
+                            Science et Technologie LMD
+                        </div>
+                        <h2 class="text-3xl md:text-4xl font-bold mb-2 text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600">
+                            Semestre 2
                         </h2>
                         <p class="text-gray-600 text-sm md:text-base">Ressources pédagogiques pour les étudiants en science et technologie</p>
                     </div>
                     <div class="flex flex-col items-end mt-4 md:mt-0">
-                        <div class="bg-blue-50 px-4 py-2 rounded-lg border border-blue-200 shadow-sm">
+                        <div class="bg-white/80 backdrop-blur-sm px-4 py-2 rounded-lg border border-blue-200 shadow-sm">
                             <span class="text-gray-600 block text-sm">Développé par</span>
                             <a href="mailto:mehdi.amara@tech.univ-bejaia.dz" class="font-semibold text-blue-600 hover:text-blue-800 hover:underline flex items-center gap-2 text-lg">
                                 <i class="fas fa-code"></i>
@@ -531,7 +803,7 @@
 
             <!-- Telegram exclusive button -->
             <div class="flex justify-center mb-6">
-                <a href="https://t.me/campuselkseur" target="_blank" class="telegram-button flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-full shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105 group">
+                <a href="https://t.me/campuselkseur" target="_blank" class="telegram-button flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105 group">
                     <span class="flex items-center gap-1">
                         <i class="fab fa-telegram text-xl group-hover:animate-bounce"></i>
                         <span class="font-medium">Contenu Exclusif</span>
@@ -541,7 +813,7 @@
                 </a>
             </div>
 
-            <h1 class="text-3xl font-bold mb-8 text-center text-gray-800">Science et Technologie LMD - Semestre 2</h1>
+            <h1 class="text-3xl font-bold mb-8 text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600">Science et Technologie LMD - Semestre 2</h1>
             
             <div id="moduleContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4 sm:gap-6 mb-8">
     <!-- Mathématique 2 -->
@@ -735,14 +1007,14 @@
     <div id="popup-tdtp" class="popup">
         <div class="popup-content">
             <div class="popup-header">
-                <h2 id="popup-title-tdtp" class="text-2xl font-bold"></h2>
+                <h2 id="popup-title-tdtp"></h2>
                 <button type="button" class="close-popup-btn" onclick="closePopup('tdtp')">
                     <i class="fas fa-times"></i>
                     <span>Fermer</span>
                 </button>
             </div>
             <div class="popup-body">
-                <div id="popup-content-tdtp" class="popup-content"></div>
+                <div id="popup-content-tdtp"></div>
             </div>
         </div>
     </div>
@@ -751,14 +1023,14 @@
     <div id="popup-examen" class="popup">
         <div class="popup-content">
             <div class="popup-header">
-                <h2 id="popup-title-examen" class="text-2xl font-bold"></h2>
+                <h2 id="popup-title-examen"></h2>
                 <button type="button" class="close-popup-btn" onclick="closePopup('examen')">
                     <i class="fas fa-times"></i>
                     <span>Fermer</span>
                 </button>
             </div>
             <div class="popup-body">
-                <div id="popup-content-examen" class="popup-content"></div>
+                <div id="popup-content-examen"></div>
             </div>
         </div>
     </div>
@@ -767,14 +1039,14 @@
     <div id="popup-cours" class="popup">
         <div class="popup-content">
             <div class="popup-header">
-                <h2 id="popup-title-cours" class="text-2xl font-bold"></h2>
+                <h2 id="popup-title-cours"></h2>
                 <button type="button" class="close-popup-btn" onclick="closePopup('cours')">
                     <i class="fas fa-times"></i>
                     <span>Fermer</span>
                 </button>
             </div>
             <div class="popup-body">
-                <div id="popup-content-cours" class="popup-content"></div>
+                <div id="popup-content-cours"></div>
             </div>
         </div>
     </div>
@@ -783,14 +1055,14 @@
     <div id="popup-compterendu" class="popup">
         <div class="popup-content">
             <div class="popup-header">
-                <h2 id="popup-title-compterendu" class="text-2xl font-bold"></h2>
+                <h2 id="popup-title-compterendu"></h2>
                 <button type="button" class="close-popup-btn" onclick="closePopup('compterendu')">
                     <i class="fas fa-times"></i>
                     <span>Fermer</span>
                 </button>
             </div>
             <div class="popup-body">
-                <div id="popup-content-compterendu" class="popup-content"></div>
+                <div id="popup-content-compterendu"></div>
             </div>
         </div>
     </div>
@@ -1215,20 +1487,20 @@
                 if (exclusiveContent) {
                     html += `
                         <div class="col-span-full exclusive-2025 mb-6">
-                            <h4 class="text-xl font-bold text-green-600 mb-3 flex items-center">
-                                <span class="bg-green-600 text-white px-3 py-1 rounded-lg mr-2">2025</span>
+                            <h4>
+                                <span class="badge">2025</span>
                                 Contenu Exclusif
                             </h4>
-                            <div class="bg-green-50 border-2 border-green-200 rounded-lg p-4 space-y-2">
+                            <div class="space-y-2">
                                 ${exclusiveContent.files.map(file => `
                                     <a href="${file.url}" 
-                                       class="exclusive-link flex items-center justify-between bg-white p-3 rounded-lg hover:bg-green-100 transition-all duration-300 transform hover:scale-102 border border-green-300"
+                                       class="exclusive-link"
                                        target="_blank">
                                         <span class="flex items-center">
                                             <i class="fas fa-star text-yellow-500 mr-2"></i>
                                             ${file.title}
                                         </span>
-                                        <span class="download-btn bg-green-50 hover:bg-green-100 text-green-600 px-2 py-1 rounded-full text-sm flex items-center">
+                                        <span class="download-btn">
                                             <i class="fas fa-download mr-1"></i>
                                             <span class="hidden md:inline">Télécharger</span>
                                         </span>
