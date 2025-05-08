@@ -117,28 +117,30 @@
             display: block;
             text-decoration: none;
             color: hsl(var(--card-foreground));
-        }
-
-        .service-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            transform: translateX(-100%);
-            transition: 0.6s;
-        }
-
-        .service-card:hover::before {
-            transform: translateX(100%);
+            transform: translateY(0);
         }
 
         .service-card:hover {
-            transform: translateY(-10px) scale(1.02);
+            transform: translateY(-10px);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
             border-color: hsl(var(--primary));
+        }
+
+        .service-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(45deg, 
+                hsl(var(--primary) / 0.1), 
+                hsl(var(--ring) / 0.1), 
+                hsl(var(--accent) / 0.1)
+            );
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .service-card:hover::after {
+            opacity: 1;
         }
 
         .service-icon {
@@ -153,6 +155,7 @@
             color: hsl(var(--primary-foreground));
             transition: all 0.3s ease;
             position: relative;
+            box-shadow: 0 8px 16px hsl(var(--primary) / 0.2);
         }
 
         .service-icon::after {
@@ -256,6 +259,13 @@
                 margin-bottom: 1.5rem;
             }
         }
+
+        .service-card h3 {
+            background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--ring)));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
     </style>
 </head>
 <body class="min-h-screen">
@@ -288,18 +298,18 @@
 
     <!-- Main Content -->
     <main class="container mx-auto px-4 py-8">
-        <!-- Hero Section -->
-        <section class="relative py-20 min-h-[80vh] flex items-center">
-            <div class="max-w-4xl mx-auto text-center">
+        <!-- Welcome Section -->
+        <section class="relative py-8 text-center mb-8">
+            <div class="max-w-4xl mx-auto">
                 <div data-aos="fade-up">
                     <div class="badge mb-4">
                         <i class="fas fa-sparkles"></i>
                         Période d'Examens
                     </div>
-                    <h2 class="text-4xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-500">
-                        Accédez à vos outils essentiels
+                    <h2 class="text-5xl md:text-7xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600">
+                        Accédez à vos ressources
                     </h2>
-                    <p class="text-xl text-muted-foreground mb-8">
+                    <p class="text-xl text-muted-foreground">
                         Calculez vos moyennes et accédez à la bibliothèque de ressources pour vos révisions
                     </p>
                 </div>
@@ -307,22 +317,22 @@
         </section>
 
         <!-- Tools Section -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto mt-12">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
             <!-- Calculator Card -->
-            <a href="calculator.html" class="service-card" data-aos="fade-right">
-                <div class="service-icon">
+            <a href="calculator.html" class="service-card group" data-aos="fade-right">
+                <div class="service-icon group-hover:scale-110 transition-transform duration-300">
                     <i class="fas fa-calculator text-5xl"></i>
                 </div>
-                <h3 class="text-2xl font-semibold mb-4">Calculatrice</h3>
+                <h3 class="text-2xl font-semibold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-500">Calculatrice</h3>
                 <p class="text-muted-foreground">Calculez votre moyenne et planifiez votre parcours académique</p>
             </a>
 
             <!-- Bibliothèque Card -->
-            <a href="bib.html" class="service-card" data-aos="fade-left">
-                <div class="service-icon">
+            <a href="bib.html" class="service-card group" data-aos="fade-left">
+                <div class="service-icon group-hover:scale-110 transition-transform duration-300">
                     <i class="fas fa-book text-5xl"></i>
                 </div>
-                <h3 class="text-2xl font-semibold mb-4">Bibliothèque</h3>
+                <h3 class="text-2xl font-semibold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-500">Bibliothèque</h3>
                 <p class="text-muted-foreground">Accédez aux ressources et documents de cours</p>
             </a>
         </div>
