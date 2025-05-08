@@ -398,6 +398,122 @@
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-5px); }
         }
+
+        /* Countdown styles */
+        .countdown-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .countdown-item {
+            background: hsl(var(--card) / 0.8);
+            border: 1px solid hsl(var(--border));
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .countdown-item::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(45deg, 
+                hsl(var(--primary) / 0.1), 
+                hsl(var(--ring) / 0.1)
+            );
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .countdown-item:hover::before {
+            opacity: 1;
+        }
+
+        .countdown-item h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: hsl(var(--primary));
+        }
+
+        .countdown-timer {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .countdown-unit {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: hsl(var(--primary) / 0.1);
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            min-width: 60px;
+            animation: pulse 2s infinite;
+        }
+
+        .countdown-unit span:first-child {
+            font-size: 1.5rem;
+            color: hsl(var(--primary));
+        }
+
+        .countdown-unit span:last-child {
+            font-size: 0.8rem;
+            color: hsl(var(--muted-foreground));
+        }
+
+        .countdown-date {
+            font-size: 0.9rem;
+            color: hsl(var(--muted-foreground));
+        }
+
+        /* Enhanced animations */
+        @keyframes float-reverse {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(-5deg); }
+        }
+
+        @keyframes sparkle {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.5); opacity: 0; }
+        }
+
+        .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: hsl(var(--primary));
+            border-radius: 50%;
+            animation: sparkle 2s infinite;
+        }
+
+        .maintenance-card::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            background: linear-gradient(45deg, 
+                hsl(var(--primary)), 
+                hsl(var(--ring)), 
+                hsl(var(--primary))
+            );
+            border-radius: calc(var(--radius) + 1px);
+            z-index: -1;
+            animation: border-glow 3s infinite;
+        }
+
+        @keyframes border-glow {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
     </style>
 </head>
 <body class="min-h-screen">
@@ -425,7 +541,7 @@
 
     <!-- Main Content -->
     <main class="container mx-auto px-4 min-h-screen flex items-center justify-center">
-        <div class="maintenance-card max-w-2xl w-full" data-aos="fade-up">
+        <div class="maintenance-card max-w-3xl w-full" data-aos="fade-up">
             <div class="maintenance-icon">
                 <i class="fas fa-wrench text-5xl"></i>
             </div>
@@ -442,6 +558,84 @@
             <p class="text-xl text-muted-foreground mb-4">
                 Je travaille actuellement sur l'amélioration de la bibliothèque pour vous offrir une meilleure expérience.
             </p>
+
+            <div class="countdown-container">
+                <div class="countdown-item" data-date="2025-05-09T18:00:00+01:00" data-name="ST LMD/ING">
+                    <h3>ST LMD/ING</h3>
+                    <div class="countdown-timer">
+                        <div class="countdown-unit">
+                            <span class="days">00</span>
+                            <span>Jours</span>
+                        </div>
+                        <div class="countdown-unit">
+                            <span class="hours">00</span>
+                            <span>Heures</span>
+                        </div>
+                        <div class="countdown-unit">
+                            <span class="minutes">00</span>
+                            <span>Minutes</span>
+                        </div>
+                    </div>
+                    <div class="countdown-date">9 Mai 2025 à 18:00</div>
+                </div>
+
+                <div class="countdown-item" data-date="2025-05-09T22:00:00+01:00" data-name="Biologie">
+                    <h3>Biologie</h3>
+                    <div class="countdown-timer">
+                        <div class="countdown-unit">
+                            <span class="days">00</span>
+                            <span>Jours</span>
+                        </div>
+                        <div class="countdown-unit">
+                            <span class="hours">00</span>
+                            <span>Heures</span>
+                        </div>
+                        <div class="countdown-unit">
+                            <span class="minutes">00</span>
+                            <span>Minutes</span>
+                        </div>
+                    </div>
+                    <div class="countdown-date">9 Mai 2025 à 22:00</div>
+                </div>
+
+                <div class="countdown-item" data-date="2025-05-08T21:00:00+01:00" data-name="Informatique">
+                    <h3>Informatique LMD/ING</h3>
+                    <div class="countdown-timer">
+                        <div class="countdown-unit">
+                            <span class="days">00</span>
+                            <span>Jours</span>
+                        </div>
+                        <div class="countdown-unit">
+                            <span class="hours">00</span>
+                            <span>Heures</span>
+                        </div>
+                        <div class="countdown-unit">
+                            <span class="minutes">00</span>
+                            <span>Minutes</span>
+                        </div>
+                    </div>
+                    <div class="countdown-date">8 Mai 2025 à 21:00</div>
+                </div>
+
+                <div class="countdown-item" data-date="2025-05-10T00:00:00+01:00" data-name="Others">
+                    <h3>Autres Spécialités</h3>
+                    <div class="countdown-timer">
+                        <div class="countdown-unit">
+                            <span class="days">00</span>
+                            <span>Jours</span>
+                        </div>
+                        <div class="countdown-unit">
+                            <span class="hours">00</span>
+                            <span>Heures</span>
+                        </div>
+                        <div class="countdown-unit">
+                            <span class="minutes">00</span>
+                            <span>Minutes</span>
+                        </div>
+                    </div>
+                    <div class="countdown-date">10 Mai 2025</div>
+                </div>
+            </div>
 
             <div class="progress-bar">
                 <div class="progress"></div>
@@ -534,6 +728,51 @@
 
         // Initialize particles
         createParticles();
+
+        // Add this after existing scripts
+        function updateCountdown() {
+            const countdownItems = document.querySelectorAll('.countdown-item');
+            
+            countdownItems.forEach(item => {
+                const targetDate = new Date(item.dataset.date);
+                const now = new Date();
+                const diff = targetDate - now;
+
+                if (diff > 0) {
+                    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+
+                    item.querySelector('.days').textContent = days.toString().padStart(2, '0');
+                    item.querySelector('.hours').textContent = hours.toString().padStart(2, '0');
+                    item.querySelector('.minutes').textContent = minutes.toString().padStart(2, '0');
+                } else {
+                    item.querySelector('.countdown-timer').innerHTML = '<div class="text-primary font-bold">Disponible !</div>';
+                }
+            });
+        }
+
+        // Update countdown every minute
+        updateCountdown();
+        setInterval(updateCountdown, 60000);
+
+        // Add sparkle animation
+        function createSparkles() {
+            const card = document.querySelector('.maintenance-card');
+            const sparkleCount = 20;
+
+            for (let i = 0; i < sparkleCount; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.style.left = `${Math.random() * 100}%`;
+                sparkle.style.top = `${Math.random() * 100}%`;
+                sparkle.style.animationDelay = `${Math.random() * 2}s`;
+                card.appendChild(sparkle);
+            }
+        }
+
+        // Initialize sparkles
+        createSparkles();
     </script>
 </body>
 </html>
