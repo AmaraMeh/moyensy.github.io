@@ -9,10 +9,9 @@
     <link rel="icon" type="image/png" href="assets/img/icon.png">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <style>
         :root {
             --background: 0 0% 100%;
@@ -60,152 +59,41 @@
             transition: background-color 0.3s ease, color 0.3s ease;
         }
 
-        .hero-bg {
-            position: absolute;
-            inset: 0;
-            z-index: -10;
-            overflow: hidden;
-        }
-
-        .gradient-blob {
-            position: absolute;
-            border-radius: 9999px;
-            filter: blur(80px);
-            opacity: 0.5;
-            transition: all 0.5s ease;
-        }
-
-        .gradient-blob-1 {
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 500px;
-            background: linear-gradient(to bottom right, 
-                hsl(var(--primary) / 0.4), 
-                hsl(var(--ring) / 0.2), 
-                hsl(var(--accent) / 0.1)
-            );
-            animation: blob1Move 15s ease-in-out infinite;
-        }
-
-        .gradient-blob-2 {
-            bottom: 0;
-            right: 0;
-            width: 500px;
-            height: 500px;
-            background: linear-gradient(to top right, 
-                hsl(var(--ring) / 0.3), 
-                hsl(var(--accent) / 0.2), 
-                transparent
-            );
-            animation: blob2Move 20s ease-in-out infinite;
-        }
-
-        @keyframes blob1Move {
-            0%, 100% { transform: translateY(-50%) scale(1); }
-            50% { transform: translateY(-45%) scale(1.1) rotate(5deg); }
-        }
-
-        @keyframes blob2Move {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(-5%, -5%) scale(1.1) rotate(-5deg); }
-        }
-
-        .floating-dot {
-            position: absolute;
-            border-radius: 9999px;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 0.5; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.2); }
-        }
-
-        .maintenance-card {
+        .module-card {
             background: hsl(var(--card) / 0.8);
             backdrop-filter: blur(10px);
             border: 1px solid hsl(var(--border));
             border-radius: var(--radius);
-            padding: 3rem;
-            text-align: center;
+            padding: 2.5rem;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
             position: relative;
-            overflow: hidden;
-            animation: cardPulse 3s ease-in-out infinite;
+            overflow: visible;
         }
 
-        @keyframes cardPulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.02); }
+        .module-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            border-color: hsl(var(--primary));
         }
 
-        .maintenance-icon {
+        .module-icon {
             margin: 0 auto 2rem;
-            width: 150px;
-            height: 150px;
+            width: 120px;
+            height: 120px;
             display: flex;
             align-items: center;
             justify-content: center;
             background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--ring)));
             border-radius: 50%;
             color: hsl(var(--primary-foreground));
+            transition: all 0.3s ease;
             position: relative;
             box-shadow: 0 8px 16px hsl(var(--primary) / 0.2);
-            animation: iconFloat 3s ease-in-out infinite;
         }
 
-        .maintenance-icon::after {
-            content: '';
-            position: absolute;
-            inset: -5px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--ring)));
-            opacity: 0.3;
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes iconFloat {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-15px) rotate(5deg); }
-        }
-
-        .back-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 1rem 2rem;
-            background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--ring)));
-            color: hsl(var(--primary-foreground));
-            border-radius: 9999px;
-            font-weight: 500;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 12px hsl(var(--primary) / 0.2);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .back-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transform: translateX(-100%);
-            transition: transform 0.5s ease;
-        }
-
-        .back-button:hover::before {
-            transform: translateX(100%);
-        }
-
-        .back-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px hsl(var(--primary) / 0.3);
+        .module-card:hover .module-icon {
+            transform: scale(1.1) rotate(5deg);
         }
 
         .theme-toggle {
@@ -216,19 +104,19 @@
             width: 3rem;
             height: 3rem;
             border-radius: 9999px;
-            background: hsl(var(--background) / 0.8);
-            backdrop-filter: blur(8px);
+            background: hsl(var(--card));
             border: 1px solid hsl(var(--border));
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
         .theme-toggle:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
         }
 
         .theme-toggle i {
@@ -236,121 +124,205 @@
             color: hsl(var(--primary));
         }
 
-        .floating-particles {
-            position: absolute;
-            inset: 0;
-            overflow: hidden;
-            pointer-events: none;
-            z-index: -5;
-        }
-
-        .particle {
-            position: absolute;
-            border-radius: 50%;
-            opacity: 0.7;
-            animation: float 10s infinite ease-in-out;
-        }
-
-        .status-indicator {
+        .back-button {
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
+            color: hsl(var(--primary));
+            font-weight: 500;
+            transition: all 0.3s ease;
             padding: 0.5rem 1rem;
-            background: hsl(var(--muted));
             border-radius: 9999px;
+            background: hsl(var(--primary) / 0.1);
+        }
+
+        .back-button:hover {
+            background: hsl(var(--primary) / 0.2);
+            transform: translateX(-4px);
+        }
+
+        .countdown-box {
+            background: hsl(var(--card) / 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid hsl(var(--border));
+            border-radius: var(--radius);
+            padding: 2rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .countdown-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            border-color: hsl(var(--primary));
+        }
+
+        .countdown-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: hsl(var(--primary));
+            margin-bottom: 0.5rem;
+        }
+
+        .countdown-label {
             font-size: 0.875rem;
-            margin-bottom: 1.5rem;
+            color: hsl(var(--muted-foreground));
         }
 
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            background: hsl(var(--primary));
-            border-radius: 50%;
-            animation: statusPulse 1.5s ease-in-out infinite;
+        @media (max-width: 768px) {
+            .countdown-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
-        @keyframes statusPulse {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.5); opacity: 0.5; }
-        }
-
-        .progress-bar {
-            width: 200px;
-            height: 6px;
-            background: linear-gradient(90deg, 
-                hsl(var(--muted) / 0.3),
-                hsl(var(--muted) / 0.1),
-                hsl(var(--muted) / 0.3)
-            );
-            backdrop-filter: blur(5px);
-            border-radius: 3px;
+        /* Enhanced background animations */
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            z-index: -10;
             overflow: hidden;
-            margin: 2rem auto;
-            position: relative;
         }
 
-        .progress {
-            width: 40%;
-            height: 100%;
-            background: linear-gradient(90deg,
-                hsl(var(--primary)),
-                hsl(var(--ring)),
+        .gradient-blob {
+            position: absolute;
+            border-radius: 9999px;
+            filter: blur(60px);
+            opacity: 0.5;
+            transition: all 0.5s ease;
+        }
+
+        .gradient-blob-1 {
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 500px;
+            background: linear-gradient(to bottom right, hsl(var(--primary) / 0.4), hsl(var(--ring) / 0.2), hsl(var(--accent) / 0.1));
+            transform: translateY(-50%);
+            animation: blob1Float 15s ease-in-out infinite;
+        }
+
+        .gradient-blob-2 {
+            bottom: 0;
+            right: 0;
+            width: 500px;
+            height: 500px;
+            background: linear-gradient(to top right, hsl(var(--ring) / 0.3), hsl(var(--accent) / 0.2), transparent);
+            animation: blob2Float 20s ease-in-out infinite;
+        }
+
+        @keyframes blob1Float {
+            0%, 100% { transform: translateY(-50%) scale(1); }
+            50% { transform: translateY(-45%) scale(1.1) rotate(5deg); }
+        }
+
+        @keyframes blob2Float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-5%, -5%) scale(1.1) rotate(-5deg); }
+        }
+
+        /* Enhanced floating dots */
+        .floating-dot {
+            position: absolute;
+            border-radius: 9999px;
+            animation: dotPulse 3s infinite;
+        }
+
+        @keyframes dotPulse {
+            0%, 100% { transform: scale(1) translate(0, 0); opacity: 0.5; }
+            50% { transform: scale(1.2) translate(10px, -10px); opacity: 1; }
+        }
+
+        /* Enhanced maintenance card */
+        .maintenance-card {
+            background: hsl(var(--card) / 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid hsl(var(--border));
+            border-radius: var(--radius);
+            padding: 2.5rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .maintenance-card::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            background: linear-gradient(45deg, 
+                hsl(var(--primary)), 
+                hsl(var(--ring)), 
                 hsl(var(--primary))
             );
-            background-size: 200% 100%;
-            animation: progress 2s ease-in-out infinite,
-                      shimmer 2s linear infinite;
-            border-radius: 3px;
+            border-radius: calc(var(--radius) + 1px);
+            z-index: -1;
+            animation: borderGlow 3s infinite;
         }
 
-        @keyframes progress {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(250%); }
+        @keyframes borderGlow {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
         }
 
-        @keyframes shimmer {
-            0% { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
+        /* Enhanced countdown box */
+        .countdown-box {
+            background: hsl(var(--card) / 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid hsl(var(--border));
+            border-radius: var(--radius);
+            padding: 2rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
         }
 
-        .tool-animation {
+        .countdown-box::before {
+            content: '';
             position: absolute;
-            width: 40px;
-            height: 40px;
-            opacity: 0.3;
-            pointer-events: none;
-            filter: drop-shadow(0 0 5px hsl(var(--primary)));
+            inset: 0;
+            background: linear-gradient(45deg, 
+                hsl(var(--primary) / 0.1), 
+                hsl(var(--ring) / 0.1)
+            );
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
-        .tool-1 { animation: toolFloat1 20s linear infinite, glow 2s ease-in-out infinite; }
-        .tool-2 { animation: toolFloat2 25s linear infinite, glow 2s ease-in-out infinite 0.5s; }
-        .tool-3 { animation: toolFloat3 30s linear infinite, glow 2s ease-in-out infinite 1s; }
-
-        @keyframes toolFloat1 {
-            0% { transform: translate(0, 0) rotate(0deg); }
-            50% { transform: translate(100px, 100px) rotate(180deg); }
-            100% { transform: translate(0, 0) rotate(360deg); }
+        .countdown-box:hover::before {
+            opacity: 1;
         }
 
-        @keyframes toolFloat2 {
-            0% { transform: translate(0, 0) rotate(0deg); }
-            50% { transform: translate(-100px, 100px) rotate(-180deg); }
-            100% { transform: translate(0, 0) rotate(-360deg); }
+        .countdown-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            border-color: hsl(var(--primary));
         }
 
-        @keyframes toolFloat3 {
-            0% { transform: translate(0, 0) rotate(0deg); }
-            50% { transform: translate(50px, -100px) rotate(180deg); }
-            100% { transform: translate(0, 0) rotate(360deg); }
+        .countdown-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--ring)));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 0.5rem;
+            animation: numberPulse 2s infinite;
         }
 
-        @keyframes glow {
-            0%, 100% { filter: drop-shadow(0 0 5px hsl(var(--primary))); }
-            50% { filter: drop-shadow(0 0 15px hsl(var(--primary))); }
+        @keyframes numberPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
 
-        /* Add Instagram button style */
+        .countdown-label {
+            font-size: 1rem;
+            color: hsl(var(--muted-foreground));
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Enhanced Instagram button */
         .instagram-button {
             display: inline-flex;
             align-items: center;
@@ -363,7 +335,6 @@
             text-decoration: none;
             transition: all 0.3s ease;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-            margin-top: 1.5rem;
             position: relative;
             overflow: hidden;
         }
@@ -390,7 +361,6 @@
         }
 
         .instagram-button i {
-            font-size: 1.5rem;
             animation: bounce 2s infinite;
         }
 
@@ -399,139 +369,112 @@
             50% { transform: translateY(-5px); }
         }
 
-        /* Countdown styles */
-        .countdown-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin: 2rem 0;
-        }
-
-        .countdown-item {
-            background: hsl(var(--card) / 0.8);
-            border: 1px solid hsl(var(--border));
-            border-radius: var(--radius);
-            padding: 1.5rem;
-            text-align: center;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .countdown-item::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(45deg, 
-                hsl(var(--primary) / 0.1), 
-                hsl(var(--ring) / 0.1)
-            );
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .countdown-item:hover::before {
-            opacity: 1;
-        }
-
-        .countdown-item h3 {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            color: hsl(var(--primary));
-        }
-
-        .countdown-timer {
-            display: flex;
-            justify-content: center;
-            gap: 0.5rem;
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-
-        .countdown-unit {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background: hsl(var(--primary) / 0.1);
-            padding: 0.5rem;
-            border-radius: 0.5rem;
-            min-width: 60px;
-            animation: pulse 2s infinite;
-        }
-
-        .countdown-unit span:first-child {
-            font-size: 1.5rem;
-            color: hsl(var(--primary));
-        }
-
-        .countdown-unit span:last-child {
-            font-size: 0.8rem;
-            color: hsl(var(--muted-foreground));
-        }
-
-        .countdown-date {
-            font-size: 0.9rem;
-            color: hsl(var(--muted-foreground));
-        }
-
-        /* Enhanced animations */
-        @keyframes float-reverse {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-15px) rotate(-5deg); }
-        }
-
-        @keyframes sparkle {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.5); opacity: 0; }
-        }
-
-        .sparkle {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: hsl(var(--primary));
-            border-radius: 50%;
-            animation: sparkle 2s infinite;
-        }
-
-        .maintenance-card::before {
-            content: '';
-            position: absolute;
-            inset: -1px;
-            background: linear-gradient(45deg, 
-                hsl(var(--primary)), 
-                hsl(var(--ring)), 
-                hsl(var(--primary))
-            );
-            border-radius: calc(var(--radius) + 1px);
-            z-index: -1;
-            animation: border-glow 3s infinite;
-        }
-
-        @keyframes border-glow {
-            0%, 100% { opacity: 0.5; }
-            50% { opacity: 1; }
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .countdown-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .countdown-value {
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
-<body class="min-h-screen">
+<body class="flex flex-col min-h-screen">
     <!-- Hero Background -->
     <div class="hero-bg">
         <div class="gradient-blob gradient-blob-1"></div>
         <div class="gradient-blob gradient-blob-2"></div>
+        <div class="floating-dot w-4 h-4 bg-blue-500 top-1/4 left-1/4"></div>
+        <div class="floating-dot w-3 h-3 bg-purple-500 top-1/3 right-1/4"></div>
+        <div class="floating-dot w-2 h-2 bg-green-500 bottom-1/4 left-1/3"></div>
+        <div class="floating-dot w-3 h-3 bg-amber-500 top-2/3 right-1/3"></div>
     </div>
 
-    <!-- Floating Tools -->
-    <div class="tool-animation tool-1 top-1/4 left-1/4">
-        <i class="fas fa-wrench text-primary text-2xl"></i>
-    </div>
-    <div class="tool-animation tool-2 top-1/3 right-1/4">
-        <i class="fas fa-screwdriver text-primary text-2xl"></i>
-    </div>
-    <div class="tool-animation tool-3 bottom-1/4 left-1/3">
-        <i class="fas fa-cog text-primary text-2xl"></i>
+    <div class="container mx-auto px-4 flex-grow">
+        <header class="mb-12 mt-8" data-aos="fade-down">
+            <div class="header-container">
+                <a href="index.html" class="back-button hover:scale-110 transform transition-all duration-300">
+                    <i class="fas fa-arrow-left"></i>
+                    Retour
+                </a>
+            </div>
+        </header>
+
+        <div class="max-w-4xl mx-auto">
+            <!-- Status Box -->
+            <div class="maintenance-card mb-8" data-aos="fade-up">
+                <div class="flex items-center justify-center mb-8">
+                    <div class="module-icon bg-blue-100 p-6 rounded-full text-blue-600 animate-bounce">
+                        <i class="fas fa-tools text-4xl"></i>
+                    </div>
+                </div>
+                <h1 class="text-3xl md:text-4xl font-bold mb-4 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600">
+                    Site en Maintenance
+                </h1>
+                <p class="text-center text-muted-foreground mb-8">
+                    La bibliothèque est en cours de mise à jour pour une meilleure expérience
+                </p>
+                <div class="flex justify-center">
+                    <a href="https://instagram.com/spot_campuselkseur" target="_blank" class="instagram-button">
+                        <i class="fab fa-instagram text-2xl"></i>
+                        <span>Suivez @spot_campuselkseur</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Countdown Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6" data-aos="fade-up" data-aos-delay="100">
+                <!-- ST LMD/ING -->
+                <div class="countdown-box" data-aos="fade-up" data-aos-delay="200">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="module-icon bg-purple-100 p-3 rounded-full text-purple-600">
+                            <i class="fas fa-graduation-cap fa-lg"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800">ST LMD/ING</h3>
+                    </div>
+                    <div class="countdown-value" data-date="2025-05-09T18:00:00+01:00">--:--:--</div>
+                    <div class="countdown-label">9 Mai 2025 à 18:00</div>
+                </div>
+
+                <!-- Biologie -->
+                <div class="countdown-box" data-aos="fade-up" data-aos-delay="300">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="module-icon bg-green-100 p-3 rounded-full text-green-600">
+                            <i class="fas fa-dna fa-lg"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800">Biologie</h3>
+                    </div>
+                    <div class="countdown-value" data-date="2025-05-09T22:00:00+01:00">--:--:--</div>
+                    <div class="countdown-label">9 Mai 2025 à 22:00</div>
+                </div>
+
+                <!-- Informatique -->
+                <div class="countdown-box" data-aos="fade-up" data-aos-delay="400">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="module-icon bg-blue-100 p-3 rounded-full text-blue-600">
+                            <i class="fas fa-laptop-code fa-lg"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800">Informatique LMD/ING</h3>
+                    </div>
+                    <div class="countdown-value" data-date="2025-05-08T21:00:00+01:00">--:--:--</div>
+                    <div class="countdown-label">8 Mai 2025 à 21:00</div>
+                </div>
+
+                <!-- Others -->
+                <div class="countdown-box" data-aos="fade-up" data-aos-delay="500">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="module-icon bg-amber-100 p-3 rounded-full text-amber-600">
+                            <i class="fas fa-book fa-lg"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800">Autres Spécialités</h3>
+                    </div>
+                    <div class="countdown-value" data-date="2025-05-10T00:00:00+01:00">--:--:--</div>
+                    <div class="countdown-label">10 Mai 2025</div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Theme Toggle -->
@@ -539,129 +482,6 @@
         <i class="fas fa-moon"></i>
     </button>
 
-    <!-- Main Content -->
-    <main class="container mx-auto px-4 min-h-screen flex items-center justify-center">
-        <div class="maintenance-card max-w-3xl w-full" data-aos="fade-up">
-            <div class="maintenance-icon">
-                <i class="fas fa-wrench text-5xl"></i>
-            </div>
-            
-            <div class="status-indicator">
-                <span class="status-dot"></span>
-                Maintenance en cours
-            </div>
-
-            <h1 class="text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-500">
-                Site en Maintenance
-            </h1>
-            
-            <p class="text-xl text-muted-foreground mb-4">
-                Je travaille actuellement sur l'amélioration de la bibliothèque pour vous offrir une meilleure expérience.
-            </p>
-
-            <div class="countdown-container">
-                <div class="countdown-item" data-date="2025-05-09T18:00:00+01:00" data-name="ST LMD/ING">
-                    <h3>ST LMD/ING</h3>
-                    <div class="countdown-timer">
-                        <div class="countdown-unit">
-                            <span class="days">00</span>
-                            <span>Jours</span>
-                        </div>
-                        <div class="countdown-unit">
-                            <span class="hours">00</span>
-                            <span>Heures</span>
-                        </div>
-                        <div class="countdown-unit">
-                            <span class="minutes">00</span>
-                            <span>Minutes</span>
-                        </div>
-                    </div>
-                    <div class="countdown-date">9 Mai 2025 à 18:00</div>
-                </div>
-
-                <div class="countdown-item" data-date="2025-05-09T22:00:00+01:00" data-name="Biologie">
-                    <h3>Biologie</h3>
-                    <div class="countdown-timer">
-                        <div class="countdown-unit">
-                            <span class="days">00</span>
-                            <span>Jours</span>
-                        </div>
-                        <div class="countdown-unit">
-                            <span class="hours">00</span>
-                            <span>Heures</span>
-                        </div>
-                        <div class="countdown-unit">
-                            <span class="minutes">00</span>
-                            <span>Minutes</span>
-                        </div>
-                    </div>
-                    <div class="countdown-date">9 Mai 2025 à 22:00</div>
-                </div>
-
-                <div class="countdown-item" data-date="2025-05-08T21:00:00+01:00" data-name="Informatique">
-                    <h3>Informatique LMD/ING</h3>
-                    <div class="countdown-timer">
-                        <div class="countdown-unit">
-                            <span class="days">00</span>
-                            <span>Jours</span>
-                        </div>
-                        <div class="countdown-unit">
-                            <span class="hours">00</span>
-                            <span>Heures</span>
-                        </div>
-                        <div class="countdown-unit">
-                            <span class="minutes">00</span>
-                            <span>Minutes</span>
-                        </div>
-                    </div>
-                    <div class="countdown-date">8 Mai 2025 à 21:00</div>
-                </div>
-
-                <div class="countdown-item" data-date="2025-05-10T00:00:00+01:00" data-name="Others">
-                    <h3>Autres Spécialités</h3>
-                    <div class="countdown-timer">
-                        <div class="countdown-unit">
-                            <span class="days">00</span>
-                            <span>Jours</span>
-                        </div>
-                        <div class="countdown-unit">
-                            <span class="hours">00</span>
-                            <span>Heures</span>
-                        </div>
-                        <div class="countdown-unit">
-                            <span class="minutes">00</span>
-                            <span>Minutes</span>
-                        </div>
-                    </div>
-                    <div class="countdown-date">10 Mai 2025</div>
-                </div>
-            </div>
-
-            <div class="progress-bar">
-                <div class="progress"></div>
-            </div>
-
-            <div class="flex flex-col items-center gap-4 mt-8">
-                <a href="index.html" class="back-button group">
-                    <i class="fas fa-arrow-left group-hover:transform group-hover:-translate-x-1 transition-transform"></i>
-                    Retour à l'accueil
-                </a>
-
-                <a href="https://instagram.com/spot_campuselkseur" 
-                   target="_blank" 
-                   class="instagram-button group">
-                    <i class="fab fa-instagram"></i>
-                    <span>Suivez @spot_campuselkseur</span>
-                </a>
-            </div>
-        </div>
-    </main>
-
-    <!-- Floating Particles -->
-    <div class="floating-particles" id="particles"></div>
-
-    <!-- AOS Script -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({
             duration: 800,
@@ -695,84 +515,32 @@
             document.querySelector('.theme-toggle i').classList.replace('fa-moon', 'fa-sun');
         }
 
-        // Create floating particles
-        function createParticles() {
-            const particlesContainer = document.getElementById('particles');
-            const colors = ['#3b82f6', '#8b5cf6', '#ec4899', '#10b981', '#f59e0b'];
-            
-            for (let i = 0; i < 30; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                
-                const x = Math.random() * 100;
-                const y = Math.random() * 100;
-                const size = Math.random() * 5 + 2;
-                const color = colors[Math.floor(Math.random() * colors.length)];
-                const moveX = (Math.random() - 0.5) * 50;
-                const moveY = (Math.random() - 0.5) * 50;
-                
-                particle.style.cssText = `
-                    left: ${x}%;
-                    top: ${y}%;
-                    width: ${size}px;
-                    height: ${size}px;
-                    background-color: ${color};
-                    --x: ${moveX}px;
-                    --y: ${moveY}px;
-                    animation-delay: ${Math.random() * 5}s;
-                `;
-                
-                particlesContainer.appendChild(particle);
-            }
-        }
-
-        // Initialize particles
-        createParticles();
-
-        // Add this after existing scripts
+        // Enhanced countdown functionality
         function updateCountdown() {
-            const countdownItems = document.querySelectorAll('.countdown-item');
+            const countdownBoxes = document.querySelectorAll('.countdown-value');
             
-            countdownItems.forEach(item => {
-                const targetDate = new Date(item.dataset.date);
+            countdownBoxes.forEach(box => {
+                const targetDate = new Date(box.dataset.date);
                 const now = new Date();
-                const diff = targetDate - now;
+                const difference = targetDate - now;
 
-                if (diff > 0) {
-                    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-                    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                if (difference > 0) {
+                    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
 
-                    item.querySelector('.days').textContent = days.toString().padStart(2, '0');
-                    item.querySelector('.hours').textContent = hours.toString().padStart(2, '0');
-                    item.querySelector('.minutes').textContent = minutes.toString().padStart(2, '0');
+                    box.textContent = `${days}j ${hours}h ${minutes}m`;
+                    box.style.opacity = '1';
                 } else {
-                    item.querySelector('.countdown-timer').innerHTML = '<div class="text-primary font-bold">Disponible !</div>';
+                    box.textContent = 'Disponible';
+                    box.style.color = 'hsl(var(--primary))';
                 }
             });
         }
 
         // Update countdown every minute
-        updateCountdown();
         setInterval(updateCountdown, 60000);
-
-        // Add sparkle animation
-        function createSparkles() {
-            const card = document.querySelector('.maintenance-card');
-            const sparkleCount = 20;
-
-            for (let i = 0; i < sparkleCount; i++) {
-                const sparkle = document.createElement('div');
-                sparkle.className = 'sparkle';
-                sparkle.style.left = `${Math.random() * 100}%`;
-                sparkle.style.top = `${Math.random() * 100}%`;
-                sparkle.style.animationDelay = `${Math.random() * 2}s`;
-                card.appendChild(sparkle);
-            }
-        }
-
-        // Initialize sparkles
-        createSparkles();
+        updateCountdown(); // Initial call
     </script>
 </body>
 </html>
