@@ -573,13 +573,12 @@
             justify-content: center;
             align-items: center;
             z-index: 1000;
-             transition: opacity 0.2s ease-out, backdrop-filter 0.3s ease; /* Smooth transition */
-             display: flex; /* Always flex, JS manages visibility via opacity/pointer-events if needed, or hidden class */
+            transition: opacity 0.2s ease-out, backdrop-filter 0.3s ease; /* Smooth transition */
+            display: flex; /* Always flex, JS manages visibility via opacity/pointer-events if needed, or hidden class */
+            padding: 1rem; /* Add padding around popup */
         }
-         /* Style for hidden state */
-         [id^="popup-"].hidden { opacity: 0; pointer-events: none; }
-         /* Style for visible state (JS adds opacity/transform) */
-
+        /* Style for hidden state */
+        [id^="popup-"].hidden { opacity: 0; pointer-events: none; }
 
         /* Popup Content Box (The modal itself) - Redesigned Size & Layout */
         [id^="popup-"] .glass-card.popup-modal-content {
@@ -601,7 +600,22 @@
             transition: opacity 0.3s ease-out, transform 0.3s ease-out, width 0.3s ease, height 0.3s ease; /* Add size transitions */
         }
 
-         /* Popup Header */
+        /* Mobile-specific adjustments */
+        @media (max-width: 640px) {
+            [id^="popup-"] .glass-card.popup-modal-content {
+                width: 100%; /* Full width on mobile */
+                height: 100vh; /* Full height on mobile */
+                max-height: 100vh;
+                border-radius: 0; /* Remove border radius on mobile */
+                margin: 0; /* Remove margin on mobile */
+            }
+            
+            [id^="popup-"] {
+                padding: 0; /* Remove padding on mobile */
+            }
+        }
+
+        /* Popup Header */
         .popup-header {
             flex-shrink: 0; /* Prevent header from shrinking */
             padding: 1rem 1.5rem; /* Consistent padding */
@@ -612,11 +626,18 @@
             align-items: center;
             background: hsl(var(--card) / 0.9); /* Match modal background */
             z-index: 10; /* Ensure it's above scrollable content */
+            position: sticky; /* Make header sticky */
+            top: 0; /* Stick to top */
         }
+
         .popup-header h2 {
-             font-size: 1.5rem;
-             font-weight: 700;
-             color: hsl(var(--heading-color));
+            font-size: 1.25rem; /* Smaller font size */
+            font-weight: 700;
+            color: hsl(var(--heading-color));
+            margin-right: 1rem; /* Space for close button */
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
         /* Popup Body (Scrollable Content Area) */
@@ -627,33 +648,74 @@
             scroll-behavior: smooth;
             scrollbar-width: thin;
             scrollbar-color: hsl(var(--primary)) hsl(var(--background));
+            -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
         }
-         /* Webkit scrollbar styling */
-         .popup-body::-webkit-scrollbar { width: 8px; }
-         .popup-body::-webkit-scrollbar-track { background: hsl(var(--background) / 0.5); border-radius: 4px; }
-         .popup-body::-webkit-scrollbar-thumb { background-color: hsl(var(--primary)); border-radius: 4px; border: 2px solid hsl(var(--background) / 0.5); }
-         .popup-body::-webkit-scrollbar-thumb:hover { background-color: hsl(var(--primary) / 0.8); }
 
+        /* Webkit scrollbar styling */
+        .popup-body::-webkit-scrollbar { width: 8px; }
+        .popup-body::-webkit-scrollbar-track { background: hsl(var(--background) / 0.5); border-radius: 4px; }
+        .popup-body::-webkit-scrollbar-thumb { background-color: hsl(var(--primary)); border-radius: 4px; border: 2px solid hsl(var(--background) / 0.5); }
+        .popup-body::-webkit-scrollbar-thumb:hover { background-color: hsl(var(--primary) / 0.8); }
 
-        /* Modal Close Button */
-         .modal-close {
-             background: hsl(var(--error));
-             color: hsl(var(--primary-foreground));
-             border: none;
-             border-radius: 50%;
-             width: 30px;
-             height: 30px;
-             cursor: pointer;
-             font-size: 1rem;
-             line-height: 30px;
-             text-align: center;
-             transition: all 0.2s ease;
-             outline: none;
-             flex-shrink: 0; /* Prevent close button from shrinking */
-         }
-         .modal-close:hover { background: hsl(var(--error) / 0.8); transform: scale(1.1); }
-         .modal-close:focus { box-shadow: 0 0 0 3px hsl(var(--error) / 0.5); }
+        /* Modal Close Button - Redesigned */
+        .modal-close {
+            background: transparent;
+            color: hsl(var(--muted-foreground));
+            border: none;
+            width: 32px;
+            height: 32px;
+            cursor: pointer;
+            font-size: 1.25rem;
+            line-height: 1;
+            text-align: center;
+            transition: all 0.2s ease;
+            outline: none;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            position: relative;
+        }
 
+        .modal-close:hover {
+            background: hsl(var(--muted));
+            color: hsl(var(--foreground));
+            transform: scale(1.1);
+        }
+
+        .modal-close:focus {
+            box-shadow: 0 0 0 3px hsl(var(--primary) / 0.3);
+        }
+
+        /* Add a mobile-specific close button at the bottom */
+        @media (max-width: 640px) {
+            .mobile-close-button {
+                position: fixed;
+                bottom: 1rem;
+                left: 50%;
+                transform: translateX(-50%);
+                background: hsl(var(--primary));
+                color: hsl(var(--primary-foreground));
+                padding: 0.75rem 2rem;
+                border-radius: 9999px;
+                font-weight: 500;
+                box-shadow: 0 4px 12px hsl(var(--primary) / 0.3);
+                z-index: 1001;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+
+            .mobile-close-button:hover {
+                background: hsl(var(--primary) / 0.9);
+                transform: translateX(-50%) translateY(-2px);
+            }
+
+            .mobile-close-button:active {
+                transform: translateX(-50%) translateY(0);
+            }
+        }
 
         /* University Sections within popup */
         .university-section {
@@ -1834,26 +1896,29 @@
         function closePopup(type) {
             const popup = document.getElementById(`popup-${type}`);
             const popupContentBox = popup?.querySelector('.glass-card.popup-modal-content');
+            const mobileCloseButton = document.querySelector('.mobile-close-button');
 
             if (popup && popupContentBox) {
-                 // Animate closing
-                 popup.style.transition = 'opacity 0.3s ease-in'; // Overlay fade duration
-                 popupContentBox.style.transition = 'opacity 0.3s ease-in, transform 0.3s ease-in'; // Modal fade and scale duration
+                // Animate closing
+                popup.style.transition = 'opacity 0.3s ease-in';
+                popupContentBox.style.transition = 'opacity 0.3s ease-in, transform 0.3s ease-in';
 
-                 popup.style.opacity = 0;
-                 popupContentBox.style.transform = 'scale(0.95)';
-                 popupContentBox.style.opacity = 0;
+                popup.style.opacity = 0;
+                popupContentBox.style.transform = 'scale(0.95)';
+                popupContentBox.style.opacity = 0;
 
+                // Remove mobile close button if it exists
+                if (mobileCloseButton) {
+                    mobileCloseButton.remove();
+                }
 
-                 // Hide after animation
-                 popup.addEventListener('transitionend', function handler() {
-                      popup.classList.add('hidden');
-                      // Reset transitions after hiding
-                      popup.style.transition = '';
-                      popupContentBox.style.transition = '';
-                       // Remove the event listener
-                      popup.removeEventListener('transitionend', handler);
-                 });
+                // Hide after animation
+                popup.addEventListener('transitionend', function handler() {
+                    popup.classList.add('hidden');
+                    popup.style.transition = '';
+                    popupContentBox.style.transition = '';
+                    popup.removeEventListener('transitionend', handler);
+                });
             }
         }
 
