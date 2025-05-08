@@ -2,1017 +2,1785 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Science et Technologie LMD - Semestre 2 - ISET'COM</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Science et Technologie LMD - Semestre 2 - Université de Bejaia</title>
+    <meta name="description" content="Ressources pédagogiques pour les étudiants de Science et Technologie LMD - Semestre 2 à l'Université de Bejaia. Cours, TD, TP, Examens.">
+    <meta name="author" content="Amara Mehdi">
+    <link rel="icon" type="image/png" href="assets/img/icon.png">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
-    <script type="text/javascript">
-        aclib.runAutoTag({
-            zoneId: '1hqerebunb',
-        });
-    </script>
+    <!-- Removed AdSense/adclib scripts -->
+    <!-- <script type="text/javascript"> ... </script> -->
+
+    <style>
+        /* --- Theme Variables (Synced with calculator & bib) --- */
+        :root {
+            --background: 0 0% 100%;
+            --foreground: 222.2 84% 4.9%;
+            --card: 0 0% 100%;
+            --card-foreground: 222.2 84% 4.9%;
+            --primary: 221.2 83.2% 53.3%;
+            --primary-foreground: 210 40% 98%;
+            --secondary: 210 40% 96.1%; /* Muted/Border color */
+            --secondary-foreground: 222.2 47.4% 11.2%;
+            --muted: 210 40% 96.1%;
+            --muted-foreground: 215.4 16.3% 46.9%;
+            --accent: 221.2 83.2% 53.3%; /* Using primary for general accent */
+            --accent-foreground: 210 40% 98%;
+            --border: 214.3 31.8% 91.4%;
+            --input: 214.3 31.8% 91.4%;
+            --ring: 221.2 83.2% 53.3%; /* Using primary again for ring */
+
+            /* Specific colors derived from Shadcn defaults (no green) */
+            --error: 0 84.2% 60.2%; /* Red */
+            --success: 221.2 83.2% 53.3%; /* Using primary for success (general positive state) */
+            --warning: 48 95.7% 64.9%; /* Amber (Used for Blida content accent) */
+
+             /* Campus/Section Accent Colors (Simplified/Unified) */
+            --section-accent-bejaia: var(--primary); /* Use primary theme */
+            --section-accent-blida: var(--warning); /* Use warning theme */
+            --section-bg: var(--muted); /* Use muted for section background */
+            --section-border: var(--border); /* Use border for section border */
+            --section-text: var(--foreground); /* Use foreground for section text */
+             --section-header-bg: var(--secondary); /* Slightly different muted for header */
+
+
+            --disabled-card-bg: 214.3 31.8% 91.4%; /* Use border */
+            --disabled-card-text: 215.4 16.3% 46.9%; /* Use muted foreground */
+
+            --footer-bg: 222.2 84% 4.9%; /* Use dark background */
+            --footer-text: 210 40% 98%; /* Use foreground */
+            --footer-link: 221.2 83.2% 53.3%; /* Use primary */
+
+            --modal-bg: 0 0% 100%; /* Use card */
+            --modal-text: 222.2 84% 4.9%; /* Use foreground */
+
+            --mobile-nav-bg: 0 0% 100%; /* Use card */
+            --mobile-nav-border: 214.3 31.8% 91.4%; /* Use border */
+            --mobile-nav-text: 215.4 16.3% 46.9%; /* Use muted foreground */
+            --mobile-nav-active: 221.2 83.2% 53.3%; /* Use primary */
+
+            --theme-toggle-bg: 0 0% 100%; /* Use card */
+            --theme-toggle-border: 214.3 31.8% 91.4%; /* Use border */
+            --theme-toggle-text: 215.4 16.3% 46.9%; /* Use muted foreground */
+            --theme-toggle-hover-bg: 210 40% 96.1%; /* Use muted */
+
+            --radius: 0.5rem;
+        }
+
+        html.dark {
+            --background: 222.2 84% 4.9%;
+            --foreground: 210 40% 98%;
+            --card: 222.2 84% 4.9%;
+            --card-foreground: 210 40% 98%;
+            --primary: 217.2 91.2% 59.8%;
+            --primary-foreground: 222.2 47.4% 11.2%;
+            --secondary: 217.2 32.6% 17.5%;
+            --secondary-foreground: 210 40% 98%;
+            --muted: 217.2 32.6% 17.5%;
+            --muted-foreground: 215 20.2% 65.1%;
+            --accent: 217.2 91.2% 59.8%; /* Using primary for general accent */
+            --accent-foreground: 222.2 47.4% 11.2%;
+            --border: 217.2 32.6% 17.5%;
+            --input: 217.2 32.6% 17.5%;
+            --ring: 224.3 76.3% 48%; /* Slightly different blue for ring */
+
+            /* Specific colors derived from Shadcn defaults (no green) */
+            --error: 0 84.2% 60.2%; /* Red */
+            --success: 217.2 91.2% 59.8%; /* Using primary dark for success */
+            --warning: 48 91.9% 69.2%; /* Amber */
+
+             /* Campus/Section Accent Colors (Dark Mode - Simplified/Unified) */
+            --section-accent-bejaia: var(--primary); /* Use primary theme */
+            --section-accent-blida: var(--warning); /* Use warning theme */
+            --section-bg: var(--muted); /* Use muted for section background */
+            --section-border: var(--border); /* Use border for section border */
+            --section-text: var(--foreground); /* Use foreground for section text */
+             --section-header-bg: var(--secondary); /* Slightly different muted for header */
+
+
+            --disabled-card-bg: 217.2 32.6% 17.5%; /* Use border dark */
+            --disabled-card-text: 215 20.2% 65.1%; /* Use muted foreground dark */
+
+            --footer-bg: 222.2 84% 4.9%; /* Use dark background */
+            --footer-text: 210 40% 98%; /* Use foreground */
+            --footer-link: 217.2 91.2% 59.8%; /* Use primary dark */
+
+            --modal-bg: 222.2 84% 4.9%; /* Use card dark */
+            --modal-text: 210 40% 98%; /* Use foreground dark */
+
+            --mobile-nav-bg: 222.2 84% 4.9%; /* Use card dark */
+            --mobile-nav-border: 217.2 32.6% 17.5%; /* Use border dark */
+            --mobile-nav-text: 215 20.2% 65.1%; /* Use muted foreground dark */
+            --mobile-nav-active: 217.2 91.2% 59.8%; /* Use primary dark */
+
+            --theme-toggle-bg: 222.2 84% 4.9%; /* Use card dark */
+            --theme-toggle-border: 217.2 32.6% 17.5%; /* Use border dark */
+            --theme-toggle-text: 210 40% 98%; /* Use foreground dark */
+            --theme-toggle-hover-bg: 217.2 32.6% 17.5%; /* Use muted dark */
+        }
+
+        /* --- Background Effects (Synced with calculator & bib) --- */
+        .hero-bg {
+            position: fixed; /* Use fixed to cover viewport behind everything */
+            inset: 0;
+            z-index: -10;
+            overflow: hidden;
+            pointer-events: none; /* Allow clicks through */
+        }
+
+        .gradient-blob {
+            position: absolute;
+            border-radius: 9999px;
+            filter: blur(60px);
+            opacity: 0.4; /* Slightly less opaque */
+        }
+
+        .gradient-blob-1 {
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 500px;
+            background: linear-gradient(to bottom right, hsl(var(--primary) / 0.4), hsl(var(--ring) / 0.2), hsl(var(--accent) / 0.1));
+            transform: translateY(-50%);
+        }
+
+        .gradient-blob-2 {
+            bottom: 0;
+            right: 0;
+            width: 500px;
+            height: 500px;
+            background: linear-gradient(to top right, hsl(var(--ring) / 0.3), hsl(var(--accent) / 0.2), transparent);
+        }
+
+        .floating-dot {
+            position: absolute;
+            border-radius: 9999px;
+            animation: pulse 2s infinite;
+            z-index: -9; /* Ensure dots are above blobs but below content */
+            /* Using Tailwind classes for dot colors */
+         }
+
+         /* Pulse variations for particles */
+         @keyframes pulse { 0%, 100% { opacity: 0.5; transform: scale(1); } 50% { opacity: 1; transform: scale(1.2); } }
+         @keyframes pulse1 { 0%, 100% { opacity: 0.4; transform: scale(0.8); } 50% { opacity: 0.9; transform: scale(1.1); } }
+         @keyframes pulse2 { 0%, 100% { opacity: 0.6; transform: scale(1.1); } 50% { transform: scale(0.7); } }
+
+
+        .floating-particles {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: -5; /* Below content, above blobs/dots */
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.7;
+            animation: float 10s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+                opacity: 0.3;
+            }
+            50% {
+                transform: translate(var(--x), var(--y)) scale(1.2);
+                opacity: 0.8;
+            }
+        }
+
+
+        /* --- General Styles using Variables --- */
+        body {
+            background-color: hsl(var(--background)); /* Use theme variable */
+            color: hsl(var(--foreground)); /* Use theme variable */
+            font-family: 'Poppins', sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease; /* Smooth page transition */
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .container-fluid { /* Using container-fluid from original */
+             width: 100%;
+             margin: 0 auto;
+             padding: 20px;
+             flex-grow: 1;
+             position: relative; /* Needed for z-index */
+             z-index: 1; /* Ensure content is above background */
+             max-width: 1200px; /* Set a max-width */
+             padding-left: 1rem; /* Ensure padding on sides */
+             padding-right: 1rem;
+        }
+
+
+        h1, h2, h3 {
+            color: hsl(var(--heading-color)); /* Use theme variable */
+            transition: color 0.3s ease;
+        }
+
+        /* Header - Synced with calculator & bib's new header style */
+        header {
+            background: hsl(var(--background) / 0.8); /* Use background with transparency */
+            backdrop-filter: blur(8px); /* Add blur */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Add shadow */
+            padding: 1rem 0; /* Vertical padding */
+            margin-bottom: 2.5rem; /* Space below header */
+            position: sticky; /* Make header sticky */
+            top: 0; /* Stick to the top */
+            width: 100%; /* Full width */
+            z-index: 20; /* Ensure header is above content */
+            border-bottom: 1px solid hsl(var(--border)); /* Add subtle border */
+            text-align: center; /* Center content */
+        }
+
+        header .header-container { /* Using header-container from original */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0 1rem; /* Adjust container padding for header */
+            max-width: 1200px; /* Match container-fluid max width */
+            margin: 0 auto; /* Center header container */
+             position: relative; /* Needed for back button */
+        }
+
+         header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0; /* No margin below title in simplified header */
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1); /* Keep dark shadow for contrast */
+             color: hsl(var(--foreground)); /* Use foreground color for title */
+         }
+
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: hsl(var(--primary)); /* Use primary color */
+            font-weight: 500;
+            font-size: 0.9rem;
+            padding: 0.4rem 0.8rem; /* Adjusted padding */
+            border-radius: 9999px;
+            background: hsl(var(--card) / 0.1); /* Use transparent card background */
+            border: 1px solid hsl(var(--border)); /* Use border color */
+            transition: all 0.3s ease;
+            position: absolute;
+            top: 50%;
+            left: 1rem; /* Position to the far left */
+            transform: translateY(-50%);
+            z-index: 10;
+            text-decoration: none;
+            outline: none; /* Remove default focus outline */
+        }
+
+        .back-button:hover {
+            background-color: hsl(var(--card) / 0.2);
+            color: hsl(var(--foreground));
+            transform: translateY(-50%) scale(1.05);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+         .back-button:focus {
+             box-shadow: 0 0 0 3px hsl(var(--primary) / 0.5); /* Add focus outline */
+         }
+
+
+        .back-button i {
+            font-size: 1rem;
+        }
+
+        /* Responsive adjustment for back button */
+        @media (max-width: 768px) {
+            .back-button {
+                position: static; /* Reset position on mobile */
+                transform: none; /* Reset transform */
+                margin-bottom: 1rem; /* Add space below button */
+            }
+             header .header-container {
+                 flex-direction: column; /* Stack items */
+             }
+         }
+
+        /* Removed logo styles */
+        header .header-container img { display: none; }
+
+
+        /* Main Content Container (Glass card) */
+        .glass-card {
+            background: hsl(var(--card) / 0.07); /* Use transparent card background */
+            backdrop-filter: blur(12px); /* Slightly more blur */
+            border-radius: 1.2rem; /* Slightly larger radius */
+            padding: clamp(1.5rem, 5vw, 2.5rem); /* Responsive padding */
+            box-shadow: 0 8px 32px 0 hsl(var(--background) / 0.1); /* Use background for shadow */
+            border: 1px solid hsl(var(--border)); /* Use border color */
+            margin-bottom: 2.5rem;
+            transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        /* Exclusive Box (Header Info Box) */
+        .exclusive-box {
+            border: 1px solid hsl(var(--border)); /* Use border */
+            background: hsl(var(--card) / 0.05); /* Use transparent card background */
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* Subtle shadow */
+             /* Removed old gradient background */
+            position: relative; /* For decorative elements */
+            overflow: hidden;
+             border-radius: 0.75rem; /* Match other rounded elements */
+             padding: 1.5rem; /* Adjusted padding */
+             margin-bottom: 2rem; /* Adjusted margin */
+        }
+         /* Decorative elements - use theme colors */
+         .exclusive-box .absolute {
+             background: linear-gradient(to bottom right, hsl(var(--primary) / 0.2), hsl(var(--ring) / 0.1));
+         }
+         .exclusive-box .absolute:nth-child(2) {
+              background: linear-gradient(to top right, hsl(var(--ring) / 0.2), hsl(var(--primary) / 0.1));
+         }
+
+
+        .exclusive-box h2 {
+            font-size: 1.5rem; /* Adjusted size */
+            font-weight: 700;
+            color: hsl(var(--foreground)); /* Use foreground */
+            margin-bottom: 0.5rem;
+        }
+         .exclusive-box h2 span {
+             color: hsl(var(--primary)); /* Use primary for accent text */
+              border-bottom-color: hsl(var(--primary) / 0.5); /* Subtle border */
+         }
+
+        .exclusive-box p {
+            font-size: 0.95rem;
+            color: hsl(var(--muted-foreground)); /* Use muted foreground */
+        }
+
+        .exclusive-box .flex-col.items-end .bg-blue-50 { /* Developer info box */
+             background: hsl(var(--muted) / 0.5); /* Use muted with transparency */
+             border: 1px solid hsl(var(--border)); /* Use border */
+             padding: 0.5rem 1rem; /* Adjusted padding */
+             border-radius: 0.5rem;
+             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+         .exclusive-box .flex-col.items-end a {
+             font-weight: 600;
+             color: hsl(var(--primary)); /* Use primary */
+             text-decoration: none;
+             transition: color 0.2s ease, text-decoration 0.2s ease;
+             outline: none; /* Remove default focus */
+         }
+          .exclusive-box .flex-col.items-end a:hover {
+              color: hsl(var(--primary) / 0.8); /* Darker on hover */
+              text-decoration: underline;
+          }
+           .exclusive-box .flex-col.items-end a:focus {
+               box-shadow: 0 0 0 3px hsl(var(--primary) / 0.3);
+           }
+
+         .exclusive-box .flex-col.items-end a i { font-size: 1rem; }
+
+
+        .exclusive-box .text-xs { /* University name below developer */
+            color: hsl(var(--muted-foreground)); /* Use muted foreground */
+            opacity: 0.8;
+        }
+
+
+        /* Telegram Button */
+        .telegram-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.2rem; /* Adjusted padding */
+            background: linear-gradient(to right, hsl(var(--primary)), hsl(var(--ring))); /* Use theme primary/ring gradient */
+            color: hsl(var(--primary-foreground)); /* Use foreground on primary */
+            border-radius: 9999px;
+            box-shadow: 0 4px 8px hsl(var(--primary) / 0.3); /* Shadow based on primary */
+            transition: all 0.3s ease;
+            text-decoration: none;
+            outline: none; /* Remove default focus outline */
+             cursor: pointer;
+        }
+        .telegram-button:hover {
+            box-shadow: 0 6px 12px hsl(var(--primary) / 0.4);
+            transform: scale(1.05);
+        }
+         .telegram-button:focus {
+              box-shadow: 0 0 0 4px hsl(var(--primary) / 0.4);
+         }
+
+        .telegram-button i {
+            font-size: 1.2rem; /* Adjusted icon size */
+        }
+        .telegram-button span.font-medium { font-size: 0.95rem; }
+
+        .telegram-button .bg-yellow-400 { /* "NEW" badge */
+            background-color: hsl(var(--warning)); /* Use warning color */
+            color: hsl(var(--foreground)); /* Use foreground for text */
+            font-size: 0.75rem;
+            padding: 0.1rem 0.4rem; /* Adjusted padding */
+            border-radius: 9999px;
+            font-weight: 700;
+            animation: pulse-warning 1.5s infinite; /* Custom pulse animation */
+        }
+         @keyframes pulse-warning {
+             0% { opacity: 1; transform: scale(1); }
+             50% { opacity: 0.7; transform: scale(1.1); }
+             100% { opacity: 1; transform: scale(1); }
+         }
+
+
+        /* Module Cards */
+        .module-card {
+            background: hsl(var(--card) / 0.08); /* Use transparent card background */
+            border-radius: 1rem; /* Larger radius */
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            backdrop-filter: blur(8px); /* Adjusted blur */
+            border: 1px solid hsl(var(--border)); /* Use border */
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            padding: 1.5rem; /* Adjusted padding */
+            transition: all 0.3s ease;
+             position: relative; /* Needed for outline */
+            outline: none; /* Remove default focus outline */
+             cursor: default; /* Card itself isn't the primary click target */
+        }
+
+         /* Clickable Indicator Outline for Module Cards (Focus/Container Hover) */
+         /* Apply outline to the card when it or any of its interactive children are focused/hovered */
+         .module-card:focus-within::after,
+         .module-card:hover::after {
+              border-color: hsl(var(--primary)); /* Primary color outline */
+              opacity: 1;
+              box-shadow: 0 0 8px hsl(var(--primary) / 0.5); /* Subtle glow */
+         }
+         .module-card::after {
+            content: '';
+            position: absolute;
+            inset: -2px; /* Make outline slightly outside the border */
+            border-radius: calc(1rem + 2px); /* Match card radius + inset */
+            border: 2px solid transparent; /* Default transparent border */
+            transition: all 0.3s ease;
+            pointer-events: none; /* Don't interfere with clicks */
+            opacity: 0; /* Hidden by default */
+        }
+
+        .module-card:hover {
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+            border-color: hsl(var(--border) / 0.8); /* Slightly darker border */
+        }
+         html.dark .module-card {
+             box-shadow: 0 4px 15px hsl(var(--background) / 0.1);
+             border: 1px solid hsl(var(--border));
+         }
+         html.dark .module-card:hover {
+             box-shadow: 0 8px 25px hsl(var(--background) / 0.15);
+              border-color: hsl(var(--border) / 0.8);
+         }
+
+
+        .module-card .module-icon {
+            width: 48px; /* Adjusted size */
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.08);
+            font-size: 1.5rem; /* Icon size */
+            background: hsl(var(--muted)); /* Use muted for icon background */
+            color: hsl(var(--primary)); /* Use primary for icon color */
+             transition: all 0.3s ease;
+        }
+        /* Specific icon colors from original - map to theme */
+        .module-icon.bg-purple-100 { background-color: hsl(var(--primary) / 0.1); color: hsl(var(--primary)); } /* Purple -> Primary */
+        .module-icon.bg-blue-100 { background-color: hsl(var(--primary) / 0.1); color: hsl(var(--primary)); } /* Blue -> Primary */
+        .module-icon.bg-red-100 { background-color: hsl(var(--error) / 0.1); color: hsl(var(--error)); } /* Red -> Error */
+        .module-icon.bg-green-100 { background-color: hsl(var(--primary) / 0.1); color: hsl(var(--primary)); } /* Green -> Primary */
+        .module-icon.bg-yellow-100 { background-color: hsl(var(--warning) / 0.1); color: hsl(var(--warning)); } /* Yellow -> Warning */
+        .module-icon.bg-gray-100 { background-color: hsl(var(--muted) / 0.1); color: hsl(var(--muted-foreground)); } /* Gray -> Muted */
+        .module-icon.bg-pink-100 { background-color: hsl(var(--accent) / 0.1); color: hsl(var(--accent)); } /* Pink -> Accent */
+        .module-icon.bg-indigo-100 { background-color: hsl(var(--primary) / 0.1); color: hsl(var(--primary)); } /* Indigo -> Primary */
+        .module-icon.bg-orange-100 { background-color: hsl(var(--warning) / 0.1); color: hsl(var(--warning)); } /* Orange -> Warning */
+
+
+        .module-card h3 {
+             color: hsl(var(--foreground)); /* Override with theme variable */
+             font-weight: 600;
+             font-size: 1.15rem;
+        }
+
+        /* Module Buttons - Unified Style */
+        .module-btn {
+            color: hsl(var(--primary-foreground)); /* Use foreground on primary */
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: inline-flex;
+            align-items: center;
+            background: linear-gradient(to right, hsl(var(--primary)), hsl(var(--ring))); /* Use theme primary/ring gradient */
+            border: none;
+            cursor: pointer;
+            outline: none; /* Remove default focus outline */
+             position: relative; /* For pseudo-element outline */
+        }
+         /* Outline for Module Buttons */
+         .module-btn::after {
+            content: '';
+            position: absolute;
+            inset: -2px; /* Make outline slightly outside the button */
+            border-radius: calc(8px + 2px); /* Match button radius + inset */
+            border: 2px solid transparent; /* Default transparent border */
+            transition: all 0.2s ease;
+            pointer-events: none; /* Don't interfere with clicks */
+            opacity: 0; /* Hidden by default */
+         }
+         .module-btn:hover::after,
+         .module-btn:focus::after {
+              border-color: hsl(var(--primary)); /* Primary color outline */
+              opacity: 1;
+              box-shadow: 0 0 6px hsl(var(--primary) / 0.5); /* Subtle glow */
+         }
+
+
+        .module-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+        }
+
+        .module-btn:active {
+            transform: translateY(0px);
+        }
+
+
+        /* Popup Container (Overlay) */
+        [id^="popup-"] { /* Target all popup divs */
+            /* display: none; */ /* Managed by JS */
+            position: fixed;
+            inset: 0;
+            background: hsl(var(--background) / 0.75); /* Darker overlay with transparency */
+            backdrop-filter: blur(8px); /* Add blur */
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+             transition: opacity 0.2s ease-out, backdrop-filter 0.3s ease; /* Smooth transition */
+             display: flex; /* Always flex, JS manages visibility via opacity/pointer-events if needed, or hidden class */
+        }
+         /* Style for hidden state */
+         [id^="popup-"].hidden { opacity: 0; pointer-events: none; }
+         /* Style for visible state (JS adds opacity/transform) */
+         /* [id^="popup-"]:not(.hidden) { opacity: 1; pointer-events: auto; } */ /* Opacity is handled by JS animation now */
+
+
+        /* Popup Content Box (The modal itself) */
+        [id^="popup-"] .glass-card.popup-modal-content { /* Target the inner glass-card inside popup */
+            background: hsl(var(--card) / 0.9); /* Less transparent than main glass card */
+            border-radius: 1rem; /* Slightly smaller radius than main glass card */
+            padding: 1.5rem; /* Adjusted padding */
+            max-width: 90%;
+            width: 600px; /* Set a default width */
+            box-shadow: 0 10px 40px hsl(var(--background) / 0.2); /* Use background for shadow */
+            border: 1px solid hsl(var(--border)); /* Use border */
+            max-height: 90vh; /* Allow content to scroll */
+            /* overflow-y: auto; */ /* Scrolling handled by popup-body */
+             display: flex; /* Use flex to control inner layout */
+             flex-direction: column;
+             position: relative; /* Needed for close button */
+             transition: opacity 0.2s ease-out, transform 0.2s ease-out; /* Transition for the modal itself */
+        }
+         /* Prevent overflow issues with flex */
+         [id^="popup-"] .glass-card .popup-container {
+              display: flex;
+              flex-direction: column;
+              min-height: 0; /* Allow flex item to shrink */
+              flex-grow: 1;
+         }
+
+
+        /* Popup Header */
+        .popup-header {
+            position: sticky; /* Make header sticky inside popup */
+            top: 0;
+            background: hsl(var(--card) / 0.9); /* Match glass-card background */
+            z-index: 10;
+            padding: 0 0 1rem 0; /* Padding below, handled by body padding */
+            margin-bottom: 1rem; /* Space below header */
+            border-bottom: 1px solid hsl(var(--border)); /* Subtle border */
+             display: flex; /* Layout for title and close button */
+             justify-content: space-between;
+             align-items: center;
+        }
+        .popup-header h2 {
+             color: hsl(var(--heading-color));
+             font-size: 1.5rem;
+             font-weight: 700;
+        }
+
+        /* Popup Body (Scrollable Content) */
+        .popup-body {
+            flex: 1; /* Allow body to fill remaining space */
+            overflow-y: auto; /* Make body scrollable */
+            padding: 0; /* Padding handled by outer container */
+            scroll-behavior: smooth; /* Smooth scrolling */
+            scrollbar-width: thin; /* Firefox scrollbar */
+            scrollbar-color: hsl(var(--primary)) hsl(var(--background)); /* Firefox scrollbar colors */
+        }
+         /* Webkit scrollbar styling */
+         .popup-body::-webkit-scrollbar { width: 8px; }
+         .popup-body::-webkit-scrollbar-track { background: hsl(var(--background) / 0.5); border-radius: 4px; }
+         .popup-body::-webkit-scrollbar-thumb { background-color: hsl(var(--primary)); border-radius: 4px; border: 2px solid hsl(var(--background) / 0.5); }
+         .popup-body::-webkit-scrollbar-thumb:hover { background-color: hsl(var(--primary) / 0.8); }
+
+
+        /* Modal Close Button */
+         .modal-close {
+             background: hsl(var(--error)); /* Use error color */
+             color: hsl(var(--primary-foreground)); /* Use foreground on primary for contrast */
+             border: none;
+             border-radius: 50%;
+             width: 30px;
+             height: 30px;
+             cursor: pointer;
+             font-size: 1rem;
+             line-height: 30px;
+             text-align: center;
+             transition: all 0.2s ease;
+             outline: none; /* Remove default focus */
+         }
+         .modal-close:hover {
+             background: hsl(var(--error) / 0.8); /* Darker error on hover */
+             transform: scale(1.1);
+         }
+          .modal-close:focus {
+             box-shadow: 0 0 0 3px hsl(var(--error) / 0.5);
+          }
+
+
+        /* University Sections within popup */
+        .university-section {
+            background: hsl(var(--section-bg)); /* Use section background */
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+             border-left: 4px solid; /* Base border left */
+        }
+
+         /* Bejaia Section Specifics */
+         .university-section[style*="--section-accent-bejaia"] {
+             border-left-color: hsl(var(--section-accent-bejaia));
+         }
+          .university-section[style*="--section-accent-bejaia"] .section-header {
+              background: hsl(var(--section-header-bg));
+               border-bottom-color: hsl(var(--section-border));
+          }
+         .university-section[style*="--section-accent-bejaia"] .section-header h3 {
+             color: hsl(var(--section-text));
+         }
+         .university-section[style*="--section-accent-bejaia"] .section-header::after {
+            background: linear-gradient(to right, transparent, hsl(var(--section-accent-bejaia) / 0.3), transparent);
+         }
+         .university-section[style*="--section-accent-bejaia"] .exclusive-2025::before {
+             background: hsl(var(--section-accent-bejaia));
+         }
+         .university-section[style*="--section-accent-bejaia"] .exclusive-2025 h4 span {
+              background: hsl(var(--section-accent-bejaia));
+              color: hsl(var(--primary-foreground));
+         }
+         .university-section[style*="--section-accent-bejaia"] .exclusive-link {
+              background: hsl(var(--card) / 0.05);
+              border-color: hsl(var(--border) / 0.5);
+         }
+         .university-section[style*="--section-accent-bejaia"] .exclusive-link:hover,
+         .university-section[style*="--section-accent-bejaia"] .exclusive-link:focus {
+             background: hsl(var(--muted) / 0.5);
+             border-color: hsl(var(--primary) / 0.8);
+         }
+         .university-section[style*="--section-accent-bejaia"] .exclusive-link span i {
+             color: hsl(var(--primary));
+         }
+         .university-section[style*="--section-accent-bejaia"] .content-item {
+             background: hsl(var(--card) / 0.05);
+             border-color: hsl(var(--border) / 0.5);
+         }
+         .university-section[style*="--section-accent-bejaia"] .content-item:hover,
+         .university-section[style*="--section-accent-bejaia"] .content-item:focus {
+              border-color: hsl(var(--primary));
+         }
+         .university-section[style*="--section-accent-bejaia"] .content-item a .icon-wrapper {
+             background: hsl(var(--muted));
+             color: hsl(var(--primary));
+         }
+         .university-section[style*="--section-accent-bejaia"] .download-btn {
+             background: hsl(var(--primary));
+             color: hsl(var(--primary-foreground));
+         }
+         .university-section[style*="--section-accent-bejaia"] .download-btn:hover,
+         .university-section[style*="--section-accent-bejaia"] .download-btn:focus {
+             background: hsl(var(--primary) / 0.8);
+         }
+
+
+         /* Blida Section Specifics */
+         .university-section[style*="--section-accent-blida"] { /* Target Blida Section */
+             border-left-color: hsl(var(--section-accent-blida)); /* Blida accent color */
+             background: hsl(var(--section-bg));
+             border: 1px solid hsl(var(--section-border));
+         }
+         .university-section[style*="--section-accent-blida"] .section-header {
+             background: hsl(var(--section-header-bg)); /* Consistent header bg */
+             border-bottom-color: hsl(var(--section-border));
+         }
+         .university-section[style*="--section-accent-blida"] .section-header h3 {
+             color: hsl(var(--section-text)); /* Consistent text color */
+         }
+         .university-section[style*="--section-accent-blida"] .section-header::after {
+            background: linear-gradient(to right, transparent, hsl(var(--section-accent-blida) / 0.3), transparent); /* Blida accent gradient */
+         }
+
+         .university-section[style*="--section-accent-blida"] .exclusive-2025::before {
+             background: hsl(var(--section-accent-blida)); /* Blida exclusive accent color */
+         }
+
+         .university-section[style*="--section-accent-blida"] .exclusive-2025 h4 span { /* Blida exclusive badge */
+             background: hsl(var(--section-accent-blida)); /* Blida accent color for badge */
+              color: hsl(var(--foreground)); /* Use foreground */
+         }
+
+         .university-section[style*="--section-accent-blida"] .exclusive-link {
+              background: hsl(var(--card) / 0.05); /* Slightly transparent card */
+              border-color: hsl(var(--border) / 0.5);
+         }
+         .university-section[style*="--section-accent-blida"] .exclusive-link:hover,
+         .university-section[style*="--section-accent-blida"] .exclusive-link:focus {
+             background: hsl(var(--muted) / 0.5); /* Muted background */
+             border-color: hsl(var(--warning) / 0.8); /* Warning border */
+         }
+         .university-section[style*="--section-accent-blida"] .exclusive-link span i {
+             color: hsl(var(--warning)); /* Warning color for icons */
+         }
+
+         /* Content item styling within Blida section */
+         .university-section[style*="--section-accent-blida"] .content-item {
+             background: hsl(var(--card) / 0.05); /* Slightly transparent card */
+              border-color: hsl(var(--border) / 0.5);
+         }
+         .university-section[style*="--section-accent-blida"] .content-item:hover,
+         .university-section[style*="--section-accent-blida"] .content-item:focus {
+              border-color: hsl(var(--warning)); /* Warning border */
+         }
+         .university-section[style*="--section-accent-blida"] .content-item a .icon-wrapper {
+             background: hsl(var(--muted)); /* Muted background */
+             color: hsl(var(--warning)); /* Warning color */
+         }
+         .university-section[style*="--section-accent-blida"] .download-btn {
+             background: hsl(var(--warning)); /* Warning background */
+             color: hsl(var(--foreground)); /* Foreground text */
+         }
+         .university-section[style*="--section-accent-blida"] .download-btn:hover,
+         .university-section[style*="--section-accent-blida"] .download-btn:focus {
+             background: hsl(var(--warning) / 0.8); /* Slightly darker */
+         }
+
+
+        /* Animation for Exclusive content */
+        @keyframes primaryGlow {
+             from { box-shadow: 0 0 5px hsl(var(--primary) / 0.2); }
+             to { box-shadow: 0 0 20px hsl(var(--primary) / 0.4); }
+        }
+        .exclusive-2025.bejaia-exclusive { /* Use specific class if needed */
+            animation: primaryGlow 2s ease-in-out infinite alternate;
+        }
+         @keyframes warningGlow {
+             from { box-shadow: 0 0 5px hsl(var(--warning) / 0.2); }
+             to { box-shadow: 0 0 20px hsl(var(--warning) / 0.4); }
+        }
+        .exclusive-2025.blida-exclusive { /* Use specific class if needed */
+            animation: warningGlow 2s ease-in-out infinite alternate;
+        }
+
+         /* Recommended Pulse Animation */
+         .recommended-content {
+            animation: subtlePulse 2s ease-in-out infinite;
+        }
+         @keyframes subtlePulse {
+             0% { transform: scale(1); }
+             50% { transform: scale(1.005); } /* Very subtle */
+             100% { transform: scale(1); }
+         }
+
+
+        /* Footer */
+        footer {
+            background-color: hsl(var(--background) / 0.8); /* Use background with transparency */
+            backdrop-filter: blur(5px);
+            color: hsl(var(--muted-foreground)); /* Use muted foreground */
+            transition: background-color 0.3s ease, color 0.3s ease;
+            text-align: center;
+            font-size: 0.9rem; /* Slightly smaller font */
+            padding: 1.5rem 1rem; /* Adjusted padding */
+            margin-top: auto; /* Push to the bottom */
+             border-top: 1px solid hsl(var(--border) / 0.5); /* Subtle border */
+        }
+        footer a {
+            color: hsl(var(--primary)); /* Use primary color */
+            transition: color 0.3s ease;
+            text-decoration: none; /* Remove underline */
+            outline: none; /* Remove default focus */
+        }
+        footer a:hover {
+            color: hsl(var(--primary) / 0.8); /* Slightly darker on hover */
+            text-decoration: underline;
+        }
+         footer a:focus {
+              box-shadow: 0 0 0 3px hsl(var(--primary) / 0.3);
+         }
+
+
+        /* Mobile Navigation (Not present in this file, but included for consistency if added) */
+        #mobile-nav {
+             display: none; /* Ensure it's hidden if accidentally added */
+        }
+        @media (max-width: 768px) {
+             /* Adjust padding for mobile if mobile nav is absent */
+             body { padding-bottom: 1rem !important; } /* Add some padding at the bottom */
+             .container-fluid { padding-left: 0.75rem; padding-right: 0.75rem; } /* Adjust padding */
+         }
+
+
+        /* Theme Toggle Button */
+        #theme-toggle {
+             position: fixed;
+             bottom: 1rem; /* Position lower if no mobile nav */
+             right: 1rem;
+             z-index: 50;
+             width: 3rem;
+             height: 3rem;
+             border-radius: 9999px;
+             background: hsl(var(--theme-toggle-bg) / 0.8); /* Use theme variable with transparency */
+             backdrop-filter: blur(8px); /* Add blur */
+             border: 1px solid hsl(var(--theme-toggle-border)); /* Use theme variable */
+             display: flex;
+             align-items: center;
+             justify-content: center;
+             cursor: pointer;
+             transition: all 0.3s ease;
+             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+             color: hsl(var(--theme-toggle-text)); /* Use theme variable for icon color */
+             outline: none; /* Remove default focus */
+        }
+        #theme-toggle:hover {
+            background-color: hsl(var(--theme-toggle-hover-bg) / 0.9); /* Use theme variable */
+            transform: translateY(-2px) scale(1.05); /* Slight hover effect */
+        }
+         #theme-toggle:focus {
+              box-shadow: 0 0 0 3px hsl(var(--primary) / 0.5);
+         }
+
+        /* Icon visibility */
+        #theme-toggle .fa-moon { display: none; }
+        #theme-toggle .fa-sun { display: inline-block; }
+        html:not(.dark) #theme-toggle .fa-moon { display: inline-block; }
+        html:not(.dark) #theme-toggle .fa-sun { display: none; }
+
+         /* Loader for placeholder */
+         .loader {
+            border: 4px solid hsl(var(--border));
+            border-top: 4px solid hsl(var(--primary));
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+            margin-left: 10px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+         @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+         }
+
+    </style>
+
 </head>
-<body class="flex flex-col min-h-screen bg-gray-50">
-    <div>
-        <script type="text/javascript">
-            aclib.runBanner({
-                zoneId: '9521434',
-            });
-        </script>
+<body class="flex flex-col min-h-screen">
+    <!-- Hero Background (Synced with calculator & bib) -->
+    <div class="hero-bg">
+        <div class="gradient-blob gradient-blob-1"></div>
+        <div class="gradient-blob gradient-blob-2"></div>
+        <!-- Using Tailwind classes for dot colors - Changed from specific colors -->
+        <div class="floating-dot w-4 h-4 bg-blue-500 top-1/4 left-1/4"></div>
+        <div class="floating-dot w-3 h-3 bg-purple-500 top-1/3 right-1/4"></div>
+        <div class="floating-dot w-2 h-2 bg-indigo-500 bottom-1/4 left-1/3"></div>
+        <div class="floating-dot w-3 h-3 bg-orange-500 top-2/3 right-1/3"></div>
     </div>
-    <div class="container-fluid px-4 flex-grow">
-        <header class="mb-12 mt-8" data-aos="fade-down">
-            <div class="header-container">
-                <a href="specialite-science-technologie.html" class="back-button hover:scale-110 transform transition-all duration-300">
-                    <i class="fas fa-arrow-left"></i>
-                    
-                    Retour
-                </a>
-                <img src="assets/img/LOGO.png" alt="ISET'COM" class="max-w-[200px]">
-            </div>
-        </header>
 
+    <!-- Floating Particles (Synced with calculator & bib) -->
+    <div class="floating-particles" id="particles"></div>
+
+    <!-- Header - Updated structure -->
+    <header data-aos="fade-down">
+        <div class="header-container"> <!-- Keep header-container from original -->
+            <a href="specialite-science-technologie.html" class="back-button" aria-label="Retour aux spécialités ST">
+                <i class="fas fa-arrow-left"></i>
+                Retour
+            </a>
+             <!-- Removed logo -->
+            <h1 class="text-3xl font-bold">Science et Technologie LMD - Semestre 2</h1>
+        </div>
+    </header>
+
+    <!-- Removed AdSense div -->
+    <!-- <div><script>...</script></div> -->
+
+
+    <div class="container-fluid px-4 flex-grow">
         <div class="glass-card" data-aos="fade-up">
-            <div class="exclusive-box mb-8 p-6 rounded-2xl border-2 border-green-300 bg-gradient-to-r from-green-50 to-blue-50 shadow-lg relative overflow-hidden">
-                <!-- Add decorative elements -->
-                <div class="absolute top-0 right-0 w-32 h-32 -mr-8 -mt-8 bg-gradient-to-br from-green-200 to-blue-200 rounded-full opacity-20"></div>
-                <div class="absolute bottom-0 left-0 w-24 h-24 -ml-6 -mb-6 bg-gradient-to-tr from-blue-200 to-green-200 rounded-full opacity-20"></div>
-                
+            <div class="exclusive-box mb-8 relative overflow-hidden">
+                <!-- Add decorative elements - using theme colors -->
+                <div class="absolute top-0 right-0 w-32 h-32 -mr-8 -mt-8 rounded-full opacity-20"></div>
+                <div class="absolute bottom-0 left-0 w-24 h-24 -ml-6 -mb-6 rounded-full opacity-20"></div>
+
                 <div class="flex flex-col md:flex-row justify-between items-center relative z-10">
                     <div>
-                        <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-2">
-                            <span class="text-green-600 mr-2"><i class="fas fa-graduation-cap"></i></span>
-                            <span class="text-green-600 border-b-2 border-green-400 pb-1">Science et Technologie LMD</span> - Semestre 2
+                        <h2 class="text-2xl md:text-3xl font-bold mb-2">
+                            <span class="mr-2"><i class="fas fa-graduation-cap"></i></span>
+                            <span class="border-b-2 pb-1">Science et Technologie LMD</span> - Semestre 2
                         </h2>
-                        <p class="text-gray-600 text-sm md:text-base">Ressources pédagogiques pour les étudiants en science et technologie</p>
+                        <p class="text-sm md:text-base">Ressources pédagogiques pour les étudiants en science et technologie</p>
                     </div>
                     <div class="flex flex-col items-end mt-4 md:mt-0">
-                        <div class="bg-blue-50 px-4 py-2 rounded-lg border border-blue-200 shadow-sm">
-                            <span class="text-gray-600 block text-sm">Développé par</span>
-                            <a href="mailto:mehdi.amara@tech.univ-bejaia.dz" class="font-semibold text-blue-600 hover:text-blue-800 hover:underline flex items-center gap-2 text-lg">
+                        <div class="px-4 py-2 rounded-lg border shadow-sm">
+                            <span class="block text-sm">Développé par</span>
+                            <a href="mailto:mehdi.amara@tech.univ-bejaia.dz" class="font-semibold hover:underline flex items-center gap-2 text-lg">
                                 <i class="fas fa-code"></i>
                                 Amara Mehdi
                             </a>
                         </div>
-                        <span class="text-xs text-gray-500 mt-1">Université de Béjaia</span>
+                        <span class="text-xs opacity-80 mt-1">Université de Béjaia</span>
                     </div>
                 </div>
             </div>
 
             <!-- Telegram exclusive button -->
             <div class="flex justify-center mb-6">
-                <a href="https://t.me/campuselkseur" target="_blank" class="telegram-button flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-full shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105 group">
+                <a href="https://t.me/campuselkseur" target="_blank" class="telegram-button flex items-center gap-2 rounded-full shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105 group">
                     <span class="flex items-center gap-1">
                         <i class="fab fa-telegram text-xl group-hover:animate-bounce"></i>
                         <span class="font-medium">Contenu Exclusif</span>
                     </span>
-                    <span class="bg-yellow-400 text-xs px-2 py-1 rounded-full text-blue-800 font-bold animate-pulse">NEW</span>
+                    <span class="text-xs px-2 py-1 rounded-full font-bold animate-pulse">NEW</span>
                     <i class="fas fa-arrow-right opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:translate-x-1"></i>
                 </a>
             </div>
 
-            <h1 class="text-3xl font-bold mb-8 text-center text-gray-800">Science et Technologie LMD - Semestre 2</h1>
-            
+
             <div id="moduleContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4 sm:gap-6 mb-8">
-    <!-- Mathématique 2 -->
-    <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
-        <div class="flex items-center gap-3 mb-4">
-            <div class="module-icon bg-purple-100 p-3 rounded-full text-purple-600">
-                <i class="fas fa-square-root-alt fa-lg"></i>
+                <!-- Module cards will be populated here by JavaScript -->
+                <!-- Add a placeholder while JS loads -->
+                 <div id="module-placeholder" class="col-span-full text-center text-muted-foreground py-8">
+                     Chargement des modules... <span class="loader inline-block ml-2"></span>
+                 </div>
             </div>
-            <h3 class="text-xl font-semibold text-gray-800">Mathématique 2</h3>
-        </div>
-        <div class="mt-auto flex flex-wrap gap-2">
-            <button class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('Mathématique 2', 'cours')">
-                <i class="fas fa-book mr-1"></i> Cours
-            </button>
-            <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('Mathématique 2', 'tdtp')">
-                <i class="fas fa-pencil-alt mr-1"></i> TD+TP
-            </button>
-            <button class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('Mathématique 2', 'examen')">
-                <i class="fas fa-file-alt mr-1"></i> Examen
-            </button>
-        </div>
-    </div>
-    
-    <!-- Physique 2 -->
-    <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
-        <div class="flex items-center gap-3 mb-4">
-            <div class="module-icon bg-blue-100 p-3 rounded-full text-blue-600">
-                <i class="fas fa-atom fa-lg"></i>
-            </div>
-            <h3 class="text-xl font-semibold text-gray-800">Physique 2</h3>
-        </div>
-        <div class="mt-auto flex flex-wrap gap-2">
-            <button class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('Physique 2', 'cours')">
-                <i class="fas fa-book mr-1"></i> Cours
-            </button>
-            <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('Physique 2', 'tdtp')">
-                <i class="fas fa-pencil-alt mr-1"></i> TD+TP
-            </button>
-            <button class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('Physique 2', 'examen')">
-                <i class="fas fa-file-alt mr-1"></i> Examen
-            </button>
-        </div>
-    </div>
-    
-    <!-- Thermodynamique (Chimie 2) -->
-    <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
-        <div class="flex items-center gap-3 mb-4">
-            <div class="module-icon bg-red-100 p-3 rounded-full text-red-600">
-                <i class="fas fa-flask fa-lg"></i>
-            </div>
-            <h3 class="text-xl font-semibold text-gray-800">Thermodynamique (Chimie 2)</h3>
-        </div>
-        <div class="mt-auto flex flex-wrap gap-2">
-            <button class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('Thermodynamique (Chimie 2)', 'cours')">
-                <i class="fas fa-book mr-1"></i> Cours
-            </button>
-            <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('Thermodynamique (Chimie 2)', 'tdtp')">
-                <i class="fas fa-pencil-alt mr-1"></i> TD+TP
-            </button>
-            <button class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('Thermodynamique (Chimie 2)', 'examen')">
-                <i class="fas fa-file-alt mr-1"></i> Examen
-            </button>
-        </div>
-    </div>
-    
-    <!-- Informatique 2 -->
-    <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
-        <div class="flex items-center gap-3 mb-4">
-            <div class="module-icon bg-green-100 p-3 rounded-full text-green-600">
-                <i class="fas fa-laptop-code fa-lg"></i>
-            </div>
-            <h3 class="text-xl font-semibold text-gray-800">Informatique 2</h3>
-        </div>
-        <div class="mt-auto flex flex-wrap gap-2">
-            <button class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('Informatique 2', 'cours')">
-                <i class="fas fa-book mr-1"></i> Cours
-            </button>
-            <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('Informatique 2', 'tdtp')">
-                <i class="fas fa-pencil-alt mr-1"></i> TD+TP
-            </button>
-            <button class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('Informatique 2', 'examen')">
-                <i class="fas fa-file-alt mr-1"></i> Examen
-            </button>
-        </div>
-    </div>
-    
-    <!-- MP -->
-    <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
-        <div class="flex items-center gap-3 mb-4">
-            <div class="module-icon bg-yellow-100 p-3 rounded-full text-yellow-600">
-                <i class="fas fa-project-diagram fa-lg"></i>
-            </div>
-            <h3 class="text-xl font-semibold text-gray-800">MP</h3>
-        </div>
-        <div class="mt-auto flex flex-wrap gap-2">
-            <button class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('MP', 'cours')">
-                <i class="fas fa-book mr-1"></i> Cours
-            </button>
-            <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('MP', 'tdtp')">
-                <i class="fas fa-pencil-alt mr-1"></i> TD+TP
-            </button>
-            <button class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('MP', 'examen')">
-                <i class="fas fa-file-alt mr-1"></i> Examen
-            </button>
-        </div>
-    </div>
-    
-    <!-- MST 2 -->
-    <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
-        <div class="flex items-center gap-3 mb-4">
-            <div class="module-icon bg-gray-100 p-3 rounded-full text-gray-600">
-                <i class="fas fa-cogs fa-lg"></i>
-            </div>
-            <h3 class="text-xl font-semibold text-gray-800">MST 2</h3>
-        </div>
-        <div class="mt-auto flex flex-wrap gap-2">
-            <button class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('MST 2', 'cours')">
-                <i class="fas fa-book mr-1"></i> Cours
-            </button>
-            <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('MST 2', 'tdtp')">
-                <i class="fas fa-pencil-alt mr-1"></i> TD+TP
-            </button>
-            <button class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('MST 2', 'examen')">
-                <i class="fas fa-file-alt mr-1"></i> Examen
-            </button>
-        </div>
-    </div>
-    
-    <!-- Langue étrangère 2 -->
-    <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
-        <div class="flex items-center gap-3 mb-4">
-            <div class="module-icon bg-pink-100 p-3 rounded-full text-pink-600">
-                <i class="fas fa-language fa-lg"></i>
-            </div>
-            <h3 class="text-xl font-semibold text-gray-800">Langue étrangère 2</h3>
-        </div>
-        <div class="mt-auto flex flex-wrap gap-2">
-            <button class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('Langue étrangère 2 (français et/ou anglais)', 'cours')">
-                <i class="fas fa-book mr-1"></i> Cours
-            </button>
-            <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('Langue étrangère 2 (français et/ou anglais)', 'tdtp')">
-                <i class="fas fa-pencil-alt mr-1"></i> TD+TP
-            </button>
-            <button class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('Langue étrangère 2 (français et/ou anglais)', 'examen')">
-                <i class="fas fa-file-alt mr-1"></i> Examen
-            </button>
-        </div>
-    </div>
-    
-    <!-- TP Physique 2 -->
-    <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
-        <div class="flex items-center gap-3 mb-4">
-            <div class="module-icon bg-indigo-100 p-3 rounded-full text-indigo-600">
-                <i class="fas fa-atom fa-lg"></i>
-            </div>
-            <h3 class="text-xl font-semibold text-gray-800">TP Physique 2</h3>
-        </div>
-        <div class="mt-auto flex flex-wrap gap-2">
-            <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('TP Physique 2', 'tdtp')">
-                <i class="fas fa-flask mr-1"></i> TP
-            </button>
-            <button class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('TP Physique 2', 'compterendu')">
-                <i class="fas fa-file-alt mr-1"></i> Compte rendu
-            </button>
-        </div>
-    </div>
-    
-    <!-- TP Chimie 2 -->
-    <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
-        <div class="flex items-center gap-3 mb-4">
-            <div class="module-icon bg-orange-100 p-3 rounded-full text-orange-600">
-                <i class="fas fa-flask-vial fa-lg"></i>
-            </div>
-            <h3 class="text-xl font-semibold text-gray-800">TP Chimie 2</h3>
-        </div>
-        <div class="mt-auto flex flex-wrap gap-2">
-            <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('TP Chimie 2', 'tdtp')">
-                <i class="fas fa-flask mr-1"></i> TP
-            </button>
-            <button class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('TP Chimie 2', 'compterendu')">
-                <i class="fas fa-file-alt mr-1"></i> Compte rendu
-            </button>
-        </div>
-    </div>
-</div>
 
         </div>
     </div>
 
-    <!-- TDTP Popup -->
-    <div id="popup-tdtp" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
-        <div class="bg-white rounded-lg shadow-lg p-6 max-w-3xl w-full glass-card">
-            <div class="flex justify-between items-center mb-6">
-                <h2 id="popup-title-tdtp" class="text-2xl font-bold text-gray-800"></h2>
-                <button type="button" class="close-popup-btn px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-300 flex items-center gap-2">
-                    <i class="fas fa-times"></i><span>Fermer</span>
-                </button>
+    <!-- Popup Modals (Synced with calculator & bib) -->
+    <!-- The structure is now fixed in HTML -->
+    <div id="popup-tdtp" class="hidden" aria-hidden="true">
+        <div class="glass-card popup-modal-content">
+            <div class="popup-container">
+                <div class="popup-header">
+                    <h2 id="popup-title-tdtp"></h2>
+                    <button class="modal-close" aria-label="Fermer la fenêtre">×</button>
+                </div>
+                <div id="popup-content-tdtp" class="popup-body popup-content"></div>
             </div>
-            <div id="popup-content-tdtp" class="space-y-6 popup-content"></div>
         </div>
     </div>
 
-    <!-- Examen Popup -->
-    <div id="popup-examen" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
-        <div class="bg-white rounded-lg shadow-lg p-6 max-w-3xl w-full glass-card">
-            <div class="flex justify-between items-center mb-6">
-                <h2 id="popup-title-examen" class="text-2xl font-bold text-gray-800"></h2>
-                <button type="button" class="close-popup-btn px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-300 flex items-center gap-2">
-                    <i class="fas fa-times"></i><span>Fermer</span>
-                </button>
+    <div id="popup-examen" class="hidden" aria-hidden="true">
+        <div class="glass-card popup-modal-content">
+             <div class="popup-container">
+                <div class="popup-header">
+                    <h2 id="popup-title-examen"></h2>
+                    <button class="modal-close" aria-label="Fermer la fenêtre">×</button>
+                </div>
+                <div id="popup-content-examen" class="popup-body popup-content"></div>
             </div>
-            <div id="popup-content-examen" class="space-y-6 popup-content"></div>
         </div>
     </div>
 
-    <!-- Cours Popup -->
-    <div id="popup-cours" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
-        <div class="bg-white rounded-lg shadow-lg p-6 max-w-3xl w-full glass-card">
-            <div class="flex justify-between items-center mb-6">
-                <h2 id="popup-title-cours" class="text-2xl font-bold text-gray-800"></h2>
-                <button type="button" class="close-popup-btn px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-300 flex items-center gap-2">
-                    <i class="fas fa-times"></i><span>Fermer</span>
-                </button>
+    <div id="popup-cours" class="hidden" aria-hidden="true">
+        <div class="glass-card popup-modal-content">
+             <div class="popup-container">
+                <div class="popup-header">
+                    <h2 id="popup-title-cours"></h2>
+                    <button class="modal-close" aria-label="Fermer la fenêtre">×</button>
+                </div>
+                <div id="popup-content-cours" class="popup-body popup-content"></div>
             </div>
-            <div id="popup-content-cours" class="space-y-6 popup-content"></div>
         </div>
     </div>
 
-    <!-- Compte Rendu Popup -->
-    <div id="popup-compterendu" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
-        <div class="bg-white rounded-lg shadow-lg p-6 max-w-3xl w-full glass-card">
-            <div class="flex justify-between items-center mb-6">
-                <h2 id="popup-title-compterendu" class="text-2xl font-bold text-gray-800"></h2>
-                <button type="button" class="close-popup-btn px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-300 flex items-center gap-2">
-                    <i class="fas fa-times"></i><span>Fermer</span>
-                </button>
+    <div id="popup-compterendu" class="hidden" aria-hidden="true">
+        <div class="glass-card popup-modal-content">
+             <div class="popup-container">
+                <div class="popup-header">
+                    <h2 id="popup-title-compterendu"></h2>
+                    <button class="modal-close" aria-label="Fermer la fenêtre">×</button>
+                </div>
+                <div id="popup-content-compterendu" class="popup-body popup-content"></div>
             </div>
-            <div id="popup-content-compterendu" class="space-y-6 popup-content"></div>
         </div>
     </div>
 
-    <footer class="text-center text-gray-600 text-sm py-4">
-        <div>&copy; 2025 Université de Bejaia. Développé par Amara Mehdi <a href="mailto:mehdi.amara@tech.univ-bejaia.dz" class="text-blue-500 hover:text-blue-700">Amara Mehdi</a></div>
+
+    <footer class="text-center text-sm py-4">
+        <div>&copy; 2025 Université de Bejaia. Développé par <a href="mailto:mehdi.amara@tech.univ-bejaia.dz">Amara Mehdi</a>. Tous les droits réservés.</div>
     </footer>
 
+    <!-- Theme Toggle Button (Synced with calculator & bib) -->
+    <button id="theme-toggle" class="fixed bottom-4 right-4 z-50 p-3 rounded-full shadow-lg">
+        <i class="fas fa-moon text-xl"></i>
+        <i class="fas fa-sun text-xl hidden"></i>
+    </button>
+
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        AOS.init({
-            duration: 800,
-            once: true
+    <script type="module">
+        // --- Firebase Import (Keep as requested) ---
+        // import { getModules } from './firebase.js'; // Assuming firebase.js exists and exports getModules
+
+        // --- Theme Switcher Logic (Synced with calculator & bib) ---
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+
+        const applyTheme = (theme) => {
+            if (theme === 'dark') {
+                htmlElement.classList.add('dark');
+            } else {
+                htmlElement.classList.remove('dark');
+            }
+        };
+
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        applyTheme(savedTheme);
+
+        themeToggleBtn.addEventListener('click', () => {
+            const currentTheme = htmlElement.classList.contains('dark') ? 'dark' : 'light';
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            applyTheme(newTheme);
+            localStorage.setItem('theme', newTheme);
+             setTimeout(createParticles, 100); // Re-create particles on theme change
         });
 
-        function getBejaiaContent(module, type) {
-            const content = {
-                'Mathématique 2': {
-                    'cours': [
-                        // 2025 Exclusive content
-                        {
-                            exclusive: true,
-                            files: [
-                                { 
-                                    title: 'Chapitre 1 – Intégration et calculs de primitives', 
-                                    url: 'https://drive.google.com/file/d/1z7KFTPRyLhaWqWDWeCwOo6sUC_CWeZ3V/view?usp=drive_link' 
-                                },
-                                { 
-                                    title: 'Chapitre 2 – Les équations différentielles', 
-                                    url: 'https://drive.google.com/file/d/1zHkC7yJHR-f0UCo0Q2bkERlR4KEmqpoO/view?usp=drive_link' 
-                                },
-                                { 
-                                    title: 'Chapitre 3 – Matrices et déterminants', 
-                                    url: 'https://drive.google.com/file/d/1oz6bTV88tlxCO5kU0HfOCwSWLTY_1cm9/view?usp=drive_link' 
-                                }
-                            ]
-                        },
-                        { title: 'Cours Prof. Boukoucha Rachid', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/512867/mod_folder/content/0/Cours/Cours_Boukoucha%20Rachid%20_Cours%20et%20Exercices%20d%20_Analyse%20et%20Alg%C3%A8bre%20II.pdf?forcedownload=1' },
-                        { title: 'Cours Prof. Arezki Kheloufi (Semestre 1 et 2)', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/512867/mod_folder/content/0/Cours/CoursAnalyse%20%20Alg%C3%A8bre%20-%20Arezki%20KHELOUFI.pdf?forcedownload=1' },
-                        { title: 'Formulaire Dérivées et Primitives Usuelles', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=272738' }
-                    ],
-                    'tdtp': [
-                        // 2025 Exclusive content
-                        {
-                            exclusive: true,
-                            files: [
-                                { 
-                                    title: 'Série 1 – Math 2', 
-                                    url: 'https://drive.google.com/file/d/1Ls6aFKygXsfxMa4royDMBsf-Ifc1xf4F/view?usp=drive_link' 
-                                },
-                                { 
-                                    title: 'Corrigé – Série 1', 
-                                    url: 'https://drive.google.com/file/d/1ois9FDlYPoXDRSRemhnUv9LQVLY9Pkqg/view?usp=drive_link' 
-                                },
-                                { 
-                                    title: 'Série 2 – Math 2', 
-                                    url: 'https://drive.google.com/file/d/1L0uCsn5T-NpEPAuelUMqZP_I4lL0iS0x/view?usp=drive_link' 
-                                },
-                                { 
-                                    title: 'Corrigé – Série 2', 
-                                    url: 'https://drive.google.com/file/d/1l4-ocrPGTu8WSXWYSuc3vS3cJJmfDZbf/view?usp=drive_link' 
-                                },
-                                { 
-                                    title: 'Série 3 – Math 2', 
-                                    url: 'https://drive.google.com/file/d/1WJY2_fvuOR6et8gr9RxApodSv0cgbggu/view?usp=drive_link' 
-                                },
-                                { 
-                                    title: 'Corrigé – Série 3', 
-                                    url: 'https://drive.google.com/file/d/1UvHd2_2fb6EezQu3-ESjCERNYC7DoQxJ/view?usp=drive_link' 
-                                }
-                            ]
-                        },
-                        { title: 'Série 1', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/512867/mod_folder/content/0/S%C3%A9ries%20dexercices/serie1%20maths%20II%20finale.pdf?forcedownload=1' },
-                        { title: 'Corrigé Série 1', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/512867/mod_folder/content/0/S%C3%A9ries%20dexercices/Corrig%C3%A9-serie1-Maths2.pdf?forcedownload=1' },
-                        { title: 'Série 2', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/512867/mod_folder/content/0/S%C3%A9ries%20dexercices/SerieTD_2%20Maths%202.pdf?forcedownload=1' },
-                        { title: 'Corrigé Série 2', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/512867/mod_folder/content/0/S%C3%A9ries%20dexercices/Corrig%C3%A9_SerieTD_2%20Maths2.pdf?forcedownload=1' },
-                        { title: 'Série TD 1 2023/2024', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=390417' },
-                        { title: 'Série TD 1 2021/2022', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=273365' },
-                        { title: 'Série TD 1 2019/2020', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=136095' },
-                        { title: 'Corrigé des séries TD 2019-2023', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=137336' },
-                        { title: 'Corrigé série TD 2023/2024', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=390418' }
-                    ],
-                    'examen': [
-                        { title: 'Examens', url: 'https://drive.google.com/file/d/1yoE52_yvsvrM5XcNvD0Zebm5hbiJbcq6/view?usp=drive_link' }
-                    ]
-                },
-                'Physique 2': {
-                    'cours': [
-                        // 2025 Exclusive content
-                        {
-                            exclusive: true,
-                            files: [
-                                { 
-                                    title: 'Chapitre 1 – Charge et force électriques', 
-                                    url: 'https://drive.google.com/file/d/1PuiMmUsNGr9PZNYz-AzViwXGR2X975um/view?usp=drivesdk' 
-                                },
-                                { 
-                                    title: 'Chapitre 1 – Force électrique (autre version)', 
-                                    url: 'https://drive.google.com/file/d/1a21XP9NYHqnZoPIwZd_uE2wYmrYBQhfa/view?usp=drivesdk' 
-                                },
-                                { 
-                                    title: 'Chapitre 2 – Champ électrique', 
-                                    url: 'https://drive.google.com/file/d/1knIBe4kQVKMxrKJ5tXRZa2CtuZHCJH7E/view?usp=drivesdk' 
-                                },
-                                { 
-                                    title: 'Chapitres 2 et 3 – Résumé champ et potentiel électrostatiques', 
-                                    url: 'https://drive.google.com/file/d/1Ju05jAE4C2RalizrEglnvf73i-YcXswH/view?usp=drivesdk' 
-                                },
-                                { 
-                                    title: 'Chapitre 3 – Potentiel électrique', 
-                                    url: 'https://drive.google.com/file/d/1knIBe4kQVKMxrKJ5tXRZa2CtuZHCJH7E/view?usp=drivesdk' 
-                                },
-                                { 
-                                    title: 'Résumé – Chapitre 1 : Force et charge électriques', 
-                                    url: 'https://drive.google.com/file/d/1j5RykJIDOC-NqjxssUQ-iwx5yopPc8Ip/view?usp=drivesdk' 
-                                },
-                                { 
-                                    title: 'Programme – Physique 2', 
-                                    url: 'https://drive.google.com/file/d/1aeUtJS5NL71Yj5eDxG2ww2jltOxacyIJ/view?usp=drivesdk' 
-                                }
-                            ]
-                        },
-                        { title: 'Chapitres 3 et 4', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/532703/mod_folder/content/0/Cours/Cours%20Physique%202%20-%20Chapitres%203%20et%20%204.pdf?forcedownload=1' },
-                        { title: 'Chapitre 1 - Professeur Safer', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=276089' },
-                        { title: 'Chapitre 2', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=277943' }
-                    ],
-                    'tdtp': [
-                        // 2025 Exclusive content
-                        {
-                            exclusive: true,
-                            files: [
-                                { 
-                                    title: 'Série 1 – Physique 2', 
-                                    url: 'https://drive.google.com/file/d/1XsyDS5kWdXYbW2RtbnZ2p4TmLafvznkr/view?usp=drivesdk' 
-                                },
-                                { 
-                                    title: 'Corrigé – Série 1', 
-                                    url: 'https://drive.google.com/file/d/1j8uN4jl773LozjorAnAGhjHbvpsRvvvv/view?usp=drivesdk' 
-                                },
-                                { 
-                                    title: 'Série 2 – Physique 2', 
-                                    url: 'https://drive.google.com/file/d/19zJJt-7lOg7RPLG6IY4BUIEQilllDiz5/view?usp=drivesdk' 
-                                },
-                                { 
-                                    title: 'Corrigé – Série 2 (partie 1)', 
-                                    url: 'https://drive.google.com/file/d/1ua5V1NvwNeU3yrhTUzaVXwfbOmh1N7gP/view?usp=drivesdk' 
-                                },
-                                { 
-                                    title: 'Corrigé – Série 2 (partie 2)', 
-                                    url: 'https://drive.google.com/file/d/1eGfMof-oK1i1_xPici71W801dWcmYmyf/view?usp=drivesdk' 
-                                },
-                                { 
-                                    title: 'Série 3 – Physique 2', 
-                                    url: 'https://drive.google.com/file/d/1xj-jZ1vG0dlE1k9tmxnV88vgVEArg6TY/view?usp=drivesdk' 
-                                },
-                                { 
-                                    title: 'Série spéciale – 2021-2022', 
-                                    url: 'https://drive.google.com/file/d/1Z44t7dh2bCpnQRTi7uszXxklj2RRovRA/view?usp=drivesdk' 
-                                }
-                            ]
-                        },
-                        { title: 'Série 1 + Corrigé', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/532703/mod_folder/content/0/S%C3%A9rie%20Exercices/s%C3%A9rie-TD-1-Phys2-2019_2020%2Bcorrig%C3%A9.pdf?forcedownload=1' },
-                        { title: 'Série 2 + Corrigé', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/532703/mod_folder/content/0/S%C3%A9rie%20Exercices/S%C3%A9rie-TD-2-Phys2-2019_2020%2Bcorrig%C3%A9.pdf?forcedownload=1' },
-                        { title: 'Série 3 + Corrigé', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/532703/mod_folder/content/0/S%C3%A9rie%20Exercices/S%C3%A9rie-TD-3-Phys2-2019_2020%2Bcorrig%C3%A9.pdf?forcedownload=1' },
-                        { title: 'Série 4 + Corrigé', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/532703/mod_folder/content/0/S%C3%A9rie%20Exercices/s%C3%A9rie-TD-4-Phys2-2019_2020%2Bcorrig%C3%A9.pdf?forcedownload=1' },
-                        { title: 'Série 5 + Corrigé', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/532703/mod_folder/content/0/S%C3%A9rie%20Exercices/S%C3%A9rie-TD-5-Phys2-2019_2020%2Bcorrig%C3%A9.pdf?forcedownload=1' },
-                        { title: 'Série 6 + Corrigé', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/532703/mod_folder/content/0/S%C3%A9rie%20Exercices/S%C3%A9rie-TD-6-Phys2-2019_2020%2Bcorrig%C3%A9.pdf?forcedownload=1' },
-                        { title: 'Série TD 1 2021/2022', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=276090' },
-                        { title: 'Série TD 2 2021/2022', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=277944' },
-                        { title: 'Série TD 1 2021/2022', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=279261' },
-                        { title: 'Série TD 2 2021/2022', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=279264' },
-                        { title: 'Série TD 3 2021/2022', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=284859' },
-                        { title: 'Série TD 4 2021/2022', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=284860' },
-                        { title: 'Série TD 5 2021/2022', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=284861' },
-                        { title: 'Série TD 5 2022/2023', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=337999' },
-                        { title: 'Série TD 1 2019/2020', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=206563' }
-                    ],
-                    'interrogation': [
-                        // 2025 Exclusive content
-                        {
-                            exclusive: true,
-                            files: [
-                                { 
-                                    title: 'Interrogation 1 – Sujet + Corrigé', 
-                                    url: 'https://drive.google.com/file/d/1tNAwzUKgRBNmI2CEpbhhOFmGiHVYD_LZ/view?usp=drivesdk' 
-                                },
-                                { 
-                                    title: 'Interrogation 2 – Sujet + Corrigé', 
-                                    url: 'https://drive.google.com/file/d/1CEkLUgvLah3s9ty20_3mCL4rRUppbwIg/view?usp=drivesdk' 
-                                }
-                            ]
-                        },
-                        {
-                            title: 'Interrogation 1 - 2023/2024',
-                            files: [
-                                { 
-                                    title: 'Sujet 1 + Corrigé', 
-                                    url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=398082' 
-                                },
-                                { 
-                                    title: 'Sujet 2 + Corrigé', 
-                                    url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=398083' 
-                                },
-                                { 
-                                    title: 'Sujet 3 + Corrigé', 
-                                    url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=398084' 
-                                }
-                            ]
-                        },
-                        {
-                            title: 'Interrogation 2 - 2023/2024',
-                            files: [
-                                { 
-                                    title: 'Sujet 1 + Corrigé', 
-                                    url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=401456' 
-                                },
-                                { 
-                                    title: 'Sujet 2 + Corrigé', 
-                                    url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=401457' 
-                                }
-                            ]
-                        }
-                    ],
-                    'examen': [
-                        // 2025 Exclusive content
-                        {
-                            exclusive: true,
-                            files: [
-                                { 
-                                    title: 'Examen rattrapage 2013 – Physique 2 (corrigé)', 
-                                    url: 'https://drive.google.com/file/d/13bu68Olen8rLRtfcA1OCJRkYj76jJAwv/view?usp=drivesdk' 
-                                },
-                                { 
-                                    title: 'Examen 2014 – Physique 2 (corrigé)', 
-                                    url: 'https://drive.google.com/file/d/17EkLdbipzQFisYQC3fDpN10NhkOL609U/view?usp=drivesdk' 
-                                },
-                                { 
-                                    title: 'Examen 2012 – Physique 2 (corrigé)', 
-                                    url: 'https://drive.google.com/file/d/1G8xq74ONqcgdx9xzMCiFp5e4a1ujCadN/view?usp=drivesdk' 
-                                },
-                                { 
-                                    title: 'Examen session normale 2022 (version 2)', 
-                                    url: 'https://drive.google.com/file/d/1K0sfN24BrFYkAyc_cQixa4GqbiJ58RYV/view?usp=drivesdk' 
-                                },
-                                { 
-                                    title: 'Sujet + Corrigé – Examen Physique 2', 
-                                    url: 'https://drive.google.com/file/d/1oWG9R3KxakH7GeAEwlUPZDQ7BP8HpJDF/view?usp=drivesdk' 
-                                }
-                            ]
-                        },
-                        { title: 'Examens', url: 'https://drive.google.com/drive/folders/1-ifspPwi9PTS2OMCWUKmsvSgCleUUY1Y?usp=drive_link' }
-                    ]
-                },
-                'Thermodynamique (Chimie 2)': {
-                    'cours': [
-                        // Cours Conseillés section
-                        {
-                            recommended: true,
-                            files: [
-                                { 
-                                    title: 'Cours Complet de Thermodynamique - Prof. BENCHIKH Abdelkader', 
-                                    url: 'https://elearning.univ-bejaia.dz/pluginfile.php/1001775/mod_resource/content/0/Cours_BENCHIKH%20Abdelkader_Cours%20et%20exercices%20de%20Thermodynamique.pdf'
-                                },
-                                {
-                                    title: 'Cours Complet de Thermodynamique - Prof. MAIZIA Radouane',
-                                    url: 'https://elearning.univ-bejaia.dz/pluginfile.php/1001768/mod_resource/content/0/Cours_MAIZIA_Radouane_Thermodynamique-Chimie%202.pdf'
-                                }
-                            ]
-                        },
-                        { title: 'Chapitre 1 - Prof. Moussaceb', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/532685/mod_folder/content/0/Cours%20de%20Professeur%20MOUSSACEB/chapI-generalites_sur_la_thr-dyn.pdf?forcedownload=1' },
-                        { title: 'Chapitre 2 - Prof. Moussaceb', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/532685/mod_folder/content/0/Cours%20de%20Professeur%20MOUSSACEB/CHAPII-1ere_principe_de_la_thermodynamique.pdf?forcedownload=1' },
-                        { title: 'Chapitre 3 - Prof. Moussaceb', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/532685/mod_folder/content/0/Cours%20de%20Professeur%20MOUSSACEB/CHAPIII-thermochimie.pdf?forcedownload=1' },
-                        { title: 'Chapitre 4 Partie 1 - Prof. Moussaceb', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/532685/mod_folder/content/0/Cours%20de%20Professeur%20MOUSSACEB/CHAPIV-2eme_principe_thermodynamique-p1.pdf?forcedownload=1' },
-                        { title: 'Chapitre 4 Partie 2 - Prof. Moussaceb', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/532685/mod_folder/content/0/Cours%20de%20Professeur%20MOUSSACEB/CHAPIV-2eme_principe_thermodynamique-p2.pdf?forcedownload=1' },
-                        { title: 'Chapitre 5 - Prof. Moussaceb', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/532685/mod_folder/content/0/Cours%20de%20Professeur%20MOUSSACEB/chap_v._II_equilibres_chimiques.pdf?forcedownload=1' },
-                        { title: 'Chapitre 6 - Prof. Moussaceb', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/532685/mod_folder/content/0/Cours%20de%20Professeur%20MOUSSACEB/chap_v.I_equilibres_chimiques.pdf?forcedownload=1' },
-                        { title: 'Cours Complet - Dr. Kachebi', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/532685/mod_folder/content/0/COURS%20DE%20CHIMIE%2002%20-%20Docteur%20KACHEBI.pdf?forcedownload=1' },
-                        { title: 'Cours Complet - Mme BORAS', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=276535' },
-                        { title: 'Résumé Cours - Mme AISSANI', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=281253' }
-                    ],
-                    'tdtp': [
-                        { title: 'Série 1', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/532685/mod_folder/content/0/SERIES%20DE%20TD%20CHIMIE%2002%20-%20AVEC%20CORRIGE/TD%201_Chimie%202.pdf?forcedownload=1' },
-                        { title: 'Série 2', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/532685/mod_folder/content/0/SERIES%20DE%20TD%20CHIMIE%2002%20-%20AVEC%20CORRIGE/TD%202_Chimie%202.pdf?forcedownload=1' },
-                        { title: 'Série 3', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/532685/mod_folder/content/0/SERIES%20DE%20TD%20CHIMIE%2002%20-%20AVEC%20CORRIGE/TD%203_Chimie%202.pdf?forcedownload=1' },
-                        { title: 'Corrigé Série 1', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/532685/mod_folder/content/0/SERIES%20DE%20TD%20CHIMIE%2002%20-%20AVEC%20CORRIGE/Corrig%C3%A9%20TD%201%20Chimie%202.pdf?forcedownload=1' },
-                        { title: 'Corrigé Série 2', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/532685/mod_folder/content/0/SERIES%20DE%20TD%20CHIMIE%2002%20-%20AVEC%20CORRIGE/corrig%C3%A9_s%C3%A9rie%202.pdf?forcedownload=1' },
-                        { title: 'Corrigé Série 3', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/532685/mod_folder/content/0/Corrig%C3%A9_TD%203_Chimie%202.pdf?forcedownload=1' },
-                        {
-                            exclusive: true,
-                            files: [
-                                { title: 'Série TD 1 (2025)', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=452063' },
-                                { title: 'Corrigé Série TD 1 (2025)', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=452064' }
-                            ]
-                        },
-                        { title: 'Série TD 1 2020/2021 avec corrigé', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=276257' },
-                        { title: 'Série Spéciale chimie 2', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=272402' },
-                        { title: 'Corrigé Série TD spéciale', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=285575' },
-                        { title: 'Série 2 2020/2021 avec corrigé', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=279985' },
-                        { title: 'Série 3 2020/2021 avec corrigé', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=284403' },
-                        { title: 'Série 1 2023/2024 + corrigé', url: 'https://elearning.univ-bejaia.dz/mod/folder/view.php?id=395559' },
-                        { title: 'Série 2 2023/2024 + corrigé', url: 'https://elearning.univ-bejaia.dz/mod/folder/view.php?id=395573' },
-                        { title: 'Série 3 2023/2024 + corrigé', url: 'https://elearning.univ-bejaia.dz/mod/folder/view.php?id=400195' },
-                        { title: 'Série 4 2023/2024 + corrigé', url: 'https://elearning.univ-bejaia.dz/mod/folder/view.php?id=400198' },
-                        {
-                            title: 'Intero (TD)',
-                            url: 'https://drive.google.com/file/d/1eDg17n4e3GKd6lCBu8oDQuy9fRY-rlDd/view'
-                        }
-                    ],
-                    'examen': [
-                        { title: 'Examens', url: 'https://drive.google.com/drive/folders/11MQFzD-TvI1ElMiNp_dO6KY8aqgm9iwb?usp=drive_link' }
-                    ],
-                    'compterendu': [
-                        { 
-                            title: 'Compte rendu TP1', 
-                            url: 'https://docs.google.com/document/d/1ACxXtmtPljmDXnpgRCjB6xIXQ_Dcu1MF/edit?usp=sharing&ouid=113138810463504494362&rtpof=true&sd=true' 
-                        },
-                        { 
-                            title: 'Compte rendu TP2', 
-                            url: 'https://docs.google.com/document/d/1Wtx_4GnkG_gceB4o9F4aVH5uBicIl2-i/edit?usp=sharing&ouid=113138810463504494362&rtpof=true&sd=true' 
-                        },
-                        { 
-                            title: 'Compte rendu TP3', 
-                            url: 'https://docs.google.com/document/d/1yqwNKog4wOCHqpX6Fu8uVxeSTldRkh2T/edit?usp=sharing&ouid=113138810463504494362&rtpof=true&sd=true' 
-                        }
-                    ]
-                },
-                'Informatique 2': {
-                    'cours': [
-                        { title: 'Chapitre 1 - Tableaux', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/512864/mod_folder/content/0/Cours/Chapitre%20I%20-%20Type%20Tableau%20%28Vecteurs%20et%20Matrices%29.pdf?forcedownload=1' },
-                        { title: 'Chapitre 2 Partie 1 - Sous-programmes', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/512864/mod_folder/content/0/Cours/Chapitre%20II%20-%20Sous%20Programme%20%20%20Proc%C3%A9dures%20et%20Fonctions%20%28Partie%201%29.pdf?forcedownload=1' },
-                        { title: 'Chapitre 2 Partie 2 - Sous-programmes', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/512864/mod_folder/content/0/Cours/Chapitre%20II%20-%20Sous%20Programme%20%20%20Proc%C3%A9dures%20et%20Fonctions%20%28Partie%202%29.pdf?forcedownload=1' }
-                    ],
-                    'tdtp': [
-                        {
-                            exclusive: true,
-                            files: [
-                                {
-                                    title: 'Série TP 1',
-                                    url: 'https://elearning.univ-bejaia.dz/pluginfile.php/1387637/mod_resource/content/1/S%C3%A9rie%20TP%20N%C2%B01%20LMD_2024_2025%20%283%29.pdf'
-                                },
-                                {
-                                    title: 'Corrigé TP 1',
-                                    url: 'https://elearning.univ-bejaia.dz/pluginfile.php/1387288/mod_resource/content/1/Corrig%C3%A9_S%C3%A9rie%20TP%20N%C2%B01%20LMD%202024_2025%20%283%29.pdf'
-                                }
-                            ]
-                        }
-                    ],
-                    'examen': [
-                        { title: 'Examens', url: 'https://drive.google.com/drive/folders/14wgYaGstVJVRZ4D6GFTU4k2RLlyoCTaj?usp=drive_link' }
-                    ]
-                },
-                'MST 2': {
-                    'examen': [
-                        { title: 'Examens', url: 'https://drive.google.com/drive/folders/1AWCD2ewiOwhtI8Ug39h4Z3hVueXDDzJp?usp=drive_link' }
-                    ]
-                },
-                'MP': {
-                    'cours': [
-                        { title: 'Cours 1 - Communication Orale/Écrite', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/512863/mod_folder/content/0/Cours%201_Communication_Oral-Ecrit.PDF?forcedownload=1' },
-                        { title: 'Cours 2 - MST2', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/512868/mod_folder/content/0/Cours%20N%C2%B02%20MST2.pdf?forcedownload=1' },
-                        { title: 'Cours 3 - Génie Civil et Hydraulique', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/512868/mod_folder/content/0/Cours%20N%C2%B03%20Fili%C3%A8re%20G%C3%A9nie%20Civil%20et%20hydraulique%20.pdf?forcedownload=1' },
-                        { title: 'Cours 4 - Architecture et Urbanisme', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/512868/mod_folder/content/0/Cours%20N%C2%B04%20Fili%C3%A8re%20architecture%20et%20urbanisme%20.pdf?forcedownload=1' },
-                        { title: 'Cours 5', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/512863/mod_folder/content/0/Cours%205.pdf?forcedownload=1' }
-                    ]
-                },
-                'Langue étrangère 2 (français et/ou anglais)': {
-                    'cours': [
-                        { title: 'Cours 1', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/512869/mod_folder/content/0/01%20-%20Module.pdf?forcedownload=1' },
-                        { title: 'Cours 2', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/512869/mod_folder/content/0/02%20-%20Lecture%202.pdf?forcedownload=1' },
-                        { title: 'Cours 3', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/512869/mod_folder/content/0/03%20-%20Lecture%203.pdf?forcedownload=1' },
-                        { title: 'Cours 4', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/512869/mod_folder/content/0/04%20-%20Lecture%204.pdf?forcedownload=1' }
-                    ]
-                },
-                'TP Chimie 2': {
-                    'tdtp': [
-                        // 2025 Exclusive content
-                        {
-                            exclusive: true,
-                            files: [
-                                { 
-                                    title: 'Polycopié TP Chimie 2', 
-                                    url: 'https://drive.google.com/file/d/1BNxQrhTbsb3l2FJKbpyiAmjq6z3CzhXj/view?usp=sharing' 
-                                }
-                            ]
-                        }
-                    ],
-                    'compterendu': [
-                        { 
-                            title: 'Compte rendu TP1', 
-                            url: 'https://docs.google.com/document/d/1ACxXtmtPljmDXnpgRCjB6xIXQ_Dcu1MF/edit?usp=sharing&ouid=113138810463504494362&rtpof=true&sd=true' 
-                        },
-                        { 
-                            title: 'Compte rendu TP2', 
-                            url: 'https://docs.google.com/document/d/1Wtx_4GnkG_gceB4o9F4aVH5uBicIl2-i/edit?usp=sharing&ouid=113138810463504494362&rtpof=true&sd=true' 
-                        },
-                        { 
-                            title: 'Compte rendu TP3', 
-                            url: 'https://docs.google.com/document/d/1yqwNKog4wOCHqpX6Fu8uVxeSTldRkh2T/edit?usp=sharing&ouid=113138810463504494362&rtpof=true&sd=true' 
-                        }
-                    ]
-                }
-            };
 
-            if (content[module] && content[module][type]) {
-                let html = '';
-                const contentArray = content[module][type];
+        // --- Particle Creation Function (Synced with calculator & bib) ---
+         function createParticles() {
+             const particlesContainer = document.getElementById('particles');
+             // Use HSL colors based on theme variables for particles
+             const lightColors = ['hsl(var(--primary))', 'hsl(var(--ring))', 'hsl(var(--accent))', 'hsl(var(--warning))', 'hsl(var(--muted-foreground))'];
+             const darkColors = ['hsl(var(--primary))', 'hsl(var(--ring))', 'hsl(var(--accent))', 'hsl(var(--warning))', 'hsl(var(--muted-foreground))'];
 
-                // Create a content grid container
-                html += '<div class="content-grid grid grid-cols-1 md:grid-cols-2 gap-4">';
+             function getThemeColors() {
+                 return document.body.classList.contains('dark') ? darkColors : lightColors;
+             }
 
-                // First check for exclusive content
-                const exclusiveContent = contentArray.find(item => item.exclusive);
-                if (exclusiveContent) {
-                    html += `
-                        <div class="col-span-full exclusive-2025 mb-6">
-                            <h4 class="text-xl font-bold text-green-600 mb-3 flex items-center">
-                                <span class="bg-green-600 text-white px-3 py-1 rounded-lg mr-2">2025</span>
-                                Contenu Exclusif
-                            </h4>
-                            <div class="bg-green-50 border-2 border-green-200 rounded-lg p-4 space-y-2">
-                                ${exclusiveContent.files.map(file => `
-                                    <a href="${file.url}" 
-                                       class="exclusive-link flex items-center justify-between bg-white p-3 rounded-lg hover:bg-green-100 transition-all duration-300 transform hover:scale-102 border border-green-300"
-                                       target="_blank">
-                                        <span class="flex items-center">
-                                            <i class="fas fa-star text-yellow-500 mr-2"></i>
-                                            ${file.title}
-                                        </span>
-                                        <span class="download-btn bg-green-50 hover:bg-green-100 text-green-600 px-2 py-1 rounded-full text-sm flex items-center">
-                                            <i class="fas fa-download mr-1"></i>
-                                            <span class="hidden md:inline">Télécharger</span>
-                                        </span>
-                                    </a>
-                                `).join('')}
-                            </div>
+             particlesContainer.innerHTML = ''; // Clear existing particles
+
+             const colors = getThemeColors();
+
+             for (let i = 0; i < 30; i++) {
+                 const particle = document.createElement('div');
+                 particle.className = 'particle';
+
+                 const x = Math.random() * 100;
+                 const y = Math.random() * 100;
+                 const size = Math.random() * 5 + 2;
+                 const color = colors[Math.floor(Math.random() * colors.length)];
+                 const moveX = (Math.random() - 0.5) * 50;
+                 const moveY = (Math.random() - 0.5) * 50;
+
+                 particle.style.cssText = `
+                     left: ${x}%;
+                     top: ${y}%;
+                     width: ${size}px;
+                     height: ${size}px;
+                     background-color: ${color};
+                     --x: ${moveX}px;
+                     --y: ${moveY}px;
+                     animation-delay: ${Math.random() * 5}s;
+                     animation-duration: ${10 + Math.random() * 10}s;
+                     animation-name: float, pulse${Math.floor(Math.random() * 3)};
+                 `;
+
+                 particlesContainer.appendChild(particle);
+             }
+         }
+
+
+        // --- Module Data & Popup Logic ---
+
+        // Replicate the data structure from the original script block
+        const moduleContentData = {
+            'Mathématique 2': {
+                'cours': [
+                    {
+                        exclusive: true,
+                        files: [
+                            { title: 'Chapitre 1 – Intégration et calculs de primitives', url: 'https://drive.google.com/file/d/1z7KFTPRyLhaWqWDWeCwOo6sUC_CWeZ3V/view?usp=drive_link' },
+                            { title: 'Chapitre 2 – Les équations différentielles', url: 'https://drive.google.com/file/d/1zHkC7yJHR-f0UCo0Q2bkERlR4KEmqpoO/view?usp=drive_link' },
+                            { title: 'Chapitre 3 – Matrices et déterminants', url: 'https://drive.google.com/file/d/1oz6bTV88tlxCO5kU0HfOCwSWLTY_1cm9/view?usp=drive_link' }
+                        ]
+                    },
+                    { title: 'Cours Prof. Boukoucha Rachid', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/512867/mod_folder/content/0/Cours/Cours_Boukoucha%20Rachid%20_Cours%20et%20Exercices%20d%20_Analyse%20et%20Alg%C3%A8bre%20II.pdf?forcedownload=1' },
+                    { title: 'Cours Prof. Arezki Kheloufi (Semestre 1 et 2)', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/512867/mod_folder/content/0/Cours/CoursAnalyse%20%20Alg%C3%A8bre%20-%20Arezki%20KHELOUFI.pdf?forcedownload=1' },
+                    { title: 'Formulaire Dérivées et Primitives Usuelles', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=272738' }
+                ],
+                'tdtp': [
+                    {
+                        exclusive: true,
+                        files: [
+                            { title: 'Série 1 – Math 2', url: 'https://drive.google.com/file/d/1Ls6aFKygXsfxMa4royDMBsf-Ifc1xf4F/view?usp=drive_link' },
+                            { title: 'Corrigé – Série 1', url: 'https://drive.google.com/file/d/1ois9FDlYPoXDRSRemhnUv9LQVLY9Pkqg/view?usp=drive_link' },
+                            { title: 'Série 2 – Math 2', url: 'https://drive.google.com/file/d/1L0uCsn5T-NpEPAuelUMqZP_I4lL0iS0x/view?usp=drive_link' },
+                            { title: 'Corrigé – Série 2', url: 'https://drive.google.com/file/d/1l4-ocrPGTu8WSXWYSuc3vS3cJJmfDZbf/view?usp=drive_link' },
+                            { title: 'Série 3 – Math 2', url: 'https://drive.google.com/file/d/1WJY2_fvuOR6et8gr9RxApodSv0cgbggu/view?usp=drive_link' },
+                            { title: 'Corrigé – Série 3', url: 'https://drive.google.com/file/d/1UvHd2_2fb6EezQu3-ESjCERNYC7DoQxJ/view?usp=drive_link' }
+                        ]
+                    },
+                    { title: 'Série 1 + Corrigé', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/512867/mod_folder/content/0/S%C3%A9ries%20dexercices/serie1%20maths%20II%20finale.pdf?forcedownload=1' },
+                    { title: 'Corrigé Série 1', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/512867/mod_folder/content/0/S%C3%A9ries%20dexercices/Corrig%C3%A9-serie1-Maths2.pdf?forcedownload=1' },
+                    { title: 'Série 2', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/512867/mod_folder/content/0/S%C3%A9ries%20dexercices/SerieTD_2%20Maths%202.pdf?forcedownload=1' },
+                    { title: 'Corrigé Série 2', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/512867/mod_folder/content/0/S%C3%A9ries%20dexercices/Corrig%C3%A9_SerieTD_2%20Maths2.pdf?forcedownload=1' },
+                    { title: 'Série TD 1 2023/2024', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=390417' },
+                    { title: 'Série TD 1 2021/2022', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=273365' },
+                    { title: 'Série TD 1 2019/2020', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=136095' },
+                    { title: 'Corrigé des séries TD 2019-2023', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=137336' },
+                    { title: 'Corrigé série TD 2023/2024', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=390418' }
+                ],
+                'examen': [
+                    { title: 'Examens', url: 'https://drive.google.com/file/d/1yoE52_yvsvrM5XcNvD0Zebm5hbiJbcq6/view?usp=drive_link' }
+                ]
+            },
+            'Physique 2': {
+                'cours': [
+                    {
+                        exclusive: true,
+                        files: [
+                            { title: 'Chapitre 1 – Charge et force électriques', url: 'https://drive.google.com/file/d/1PuiMmUsNGr9PZNYz-AzViwXGR2X975um/view?usp=drivesdk' },
+                            { title: 'Chapitre 1 – Force électrique (autre version)', url: 'https://drive.google.com/file/d/1a21XP9NYHqnZoPIwZd_uE2wYmrYBQhfa/view?usp=drivesdk' },
+                            { title: 'Chapitre 2 – Champ électrique', url: 'https://drive.google.com/file/d/1knIBe4kQVKMxrKJ5tXRZa2CtuZHCJH7E/view?usp=drivesdk' },
+                            { title: 'Chapitres 2 et 3 – Résumé champ et potentiel électrostatiques', url: 'https://drive.google.com/file/d/1Ju05jAE4C2RalizrEglnvf73i-YcXswH/view?usp=drivesdk' },
+                            { title: 'Chapitre 3 – Potentiel électrique', url: 'https://drive.google.com/file/d/1knIBe4kQVKMxrKJ5tXRZa2CtuZHCJH7E/view?usp=drivesdk' },
+                            { title: 'Résumé – Chapitre 1 : Force et charge électriques', url: 'https://drive.google.com/file/d/1j5RykJIDOC-NqjxssUQ-iwx5yopPc8Ip/view?usp=drivesdk' },
+                            { title: 'Programme – Physique 2', url: 'https://drive.google.com/file/d/1aeUtJS5NL71Yj5eDxG2ww2jltOxacyIJ/view?usp=drivesdk' }
+                        ]
+                    },
+                    { title: 'Chapitres 3 et 4', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/532703/mod_folder/content/0/Cours/Cours%20Physique%202%20-%20Chapitres%203%20et%20%204.pdf?forcedownload=1' },
+                    { title: 'Chapitre 1 - Professeur Safer', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=276089' },
+                    { title: 'Chapitre 2', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=277943' }
+                ],
+                'tdtp': [
+                    {
+                        exclusive: true,
+                        files: [
+                            { title: 'Série 1 – Physique 2', url: 'https://drive.google.com/file/d/1XsyDS5kWdXYbW2RtbnZ2p4TmLafvznkr/view?usp=drivesdk' },
+                            { title: 'Corrigé – Série 1', url: 'https://drive.google.com/file/d/1j8uN4jl773LozjorAnAGhjHbvpsRvvvv/view?usp=drivesdk' },
+                            { title: 'Série 2 – Physique 2', url: 'https://drive.google.com/file/d/19zJJt-7lOg7RPLG6IY4BUIEQilllDiz5/view?usp=drivesdk' },
+                            { title: 'Corrigé – Série 2 (partie 1)', url: 'https://drive.google.com/file/d/1ua5V1NvwNeU3yrhTUzaVXwfbOmh1N7gP/view?usp=drivesdk' },
+                            { title: 'Corrigé – Série 2 (partie 2)', url: 'https://drive.google.com/file/d/1eGfMof-oK1i1_xPici71W801dWcmYmyf/view?usp=drivesdk' },
+                            { title: 'Série 3 – Physique 2', url: 'https://drive.google.com/file/d/1xj-jZ1vG0dlE1k9tmxnV88vgVEArg6TY/view?usp=drivesdk' },
+                            { title: 'Série spéciale – 2021-2022', url: 'https://drive.google.com/file/d/1Z44t7dh2bCpnQRTi7uszXxklj2RRovRA/view?usp=drivesdk' }
+                        ]
+                    },
+                    { title: 'Série 1 + Corrigé', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/532703/mod_folder/content/0/S%C3%A9rie%20Exercices/s%C3%A9rie-TD-1-Phys2-2019_2020%2Bcorrig%C3%A9.pdf?forcedownload=1' },
+                    { title: 'Série 2 + Corrigé', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/532703/mod_folder/content/0/S%C3%A9rie%20Exercices/S%C3%A9rie-TD-2-Phys2-2019_2020%2Bcorrig%C3%A9.pdf?forcedownload=1' },
+                    { title: 'Série 3 + Corrigé', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/532703/mod_folder/content/0/S%C3%A9rie%20Exercices/S%C3%A9rie-TD-3-Phys2-2019_2020%2Bcorrig%C3%A9.pdf?forcedownload=1' },
+                    { title: 'Série 4 + Corrigé', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/532703/mod_folder/content/0/S%C3%A9rie%20Exercices/s%C3%A9rie-TD-4-Phys2-2019_2020%2Bcorrig%C3%A9.pdf?forcedownload=1' },
+                    { title: 'Série 5 + Corrigé', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/532703/mod_folder/content/0/S%C3%A9rie%20Exercices/S%C3%A9rie-TD-5-Phys2-2019_2020%2Bcorrig%C3%A9.pdf?forcedownload=1' },
+                    { title: 'Série 6 + Corrigé', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/532703/mod_folder/content/0/S%C3%A9rie%20Exercices/S%C3%A9rie-TD-6-Phys2-2019_2020%2Bcorrig%C3%A9.pdf?forcedownload=1' },
+                    { title: 'Série TD 1 2021/2022', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=276090' },
+                    { title: 'Série TD 2 2021/2022', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=277944' },
+                    { title: 'Série TD 1 2021/2022', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=279261' },
+                    { title: 'Série TD 2 2021/2022', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=279264' },
+                    { title: 'Série TD 3 2021/2022', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=284859' },
+                    { title: 'Série TD 4 2021/2022', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=284860' },
+                    { title: 'Série TD 5 2021/2022', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=284861' },
+                    { title: 'Série TD 5 2022/2023', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=337999' },
+                    { title: 'Série TD 1 2019/2020', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=206563' }
+                ],
+                'interrogation': [
+                    {
+                        exclusive: true,
+                        files: [
+                            { title: 'Interrogation 1 – Sujet + Corrigé', url: 'https://drive.google.com/file/d/1tNAwzUKgRBNmI2CEpbhhOFmGiHVYD_LZ/view?usp=drivesdk' },
+                            { title: 'Interrogation 2 – Sujet + Corrigé', url: 'https://drive.google.com/file/d/1CEkLUgvLah3s9ty20_3mCL4rRUppbwIg/view?usp=drivesdk' }
+                        ]
+                    },
+                    {
+                        title: 'Interrogation 1 - 2023/2024',
+                        files: [
+                            { title: 'Sujet 1 + Corrigé', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=398082' },
+                            { title: 'Sujet 2 + Corrigé', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=398083' },
+                            { title: 'Sujet 3 + Corrigé', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=398084' }
+                        ]
+                    },
+                    {
+                        title: 'Interrogation 2 - 2023/2024',
+                        files: [
+                            { title: 'Sujet 1 + Corrigé', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=401456' },
+                            { title: 'Sujet 2 + Corrigé', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=401457' }
+                        ]
+                    }
+                ],
+                'examen': [
+                    {
+                        exclusive: true,
+                        files: [
+                            { title: 'Examen rattrapage 2013 – Physique 2 (corrigé)', url: 'https://drive.google.com/file/d/13bu68Olen8rLRtfcA1OCJRkYj76jJAwv/view?usp=drivesdk' },
+                            { title: 'Examen 2014 – Physique 2 (corrigé)', url: 'https://drive.google.com/file/d/17EkLdbipzQFisYQC3fDpN10NhkOL609U/view?usp=drivesdk' },
+                            { title: 'Examen 2012 – Physique 2 (corrigé)', url: 'https://drive.google.com/file/d/1G8xq74ONqcgdx9xzMCiFp5e4a1ujCadN/view?usp=drivesdk' },
+                            { title: 'Examen session normale 2022 (version 2)', url: 'https://drive.google.com/file/d/1K0sfN24BrFYkAyc_cQixa4GqbiJ58RYV/view?usp=drivesdk' },
+                            { title: 'Sujet + Corrigé – Examen Physique 2', url: 'https://drive.google.com/file/d/1oWG9R3KxakH7GeAEwlUPZDQ7BP8HpJDF/view?usp=drivesdk' }
+                        ]
+                    },
+                    { title: 'Examens', url: 'https://drive.google.com/drive/folders/1-ifspPwi9PTS2OMCWUKmsvSgCleUUY1Y?usp=drive_link' }
+                ]
+            },
+            'Thermodynamique (Chimie 2)': {
+                'cours': [
+                    {
+                        recommended: true,
+                        files: [
+                            { title: 'Cours Complet de Thermodynamique - Prof. BENCHIKH Abdelkader', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/1001775/mod_resource/content/0/Cours_BENCHIKH%20Abdelkader_Cours%20et%20exercices%20de%20Thermodynamique.pdf' },
+                            { title: 'Cours Complet de Thermodynamique - Prof. MAIZIA Radouane', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/1001768/mod_resource/content/0/Cours_MAIZIA_Radouane_Thermodynamique-Chimie%202.pdf' }
+                        ]
+                    },
+                    { title: 'Chapitre 1 - Prof. Moussaceb', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/532685/mod_folder/content/0/Cours%20de%20Professeur%20MOUSSACEB/chapI-generalites_sur_la_thr-dyn.pdf?forcedownload=1' },
+                    { title: 'Chapitre 2 - Prof. Moussaceb', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/532685/mod_folder/content/0/Cours%20de%20Professeur%20MOUSSACEB/CHAPII-1ere_principe_de_la_thermodynamique.pdf?forcedownload=1' },
+                    { title: 'Chapitre 3 - Prof. Moussaceb', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/532685/mod_folder/content/0/CHAPIII-thermochimie.pdf?forcedownload=1' },
+                    { title: 'Chapitre 4 Partie 1 - Prof. Moussaceb', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/532685/mod_folder/content/0/Cours%20de%20Professeur%20MOUSSACEB/CHAPIV-2eme_principe_thermodynamique-p1.pdf?forcedownload=1' },
+                    { title: 'Chapitre 4 Partie 2 - Prof. Moussaceb', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/532685/mod_folder/content/0/Cours%20de%20Professeur%20MOUSSACEB/CHAPIV-2eme_principe_thermodynamique-p2.pdf?forcedownload=1' },
+                    { title: 'Chapitre 5 - Prof. Moussaceb', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/532685/mod_folder/content/0/chap_v._II_equilibres_chimiques.pdf?forcedownload=1' },
+                    { title: 'Chapitre 6 - Prof. Moussaceb', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/532685/mod_folder/content/0/chap_v.I_equilibres_chimiques.pdf?forcedownload=1' },
+                    { title: 'Cours Complet - Dr. Kachebi', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/532685/mod_folder/content/0/COURS%20DE%20CHIMIE%2002%20-%20Docteur%20KACHEBI.pdf?forcedownload=1' },
+                    { title: 'Cours Complet - Mme BORAS', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=276535' },
+                    { title: 'Résumé Cours - Mme AISSANI', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=281253' }
+                ],
+                'tdtp': [
+                    { title: 'Série 1', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/532685/mod_folder/content/0/SERIES%20DE%20TD%20CHIMIE%2002%20-%20AVEC%20CORRIGE/TD%201_Chimie%202.pdf?forcedownload=1' },
+                    { title: 'Série 2', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/532685/mod_folder/content/0/SERIES%20DE%20TD%20CHIMIE%2002%20-%20AVEC%20CORRIGE/TD%202_Chimie%202.pdf?forcedownload=1' },
+                    { title: 'Série 3', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/532685/mod_folder/content/0/SERIES%20DE%20TD%20CHIMIE%2002%20-%20AVEC%20CORRIGE/TD%203_Chimie%202.pdf?forcedownload=1' },
+                    { title: 'Corrigé Série 1', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/532685/mod_folder/content/0/SERIES%20DE%20TD%20CHIMIE%2002%20-%20AVEC%20CORRIGE/Corrig%C3%A9%20TD%201%20Chimie%202.pdf?forcedownload=1' },
+                    { title: 'Corrigé Série 2', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/532685/mod_folder/content/0/SERIES%20DE%20TD%20CHIMIE%2002%20-%20AVEC%20CORRIGE/corrig%C3%A9_s%C3%A9rie%202.pdf?forcedownload=1' },
+                    { title: 'Corrigé Série 3', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/532685/mod_folder/content/0/Corrig%C3%A9_TD%203_Chimie%202.pdf?forcedownload=1' },
+                    {
+                        exclusive: true,
+                        files: [
+                            { title: 'Série TD 1 (2025)', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=452063' },
+                            { title: 'Corrigé Série TD 1 (2025)', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=452064' }
+                        ]
+                    },
+                    { title: 'Série TD 1 2020/2021 avec corrigé', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=276257' },
+                    { title: 'Série Spéciale chimie 2', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=272402' },
+                    { title: 'Corrigé Série TD spéciale', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=285575' },
+                    { title: 'Série 2 2020/2021 avec corrigé', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=279985' },
+                    { title: 'Série 3 2020/2021 avec corrigé', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=284403' },
+                    { title: 'Série 1 2023/2024 + corrigé', url: 'https://elearning.univ-bejaia.dz/mod/folder/view.php?id=395559' },
+                    { title: 'Série 2 2023/2024 + corrigé', url: 'https://elearning.univ-bejaia.dz/mod/folder/view.php?id=395573' },
+                    { title: 'Série 3 2023/2024 + corrigé', url: 'https://elearning.univ-bejaia.dz/mod/folder/view.php?id=400195' },
+                    { title: 'Série 4 2023/2024 + corrigé', url: 'https://elearning.univ-bejaia.dz/mod/folder/view.php?id=400198' },
+                    { title: 'Intero (TD)', url: 'https://drive.google.com/file/d/1eDg17n4e3GKd6lCBu8oDQuy9fRY-rlDd/view' }
+                ],
+                'examen': [
+                    { title: 'Examens', url: 'https://drive.google.com/drive/folders/11MQFzD-TvI1ElMiNp_dO6KY8aqgm9iwb?usp=drive_link' }
+                ],
+                'compterendu': [
+                    { title: 'Compte rendu TP1', url: 'https://docs.google.com/document/d/1ACxXtmtPljmDXnpgRCjB6xIXQ_Dcu1MF/edit?usp=sharing&ouid=113138810463504494362&rtpof=true&sd=true' },
+                    { title: 'Compte rendu TP2', url: 'https://docs.google.com/document/d/1Wtx_4GnkG_gceB4o9F4aVH5uBicIl2-i/edit?usp=sharing&ouid=113138810463504494362&rtpof=true&sd=true' },
+                    { title: 'Compte rendu TP3', url: 'https://docs.google.com/document/d/1yqwNKog4wOCHqpX6Fu8uVxeSTldRkh2T/edit?usp=sharing&ouid=113138810463504494362&rtpof=true&sd=true' }
+                ]
+            },
+            'Informatique 2': {
+                'cours': [
+                    { title: 'Chapitre 1 - Tableaux', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/512864/mod_folder/content/0/Cours/Chapitre%20I%20-%20Type%20Tableau%20%28Vecteurs%20et%20Matrices%29.pdf?forcedownload=1' },
+                    { title: 'Chapitre 2 Partie 1 - Sous-programmes', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/512864/mod_folder/content/0/Cours/Chapitre%20II%20-%20Sous%20Programme%20%20%20Proc%C3%A9dures%20et%20Fonctions%20%28Partie%201%29.pdf?forcedownload=1' },
+                    { title: 'Chapitre 2 Partie 2 - Sous-programmes', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/512864/mod_folder/content/0/Cours/Chapitre%20II%20-%20Sous%20Programme%20%20%20Proc%C3%A9dures%20et%20Fonctions%20%28Partie%202%29.pdf?forcedownload=1' }
+                ],
+                'tdtp': [
+                    {
+                        exclusive: true,
+                        files: [
+                            { title: 'Série TP 1', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/1387637/mod_resource/content/1/S%C3%A9rie%20TP%20N%C2%B01%20LMD_2024_2025%20%283%29.pdf' },
+                            { title: 'Corrigé TP 1', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/1387288/mod_resource/content/1/Corrig%C3%A9_S%C3%A9rie%20TP%20N%C2%B01%20LMD%202024_2025%20%283%29.pdf' }
+                        ]
+                    }
+                ],
+                'examen': [
+                    { title: 'Examens', url: 'https://drive.google.com/drive/folders/14wgYaGstVJVRZ4D6GFTU4k2RLlyoCTaj?usp=drive_link' }
+                ]
+            },
+            'MST 2': {
+                'examen': [
+                    { title: 'Examens', url: 'https://drive.google.com/drive/folders/1AWCD2ewiOwhtI8Ug39h4Z3hVueXDDzJp?usp=drive_link' }
+                ]
+            },
+            'MP': {
+                'cours': [
+                    { title: 'Cours 1 - Communication Orale/Écrite', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/512863/mod_folder/content/0/Cours%201_Communication_Oral-Ecrit.PDF?forcedownload=1' },
+                    { title: 'Cours 2 - MST2', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/512868/mod_folder/content/0/Cours%20N%C2%B02%20MST2.pdf?forcedownload=1' },
+                    { title: 'Cours 3 - Génie Civil et Hydraulique', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/512868/mod_folder/content/0/Cours%20N%C2%B03%20Fili%C3%A8re%20G%C3%A9nie%20Civil%20et%20hydraulique%20.pdf?forcedownload=1' },
+                    { title: 'Cours 4 - Architecture et Urbanisme', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/512868/mod_folder/content/0/Cours%20N%C2%B04%20Fili%C3%A8re%20architecture%20et%20urbanisme%20.pdf?forcedownload=1' },
+                    { title: 'Cours 5', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/512863/mod_folder/content/0/Cours%205.pdf?forcedownload=1' }
+                ]
+            },
+            'Langue étrangère 2': {
+                 'cours': [
+                    { title: 'Cours 1', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/512869/mod_folder/content/0/01%20-%20Module.pdf?forcedownload=1' },
+                    { title: 'Cours 2', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/512869/mod_folder/content/0/02%20-%20Lecture%202.pdf?forcedownload=1' },
+                    { title: 'Cours 3', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/512869/mod_folder/content/0/03%20-%20Lecture%203.pdf?forcedownload=1' },
+                    { title: 'Cours 4', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/512869/mod_folder/content/0/04%20-%20Lecture%204.pdf?forcedownload=1' }
+                ]
+            },
+            'TP Physique 2': {
+                'tdtp': [
+                    {
+                        exclusive: true,
+                        files: [
+                            { title: 'Polycopié TP Physique 2', url: 'https://drive.google.com/file/d/1BNxQrhTbsb3l2FJKbpyiAmjq6z3CzhXj/view?usp=sharing' }
+                        ]
+                    }
+                ],
+                'compterendu': [
+                     { title: 'Compte rendu TP1', url: 'https://docs.google.com/document/d/1ACxXtmtPljmDXnpgRCjB6xIXQ_Dcu1MF/edit?usp=sharing&ouid=113138810463504494362&rtpof=true&sd=true' },
+                    { title: 'Compte rendu TP2', url: 'https://docs.google.com/document/d/1Wtx_4GnkG_gceB4o9F4aVH5uBicIl2-i/edit?usp=sharing&ouid=113138810463504494362&rtpof=true&sd=true' },
+                    { title: 'Compte rendu TP3', url: 'https://docs.google.com/document/d/1yqwNKog4wOCHqpX6Fu8uVxeSTldRkh2T/edit?usp=sharing&ouid=113138810463504494362&rtpof=true&sd=true' }
+                ]
+            },
+            'TP Chimie 2': { // Simplified key
+                'tdtp': [
+                    {
+                        exclusive: true,
+                        files: [
+                            { title: 'Polycopié TP Chimie 2', url: 'https://drive.google.com/file/d/1BNxQrhTbsb3l2FJKbpyiAmjq6z3CzhXj/view?usp=sharing' }
+                        ]
+                    }
+                ],
+                'compterendu': [
+                    { title: 'Compte rendu TP1', url: 'https://docs.google.com/document/d/1ACxXtmtPljmDXnpgRCjB6xIXQ_Dcu1MF/edit?usp=sharing&ouid=113138810463504494362&rtpof=true&sd=true' },
+                    { title: 'Compte rendu TP2', url: 'https://docs.google.com/document/d/1Wtx_4GnkG_gceB4o9F4aVH5uBicIl2-i/edit?usp=sharing&ouid=113138810463504494362&rtpof=true&sd=true' },
+                    { title: 'Compte rendu TP3', url: 'https://docs.google.com/document/d/1yqwNKog4wOCHqpX6Fu8uVxeSTldRkh2T/edit?usp=sharing&ouid=113138810463504494362&rtpof=true&sd=true' }
+                ]
+            },
+            // Blida content (sample, you would integrate your actual data here)
+             '_blida_data': { // Use a unique key for Blida data
+                 'Thermodynamique (Chimie 2)': { // Example module key
+                     'tdtp': [ // Example type key
+                          { // Example structure for Blida exclusive content
+                             exclusive: true,
+                             files: [
+                                { title: 'Serie TD 1 (Blida)', url: 'https://drive.google.com/file/d/1EKWe7hAMmJoR0zP5MDGDK2S735pqeXLw/view?usp=drive_link' },
+                                { title: 'Correction serie TD 1 (Blida)', url: 'https://drive.google.com/file/d/1oEIc964P0SR5r4PIKsYvXC9MjzF0iOeS/view?usp=drive_link' },
+                                { title: 'Serie TD 2 (Blida)', url: 'https://drive.google.com/file/d/1aDO_ZeMqAmap-kTKvUuzYDXt-JIVVBbg/view?usp=drive_link' },
+                                { title: 'Correction serie TD 2 (partie 1) (Blida)', url: 'https://drive.google.com/file/d/1vaCXbqA_ZvrKNgwU5DnwD1WqcVqwnFuA/view?usp=drive_link' },
+                                { title: 'Correction serie TD 2 (partie 2) (Blida)', url: 'https://drive.google.com/file/d/1kKf5-9awvnyCn0qqAihC_aSrs2qEhXOt/view?usp=drive_link' },
+                                { title: 'Correction serie TD 2 (partie 3) (Blida)', url: 'https://drive.google.com/file/d/1YAvWTBK9mCqDNjGWlrMqMMUV6_iC9miZ/view?usp=drive_link' },
+                                { title: 'Serie TD 3 (Blida)', url: 'https://drive.google.com/file/d/1CcWRZZ801ngtiy7RSt1K6018WDGJtp3I/view?usp=drive_link' },
+                                { title: 'Correction Serie TD 3 (partie 1) (Blida)', url: 'https://drive.google.com/file/d/1Kuk-7csOUNocHGnrv10gEO_DNJZFNfZS/view?usp=drive_link' },
+                                { title: 'Correction Serie TD 3 (partie 2) (Blida)', url: 'https://drive.google.com/file/d/1TY2Owdp5XgEAjau9zsqtm9HdQbsoR-6J/view?usp=drive_link' }
+                             ]
+                          }
+                     ]
+                 }
+             }
+        };
+
+
+         // Define the modules to display and their default icon colors
+        const modulesToDisplay = [
+             { name: 'Mathématique 2', icon: 'fas fa-square-root-alt', iconBgClass: 'bg-purple-100', iconColorClass: 'text-purple-600' },
+             { name: 'Physique 2', icon: 'fas fa-atom', iconBgClass: 'bg-blue-100', iconColorClass: 'text-blue-600' },
+             { name: 'Thermodynamique (Chimie 2)', icon: 'fas fa-flask', iconBgClass: 'bg-red-100', iconColorClass: 'text-red-600' },
+             { name: 'Informatique 2', icon: 'fas fa-laptop-code', iconBgClass: 'bg-green-100', iconColorClass: 'text-green-600' },
+             { name: 'MP', icon: 'fas fa-project-diagram', iconBgClass: 'bg-yellow-100', iconColorClass: 'text-yellow-600' },
+             { name: 'MST 2', icon: 'fas fa-cogs', iconBgClass: 'bg-gray-100', iconColorClass: 'text-gray-600' },
+             { name: 'Langue étrangère 2', icon: 'fas fa-language', iconBgClass: 'bg-pink-100', iconColorClass: 'text-pink-600' }, // Simplified key
+             { name: 'TP Physique 2', icon: 'fas fa-atom', iconBgClass: 'bg-indigo-100', iconColorClass: 'text-indigo-600' }, // Use same icon as Physics
+             { name: 'TP Chimie 2', icon: 'fas fa-flask-vial', iconBgClass: 'bg-orange-100', iconColorClass: 'text-orange-600' } // Use same icon as Chemistry
+        ];
+
+
+        function renderModuleCards() {
+            const moduleContainer = document.getElementById('moduleContainer');
+            moduleContainer.innerHTML = ''; // Clear placeholder
+
+            modulesToDisplay.forEach(moduleInfo => {
+                const moduleName = moduleInfo.name;
+                const card = document.createElement('div');
+                // Added role="button" and aria-haspopup/aria-expanded for accessibility if the whole card were clickable
+                // Keeping the button structure for clarity, adding tabindex to buttons instead
+                card.className = 'module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105'; // Added base classes
+                 // card.setAttribute('tabindex', '0'); // Make card focusable for outline - removed as buttons are focusable
+
+
+                 // Determine if there's ANY content for this module across ANY type (Bejaia or Blida)
+                 let hasAnyContent = false;
+                 const types = ['cours', 'tdtp', 'examen', 'compterendu', 'interrogation']; // List all possible types
+                 types.forEach(type => {
+                      if (moduleContentData[moduleName]?.[type]?.length > 0) hasAnyContent = true;
+                      if (moduleContentData['_blida_data']?.[moduleName]?.[type]?.length > 0) hasAnyContent = true;
+                 });
+
+
+                card.innerHTML = `
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="module-icon ${moduleInfo.iconBgClass} p-3 rounded-full ${moduleInfo.iconColorClass}">
+                            <i class="${moduleInfo.icon} fa-lg"></i>
                         </div>
-                    `;
-                }
-
-                // Then check for recommended content
-                const recommendedContent = contentArray.find(item => item.recommended);
-                if (recommendedContent) {
-                    html += `
-                        <div class="col-span-full recommended-content mb-6">
-                            <h4 class="text-xl font-bold text-blue-600 mb-3 flex items-center">
-                                <span class="bg-blue-600 text-white px-3 py-1 rounded-lg mr-2">
-                                    <i class="fas fa-thumbs-up"></i>
-                                </span>
-                                Cours Conseillés
-                            </h4>
-                            <div class="bg-blue-50 border-2 border-blue-200 rounded-lg p-4 space-y-2">
-                                ${recommendedContent.files.map(file => `
-                                    <a href="${file.url}" 
-                                       class="recommended-link flex items-center justify-between bg-white p-3 rounded-lg hover:bg-blue-100 transition-all duration-300 transform hover:scale-102 border border-blue-300"
-                                       target="_blank">
-                                        <span class="flex items-center">
-                                            <i class="fas fa-award text-blue-500 mr-2"></i>
-                                            ${file.title}
-                                        </span>
-                                        <span class="download-btn bg-blue-50 hover:bg-blue-100 text-blue-600 px-2 py-1 rounded-full text-sm flex items-center">
-                                            <i class="fas fa-download mr-1"></i>
-                                            <span class="hidden md:inline">Télécharger</span>
-                                        </span>
-                                    </a>
-                                `).join('')}
-                            </div>
-                        </div>
-                    `;
-                }
-
-                // Then add regular content
-                contentArray
-                    .filter(item => !item.exclusive && !item.recommended)
-                    .forEach(item => {
-                        const icon = getIconByType(type);
-                        
-                        html += `
-                            <div class="content-item bg-white p-4 rounded-lg shadow hover:shadow-md transition-all duration-300">
-                                <a href="${item.url}" 
-                                   class="text-gray-800 flex items-center justify-between w-full" 
-                                   target="_blank">
-                                    <span class="flex items-center">
-                                        <span class="icon-wrapper flex items-center justify-center w-10 h-10 rounded-full bg-green-50 text-green-600 mr-3">
-                                            <i class="fas ${icon} text-lg"></i>
-                                        </span>
-                                        <span class="font-medium">${item.title}</span>
-                                    </span>
-                                    <span class="download-btn bg-green-50 hover:bg-green-100 text-green-600 px-2 py-1 rounded-full text-sm flex items-center">
-                                        <i class="fas fa-download mr-1"></i>
-                                        <span class="hidden md:inline">Télécharger</span>
-                                    </span>
-                                </a>
-                            </div>
-                        `;
-                    });
-
-                html += '</div>';
-                return html;
-            }
-            
-            return '<p class="text-gray-500 italic">Contenu à venir...</p>';
-        }
-
-        function getBlidaContent(module, type) {
-            const content = {
-                'Thermodynamique (Chimie 2)': {
-                    'tdtp': [
-                        {
-                            exclusive: true,
-                            title: 'Ressources Université de Blida',
-                            files: [
-                                {
-                                    title: 'Serie TD 1',
-                                    url: 'https://drive.google.com/file/d/1EKWe7hAMmJoR0zP5MDGDK2S735pqeXLw/view?usp=drive_link'
-                                },
-                                {
-                                    title: 'Correction serie TD 1',
-                                    url: 'https://drive.google.com/file/d/1oEIc964P0SR5r4PIKsYvXC9MjzF0iOeS/view?usp=drive_link'
-                                },
-                                {
-                                    title: 'Serie TD 2',
-                                    url: 'https://drive.google.com/file/d/1aDO_ZeMqAmap-kTKvUuzYDXt-JIVVBbg/view?usp=drive_link'
-                                },
-                                {
-                                    title: 'Correction serie TD 2 (partie 1)',
-                                    url: 'https://drive.google.com/file/d/1vaCXbqA_ZvrKNgwU5DnwD1WqcVqwnFuA/view?usp=drive_link'
-                                },
-                                {
-                                    title: 'Correction serie TD 2 (partie 2)',
-                                    url: 'https://drive.google.com/file/d/1kKf5-9awvnyCn0qqAihC_aSrs2qEhXOt/view?usp=drive_link'
-                                },
-                                {
-                                    title: 'Correction serie TD 2 (partie 3)',
-                                    url: 'https://drive.google.com/file/d/1YAvWTBK9mCqDNjGWlrMqMMUV6_iC9miZ/view?usp=drive_link'
-                                },
-                                {
-                                    title: 'Serie TD 3',
-                                    url: 'https://drive.google.com/file/d/1CcWRZZ801ngtiy7RSt1K6018WDGJtp3I/view?usp=drive_link'
-                                },
-                                {
-                                    title: 'Correction Serie TD 3 (partie 1)',
-                                    url: 'https://drive.google.com/file/d/1Kuk-7csOUNocHGnrv10gEO_DNJZFNfZS/view?usp=drive_link'
-                                },
-                                {
-                                    title: 'Correction Serie TD 3 (partie 2)',
-                                    url: 'https://drive.google.com/file/d/1TY2Owdp5XgEAjau9zsqtm9HdQbsoR-6J/view?usp=drive_link'
-                                }
-                            ]
-                        }
-                    ]
-                }
-            };
-
-            if (content[module] && content[module][type]) {
-                let html = '';
-                const contentArray = content[module][type];
-
-                // Create a content grid container
-                html += '<div class="content-grid grid grid-cols-1 md:grid-cols-2 gap-4">';
-
-                // First check for exclusive content
-                const exclusiveContent = contentArray.find(item => item.exclusive);
-                if (exclusiveContent) {
-                    html += `
-                        <div class="col-span-full exclusive-2025 mb-6">
-                            <h4 class="text-xl font-bold text-orange-600 mb-3 flex items-center">
-                                <span class="bg-orange-600 text-white px-3 py-1 rounded-lg mr-2">
-                                    <i class="fas fa-star"></i>
-                                </span>
-                                Ressources Exclusives
-                            </h4>
-                            <div class="bg-orange-50 border-2 border-orange-200 rounded-lg p-4 space-y-2">
-                                ${exclusiveContent.files.map(file => `
-                                    <a href="${file.url}" 
-                                       class="exclusive-link flex items-center justify-between bg-white p-3 rounded-lg hover:bg-orange-100 transition-all duration-300 transform hover:scale-102 border border-orange-300"
-                                       target="_blank">
-                                        <span class="flex items-center">
-                                            <i class="fas fa-file-alt text-orange-500 mr-2"></i>
-                                            ${file.title}
-                                        </span>
-                                        <span class="download-btn bg-orange-50 hover:bg-orange-100 text-orange-600 px-2 py-1 rounded-full text-sm flex items-center">
-                                            <i class="fas fa-download mr-1"></i>
-                                            <span class="hidden md:inline">Télécharger</span>
-                                        </span>
-                                    </a>
-                                `).join('')}
-                            </div>
-                        </div>
-                    `;
-                }
-
-                html += '</div>';
-                return html;
-            }
-            
-            return '<p class="text-gray-500 italic">Contenu à venir...</p>';
-        }
-
-        function showContent(module, type) {
-            const popup = document.getElementById(`popup-${type}`);
-            if (!popup) return;
-            
-            // Create the popup structure if it doesn't exist
-            if (popup.children.length === 0) {
-                popup.innerHTML = `
-                    <div class="bg-white rounded-lg shadow-lg max-w-3xl w-full glass-card">
-                        <div class="popup-container">
-                            <div class="popup-header flex justify-between items-center">
-                                <h2 id="popup-title-${type}" class="text-2xl font-bold text-gray-800"></h2>
-                                <button class="close-popup-btn hover:bg-red-600 transition-colors">
-                                    <i class="fas fa-times mr-1"></i> Fermer
-                                </button>
-                            </div>
-                            <div class="popup-body">
-                                <div id="popup-content-${type}" class="popup-content"></div>
-                            </div>
-                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800">${moduleName}</h3>
+                    </div>
+                    <div class="mt-auto flex flex-wrap gap-2">
+                        ${moduleContentData[moduleName]?.cours?.length > 0 || moduleContentData['_blida_data']?.[moduleName]?.cours?.length > 0 ? `<button class="module-btn" data-module-name="${moduleName}" data-content-type="cours" aria-haspopup="dialog">Cours</button>` : ''}
+                        ${moduleContentData[moduleName]?.tdtp?.length > 0 || moduleContentData['_blida_data']?.[moduleName]?.tdtp?.length > 0 ? `<button class="module-btn" data-module-name="${moduleName}" data-content-type="tdtp" aria-haspopup="dialog">TD+TP</button>` : ''}
+                        ${moduleContentData[moduleName]?.examen?.length > 0 || moduleContentData['_blida_data']?.[moduleName]?.examen?.length > 0 ? `<button class="module-btn" data-module-name="${moduleName}" data-content-type="examen" aria-haspopup="dialog">Examen</button>` : ''}
+                        ${moduleContentData[moduleName]?.compterendu?.length > 0 || moduleContentData['_blida_data']?.[moduleName]?.compterendu?.length > 0 ? `<button class="module-btn" data-module-name="${moduleName}" data-content-type="compterendu" aria-haspopup="dialog">Compte rendu</button>` : ''}
+                         ${moduleContentData[moduleName]?.interrogation?.length > 0 || moduleContentData['_blida_data']?.[moduleName]?.interrogation?.length > 0 ? `<button class="module-btn" data-module-name="${moduleName}" data-content-type="interrogation" aria-haspopup="dialog">Interrogation</button>` : ''}
+                        ${!hasAnyContent ? `<span class="text-muted-foreground text-sm italic">Contenu à venir</span>` : ''}
                     </div>
                 `;
+                 // Added Font Awesome icons to buttons directly
+                 const buttons = card.querySelectorAll('.module-btn');
+                 buttons.forEach(button => {
+                     const type = button.dataset.contentType; // Get type from data attribute
+                     const icon = getIconByType(type);
+                     button.innerHTML = `<i class="fas ${icon} mr-1"></i> ${button.textContent.trim()}`;
 
-                // Add event listener for close button
-                const closeButton = popup.querySelector('.close-popup-btn');
-                closeButton.addEventListener('click', () => closePopup(type));
+                     // Add event listener instead of onclick attribute
+                     button.addEventListener('click', function() {
+                         const moduleName = this.dataset.moduleName;
+                         const contentType = this.dataset.contentType;
+                         showContent(moduleName, contentType);
+                     });
+                 });
+
+
+                moduleContainer.appendChild(card);
+            });
+             // Remove the placeholder after rendering
+             document.getElementById('module-placeholder')?.remove();
+
+        }
+
+
+        function getBejaiaContentHtml(module, type) {
+            const contentArray = moduleContentData[module]?.[type];
+            if (!contentArray || contentArray.length === 0) return null; // Return null if no content
+
+
+            let html = '<div class="content-grid grid grid-cols-1 md:grid-cols-2 gap-4">';
+            let contentAdded = false; // Flag to track if any content was added
+
+            contentArray.forEach(item => {
+                if (item.exclusive && item.files) {
+                    html += `
+                        <div class="col-span-full exclusive-2025 bejaia-exclusive mb-6">
+                            <h4 class="text-xl font-bold mb-3 flex items-center">
+                                <span>2025</span>
+                                Contenu Exclusif
+                            </h4>
+                            <div class="rounded-lg p-4 space-y-2">
+                                ${item.files.map(file => `
+                                    <a href="${file.url}"
+                                       class="exclusive-link flex items-center justify-between p-3 rounded-lg"
+                                       target="_blank" rel="noopener noreferrer" tabindex="0">
+                                        <span class="flex items-center">
+                                            <i class="fas fa-star mr-2"></i>
+                                            ${file.title}
+                                        </span>
+                                         <span class="download-btn flex items-center rounded-full text-sm">
+                                            <i class="fas fa-download mr-1"></i>
+                                            <span class="hidden md:inline">Télécharger</span>
+                                        </span>
+                                    </a>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `;
+                    contentAdded = true;
+                } else if (item.recommended && item.files) {
+                     html += `
+                         <div class="col-span-full recommended-content mb-6">
+                             <h4 class="text-xl font-bold mb-3 flex items-center">
+                                 <span><i class="fas fa-thumbs-up"></i></span>
+                                 Cours Conseillés
+                             </h4>
+                             <div class="rounded-lg p-4 space-y-2">
+                                 ${item.files.map(file => `
+                                     <a href="${file.url}"
+                                        class="recommended-link flex items-center justify-between p-3 rounded-lg"
+                                        target="_blank" rel="noopener noreferrer" tabindex="0">
+                                        <span class="flex items-center">
+                                            <i class="fas fa-award mr-2"></i>
+                                            ${file.title}
+                                        </span>
+                                         <span class="download-btn flex items-center rounded-full text-sm">
+                                            <i class="fas fa-download mr-1"></i>
+                                            <span class="hidden md:inline">Télécharger</span>
+                                        </span>
+                                     </a>
+                                 `).join('')}
+                             </div>
+                         </div>
+                     `;
+                     contentAdded = true;
+                } else if (typeof item.url === 'string' && typeof item.title === 'string') {
+                    // Regular content item (check for required properties)
+                    const icon = getIconByType(type); // Use the correct icon for the type
+                    html += `
+                        <div class="content-item p-4 rounded-lg shadow hover:shadow-md">
+                            <a href="${item.url}"
+                               class="flex items-center justify-between w-full"
+                               target="_blank" rel="noopener noreferrer" tabindex="0">
+                                <span class="flex items-center">
+                                    <span class="icon-wrapper flex items-center justify-center rounded-full mr-3">
+                                        <i class="fas ${icon}"></i>
+                                    </span>
+                                    <span class="font-medium">${item.title}</span>
+                                </span>
+                                 <span class="download-btn flex items-center rounded-full text-sm">
+                                    <i class="fas fa-download mr-1"></i>
+                                    <span class="hidden md:inline">Télécharger</span>
+                                 </span>
+                             </a>
+                         </div>
+                    `;
+                    contentAdded = true;
+                } else {
+                    console.warn("Unexpected item structure in Bejaia data for module", module, "type", type, ":", item);
+                }
+            });
+
+            html += '</div>'; // Close content-grid
+
+            return contentAdded ? html : null; // Return html only if something was added
+        }
+
+        function getBlidaContentHtml(module, type) { // Renamed function for clarity
+             // Get data from the _blida_data section
+            const contentArray = moduleContentData['_blida_data']?.[module]?.[type];
+            if (!contentArray || contentArray.length === 0) return null;
+
+             let html = '<div class="content-grid grid grid-cols-1 md:grid-cols-2 gap-4">';
+             let contentAdded = false; // Flag to track if any content was added
+
+
+            contentArray.forEach(item => {
+                 if (item.exclusive && item.files) { // Check for exclusive property and files array
+                      html += `
+                          <div class="col-span-full exclusive-2025 blida-exclusive mb-6">
+                              <h4 class="text-xl font-bold mb-3 flex items-center">
+                                  <span><i class="fas fa-star"></i></span>
+                                  Ressources Exclusives
+                              </h4>
+                              <div class="rounded-lg p-4 space-y-2">
+                                  ${item.files.map(file => `
+                                      <a href="${file.url}"
+                                         class="exclusive-link flex items-center justify-between p-3 rounded-lg"
+                                         target="_blank" rel="noopener noreferrer" tabindex="0">
+                                          <span class="flex items-center">
+                                              <i class="fas fa-file-alt mr-2"></i>
+                                              ${file.title}
+                                          </span>
+                                           <span class="download-btn flex items-center rounded-full text-sm">
+                                              <i class="fas fa-download mr-1"></i>
+                                              <span class="hidden md:inline">Télécharger</span>
+                                          </span>
+                                      </a>
+                                  `).join('')}
+                              </div>
+                          </div>
+                      `;
+                       contentAdded = true;
+                 } else if (typeof item.url === 'string' && typeof item.title === 'string') {
+                    // Regular content item (check for required properties)
+                    const icon = getIconByType(type); // Use the correct icon for the type
+                    html += `
+                        <div class="content-item p-4 rounded-lg shadow hover:shadow-md">
+                            <a href="${item.url}"
+                               class="flex items-center justify-between w-full"
+                               target="_blank" rel="noopener noreferrer" tabindex="0">
+                                <span class="flex items-center">
+                                    <span class="icon-wrapper flex items-center justify-center rounded-full mr-3">
+                                        <i class="fas ${icon}"></i>
+                                    </span>
+                                    <span class="font-medium">${item.title}</span>
+                                </span>
+                                 <span class="download-btn flex items-center rounded-full text-sm">
+                                    <i class="fas fa-download mr-1"></i>
+                                    <span class="hidden md:inline">Télécharger</span>
+                                 </span>
+                             </a>
+                         </div>
+                    `;
+                    contentAdded = true;
+                } else {
+                    console.warn("Unexpected item structure in Blida data for module", module, "type", type, ":", item);
+                }
+            });
+
+            html += '</div>'; // Close content-grid
+
+             return contentAdded ? html : null; // Return html only if something was added
+        }
+
+
+        function showContent(module, type) {
+            // Find the specific popup element by its ID
+            const popup = document.getElementById(`popup-${type}`);
+            if (!popup) {
+                console.error(`Popup element with id popup-${type} not found.`);
+                return;
             }
 
-            const popupTitle = document.getElementById(`popup-title-${type}`);
-            const popupContent = document.getElementById(`popup-content-${type}`);
+            // Get the content elements *within* the popup's glass card
+            const popupContentBox = popup.querySelector('.glass-card.popup-modal-content');
+            // Use querySelector with the full ID pattern to be safe
+            const popupTitle = popupContentBox?.querySelector(`h2#popup-title-${type}`);
+            const popupContent = popupContentBox?.querySelector(`div#popup-content-${type}`);
+            const closeButton = popupContentBox?.querySelector('.modal-close');
+
+
+            if (!popupContentBox || !popupTitle || !popupContent || !closeButton) {
+                 console.error("Popup internal structure not found for type:", type, ". Check the HTML structure inside the popup div.");
+                 return; // Exit if essential elements are missing
+            }
 
             popupTitle.textContent = `${module} - ${type.toUpperCase()}`;
-            popupContent.innerHTML = '';
+            popupContent.innerHTML = ''; // Clear previous content
 
-            // Template for Bejaia University section
-            const bejaiaContent = getBejaiaContent(module, type);
-            if (bejaiaContent && bejaiaContent !== '<p class="text-gray-500 italic">Contenu à venir...</p>') {
+            let hasContentDisplayed = false;
+
+            // Add Bejaia University section
+            const bejaiaContentHtml = getBejaiaContentHtml(module, type);
+            if (bejaiaContentHtml) {
                 const bejaiaSection = document.createElement('div');
-                bejaiaSection.className = 'university-section mb-6 transform transition-all duration-300 hover:translate-x-1 border-l-4 border-green-600 bg-white rounded-lg shadow-sm';
-                
-                // Create section header
+                bejaiaSection.className = 'university-section mb-6 border-l-4';
+                bejaiaSection.style.borderColor = `hsl(var(--section-accent-bejaia))`;
+
                 const sectionHeader = document.createElement('div');
-                sectionHeader.className = 'section-header bg-green-50 p-4 rounded-t-lg border-b border-green-100';
+                sectionHeader.className = 'section-header p-4 rounded-t-lg border-b';
+                sectionHeader.style.backgroundColor = `hsl(var(--section-header-bg))`;
+                sectionHeader.style.borderColor = `hsl(var(--section-border))`;
                 sectionHeader.innerHTML = `
-                    <h3 class="text-xl font-bold text-green-600 flex items-center gap-2">
+                    <h3 class="text-xl font-bold flex items-center gap-2">
                         <i class="fas fa-university"></i>
                         Université de Béjaia
                     </h3>
                 `;
-                
+                 sectionHeader.querySelector('h3').style.color = `hsl(var(--section-text))`;
+
                 const contentContainer = document.createElement('div');
                 contentContainer.className = 'p-4';
-                contentContainer.innerHTML = bejaiaContent;
-                
+                contentContainer.innerHTML = bejaiaContentHtml;
+
                 bejaiaSection.appendChild(sectionHeader);
                 bejaiaSection.appendChild(contentContainer);
                 popupContent.appendChild(bejaiaSection);
+                hasContentDisplayed = true;
+
+                // Add animation class if exclusive content is present in Bejaia section
+                 if (bejaiaContentHtml.includes('exclusive-2025')) { // This check might need refinement if HTML includes 'exclusive-2025' in titles etc.
+                     bejaiaSection.querySelector('.exclusive-2025')?.classList.add('bejaia-exclusive');
+                 }
             }
 
-            // Add Blida University section
-            const blidaContent = getBlidaContent(module, type);
-            if (blidaContent && blidaContent !== '<p class="text-gray-500 italic">Contenu à venir...</p>') {
+            // Add Blida University section (if content exists)
+            const blidaContentHtml = getBlidaContentHtml(module, type);
+            if (blidaContentHtml) {
                 const blidaSection = document.createElement('div');
-                blidaSection.className = 'university-section mb-6 transform transition-all duration-300 hover:translate-x-1 border-l-4 border-orange-600 bg-white rounded-lg shadow-sm';
-                
-                // Create section header
+                blidaSection.className = 'university-section mb-6 border-l-4';
+                 blidaSection.style.borderColor = `hsl(var(--section-accent-blida))`;
+
                 const sectionHeader = document.createElement('div');
-                sectionHeader.className = 'section-header bg-orange-50 p-4 rounded-t-lg border-b border-orange-100';
+                sectionHeader.className = 'section-header p-4 rounded-t-lg border-b';
+                 sectionHeader.style.backgroundColor = `hsl(var(--section-header-bg))`;
+                 sectionHeader.style.borderColor = `hsl(var(--section-border))`;
                 sectionHeader.innerHTML = `
-                    <h3 class="text-xl font-bold text-orange-600 flex items-center gap-2">
+                    <h3 class="text-xl font-bold flex items-center gap-2">
                         <i class="fas fa-university"></i>
                         Université de Blida
                     </h3>
                 `;
-                
+                 sectionHeader.querySelector('h3').style.color = `hsl(var(--section-text))`;
+
+
                 const contentContainer = document.createElement('div');
                 contentContainer.className = 'p-4';
-                contentContainer.innerHTML = blidaContent;
-                
+                contentContainer.innerHTML = blidaContentHtml;
+
                 blidaSection.appendChild(sectionHeader);
                 blidaSection.appendChild(contentContainer);
                 popupContent.appendChild(blidaSection);
+                hasContentDisplayed = true;
+
+                 // Add animation class if exclusive content is present in Blida section
+                 if (blidaContentHtml.includes('exclusive-2025')) { // This check might need refinement
+                      blidaSection.querySelector('.exclusive-2025')?.classList.add('blida-exclusive');
+                 }
             }
 
-            // If no content found, display message
-            if (popupContent.children.length === 0) {
+
+            // If no content found from either university
+            if (!hasContentDisplayed) {
                 popupContent.innerHTML = `
                     <div class="text-center p-8">
-                        <i class="fas fa-exclamation-circle text-5xl text-gray-400 mb-4"></i>
-                        <p class="text-gray-500">Aucun contenu disponible pour ce module</p>
-                        <p class="text-sm text-gray-400 mt-2">Revenez plus tard pour voir les ressources</p>
+                        <i class="fas fa-exclamation-circle text-5xl text-muted-foreground mb-4"></i>
+                        <p class="text-muted-foreground">Aucun contenu disponible pour ce module ou ce type.</p>
+                        <p class="text-sm text-muted-foreground opacity-80 mt-2">Revenez plus tard pour voir les ressources</p>
                     </div>
                 `;
             }
 
             // Show popup with animation
             popup.classList.remove('hidden');
-            popup.animate([
-                { opacity: 0, transform: 'scale(0.95)' },
-                { opacity: 1, transform: 'scale(1)' }
-            ], {
-                duration: 200,
-                easing: 'ease-out',
-                fill: 'forwards'
+             // Apply initial state for transition
+             popup.style.opacity = 0;
+             popupContentBox.style.transform = 'scale(0.95)';
+             popupContentBox.style.opacity = 0;
+
+
+            // Trigger the transition after a small delay
+            requestAnimationFrame(() => {
+                 popup.style.transition = 'opacity 0.2s ease-out'; // Only fade overlay
+                 popupContentBox.style.transition = 'opacity 0.2s ease-out, transform 0.2s ease-out'; // Fade and scale modal content
+
+                 popup.style.opacity = 1;
+                 popupContentBox.style.transform = 'scale(1)';
+                 popupContentBox.style.opacity = 1;
             });
+
+
+            // Add event listeners for the modal close button dynamically
+            // Ensure we only add listeners once per popup type
+            // Moved this listener attachment to DOMContentLoaded for reliability
+            // if (!closeButton._hasClickListener) {
+            //      closeButton.addEventListener('click', () => closePopup(type));
+            //      closeButton._hasClickListener = true; // Mark as having listener
+            // }
         }
 
         function getIconByType(type) {
@@ -1021,457 +1789,100 @@
                 case 'tdtp': return 'fa-pencil-alt';
                 case 'examen': return 'fa-file-alt';
                 case 'compterendu': return 'fa-clipboard-check';
+                 case 'tp': return 'fa-flask'; // Added TP icon specifically if used
+                 case 'interrogation': return 'fa-question-circle'; // Added Interrogation icon
                 default: return 'fa-file-pdf';
             }
         }
 
         function closePopup(type) {
             const popup = document.getElementById(`popup-${type}`);
-            if (popup) {
-                popup.classList.add('hidden');
+            const popupContentBox = popup?.querySelector('.glass-card.popup-modal-content');
+
+            if (popup && popupContentBox) {
+                 // Animate closing
+                 popup.style.transition = 'opacity 0.2s ease-in'; // Only fade overlay
+                 popupContentBox.style.transition = 'opacity 0.2s ease-in, transform 0.2s ease-in'; // Fade and scale modal content
+
+                 popup.style.opacity = 0;
+                 popupContentBox.style.transform = 'scale(0.95)';
+                 popupContentBox.style.opacity = 0;
+
+
+                 // Hide after animation
+                 popup.addEventListener('transitionend', function handler() {
+                      popup.classList.add('hidden');
+                      // Reset transitions after hiding
+                      popup.style.transition = '';
+                      popupContentBox.style.transition = '';
+                       // Remove the event listener
+                      popup.removeEventListener('transitionend', handler);
+                 });
             }
         }
 
-        // Add event listeners for popup clicks
+        // Add event listeners for clicking outside the popup content
         document.addEventListener('DOMContentLoaded', function() {
-            // Add listeners for all close buttons
-            const closeButtons = document.querySelectorAll('.close-popup-btn');
-            closeButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const popup = this.closest('[id^="popup-"]');
-                    if (popup) {
-                        popup.classList.add('hidden');
-                    }
-                });
-            });
-
-            // Close when clicking outside the content
             const popups = document.querySelectorAll('[id^="popup-"]');
             popups.forEach(popup => {
+                // Use event delegation on the popup overlay itself
                 popup.addEventListener('click', function(e) {
+                     // Check if the click target is the overlay (the popup div itself),
+                     // not an element inside the .glass-card
                     if (e.target === this) {
-                        this.classList.add('hidden');
+                        // Determine the type from the popup ID
+                        const type = this.id.replace('popup-', '');
+                        closePopup(type);
                     }
                 });
+                 // Initially hide popups on load - This is now done by adding the 'hidden' class in HTML
+                 // popup.classList.add('hidden');
             });
+
+            // Render the module cards on DOM ready
+             renderModuleCards();
+
+             // Initialize AOS (already copied)
+             AOS.init({
+                 duration: 800,
+                 once: true
+             });
+
+             // Place the modal HTML elements at the end of the body
+             // This is important for overlay/z-index and makes the initial 'hidden' state reliable
+             // This is already done in the HTML structure now, so this loop is not needed.
+             // Keeping it commented out in case you need to re-parent modals dynamically.
+             /*
+             const popupTypes = ['tdtp', 'examen', 'cours', 'compterendu'];
+             popupTypes.forEach(type => {
+                  const popup = document.getElementById(`popup-${type}`);
+                  if (popup) {
+                       document.body.appendChild(popup);
+                  }
+             });
+             */
+
+             // Add click listener to the popup close buttons *once* on DOMContentLoaded
+             document.querySelectorAll('.modal-close').forEach(button => {
+                 button.addEventListener('click', function() {
+                     const popup = this.closest('[id^="popup-"]');
+                     if (popup) {
+                         const type = popup.id.replace('popup-', '');
+                         closePopup(type);
+                     }
+                 });
+             });
         });
 
-        // Add this new CSS
-        const newStyles = `
-        <style>
-            .university-section {
-                background: rgba(255, 255, 255, 0.9);
-                border-radius: 10px;
-                padding: 1rem;
-                margin-bottom: 1rem;
-                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-                transition: all 0.3s ease;
-            }
 
-            .university-section:hover {
-                transform: translateX(5px);
-                box-shadow: 0 4px 6px rgba(0,0,0,0.15);
-            }
+         // Re-create particles on theme change for instant color update (already copied)
+          document.querySelector('#theme-toggle').addEventListener('click', () => {
+             // Small delay to allow theme class to apply before creating particles
+             setTimeout(createParticles, 100);
+          });
 
-            .university-section h3 {
-                display: flex;
-                align-items: center;
-                gap: 0.5rem;
-            }
-
-            .university-section h3::before {
-                content: '';
-                width: 4px;
-                height: 1.5rem;
-                background-color: currentColor;
-                border-radius: 2px;
-            }
-
-            .university-section a {
-                transition: all 0.3s ease;
-                display: flex;
-                align-items: center;
-                padding: 0.5rem;
-                border-radius: 5px;
-                text-decoration: none;
-            }
-
-            .university-section a:hover {
-                background: rgba(59, 130, 246, 0.1);
-                transform: translateX(10px);
-            }
-
-            /* Add these new styles to your existing style section */
-            .exclusive-2025 {
-                animation: glow 2s ease-in-out infinite alternate;
-            }
-
-            .exclusive-link {
-                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            }
-
-            .exclusive-link:hover {
-                box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            }
-
-            @keyframes glow {
-                from {
-                    box-shadow: 0 0 5px rgba(34, 197, 94, 0.2);
-                }
-                to {
-                    box-shadow: 0 0 20px rgba(34, 197, 94, 0.4);
-                }
-            }
-
-            .recommended-content {
-                animation: pulse 2s ease-in-out infinite;
-            }
-
-            .recommended-link {
-                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            }
-
-            .recommended-link:hover {
-                box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            }
-
-            @keyframes pulse {
-                0% {
-                    transform: scale(1);
-                }
-                50% {
-                    transform: scale(1.02);
-                }
-                100% {
-                    transform: scale(1);
-                }
-            }
-        </style>
-        `;
-
-        // Add the new styles to the document
-        document.head.insertAdjacentHTML('beforeend', newStyles);
     </script>
-
-    <style>
-        .popup-content {
-            max-height: 70vh;
-            overflow-y: auto;
-        }
-
-        .university-section {
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 10px;
-            padding: 1rem;
-            margin-bottom: 1rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .university-section a {
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            padding: 0.5rem;
-            border-radius: 5px;
-        }
-
-        .university-section a:hover {
-            background: rgba(59, 130, 246, 0.1);
-            transform: translateX(10px);
-        }
-
-        .module-card {
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 15px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .module-card:hover {
-            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
-        }
-
-        /* Add these styles to your existing style section */
-        .popup-container {
-            max-height: 90vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .popup-header {
-            position: sticky;
-            top: 0;
-            background: white;
-            z-index: 10;
-            padding: 1.5rem;
-            border-bottom: 1px solid #e5e7eb;
-            border-radius: 0.5rem 0.5rem 0 0;
-        }
-
-        .popup-body {
-            flex: 1;
-            overflow-y: auto;
-            padding: 1.5rem;
-            max-height: calc(90vh - 5rem);
-        }
-
-        /* Add smooth scrolling */
-        .popup-body {
-            scroll-behavior: smooth;
-            scrollbar-width: thin;
-            scrollbar-color: #94a3b8 #f1f5f9;
-        }
-
-        /* Webkit scrollbar styling */
-        .popup-body::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        .popup-body::-webkit-scrollbar-track {
-            background: #f1f5f9;
-            border-radius: 4px;
-        }
-
-        .popup-body::-webkit-scrollbar-thumb {
-            background-color: #94a3b8;
-            border-radius: 4px;
-            border: 2px solid #f1f5f9;
-        }
-
-        /* Enhanced module card styling */
-        .module-card {
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 15px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .module-card:hover {
-            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
-            border-color: rgba(59, 130, 246, 0.3);
-        }
-        
-        .module-icon {
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.08);
-        }
-        
-        .module-btn {
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            font-weight: 500;
-            transition: all 0.2s ease;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            display: inline-flex;
-            align-items: center;
-        }
-        
-        .module-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 6px rgba(0,0,0,0.15);
-        }
-        
-        .module-btn:active {
-            transform: translateY(0px);
-        }
-        
-        /* Glass card and popup improvements */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.5);
-            border-radius: 20px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-            backdrop-filter: blur(8px);
-            padding: 2rem;
-            max-height: 80vh;
-            overflow-y: auto;
-        }
-        
-        .popup-content {
-            max-height: 70vh;
-            overflow-y: auto;
-            scrollbar-width: thin;
-            scrollbar-color: rgba(34, 197, 94, 0.5) rgba(229, 231, 235, 0.5);
-        }
-        
-        .popup-content::-webkit-scrollbar {
-            width: 8px;
-        }
-        
-        .popup-content::-webkit-scrollbar-track {
-            background: rgba(229, 231, 235, 0.5);
-            border-radius: 4px;
-        }
-        
-        .popup-content::-webkit-scrollbar-thumb {
-            background: rgba(34, 197, 94, 0.5);
-            border-radius: 4px;
-        }
-        
-        .popup-content::-webkit-scrollbar-thumb:hover {
-            background: rgba(34, 197, 94, 0.7);
-        }
-    </style>
-
-    <style>
-    /* Enhanced content item styling */
-    .content-item {
-        border: 1px solid rgba(229, 231, 235, 0.5);
-        transition: all 0.3s ease;
-        animation: fadeIn 0.5s ease forwards;
-    }
-    
-    .content-item:hover {
-        transform: translateY(-3px);
-        border-color: rgba(34, 197, 94, 0.3);
-    }
-    
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(10px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-    
-    /* Download button enhancements */
-    .download-btn {
-        transition: all 0.2s ease;
-    }
-    
-    .download-btn:hover {
-        transform: scale(1.05);
-    }
-    
-    /* Exclusive and recommended content styling */
-    .exclusive-2025, .recommended-content {
-        position: relative;
-    }
-    
-    .exclusive-2025::before, .recommended-content::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 3px;
-        border-radius: 3px;
-    }
-    
-    .exclusive-2025::before {
-        background: linear-gradient(to right, #10b981, #3b82f6);
-    }
-    
-    .recommended-content::before {
-        background: linear-gradient(to right, #3b82f6, #8b5cf6);
-    }
-    
-    /* Enhanced popup structure */
-    .glass-card {
-        background: rgba(255, 255, 255, 0.95);
-        border-radius: 20px;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-        backdrop-filter: blur(8px);
-    }
-    
-    .popup-content {
-        scrollbar-width: thin;
-        scrollbar-color: rgba(34, 197, 94, 0.5) rgba(229, 231, 235, 0.5);
-    }
-    
-    .popup-content::-webkit-scrollbar {
-        width: 8px;
-    }
-    
-    .popup-content::-webkit-scrollbar-track {
-        background: rgba(229, 231, 235, 0.5);
-        border-radius: 4px;
-    }
-    
-    .popup-content::-webkit-scrollbar-thumb {
-        background: rgba(34, 197, 94, 0.5);
-        border-radius: 4px;
-    }
-    
-    .popup-content::-webkit-scrollbar-thumb:hover {
-        background: rgba(34, 197, 94, 0.7);
-    }
-    
-    /* Section headers styling */
-    .section-header {
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .section-header::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 1px;
-        background: linear-gradient(to right, transparent, rgba(16, 185, 129, 0.3), transparent);
-    }
-</style>
-
-    <style>
-    /* Blida university styling */
-    .university-section[class*="border-orange"] .section-header::after {
-        background: linear-gradient(to right, transparent, rgba(234, 88, 12, 0.3), transparent);
-    }
-    
-    .university-section[class*="border-orange"] a:hover {
-        background: rgba(234, 88, 12, 0.1);
-    }
-    
-    /* Animation for Blida's exclusive content */
-    @keyframes orangeGlow {
-        from {
-            box-shadow: 0 0 5px rgba(234, 88, 12, 0.2);
-        }
-        to {
-            box-shadow: 0 0 20px rgba(234, 88, 12, 0.4);
-        }
-    }
-    
-    .university-section[class*="border-orange"] .exclusive-2025 {
-        animation: orangeGlow 2s ease-in-out infinite alternate;
-    }
-</style>
-
-    <script type="module">
-        import { getModules } from './firebase.js';
-
-        async function loadModulesForPage() {
-            const modules = await getModules();
-            const moduleContainer = document.getElementById('moduleContainer'); // Assume a container for modules
-            moduleContainer.innerHTML = ''; // Clear existing content
-
-            modules
-                .filter((module) => module.specialty === 'Science et Technologie LMD' && module.semester === '2')
-                .forEach((module) => {
-                    const moduleCard = document.createElement('div');
-                    moduleCard.className = 'module-card';
-                    moduleCard.innerHTML = `
-                        <h3>${module.name}</h3>
-                        <p>Coefficient: ${module.coefficient}</p>
-                        <p>Credits: ${module.credits}</p>
-                        <a href="${module.resources[0]?.link || '#'}" target="_blank">Voir Ressources</a>
-                    `;
-                    moduleContainer.appendChild(moduleCard);
-                });
-        }
-
-        // Call loadModulesForPage on page load
-        document.addEventListener('DOMContentLoaded', loadModulesForPage);
-    </script>
+    <!-- Keep library-features.js if it contains relevant functionality -->
+    <!-- <script type="module" src="js/library-features.js"></script> -->
 </body>
 </html>
-
