@@ -234,39 +234,39 @@
 
         header .container {
             display: flex;
-            flex-direction: column;
+            flex-direction: row; /* Changed to row for better mobile layout */
             align-items: center;
+            justify-content: center; /* Center content */
             padding: 0 1rem; /* Adjust container padding for header */
+            position: relative; /* For back button positioning */
         }
 
-         header h1 {
-            font-size: 2rem;
+        header h1 {
+            font-size: 1.5rem; /* Smaller font size for mobile */
             font-weight: 700;
-            margin-bottom: 0; /* No margin below title in simplified header */
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1); /* Keep dark shadow for contrast */
-             color: hsl(var(--foreground)); /* Use foreground color for title */
-         }
-
+            margin: 0; /* Remove margin */
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+            color: hsl(var(--foreground));
+        }
 
         .back-button {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            color: hsl(var(--primary)); /* Use primary color */
+            color: hsl(var(--primary));
             font-weight: 500;
             font-size: 0.9rem;
-            padding: 0.4rem 0.8rem; /* Adjusted padding */
+            padding: 0.4rem 0.8rem;
             border-radius: 9999px;
-            background: hsl(var(--card) / 0.1); /* Use transparent card background */
-            border: 1px solid hsl(var(--border)); /* Use border color */
+            background: hsl(var(--card) / 0.1);
+            border: 1px solid hsl(var(--border));
             transition: all 0.3s ease;
-            position: absolute;
-            top: 50%;
-            left: 1rem; /* Position to the far left */
-            transform: translateY(-50%);
-            z-index: 10;
             text-decoration: none;
-            outline: none; /* Remove default focus outline */
+            outline: none;
         }
 
         .back-button:hover {
