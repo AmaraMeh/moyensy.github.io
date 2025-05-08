@@ -27,6 +27,9 @@
             --input: 214.3 31.8% 91.4%;
             --ring: 221.2 83.2% 53.3%;
             --radius: 0.5rem;
+            --success: 142.1 76.2% 36.3%;
+            --warning: 38 92% 50%;
+            --error: 0 84.2% 60.2%;
         }
 
         .dark {
@@ -45,6 +48,9 @@
             --border: 217.2 32.6% 17.5%;
             --input: 217.2 32.6% 17.5%;
             --ring: 224.3 76.3% 48%;
+            --success: 142.1 70.6% 45.3%;
+            --warning: 48 96.5% 53.9%;
+            --error: 0 84.2% 60.2%;
         }
 
         body {
@@ -99,7 +105,7 @@
         }
 
         .module-card {
-            background: hsl(var(--card));
+            background: hsl(var(--card) / 0.8);
             backdrop-filter: blur(10px);
             border: 1px solid hsl(var(--border));
             border-radius: var(--radius);
@@ -107,11 +113,11 @@
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
             position: relative;
-            overflow: hidden;
+            overflow: visible;
         }
 
         .module-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-5px);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
             border-color: hsl(var(--primary));
         }
@@ -127,6 +133,8 @@
             );
             opacity: 0;
             transition: opacity 0.3s ease;
+            pointer-events: none;
+            z-index: 0;
         }
 
         .module-card:hover::after {
@@ -171,19 +179,76 @@
         .module-btn {
             display: inline-flex;
             align-items: center;
-            padding: 0.5rem 1rem;
+            padding: 0.75rem 1.5rem;
             border-radius: 9999px;
             font-size: 0.875rem;
             font-weight: 500;
-            background: hsl(var(--primary) / 0.1);
-            color: hsl(var(--primary));
+            color: white;
             transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            position: relative;
+            z-index: 1;
         }
 
         .module-btn:hover {
-            background: hsl(var(--primary));
-            color: hsl(var(--primary-foreground));
             transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .module-btn i {
+            margin-right: 0.5rem;
+        }
+
+        .dark .module-card {
+            background: hsl(var(--card) / 0.9);
+        }
+
+        .dark .module-card h3 {
+            color: hsl(var(--foreground));
+        }
+
+        .dark .popup-content {
+            background: hsl(var(--card) / 0.95);
+            color: hsl(var(--foreground));
+        }
+
+        .dark .popup-header {
+            border-bottom-color: hsl(var(--border));
+        }
+
+        .dark .popup-header h2 {
+            color: hsl(var(--foreground));
+        }
+
+        .dark .content-item {
+            background: hsl(var(--card) / 0.8);
+            border-color: hsl(var(--border));
+        }
+
+        .dark .content-item a {
+            color: hsl(var(--foreground));
+        }
+
+        .dark .exclusive-link,
+        .dark .recommended-link {
+            background: hsl(var(--card) / 0.8);
+            border-color: hsl(var(--border));
+        }
+
+        .dark .exclusive-link span,
+        .dark .recommended-link span {
+            color: hsl(var(--foreground));
+        }
+
+        .dark .download-btn {
+            background: hsl(var(--primary) / 0.1);
+            color: hsl(var(--primary));
+        }
+
+        .dark .download-btn:hover {
+            background: hsl(var(--primary) / 0.2);
         }
 
         .theme-toggle {
@@ -194,23 +259,37 @@
             width: 3rem;
             height: 3rem;
             border-radius: 9999px;
-            background: hsl(var(--background) / 0.8);
-            backdrop-filter: blur(8px);
+            background: hsl(var(--card));
             border: 1px solid hsl(var(--border));
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
         .theme-toggle:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
         }
 
         .theme-toggle i {
             font-size: 1.25rem;
+            color: hsl(var(--primary));
+            transition: transform 0.3s ease;
+        }
+
+        .theme-toggle:hover i {
+            transform: rotate(180deg);
+        }
+
+        .dark .theme-toggle {
+            background: hsl(var(--card) / 0.9);
+            border-color: hsl(var(--border));
+        }
+
+        .dark .theme-toggle i {
             color: hsl(var(--primary));
         }
 
@@ -241,48 +320,142 @@
         }
 
         .popup {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 50;
+        }
+
+        .popup.active {
+            display: flex;
+        }
+
+        .popup-content {
             background: hsl(var(--card));
             border: 1px solid hsl(var(--border));
             border-radius: var(--radius);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            max-width: 90%;
+            width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+        }
+
+        .popup.active .popup-content {
+            transform: scale(1);
         }
 
         .popup-header {
+            padding: 1.5rem;
             border-bottom: 1px solid hsl(var(--border));
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .popup-body {
+            padding: 1.5rem;
         }
 
         .close-popup-btn {
-            background: hsl(var(--primary));
-            color: hsl(var(--primary-foreground));
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            background: hsl(var(--error));
+            color: white;
+            font-weight: 500;
             transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
         }
 
         .close-popup-btn:hover {
-            background: hsl(var(--primary) / 0.9);
+            background: hsl(var(--error) / 0.9);
             transform: translateY(-2px);
+        }
+
+        .exclusive-box {
+            background: linear-gradient(135deg, hsl(var(--success) / 0.1), hsl(var(--primary) / 0.1));
+            border: 1px solid hsl(var(--success) / 0.2);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .telegram-button {
+            background: linear-gradient(135deg, #0088cc, #005f99);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .telegram-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 136, 204, 0.3);
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: hsl(var(--primary));
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            background: hsl(var(--primary) / 0.1);
+        }
+
+        .back-button:hover {
+            background: hsl(var(--primary) / 0.2);
+            transform: translateX(-4px);
         }
 
         .content-item {
             background: hsl(var(--card));
             border: 1px solid hsl(var(--border));
             border-radius: var(--radius);
+            padding: 1rem;
             transition: all 0.3s ease;
         }
 
         .content-item:hover {
             transform: translateY(-2px);
             border-color: hsl(var(--primary));
+            box-shadow: 0 4px 12px hsl(var(--primary) / 0.1);
         }
 
         .exclusive-link, .recommended-link {
             background: hsl(var(--card));
             border: 1px solid hsl(var(--border));
+            border-radius: var(--radius);
+            padding: 1rem;
             transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
         }
 
         .exclusive-link:hover, .recommended-link:hover {
             transform: translateY(-2px);
             border-color: hsl(var(--primary));
+            box-shadow: 0 4px 12px hsl(var(--primary) / 0.1);
         }
 
         @media (max-width: 768px) {
@@ -290,10 +463,17 @@
                 padding: 1.5rem;
             }
 
-            .module-icon {
-                width: 90px;
-                height: 90px;
-                margin-bottom: 1.5rem;
+            .popup-content {
+                width: 95%;
+                max-height: 95vh;
+            }
+
+            .popup-header {
+                padding: 1rem;
+            }
+
+            .popup-body {
+                padding: 1rem;
             }
         }
     </style>
@@ -373,13 +553,13 @@
             <h3 class="text-xl font-semibold text-gray-800">Mathématique 2</h3>
         </div>
         <div class="mt-auto flex flex-wrap gap-2">
-            <button class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('Mathématique 2', 'cours')">
+            <button type="button" class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('Mathématique 2', 'cours')">
                 <i class="fas fa-book mr-1"></i> Cours
             </button>
-            <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('Mathématique 2', 'tdtp')">
+            <button type="button" class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('Mathématique 2', 'tdtp')">
                 <i class="fas fa-pencil-alt mr-1"></i> TD+TP
             </button>
-            <button class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('Mathématique 2', 'examen')">
+            <button type="button" class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('Mathématique 2', 'examen')">
                 <i class="fas fa-file-alt mr-1"></i> Examen
             </button>
         </div>
@@ -394,13 +574,13 @@
             <h3 class="text-xl font-semibold text-gray-800">Physique 2</h3>
         </div>
         <div class="mt-auto flex flex-wrap gap-2">
-            <button class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('Physique 2', 'cours')">
+            <button type="button" class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('Physique 2', 'cours')">
                 <i class="fas fa-book mr-1"></i> Cours
             </button>
-            <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('Physique 2', 'tdtp')">
+            <button type="button" class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('Physique 2', 'tdtp')">
                 <i class="fas fa-pencil-alt mr-1"></i> TD+TP
             </button>
-            <button class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('Physique 2', 'examen')">
+            <button type="button" class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('Physique 2', 'examen')">
                 <i class="fas fa-file-alt mr-1"></i> Examen
             </button>
         </div>
@@ -415,13 +595,13 @@
             <h3 class="text-xl font-semibold text-gray-800">Thermodynamique (Chimie 2)</h3>
         </div>
         <div class="mt-auto flex flex-wrap gap-2">
-            <button class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('Thermodynamique (Chimie 2)', 'cours')">
+            <button type="button" class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('Thermodynamique (Chimie 2)', 'cours')">
                 <i class="fas fa-book mr-1"></i> Cours
             </button>
-            <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('Thermodynamique (Chimie 2)', 'tdtp')">
+            <button type="button" class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('Thermodynamique (Chimie 2)', 'tdtp')">
                 <i class="fas fa-pencil-alt mr-1"></i> TD+TP
             </button>
-            <button class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('Thermodynamique (Chimie 2)', 'examen')">
+            <button type="button" class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('Thermodynamique (Chimie 2)', 'examen')">
                 <i class="fas fa-file-alt mr-1"></i> Examen
             </button>
         </div>
@@ -436,13 +616,13 @@
             <h3 class="text-xl font-semibold text-gray-800">Informatique 2</h3>
         </div>
         <div class="mt-auto flex flex-wrap gap-2">
-            <button class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('Informatique 2', 'cours')">
+            <button type="button" class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('Informatique 2', 'cours')">
                 <i class="fas fa-book mr-1"></i> Cours
             </button>
-            <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('Informatique 2', 'tdtp')">
+            <button type="button" class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('Informatique 2', 'tdtp')">
                 <i class="fas fa-pencil-alt mr-1"></i> TD+TP
             </button>
-            <button class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('Informatique 2', 'examen')">
+            <button type="button" class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('Informatique 2', 'examen')">
                 <i class="fas fa-file-alt mr-1"></i> Examen
             </button>
         </div>
@@ -457,13 +637,13 @@
             <h3 class="text-xl font-semibold text-gray-800">MP</h3>
         </div>
         <div class="mt-auto flex flex-wrap gap-2">
-            <button class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('MP', 'cours')">
+            <button type="button" class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('MP', 'cours')">
                 <i class="fas fa-book mr-1"></i> Cours
             </button>
-            <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('MP', 'tdtp')">
+            <button type="button" class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('MP', 'tdtp')">
                 <i class="fas fa-pencil-alt mr-1"></i> TD+TP
             </button>
-            <button class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('MP', 'examen')">
+            <button type="button" class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('MP', 'examen')">
                 <i class="fas fa-file-alt mr-1"></i> Examen
             </button>
         </div>
@@ -478,13 +658,13 @@
             <h3 class="text-xl font-semibold text-gray-800">MST 2</h3>
         </div>
         <div class="mt-auto flex flex-wrap gap-2">
-            <button class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('MST 2', 'cours')">
+            <button type="button" class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('MST 2', 'cours')">
                 <i class="fas fa-book mr-1"></i> Cours
             </button>
-            <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('MST 2', 'tdtp')">
+            <button type="button" class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('MST 2', 'tdtp')">
                 <i class="fas fa-pencil-alt mr-1"></i> TD+TP
             </button>
-            <button class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('MST 2', 'examen')">
+            <button type="button" class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('MST 2', 'examen')">
                 <i class="fas fa-file-alt mr-1"></i> Examen
             </button>
         </div>
@@ -499,13 +679,13 @@
             <h3 class="text-xl font-semibold text-gray-800">Langue étrangère 2</h3>
         </div>
         <div class="mt-auto flex flex-wrap gap-2">
-            <button class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('Langue étrangère 2 (français et/ou anglais)', 'cours')">
+            <button type="button" class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('Langue étrangère 2 (français et/ou anglais)', 'cours')">
                 <i class="fas fa-book mr-1"></i> Cours
             </button>
-            <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('Langue étrangère 2 (français et/ou anglais)', 'tdtp')">
+            <button type="button" class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('Langue étrangère 2 (français et/ou anglais)', 'tdtp')">
                 <i class="fas fa-pencil-alt mr-1"></i> TD+TP
             </button>
-            <button class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('Langue étrangère 2 (français et/ou anglais)', 'examen')">
+            <button type="button" class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('Langue étrangère 2 (français et/ou anglais)', 'examen')">
                 <i class="fas fa-file-alt mr-1"></i> Examen
             </button>
         </div>
@@ -520,10 +700,10 @@
             <h3 class="text-xl font-semibold text-gray-800">TP Physique 2</h3>
         </div>
         <div class="mt-auto flex flex-wrap gap-2">
-            <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('TP Physique 2', 'tdtp')">
+            <button type="button" class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('TP Physique 2', 'tdtp')">
                 <i class="fas fa-flask mr-1"></i> TP
             </button>
-            <button class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('TP Physique 2', 'compterendu')">
+            <button type="button" class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('TP Physique 2', 'compterendu')">
                 <i class="fas fa-file-alt mr-1"></i> Compte rendu
             </button>
         </div>
@@ -538,10 +718,10 @@
             <h3 class="text-xl font-semibold text-gray-800">TP Chimie 2</h3>
         </div>
         <div class="mt-auto flex flex-wrap gap-2">
-            <button class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('TP Chimie 2', 'tdtp')">
+            <button type="button" class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('TP Chimie 2', 'tdtp')">
                 <i class="fas fa-flask mr-1"></i> TP
             </button>
-            <button class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('TP Chimie 2', 'compterendu')">
+            <button type="button" class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('TP Chimie 2', 'compterendu')">
                 <i class="fas fa-file-alt mr-1"></i> Compte rendu
             </button>
         </div>
@@ -552,60 +732,68 @@
     </div>
 
     <!-- TDTP Popup -->
-    <div id="popup-tdtp" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
-        <div class="bg-white rounded-lg shadow-lg p-6 max-w-3xl w-full glass-card">
-            <div class="flex justify-between items-center mb-6">
-                <h2 id="popup-title-tdtp" class="text-2xl font-bold text-gray-800"></h2>
-                <button type="button" class="close-popup-btn px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-300 flex items-center gap-2">
-                    <i class="fas fa-times"></i><span>Fermer</span>
+    <div id="popup-tdtp" class="popup">
+        <div class="popup-content">
+            <div class="popup-header">
+                <h2 id="popup-title-tdtp" class="text-2xl font-bold"></h2>
+                <button type="button" class="close-popup-btn" onclick="closePopup('tdtp')">
+                    <i class="fas fa-times"></i>
+                    <span>Fermer</span>
                 </button>
             </div>
-            <div id="popup-content-tdtp" class="space-y-6 popup-content"></div>
+            <div class="popup-body">
+                <div id="popup-content-tdtp" class="popup-content"></div>
+            </div>
         </div>
     </div>
 
     <!-- Examen Popup -->
-    <div id="popup-examen" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
-        <div class="bg-white rounded-lg shadow-lg p-6 max-w-3xl w-full glass-card">
-            <div class="flex justify-between items-center mb-6">
-                <h2 id="popup-title-examen" class="text-2xl font-bold text-gray-800"></h2>
-                <button type="button" class="close-popup-btn px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-300 flex items-center gap-2">
-                    <i class="fas fa-times"></i><span>Fermer</span>
+    <div id="popup-examen" class="popup">
+        <div class="popup-content">
+            <div class="popup-header">
+                <h2 id="popup-title-examen" class="text-2xl font-bold"></h2>
+                <button type="button" class="close-popup-btn" onclick="closePopup('examen')">
+                    <i class="fas fa-times"></i>
+                    <span>Fermer</span>
                 </button>
             </div>
-            <div id="popup-content-examen" class="space-y-6 popup-content"></div>
+            <div class="popup-body">
+                <div id="popup-content-examen" class="popup-content"></div>
+            </div>
         </div>
     </div>
 
     <!-- Cours Popup -->
-    <div id="popup-cours" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
-        <div class="bg-white rounded-lg shadow-lg p-6 max-w-3xl w-full glass-card">
-            <div class="flex justify-between items-center mb-6">
-                <h2 id="popup-title-cours" class="text-2xl font-bold text-gray-800"></h2>
-                <button type="button" class="close-popup-btn px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-300 flex items-center gap-2">
-                    <i class="fas fa-times"></i><span>Fermer</span>
+    <div id="popup-cours" class="popup">
+        <div class="popup-content">
+            <div class="popup-header">
+                <h2 id="popup-title-cours" class="text-2xl font-bold"></h2>
+                <button type="button" class="close-popup-btn" onclick="closePopup('cours')">
+                    <i class="fas fa-times"></i>
+                    <span>Fermer</span>
                 </button>
             </div>
-            <div id="popup-content-cours" class="space-y-6 popup-content"></div>
+            <div class="popup-body">
+                <div id="popup-content-cours" class="popup-content"></div>
+            </div>
         </div>
     </div>
 
     <!-- Compte Rendu Popup -->
-    <div id="popup-compterendu" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
-        <div class="bg-white rounded-lg shadow-lg p-6 max-w-3xl w-full glass-card">
-            <div class="flex justify-between items-center mb-6">
-                <h2 id="popup-title-compterendu" class="text-2xl font-bold text-gray-800"></h2>
-                <button type="button" class="close-popup-btn px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-300 flex items-center gap-2">
-                    <i class="fas fa-times"></i><span>Fermer</span>
+    <div id="popup-compterendu" class="popup">
+        <div class="popup-content">
+            <div class="popup-header">
+                <h2 id="popup-title-compterendu" class="text-2xl font-bold"></h2>
+                <button type="button" class="close-popup-btn" onclick="closePopup('compterendu')">
+                    <i class="fas fa-times"></i>
+                    <span>Fermer</span>
                 </button>
             </div>
-            <div id="popup-content-compterendu" class="space-y-6 popup-content"></div>
+            <div class="popup-body">
+                <div id="popup-content-compterendu" class="popup-content"></div>
+            </div>
         </div>
     </div>
-
-    <footer class="text-center text-gray-600 text-sm py-4">
-        <div>© 2025 Université de Bejaia. Développé par Amara Mehdi <a href="mailto:mehdi.amara@tech.univ-bejaia.dz" class="text-blue-500 hover:text-blue-700">Amara Mehdi</a></div>
-    </footer>
 
     <!-- Theme Toggle -->
     <button class="theme-toggle" onclick="toggleTheme()">
@@ -625,31 +813,6 @@
             setTimeout(() => {
                 AOS.refresh();
             }, 1000);
-        }
-
-        // Theme toggle functionality
-        function toggleTheme() {
-            const body = document.body;
-            const themeToggle = document.querySelector('.theme-toggle i');
-            
-            if (body.classList.contains('dark')) {
-                body.classList.remove('dark');
-                themeToggle.classList.remove('fa-sun');
-                themeToggle.classList.add('fa-moon');
-                localStorage.setItem('theme', 'light');
-            } else {
-                body.classList.add('dark');
-                themeToggle.classList.remove('fa-moon');
-                themeToggle.classList.add('fa-sun');
-                localStorage.setItem('theme', 'dark');
-            }
-        }
-
-        // Check for saved theme preference
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'dark') {
-            document.body.classList.add('dark');
-            document.querySelector('.theme-toggle i').classList.replace('fa-moon', 'fa-sun');
         }
 
         function getBejaiaContent(module, type) {
@@ -1239,28 +1402,8 @@
             const popup = document.getElementById(`popup-${type}`);
             if (!popup) return;
             
-            // Create the popup structure if it doesn't exist
-            if (popup.children.length === 0) {
-                popup.innerHTML = `
-                    <div class="bg-white rounded-lg shadow-lg max-w-3xl w-full glass-card">
-                        <div class="popup-container">
-                            <div class="popup-header flex justify-between items-center">
-                                <h2 id="popup-title-${type}" class="text-2xl font-bold text-gray-800"></h2>
-                                <button class="close-popup-btn hover:bg-red-600 transition-colors">
-                                    <i class="fas fa-times mr-1"></i> Fermer
-                                </button>
-                            </div>
-                            <div class="popup-body">
-                                <div id="popup-content-${type}" class="popup-content"></div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-
-                // Add event listener for close button
-                const closeButton = popup.querySelector('.close-popup-btn');
-                closeButton.addEventListener('click', () => closePopup(type));
-            }
+            popup.classList.add('active');
+            document.body.style.overflow = 'hidden';
 
             const popupTitle = document.getElementById(`popup-title-${type}`);
             const popupContent = document.getElementById(`popup-content-${type}`);
@@ -1328,17 +1471,6 @@
                     </div>
                 `;
             }
-
-            // Show popup with animation
-            popup.classList.remove('hidden');
-            popup.animate([
-                { opacity: 0, transform: 'scale(0.95)' },
-                { opacity: 1, transform: 'scale(1)' }
-            ], {
-                duration: 200,
-                easing: 'ease-out',
-                fill: 'forwards'
-            });
         }
 
         function getIconByType(type) {
@@ -1354,31 +1486,57 @@
         function closePopup(type) {
             const popup = document.getElementById(`popup-${type}`);
             if (popup) {
-                popup.classList.add('hidden');
+                popup.classList.remove('active');
+                document.body.style.overflow = '';
             }
         }
 
-        // Add event listeners for popup clicks
+        // Theme toggle functionality
+        function toggleTheme() {
+            const body = document.body;
+            const themeToggle = document.querySelector('.theme-toggle i');
+            
+            if (body.classList.contains('dark')) {
+                body.classList.remove('dark');
+                themeToggle.classList.remove('fa-sun');
+                themeToggle.classList.add('fa-moon');
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.classList.add('dark');
+                themeToggle.classList.remove('fa-moon');
+                themeToggle.classList.add('fa-sun');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Check for saved theme preference
         document.addEventListener('DOMContentLoaded', function() {
-            // Add listeners for all close buttons
-            const closeButtons = document.querySelectorAll('.close-popup-btn');
-            closeButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const popup = this.closest('[id^="popup-"]');
-                    if (popup) {
-                        popup.classList.add('hidden');
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark');
+                document.querySelector('.theme-toggle i').classList.replace('fa-moon', 'fa-sun');
+            }
+
+            // Close when clicking outside the content
+            const popups = document.querySelectorAll('.popup');
+            popups.forEach(popup => {
+                popup.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        const type = this.id.split('-')[1];
+                        closePopup(type);
                     }
                 });
             });
 
-            // Close when clicking outside the content
-            const popups = document.querySelectorAll('[id^="popup-"]');
-            popups.forEach(popup => {
-                popup.addEventListener('click', function(e) {
-                    if (e.target === this) {
-                        this.classList.add('hidden');
+            // Add keyboard event listener for Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    const activePopup = document.querySelector('.popup.active');
+                    if (activePopup) {
+                        const type = activePopup.id.split('-')[1];
+                        closePopup(type);
                     }
-                });
+                }
             });
 
             // Initialize particles
