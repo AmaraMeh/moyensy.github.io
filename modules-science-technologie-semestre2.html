@@ -564,288 +564,131 @@
         }
 
 
-        /* Popup Container (Overlay) */
-        [id^="popup-"] {
+        /* Popup Container (Overlay) - Full Screen / Maximize Size */
+        [id^="popup-"] { /* Target all popup divs */
             position: fixed;
             inset: 0;
-            background: hsl(var(--background) / 0.85);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            z-index: 1000;
-            transition: opacity 0.2s ease-out;
+            background: hsl(var(--background) / 0.75); /* Darker overlay with transparency */
+            backdrop-filter: blur(8px); /* Add blur */
             display: flex;
-            align-items: center;
             justify-content: center;
-            padding: 1rem;
+            align-items: center;
+            z-index: 1000;
+             transition: opacity 0.3s ease-out, backdrop-filter 0.3s ease; /* Smooth transition */
         }
+         /* Style for hidden state */
+         [id^="popup-"].hidden { opacity: 0; pointer-events: none; }
+         /* Style for visible state (JS handles opacity/transform) */
 
-        /* Style for hidden state */
-        [id^="popup-"].hidden {
-            opacity: 0;
-            pointer-events: none;
-            visibility: hidden;
-        }
 
-        /* Popup Content Box - Improved Structure */
-        [id^="popup-"] .glass-card.popup-modal-content {
-            background: hsl(var(--card));
+        /* Popup Content Box (The modal itself) - Full Height / Maximize Size */
+        [id^="popup-"] .glass-card.popup-modal-content { /* Target the inner glass-card inside popup */
+            background: hsl(var(--card) / 0.9); /* Less transparent */
+            border-radius: 1rem;
+            /* Use flex for main layout */
             display: flex;
             flex-direction: column;
-            width: 100%;
-            height: 100%;
-            max-width: 100%;
-            max-height: 100%;
+            /* Size relative to viewport - TAKES UP MORE SPACE */
+            width: 95%; /* Take 95% width */
+            max-width: 900px; /* Increased max-width */
+            height: 90vh; /* Take 90% of viewport height */
+            max-height: 90vh; /* Prevent exceeding 90vh */
             box-shadow: 0 10px 40px hsl(var(--background) / 0.2);
             border: 1px solid hsl(var(--border));
             position: relative;
-            overflow: hidden;
-            transform: translateZ(0);
-            will-change: transform, opacity;
+            outline: none;
+            overflow: hidden; /* Hide overflow during resize/layout */
+            transition: opacity 0.3s ease-out, transform 0.3s ease-out; /* Transition for the modal itself */
+
+             /* Responsive adjustments */
+             @media (max-width: 768px) {
+                  width: 95%; /* Already 95% */
+                  max-width: 95%; /* Ensure max-width doesn't constrain it below 95% */
+                  height: 95vh; /* Take more height on mobile */
+                  max-height: 95vh;
+                  padding: 1rem; /* Reduce padding on mobile */
+             }
+             @media (max-width: 480px) {
+                  padding: 0.75rem; /* Further reduce padding on smaller mobile */
+             }
         }
 
-        /* Mobile-specific adjustments */
-        @media (max-width: 640px) {
-            [id^="popup-"] {
-                padding: 0;
-            }
-            
-            [id^="popup-"] .glass-card.popup-modal-content {
-                border-radius: 0;
-                height: 100vh;
-            }
-        }
+         /* Popup Container - Ensure inner layout fills modal */
+         [id^="popup-"] .glass-card .popup-container {
+              display: flex;
+              flex-direction: column;
+              min-height: 0;
+              flex-grow: 1;
+         }
 
-        /* Desktop-specific adjustments */
-        @media (min-width: 641px) {
-            [id^="popup-"] .glass-card.popup-modal-content {
-                width: 90%;
-                max-width: 800px;
-                height: 90vh;
-                max-height: 90vh;
-                border-radius: 1rem;
-            }
-        }
 
-        /* Popup Header - Improved */
+        /* Popup Header */
         .popup-header {
-            flex-shrink: 0;
-            padding: 1rem 1.5rem;
+            flex-shrink: 0; /* Prevent header from shrinking */
+            padding: 1rem 1.5rem; /* Consistent padding */
+            margin-bottom: 0; /* No margin here, spacing handled by body */
             border-bottom: 1px solid hsl(var(--border));
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: hsl(var(--card));
-            position: sticky;
-            top: 0;
-            z-index: 10;
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
+            background: hsl(var(--card) / 0.9); /* Match modal background */
+            z-index: 10; /* Ensure it's above scrollable content */
+             /* Responsive padding */
+             @media (max-width: 768px) {
+                  padding: 0.75rem 1rem;
+             }
         }
-
         .popup-header h2 {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: hsl(var(--foreground));
-            margin-right: 1rem;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            flex: 1;
+             font-size: 1.5rem;
+             font-weight: 700;
+             color: hsl(var(--heading-color));
+              /* Responsive font size */
+             @media (max-width: 768px) { font-size: 1.2rem; }
+             @media (max-width: 480px) { font-size: 1rem; }
         }
 
-        /* Popup Body - Improved */
+        /* Popup Body (Scrollable Content Area) */
         .popup-body {
-            flex-grow: 1;
-            overflow-y: auto;
-            padding: 1.5rem;
-            -webkit-overflow-scrolling: touch;
-            overscroll-behavior: contain;
+            flex-grow: 1; /* Allow body to fill remaining height */
+            overflow-y: auto; /* Make body scrollable */
+            padding: 1.5rem; /* Add padding inside the scrollable area */
+            scroll-behavior: smooth;
             scrollbar-width: thin;
-            scrollbar-color: hsl(var(--primary) / 0.3) transparent;
+            scrollbar-color: hsl(var(--primary)) hsl(var(--background));
+             /* Responsive padding */
+             @media (max-width: 768px) {
+                  padding: 1rem;
+             }
+             @media (max-width: 480px) {
+                  padding: 0.75rem;
+             }
         }
+         /* Webkit scrollbar styling */
+         .popup-body::-webkit-scrollbar { width: 8px; }
+         .popup-body::-webkit-scrollbar-track { background: hsl(var(--background) / 0.5); border-radius: 4px; }
+         .popup-body::-webkit-scrollbar-thumb { background-color: hsl(var(--primary)); border-radius: 4px; border: 2px solid hsl(var(--background) / 0.5); }
+         .popup-body::-webkit-scrollbar-thumb:hover { background-color: hsl(var(--primary) / 0.8); }
 
-        /* Custom scrollbar for webkit browsers */
-        .popup-body::-webkit-scrollbar {
-            width: 8px;
-        }
 
-        .popup-body::-webkit-scrollbar-track {
-            background: transparent;
-        }
+        /* Modal Close Button */
+         .modal-close {
+             background: hsl(var(--error));
+             color: hsl(var(--primary-foreground));
+             border: none;
+             border-radius: 50%;
+             width: 30px;
+             height: 30px;
+             cursor: pointer;
+             font-size: 1rem;
+             line-height: 30px;
+             text-align: center;
+             transition: all 0.2s ease;
+             outline: none;
+             flex-shrink: 0; /* Prevent close button from shrinking */
+         }
+         .modal-close:hover { background: hsl(var(--error) / 0.8); transform: scale(1.1); }
+         .modal-close:focus { box-shadow: 0 0 0 3px hsl(var(--error) / 0.5); }
 
-        .popup-body::-webkit-scrollbar-thumb {
-            background-color: hsl(var(--primary) / 0.3);
-            border-radius: 4px;
-        }
-
-        /* Content Grid - Improved */
-        .content-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1rem;
-            padding: 0.5rem;
-        }
-
-        /* Content Item - Improved */
-        .content-item {
-            background: hsl(var(--card) / 0.5);
-            border: 1px solid hsl(var(--border));
-            border-radius: 0.75rem;
-            padding: 1rem;
-            transition: all 0.2s ease;
-            transform: translateZ(0);
-            will-change: transform;
-        }
-
-        .content-item:hover {
-            border-color: hsl(var(--primary));
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px hsl(var(--primary) / 0.1);
-        }
-
-        /* Download Button - Improved */
-        .download-btn {
-            background: hsl(var(--primary));
-            color: hsl(var(--primary-foreground));
-            padding: 0.5rem 1rem;
-            border-radius: 0.5rem;
-            font-size: 0.875rem;
-            font-weight: 500;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: all 0.2s ease;
-            white-space: nowrap;
-            border: none;
-            cursor: pointer;
-            transform: translateZ(0);
-            will-change: transform;
-        }
-
-        .download-btn:hover {
-            background: hsl(var(--primary) / 0.9);
-            transform: translateY(-1px);
-        }
-
-        /* Mobile Close Button - Improved */
-        @media (max-width: 640px) {
-            .mobile-close-button {
-                position: fixed;
-                bottom: 1rem;
-                left: 50%;
-                transform: translateX(-50%);
-                background: hsl(var(--primary));
-                color: hsl(var(--primary-foreground));
-                padding: 0.75rem 2rem;
-                border-radius: 9999px;
-                font-weight: 500;
-                box-shadow: 0 4px 12px hsl(var(--primary) / 0.3);
-                z-index: 1001;
-                display: flex;
-                align-items: center;
-                gap: 0.5rem;
-                border: none;
-                width: auto;
-                min-width: 140px;
-                justify-content: center;
-                transition: all 0.2s ease;
-                transform: translateZ(0);
-                will-change: transform;
-            }
-        }
-
-        /* Update showContent function for better performance */
-        function showContent(module, type) {
-            const popup = document.getElementById(`popup-${type}`);
-            if (!popup) return;
-
-            const popupContentBox = popup.querySelector('.glass-card.popup-modal-content');
-            const popupTitle = popupContentBox?.querySelector(`h2#popup-title-${type}`);
-            const popupContent = popupContentBox?.querySelector(`div#popup-content-${type}`);
-            const closeButton = popupContentBox?.querySelector('.modal-close');
-
-            if (!popupContentBox || !popupTitle || !popupContent || !closeButton) return;
-
-            // Add mobile close button if needed
-            if (window.innerWidth <= 640 && !document.querySelector('.mobile-close-button')) {
-                const mobileCloseButton = document.createElement('button');
-                mobileCloseButton.className = 'mobile-close-button';
-                mobileCloseButton.innerHTML = '<i class="fas fa-times"></i> Fermer';
-                mobileCloseButton.setAttribute('aria-label', 'Fermer la fenêtre');
-                mobileCloseButton.addEventListener('click', () => closePopup(type));
-                document.body.appendChild(mobileCloseButton);
-            }
-
-            // Add click outside to close
-            const handleOutsideClick = (e) => {
-                if (e.target === popup) {
-                    closePopup(type);
-                }
-            };
-            popup.addEventListener('click', handleOutsideClick);
-
-            // Add escape key to close
-            const handleEscape = (e) => {
-                if (e.key === 'Escape' && !popup.classList.contains('hidden')) {
-                    closePopup(type);
-                }
-            };
-            document.addEventListener('keydown', handleEscape);
-
-            // Clean up event listeners when popup closes
-            const cleanup = () => {
-                popup.removeEventListener('click', handleOutsideClick);
-                document.removeEventListener('keydown', handleEscape);
-                const mobileCloseButton = document.querySelector('.mobile-close-button');
-                if (mobileCloseButton) {
-                    mobileCloseButton.remove();
-                }
-            };
-
-            popupTitle.textContent = `${module} - ${type.toUpperCase()}`;
-            popupContent.innerHTML = '';
-
-            // Show popup with animation
-            popup.classList.remove('hidden');
-            popup.style.opacity = 0;
-            
-            requestAnimationFrame(() => {
-                popup.style.transition = 'opacity 0.2s ease-out';
-                popup.style.opacity = 1;
-            });
-
-            // Add cleanup to closePopup function
-            const originalClosePopup = closePopup;
-            closePopup = function(type) {
-                cleanup();
-                originalClosePopup(type);
-            };
-        }
-
-        /* Update closePopup function for better performance */
-        function closePopup(type) {
-            const popup = document.getElementById(`popup-${type}`);
-            const popupContentBox = popup?.querySelector('.glass-card.popup-modal-content');
-            const mobileCloseButton = document.querySelector('.mobile-close-button');
-
-            if (popup && popupContentBox) {
-                // Animate closing
-                popup.style.transition = 'opacity 0.2s ease-in';
-                popup.style.opacity = 0;
-
-                // Remove mobile close button if it exists
-                if (mobileCloseButton) {
-                    mobileCloseButton.remove();
-                }
-
-                // Hide after animation
-                popup.addEventListener('transitionend', function handler() {
-                    popup.classList.add('hidden');
-                    popup.style.transition = '';
-                    popup.removeEventListener('transitionend', handler);
-                }, { once: true });
-            }
-        }
 
         /* University Sections within popup */
         .university-section {
@@ -1180,69 +1023,69 @@
 
     <!-- Popup Modals (Synced with calculator & bib) -->
     <!-- The structure is now fixed in HTML -->
-    <div id="popup-tdtp" class="hidden" aria-hidden="true">
+    <div id="popup-tdtp" class="hidden popup-overlay" aria-hidden="true">
         <div class="glass-card popup-modal-content">
-            <div class="popup-header">
-                <h2 id="popup-title-tdtp"></h2>
-                <button class="modal-close" aria-label="Fermer la fenêtre">
-                    <i class="fas fa-times"></i>
-                </button>
+            <div class="popup-container">
+                <div class="popup-header">
+                    <h2 id="popup-title-tdtp"></h2>
+                    <button class="modal-close" aria-label="Fermer la fenêtre">×</button>
+                </div>
+                <div id="popup-content-tdtp" class="popup-body popup-content"></div>
             </div>
-            <div id="popup-content-tdtp" class="popup-body popup-content"></div>
         </div>
     </div>
 
-    <div id="popup-examen" class="hidden" aria-hidden="true">
+    <div id="popup-examen" class="hidden popup-overlay" aria-hidden="true">
         <div class="glass-card popup-modal-content">
-            <div class="popup-header">
-                <h2 id="popup-title-examen"></h2>
-                <button class="modal-close" aria-label="Fermer la fenêtre">
-                    <i class="fas fa-times"></i>
-                </button>
+             <div class="popup-container">
+                <div class="popup-header">
+                    <h2 id="popup-title-examen"></h2>
+                    <button class="modal-close" aria-label="Fermer la fenêtre">×</button>
+                </div>
+                <div id="popup-content-examen" class="popup-body popup-content"></div>
             </div>
-            <div id="popup-content-examen" class="popup-body popup-content"></div>
         </div>
     </div>
 
-    <div id="popup-cours" class="hidden" aria-hidden="true">
+    <div id="popup-cours" class="hidden popup-overlay" aria-hidden="true">
         <div class="glass-card popup-modal-content">
-            <div class="popup-header">
-                <h2 id="popup-title-cours"></h2>
-                <button class="modal-close" aria-label="Fermer la fenêtre">
-                    <i class="fas fa-times"></i>
-                </button>
+             <div class="popup-container">
+                <div class="popup-header">
+                    <h2 id="popup-title-cours"></h2>
+                    <button class="modal-close" aria-label="Fermer la fenêtre">×</button>
+                </div>
+                <div id="popup-content-cours" class="popup-body popup-content"></div>
             </div>
-            <div id="popup-content-cours" class="popup-body popup-content"></div>
         </div>
     </div>
 
-    <div id="popup-compterendu" class="hidden" aria-hidden="true">
+    <div id="popup-compterendu" class="hidden popup-overlay" aria-hidden="true">
         <div class="glass-card popup-modal-content">
-            <div class="popup-header">
-                <h2 id="popup-title-compterendu"></h2>
-                <button class="modal-close" aria-label="Fermer la fenêtre">
-                    <i class="fas fa-times"></i>
-                </button>
+             <div class="popup-container">
+                <div class="popup-header">
+                    <h2 id="popup-title-compterendu"></h2>
+                    <button class="modal-close" aria-label="Fermer la fenêtre">×</button>
+                </div>
+                <div id="popup-content-compterendu" class="popup-body popup-content"></div>
             </div>
-            <div id="popup-content-compterendu" class="popup-body popup-content"></div>
         </div>
     </div>
 
     <!-- Added popup for Interrogation -->
-     <div id="popup-interrogation" class="hidden" aria-hidden="true">
+     <div id="popup-interrogation" class="hidden popup-overlay" aria-hidden="true">
         <div class="glass-card popup-modal-content">
-            <div class="popup-header">
-                <h2 id="popup-title-interrogation"></h2>
-                <button class="modal-close" aria-label="Fermer la fenêtre">
-                    <i class="fas fa-times"></i>
-                </button>
+             <div class="popup-container">
+                <div class="popup-header">
+                    <h2 id="popup-title-interrogation"></h2>
+                    <button class="modal-close" aria-label="Fermer la fenêtre">×</button>
+                </div>
+                <div id="popup-content-interrogation" class="popup-body popup-content"></div>
             </div>
-            <div id="popup-content-interrogation" class="popup-body popup-content"></div>
         </div>
     </div>
 
 
-    <footer class="text-center text-sm py-4">
+    <footer>
         <div>&copy; 2025 Université de Bejaia. Développé par <a href="mailto:mehdi.amara@tech.univ-bejaia.dz">Amara Mehdi</a>. Tous les droits réservés.</div>
     </footer>
 
@@ -1565,8 +1408,8 @@
                     { title: 'Cours 5', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/512863/mod_folder/content/0/Cours%205.pdf?forcedownload=1' }
                 ]
             },
-            'Langue étrangère 2': {
-                 'cours': [
+            'Langue étrangère 2 (français et/ou anglais)': {
+                'cours': [
                     { title: 'Cours 1', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/512869/mod_folder/content/0/01%20-%20Module.pdf?forcedownload=1' },
                     { title: 'Cours 2', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/512869/mod_folder/content/0/02%20-%20Lecture%202.pdf?forcedownload=1' },
                     { title: 'Cours 3', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/512869/mod_folder/content/0/03%20-%20Lecture%203.pdf?forcedownload=1' },
@@ -1877,44 +1720,28 @@
 
 
         function showContent(module, type) {
+            // Find the specific popup element by its ID
             const popup = document.getElementById(`popup-${type}`);
-            if (!popup) return;
+            if (!popup) {
+                console.error(`Popup element with id popup-${type} not found.`);
+                return;
+            }
 
+            // Get the content elements *within* the popup's glass card
             const popupContentBox = popup.querySelector('.glass-card.popup-modal-content');
+            // Use querySelector with the full ID pattern to be safe
             const popupTitle = popupContentBox?.querySelector(`h2#popup-title-${type}`);
             const popupContent = popupContentBox?.querySelector(`div#popup-content-${type}`);
             const closeButton = popupContentBox?.querySelector('.modal-close');
 
-            if (!popupContentBox || !popupTitle || !popupContent || !closeButton) return;
 
-            // Add mobile close button if needed
-            if (window.innerWidth <= 640 && !document.querySelector('.mobile-close-button')) {
-                const mobileCloseButton = document.createElement('button');
-                mobileCloseButton.className = 'mobile-close-button';
-                mobileCloseButton.innerHTML = '<i class="fas fa-times"></i> Fermer';
-                mobileCloseButton.setAttribute('aria-label', 'Fermer la fenêtre');
-                mobileCloseButton.addEventListener('click', () => closePopup(type));
-                document.body.appendChild(mobileCloseButton);
+            if (!popupContentBox || !popupTitle || !popupContent || !closeButton) {
+                 console.error("Popup internal structure not found for type:", type, ". Check the HTML structure inside the popup div.");
+                 return; // Exit if essential elements are missing
             }
 
-            // Add click outside to close
-            const handleOutsideClick = (e) => {
-                if (e.target === popup) {
-                    closePopup(type);
-                }
-            };
-            popup.addEventListener('click', handleOutsideClick);
-
-            // Add escape key to close
-            const handleEscape = (e) => {
-                if (e.key === 'Escape' && !popup.classList.contains('hidden')) {
-                    closePopup(type);
-                }
-            };
-            document.addEventListener('keydown', handleEscape);
-
             popupTitle.textContent = `${module} - ${type.toUpperCase()}`;
-            popupContent.innerHTML = '';
+            popupContent.innerHTML = ''; // Clear previous content
 
             let hasContentDisplayed = false;
 
@@ -2001,12 +1828,30 @@
 
             // Show popup with animation
             popup.classList.remove('hidden');
-            popup.style.opacity = 0;
-            
+             // Apply initial state for transition
+             popup.style.opacity = 0;
+             popupContentBox.style.transform = 'scale(0.95)';
+             popupContentBox.style.opacity = 0;
+
+
+            // Trigger the transition after a small delay
             requestAnimationFrame(() => {
-                popup.style.transition = 'opacity 0.2s ease-out';
-                popup.style.opacity = 1;
+                 popup.style.transition = 'opacity 0.3s ease-out'; // Overlay fade duration
+                 popupContentBox.style.transition = 'opacity 0.3s ease-out, transform 0.3s ease-out'; // Modal fade and scale duration
+
+                 popup.style.opacity = 1;
+                 popupContentBox.style.transform = 'scale(1)';
+                 popupContentBox.style.opacity = 1;
             });
+
+
+            // Add event listeners for the modal close button dynamically
+            // Ensure we only add listeners once per popup type
+            // Moved this listener attachment to DOMContentLoaded for reliability
+            // if (!closeButton._hasClickListener) {
+            //      closeButton.addEventListener('click', () => closePopup(type));
+            //      closeButton._hasClickListener = true; // Mark as having listener
+            // }
         }
 
         function getIconByType(type) {
@@ -2024,29 +1869,26 @@
         function closePopup(type) {
             const popup = document.getElementById(`popup-${type}`);
             const popupContentBox = popup?.querySelector('.glass-card.popup-modal-content');
-            const mobileCloseButton = document.querySelector('.mobile-close-button');
 
             if (popup && popupContentBox) {
-                // Animate closing
-                popup.style.transition = 'opacity 0.3s ease-in';
-                popupContentBox.style.transition = 'opacity 0.3s ease-in, transform 0.3s ease-in';
+                 // Animate closing
+                 popup.style.transition = 'opacity 0.3s ease-in'; // Overlay fade duration
+                 popupContentBox.style.transition = 'opacity 0.3s ease-in, transform 0.3s ease-in'; // Modal fade and scale duration
 
-                popup.style.opacity = 0;
-                popupContentBox.style.transform = 'scale(0.95)';
-                popupContentBox.style.opacity = 0;
+                 popup.style.opacity = 0;
+                 popupContentBox.style.transform = 'scale(0.95)';
+                 popupContentBox.style.opacity = 0;
 
-                // Remove mobile close button if it exists
-                if (mobileCloseButton) {
-                    mobileCloseButton.remove();
-                }
 
-                // Hide after animation
-                popup.addEventListener('transitionend', function handler() {
-                    popup.classList.add('hidden');
-                    popup.style.transition = '';
-                    popupContentBox.style.transition = '';
-                    popup.removeEventListener('transitionend', handler);
-                });
+                 // Hide after animation
+                 popup.addEventListener('transitionend', function handler() {
+                      popup.classList.add('hidden');
+                      // Reset transitions after hiding
+                      popup.style.transition = '';
+                      popupContentBox.style.transition = '';
+                       // Remove the event listener
+                      popup.removeEventListener('transitionend', handler);
+                 });
             }
         }
 
