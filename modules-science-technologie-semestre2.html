@@ -59,8 +59,7 @@
             color: hsl(var(--foreground));
             min-height: 100vh;
             -webkit-tap-highlight-color: transparent;
-            transition: background-color 0.3s ease-out,
-                        color 0.3s ease-out;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         .hero-bg {
@@ -111,13 +110,10 @@
             border: 1px solid hsl(var(--border));
             border-radius: var(--radius);
             padding: 2.5rem;
-            transition: transform 0.3s ease-out,
-                        box-shadow 0.3s ease-out,
-                        border-color 0.3s ease-out;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
             position: relative;
             overflow: visible;
-            will-change: transform;
         }
 
         .module-card:hover {
@@ -155,10 +151,9 @@
             background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--ring)));
             border-radius: 50%;
             color: hsl(var(--primary-foreground));
-            transition: transform 0.3s ease-out;
+            transition: all 0.3s ease;
             position: relative;
             box-shadow: 0 8px 16px hsl(var(--primary) / 0.2);
-            will-change: transform;
         }
 
         .module-icon::after {
@@ -270,11 +265,8 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: transform 0.3s ease-out,
-                        background-color 0.3s ease-out,
-                        border-color 0.3s ease-out;
+            transition: all 0.3s ease;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            will-change: transform;
         }
 
         .theme-toggle:hover {
@@ -285,9 +277,7 @@
         .theme-toggle i {
             font-size: 1.25rem;
             color: hsl(var(--primary));
-            transition: transform 0.3s ease-out,
-                        color 0.3s ease-out;
-            will-change: transform;
+            transition: transform 0.3s ease;
         }
 
         .theme-toggle:hover i {
@@ -355,11 +345,8 @@
             max-height: 90vh;
             overflow-y: auto;
             transform: scale(0.95);
-            transition: transform 0.3s ease-out,
-                        background-color 0.3s ease-out,
-                        border-color 0.3s ease-out;
+            transition: transform 0.3s ease;
             position: relative;
-            will-change: transform;
         }
 
         .popup.active .popup-content {
@@ -376,8 +363,6 @@
             top: 0;
             background: hsl(var(--card));
             z-index: 1;
-            transition: background-color 0.3s ease-out,
-                        border-color 0.3s ease-out;
         }
 
         .popup-header h2 {
@@ -426,8 +411,6 @@
             margin-bottom: 1.5rem;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
             border: 1px solid rgba(59, 130, 246, 0.1);
-            transition: background-color 0.3s ease-out,
-                        border-color 0.3s ease-out;
         }
 
         .section-header {
@@ -437,8 +420,6 @@
             align-items: center;
             gap: 0.5rem;
             background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
-            transition: background-color 0.3s ease-out,
-                        border-color 0.3s ease-out;
         }
 
         .section-header h3 {
@@ -458,10 +439,7 @@
             border: 1px solid rgba(59, 130, 246, 0.1);
             border-radius: var(--radius);
             padding: 1rem;
-            transition: transform 0.3s ease-out,
-                        box-shadow 0.3s ease-out,
-                        border-color 0.3s ease-out;
-            will-change: transform;
+            transition: all 0.3s ease;
         }
 
         .content-item:hover {
@@ -529,14 +507,11 @@
             border: 1px solid hsl(var(--border));
             border-radius: var(--radius);
             padding: 1rem;
-            transition: transform 0.3s ease-out,
-                        background-color 0.3s ease-out,
-                        border-color 0.3s ease-out;
+            transition: all 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 1rem;
-            will-change: transform;
         }
 
         .exclusive-link:hover, .recommended-link:hover {
@@ -554,10 +529,7 @@
             background: hsl(var(--primary) / 0.1);
             color: hsl(var(--primary));
             font-size: 0.875rem;
-            transition: transform 0.3s ease-out,
-                        background-color 0.3s ease-out,
-                        color 0.3s ease-out;
-            will-change: transform;
+            transition: all 0.3s ease;
         }
 
         .download-btn:hover {
@@ -613,8 +585,6 @@
             border-radius: var(--radius);
             padding: 1.5rem;
             margin-bottom: 2rem;
-            transition: background-color 0.3s ease-out,
-                        border-color 0.3s ease-out;
         }
 
         .telegram-button {
@@ -662,10 +632,7 @@
             font-weight: 500;
             background: hsl(var(--primary) / 0.1);
             color: hsl(var(--primary));
-            transition: transform 0.3s ease-out,
-                        background-color 0.3s ease-out,
-                        color 0.3s ease-out;
-            will-change: transform;
+            transition: all 0.3s ease;
         }
 
         .badge i {
@@ -737,14 +704,11 @@
             border: 1px solid rgba(59, 130, 246, 0.2);
             border-radius: var(--radius);
             padding: 1rem;
-            transition: transform 0.3s ease-out,
-                        background-color 0.3s ease-out,
-                        border-color 0.3s ease-out;
+            transition: all 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 1rem;
-            will-change: transform;
         }
 
         .exclusive-link:hover {
@@ -1127,7 +1091,6 @@
             const content = {
                 'Mathématique 2': {
                     'cours': [
-                        // 2025 Exclusive content
                         {
                             exclusive: true,
                             files: [
@@ -1150,7 +1113,6 @@
                         { title: 'Formulaire Dérivées et Primitives Usuelles', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=272738' }
                     ],
                     'tdtp': [
-                        // 2025 Exclusive content
                         {
                             exclusive: true,
                             files: [
@@ -1191,49 +1153,24 @@
                         { title: 'Corrigé série TD 2023/2024', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=390418' }
                     ],
                     'examen': [
-                        {
-                            title: 'Examens 2023-2024',
-                            files: [
-                                { title: 'Examen principal - Corrigé', url: 'https://drive.google.com/file/d/1RG64V6cZzmf5H2mv6udy2yG7DvNUx5jk/view?usp=drivesdk' },
-                                { title: 'Examen remplacement - Corrigé', url: 'https://drive.google.com/file/d/1AvZQvW27yZGPXpMhAkebNDsZCILYyafW/view?usp=drivesdk' }
-                            ]
-                        },
-                        {
-                            title: 'Examens 2022-2023',
-                            files: [
-                                { title: 'Examen principal - Corrigé', url: 'https://drive.google.com/file/d/1JLRc1MiiXLCVVhZhyvs7Ts5f0kzt3Wy7/view?usp=drivesdk' },
-                                { title: 'Examen remplacement - Corrigé', url: 'https://drive.google.com/file/d/1PVKn8LCKFQ2atVs_8YwxORVpX1GrE__S/view?usp=drivesdk' }
-                            ]
-                        },
-                        {
-                            title: 'Examens 2019-2020',
-                            files: [
-                                { title: 'Examen principal - Corrigé', url: 'https://drive.google.com/file/d/17xOZmrvPwufaOITRbRMlWPpZp03rlxfU/view?usp=drivesdk' },
-                                { title: 'Examen remplacement - Corrigé', url: 'https://drive.google.com/file/d/1agu0vpIzrq5BZj5GB9nNW5OBE7r0pcmW/view?usp=drivesdk' },
-                                { title: 'Examen rattrapage - Corrigé', url: 'https://drive.google.com/file/d/1VAKLYGJuLR7BLaNyubgsEiAXPyvizAL1/view?usp=drivesdk' }
-                            ]
-                        },
-                        {
-                            title: 'Examens 2018-2019',
-                            files: [
-                                { title: 'Examen principal - Corrigé', url: 'https://drive.google.com/file/d/1VBK5sqxJgCMLOxGQmQfQZqOZdFdG_SaG/view?usp=drivesdk' },
-                                { title: 'Examen remplacement - Corrigé', url: 'https://drive.google.com/file/d/1GzLstbIRUi8Euvk7qnnqOz90OZXAaYIO/view?usp=drivesdk' },
-                                { title: 'Examen rattrapage - Corrigé', url: 'https://drive.google.com/file/d/1lQl7YSHJRTblmoyuP4J5xPKIu-E90rWv/view?usp=drivesdk' }
-                            ]
-                        },
-                        {
-                            title: 'Examens 2017-2018',
-                            files: [
-                                { title: 'Examen principal - Corrigé', url: 'https://drive.google.com/file/d/1_EQJvMADAlspVOn2m_icytHGsZ9iq2bw/view?usp=drivesdk' },
-                                { title: 'Examen remplacement - Corrigé', url: 'https://drive.google.com/file/d/1ugQ-JTysQkdpQzVaYIVI83SA9FiO3wIU/view?usp=drivesdk' },
-                                { title: 'Examen rattrapage - Corrigé', url: 'https://drive.google.com/file/d/1c-bKOasx49K5ExRT1UrCHSVP3ETB87BN/view?usp=drivesdk' }
-                            ]
-                        }
+                        { title: 'Examens', url: 'https://drive.google.com/file/d/1yoE52_yvsvrM5XcNvD0Zebm5hbiJbcq6/view?usp=drive_link' },
+                        { title: "Remplacement 23-24 (Corrigé)", url: "https://drive.google.com/file/d/1AvZQvW27yZGPXpMhAkebNDsZCILYyafW/view?usp=drivesdk" },
+                        { title: "Examen 23-24 (Corrigé)", url: "https://drive.google.com/file/d/1RG64V6cZzmf5H2mv6udy2yG7DvNUx5jk/view?usp=drivesdk" },
+                        { title: "Remplacement 18-19 (Sujet & Corrigé)", url: "https://drive.google.com/file/d/1GzLstbIRUi8Euvk7qnnqOz90OZXAaYIO/view?usp=drivesdk" },
+                        { title: "Examen 18-19 (Sujet & Corrigé)", url: "https://drive.google.com/file/d/1VBK5sqxJgCMLOxGQmQfQZqOZdFdG_SaG/view?usp=drivesdk" },
+                        { title: "Rattrapage 18-19 (Sujet & Corrigé)", url: "https://drive.google.com/file/d/1lQl7YSHJRTblmoyuP4J5xPKIu-E90rWv/view?usp=drivesdk" },
+                        { title: "EMD Nov 2020 (Corrigé)", url: "https://drive.google.com/file/d/17xOZmrvPwufaOITRbRMlWPpZp03rlxfU/view?usp=drivesdk" },
+                        { title: "Rattrapage Dec 2020 (Corrigé)", url: "https://drive.google.com/file/d/1VAKLYGJuLR7BLaNyubgsEiAXPyvizAL1/view?usp=drivesdk" },
+                        { title: "Remplacement 19-20 (Corrigé)", url: "https://drive.google.com/file/d/1agu0vpIzrq5BZj5GB9nNW5OBE7r0pcmW/view?usp=drivesdk" },
+                        { title: "Rattrapage 17-18 (Sujet & Corrigé)", url: "https://drive.google.com/file/d/1c-bKOasx49K5ExRT1UrCHSVP3ETB87BN/view?usp=drivesdk" },
+                        { title: "Remplacement 17-18 (Sujet & Corrigé)", url: "https://drive.google.com/file/d/1ugQ-JTysQkdpQzVaYIVI83SA9FiO3wIU/view?usp=drivesdk" },
+                        { title: "Examen 17-18 (Sujet & Corrigé)", url: "https://drive.google.com/file/d/1_EQJvMADAlspVOn2m_icytHGsZ9iq2bw/view?usp=drivesdk" },
+                        { title: "Remplacement 22-23 (Corrigé)", url: "https://drive.google.com/file/d/1PVKn8LCKFQ2atVs_8YwxORVpX1GrE__S/view?usp=drivesdk" },
+                        { title: "Examen 22-23 (Corrigé)", url: "https://drive.google.com/file/d/1JLRc1MiiXLCVVhZhyvs7Ts5f0kzt3Wy7/view?usp=drivesdk" }
                     ]
                 },
                 'Physique 2': {
                     'cours': [
-                        // 2025 Exclusive content
                         {
                             exclusive: true,
                             files: [
@@ -1272,7 +1209,6 @@
                         { title: 'Chapitre 2', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=277943' }
                     ],
                     'tdtp': [
-                        // 2025 Exclusive content
                         {
                             exclusive: true,
                             files: [
@@ -1322,8 +1258,52 @@
                         { title: 'Série TD 5 2022/2023', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=337999' },
                         { title: 'Série TD 1 2019/2020', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=206563' }
                     ],
+                    'interrogation': [
+                        {
+                            exclusive: true,
+                            files: [
+                                { 
+                                    title: 'Interrogation 1 – Sujet + Corrigé', 
+                                    url: 'https://drive.google.com/file/d/1tNAwzUKgRBNmI2CEpbhhOFmGiHVYD_LZ/view?usp=drivesdk' 
+                                },
+                                { 
+                                    title: 'Interrogation 2 – Sujet + Corrigé', 
+                                    url: 'https://drive.google.com/file/d/1CEkLUgvLah3s9ty20_3mCL4rRUppbwIg/view?usp=drivesdk' 
+                                }
+                            ]
+                        },
+                        {
+                            title: 'Interrogation 1 - 2023/2024',
+                            files: [
+                                { 
+                                    title: 'Sujet 1 + Corrigé', 
+                                    url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=398082' 
+                                },
+                                { 
+                                    title: 'Sujet 2 + Corrigé', 
+                                    url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=398083' 
+                                },
+                                { 
+                                    title: 'Sujet 3 + Corrigé', 
+                                    url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=398084' 
+                                }
+                            ]
+                        },
+                        {
+                            title: 'Interrogation 2 - 2023/2024',
+                            files: [
+                                { 
+                                    title: 'Sujet 1 + Corrigé', 
+                                    url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=401456' 
+                                },
+                                { 
+                                    title: 'Sujet 2 + Corrigé', 
+                                    url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=401457' 
+                                }
+                            ]
+                        }
+                    ],
                     'examen': [
-                        // 2025 Exclusive content
                         {
                             exclusive: true,
                             files: [
@@ -1349,44 +1329,19 @@
                                 }
                             ]
                         },
-                        {
-                            title: 'Examens 2023-2024',
-                            files: [
-                                { title: 'Examen rattrapage - Corrigé', url: 'https://drive.google.com/file/d/1cQIS1rlq-7L40Tb_voiWB17Th0f4BazE/view?usp=drivesdk' }
-                            ]
-                        },
-                        {
-                            title: 'Examens 2022-2023',
-                            files: [
-                                { title: 'Examen principal - Corrigé', url: 'https://drive.google.com/file/d/1u25VQD7rJMpKs5GKmq2GFXmM5_rJpntj/view?usp=drivesdk' }
-                            ]
-                        },
-                        {
-                            title: 'Examens 2019-2020',
-                            files: [
-                                { title: 'Examen principal - Corrigé', url: 'https://drive.google.com/file/d/1hXmgoPnZecmfyc4DtBMxlnJCkbjhhk_9/view?usp=drivesdk' },
-                                { title: 'Examen rattrapage - Corrigé', url: 'https://drive.google.com/file/d/15m-qlScgk1BM1cmgMZp3NPXFCR6ehYGd/view?usp=drivesdk' }
-                            ]
-                        },
-                        {
-                            title: 'Examens 2018-2019',
-                            files: [
-                                { title: 'Examen principal - Corrigé', url: 'https://drive.google.com/file/d/1eS1TbM3nX1exU_qwnV-ucSmAy9VVly2a/view?usp=drivesdk' },
-                                { title: 'Examen rattrapage - Corrigé', url: 'https://drive.google.com/file/d/1UptAtXkZAbYjwcSvNiYOuQN091MqD8il/view?usp=drivesdk' }
-                            ]
-                        },
-                        {
-                            title: 'Examens 2017-2018',
-                            files: [
-                                { title: 'Examen principal - Corrigé', url: 'https://drive.google.com/file/d/1IeiUANBH-hvY6mdheQ97Y53hAU06Hp7c/view?usp=drivesdk' },
-                                { title: 'Examen rattrapage - Corrigé', url: 'https://drive.google.com/file/d/1HUquuwxcJy_cMDzdamJZSq8o6Xb1YsMJ/view?usp=drivesdk' }
-                            ]
-                        }
+                        { title: 'Examens (Dossier)', url: 'https://drive.google.com/drive/folders/1-ifspPwi9PTS2OMCWUKmsvSgCleUUY1Y?usp=drive_link' },
+                        { title: "Rattrapage 23-24 (Corrigé)", url: "https://drive.google.com/file/d/1cQIS1rlq-7L40Tb_voiWB17Th0f4BazE/view?usp=drivesdk" },
+                        { title: "Examen 18-19 (Sujet & Corrigé)", url: "https://drive.google.com/file/d/1eS1TbM3nX1exU_qwnV-ucSmAy9VVly2a/view?usp=drivesdk" },
+                        { title: "Rattrapage 2019 (Corrigé)", url: "https://drive.google.com/file/d/1UptAtXkZAbYjwcSvNiYOuQN091MqD8il/view?usp=drivesdk" },
+                        { title: "Rattrapage 19-20", url: "https://drive.google.com/file/d/15m-qlScgk1BM1cmgMZp3NPXFCR6ehYGd/view?usp=drivesdk" },
+                        { title: "Examen 19-20 (Sujet & Corrigé)", url: "https://drive.google.com/file/d/1hXmgoPnZecmfyc4DtBMxlnJCkbjhhk_9/view?usp=drivesdk" },
+                        { title: "Examen 17-18 (Sujet & Corrigé)", url: "https://drive.google.com/file/d/1IeiUANBH-hvY6mdheQ97Y53hAU06Hp7c/view?usp=drivesdk" },
+                        { title: "Rattrapage 17-18 (Corrigé)", url: "https://drive.google.com/file/d/1HUquuwxcJy_cMDzdamJZSq8o6Xb1YsMJ/view?usp=drivesdk" },
+                        { title: "Examen 22-23", url: "https://drive.google.com/file/d/1u25VQD7rJMpKs5GKmq2GFXmM5_rJpntj/view?usp=drivesdk" }
                     ]
                 },
                 'Thermodynamique (Chimie 2)': {
                     'cours': [
-                        // Cours Conseillés section
                         {
                             recommended: true,
                             files: [
@@ -1440,42 +1395,18 @@
                         }
                     ],
                     'examen': [
-                        {
-                            title: 'Examens 2023-2024',
-                            files: [
-                                { title: 'Examen rattrapage - Corrigé', url: 'https://drive.google.com/file/d/1koI1NAKVpMFwNjBIfJV7VUdMNMY0oCjt/view?usp=drivesdk' }
-                            ]
-                        },
-                        {
-                            title: 'Examens 2022-2023',
-                            files: [
-                                { title: 'Examen principal - Corrigé', url: 'https://drive.google.com/file/d/11Cw6sL4Cdjh4UQpBxAgjw6wcMR6WE-gb/view?usp=drivesdk' },
-                                { title: 'Examen principal (version 2) - Corrigé', url: 'https://drive.google.com/file/d/1_V5wkNezVMou2BUdWVMONTav1LYkQA2q/view?usp=drivesdk' }
-                            ]
-                        },
-                        {
-                            title: 'Examens 2019-2020',
-                            files: [
-                                { title: 'Examen principal - Corrigé', url: 'https://drive.google.com/file/d/1aJX46J8kegP6jo74v0iKkqxccUpE_eX-/view?usp=drivesdk' },
-                                { title: 'Examen remplacement - Corrigé', url: 'https://drive.google.com/file/d/1yAD_7pOz4z4ZTtIEbpO9Eq65aP-O3s_Q/view?usp=drivesdk' },
-                                { title: 'Examen rattrapage - Corrigé', url: 'https://drive.google.com/file/d/1Ltla3g2a4fzo4bVn-49Hz86J7L8onc7f/view?usp=drivesdk' }
-                            ]
-                        },
-                        {
-                            title: 'Examens 2018-2019',
-                            files: [
-                                { title: 'Examen principal - Corrigé', url: 'https://drive.google.com/file/d/1X80rZwEq1ECxRgrvJAu4gVsW26JwHmpw/view?usp=drivesdk' },
-                                { title: 'Examen rattrapage - Corrigé', url: 'https://drive.google.com/file/d/1Qe5YJQLz72vHtSWmawr15ufMfpshCw2X/view?usp=drivesdk' }
-                            ]
-                        },
-                        {
-                            title: 'Examens 2017-2018',
-                            files: [
-                                { title: 'Examen principal - Corrigé', url: 'https://drive.google.com/file/d/1qAA95HVcCOmXXBOLK9JiVAw7fsmreBpm/view?usp=drivesdk' },
-                                { title: 'Examen remplacement - Corrigé', url: 'https://drive.google.com/file/d/1ZLkNQxAZuU-LXVD6lSbbDZOManw1V4uR/view?usp=drivesdk' },
-                                { title: 'Examen rattrapage - Corrigé', url: 'https://drive.google.com/file/d/1Ho5UlJDPho8IXNIY_-c1hrifxVvFcx41/view?usp=drivesdk' }
-                            ]
-                        }
+                        { title: 'Examens (Dossier)', url: 'https://drive.google.com/drive/folders/11MQFzD-TvI1ElMiNp_dO6KY8aqgm9iwb?usp=drive_link' },
+                        { title: "Rattrapage 23-24 (Corrigé)", url: "https://drive.google.com/file/d/1koI1NAKVpMFwNjBIfJV7VUdMNMY0oCjt/view?usp=drivesdk" },
+                        { title: "Rattrapage 18-19 (Sujet & Corrigé)", url: "https://drive.google.com/file/d/1Qe5YJQLz72vHtSWmawr15ufMfpshCw2X/view?usp=drivesdk" },
+                        { title: "Examen 18-19 (Sujet & Corrigé)", url: "https://drive.google.com/file/d/1X80rZwEq1ECxRgrvJAu4gVsW26JwHmpw/view?usp=drivesdk" },
+                        { title: "Rattrapage 19-20 (Corrigé)", url: "https://drive.google.com/file/d/1Ltla3g2a4fzo4bVn-49Hz86J7L8onc7f/view?usp=drivesdk" },
+                        { title: "Examen 19-20 (Sujet & Corrigé)", url: "https://drive.google.com/file/d/1aJX46J8kegP6jo74v0iKkqxccUpE_eX-/view?usp=drivesdk" },
+                        { title: "Remplacement 19-20 (Sujet & Corrigé)", url: "https://drive.google.com/file/d/1yAD_7pOz4z4ZTtIEbpO9Eq65aP-O3s_Q/view?usp=drivesdk" },
+                        { title: "Examen 17-18 (Sujet & Corrigé)", url: "https://drive.google.com/file/d/1qAA95HVcCOmXXBOLK9JiVAw7fsmreBpm/view?usp=drivesdk" },
+                        { title: "Rattrapage 17-18 (Sujet & Corrigé)", url: "https://drive.google.com/file/d/1Ho5UlJDPho8IXNIY_-c1hrifxVvFcx41/view?usp=drivesdk" },
+                        { title: "Remplacement 17-18 (Corrigé)", url: "https://drive.google.com/file/d/1ZLkNQxAZuU-LXVD6lSbbDZOManw1V4uR/view?usp=drivesdk" },
+                        { title: "Examen 22-23 (Corrigé)", url: "https://drive.google.com/file/d/11Cw6sL4Cdjh4UQpBxAgjw6wcMR6WE-gb/view?usp=drivesdk" },
+                        { title: "Examen 2023 (Sujet & Corrigé)", url: "https://drive.google.com/file/d/1_V5wkNezVMou2BUdWVMONTav1LYkQA2q/view?usp=drivesdk" }
                     ],
                     'compterendu': [
                         { 
@@ -1514,66 +1445,29 @@
                         }
                     ],
                     'examen': [
-                        {
-                            title: 'Examens 2023-2024',
-                            files: [
-                                { title: 'Examen rattrapage - Corrigé', url: 'https://drive.google.com/file/d/1KhZFb-sZEHFVUfkOFpWPyj_GjeMqLvt5/view?usp=drivesdk' }
-                            ]
-                        },
-                        {
-                            title: 'Examens 2022-2023',
-                            files: [
-                                { title: 'Examen principal - Corrigé', url: 'https://drive.google.com/file/d/18uOcGFbHCsN5eoJK-O0KPBeErRwTD4bb/view?usp=drivesdk' },
-                                { title: 'Examen remplacement - Corrigé', url: 'https://drive.google.com/file/d/140zH-4rmkuaxbO1Uk1qYsMFKoXtcNn2F/view?usp=drivesdk' }
-                            ]
-                        },
-                        {
-                            title: 'Examens 2021-2022',
-                            files: [
-                                { title: 'Examen principal - Corrigé', url: 'https://drive.google.com/file/d/1ThrTZV0iDF3bKafWoxk7zKnZQDVi8g2A/view?usp=drivesdk' },
-                                { title: 'Examen remplacement - Corrigé', url: 'https://drive.google.com/file/d/1uSaQlAWvmzuMBGh3oH6-6JtVOnDxe-U3/view?usp=drivesdk' },
-                                { title: 'Examen rattrapage - Corrigé', url: 'https://drive.google.com/file/d/1n5Mc-psfUAwRt9jIOjxDMLMzy3J5Kq2n/view?usp=drivesdk' }
-                            ]
-                        },
-                        {
-                            title: 'Examens 2019-2020',
-                            files: [
-                                { title: 'Examen principal - Corrigé', url: 'https://docs.google.com/document/d/1d9mRCBjC_zcNreU9I29itcHa6_woeQ_i/edit?usp=drivesdk&ouid=114996133160688114099&rtpof=true&sd=true' }
-                            ]
-                        },
-                        {
-                            title: 'Examens 2018-2019',
-                            files: [
-                                { title: 'Examen principal - Corrigé', url: 'https://drive.google.com/file/d/1QNqYyk95phXjpmNTr74c7UPABnSTxkj-/view?usp=drivesdk' }
-                            ]
-                        },
-                        {
-                            title: 'Examens 2017-2018',
-                            files: [
-                                { title: 'Examen rattrapage - Corrigé', url: 'https://drive.google.com/file/d/1r9v-5P27Fvz-TErz4-Nj2xqlMVMRtKkS/view?usp=drivesdk' }
-                            ]
-                        }
+                        { title: 'Examens (Dossier)', url: 'https://drive.google.com/drive/folders/14wgYaGstVJVRZ4D6GFTU4k2RLlyoCTaj?usp=drive_link' },
+                        { title: "Rattrapage 23-24 (Corrigé)", url: "https://drive.google.com/file/d/1KhZFb-sZEHFVUfkOFpWPyj_GjeMqLvt5/view?usp=drivesdk" },
+                        { title: "Examen 18-19 (Sujet & Corrigé)", url: "https://drive.google.com/file/d/1QNqYyk95phXjpmNTr74c7UPABnSTxkj-/view?usp=drivesdk" },
+                        { title: "Examen 2020 (Solution)", url: "https://docs.google.com/document/d/1d9mRCBjC_zcNreU9I29itcHa6_woeQ_i/edit?usp=drivesdk&ouid=114996133160688114099&rtpof=true&sd=true" },
+                        { title: "Rattrapage 17-18 (Sujet & Corrigé)", url: "https://drive.google.com/file/d/1r9v-5P27Fvz-TErz4-Nj2xqlMVMRtKkS/view?usp=drivesdk" },
+                        { title: "Rattrapage 21-22 (Corrigé)", url: "https://drive.google.com/file/d/1n5Mc-psfUAwRt9jIOjxDMLMzy3J5Kq2n/view?usp=drivesdk" },
+                        { title: "Remplacement 21-22 (Corrigé)", url: "https://drive.google.com/file/d/1uSaQlAWvmzuMBGh3oH6-6JtVOnDxe-U3/view?usp=drivesdk" },
+                        { title: "Final 21-22 (Corrigé)", url: "https://drive.google.com/file/d/1ThrTZV0iDF3bKafWoxk7zKnZQDVi8g2A/view?usp=drivesdk" },
+                        { title: "Remplacement 22-23 (Corrigé)", url: "https://drive.google.com/file/d/140zH-4rmkuaxbO1Uk1qYsMFKoXtcNn2F/view?usp=drivesdk" },
+                        { title: "Examen 22-23 (Corrigé)", url: "https://drive.google.com/file/d/18uOcGFbHCsN5eoJK-O0KPBeErRwTD4bb/view?usp=drivesdk" }
                     ]
                 },
                 'MST 2': {
                     'cours': [
-                        { title: 'Cours complet MST 2', url: 'https://drive.google.com/file/d/1LR_2MHQqLl-XgnsMErTAZQ5xA1uPfeVS/view?usp=sharing' }
+                        { title: 'Cours MST 2', url: 'https://drive.google.com/file/d/1LR_2MHQqLl-XgnsMErTAZQ5xA1uPfeVS/view?usp=sharing' }
                     ],
                     'examen': [
-                        {
-                            title: 'Examens 2023-2024',
-                            files: [
-                                { title: 'Examen principal - Corrigé', url: 'https://drive.google.com/file/d/1CPSkpXvc7DmWsGbU9jWPgHZVKQKWG-mr/view?usp=drivesdk' }
-                            ]
-                        },
-                        {
-                            title: 'Examens 2022-2023',
-                            files: [
-                                { title: 'Examen principal - Corrigé', url: 'https://drive.google.com/file/d/1m_KtV-4_oT1hAqMA3YsMaKlcN1nZnZ-9/view?usp=drivesdk' },
-                                { title: 'Examen remplacement - Corrigé', url: 'https://drive.google.com/file/d/1Cc-ecfjkJ29auaRQPqjqngJqXvLVqoTk/view?usp=drivesdk' }
-                            ]
-                        }
-                    ]
+                        { title: 'Examen 2023-2024 (Corrigé)', url: 'https://drive.google.com/file/d/1CPSkpXvc7DmWsGbU9jWPgHZVKQKWG-mr/view?usp=drivesdk' },
+                        { title: 'Examen 2022-2023 (Corrigé)', url: 'https://drive.google.com/file/d/1m_KtV-4_oT1hAqMA3YsMaKlcN1nZnZ-9/view?usp=drivesdk' },
+                        { title: 'Rattrapage 2022-2023 (Corrigé)', url: 'https://drive.google.com/file/d/1Cc-ecfjkJ29auaRQPqjqngJqXvLVqoTk/view?usp=drivesdk' }
+                        // New MST exam files were duplicates of these existing ones
+                    ],
+                    'tdtp': [] // No TD/TP specified for MST 2 in existing or new
                 },
                 'MP': {
                     'cours': [
@@ -1582,7 +1476,18 @@
                         { title: 'Cours 3 - Génie Civil et Hydraulique', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/512868/mod_folder/content/0/Cours%20N%C2%B03%20Fili%C3%A8re%20G%C3%A9nie%20Civil%20et%20hydraulique%20.pdf?forcedownload=1' },
                         { title: 'Cours 4 - Architecture et Urbanisme', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/512868/mod_folder/content/0/Cours%20N%C2%B04%20Fili%C3%A8re%20architecture%20et%20urbanisme%20.pdf?forcedownload=1' },
                         { title: 'Cours 5', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/512863/mod_folder/content/0/Cours%205.pdf?forcedownload=1' }
-                    ]
+                    ],
+                    'examen': [
+                        { title: "Examen 23-24 (Corrigé)", url: "https://drive.google.com/file/d/1bzm2sc5-fLb4Ujobhv3SbOMf2RR41FMy/view?usp=drivesdk" },
+                        { title: "Remplacement 18-19 (Sujet & Corrigé)", url: "https://docs.google.com/document/d/1XUHYn-rzCHpQK8WL6lTJ8ICSfiAYAu0Y/edit?usp=drivesdk&ouid=114996133160688114099&rtpof=true&sd=true" },
+                        { title: "Rattrapage 2019 (Corrigé)", url: "https://docs.google.com/document/d/16V0-eNlC69s_GMWvoIxdEjSXgEbY2ysz/edit?usp=drivesdk&ouid=114996133160688114099&rtpof=true&sd=true" },
+                        { title: "Méthodologie Présentation 2019 (Corrigé)", url: "https://drive.google.com/file/d/1wBJNZv-iBMx4U7XR6hR2cRIw-wiSebxt/view?usp=drivesdk" },
+                        { title: "Examen 17-18 (Sujet & Corrigé)", url: "https://drive.google.com/file/d/181A18Wzx_gnojQF6WUxL9FXoA7E9uZEB/view?usp=drivesdk" },
+                        { title: "Rattrapage 17-18 (Corrigé)", url: "https://drive.google.com/file/d/1tRofr1xNGl86olwEIxyh9GNM-IJqktmd/view?usp=drivesdk" },
+                        { title: "Remplacement 2023 (Corrigé)", url: "https://drive.google.com/file/d/1iPHvSfx-VG3prnY8LjsITU7sB_kTWBpZ/view?usp=drivesdk" },
+                        { title: "Examen 2023 (Corrigé)", url: "https://drive.google.com/file/d/1jZ9LF88bRm-YmYv-qnzjuITFRFOoee-i/view?usp=drivesdk" }
+                    ],
+                    'tdtp': []
                 },
                 'Langue étrangère 2 (français et/ou anglais)': {
                     'cours': [
@@ -1590,11 +1495,21 @@
                         { title: 'Cours 2', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/512869/mod_folder/content/0/02%20-%20Lecture%202.pdf?forcedownload=1' },
                         { title: 'Cours 3', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/512869/mod_folder/content/0/03%20-%20Lecture%203.pdf?forcedownload=1' },
                         { title: 'Cours 4', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/512869/mod_folder/content/0/04%20-%20Lecture%204.pdf?forcedownload=1' }
-                    ]
+                    ],
+                    'examen': [
+                        { title: "Examen Anglais 18-19 (Sujet & Corrigé)", url: "https://drive.google.com/file/d/1VaFhVfa4QOgtjHU0AFY9D3U9bah-djlf/view?usp=drivesdk" },
+                        { title: "Examen Anglais 17-18 (Sujet & Corrigé)", url: "https://drive.google.com/file/d/1hj7X35q2Z2yd4k4xr8xvbgSpYq5j6SkA/view?usp=drivesdk" },
+                        { title: "Remplacement Anglais 17-18 (Sujet & Corrigé)", url: "https://drive.google.com/file/d/1lp6HRjbexDy9cSgIzkhNh_njiPglHZqP/view?usp=drivesdk" },
+                        { title: "Examen Français 17-18 (Corrigé)", url: "https://docs.google.com/document/d/1C3BA-ExdIHO5UknVvx1lEgmX6VSjzmxq/edit?usp=drivesdk&ouid=114996133160688114099&rtpof=true&sd=true" },
+                        { title: "Remplacement Français 17-18 (Corrigé)", url: "https://docs.google.com/document/d/1ai6LqmW1aLMDgrmQQegs_1tiAy0mUnXu/edit?usp=drivesdk&ouid=114996133160688114099&rtpof=true&sd=true" },
+                        { title: "Rattrapage Français 17-18 (Corrigé)", url: "https://docs.google.com/document/d/1hmfuRD0UeC6BHvoEj51vcAcAxAyeKGUZ/edit?usp=drivesdk&ouid=114996133160688114099&rtpof=true&sd=true" },
+                        { title: "Rattrapage Anglais 17-18 (Corrigé)", url: "https://drive.google.com/file/d/1yWAtvPlXDsXeJqvKhP-hGoj93Pui4dkc/view?usp=drivesdk" },
+                        { title: "Examen Anglais 22-23 (Corrigé)", url: "https://drive.google.com/file/d/1X__ZCqZVnMy2r56a4qMXY-kQUCMCnPJB/view?usp=drivesdk" }
+                    ],
+                    'tdtp': []
                 },
                 'TP Chimie 2': {
                     'tdtp': [
-                        // 2025 Exclusive content
                         {
                             exclusive: true,
                             files: [
@@ -1619,6 +1534,10 @@
                             url: 'https://docs.google.com/document/d/1yqwNKog4wOCHqpX6Fu8uVxeSTldRkh2T/edit?usp=sharing&ouid=113138810463504494362&rtpof=true&sd=true' 
                         }
                     ]
+                },
+                 'TP Physique 2': { // Ensure this module exists if you have TP Physique content
+                    'tdtp': [], // Add TP files here if any
+                    'compterendu': [] // Add Compte Rendu files here if any
                 }
             };
 
@@ -1831,12 +1750,11 @@
             popupContent.innerHTML = '';
 
             // Template for Bejaia University section
-            const bejaiaContent = getBejaiaContent(module, type);
-            if (bejaiaContent && bejaiaContent !== '<p class="text-gray-500 italic">Contenu à venir...</p>') {
+            const bejaiaContentHTML = getBejaiaContent(module, type);
+            if (bejaiaContentHTML && bejaiaContentHTML.trim() !== '' && bejaiaContentHTML !== '<p class="text-gray-500 italic">Contenu à venir...</p>') {
                 const bejaiaSection = document.createElement('div');
                 bejaiaSection.className = 'university-section mb-6 transform transition-all duration-300 hover:translate-x-1 border-l-4 border-green-600 bg-white rounded-lg shadow-sm';
                 
-                // Create section header
                 const sectionHeader = document.createElement('div');
                 sectionHeader.className = 'section-header bg-green-50 p-4 rounded-t-lg border-b border-green-100';
                 sectionHeader.innerHTML = `
@@ -1848,7 +1766,7 @@
                 
                 const contentContainer = document.createElement('div');
                 contentContainer.className = 'p-4';
-                contentContainer.innerHTML = bejaiaContent;
+                contentContainer.innerHTML = bejaiaContentHTML;
                 
                 bejaiaSection.appendChild(sectionHeader);
                 bejaiaSection.appendChild(contentContainer);
@@ -1856,12 +1774,11 @@
             }
 
             // Add Blida University section
-            const blidaContent = getBlidaContent(module, type);
-            if (blidaContent && blidaContent !== '<p class="text-gray-500 italic">Contenu à venir...</p>') {
+            const blidaContentHTML = getBlidaContent(module, type);
+             if (blidaContentHTML && blidaContentHTML.trim() !== '' && blidaContentHTML !== '<p class="text-gray-500 italic">Contenu à venir...</p>') {
                 const blidaSection = document.createElement('div');
                 blidaSection.className = 'university-section mb-6 transform transition-all duration-300 hover:translate-x-1 border-l-4 border-orange-600 bg-white rounded-lg shadow-sm';
                 
-                // Create section header
                 const sectionHeader = document.createElement('div');
                 sectionHeader.className = 'section-header bg-orange-50 p-4 rounded-t-lg border-b border-orange-100';
                 sectionHeader.innerHTML = `
@@ -1873,7 +1790,7 @@
                 
                 const contentContainer = document.createElement('div');
                 contentContainer.className = 'p-4';
-                contentContainer.innerHTML = blidaContent;
+                contentContainer.innerHTML = blidaContentHTML;
                 
                 blidaSection.appendChild(sectionHeader);
                 blidaSection.appendChild(contentContainer);
@@ -1917,12 +1834,10 @@
             
             if (body.classList.contains('dark')) {
                 body.classList.remove('dark');
-                body.classList.add('light');
                 themeToggle.classList.remove('fa-sun');
                 themeToggle.classList.add('fa-moon');
                 localStorage.setItem('theme', 'light');
             } else {
-                body.classList.remove('light');
                 body.classList.add('dark');
                 themeToggle.classList.remove('fa-moon');
                 themeToggle.classList.add('fa-sun');
@@ -1930,45 +1845,13 @@
             }
         }
 
-        // Check for saved theme preference and system preference
+        // Check for saved theme preference
         document.addEventListener('DOMContentLoaded', function() {
             const savedTheme = localStorage.getItem('theme');
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            
-            if (savedTheme) {
-                // Use saved preference
-                if (savedTheme === 'dark') {
-                    document.body.classList.add('dark');
-                    document.querySelector('.theme-toggle i').classList.replace('fa-moon', 'fa-sun');
-                } else {
-                    document.body.classList.add('light');
-                    document.querySelector('.theme-toggle i').classList.replace('fa-sun', 'fa-moon');
-                }
-            } else {
-                // Use system preference
-                if (prefersDark) {
-                    document.body.classList.add('dark');
-                    document.querySelector('.theme-toggle i').classList.replace('fa-moon', 'fa-sun');
-                } else {
-                    document.body.classList.add('light');
-                    document.querySelector('.theme-toggle i').classList.replace('fa-sun', 'fa-moon');
-                }
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark');
+                document.querySelector('.theme-toggle i').classList.replace('fa-moon', 'fa-sun');
             }
-
-            // Listen for system theme changes
-            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-                if (!localStorage.getItem('theme')) {
-                    if (e.matches) {
-                        document.body.classList.add('dark');
-                        document.body.classList.remove('light');
-                        document.querySelector('.theme-toggle i').classList.replace('fa-moon', 'fa-sun');
-                    } else {
-                        document.body.classList.add('light');
-                        document.body.classList.remove('dark');
-                        document.querySelector('.theme-toggle i').classList.replace('fa-sun', 'fa-moon');
-                    }
-                }
-            });
 
             // Close when clicking outside the content
             const popups = document.querySelectorAll('.popup');
