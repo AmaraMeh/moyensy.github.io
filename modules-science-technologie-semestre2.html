@@ -59,7 +59,8 @@
             color: hsl(var(--foreground));
             min-height: 100vh;
             -webkit-tap-highlight-color: transparent;
-            transition: background-color 0.3s ease, color 0.3s ease;
+            transition: background-color 0.3s ease-out,
+                        color 0.3s ease-out;
         }
 
         .hero-bg {
@@ -110,10 +111,13 @@
             border: 1px solid hsl(var(--border));
             border-radius: var(--radius);
             padding: 2.5rem;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 0.3s ease-out,
+                        box-shadow 0.3s ease-out,
+                        border-color 0.3s ease-out;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
             position: relative;
             overflow: visible;
+            will-change: transform;
         }
 
         .module-card:hover {
@@ -151,9 +155,10 @@
             background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--ring)));
             border-radius: 50%;
             color: hsl(var(--primary-foreground));
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease-out;
             position: relative;
             box-shadow: 0 8px 16px hsl(var(--primary) / 0.2);
+            will-change: transform;
         }
 
         .module-icon::after {
@@ -265,8 +270,11 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease-out,
+                        background-color 0.3s ease-out,
+                        border-color 0.3s ease-out;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            will-change: transform;
         }
 
         .theme-toggle:hover {
@@ -277,7 +285,9 @@
         .theme-toggle i {
             font-size: 1.25rem;
             color: hsl(var(--primary));
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease-out,
+                        color 0.3s ease-out;
+            will-change: transform;
         }
 
         .theme-toggle:hover i {
@@ -345,8 +355,11 @@
             max-height: 90vh;
             overflow-y: auto;
             transform: scale(0.95);
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease-out,
+                        background-color 0.3s ease-out,
+                        border-color 0.3s ease-out;
             position: relative;
+            will-change: transform;
         }
 
         .popup.active .popup-content {
@@ -363,6 +376,8 @@
             top: 0;
             background: hsl(var(--card));
             z-index: 1;
+            transition: background-color 0.3s ease-out,
+                        border-color 0.3s ease-out;
         }
 
         .popup-header h2 {
@@ -411,6 +426,8 @@
             margin-bottom: 1.5rem;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
             border: 1px solid rgba(59, 130, 246, 0.1);
+            transition: background-color 0.3s ease-out,
+                        border-color 0.3s ease-out;
         }
 
         .section-header {
@@ -420,6 +437,8 @@
             align-items: center;
             gap: 0.5rem;
             background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
+            transition: background-color 0.3s ease-out,
+                        border-color 0.3s ease-out;
         }
 
         .section-header h3 {
@@ -439,7 +458,10 @@
             border: 1px solid rgba(59, 130, 246, 0.1);
             border-radius: var(--radius);
             padding: 1rem;
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease-out,
+                        box-shadow 0.3s ease-out,
+                        border-color 0.3s ease-out;
+            will-change: transform;
         }
 
         .content-item:hover {
@@ -507,11 +529,14 @@
             border: 1px solid hsl(var(--border));
             border-radius: var(--radius);
             padding: 1rem;
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease-out,
+                        background-color 0.3s ease-out,
+                        border-color 0.3s ease-out;
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 1rem;
+            will-change: transform;
         }
 
         .exclusive-link:hover, .recommended-link:hover {
@@ -529,7 +554,10 @@
             background: hsl(var(--primary) / 0.1);
             color: hsl(var(--primary));
             font-size: 0.875rem;
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease-out,
+                        background-color 0.3s ease-out,
+                        color 0.3s ease-out;
+            will-change: transform;
         }
 
         .download-btn:hover {
@@ -585,6 +613,8 @@
             border-radius: var(--radius);
             padding: 1.5rem;
             margin-bottom: 2rem;
+            transition: background-color 0.3s ease-out,
+                        border-color 0.3s ease-out;
         }
 
         .telegram-button {
@@ -632,7 +662,10 @@
             font-weight: 500;
             background: hsl(var(--primary) / 0.1);
             color: hsl(var(--primary));
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease-out,
+                        background-color 0.3s ease-out,
+                        color 0.3s ease-out;
+            will-change: transform;
         }
 
         .badge i {
@@ -704,11 +737,14 @@
             border: 1px solid rgba(59, 130, 246, 0.2);
             border-radius: var(--radius);
             padding: 1rem;
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease-out,
+                        background-color 0.3s ease-out,
+                        border-color 0.3s ease-out;
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 1rem;
+            will-change: transform;
         }
 
         .exclusive-link:hover {
@@ -1881,10 +1917,12 @@
             
             if (body.classList.contains('dark')) {
                 body.classList.remove('dark');
+                body.classList.add('light');
                 themeToggle.classList.remove('fa-sun');
                 themeToggle.classList.add('fa-moon');
                 localStorage.setItem('theme', 'light');
             } else {
+                body.classList.remove('light');
                 body.classList.add('dark');
                 themeToggle.classList.remove('fa-moon');
                 themeToggle.classList.add('fa-sun');
@@ -1892,13 +1930,45 @@
             }
         }
 
-        // Check for saved theme preference
+        // Check for saved theme preference and system preference
         document.addEventListener('DOMContentLoaded', function() {
             const savedTheme = localStorage.getItem('theme');
-            if (savedTheme === 'dark') {
-                document.body.classList.add('dark');
-                document.querySelector('.theme-toggle i').classList.replace('fa-moon', 'fa-sun');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            
+            if (savedTheme) {
+                // Use saved preference
+                if (savedTheme === 'dark') {
+                    document.body.classList.add('dark');
+                    document.querySelector('.theme-toggle i').classList.replace('fa-moon', 'fa-sun');
+                } else {
+                    document.body.classList.add('light');
+                    document.querySelector('.theme-toggle i').classList.replace('fa-sun', 'fa-moon');
+                }
+            } else {
+                // Use system preference
+                if (prefersDark) {
+                    document.body.classList.add('dark');
+                    document.querySelector('.theme-toggle i').classList.replace('fa-moon', 'fa-sun');
+                } else {
+                    document.body.classList.add('light');
+                    document.querySelector('.theme-toggle i').classList.replace('fa-sun', 'fa-moon');
+                }
             }
+
+            // Listen for system theme changes
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+                if (!localStorage.getItem('theme')) {
+                    if (e.matches) {
+                        document.body.classList.add('dark');
+                        document.body.classList.remove('light');
+                        document.querySelector('.theme-toggle i').classList.replace('fa-moon', 'fa-sun');
+                    } else {
+                        document.body.classList.add('light');
+                        document.body.classList.remove('dark');
+                        document.querySelector('.theme-toggle i').classList.replace('fa-sun', 'fa-moon');
+                    }
+                }
+            });
 
             // Close when clicking outside the content
             const popups = document.querySelectorAll('.popup');
