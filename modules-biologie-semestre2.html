@@ -1105,35 +1105,240 @@
             'mtt-2': 'MTT 2',
             'physique': 'Physique'
         };
+        
+        function cleanResourceTitle(title, context = {}) {
+            if (!title) return "Document sans titre";
+            
+            title = title.replace(/\.(pdf|docx?|pptx?|rtf|jpe?g|png|ppt|xlsx?|txt)$/i, '');
+            
+            title = title.replace(/u00E8/g, 'è').replace(/u00E2/g, 'â').replace(/u00E9/g, 'é').replace(/u00E7/g, 'ç').replace(/u00F4/g, 'ô');
+            title = title.replace(/\+â/g, 'â').replace(/\+®/g, 'é').replace(/\+§/g, 'ç').replace(/\+¨/g, 'è').replace(/\+´/g, 'ô'); // Simpler plus combinations
+            title = title.replace(/A®/g, 'é').replace(/A§/g, 'ç').replace(/A¨/g, 'è').replace(/A¢/g, 'â').replace(/A´/g, 'ô');
+            title = title.replace(/rÃ©flexion/gi, 'Réflexion');
+            title = title.replace(/Ã©/g, 'é');
 
-        const moduleContent = { // Preserved from original biologie.html
+
+            title = title.replace(/^Copie de\s*/i, '');
+            title = title.replace(/^Je partage «\s*/i, '').replace(/\s*» avec vous$/i, '');
+            title = title.replace(/[_-]+/g, ' ').replace(/\s+/g, ' ').trim();
+
+            title = title.replace(/^(TD N° ?|TP N° ?|TD ?|TP ?|Texte de TP N° ?|Texte de TP|T P N° ?)/i, 'TP ');
+            title = title.replace(/^(Cours N° ?|Cours ?|Chapitre N° ?|Chapitre ?|CH ?)/i, 'Cours ');
+            title = title.replace(/^(Examen N° ?|Examen ?|EMD N° ?|EMD ?|Controle continu|CC N° ?|CC ?|Epreuve N° ?|Epreuve ?)/i, 'Examen ');
+            title = title.replace(/^(Sujet N° ?|Sujet ?)/i, 'Sujet ');
+            title = title.replace(/^(Corrigé N° ?|Corrigé ?|Correction N° ?|Correction ?|Solution N° ?|Solution ?)/i, 'Corrigé ');
+            title = title.replace(/^(Polycopié N° ?|Polycopié ?|Polycope N° ?|Polycope ?)/i, 'Polycopié ');
+            title = title.replace(/^(Résumé N° ?|Résumé ?|Resumé N° ?|Resumé ?)/i, 'Résumé ');
+            title = title.replace(/^(Série N° ?|Série ?|Serie N° ?|Serie ?)/i, 'Série ');
+            
+            title = title.replace(/\s*\([\w\s-]*\d+[\w\s-]*\)$/, '').trim(); // (1), (2), (suite), (anglais 1), (3)
+            title = title.replace(/\s*-\d+\s*$/, '').trim(); // file-1, file-2
+            title = title.replace(/\s*\(\s*\)$/, '').trim(); // Remove empty parenthesis " ()"
+
+            // Remove leading/trailing non-alphanumeric except for specific cases like "L'" or "l'"
+            title = title.replace(/^[^a-zA-Z0-9À-ÖØ-öø-ÿ]+(?!(L'|l'))/, '');
+            // Ensure not to remove trailing punctuation that might be part of title.
+            // title = title.replace(/[^a-zA-Z0-9À-ÖØ-öø-ÿ)]+$/, ''); // Allow closing parenthesis
+
+
+            if (title.length > 0) {
+                title = title.charAt(0).toUpperCase() + title.slice(1);
+            }
+            title = title.replace(/\b(td|tp|snv|ba|bv|cc|emd|svise|mtt|tce|usthb|lmd|gr|ex)\b/gi, (match) => match.toUpperCase());
+            
+            if (context.professor) title += ` (${context.professor})`;
+            if (context.year) title += ` (${context.year})`;
+            if (context.source) title += ` (${context.source})`;
+
+            title = title.trim();
+            return title || "Document";
+        }
+
+
+        const moduleContent = {
             'Biologie Animale': {
                 'bejaia': { 'cours': [], 'td': [], 'examen': [] },
                 'autres': {
                     'cours': [
-                        { title: 'Cours 1', url: 'https://drive.google.com/file/d/1NzHbbArAqS3PK3j-Q5EnEsQ4ZaaPTsqr/view?usp=drive_link' },
-                        { title: 'Cours 2', url: 'https://drive.google.com/file/d/15yAHC89wz_2XBogQLjWNrrWEzvFBs_L1/view?usp=drive_link' },
-                        { title: 'Cours 4', url: 'https://drive.google.com/file/d/15zbFhM_XvKa6zunqAaZTL5LHBCVupEty/view?usp=drive_link' },
-                        { title: 'Cours 5', url: 'https://drive.google.com/file/d/163oLhNijzWk8ds2YXJCFhrs5DYemtBNP/view?usp=drive_link' }
+                        { title: cleanResourceTitle('Cours 1'), url: 'https://drive.google.com/file/d/1NzHbbArAqS3PK3j-Q5EnEsQ4ZaaPTsqr/view?usp=drive_link' },
+                        { title: cleanResourceTitle('Cours 2'), url: 'https://drive.google.com/file/d/15yAHC89wz_2XBogQLjWNrrWEzvFBs_L1/view?usp=drive_link' },
+                        { title: cleanResourceTitle('Cours 4'), url: 'https://drive.google.com/file/d/15zbFhM_XvKa6zunqAaZTL5LHBCVupEty/view?usp=drive_link' },
+                        { title: cleanResourceTitle('Cours 5'), url: 'https://drive.google.com/file/d/163oLhNijzWk8ds2YXJCFhrs5DYemtBNP/view?usp=drive_link' },
+                        { title: cleanResourceTitle('Formulaire pour saisir une annonce aux étudiants L1'), url: 'https://drive.google.com/file/d/1FSdpmriuhVXyRc8xWp8VUgFjGJZs8L90/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Formulaire pour saisir une annonce aux étudiants L1'), url: 'https://drive.google.com/file/d/1yBoZUUStMpjWEwvXOSidsxbcIaaOLBJX/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Histologie -Épithéliums', {professor: 'Dr. Tabti'}), url: 'https://drive.google.com/file/d/1Fb5Gj8xtKx0cdrS1F3BvzAekV7c_2o9o/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Embryologie-Chapitre 3-Fécondation', {professor: 'Dr. Tabti'}), url: 'https://drive.google.com/file/d/15rSaW1sdrKp3ueGQwR9ycRpIn8wn4VjG/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Embryologie-Chapitre 2-Ovogénèse', {professor: 'Dr. Tabti'}), url: 'https://drive.google.com/file/d/1im_T3FRgX-yT2p_FnHOSibjbeqxQartQ/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Embryologie-Chapitre 1-Spermatogénèse', {professor: 'Dr. Tabti'}), url: 'https://drive.google.com/file/d/1EhrEeiwvRGqXfbZ_BpyToUIUGICR8Wgf/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Human embryo Development', {source: 'EMBRYO NEHAR'}), url: 'https://docs.google.com/presentation/d/1HSRBgbeMdKypNlgB-dQBlRnlTVtdHkTg/edit?usp=drivesdk&ouid=114996133160688114099&rtpof=true&sd=true' },
+                        { title: cleanResourceTitle('tissu cartilagineux', {professor: 'Dr. Ghalem'}), url: 'https://drive.google.com/file/d/1chc4WoGJI3CzV9wAqDc0HNp64sS7qS7e/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Tissu osseux', {professor: 'Dr. Ghalem'}), url: 'https://drive.google.com/file/d/1htci3fthie4ON5UwiLdK5YlAiD7ncWIg/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Tissu conjonctif', {professor: 'Dr. Ghalem'}), url: 'https://drive.google.com/file/d/1zEzLHtnQ_RZpUv-y5CsoKn3HeBw6A7Sf/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours d\'Histologie - Tissu sanguin', {professor: 'Dr. Seladji'}), url: 'https://drive.google.com/file/d/1OwMSYMFgZ1So5mrMVo6Jq-4wmC0CRd4n/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours d\'Histologie - Tissu nerveux', {professor: 'Dr. Seladji'}), url: 'https://drive.google.com/file/d/1Rnpt1bt0w5DY9Mjt5rOKqi6TXrghORTI/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours d\'Histologie -Tissu musculaire', {professor: 'Dr. Seladji'}), url: 'https://drive.google.com/file/d/1HDd7WqP37lQfG1p_y8_y1yZ8u7P2V9M-/view?usp=drivesdk' }, // Assuming full ID
+                        { title: cleanResourceTitle('Les schéma de biologie animal 2024 anes.abdat'), url: 'https://drive.google.com/file/d/13JsE5BmbBlWvFkonvgl_YqhUcSfVRxd8/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Polycopié BA-2021-COVID-19'), url: 'https://drive.google.com/file/d/1JVhn2wWQC53JrqZX8OFnUtR0z7qDjLnM/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours BA intro'), url: 'https://drive.google.com/file/d/1FLSzMevLP2UHJMPHyoYwObQ7jDObE2ax/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours embryo S2'), url: 'https://drive.google.com/file/d/1s0TDSkBtktyFcBnynPJT7mi_ouNG7buy/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours 4I segmentatio'), url: 'https://docs.google.com/document/d/1FTVMBOIqZBObQKKnqOQy4cU_oLapkP7olZa2BYsl8gs/edit?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours 5 gastrulation amphibien'), url: 'https://drive.google.com/file/d/1zNv9cHxutkcB7FTxxrFpbYY_mTxUU45q/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours 4I segmentatio'), url: 'https://drive.google.com/file/d/1PbN2cNAw-9YYZeTDXmcghvui1gEsQNmM/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours 4II les plans de coupes'), url: 'https://drive.google.com/file/d/1ZvOdNvcQwxX-ay_qKzcP9vDMLoBb6Edl/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours 3 fécondation'), url: 'https://drive.google.com/file/d/1lFfcq-iYjqMwOWcpAb1e_dx_iBiWYoj3/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours 2I Gamète mâle 2020-2021'), url: 'https://drive.google.com/file/d/1Z4YgGJ16j5OUb5rBFDifqRRTVudL5oxF/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours 2II (la suite) gamete femelle 2021'), url: 'https://drive.google.com/file/d/1L5RG6SryvZFtQ1xZqRteDToQCLHWqEIE/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours 6 neurulation'), url: 'https://docs.google.com/presentation/d/16H6vHwXEdXxDao5KBR3rIIoUWRHygSvg/edit?usp=drivesdk&ouid=114996133160688114099&rtpof=true&sd=true' },
+                        { title: cleanResourceTitle('Cours 1 Introduction'), url: 'https://drive.google.com/file/d/1P9OBF-x_Fj2n-48eEdy_YlwlEktcndmm/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Planches-gastrulation-Amphibiens-étudiants'), url: 'https://drive.google.com/file/d/1z9vp7L2kbMfsPOf9uESG_B2uUA19MDty/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Support-BA-anglais- en anglais'), url: 'https://drive.google.com/file/d/14k84cv9KzBJG8Ny71bmAlJvBnQ5_DUwZ/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours segmentation 2015'), url: 'https://docs.google.com/presentation/d/13_zC00s5rD_iGDLONadArdv1n1WPoXFM/edit?usp=drivesdk&ouid=114996133160688114099&rtpof=true&sd=true' },
+                        { title: cleanResourceTitle('Cours plan de coupes L1 SNV 2015'), url: 'https://docs.google.com/presentation/d/1GQggOydZmz3CrYUSpdboyqOuOXmHrVKk/edit?usp=drivesdk&ouid=114996133160688114099&rtpof=true&sd=true' },
+                        { title: cleanResourceTitle('Cours neurulation fin'), url: 'https://docs.google.com/presentation/d/1bbmHd7PUdeyeseUq_MBq8LaknajWI5GA/edit?usp=drivesdk&ouid=114996133160688114099&rtpof=true&sd=true' },
+                        { title: cleanResourceTitle('Cours Le gamète Mâle fin - 2015'), url: 'https://docs.google.com/presentation/d/11LcfsWDGrfAbc2bRqeD-xxzEfkOzJJXH/edit?usp=drivesdk&ouid=114996133160688114099&rtpof=true&sd=true' },
+                        { title: cleanResourceTitle('Cours introduction à l\'embryo 2015'), url: 'https://docs.google.com/presentation/d/1epnlKo6GK2tXlnT1SqOJvbpQ1IBo3n0x/edit?usp=drivesdk&ouid=114996133160688114099&rtpof=true&sd=true' },
+                        { title: cleanResourceTitle('Cours gastrulation oiseaux fin'), url: 'https://docs.google.com/presentation/d/1EkUgxWXZS__eBt1LawUOCLKFDfyanFxt/edit?usp=drivesdk&ouid=114996133160688114099&rtpof=true&sd=true' },
+                        { title: cleanResourceTitle('Cours gastrulation amphibien'), url: 'https://docs.google.com/presentation/d/12nHkZXvJL7MEcKHCHbmCaVsGyJ0uzuAP/edit?usp=drivesdk&ouid=114996133160688114099&rtpof=true&sd=true' },
+                        { title: cleanResourceTitle('Cours gamete femelle'), url: 'https://docs.google.com/presentation/d/1wx26z5H_-dtIhvg7lN_nPtGMv7SKva68/edit?usp=drivesdk&ouid=114996133160688114099&rtpof=true&sd=true' },
+                        { title: cleanResourceTitle('Cours fecondation fin'), url: 'https://docs.google.com/presentation/d/1Cd97dkpi8Vh53nvt1b5EAtWh624divbu/edit?usp=drivesdk&ouid=114996133160688114099&rtpof=true&sd=true' },
+                        { title: cleanResourceTitle('Cours devenir des feuillets'), url: 'https://docs.google.com/presentation/d/1tnQ61udy1oMT2O3YgtjwvzQ1PUIBgT4H/edit?usp=drivesdk&ouid=114996133160688114099&rtpof=true&sd=true' }
                     ],
-                    'td': [ { title: 'TP', url: 'https://drive.google.com/drive/folders/16RD5wq7FV1rHtIXI0mjfHJaonaPKWSyu?usp=drive_link' } ],
-                    'examen': []
+                    'td': [ // TD and TP merged here
+                        { title: 'TP (Ancien)', url: 'https://drive.google.com/drive/folders/16RD5wq7FV1rHtIXI0mjfHJaonaPKWSyu?usp=drive_link' },
+                        { title: cleanResourceTitle('TP Histologie -Tissu musculaire', {professor: 'Dr. Tabti'}), url: 'https://drive.google.com/file/d/1agpsGBrY2ZVdDjQDwx5LCIS_OBm9XrdN/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('TP Histologie -Tissu sanguin', {professor: 'Dr. Tabti'}), url: 'https://drive.google.com/file/d/1hekV-ANFN3XxzqGGzMzM98xWrS554dWp/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('TP Histologie - Épithéliums glandulaires', {professor: 'Dr. Tabti'}), url: 'https://drive.google.com/file/d/1Op9fnH_ANl9ksT7JKZD4zZpWVwOQdmx2/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('TP Histologie - Épithéliums de revêtement', {professor: 'Dr. Tabti'}), url: 'https://drive.google.com/file/d/1y352zK4kN6LS7Md6Vk83GZLLqXejMoUC/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('TP Histologie -Tissu conjonctif', {professor: 'Dr. Tabti'}), url: 'https://drive.google.com/file/d/1hRu326_j07rP718GIUVxMSX5ymEWnFvT/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('TP Embryologie -Gonade femelle', {professor: 'Dr. Tabti'}), url: 'https://drive.google.com/file/d/1Lx5Ji9qudL26RpEiuGtp4xJvGVWd6JhC/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('TP Embryologie -Gonade mâle', {professor: 'Dr. Tabti'}), url: 'https://drive.google.com/file/d/12J2GYbvOTVA__ZKScEyEZs5exOU95hS_/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('TP Consignes générales du laboratoire', {professor: 'Dr. Tabti'}), url: 'https://drive.google.com/file/d/1QSVdTAMSOS_hvIRVgbRrVkL5uDrIl8Qc/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('TP n3 et 4 BA'), url: 'https://drive.google.com/file/d/1lMNTsMPIp7oVu9D8Z2DEqylMd-cZcmAH/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('TP 2 BA'), url: 'https://drive.google.com/file/d/1JUG3StJXLmybpqT1-gB5hIYUWgyculw4/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('TP 1 BA'), url: 'https://drive.google.com/file/d/1FHpDMyspqkgObK69BBDSgXnwQwWvINrJ/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('TP Exercice Schéma Légendé BA'), url: 'https://docs.google.com/document/d/1HeWH0kpvzbSsgHVtznMs4si5dWlXnOpG/edit?usp=drivesdk&ouid=114996133160688114099&rtpof=true&sd=true' },
+                        { title: cleanResourceTitle('TP Planches histo générale Epithéliums'), url: 'https://docs.google.com/presentation/d/1HeW7C0uhAD8_6-XzKwEDid8M9mn_zmnI/edit?usp=drivesdk&ouid=114996133160688114099&rtpof=true&sd=true' },
+                        { title: cleanResourceTitle('TP Planches histo générale Tissu Conjonctif'), url: 'https://drive.google.com/file/d/1HbndKfNM9O07KQLbdYRtWxpDmjzPLBIm/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('TP histologie generale'), url: 'https://drive.google.com/file/d/1HXao_YQsr61HxceUpya2zeYvkosfsPQi/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('TP Planches histo générale Epithéliums'), url: 'https://drive.google.com/file/d/1kjdD_YRo-AQPOwmFSEZb_Dvr5FowpnJD/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('TP Slides (English)'), url: 'https://drive.google.com/file/d/11GQW7Ov-oXg8c3pMcDbos583qNEY1vSR/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('TP Slides (English)'), url: 'https://drive.google.com/file/d/1fvAQSatntAVvirPkVvxnWXJgzrFFbqCs/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('TP slides (English)'), url: 'https://drive.google.com/file/d/1TVwFycjsaIHBGmoKh92-EeVHx9wHzZ18/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Dessins des comptes rendus BA'), url: 'https://drive.google.com/file/d/19xFRVfarYLug-UXZVJ1UJveWyYAsrWp4/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Collection de Dessins et Résumés (Schémas)', {source: 'BA S2'}), url: 'https://drive.google.com/drive/folders/1NWfjKBbhvcrxSlGxXqCqyndQHFNVmmam' },
+                        { title: cleanResourceTitle('TP BA'), url: 'https://docs.google.com/presentation/d/1Wv4HkURJWN4r8L975mIlBy39Qr64DPxj/edit?usp=drivesdk&ouid=114996133160688114099&rtpof=true&sd=true' },
+                        { title: cleanResourceTitle('TP BA HISTO ET EMBRYO'), url: 'https://docs.google.com/presentation/d/1jJOX2ddgTVf1VRqYvtLBKmKT8k8FdJvk/edit?usp=drivesdk&ouid=114996133160688114099&rtpof=true&sd=true' },
+                        { title: cleanResourceTitle('TP tissus animale'), url: 'https://drive.google.com/file/d/140C-ejHwNUdrVjs6ZgGe9HpAIDmpGMl-/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('TP TISSU OSSEUX ET OSSIFICATION'), url: 'https://docs.google.com/presentation/d/1OEZl_NJ1lKTOPA1HqV4_ShBDmgFeDibu/edit?usp=drivesdk&ouid=114996133160688114099&rtpof=true&sd=true' },
+                        { title: cleanResourceTitle('TP tissu nerveux'), url: 'https://docs.google.com/presentation/d/1bH6aVhBsW9GOLqaHNJS4FJcfSXp4RyJg/edit?usp=drivesdk&ouid=114996133160688114099&rtpof=true&sd=true' },
+                        { title: cleanResourceTitle('TP tissu musculaire'), url: 'https://docs.google.com/presentation/d/1N5AAVWryJxs3m_bqR3cgTxRSUPTH7DtK/edit?usp=drivesdk&ouid=114996133160688114099&rtpof=true&sd=true' },
+                        { title: cleanResourceTitle('TP tissu conjonctif'), url: 'https://docs.google.com/presentation/d/1jX5BOFaYLTNRnMRd_77pDkfDRzd6UKvY/edit?usp=drivesdk&ouid=114996133160688114099&rtpof=true&sd=true' },
+                        { title: cleanResourceTitle('TP Épithélium de revêtement'), url: 'https://docs.google.com/presentation/d/17hzGE0N4Nl0bS9WHhbdl6JeiU8s1VBV3/edit?usp=drivesdk&ouid=114996133160688114099&rtpof=true&sd=true' },
+                        { title: cleanResourceTitle('TP Histo_Epithelium'), url: 'https://drive.google.com/file/d/1KX4Hx2ca9BndFElNAgcXLJSiHCi19tgC/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('TP HISTOLOGIE'), url: 'https://docs.google.com/presentation/d/1_c5e8iQHI50qjab_-Mrsql_xRlj0mWTt/edit?usp=drivesdk&ouid=114996133160688114099&rtpof=true&sd=true' },
+                        { title: cleanResourceTitle('TP Les Epitheliums'), url: 'https://drive.google.com/file/d/13BjjIxr9kiEeottr2otEt4rkgGVGY04w/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('TP epithelium glandulaire'), url: 'https://drive.google.com/file/d/1gWDxnZKKI0lJLoh-fLc720PPJD4lh96O/view?usp=drivesdk' }
+                    ],
+                    'examen': [
+                        { title: cleanResourceTitle('Examen de rattrapage BA 2024 - Barème'), url: 'https://drive.google.com/file/d/11rYZJCgc5W6NuYZveUK9uSR9UCwnd2ZQ/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Corrigé EMD BA 2024'), url: 'https://drive.google.com/file/d/1uQie0G_CZ7eCVSfhEaGaGDfOmgMFNxEv/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Résumé-BA'), url: 'https://drive.google.com/file/d/1Dpzvah3i-NVE7ltHbuHhKljLdFzh8Qjc/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Finale-revision'), url: 'https://drive.google.com/file/d/14TSCzpZB2YOrxy3i0Kcs9Ko4Qphj4VSL/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('SCHEMATS-GASTRULATION-AMPHIBIENS'), url: 'https://drive.google.com/file/d/1-DXR2m-XRivKUH_nUHz7yr6oGQ3Hi_Rb/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Révision-de-biologie-animale-première-séance-2022-2023'), url: 'https://drive.google.com/file/d/1xstvdGg-xfmdPy6eeQt7Vgg2bc0lS3i7/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('SNV-Examens-Biologie-Animale'), url: 'https://drive.google.com/file/d/1xp6tXZxnSEfJm_YcdyAeiIQ0YREkeZki/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Examen controle continu SNV'), url: 'https://drive.google.com/file/d/1ACzwo8PQRzpCcnmT69b0GVo1SJ-KJ8WG/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Examen controle continu SNV'), url: 'https://drive.google.com/file/d/1cAvZgL2mLm4QXd-4oIxUYyaPesjtQFAQ/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Sujet BA'), url: 'https://drive.google.com/file/d/1XQu07AGR-y1oIQIfrMR5UXqdF1fWsGZP/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Sujet BA ratt'), url: 'https://drive.google.com/file/d/1s5xeUr2NdIXyGb-ej1TxFzcMLYBB5Vul/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Examen CC AII'), url: 'https://drive.google.com/file/d/1K_A3EO6H8nSBEyyvCrAdTaEbOgSU7mmf/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Examen CC BA 2017-18'), url: 'https://drive.google.com/file/d/12hxl4RgyfA0SldnFDCMTIgVdQOzW_Shy/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Examens TP BA'), url: 'https://drive.google.com/file/d/1BINzhde4Xn5c23G0i_3cYSuPqhrVK8aE/view?usp=drivesdk' }
+                    ]
                 }
             },
             'Biologie Végétale': {
                 'bejaia': { 'cours': [], 'td': [], 'examen': [] },
                 'autres': {
                     'cours': [
-                        { title: 'Résumés complets', url: 'https://drive.google.com/drive/folders/15HpU2ddfdDFBkEicWA5M2gra4XdN0Fs3?usp=drive_link' },
-                        { title: 'Cours en français', url: 'https://drive.google.com/drive/folders/1Iy-KyRZVLZxfn_o997WUDjumCDCjdHZs?usp=drive_link' },
-                        { title: 'Cours en anglais', url: 'https://drive.google.com/drive/folders/1joQ0HU34g0W6wiVhOZSTC5LHGTssOQfh?usp=drive_link' },
-                        { title: 'Cours général', url: 'https://drive.google.com/drive/folders/1Agrfmp6QTUXvxcEWPW29F3_PYSQuGhYQ?usp=drive_link' }
+                        { title: 'Résumés complets (Ancien)', url: 'https://drive.google.com/drive/folders/15HpU2ddfdDFBkEicWA5M2gra4XdN0Fs3?usp=drive_link' },
+                        { title: 'Cours en français (Ancien)', url: 'https://drive.google.com/drive/folders/1Iy-KyRZVLZxfn_o997WUDjumCDCjdHZs?usp=drive_link' },
+                        { title: 'Cours en anglais (Ancien)', url: 'https://drive.google.com/drive/folders/1joQ0HU34g0W6wiVhOZSTC5LHGTssOQfh?usp=drive_link' },
+                        { title: 'Cours général (Ancien)', url: 'https://drive.google.com/drive/folders/1Agrfmp6QTUXvxcEWPW29F3_PYSQuGhYQ?usp=drive_link' },
+                        { title: cleanResourceTitle('Biologie Végétale Section 1-1'), url: 'https://drive.google.com/file/d/1ugou44PwIsRS8tTILrHDqLbjSrHBBOvg/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours de biologie végétale L1 SNV et L1 foresterie 2023-2024'), url: 'https://drive.google.com/file/d/1X2OW931sLKoI68o4CWZHjXigbbpircGi/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Révision BV (Mme Boubetra)'), url: 'https://drive.google.com/file/d/1nJqlHvmM5xdnFZt18XwklM7zBFWog4ln/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours Conducting tissues (English)'), url: 'https://drive.google.com/file/d/1fSBkKSyqFnaF-DVovg9oizgeHjwhU33V/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours Classification (English)'), url: 'https://drive.google.com/file/d/19KtV0DHqI48X_AzF5Ni0Yl5lMj7hBXr7/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours Classification'), url: 'https://drive.google.com/file/d/1DiojvQ9MViVCXAEFSE6aMB7kz_zK34yt/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours Matrice en Français'), url: 'https://drive.google.com/file/d/1OTLPk1Yf89lfgZMkueo0qLCFDjzp9pT9/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours Matrix (English)'), url: 'https://drive.google.com/file/d/1OWfuCsRlaFTUinGQlBl3lppNZVza1LiH/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Terminology of PW'), url: 'https://drive.google.com/file/d/1EFbL0UUKIA3GMwwVeNtwZFBfU3XIaS6g/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours la reproduction chez les angiospermes (suite) (Benhamada)'), url: 'https://drive.google.com/file/d/1H5fWnxJVtxIHnf8NNI0J1hxDuf5nYk87/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours la reproduction chez les angiospermes (Benhamada)'), url: 'https://drive.google.com/file/d/1H5N3gJDLnxArf6yiJt3WtpO36fS-uJ3J/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours la reproduction-chez-les-angiospermes'), url: 'https://drive.google.com/file/d/1paWpMvGE3-pyNtTuFx_F-pE4iPVG8408/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours tissus conducteurs secondaires'), url: 'https://drive.google.com/file/d/1irTWSE5nJ1OdzHD1GNcUMImc-m5ZW_dJ/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours Les méristèmes secondaires'), url: 'https://drive.google.com/file/d/1u1rRtvsEybB3D0ZQ1UBO6yq-wZCuHdte/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours Les tissus conducteurs primaires'), url: 'https://drive.google.com/file/d/1Kfhvne2y7_cNTFJvVO9C175cqzC0krHv/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours Les méristèmes primaires'), url: 'https://drive.google.com/file/d/1v-JiilqEvogOfrnJgoeTGtVbSJsh_3QX/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours Classification'), url: 'https://drive.google.com/file/d/1t4uqEy-RNqMPC2gx8gliTqz3Vnq6KKy4/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Polycopié Cours illustré biologie végétale'), url: 'https://docs.google.com/document/d/1WMf2PMHkIF2QO5YokoFSsY2wg89UNGGS-d5O_7WPCvc/edit?usp=drivesdk' },
+                        { title: cleanResourceTitle('Polycopié Cours illustré biologie végétale'), url: 'https://drive.google.com/file/d/1JbTt6w4FQDgKrJOfd1aFaEGjLsNzPdfq/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours biologie vegetale SNV L1 2015'), url: 'https://drive.google.com/file/d/1ivjrfaRYhewQx1-oARvwNs7mmOt7cX2w/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours La reproduction chez les gymnospermes'), url: 'https://drive.google.com/file/d/1ctzfViDoX_-8-vKoXduT0W2h-ekQfgEo/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours la reproduction chez les angiospermes'), url: 'https://drive.google.com/file/d/19dvW1zVrA0r6xVV_2153CvmLgjx4gnce/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours tissus conducteurs secondaires'), url: 'https://drive.google.com/file/d/1RZkFvvGzCWWQNHjNRkvRebFvodv7vXhQ/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours Les tissus conducteurs primaires'), url: 'https://drive.google.com/file/d/12z8U0Wp0yd58oBQrdbcX6lcfWL2_uZ8x/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours Les méristèmes primaires et la différenciation'), url: 'https://drive.google.com/file/d/1Xg7JcrVQz4rOCXBOMMV8zlxmI3qBM34G/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours La paroi pectocellulosique'), url: 'https://drive.google.com/file/d/1a58CwsZtZ2QQ5gZkFwKwvTD9J8MCI1gn/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours Classification'), url: 'https://drive.google.com/file/d/1M72aWDoKBhhFP7SaIjnmtORB8vlRCaUg/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours Tissu de revêtement secondaire'), url: 'https://drive.google.com/file/d/1njmYMs8GvjNYhayf9qmYjKs8jnFhi_IR/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours Les méristèmes secondaires'), url: 'https://drive.google.com/file/d/1KBOF2OsiEPHvRrx_gwpN1HaX5Qqd31gq/view?usp=drivesdk' }
                     ],
-                    'td': [],
+                    'td': [ // TD and TP merged here
+                        { title: cleanResourceTitle('TP BV'), url: 'https://drive.google.com/file/d/1lHPOhnWdzfM9J4l9A9nZyZoeOhqkJ1Em/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('TP BV'), url: 'https://drive.google.com/file/d/1lEZikGe6bKQcTkP2Ws1SXnrh9cw0qHdS/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('TP BV'), url: 'https://drive.google.com/file/d/1Zn1i62gZKjjP4ihnRcq001dLN0XpES5w/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('TP BV'), url: 'https://drive.google.com/file/d/1fxHcpOY_li56zzH_qnCkfwcyEiZbYxs3/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('TP BV resum'), url: 'https://drive.google.com/file/d/1uQ_cPW7bv_J-b9pE7Uht2j4t82t_yjR0/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('TPAnat2'), url: 'https://drive.google.com/file/d/1m84Oz1uJSW18eISD6shy5h5ao1EVJCRr/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('TP Organisation morphologique des gymnospermes'), url: 'https://drive.google.com/file/d/1z6UmEn4UA_QtNuiKYWx2xWVIjyLC5uf3/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('TP biologie vegetale'), url: 'https://docs.google.com/document/d/1OIvOW66YoXKQDGjoMt2CuYfJwr4tb5Cf/edit?usp=drivesdk&ouid=114996133160688114099&rtpof=true&sd=true' },
+                        { title: cleanResourceTitle('TP securedownload'), url: 'https://drive.google.com/file/d/1pYHvKuC5OJeiHLaYpfhcOqVpzHk4N4u-/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('TP Révision BV-2014'), url: 'https://docs.google.com/presentation/d/1gBelMX74gBHDqzPyYC5BBuLsawppmcFO/edit?usp=drivesdk&ouid=114996133160688114099&rtpof=true&sd=true' },
+                        { title: cleanResourceTitle('TP micrographi BV'), url: 'https://docs.google.com/document/d/1o-O3fjpfsih7C89fsrDDnz4GX5lhKhEQ/edit?usp=drivesdk&ouid=114996133160688114099&rtpof=true&sd=true' },
+                        { title: cleanResourceTitle('TP BV Présentation'), url: 'https://docs.google.com/presentation/d/1PZd5wSZWuwnSTDaNmGDMv3axJ-mX6nPb/edit?usp=drivesdk&ouid=114996133160688114099&rtpof=true&sd=true' },
+                        { title: cleanResourceTitle('TP Diagramme Floral'), url: 'https://docs.google.com/presentation/d/1360KUrPsF72Y-FVOlIBregLsOMQdq_v8/edit?usp=drivesdk&ouid=114996133160688114099&rtpof=true&sd=true' },
+                        { title: cleanResourceTitle('TP Morphologie de l\'appareil végétatif Malva'), url: 'https://docs.google.com/document/d/1_iIaVBg4i8M0XKUM8HqvUf9W5MrEWaOH/edit?usp=drivesdk&ouid=114996133160688114099&rtpof=true&sd=true' },
+                        { title: cleanResourceTitle('TP micrographies'), url: 'https://drive.google.com/file/d/1BeM5EhyUNLY1-ALgWZoDa4v6jLrWfUWQ/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('TP Anatomie comparee'), url: 'https://docs.google.com/presentation/d/1Y4bYfON-ksmotDJMT4WiIw5Fbr7P6Sm7/edit?usp=drivesdk&ouid=114996133160688114099&rtpof=true&sd=true' },
+                        { title: cleanResourceTitle('TP Anatomie primaire'), url: 'https://docs.google.com/presentation/d/1Vcv5Ec6-F-lfutTPlw0pvcwjQyvH8KMy/edit?usp=drivesdk&ouid=114996133160688114099&rtpof=true&sd=true' },
+                        { title: cleanResourceTitle('TP Tissus conducteurs primaires'), url: 'https://docs.google.com/presentation/d/1qWygk4B-YPl0tZ3F6qe9pspyZikSq5ey/edit?usp=drivesdk&ouid=114996133160688114099&rtpof=true&sd=true' },
+                        { title: cleanResourceTitle('TP les Tissus de soutien'), url: 'https://docs.google.com/presentation/d/1RN2XA9h2kYkAgk35NzTavCZCzvLM5gSa/edit?usp=drivesdk&ouid=114996133160688114099&rtpof=true&sd=true' },
+                        { title: cleanResourceTitle('TP parenchymes'), url: 'https://docs.google.com/presentation/d/1M2WooOk-ltPiqg-M36E5XPnT7kYYtfhn/edit?usp=drivesdk&ouid=114996133160688114099&rtpof=true&sd=true' },
+                        { title: cleanResourceTitle('TP Les parenchymes (suite)'), url: 'https://docs.google.com/presentation/d/13fmk7ZMfGHMAbEWlJawzVBoQNoX4ym46/edit?usp=drivesdk&ouid=114996133160688114099&rtpof=true&sd=true' },
+                        { title: cleanResourceTitle('TP diaporama MII et TII'), url: 'https://docs.google.com/presentation/d/1IDECTu47GYMSvBt0_SW-RAmS4XglEeXT/edit?usp=drivesdk&ouid=114996133160688114099&rtpof=true&sd=true' },
+                        { title: cleanResourceTitle('TP diversité des organes végétaux'), url: 'https://docs.google.com/presentation/d/1aAY1cHDfSJzEkztAAlvDWc4-JPPqHP3a/edit?usp=drivesdk&ouid=114996133160688114099&rtpof=true&sd=true' },
+                        { title: cleanResourceTitle('TP tableau anatomie comparee'), url: 'https://docs.google.com/document/d/1F9e3swjdcX_YrNNEAKQtjGGHhUa0bSId/edit?usp=drivesdk&ouid=114996133160688114099&rtpof=true&sd=true' },
+                        { title: cleanResourceTitle('TP Tableau tissus végétaux'), url: 'https://docs.google.com/document/d/13bsfghTTbAs3L4f8-6PXiDjk-jwnwv4p/edit?usp=drivesdk&ouid=114996133160688114099&rtpof=true&sd=true' }
+                    ],
                     'examen': [
-                        { title: 'Examen 1', url: 'https://drive.google.com/file/d/1XoBJsEKOT7VAz2sD2DybwXN0_U-I1xsT/view?usp=drive_link' },
-                        { title: 'Examen 2', url: 'https://drive.google.com/file/d/1Mr9Zk4XbNK8XnAo0PLDuGLQoSw5dhWDh/view?usp=drive_link' },
-                        { title: 'Examen 3', url: 'https://drive.google.com/file/d/1HNE0n08HwpJm0EY9N1Nczf9oftW7T_yJ/view?usp=drive_link' }
+                        { title: 'Examen 1 (Ancien)', url: 'https://drive.google.com/file/d/1XoBJsEKOT7VAz2sD2DybwXN0_U-I1xsT/view?usp=drive_link' },
+                        { title: 'Examen 2 (Ancien)', url: 'https://drive.google.com/file/d/1Mr9Zk4XbNK8XnAo0PLDuGLQoSw5dhWDh/view?usp=drive_link' },
+                        { title: 'Examen 3 (Ancien)', url: 'https://drive.google.com/file/d/1HNE0n08HwpJm0EY9N1Nczf9oftW7T_yJ/view?usp=drive_link' },
+                        { title: cleanResourceTitle('Examen pv matiere CC'), url: 'https://drive.google.com/file/d/11YtJKP9-qC4DgPpOFiK0CxSq093G2avR/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Corrigé type biologie végétale'), url: 'https://drive.google.com/file/d/1qOBvc-uNLBUPB7hdkum6od-EyjcHhAn3/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Examen Corrigé Rattrp 2024'), url: 'https://drive.google.com/file/d/1Crn1Ps1v1I3S5dyeQ2wKdc7uGsWe3gQ2/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Sujet BA BV 2023'), url: 'https://drive.google.com/file/d/1nv8-kLZcw1Hwmh2A_FfZJj4Cn7o2jhsD/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Sujet d\'examens physique (Benhamada Doc)'), url: 'https://drive.google.com/file/d/1H6-yZw1nBADSrdY5E8fyPuKOKRgdcRg3/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Sujets BV2 (Benhamada Doc)'), url: 'https://drive.google.com/file/d/1H0m8yLdtX9VmvT3HyeUVxcxMZz-cWPp9/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Corrigé de EMD de biologie végétale 2024'), url: 'https://drive.google.com/file/d/1dOzEbs7VAQ5QE69Mf0d3LL8K5j6KWsDN/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Sujet avec solution'), url: 'https://drive.google.com/file/d/10uDICv5ODBweFJlyjqX405XYod5fzMqS/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Sujet BV USTHB'), url: 'https://drive.google.com/file/d/1GRcNIQLiUqGTcfQRl0OFhsiYh_cM_3w7/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours BV Sujets'), url: 'https://docs.google.com/presentation/d/1xwKzI725KH6fSbRPyA1Rqi5hyrnsOFgB/edit?usp=drivesdk&ouid=114996133160688114099&rtpof=true&sd=true' },
+                        { title: cleanResourceTitle('Examens corrigé (TP BV)'), url: 'https://drive.google.com/file/d/1xgcuYE5wXjzExWkHiGabONjW-HwWDoVc/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Corrigé EMD 2011'), url: 'https://drive.google.com/file/d/1Ez25DK0E5rTjQssiw-WLwYVcb1jIeXn6/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Corrigé Rattrapage 2011'), url: 'https://drive.google.com/file/d/1cHAn2pK0kGW5nBNpO68sHtk37SOANTCy/view?usp=drivesdk' }
                     ]
                 }
             },
@@ -1141,55 +1346,136 @@
                 'bejaia': { 'cours': [], 'td': [], 'examen': [] },
                 'autres': {
                     'cours': [
-                        { title: 'Cours en français', url: 'https://drive.google.com/drive/folders/1jtvMzBkJq9pqYfxPazf6-Ji5eJKuP2jt?usp=drive_link' },
-                        { title: 'Cours en anglais', url: 'https://drive.google.com/drive/folders/1k7rO_36HIGI1k4wDkAxaAEX3nK2J_uOP?usp=drive_link' }
+                        { title: 'Cours en français (Ancien)', url: 'https://drive.google.com/drive/folders/1jtvMzBkJq9pqYfxPazf6-Ji5eJKuP2jt?usp=drive_link' },
+                        { title: 'Cours en anglais (Ancien)', url: 'https://drive.google.com/drive/folders/1k7rO_36HIGI1k4wDkAxaAEX3nK2J_uOP?usp=drive_link' },
+                        { title: cleanResourceTitle('Cours SVISE'), url: 'https://drive.google.com/file/d/1NqNSGFFXkSHI3GmbY0E1BSzpxjDA_4aZ/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Résumé Chapitre 5 (SVISE)'), url: 'https://drive.google.com/file/d/1l-43V7fEE2JZMgx6PnhPh3gVK5rWDVP3/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Résumé Chapitre 3 (SVISE)'), url: 'https://drive.google.com/file/d/12wYM8j6zlFHox4JMVq3F5d2ai6DxBq0d/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Résumé Chapitre 4 (SVISE)'), url: 'https://drive.google.com/file/d/1RIe1bMTWoWK0eTo93d9uIJk1v0CJZ6Br/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Résumé Chapitre 2 (SVISE)'), url: 'https://drive.google.com/file/d/1QdrJnBWtNXkIKBHpkLCXHbM6tLNepW8W/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Résumé Chapitre 1 (SVISE)'), url: 'https://drive.google.com/file/d/1FOXgpGc_5YGzSXNauFaQizBl3YN_lQs_/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Résumé Biotechnologies et production molécules d\'interêt SVISE anglais chapitre 4'), url: 'https://drive.google.com/file/d/1l979cSb62eh9eF2_ER16_3izCSc6d3dn/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Résumé Chapitre 3 anglais (SVISE)'), url: 'https://drive.google.com/file/d/18mkvv2DyfEc96v5hpemVhVK5dd9OsXrw/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Résumé chapter 2 Plant and animal production (SVISE)'), url: 'https://drive.google.com/file/d/1mmOmpNSV2ts7vuAFp2NjbiVY0_zk6zaE/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Résumé Chapter 1 SVISE, 2024'), url: 'https://drive.google.com/file/d/1xbGbzHG_5PqIrTskyFU6X_8yTJCLW-OV/view?usp=drivesdk' }
                     ],
-                    'td': [ { title: 'TD SVIS', url: 'https://drive.google.com/drive/folders/1CaWIFTyTbBTWzZICtaMRYMfpC9ze5H7e?usp=drive_link' } ],
-                    'examen': []
+                    'td': [
+                        { title: 'TD SVIS (Ancien)', url: 'https://drive.google.com/drive/folders/1CaWIFTyTbBTWzZICtaMRYMfpC9ze5H7e?usp=drive_link' },
+                        { title: cleanResourceTitle('Exposé group 4 SVISE'), url: 'https://docs.google.com/presentation/d/1_78g9phOa7rXJp7U8tn1dEziRc4EkZ9l/edit?usp=drivesdk&ouid=114996133160688114099&rtpof=true&sd=true' },
+                        { title: cleanResourceTitle('Compte rendu CORRIGE (I4)'), url: 'https://docs.google.com/document/d/12dIu4AAuUwSAkAG5NOn-LJmZ6otogXmY/edit?usp=drivesdk&ouid=114996133160688114099&rtpof=true&sd=true' },
+                        { title: cleanResourceTitle('TD Ministère de L (I4)'), url: 'https://docs.google.com/document/d/1sNAM7z5GtmrY_qgNVQUoCPexqf5ehRPA/edit?usp=drivesdk&ouid=114996133160688114099&rtpof=true&sd=true' },
+                        { title: cleanResourceTitle('TD Épidémie Covid19 vaccination CORRIGE (I4)'), url: 'https://docs.google.com/document/d/1-AefKbRHRZf65TkkSf8_IvbByT7_f1JI/edit?usp=drivesdk&ouid=114996133160688114099&rtpof=true&sd=true' },
+                        { title: cleanResourceTitle('TD (I4)'), url: 'https://docs.google.com/document/d/13n_Y7Z1U-ubNuZp3I7XA9nm19jqcDCVi/edit?usp=drivesdk&ouid=114996133160688114099&rtpof=true&sd=true' },
+                        { title: cleanResourceTitle('Compte rendu theme (I4)'), url: 'https://docs.google.com/document/d/1nj5lQwHYLTPTNJbF1THY1-GB-V23SsqT/edit?usp=drivesdk&ouid=114996133160688114099&rtpof=true&sd=true' },
+                        { title: cleanResourceTitle('Compte rendu theme (I4)'), url: 'https://docs.google.com/document/d/1WagfqbK5fSpYwSJyl35yOjqDs0LX_raG/edit?usp=drivesdk&ouid=114996133160688114099&rtpof=true&sd=true' },
+                        { title: cleanResourceTitle('Compte rendu theme (I4)'), url: 'https://docs.google.com/document/d/1Y7hVjzSZcePJGSpuQRnYsLNO6Ge91RAf/edit?usp=drivesdk&ouid=114996133160688114099&rtpof=true&sd=true' },
+                        { title: cleanResourceTitle('Compte rendu theme (I4)'), url: 'https://docs.google.com/document/d/1TuFE_jfb6e2Wxzqx8iY3_qo4tD1sl9uC/edit?usp=drivesdk&ouid=114996133160688114099&rtpof=true&sd=true' },
+                        { title: cleanResourceTitle('Compte rendu yaourt (I3)'), url: 'https://drive.google.com/file/d/1qdj3PBXRGOz7_O0Yskn2B3kix_2ujaAp/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('TD SVISE (I3)'), url: 'https://drive.google.com/file/d/1qaP_hf7d5XnaNlvWpufJ-bQgqv1j1eUv/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Santé végétale compterendu (I3)'), url: 'https://drive.google.com/file/d/16LTDVmh9h_f1tGpn5uQrKk8MfkUWESWb/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Exposé SVISE covid (I3)'), url: 'https://drive.google.com/file/d/1fXjINfG5p-tzzO3d2MBszz0qoFFS33oP/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Compte rendu Pollution du lac de reghaia (I3)'), url: 'https://drive.google.com/file/d/1n7BAy2iaQbaQJXGS6BYBXh_r884MxxMD/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Compte rendu (I3)'), url: 'https://drive.google.com/file/d/1D8getL6UEktt2WHdjAZpRV9gYQukGPLr/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('TD farah (I3)'), url: 'https://drive.google.com/file/d/1SIp8jSy_PE0aZLcot6cMttY1EvXkHbWw/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Compte rendu (I3)'), url: 'https://drive.google.com/file/d/1pQR0wZii0fniCqzM0epXh8VSlOKLq9A4/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('TD pollution raghai (I2)'), url: 'https://docs.google.com/document/d/1bSCulh6PuRWQW6SYpKsCPQngtmtmF7z1/edit?usp=drivesdk&ouid=114996133160688114099&rtpof=true&sd=true' },
+                        { title: cleanResourceTitle('TD pollution raghai (I2)'), url: 'https://docs.google.com/document/d/1H1-sgpJ9BIkSgJ46LHn_6SVwgjklsrtD/edit?usp=drivesdk&ouid=114996133160688114099&rtpof=true&sd=true' },
+                        { title: cleanResourceTitle('TD fusarium (I2)'), url: 'https://docs.google.com/document/d/1-iZa0vVHcRz7xxpFdowauJmkebhscraJ/edit?usp=drivesdk&ouid=114996133160688114099&rtpof=true&sd=true' },
+                        { title: cleanResourceTitle('TD épuration eaux (I2)'), url: 'https://docs.google.com/document/d/1P6JkCweFsTpXkeBaPv_Lh20dgQ-Ky1b4/edit?usp=drivesdk&ouid=114996133160688114099&rtpof=true&sd=true' },
+                        { title: cleanResourceTitle('TD épuration eaux usées (I2)'), url: 'https://docs.google.com/document/d/13dqATTYDpGhf1TKLKehh3LjpULauRul1/edit?usp=drivesdk&ouid=114996133160688114099&rtpof=true&sd=true' },
+                        { title: cleanResourceTitle('TD ecosystème terrestre (I2)'), url: 'https://drive.google.com/file/d/1VVpW9X672WLWaD6P09QNcwMS4xE-BAqJ/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('TD ecosystème terrestre (I2)'), url: 'https://docs.google.com/document/d/16p4QdW-XXWDOtK2JD7zv8aRvzmnYFxo1/edit?usp=drivesdk&ouid=114996133160688114099&rtpof=true&sd=true' },
+                        { title: cleanResourceTitle('TD covid (I2)'), url: 'https://drive.google.com/file/d/1hHs8IKjRSoPOkZIy0Oc9umAGi65XJYlQ/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('TD ecosystème aquatique (I2)'), url: 'https://drive.google.com/file/d/1zozO0hNk-4hmI-DqI1WAwtrQ3UbmhKsA/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('TD Fusariose Mars 2023 (I2)'), url: 'https://docs.google.com/document/d/1EbziWIZBzyUAAwnQtnCf5jZgITvKjG4L/edit?usp=drivesdk&ouid=114996133160688114099&rtpof=true&sd=true' },
+                        { title: cleanResourceTitle('TD production du vaccin antirabique (I2)'), url: 'https://docs.google.com/document/d/1DteaT7MyW1aEdhJqQxJEIS1r8K7RlYCo/edit?usp=drivesdk&ouid=114996133160688114099&rtpof=true&sd=true' },
+                        { title: cleanResourceTitle('TD ecosystème aquatique (I2)'), url: 'https://docs.google.com/document/d/1MFDEEnht8I2CIr7mL9YvCkMQ7ViAu9S8/edit?usp=drivesdk&ouid=114996133160688114099&rtpof=true&sd=true' }
+                    ],
+                    'examen': [
+                        { title: cleanResourceTitle('Examen emd remplacement'), url: 'https://drive.google.com/file/d/1RMJpPysc4s6oZHUEHGCTfm8Vu5zQNr6l/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Examen ratt 2022'), url: 'https://drive.google.com/file/d/1POWeALq7o3VyH0TU42JNLox4zIMMjT9B/view?usp=drivesdk' }
+                    ]
                 }
             },
             'Physique': {
                 'bejaia': { 'cours': [], 'td': [], 'examen': [] },
                 'autres': {
                     'cours': [
-                        { title: 'Résumé 1', url: 'https://drive.google.com/file/d/1MxvByhuE6LeaV39KrqDfuXltc5mFfdIm/view?usp=drive_link' },
-                        { title: 'Résumé 2', url: 'https://drive.google.com/file/d/1XEG8AeG2laQJDs6yBa-3_uzIHn2M0yT2/view?usp=drive_link' },
-                        { title: 'Cours complet', url: 'https://drive.google.com/file/d/1nhRs21KD9JeQK6O4EK5KwEmSpyUN6rnq/view?usp=drive_link' },
-                        { title: 'Chapitre 1-1', url: 'https://drive.google.com/file/d/1UgLe5vXshj7UdHTAxZuggQP44nuMvZBC/view?usp=drive_link' },
-                        { title: 'Chapitre 1-2', url: 'https://drive.google.com/file/d/1bJOM-bv79kaQKvb1-VVklxJ2kg9NEZky/view?usp=drive_link' },
-                        { title: 'Chapitre 1-3', url: 'https://drive.google.com/file/d/1BuvyXtsb6ehoVS1DnkNEGgCgPlymZOCl/view?usp=drive_link' },
-                        { title: 'Chapitre 2', url: 'https://drive.google.com/file/d/1iPoPCjjZaYLw94KvJ7Jx9_6pZ-8LlEDS/view?usp=drive_link' },
-                        { title: 'Chapitre 3', url: 'https://drive.google.com/file/d/1SHYCsA16XyUxH42Jur4ReZjgEZzN9wwN/view?usp=drive_link' },
-                        { title: 'Cours 1 SNV', url: 'https://www.mediafire.com/file/59qnw11aa7uh81h/Cours1_Physique_2_SNV-L1.pdf/file' },
-                        { title: 'Cours 2 SNV', url: 'https://www.mediafire.com/file/oggpwvj802naxxj/Cours2_Physique_2_SNV-L1.pdf/file' },
-                        { title: 'Résumé complet 1', url: 'https://www.mediafire.com/file_premium/jd55xzeps9jxsnv/R%25C3%25A9sum%25C3%25A91_Physique.pdf/file' },
-                        { title: 'Résumé complet 2', url: 'https://www.mediafire.com/file_premium/prjsgtuspp7oy8e/R%25C3%25A9sum%25C3%25A92_Physique.pdf/file' }
+                        { title: 'Résumé 1 (Ancien)', url: 'https://drive.google.com/file/d/1MxvByhuE6LeaV39KrqDfuXltc5mFfdIm/view?usp=drive_link' },
+                        { title: 'Résumé 2 (Ancien)', url: 'https://drive.google.com/file/d/1XEG8AeG2laQJDs6yBa-3_uzIHn2M0yT2/view?usp=drive_link' },
+                        { title: 'Cours complet (Ancien)', url: 'https://drive.google.com/file/d/1nhRs21KD9JeQK6O4EK5KwEmSpyUN6rnq/view?usp=drive_link' },
+                        { title: 'Cours 1 SNV (Ancien)', url: 'https://www.mediafire.com/file/59qnw11aa7uh81h/Cours1_Physique_2_SNV-L1.pdf/file' },
+                        { title: 'Cours 2 SNV (Ancien)', url: 'https://www.mediafire.com/file/oggpwvj802naxxj/Cours2_Physique_2_SNV-L1.pdf/file' },
+                        { title: cleanResourceTitle('Mécanique des fluides'), url: 'https://drive.google.com/file/d/14LKEuhqAMq0hUtc_itcr75U7sx1SCuQQ/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Systèmes optiques'), url: 'https://drive.google.com/file/d/1zTg-GgpTzsu5evoUXqNjQeIfNkRFGBn_/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Optique géomètrique'), url: 'https://drive.google.com/file/d/1uTq_QIzY0wX8xa5slvcm7ZfhWN3JbV0Q/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Les incertitudes'), url: 'https://drive.google.com/file/d/1p0uhb1jFoSljwnHiSoJZuNYrGTQNJhVY/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Equation aux dimensions'), url: 'https://drive.google.com/file/d/1ipbl8FthqrSEDU-pgCgTiKuw2AkyrJ_R/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours L\'oeil (Physique 2024)'), url: 'https://drive.google.com/file/d/1raxi6wY_3woIOzjS2pqZGQLwpmoANDHM/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours Dioptres sphériques lentille (Physique 2024)'), url: 'https://drive.google.com/file/d/1_kk4FiRlt53AuAEbUXRX_-TDsxkWKnSn/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours Prisme (Physique 2024)'), url: 'https://drive.google.com/file/d/1kYJCXUPacdUnZhfJoJejouSdWczL5f0r/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours (la suite) réfraction'), url: 'https://drive.google.com/file/d/1YhCgZQEwqqhkMKccLQKqvjNyYRtvUjAn/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours réflexion'), url: 'https://drive.google.com/file/d/17kAXuZprrFqwFJYhrqHGohWh-WCrD0d7/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours Le microscope'), url: 'https://drive.google.com/file/d/1EYeSadxlwZNQ7jF1J2GhRknoq4Tx5-nO/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours La loupe'), url: 'https://drive.google.com/file/d/179p6NsT43pX_GYknIligxgLOzwOLL6h_/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours L\'oeil'), url: 'https://drive.google.com/file/d/1Lk29dGARLPZfHxTfhJegrXDmOJAvt6ZX/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours Dioptres sphériques lentille'), url: 'https://drive.google.com/file/d/1HJ7VEhB3KnP1nLOTTud9owADbkkTSlud/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours Le prisme'), url: 'https://drive.google.com/file/d/1UAYzrmf2yuZq7IN-jEwS6ZRgACMRrI-l/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours généralité'), url: 'https://drive.google.com/file/d/111IGUm_o0vSld143txBc95IRWU6XxPss/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours loupe'), url: 'https://drive.google.com/file/d/14lghg1s2l0yYs7rIpziVNa0B2LjnHYwk/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours mec-optique'), url: 'https://drive.google.com/file/d/14qAwQ_4cvP6Pv9nblN6oG7SiBxup_zCc/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours Réfraction suite'), url: 'https://drive.google.com/file/d/1C-tfPePbWDWhtk8-tP_RTee4J31ud87w/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours L\'Optique géomètriqe'), url: 'https://drive.google.com/file/d/1NHLhJPGiTfAEoP8lJZM75aSup3jG6JUF/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours Prisme'), url: 'https://drive.google.com/file/d/1ZhCwFMSGCCPXRMDFIJPPmiAG-ztoTraT/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours Microscope'), url: 'https://drive.google.com/file/d/1a6bv8_TT4_c7x-6ckPmID_ay-JKtC7Bh/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours optique geometrique'), url: 'https://drive.google.com/file/d/1d_vBK9vSs__THYvMZyYiRdXdAKnnyJg6/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours Réfraction suite'), url: 'https://drive.google.com/file/d/1eZBPnFio_cJa_Pxchvi6nRTruAVH4B6p/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours Dioptre sphérique-Lentilles'), url: 'https://drive.google.com/file/d/1iGRqP-UyEWloJ9apNljN-uRzSBetIb1o/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours OEIL'), url: 'https://drive.google.com/file/d/1jAc5MQBhl3rSuE4seIYBeee7R-x8facn/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours Réflexion-Réfraction'), url: 'https://drive.google.com/file/d/1xBOjn-wWEqjFLp79SgUVTYz06T1I0xK7/view?usp=drivesdk' }
                     ],
-                    'td': [
-                        { title: 'TD 1 avec solution', url: 'https://www.mediafire.com/file/9v7vz78mca3ufal/Solution-TD1_Physique_L1-SNV.pdf/file' },
-                        { title: 'TD 2 avec solution', url: 'https://www.mediafire.com/file/3lh7xjinlrcedvx/Solution-TD2_Physique_L1-SNV.pdf/file' },
-                        { title: 'TD 3', url: 'https://www.mediafire.com/file/m7o6ts0pekb5h7j/TD3_Physique_L1-SNV.pdf/file' },
-                        { title: 'TD 4 avec solution', url: 'https://www.mediafire.com/file/e1pixq9y08yvh7p/Solution-TD4_Physique_L1-SNV.pdf/file' },
-                        { title: 'TD 5 avec solution', url: 'https://www.mediafire.com/file/kdfrz6b3bpdem75/TD5%252BSolution_Physique_L1-SNV.pdf/file' },
-                        { title: 'TD 1 Boumerdess (solution)', url: 'https://www.mediafire.com/file/jitw2rgkn0lw6yt/Solution-TD1_Physique_Boumerdess.pdf/file' },
-                        { title: 'TD 2 Boumerdess', url: 'https://www.mediafire.com/file/1hrnjyt9koq8966/TD2_Physique_Boumerdess.pdf/file' },
-                        { title: 'TD 3 Boumerdess (solution)', url: 'https://www.mediafire.com/file/o0a7xqqoeni4l1q/Solution-TD3_Physique_Boumerdess.pdf/file' }
+                    'td': [ // TD and TP merged here
+                        { title: 'TD 1 avec solution (Ancien)', url: 'https://www.mediafire.com/file/9v7vz78mca3ufal/Solution-TD1_Physique_L1-SNV.pdf/file' },
+                        { title: 'TD 2 avec solution (Ancien)', url: 'https://www.mediafire.com/file/3lh7xjinlrcedvx/Solution-TD2_Physique_L1-SNV.pdf/file' },
+                        { title: 'TD 3 (Ancien)', url: 'https://www.mediafire.com/file/m7o6ts0pekb5h7j/TD3_Physique_L1-SNV.pdf/file' },
+                        { title: cleanResourceTitle('TP Série Corrigé Ex1-2-4-5 (Physique 2024)'), url: 'https://drive.google.com/file/d/1NQBjJWUdKgMOTBSMFgdK1OPg1m85_OBr/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('TP Corrigé EX5-6 Série (Physique 2024)'), url: 'https://drive.google.com/file/d/19N-_OgzQ9yZHc8BdTghOJSG1JQLQs7qA/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('TP série Physique SNV (Physique 2024)'), url: 'https://drive.google.com/file/d/1hC0zJJySzTRr71MDdSipsyWVZleQSsUX/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('TP sur la réfraction et diptre plan (Physique 2024)'), url: 'https://drive.google.com/file/d/1Fc7FEMSz4dW1AfwIHM1yPfCUMSxQ66fS/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('TP goniomètre (Physique 2024)'), url: 'https://drive.google.com/file/d/1cEhiRpAmit7k-jxsDjF4iXh9j_rMVgD7/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('TP SNV (Physique 2024)'), url: 'https://drive.google.com/file/d/1yMl-Qhf1on9Jj-2F-Pa_PizwTN5jBKFZ/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('TP Réflexion et miroir plan (Physique 2024)'), url: 'https://drive.google.com/file/d/10GcP5Fym1lDZHzITwHTW500U40oi_gC4/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('TP REFRACTION S1 2022_2023'), url: 'https://drive.google.com/file/d/11_rOHUPlGx8CbdZddggCx_9EoQ-hNNB1/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Compte rendu TP Physique Sous GR I4 I3'), url: 'https://drive.google.com/file/d/17qoPIQebv202SuiVsOV4BE7rr3GvIl7v/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Polycopié TP de physique SNV 2022_2023'), url: 'https://drive.google.com/file/d/17qAphXaDm9j1L5LkGLmHA3YGNBU6orD9/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Corrigé Tous Les TD Physique 2022 2023 SNV'), url: 'https://drive.google.com/file/d/1KekhOZdAiMurhCZtD_lnbM4lC6zRiGEd/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Série refraction reflexion'), url: 'https://drive.google.com/file/d/111p3N5e21YG5AhMzes9DYYWq6B8REh4r/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Série TD'), url: 'https://drive.google.com/file/d/1z_mp9tBoJ2nwejJhVGss8hLDESQOexFD/view?usp=drivesdk' }
                     ],
                     'examen': [
-                        { title: 'Examen 1', url: 'https://drive.google.com/file/d/1b76kjGUUIfOluPqL5Z-u8WNFAjHTllo3/view?usp=drive_link' },
-                        { title: 'Examen 2', url: 'https://drive.google.com/file/d/1bBM6V9l95HhFcGJYt2Pf7Ke0CVEavxku/view?usp=drive_link' },
-                        { title: 'Examen 3', url: 'https://drive.google.com/file/d/1HCNe6-kyBSUHJIRMp9suhpVFg3_p_K6o/view?usp=drive_link' },
-                        { title: 'Examen 1 avec solution', url: 'https://www.mediafire.com/file_premium/xmfy8xd125b65l5/Examen1_Physique.pdf/file' },
-                        { title: 'Examen 2 avec solution', url: 'https://www.mediafire.com/file/y2bsn34hsdg72di/Examen2_Physique.pdf/file' },
-                        { title: 'Examen 3 avec solution', url: 'https://www.mediafire.com/file/9h4l788xbw76stm/Examen3_Physique.PDF/file' },
-                        { title: 'Examen 4 avec solution', url: 'https://www.mediafire.com/file/3nzbb3f7qj2w2f5/Examen4_Physique.PDF/file' }
+                        { title: 'Examen 1 (Ancien)', url: 'https://drive.google.com/file/d/1b76kjGUUIfOluPqL5Z-u8WNFAjHTllo3/view?usp=drive_link' },
+                        { title: 'Examen 2 (Ancien)', url: 'https://drive.google.com/file/d/1bBM6V9l95HhFcGJYt2Pf7Ke0CVEavxku/view?usp=drive_link' },
+                        { title: cleanResourceTitle('Examen controle continu physique 2024_2025'), url: 'https://drive.google.com/file/d/186LoWW2C63LSRws0viVamy4ELP9DGKKe/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Sujet d\'examens'), url: 'https://drive.google.com/file/d/1ZZk_s0L2Z70hrrlbwZIdohggmAxeJvZJ/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Sujet avec solution'), url: 'https://drive.google.com/file/d/1wk_VT-0-qO06Kym-cBp2ebMTGoerFYdZ/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Examen Physique'), url: 'https://drive.google.com/file/d/1y_qnFaMpUla9M28qu6zRf4AHWpKmFLtJ/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Examen Physique'), url: 'https://drive.google.com/file/d/1qCc5n4MaPF1xwUCer0T4R8fZTtT0__wk/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Examen Physique'), url: 'https://drive.google.com/file/d/1bkcxolkznjflv-rnrCPQtCF6zP3KTXAa/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Sujet d\'examens physique'), url: 'https://drive.google.com/file/d/1GRvymJTVFGlAM5_8ny-JfBPNbbH8klle/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Examen Ratt 2016-2017'), url: 'https://drive.google.com/file/d/1um5l_5qv5zZ86BgLk4f4L8AQ7UBuOQRh/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Examen EF2016_2017'), url: 'https://drive.google.com/file/d/19-g7EifZjSNodngEUQFOBRq8udzPaacl/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Examen EF S2 2014_2015'), url: 'https://drive.google.com/file/d/114JmzI_v0wEliqzFjRMoadiPvWA_2ms4/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Examen EF S2 2012_2013'), url: 'https://drive.google.com/file/d/1hVJvcBsP5Hf3_NKkKiINgXTFnRvfBn5n/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Examen EF S1 2017_2018'), url: 'https://drive.google.com/file/d/1WcCzwZQweQeS6aCEs1_vBDof95CvZI6E/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Examen EF S1 2012_2013'), url: 'https://drive.google.com/file/d/1CIeAdoq1ZKIzAdqXVjcyAASgQX_2JlbX/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Examen EF S1 2009_2010'), url: 'https://drive.google.com/file/d/1kOvK_HA3fWibIqY8QBSrDnQRyHtPNulp/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Examen EF S1 2019_2020'), url: 'https://drive.google.com/file/d/1RTaMoLeO7EU75Mue2OBybqkA464_aGHg/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Examen Rat S1 2020'), url: 'https://drive.google.com/file/d/1qln_xQFt33k0Br87NVRVQH-g2JGZ0lrE/view?usp=drivesdk' }
                     ],
                     'cours conseiller': [
-                        { title: 'Série TD recommandée', url: 'https://www.mediafire.com/file/l1wvy90s2l73q6v/TD1-2-3-4-5-6_Physique.pdf/file' },
-                        { title: 'Cours 1 SNV', url: 'https://www.mediafire.com/file/59qnw11aa7uh81h/Cours1_Physique_2_SNV-L1.pdf/file' },
-                        { title: 'Cours 2 SNV', url: 'https://www.mediafire.com/file/oggpwvj802naxxj/Cours2_Physique_2_SNV-L1.pdf/file' },
-                        { title: 'Résumé complet 1', url: 'https://www.mediafire.com/file_premium/jd55xzeps9jxsnv/R%25C3%25A9sum%25C3%25A91_Physique.pdf/file' },
-                        { title: 'Résumé complet 2', url: 'https://www.mediafire.com/file_premium/prjsgtuspp7oy8e/R%25C3%25A9sum%25C3%25A92_Physique.pdf/file' }
+                        { title: 'Série TD recommandée (Ancien)', url: 'https://www.mediafire.com/file/l1wvy90s2l73q6v/TD1-2-3-4-5-6_Physique.pdf/file' },
+                        { title: 'Résumé complet 1 (Ancien)', url: 'https://www.mediafire.com/file_premium/jd55xzeps9jxsnv/R%25C3%25A9sum%25C3%25A91_Physique.pdf/file' },
+                        { title: 'Résumé complet 2 (Ancien)', url: 'https://www.mediafire.com/file_premium/prjsgtuspp7oy8e/R%25C3%25A9sum%25C3%25A92_Physique.pdf/file' }
                     ]
                 }
             },
@@ -1197,36 +1483,94 @@
                 'bejaia': { 'cours': [], 'td': [], 'examen': [] },
                 'autres': {
                     'cours': [
-                        { title: 'Résumé', url: 'https://drive.google.com/file/d/13wUIxhe4jLzOCb4vIBx2oJCPSfDE45OQ/view?usp=drive_link' },
-                        { title: 'Résumé + Astuces', url: 'https://drive.google.com/file/d/1eionfnc1ZPpb-MmGSwmSrgwN01Zc2yOD/view?usp=drive_link' },
-                        { title: 'Cours complet', url: 'https://drive.google.com/file/d/1fEVrL40lAGTQWKTWSETh5elF0E5Ttl6E/view?usp=drive_link' },
-                        { title: 'Cours 1', url: 'https://drive.google.com/file/d/1K6oKcO5auDDoYAwV747jSnymPunTbe_o/view?usp=drive_link' },
-                        { title: 'Cours 2', url: 'https://drive.google.com/file/d/1KAgrfEPuXwdVSsl0JdFJTWeUuYXT_BPf/view?usp=drive_link' },
-                        { title: 'Cours 3', url: 'https://drive.google.com/file/d/1KATpBwgI5OYqBvVwp2BqI2HfWQWReZGL/view?usp=drive_link' },
-                        { title: 'Cours 4', url: 'https://drive.google.com/file/d/1KBvMcijw2HvX22Byns4QTApz2JGOgcp3/view?usp=drive_link' }
+                        { title: 'Résumé (Ancien)', url: 'https://drive.google.com/file/d/13wUIxhe4jLzOCb4vIBx2oJCPSfDE45OQ/view?usp=drive_link' },
+                        { title: cleanResourceTitle('Résumé général (Chimie 2024)'), url: 'https://drive.google.com/file/d/17-6VXwUCUTdTWCy9Jmy9BPIuno5cFgX8/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Résumé général (Chimie 2024)'), url: 'https://drive.google.com/file/d/1lK1IQW_pCgccL_UscmqcUZ4iLBHO3Fye/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours équilibre chimique (Chimie 2024)'), url: 'https://drive.google.com/file/d/1V4nYSRa0ctlL3m0aHmez7FpGWXpRULtn/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours Thermochimie (Chimie 2024)'), url: 'https://drive.google.com/file/d/11qRMtMUQ9tnCoJkJf0Vbx5t_j-_-LUnR/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours Thermochimie (Chimie 2024)'), url: 'https://drive.google.com/file/d/1Ya98LNBNVbVLjqX2yDf2x11DKCMniJlh/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours Acide Base (Chimie 2024)'), url: 'https://drive.google.com/file/d/1RYp_oj9fCP9f8C7fZU9E-lnCSuRQzvpK/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours Acide Base (Chimie 2024)'), url: 'https://drive.google.com/file/d/1gRBc2X8tk0XbUJY7yXdlB2bAcqsDaRid/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours cinétique (Chimie 2024)'), url: 'https://drive.google.com/file/d/1V1Hf-iBlQbSPu_4F-gWzZMe8SIa7UF4c/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours les équilibres chimiques (English)'), url: 'https://drive.google.com/file/d/1PtHJ9XnHj4UfkotoAy4VDm3NwnvoJ173/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours thermo (English)'), url: 'https://drive.google.com/file/d/10Ds-1lOERUSYv0EHwjC8_G70iun6xb55/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours chemical kinetic in S2 (English)'), url: 'https://drive.google.com/file/d/1dzBGKjaoDMLWyIXgP2YfMPdRdxKNo5gg/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours SNV Y. Hammiche-Bellal'), url: 'https://drive.google.com/file/d/1QMFz08e1ot0Gq6xIzFgSDjK2RCCEAlfy/view?usp=drivesdk' }
                     ],
-                    'td': [
-                        { title: 'TP Chimie', url: 'https://drive.google.com/drive/folders/18dW4froJEygkH3nW2PLMwn3wPOiQiPi7?usp=drive_link' },
-                        { title: 'TD Chimie', url: 'https://drive.google.com/drive/folders/1KERK9vQlDkDKBsvJ_t6OrA6btRQIotP4?usp=drive_link' }
+                    'td': [ // TD and TP merged here
+                        { title: 'TP Chimie (Ancien)', url: 'https://drive.google.com/drive/folders/18dW4froJEygkH3nW2PLMwn3wPOiQiPi7?usp=drive_link' },
+                        { title: 'TD Chimie (Ancien)', url: 'https://drive.google.com/drive/folders/1KERK9vQlDkDKBsvJ_t6OrA6btRQIotP4?usp=drive_link' },
+                        { title: cleanResourceTitle('Corrigé EXO (Chimie 2024)'), url: 'https://drive.google.com/file/d/1NStGzo8T0E9QavF7OGjxLMb_Q4qeZvAX/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('TP Série - Equilibres Chimiques (TD 2024)'), url: 'https://drive.google.com/file/d/1IDWanreGzuqJFZDtJuLdngOqYWuGFaLZ/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('TP Série td chimie (TD 2024)'), url: 'https://drive.google.com/file/d/12mnrrqbJsEyZa01kAIAI6mm6BFspXtTN/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('TP série td chimie (TD 2024)'), url: 'https://drive.google.com/file/d/11NIUqvLlu4LIzVvYzwISIlCW9jJuEqDF/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('TP série td chimie (TD 2024)'), url: 'https://drive.google.com/file/d/11LKZFwqD53PMk00Cfnu--qzb9eh3urdF/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Corrigé de TD (TD 2024 Solutions)'), url: 'https://drive.google.com/file/d/1yX1_wZGpXuuC96KTs9ZdqdixCPs-yJnq/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Corrigé de TD (TD 2024 Solutions)'), url: 'https://drive.google.com/file/d/1uKKLS2THUmV_0Jd7SBXS5SuhiFfRIki8/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Corrigé de TD (TD 2024 Solutions)'), url: 'https://drive.google.com/file/d/1Fs3W2AapcICDgPRB48bNYntHK030hggb/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Polycopié TP de Chimie SNV-S2 (TP 2024)'), url: 'https://drive.google.com/file/d/1Lons4h0jm6_pN3z01ifkFieaBbfIJeBf/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('AFFECTATION TP SNV S2 (TP 2024)'), url: 'https://drive.google.com/file/d/1Ln7QzYahWio7q5cSiCE1iQf99QXvSFbV/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Corrigé TD2021'), url: 'https://drive.google.com/file/d/1DIPm5jUClU94pESZI88m6Njrj1he1bez/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Corrigé TD4'), url: 'https://drive.google.com/file/d/12kJjgyIHrl8wncEyrqCmJ84k5pD4ahGm/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Corrigé TD 1'), url: 'https://drive.google.com/file/d/1nr40nkAc3PIWnFzD5MuQSB8Xphip2uNz/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Corrigé TD 2'), url: 'https://drive.google.com/file/d/1Ji-nNjUOrhozrrBXxKS9kw4KooHoVCQD/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Corrigé TD 3'), url: 'https://drive.google.com/file/d/1jFdGx2hY7HJn8Bc697slzGMBKHOXsfVM/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('TP'), url: 'https://drive.google.com/file/d/1J-qRDNLo_UwA7uAoj0b2Nl0T80VawBB0/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('TP'), url: 'https://drive.google.com/file/d/1WzBmlZQIv_7BhBWSOQP2ptTvSx_iwQrv/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('TP'), url: 'https://drive.google.com/file/d/16zfomG9DF6ZbFaUWgDeE16MqLz9qlrzM/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Polycopié TP de Chimie SNV-S2'), url: 'https://drive.google.com/file/d/1GiMaqZLTEQprFpBFqSEFLAbzsagIMocB/view?usp=drivesdk' }
                     ],
-                    'examen': []
+                    'examen': [
+                        { title: cleanResourceTitle('Examen Corrigé Final Chimie 2022_20023'), url: 'https://drive.google.com/file/d/1m5yPH9lK1akrqWF86YA6GmO6jo1s5Eos/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Examen Corrigé Final Chimie S2 2023 (Chimie 2024)'), url: 'https://drive.google.com/file/d/1NR-AFW8fQqRR-5GO7U9PVytPqW3i9R1R/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Examen Corrigé Final Chimie 2022_20023'), url: 'https://drive.google.com/file/d/13e3HjHMlOoy-8zyNA4s_XkJcGXtblu2R/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Sujet 2021 avec la solution'), url: 'https://drive.google.com/file/d/127oygCHIYEopOS7-gMEibdl-t-wybe-j/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Sujet 2021 avec la solution'), url: 'https://drive.google.com/file/d/12GDPX9WBxHf5RlEpYJLT7I_d4UXI8tkr/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Sujets de révisions chimie'), url: 'https://drive.google.com/file/d/1294fLV2TB4LR8Ki28te9hwC0NwSTcmkV/view?usp=drivesdk' }
+                    ]
                 }
             },
             'MTT 2': {
                 'bejaia': { 'cours': [], 'td': [], 'examen': [] },
                 'autres': {
                     'cours': [
-                        { title: 'Chapitre 1', url: 'https://drive.google.com/file/d/1JMEN2q_ZnYff0T_TVDzQerxITTq8IwL2/view?usp=drive_link' },
-                        { title: 'Chapitre 2', url: 'https://drive.google.com/file/d/1JOvlmj12utOpAnx0SlZLkkXuOK9nORQu/view?usp=drive_link' },
-                        { title: 'Chapitre 3', url: 'https://drive.google.com/file/d/1JWPCAot9IlHpab8K88zEDEQWaHpcOwA-/view?usp=drive_link' },
-                        { title: 'Chapitre 4', url: 'https://drive.google.com/file/d/1JZC7L1_fuUk3BgBf6TXKznblMQ3ynuVQ/view?usp=drive_link' }
+                        { title: 'Chapitre 1 (Ancien)', url: 'https://drive.google.com/file/d/1JMEN2q_ZnYff0T_TVDzQerxITTq8IwL2/view?usp=drive_link' },
+                        { title: cleanResourceTitle('Guide actualisé- Inscription à la bibliothèque Iqraa via BU USTHB'), url: 'https://drive.google.com/file/d/1PqzkaFaZY64wa7Ic9_74xwo3fbRVf-2d/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours MTT2'), url: 'https://drive.google.com/file/d/1ai8ArqFTFSSdCJdWynMMtzRzXDvrq-2-/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours MTT2'), url: 'https://drive.google.com/file/d/1C1c61k4MAcgSm8Klh-mHpHBllYVvLmid/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours MTT2'), url: 'https://drive.google.com/file/d/19xJyqFIwjeSv1oATnOp2pYCyOMDNDaBZ/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours MTT2'), url: 'https://drive.google.com/file/d/1w16cLIZJsRD4jjwMYv0tHOnMh8lh0YAV/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours MTT2'), url: 'https://drive.google.com/file/d/1g73rhp7VvqSGPjWhtREE669P2i1OoyzF/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours MTT2'), url: 'https://drive.google.com/file/d/1HPdRFl_0RibMANZweWTpOE3o9SCo8rZJ/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Polycopié de MTT2 Complet'), url: 'https://drive.google.com/file/d/18N5OHOxx1SMkpL-3_Ccyqh0Lf_DXo6y_/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Exemple d\'exposé'), url: 'https://drive.google.com/file/d/1GA0Q4KhN9xmrTtSqy1gWs1eOogXxmC2m/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Cours MTT2 au complet'), url: 'https://drive.google.com/file/d/1gE6el02EK8665EjegDumk2Ze82REvpjy/view?usp=drivesdk' }
                     ],
-                    'td': [], 'examen': []
+                    'td': [], 
+                    'examen': [
+                        { title: cleanResourceTitle('Examen MTT2 RATTR 2023 24'), url: 'https://drive.google.com/file/d/1W-ZwI73FYD8augXVR07n2vpQOqWhzHer/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Model answers and final exam scale (Corrigé 2024)'), url: 'https://drive.google.com/file/d/1-j-G77i-s1TkPWJDQtx4LXckBstpAUlO/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Corrigé type-Barème EX final MTT2-23-24'), url: 'https://drive.google.com/file/d/1uNLTrK4b23TqJfWUswPDy8UiMsBr4vD1/view?usp=drivesdk' }
+                    ]
                 }
             },
             'TCE2': {
                 'bejaia': { 'cours': [], 'td': [], 'examen': [] },
-                'autres': { 'cours': [], 'td': [], 'examen': [] }
+                'autres': { 
+                    'cours': [
+                        { title: cleanResourceTitle('Cours TCE SNV'), url: 'https://drive.google.com/file/d/1HcXxB8QxfmLToFLoL9oMyWc7_nYqAXHY/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('Le CV'), url: 'https://docs.google.com/document/d/1oXK4pBaZamGVkTiTDN4KTJkce31plO_T/edit?usp=drivesdk&ouid=114996133160688114099&rtpof=true&sd=true' }
+                    ], 
+                    'td': [
+                        { title: cleanResourceTitle('TP Structure et articulations d\'un texte et Exposé oral'), url: 'https://drive.google.com/file/d/174O0rObwKihAXw5jD_X7OoNPV8HYYCMT/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('TP Formation et Sens des mots'), url: 'https://drive.google.com/file/d/19v4uETX9OVRCZdd52zriKTVB4zfWaUfC/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('TP Lettre administrative'), url: 'https://drive.google.com/file/d/1MRzz11bIDAd2fSBG2yjAeqg5LypI2MmO/view?usp=drivesdk' },
+                        { title: cleanResourceTitle('TP Le CV'), url: 'https://drive.google.com/file/d/1eJ-NkLD175wgOt5mpWYzskswHaS2fNz9/view?usp=drivesdk' }
+                    ], 
+                    'examen': [
+                         { title: cleanResourceTitle('Scans d\'Examens et Résumés', {source: 'TCE S2'}), url: 'https://drive.google.com/drive/folders/1pnVVUWE10RLVRkq1-T3CTssIWgnAIcQD' }
+                    ] 
+                }
             }
         };
 
@@ -1244,13 +1588,13 @@
             
             if (!popup || !popupTitle || !popupContentContainer) { return; }
             
-            popupTitle.textContent = `${moduleName} - ${capitalizeFirstLetter(type)}`;
+            popupTitle.textContent = `${moduleName} - ${capitalizeFirstLetter(type === 'td' ? 'TD/TP' : type)}`;
             popupContentContainer.innerHTML = ""; 
             
             const moduleData = moduleContent[moduleName];
             let contentAdded = false;
             
-            const createSection = (title, items, sectionTypeClass, itemType, isRecommended = false) => {
+            const createSection = (title, items, sectionTypeClass, itemTypeForIcon, isRecommended = false) => {
                 if (items && items.length > 0) {
                     const sectionDiv = document.createElement('div');
                     sectionDiv.className = 'university-section mb-6';
@@ -1261,7 +1605,11 @@
                     const gridDiv = document.createElement('div');
                     gridDiv.className = 'content-grid p-4';
                     items.forEach(item => {
-                        gridDiv.appendChild(createContentItem(item, itemType, isRecommended));
+                        let currentItemType = itemTypeForIcon;
+                        if (itemTypeForIcon === 'td' && item.title && (item.title.toLowerCase().includes('tp ') || item.title.toLowerCase().startsWith('tp'))) {
+                            currentItemType = 'tp';
+                        }
+                         gridDiv.appendChild(createContentItem(item, currentItemType, isRecommended));
                     });
                     sectionDiv.appendChild(gridDiv);
                     popupContentContainer.appendChild(sectionDiv);
@@ -1276,9 +1624,28 @@
             if (type === 'td' && moduleData.bejaia && moduleData.bejaia['tp'] && moduleData.bejaia['tp'].length > 0) {
                  if(createSection('Université de Béjaia - TP', moduleData.bejaia['tp'], 'bejaia', 'tp')) contentAdded = true;
             }
-            if (moduleData.autres && moduleData.autres[type] && moduleData.autres[type].length > 0) {
-                if(createSection('Autres Universités', moduleData.autres[type], 'autres', type)) contentAdded = true;
+            
+            // For 'autres' category, if type is 'td', we show 'td' items first, then 'tp' items if they exist under 'autres'.
+            // The merging of TD/TP happens here for 'autres'.
+            let autresItems = [];
+            if (moduleData.autres && moduleData.autres[type]) {
+                autresItems = autresItems.concat(moduleData.autres[type]);
             }
+            if (type === 'td' && moduleData.autres && moduleData.autres['tp']) { // If main type is TD, also pull TP items
+                // To avoid duplicates if some TPs were already in the 'td' array with 'TP' in title
+                const tpUrls = new Set(autresItems.map(i => i.url));
+                moduleData.autres['tp'].forEach(tpItem => {
+                    if (!tpUrls.has(tpItem.url)) {
+                        autresItems.push(tpItem);
+                    }
+                });
+            }
+            
+            if (autresItems.length > 0) {
+                 if(createSection('Autres Universités', autresItems, 'autres', type)) contentAdded = true;
+            }
+
+
             if (type === 'cours' && moduleData.autres && moduleData.autres["cours conseiller"] && moduleData.autres["cours conseiller"].length > 0) {
                 if(createSection('Cours Conseillés', moduleData.autres["cours conseiller"], 'recommande', 'cours', true)) contentAdded = true;
             }
@@ -1303,30 +1670,39 @@
             return 'fa-folder';
         }
 
-        function createContentItem(item, type, isRecommended) {
+        function createContentItem(item, effectiveType, isRecommended) {
             const itemDiv = document.createElement('a');
             itemDiv.href = item.url;
             itemDiv.target = "_blank";
             itemDiv.className = 'content-item group';
-            const iconClass = getIconByType(type);
+            
+            // Determine icon type: if effectiveType is 'td' but title suggests TP, use 'tp' icon.
+            let iconDisplayType = effectiveType;
+            if (effectiveType === 'td' && item.title && (item.title.toLowerCase().includes('tp ') || item.title.toLowerCase().startsWith('tp '))) {
+                iconDisplayType = 'tp';
+            }
+
+            const iconClass = getIconByType(iconDisplayType);
             let iconColorClass = 'text-green-600 dark:text-green-400'; 
             let iconBgClass = 'bg-green-100 dark:bg-green-900/50';
 
-            if (type === 'cours') { iconColorClass = 'text-blue-600 dark:text-blue-400'; iconBgClass = 'bg-blue-100 dark:bg-blue-900/50'; }
-            else if (type === 'examen') { iconColorClass = 'text-purple-600 dark:text-purple-400'; iconBgClass = 'bg-purple-100 dark:bg-purple-900/50'; }
-            else if (type === 'tp') { iconColorClass = 'text-orange-600 dark:text-orange-400'; iconBgClass = 'bg-orange-100 dark:bg-orange-900/50'; }
+            if (iconDisplayType === 'cours') { iconColorClass = 'text-blue-600 dark:text-blue-400'; iconBgClass = 'bg-blue-100 dark:bg-blue-900/50'; }
+            else if (iconDisplayType === 'examen') { iconColorClass = 'text-purple-600 dark:text-purple-400'; iconBgClass = 'bg-purple-100 dark:bg-purple-900/50'; }
+            else if (iconDisplayType === 'tp') { iconColorClass = 'text-orange-600 dark:text-orange-400'; iconBgClass = 'bg-orange-100 dark:bg-orange-900/50'; }
+            // TD keeps default green
+            
             if (isRecommended) { iconColorClass = 'text-yellow-500 dark:text-yellow-400'; iconBgClass = 'bg-yellow-100 dark:bg-yellow-900/50'; }
             
             itemDiv.innerHTML = `
-                <div class="flex items-center flex-grow">
-                    <div class="icon-wrapper ${iconBgClass} ${iconColorClass}">
+                <div class="flex items-center flex-grow overflow-hidden">
+                    <div class="icon-wrapper ${iconBgClass} ${iconColorClass} flex-shrink-0">
                         <i class="fas ${iconClass} text-xl"></i>
                     </div>
-                    <div class="text-content">
-                        <h4 class="font-medium text-gray-800 dark:text-gray-200 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">${item.title}</h4>
+                    <div class="text-content flex-grow overflow-hidden">
+                        <h4 class="font-medium text-gray-800 dark:text-gray-200 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors truncate" title="${item.title}">${item.title}</h4>
                     </div>
                 </div>
-                <span class="download-btn ml-2"><i class="fas fa-external-link-alt"></i><span class="hidden-mobile">Ouvrir</span></span>`;
+                <span class="download-btn ml-2 flex-shrink-0"><i class="fas fa-external-link-alt"></i><span class="hidden-mobile">Ouvrir</span></span>`;
             return itemDiv;
         }
 
@@ -1341,7 +1717,7 @@
             const popupTitle = document.getElementById(`popup-title-${type}`);
             const popupContentContainer = document.getElementById(`popup-content-${type}`);
             if (!popup || !popupTitle || !popupContentContainer) return;
-            popupTitle.textContent = `${moduleMapping[moduleShortName] || moduleShortName} - ${capitalizeFirstLetter(type)}`;
+            popupTitle.textContent = `${moduleMapping[moduleShortName] || moduleShortName} - ${capitalizeFirstLetter(type === 'td' ? 'TD/TP' : type)}`;
             popupContentContainer.innerHTML = `
                 <div class="text-center p-8">
                     <i class="fas fa-folder-open text-5xl text-gray-400 dark:text-gray-500 mb-4"></i>
@@ -1356,6 +1732,6 @@
             return string.charAt(0).toUpperCase() + string.slice(1);
         }
     </script>
-    <!-- <script type="module" src="./js/features-integration.js"></script> --> <!-- Assuming this is not critical for basic functionality -->
+    <!-- <script type="module" src="./js/features-integration.js"></script> --> 
 </body>
 </html>
