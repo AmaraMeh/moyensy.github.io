@@ -165,6 +165,15 @@
                     <div class="stats-label">Visites aujourd'hui</div>
                 </div>
 
+                <div class="stats-card" data-aos="fade-up" data-aos-delay="350">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-xl font-semibold">Bibliothèque</h3>
+                        <i class="fas fa-book text-2xl text-primary"></i>
+                    </div>
+                    <div class="stats-value" id="bibliothequeVisits">0</div>
+                    <div class="stats-label">Visites aujourd'hui</div>
+                </div>
+
                 <div class="stats-card" data-aos="fade-up" data-aos-delay="400">
                     <div class="flex items-center justify-between">
                         <h3 class="text-xl font-semibold">Science et Technologie S2</h3>
@@ -259,6 +268,7 @@
             statsRef.child('modules').on('value', (snapshot) => {
                 const modules = snapshot.val() || {};
                 document.getElementById('bibCalculatorVisits').textContent = modules.bibCalculator || 0;
+                document.getElementById('bibliothequeVisits').textContent = modules.bibliotheque || 0;
                 document.getElementById('scienceTechVisits').textContent = modules.scienceTech || 0;
                 document.getElementById('informatiqueVisits').textContent = modules.informatique || 0;
                 document.getElementById('biologieVisits').textContent = modules.biologie || 0;
