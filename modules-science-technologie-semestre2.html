@@ -4,6 +4,59 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Science et Technologie LMD - Semestre 2 - ISET'COM</title>
+    <!-- Add Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, doc, getDoc, setDoc, increment } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyB5XYqWKhHdiVDXJx4iOwtpxD8eUCPRfKU",
+            authDomain: "universite-de-bejaia-547fc.firebaseapp.com",
+            projectId: "universite-de-bejaia-547fc",
+            storageBucket: "universite-de-bejaia-547fc.appspot.com",
+            messagingSenderId: "517622731583",
+            appId: "1:517622731583:web:25453d5e01226585bf798a",
+            measurementId: "G-SQ0WWSCS7B"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Function to update download count
+        window.updateDownloadCount = async function() {
+            const counterRef = doc(db, 'counters', 'downloads');
+            const counterDoc = await getDoc(counterRef);
+            
+            if (!counterDoc.exists()) {
+                // Initialize counter if it doesn't exist
+                await setDoc(counterRef, { count: 0 });
+            }
+            
+            // Increment the counter
+            await setDoc(counterRef, { count: increment(1) }, { merge: true });
+        };
+
+        // Listen for changes in download count
+        const counterRef = doc(db, 'counters', 'downloads');
+        const updateCounter = async () => {
+            const counterDoc = await getDoc(counterRef);
+            const count = counterDoc.exists() ? counterDoc.data().count : 0;
+            const counter = document.getElementById('downloadCount');
+            counter.textContent = count;
+            
+            // Add animation effect
+            counter.classList.add('animate-bounce');
+            setTimeout(() => counter.classList.remove('animate-bounce'), 1000);
+        };
+
+        // Initial update
+        updateCounter();
+
+        // Set up real-time listener
+        setInterval(updateCounter, 2000); // Update every 2 seconds
+    </script>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -763,11 +816,16 @@
 
     <div class="container mx-auto px-4 flex-grow">
         <header class="mb-12 mt-8" data-aos="fade-down">
-            <div class="header-container">
+            <div class="header-container flex justify-between items-center">
                 <a href="bib.html" class="back-button hover:scale-110 transform transition-all duration-300">
                     <i class="fas fa-arrow-left"></i>
                     Retour
                 </a>
+                <div class="download-counter bg-gradient-to-r from-blue-500 to-purple-600 text-white px-4 py-2 rounded-full shadow-lg flex items-center gap-2 transform hover:scale-105 transition-all duration-300">
+                    <i class="fas fa-download"></i>
+                    <span class="counter-label">Total téléchargements aujourd'hui:</span>
+                    <span id="downloadCount" class="font-bold text-xl">0</span>
+                </div>
             </div>
         </header>
 
@@ -1086,6 +1144,40 @@
                 AOS.refresh();
             }, 1000);
         }
+
+        // Initialize Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyDxXxXxXxXxXxXxXxXxXxXxXxXxXxXxXx",
+            authDomain: "your-project.firebaseapp.com",
+            databaseURL: "https://your-project.firebaseio.com",
+            projectId: "your-project",
+            storageBucket: "your-project.appspot.com",
+            messagingSenderId: "your-messaging-sender-id",
+            appId: "your-app-id"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        // Function to update download count
+        function updateDownloadCount() {
+            const downloadsRef = database.ref('downloads');
+            downloadsRef.transaction((currentCount) => {
+                return (currentCount || 0) + 1;
+            });
+        }
+
+        // Listen for changes in download count
+        database.ref('downloads').on('value', (snapshot) => {
+            const count = snapshot.val() || 0;
+            const counter = document.getElementById('downloadCount');
+            counter.textContent = count;
+            
+            // Add animation effect
+            counter.classList.add('animate-bounce');
+            setTimeout(() => counter.classList.remove('animate-bounce'), 1000);
+        });
 
         function getBejaiaContent(module, type) {
             const content = {
@@ -1775,7 +1867,7 @@
 
             // Add Blida University section
             const blidaContentHTML = getBlidaContent(module, type);
-             if (blidaContentHTML && blidaContentHTML.trim() !== '' && blidaContentHTML !== '<p class="text-gray-500 italic">Contenu à venir...</p>') {
+            if (blidaContentHTML && blidaContentHTML.trim() !== '' && blidaContentHTML !== '<p class="text-gray-500 italic">Contenu à venir...</p>') {
                 const blidaSection = document.createElement('div');
                 blidaSection.className = 'university-section mb-6 transform transition-all duration-300 hover:translate-x-1 border-l-4 border-orange-600 bg-white rounded-lg shadow-sm';
                 
@@ -1807,6 +1899,29 @@
                     </div>
                 `;
             }
+
+            // Add click event listeners to all download links in the popup
+            const downloadLinks = popupContent.querySelectorAll('a[href]');
+            downloadLinks.forEach(link => {
+                link.addEventListener('click', async (e) => {
+                    // Don't increment for back button or non-download links
+                    if (!link.classList.contains('back-button')) {
+                        await window.updateDownloadCount();
+                    }
+                });
+            });
+
+            // Add click event listeners to all resource links in the popup
+            const resourceLinks = popupContent.querySelectorAll('a[href]');
+            resourceLinks.forEach(link => {
+                link.addEventListener('click', async (e) => {
+                    // Only increment for actual resource links (not back button or navigation)
+                    if (!link.classList.contains('back-button') && 
+                        !link.getAttribute('href').startsWith('#')) {
+                        await window.updateDownloadCount();
+                    }
+                });
+            });
         }
 
         function getIconByType(type) {
@@ -1852,6 +1967,13 @@
                 document.body.classList.add('dark');
                 document.querySelector('.theme-toggle i').classList.replace('fa-moon', 'fa-sun');
             }
+
+            // Add click event listeners to all download links
+            document.addEventListener('click', function(e) {
+                if (e.target.closest('a[href]') && !e.target.closest('a[href]').classList.contains('back-button')) {
+                    handleDownloadClick();
+                }
+            });
 
             // Close when clicking outside the content
             const popups = document.querySelectorAll('.popup');
