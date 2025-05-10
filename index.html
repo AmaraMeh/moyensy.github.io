@@ -319,21 +319,29 @@
         <!-- Tools Section -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             <!-- Calculator Card -->
-            <a href="calculator.html" class="service-card group" data-aos="fade-right">
+            <a href="calculator.html" class="service-card group" data-aos="fade-right" id="calculator-card">
                 <div class="service-icon group-hover:scale-110 transition-transform duration-300">
                     <i class="fas fa-calculator text-5xl"></i>
                 </div>
                 <h3 class="text-2xl font-semibold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-500">Calculatrice</h3>
                 <p class="text-muted-foreground">Calculez votre moyenne et planifiez votre parcours académique</p>
+                <div class="mt-4 flex justify-center items-center gap-2">
+                    <i class="fas fa-eye text-blue-500"></i>
+                    <span id="calculatorVisitCount" class="font-bold text-lg">0</span>
+                </div>
             </a>
 
             <!-- Bibliothèque Card -->
-            <a href="bib.html" class="service-card group" data-aos="fade-left">
+            <a href="bib.html" class="service-card group" data-aos="fade-left" id="bib-card">
                 <div class="service-icon group-hover:scale-110 transition-transform duration-300">
                     <i class="fas fa-book text-5xl"></i>
                 </div>
                 <h3 class="text-2xl font-semibold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-500">Bibliothèque</h3>
                 <p class="text-muted-foreground">Accédez aux ressources et documents de cours</p>
+                <div class="mt-4 flex justify-center items-center gap-2">
+                    <i class="fas fa-eye text-blue-500"></i>
+                    <span id="bibVisitCount" class="font-bold text-lg">0</span>
+                </div>
             </a>
         </div>
     </main>
@@ -439,8 +447,10 @@
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
 
-    <script>
-        // Firebase Configuration
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, doc, getDoc, setDoc, increment } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
         const firebaseConfig = {
             apiKey: "AIzaSyB5XYqWKhHdiVDXJx4iOwtpxD8eUCPRfKU",
             authDomain: "universite-de-bejaia-547fc.firebaseapp.com",
@@ -448,79 +458,67 @@
             storageBucket: "universite-de-bejaia-547fc.appspot.com",
             messagingSenderId: "517622731583",
             appId: "1:517622731583:web:25453d5e01226585bf798a",
-            measurementId: "G-SQ0WWSCS7B",
-            databaseURL: "https://universite-de-bejaia-547fc-default-rtdb.firebaseio.com"
+            measurementId: "G-SQ0WWSCS7B"
         };
 
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        const database = firebase.database();
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
 
-        // Function to update visit counts
-        function updateVisitCounts() {
-            const statsRef = database.ref('stats');
-            const today = new Date().toISOString().split('T')[0];
-            
-            // Update total visits
-            statsRef.child('total').transaction((current) => {
-                return (current || 0) + 1;
-            });
-
-            // Update daily visits
-            statsRef.child('daily').transaction((current) => {
-                return (current || 0) + 1;
-            });
-
-            // Update live users
-            const userRef = statsRef.child('live');
-            userRef.transaction((current) => {
-                return (current || 0) + 1;
-            });
-
-            // Remove user when they leave
-            window.addEventListener('beforeunload', () => {
-                userRef.transaction((current) => {
-                    return Math.max(0, (current || 0) - 1);
-                });
-            });
+        // Animate the counter locally by +1, +2, +3
+        function animateCounter(counterId) {
+            const counter = document.getElementById(counterId);
+            if (!counter) return;
+            let current = parseInt(counter.textContent, 10) || 0;
+            let i = 1;
+            function step() {
+                if (i <= 3) {
+                    counter.textContent = current + i;
+                    counter.classList.add('animate-bounce');
+                    setTimeout(() => {
+                        counter.classList.remove('animate-bounce');
+                        i++;
+                        step();
+                    }, 120);
+                }
+            }
+            step();
         }
 
-        // Function to track module visits
-        function trackModuleVisit(moduleName) {
-            const modulesRef = database.ref('stats/modules');
-            modulesRef.child(moduleName).transaction((current) => {
-                return (current || 0) + 1;
-            });
+        // Update Firestore counter by +3
+        async function updateVisitCounterFirestore(counterName) {
+            const counterRef = doc(db, 'counters', counterName);
+            const counterDoc = await getDoc(counterRef);
+            if (!counterDoc.exists()) {
+                await setDoc(counterRef, { count: 0 });
+            }
+            await setDoc(counterRef, { count: increment(3) }, { merge: true });
         }
 
-        // Track initial page visit
-        updateVisitCounts();
-
-        // Add click event listeners to module links
-        document.addEventListener('DOMContentLoaded', () => {
-            // Track BIB Calculator visits
-            const bibCalculatorLink = document.querySelector('a[href*="bib-calculator"]');
-            if (bibCalculatorLink) {
-                bibCalculatorLink.addEventListener('click', () => trackModuleVisit('bibCalculator'));
+        // Listen for changes in visit count
+        async function setupRealtimeCounter(counterName, counterId) {
+            const counterRef = doc(db, 'counters', counterName);
+            async function updateCounter() {
+                const counterDoc = await getDoc(counterRef);
+                const count = counterDoc.exists() ? counterDoc.data().count : 0;
+                const counter = document.getElementById(counterId);
+                if (counter) counter.textContent = count;
             }
+            updateCounter();
+            setInterval(updateCounter, 2000);
+        }
 
-            // Track Science et Technologie S2 visits
-            const scienceTechLink = document.querySelector('a[href*="science-technologie-s2"]');
-            if (scienceTechLink) {
-                scienceTechLink.addEventListener('click', () => trackModuleVisit('scienceTech'));
-            }
+        // Setup real-time listeners
+        setupRealtimeCounter('calculator_visits', 'calculatorVisitCount');
+        setupRealtimeCounter('bib_visits', 'bibVisitCount');
 
-            // Track Informatique S2 visits
-            const informatiqueLink = document.querySelector('a[href*="informatique-s2"]');
-            if (informatiqueLink) {
-                informatiqueLink.addEventListener('click', () => trackModuleVisit('informatique'));
-            }
-
-            // Track Biologie S2 visits
-            const biologieLink = document.querySelector('a[href*="biologie-s2"]');
-            if (biologieLink) {
-                biologieLink.addEventListener('click', () => trackModuleVisit('biologie'));
-            }
+        // Add click event listeners to increment and animate
+        document.getElementById('calculator-card').addEventListener('click', async () => {
+            animateCounter('calculatorVisitCount');
+            await updateVisitCounterFirestore('calculator_visits');
+        });
+        document.getElementById('bib-card').addEventListener('click', async () => {
+            animateCounter('bibVisitCount');
+            await updateVisitCounterFirestore('bib_visits');
         });
     </script>
 </body>
