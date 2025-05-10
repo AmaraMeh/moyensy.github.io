@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Statistiques - E-Campus Platform</title>
+    <meta name="description" content="Statistiques de visite du portail étudiant non officiel pour l'Université de Bejaia">
+    <meta name="author" content="Amara Mehdi">
+    <link rel="icon" type="image/png" href="assets/img/icon.png">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        /* Reusing the same styles from index.html */
+        :root {
+            --background: 0 0% 100%;
+            --foreground: 222.2 84% 4.9%;
+            --card: 0 0% 100%;
+            --card-foreground: 222.2 84% 4.9%;
+            --primary: 221.2 83.2% 53.3%;
+            --primary-foreground: 210 40% 98%;
+            --secondary: 210 40% 96.1%;
+            --secondary-foreground: 222.2 47.4% 11.2%;
+            --muted: 210 40% 96.1%;
+            --muted-foreground: 215.4 16.3% 46.9%;
+            --accent: 210 40% 96.1%;
+            --accent-foreground: 222.2 47.4% 11.2%;
+            --border: 214.3 31.8% 91.4%;
+            --input: 214.3 31.8% 91.4%;
+            --ring: 221.2 83.2% 53.3%;
+            --radius: 0.5rem;
+        }
+
+        .dark {
+            --background: 222.2 84% 4.9%;
+            --foreground: 210 40% 98%;
+            --card: 222.2 84% 4.9%;
+            --card-foreground: 210 40% 98%;
+            --primary: 217.2 91.2% 59.8%;
+            --primary-foreground: 222.2 47.4% 11.2%;
+            --secondary: 217.2 32.6% 17.5%;
+            --secondary-foreground: 210 40% 98%;
+            --muted: 217.2 32.6% 17.5%;
+            --muted-foreground: 215 20.2% 65.1%;
+            --accent: 217.2 32.6% 17.5%;
+            --accent-foreground: 210 40% 98%;
+            --border: 217.2 32.6% 17.5%;
+            --input: 217.2 32.6% 17.5%;
+            --ring: 224.3 76.3% 48%;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: hsl(var(--background));
+            color: hsl(var(--foreground));
+            min-height: 100vh;
+            -webkit-tap-highlight-color: transparent;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .stats-card {
+            background: hsl(var(--card));
+            backdrop-filter: blur(10px);
+            border: 1px solid hsl(var(--border));
+            border-radius: var(--radius);
+            padding: 2rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .stats-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .stats-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: hsl(var(--primary));
+            margin: 1rem 0;
+        }
+
+        .stats-label {
+            font-size: 1.1rem;
+            color: hsl(var(--muted-foreground));
+        }
+
+        .live-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background-color: #22c55e;
+            border-radius: 50%;
+            margin-right: 8px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.7; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+    </style>
+</head>
+<body class="dark">
+    <div class="min-h-screen relative">
+        <!-- Hero Background -->
+        <div class="hero-bg">
+            <div class="gradient-blob gradient-blob-1"></div>
+            <div class="gradient-blob gradient-blob-2"></div>
+        </div>
+
+        <!-- Main Content -->
+        <main class="container mx-auto px-4 py-16 relative z-10">
+            <div class="text-center mb-16">
+                <h1 class="text-4xl md:text-5xl font-bold mb-4">Statistiques en Direct</h1>
+                <p class="text-lg text-muted-foreground">Suivez l'activité sur la plateforme en temps réel</p>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Total Visits -->
+                <div class="stats-card" data-aos="fade-up">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-xl font-semibold">Visites Totales</h3>
+                        <i class="fas fa-chart-line text-2xl text-primary"></i>
+                    </div>
+                    <div class="stats-value" id="totalVisits">0</div>
+                    <div class="stats-label">Depuis le lancement</div>
+                </div>
+
+                <!-- Daily Visits -->
+                <div class="stats-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-xl font-semibold">Visites Aujourd'hui</h3>
+                        <i class="fas fa-calendar-day text-2xl text-primary"></i>
+                    </div>
+                    <div class="stats-value" id="dailyVisits">0</div>
+                    <div class="stats-label">Visites aujourd'hui</div>
+                </div>
+
+                <!-- Live Users -->
+                <div class="stats-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-xl font-semibold">Utilisateurs en Direct</h3>
+                        <i class="fas fa-users text-2xl text-primary"></i>
+                    </div>
+                    <div class="stats-value">
+                        <span class="live-indicator"></span>
+                        <span id="liveUsers">0</span>
+                    </div>
+                    <div class="stats-label">Actuellement en ligne</div>
+                </div>
+
+                <!-- Module Stats -->
+                <div class="stats-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-xl font-semibold">BIB Calculator</h3>
+                        <i class="fas fa-calculator text-2xl text-primary"></i>
+                    </div>
+                    <div class="stats-value" id="bibCalculatorVisits">0</div>
+                    <div class="stats-label">Visites aujourd'hui</div>
+                </div>
+
+                <div class="stats-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-xl font-semibold">Science et Technologie S2</h3>
+                        <i class="fas fa-flask text-2xl text-primary"></i>
+                    </div>
+                    <div class="stats-value" id="scienceTechVisits">0</div>
+                    <div class="stats-label">Visites aujourd'hui</div>
+                </div>
+
+                <div class="stats-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-xl font-semibold">Informatique S2</h3>
+                        <i class="fas fa-laptop-code text-2xl text-primary"></i>
+                    </div>
+                    <div class="stats-value" id="informatiqueVisits">0</div>
+                    <div class="stats-label">Visites aujourd'hui</div>
+                </div>
+
+                <div class="stats-card" data-aos="fade-up" data-aos-delay="600">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-xl font-semibold">Biologie S2</h3>
+                        <i class="fas fa-dna text-2xl text-primary"></i>
+                    </div>
+                    <div class="stats-value" id="biologieVisits">0</div>
+                    <div class="stats-label">Visites aujourd'hui</div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Theme Toggle -->
+        <button class="theme-toggle" onclick="toggleTheme()">
+            <i class="fas fa-moon"></i>
+        </button>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-database-compat.js"></script>
+
+    <!-- AOS Animation -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true
+        });
+
+        // Theme Toggle
+        function toggleTheme() {
+            document.body.classList.toggle('dark');
+            const icon = document.querySelector('.theme-toggle i');
+            icon.classList.toggle('fa-moon');
+            icon.classList.toggle('fa-sun');
+        }
+
+        // Firebase Configuration
+        const firebaseConfig = {
+            // Add your Firebase config here
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        // Function to update stats
+        function updateStats() {
+            const statsRef = database.ref('stats');
+            
+            // Listen for total visits
+            statsRef.child('total').on('value', (snapshot) => {
+                document.getElementById('totalVisits').textContent = snapshot.val() || 0;
+            });
+
+            // Listen for daily visits
+            statsRef.child('daily').on('value', (snapshot) => {
+                document.getElementById('dailyVisits').textContent = snapshot.val() || 0;
+            });
+
+            // Listen for live users
+            statsRef.child('live').on('value', (snapshot) => {
+                document.getElementById('liveUsers').textContent = snapshot.val() || 0;
+            });
+
+            // Listen for module visits
+            statsRef.child('modules').on('value', (snapshot) => {
+                const modules = snapshot.val() || {};
+                document.getElementById('bibCalculatorVisits').textContent = modules.bibCalculator || 0;
+                document.getElementById('scienceTechVisits').textContent = modules.scienceTech || 0;
+                document.getElementById('informatiqueVisits').textContent = modules.informatique || 0;
+                document.getElementById('biologieVisits').textContent = modules.biologie || 0;
+            });
+        }
+
+        // Initialize stats
+        updateStats();
+    </script>
+</body>
+</html> 

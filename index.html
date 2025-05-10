@@ -449,5 +449,87 @@
         // Initialize particles
         createParticles();
     </script>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-database-compat.js"></script>
+
+    <script>
+        // Firebase Configuration
+        const firebaseConfig = {
+            // Add your Firebase config here
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        // Function to update visit counts
+        function updateVisitCounts() {
+            const statsRef = database.ref('stats');
+            const today = new Date().toISOString().split('T')[0];
+            
+            // Update total visits
+            statsRef.child('total').transaction((current) => {
+                return (current || 0) + 1;
+            });
+
+            // Update daily visits
+            statsRef.child('daily').transaction((current) => {
+                return (current || 0) + 1;
+            });
+
+            // Update live users
+            const userRef = statsRef.child('live');
+            userRef.transaction((current) => {
+                return (current || 0) + 1;
+            });
+
+            // Remove user when they leave
+            window.addEventListener('beforeunload', () => {
+                userRef.transaction((current) => {
+                    return Math.max(0, (current || 0) - 1);
+                });
+            });
+        }
+
+        // Function to track module visits
+        function trackModuleVisit(moduleName) {
+            const modulesRef = database.ref('stats/modules');
+            modulesRef.child(moduleName).transaction((current) => {
+                return (current || 0) + 1;
+            });
+        }
+
+        // Track initial page visit
+        updateVisitCounts();
+
+        // Add click event listeners to module links
+        document.addEventListener('DOMContentLoaded', () => {
+            // Track BIB Calculator visits
+            const bibCalculatorLink = document.querySelector('a[href*="bib-calculator"]');
+            if (bibCalculatorLink) {
+                bibCalculatorLink.addEventListener('click', () => trackModuleVisit('bibCalculator'));
+            }
+
+            // Track Science et Technologie S2 visits
+            const scienceTechLink = document.querySelector('a[href*="science-technologie-s2"]');
+            if (scienceTechLink) {
+                scienceTechLink.addEventListener('click', () => trackModuleVisit('scienceTech'));
+            }
+
+            // Track Informatique S2 visits
+            const informatiqueLink = document.querySelector('a[href*="informatique-s2"]');
+            if (informatiqueLink) {
+                informatiqueLink.addEventListener('click', () => trackModuleVisit('informatique'));
+            }
+
+            // Track Biologie S2 visits
+            const biologieLink = document.querySelector('a[href*="biologie-s2"]');
+            if (biologieLink) {
+                biologieLink.addEventListener('click', () => trackModuleVisit('biologie'));
+            }
+        });
+    </script>
 </body>
 </html>
