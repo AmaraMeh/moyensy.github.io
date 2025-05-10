@@ -837,6 +837,11 @@
                     <i class="fas fa-arrow-left"></i>
                     Retour
                 </a>
+                <div class="download-counter bg-gradient-to-r from-green-500 to-blue-600 text-white px-4 py-2 rounded-full shadow-lg flex items-center gap-2 transform hover:scale-105 transition-all duration-300">
+                    <i class="fas fa-download"></i>
+                    <span class="counter-label">Total ressources consultées aujourd'hui:</span>
+                    <span id="infoDownloadCount" class="font-bold text-xl">0</span>
+                </div>
                 <img src="assets/img/LOGO.png" alt="ISET'COM" class="max-w-[150px] md:max-w-[180px]">
             </div>
         </header>
@@ -1713,6 +1718,17 @@
             
             popup.classList.add('active');
             document.body.style.overflow = 'hidden'; // Prevent background scroll
+
+            // Add click event listeners to all resource links in the popup
+            const resourceLinks = popupContentContainer.querySelectorAll('a[href]');
+            resourceLinks.forEach(link => {
+                link.addEventListener('click', async (e) => {
+                    if (!link.classList.contains('back-button') && !link.getAttribute('href').startsWith('#')) {
+                        window.animateInfoCounter();
+                        await window.updateInfoResourceCount();
+                    }
+                });
+            });
         }
         
         function getUniversityIcon(sectionTypeClass) {
@@ -1800,11 +1816,66 @@
         function capitalizeFirstLetter(string) {
             return string.charAt(0).toUpperCase() + string.slice(1);
         }
+
+        // Animate the counter locally by +1, +2, +3
+        window.animateInfoCounter = function() {
+            const counter = document.getElementById('infoDownloadCount');
+            if (!counter) return;
+            let current = parseInt(counter.textContent, 10) || 0;
+            let i = 1;
+            function step() {
+                if (i <= 3) {
+                    counter.textContent = current + i;
+                    counter.classList.add('animate-bounce');
+                    setTimeout(() => {
+                        counter.classList.remove('animate-bounce');
+                        i++;
+                        step();
+                    }, 120);
+                }
+            }
+            step();
+        };
     </script>
     <script type="module">
-        // Assuming features-integration.js is present and needed
-        // import features from '/js/features-integration.js';
-        // Features are automatically initialized
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, doc, getDoc, setDoc, increment } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyB5XYqWKhHdiVDXJx4iOwtpxD8eUCPRfKU",
+            authDomain: "universite-de-bejaia-547fc.firebaseapp.com",
+            projectId: "universite-de-bejaia-547fc",
+            storageBucket: "universite-de-bejaia-547fc.appspot.com",
+            messagingSenderId: "517622731583",
+            appId: "1:517622731583:web:25453d5e01226585bf798a",
+            measurementId: "G-SQ0WWSCS7B"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Function to update resource count
+        window.updateInfoResourceCount = async function() {
+            const counterRef = doc(db, 'counters', 'informatique_resources');
+            const counterDoc = await getDoc(counterRef);
+            if (!counterDoc.exists()) {
+                await setDoc(counterRef, { count: 0 });
+            }
+            await setDoc(counterRef, { count: increment(3) }, { merge: true });
+        };
+
+        // Listen for changes in resource count
+        const counterRef = doc(db, 'counters', 'informatique_resources');
+        const updateCounter = async () => {
+            const counterDoc = await getDoc(counterRef);
+            const count = counterDoc.exists() ? counterDoc.data().count : 0;
+            const counter = document.getElementById('infoDownloadCount');
+            if (counter) counter.textContent = count;
+            counter.classList.add('animate-bounce');
+            setTimeout(() => counter.classList.remove('animate-bounce'), 1000);
+        };
+        updateCounter();
+        setInterval(updateCounter, 2000);
     </script>
 </body>
 </html>
