@@ -932,18 +932,6 @@
 
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                <!-- EXCLUSIVE: Collection Examens SNV Biologie Animale -->
-                <div class="exclusive-2025-section mb-8">
-                    <div class="exclusive-2025-badge"><i class="fas fa-crown"></i> Examens SNV Biologie Animale</div>
-                    <div class="exclusive-2025-title"><i class="fas fa-star"></i>Collection Exclusive</div>
-                    <div>
-                        <div class='exclusive-2025-resource-card'>
-                            <i class="fas fa-crown"></i>
-                            <a href="https://drive.google.com/file/d/1xp6tXZxnSEfJm_YcdyAeiIQ0YREkeZki/view?usp=drivesdk" class="exclusive-2025-resource-link" target="_blank">Collection Examens SNV Biologie Animale</a>
-                        </div>
-                    </div>
-                </div>
-
                 <!-- Biologie Animale -->
                 <div class="module-card" data-aos="fade-up">
                     <div class="module-icon-wrapper">
@@ -1749,26 +1737,27 @@
                             document.body.style.overflow = 'hidden';
                             return;
                         }
-                        // --- PATCH for Biologie Animale EXAMEN exclusive collection ---
+                        // --- PATCH for Biologie Animale EXAMEN: Exclusive Collection at top ---
                         if (moduleName === 'Biologie Animale' && type === 'examen') {
                             const popupId = `popup-${type}`;
                             const popup = document.getElementById(popupId);
                             const popupTitle = document.getElementById(`popup-title-${type}`);
                             const popupContentContainer = document.getElementById(`popup-content-${type}`);
                             if (!popup || !popupTitle || !popupContentContainer) { return; }
-                            popupTitle.textContent = `${moduleName} - Examens`;
+                            popupTitle.textContent = `${moduleName} - Examen`;
+                            // Clear only the popup content (not the title)
                             popupContentContainer.innerHTML = '';
-                            // Render exclusive collection for examens
+                            // Render exclusive collection section first if present
                             const moduleData = moduleContent[moduleName];
-                            const archivesSujets = moduleData.bejaia && moduleData.bejaia.examen && moduleData.bejaia.examen['Archives Sujets'];
-                            if (archivesSujets && archivesSujets.length > 0) {
+                            const archives = moduleData.bejaia && moduleData.bejaia.examen && moduleData.bejaia.examen['Archives Sujets'];
+                            if (archives && archives.length > 0) {
                                 const section = document.createElement('div');
                                 section.className = 'exclusive-2025-section';
                                 section.innerHTML = `
-                                    <div class=\"exclusive-2025-badge\"><i class=\"fas fa-crown\"></i> Examens SNV Biologie Animale</div>
-                                    <div class=\"exclusive-2025-title\"><i class=\"fas fa-star\"></i>Collection Exclusive</div>
+                                    <div class=\"exclusive-2025-badge\"><i class=\"fas fa-crown\"></i> Collection <span style=\"font-size:1rem;font-weight:400;\">Examens SNV Biologie Animale</span></div>
+                                    <div class=\"exclusive-2025-title\"><i class=\"fas fa-star\"></i>Archive Premium</div>
                                     <div>
-                                        ${archivesSujets.map(item => `
+                                        ${archives.map(item => `
                                             <div class='exclusive-2025-resource-card'>
                                                 <i class=\"fas fa-crown\"></i>
                                                 <a href=\"${item.url}\" class=\"exclusive-2025-resource-link\" target=\"_blank\">${item.title}</a>
@@ -1778,14 +1767,28 @@
                                 `;
                                 popupContentContainer.appendChild(section);
                             }
-                            // Continue with the rest of the original rendering (other sections)
+                            // Now render the rest of the content BELOW the exclusive section
+                            // Create a temporary container to capture the rest
+                            const tempDiv = document.createElement('div');
+                            // Monkey-patch the popupContentContainer to tempDiv for the duration of origShowContent
+                            const oldContainer = popupContentContainer;
+                            Object.defineProperty(window, 'popupContentContainer', {
+                                value: tempDiv,
+                                configurable: true
+                            });
                             origShowContent.apply(this, [moduleShortName, type]);
+                            // Restore popupContentContainer
+                            Object.defineProperty(window, 'popupContentContainer', {
+                                value: oldContainer,
+                                configurable: true
+                            });
+                            // Append the rest of the content after the exclusive section
+                            Array.from(tempDiv.childNodes).forEach(node => popupContentContainer.appendChild(node));
                             popup.classList.add('active');
                             document.body.style.overflow = 'hidden';
                             return;
                         }
                         // --- END PATCH ---
-                        // Otherwise, default
                         origShowContent.apply(this, arguments);
                     };
                 }
