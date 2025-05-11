@@ -733,6 +733,88 @@
         .dark img[alt="ISET'COM"] {
             filter: contrast(1.2) brightness(0.9);
         }
+
+        /* --- EXCLUSIVE 2025 SECTION --- */
+        .exclusive-2025-section {
+            background: linear-gradient(135deg, #f7e9a0 0%, #b4f7c5 100%);
+            border: 3px solid #ffd700;
+            border-radius: 1.25rem;
+            box-shadow: 0 0 32px 0 rgba(255, 215, 0, 0.25), 0 4px 32px 0 rgba(34,197,94,0.10);
+            padding: 2rem 1.5rem 1.5rem 1.5rem;
+            margin-bottom: 2.5rem;
+            position: relative;
+            animation: glowGold 2.5s ease-in-out infinite alternate;
+        }
+        @keyframes glowGold {
+            from { box-shadow: 0 0 12px 0 #ffd70044, 0 4px 32px 0 #22c55e22; }
+            to   { box-shadow: 0 0 32px 8px #ffd70099, 0 4px 32px 0 #22c55e33; }
+        }
+        .exclusive-2025-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #ffd700 60%, #22c55e 100%);
+            color: #fff;
+            border-radius: 9999px;
+            padding: 0.5rem 1.5rem;
+            box-shadow: 0 2px 12px #ffd70055;
+            margin-bottom: 1.25rem;
+            border: 2px solid #fffbe6;
+        }
+        .exclusive-2025-badge i {
+            color: #ffd700;
+            font-size: 1.5em;
+        }
+        .exclusive-2025-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #ffd700, #22c55e);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .exclusive-2025-resource-card {
+            background: #fffbe6;
+            border: 2px solid #ffd700;
+            border-radius: 1rem;
+            box-shadow: 0 2px 12px #ffd70022;
+            padding: 1rem 1.25rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .exclusive-2025-resource-card:hover {
+            transform: scale(1.03) translateY(-2px);
+            box-shadow: 0 6px 24px #ffd70055;
+        }
+        .exclusive-2025-resource-card .fa-crown,
+        .exclusive-2025-resource-card .fa-star {
+            color: #ffd700;
+            font-size: 1.3em;
+            margin-right: 0.75rem;
+        }
+        .exclusive-2025-resource-link {
+            color: #bfa100;
+            font-weight: 600;
+            text-decoration: underline;
+            transition: color 0.2s;
+        }
+        .exclusive-2025-resource-link:hover {
+            color: #22c55e;
+        }
+        @media (max-width: 600px) {
+            .exclusive-2025-section { padding: 1rem 0.5rem; }
+            .exclusive-2025-title { font-size: 1.1rem; }
+            .exclusive-2025-badge { font-size: 1rem; padding: 0.4rem 1rem; }
+        }
     </style>
 </head>
 <body class="flex flex-col">
@@ -1120,6 +1202,15 @@
             'Biologie Animale': {
                 'bejaia': {
                     'cours': {
+                        'Exclusif & Conseillé 2025': [
+                            { title: 'Histologie Tissu épithélial.pdf', url: 'https://drive.google.com/file/d/1hY1smb_0qdsPjMjmjRnCgQqABCJe_f7B/view?usp=drivesdk', exclusive: true, recommended: true, year: 2025 },
+                            { title: 'Cours 04 le développement embryonnaire 2ème semaine.pdf', url: 'https://drive.google.com/file/d/1W4IfKWZwNKc_QpXbUG7LUFOVTlAnra_o/view?usp=drivesdk', exclusive: true, recommended: true, year: 2025 },
+                            { title: 'Cours 04 Le developpement embryonnaire (1 ère semaine).pdf', url: 'https://drive.google.com/file/d/1iW87_8363cnEUZECfQqY_SrsUqVy-1tG/view?usp=drivesdk', exclusive: true, recommended: true, year: 2025 },
+                            { title: 'Cours 03 Fécondation.pdf', url: 'https://drive.google.com/file/d/1jvVMs_awC3s6cWoQrLv6APFX5Z1nRCVq/view?usp=drivesdk', exclusive: true, recommended: true, year: 2025 },
+                            { title: 'Cours 02 Ovogenèse.pdf', url: 'https://drive.google.com/file/d/1RWYj-SrcNF6rWitU8ml8AVHeG2AiY0uI/view?usp=drivesdk', exclusive: true, recommended: true, year: 2025 },
+                            { title: 'Cours 01 Spermatogenèse.pdf', url: 'https://drive.google.com/file/d/1UuES0JIfCVnehN1hKNoWr3egneXVGq3M/view?usp=drivesdk', exclusive: true, recommended: true, year: 2025 },
+                            { title: 'introdation.pdf', url: 'https://drive.google.com/file/d/1xK3YG8oYHY_SDcWk9BTbANowFfhcfixt/view?usp=drivesdk', exclusive: true, recommended: true, year: 2025 }
+                        ],
                         'Cours Principaux': [
                             { title: 'Schémas de Biologie Animale 2024 (Anes Abdat)', url: 'https://drive.google.com/file/d/13JsE5BmbBlWvFkonvgl_YqhUcSfVRxd8/view?usp=drivesdk' },
                             { title: 'Cours 1: Introduction', url: 'https://drive.google.com/file/d/1P9OBF-x_Fj2n-48eEdy_YlwlEktcndmm/view?usp=drivesdk' },
@@ -1129,10 +1220,6 @@
                             { title: 'Cours 4 (Partie I): Segmentation (Document)', url: 'https://docs.google.com/document/d/1FTVMBOIqZBObQKKnqOQy4cU_oLapkP7olZa2BYsl8gs/edit?usp=drivesdk' },
                             { title: 'Cours 4 (Partie I): Segmentation (PDF)', url: 'https://drive.google.com/file/d/1PbN2cNAw-9YYZeTDXmcghvui1gEsQNmM/view?usp=drivesdk' },
                             { title: 'Cours 4 (Partie II): Les Plans de Coupes', url: 'https://drive.google.com/file/d/1ZvOdNvcQwxX-ay_qKzcP9vDMLoBb6Edl/view?usp=drivesdk' },
-                            { title: 'Cours 5: Gastrulation Amphibien (Présentation)', url: 'https://drive.google.com/file/d/1zNv9cHxutkcB7FTxxrFpbYY_mTxUU45q/view?usp=drivesdk' },
-                            { title: 'Planches: Gastrulation Amphibiens (Étudiants)', url: 'https://drive.google.com/file/d/1z9vp7L2kbMfsPOf9uESG_B2uUA19MDty/view?usp=drivesdk' },
-                            { title: 'Cours 6: Neurulation (Présentation)', url: 'https://docs.google.com/presentation/d/16H6vHwXEdXxDao5KBR3rIIoUWRHygSvg/edit?usp=drivesdk&ouid=114996133160688114099&rtpof=true&sd=true' },
-                            { title: 'Schémas: Gastrulation Amphibiens', url: 'https://drive.google.com/file/d/1-DXR2m-XRivKUH_nUHz7yr6oGQ3Hi_Rb/view?usp=drivesdk' },
                         ],
                         'Polycopiés & Résumés': [
                             { title: 'Polycopié Biologie Animale (COVID-19, 2021)', url: 'https://drive.google.com/file/d/1JVhn2wWQC53JrqZX8OFnUtR0z7qDjLnM/view?usp=drivesdk' },
@@ -1569,6 +1656,52 @@
                 }
             }
         };
+
+        // --- PATCH showContent for exclusive 2025 Biologie Animale cours ---
+        window.addEventListener('DOMContentLoaded', function() {
+            if (typeof showContent === 'function') {
+                const origShowContent = showContent;
+                window.showContent = function(moduleShortName, type) {
+                    const moduleName = moduleMapping[moduleShortName];
+                    if (moduleName === 'Biologie Animale' && type === 'cours') {
+                        const popupId = `popup-${type}`;
+                        const popup = document.getElementById(popupId);
+                        const popupTitle = document.getElementById(`popup-title-${type}`);
+                        const popupContentContainer = document.getElementById(`popup-content-${type}`);
+                        if (!popup || !popupTitle || !popupContentContainer) { return; }
+                        popupTitle.textContent = `${moduleName} - Cours`;
+                        popupContentContainer.innerHTML = '';
+                        // Render exclusive 2025 section first if present
+                        const moduleData = moduleContent[moduleName];
+                        const exclusive2025 = moduleData.bejaia && moduleData.bejaia.cours && moduleData.bejaia.cours['Exclusif & Conseillé 2025'];
+                        if (exclusive2025 && exclusive2025.length > 0) {
+                            const section = document.createElement('div');
+                            section.className = 'exclusive-2025-section';
+                            section.innerHTML = `
+                                <div class="exclusive-2025-badge"><i class="fas fa-crown"></i> 2025 <span style="font-size:1rem;font-weight:400;">Exclusif & Conseillé</span></div>
+                                <div class="exclusive-2025-title"><i class="fas fa-star"></i>Ressources Premium 2025</div>
+                                <div>
+                                    ${exclusive2025.map(item => `
+                                        <div class='exclusive-2025-resource-card'>
+                                            <i class="fas fa-crown"></i>
+                                            <a href="${item.url}" class="exclusive-2025-resource-link" target="_blank">${item.title}</a>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            `;
+                            popupContentContainer.appendChild(section);
+                        }
+                        // Continue with the rest of the original rendering (other sections)
+                        origShowContent.apply(this, [moduleShortName, type]);
+                        popup.classList.add('active');
+                        document.body.style.overflow = 'hidden';
+                        return;
+                    }
+                    // Otherwise, default
+                    origShowContent.apply(this, arguments);
+                };
+            }
+        });
 
         function showContent(moduleShortName, type) {
             const moduleName = moduleMapping[moduleShortName];
