@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Quiz d'Orientation - Université de Bejaia</title>
+    <meta name="description" content="Quiz interactif pour aider les étudiants à choisir leur spécialité en ST">
+    <meta name="author" content="Amara Mehdi">
+    <link rel="icon" type="image/png" href="assets/img/icon.png">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        :root {
+            --background: 0 0% 100%;
+            --foreground: 222.2 84% 4.9%;
+            --card: 0 0% 100%;
+            --card-foreground: 222.2 84% 4.9%;
+            --primary: 221.2 83.2% 53.3%;
+            --primary-foreground: 210 40% 98%;
+            --secondary: 210 40% 96.1%;
+            --secondary-foreground: 222.2 47.4% 11.2%;
+            --muted: 210 40% 96.1%;
+            --muted-foreground: 215.4 16.3% 46.9%;
+            --accent: 210 40% 96.1%;
+            --accent-foreground: 222.2 47.4% 11.2%;
+            --border: 214.3 31.8% 91.4%;
+            --input: 214.3 31.8% 91.4%;
+            --ring: 221.2 83.2% 53.3%;
+            --radius: 0.5rem;
+        }
+
+        .dark {
+            --background: 222.2 84% 4.9%;
+            --foreground: 210 40% 98%;
+            --card: 222.2 84% 4.9%;
+            --card-foreground: 210 40% 98%;
+            --primary: 217.2 91.2% 59.8%;
+            --primary-foreground: 222.2 47.4% 11.2%;
+            --secondary: 217.2 32.6% 17.5%;
+            --secondary-foreground: 210 40% 98%;
+            --muted: 217.2 32.6% 17.5%;
+            --muted-foreground: 215 20.2% 65.1%;
+            --accent: 217.2 32.6% 17.5%;
+            --accent-foreground: 210 40% 98%;
+            --border: 217.2 32.6% 17.5%;
+            --input: 217.2 32.6% 17.5%;
+            --ring: 224.3 76.3% 48%;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: hsl(var(--background));
+            color: hsl(var(--foreground));
+            min-height: 100vh;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            z-index: -10;
+            overflow: hidden;
+        }
+
+        .gradient-blob {
+            position: absolute;
+            border-radius: 9999px;
+            filter: blur(60px);
+            opacity: 0.5;
+        }
+
+        .gradient-blob-1 {
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 500px;
+            background: linear-gradient(to bottom right, hsl(var(--primary) / 0.4), hsl(var(--ring) / 0.2), hsl(var(--accent) / 0.1));
+            transform: translateY(-50%);
+        }
+
+        .gradient-blob-2 {
+            bottom: 0;
+            right: 0;
+            width: 500px;
+            height: 500px;
+            background: linear-gradient(to top right, hsl(var(--ring) / 0.3), hsl(var(--accent) / 0.2), transparent);
+        }
+
+        .quiz-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: hsl(var(--card));
+            border-radius: var(--radius);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 1;
+        }
+
+        .question-card {
+            background: hsl(var(--card));
+            border: 1px solid hsl(var(--border));
+            border-radius: var(--radius);
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+            transform-origin: center;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .option-btn {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            border: 1px solid hsl(var(--border));
+            border-radius: var(--radius);
+            background: hsl(var(--background));
+            color: hsl(var(--foreground));
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .option-btn:hover {
+            background: hsl(var(--primary) / 0.1);
+            border-color: hsl(var(--primary));
+            transform: translateY(-2px);
+        }
+
+        .option-btn.selected {
+            background: hsl(var(--primary));
+            color: hsl(var(--primary-foreground));
+        }
+
+        .option-btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: hsl(var(--primary) / 0.2);
+            opacity: 0;
+            border-radius: 100%;
+            transform: scale(1, 1) translate(-50%);
+            transform-origin: 50% 50%;
+        }
+
+        .option-btn:focus:not(:active)::after {
+            animation: ripple 1s ease-out;
+        }
+
+        @keyframes ripple {
+            0% {
+                transform: scale(0, 0);
+                opacity: 0.5;
+            }
+            100% {
+                transform: scale(100, 100);
+                opacity: 0;
+            }
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: hsl(var(--muted));
+            border-radius: 9999px;
+            overflow: hidden;
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, hsl(var(--primary)), hsl(var(--ring)));
+            transition: width 0.5s ease;
+            position: relative;
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.2),
+                transparent
+            );
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .result-card {
+            text-align: center;
+            padding: 2rem;
+            border-radius: var(--radius);
+            background: hsl(var(--card));
+            border: 1px solid hsl(var(--border));
+            margin-top: 2rem;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .specialty-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            margin: 0.5rem;
+            border-radius: 9999px;
+            background: hsl(var(--primary) / 0.1);
+            color: hsl(var(--primary));
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .specialty-badge:hover {
+            transform: scale(1.05);
+            background: hsl(var(--primary) / 0.2);
+        }
+
+        .theme-toggle {
+            position: fixed;
+            bottom: 1rem;
+            right: 1rem;
+            z-index: 50;
+            width: 3rem;
+            height: 3rem;
+            border-radius: 9999px;
+            background: hsl(var(--background) / 0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid hsl(var(--border));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .theme-toggle i {
+            font-size: 1.25rem;
+            color: hsl(var(--primary));
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .floating-particles {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: -5;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.7;
+            animation: float 10s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+                opacity: 0.3;
+            }
+            50% {
+                transform: translate(var(--x), var(--y)) scale(1.2);
+                opacity: 0.8;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Hero Background -->
+    <div class="hero-bg">
+        <div class="gradient-blob gradient-blob-1"></div>
+        <div class="gradient-blob gradient-blob-2"></div>
+        <div class="floating-dot w-4 h-4 bg-blue-500 top-1/4 left-1/4"></div>
+        <div class="floating-dot w-3 h-3 bg-purple-500 top-1/3 right-1/4"></div>
+        <div class="floating-dot w-2 h-2 bg-green-500 bottom-1/4 left-1/3"></div>
+        <div class="floating-dot w-3 h-3 bg-amber-500 top-2/3 right-1/3"></div>
+    </div>
+
+    <!-- Floating Particles -->
+    <div class="floating-particles" id="particles"></div>
+
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" onclick="toggleTheme()">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+
+    <!-- Header -->
+    <header class="bg-background/80 backdrop-blur-sm shadow-lg py-6">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col items-center">
+                <h1 class="text-3xl font-bold" data-aos="fade-up">Quiz d'Orientation</h1>
+                <div class="mt-2 flex items-center space-x-2 text-sm text-muted-foreground">
+                    <i class="fas fa-users"></i>
+                    <span id="visitor-count">Chargement...</span>
+                    <span class="animate-pulse text-green-500">•</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container mx-auto px-4 py-8">
+        <div class="quiz-container">
+            <h1 class="text-3xl font-bold text-center mb-8">Découvrez votre spécialité idéale</h1>
+            <p class="text-center text-gray-600 mb-8">Répondez aux questions suivantes pour découvrir les spécialités qui correspondent le mieux à vos intérêts et compétences.</p>
+            
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 0%"></div>
+            </div>
+
+            <div id="quiz-content">
+                <!-- Questions will be dynamically inserted here -->
+            </div>
+
+            <div id="results" class="hidden">
+                <!-- Results will be shown here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- AOS Script -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100,
+            disable: 'mobile'
+        });
+
+        // Theme toggle functionality
+        function toggleTheme() {
+            const body = document.body;
+            const themeToggle = document.querySelector('.theme-toggle i');
+            
+            if (body.classList.contains('dark')) {
+                body.classList.remove('dark');
+                themeToggle.classList.remove('fa-sun');
+                themeToggle.classList.add('fa-moon');
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.classList.add('dark');
+                themeToggle.classList.remove('fa-moon');
+                themeToggle.classList.add('fa-sun');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Check for saved theme preference
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark');
+            document.querySelector('.theme-toggle i').classList.replace('fa-moon', 'fa-sun');
+        }
+
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const colors = ['#3b82f6', '#8b5cf6', '#ec4899', '#10b981', '#f59e0b'];
+            
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                const size = Math.random() * 5 + 2;
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                const moveX = (Math.random() - 0.5) * 50;
+                const moveY = (Math.random() - 0.5) * 50;
+                
+                particle.style.cssText = `
+                    left: ${x}%;
+                    top: ${y}%;
+                    width: ${size}px;
+                    height: ${size}px;
+                    background-color: ${color};
+                    --x: ${moveX}px;
+                    --y: ${moveY}px;
+                    animation-delay: ${Math.random() * 5}s;
+                `;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Initialize particles
+        createParticles();
+
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyB5XYqWKhHdiVDXJx4iOwtpxD8eUCPRfKU",
+            authDomain: "universite-de-bejaia-547fc.firebaseapp.com",
+            projectId: "universite-de-bejaia-547fc",
+            storageBucket: "universite-de-bejaia-547fc.appspot.com",
+            messagingSenderId: "517622731583",
+            appId: "1:517622731583:web:25453d5e01226585bf798a",
+            measurementId: "G-SQ0WWSCS7B",
+            databaseURL: "https://universite-de-bejaia-547fc-default-rtdb.firebaseio.com"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        // Track page visit
+        function trackPageVisit() {
+            const statsRef = database.ref('stats/modules/quiz');
+            statsRef.transaction((current) => (current || 0) + 1);
+        }
+
+        // Update visitor count in real-time
+        function updateVisitorCount() {
+            const visitorCountRef = database.ref('stats/modules/quiz');
+            visitorCountRef.on('value', (snapshot) => {
+                const count = snapshot.val() || 0;
+                document.getElementById('visitor-count').textContent = `${count} visiteurs`;
+            });
+        }
+
+        // Initialize tracking
+        trackPageVisit();
+        updateVisitorCount();
+
+        // Quiz questions
+        const questions = [
+            {
+                id: 1,
+                question: "Quelle matière préférez-vous le plus ?",
+                options: [
+                    { text: "Mathématiques", specialties: ["Automatique", "Télécommunication", "Électronique"] },
+                    { text: "Physique", specialties: ["Électromécanique", "Électrotechnique", "Génie Mécanique"] },
+                    { text: "Chimie", specialties: ["Génie des Procédés"] },
+                    { text: "Dessin technique", specialties: ["Génie Civil", "Génie Minier"] }
+                ]
+            },
+            {
+                id: 2,
+                question: "Quel type de projet vous intéresse le plus ?",
+                options: [
+                    { text: "Programmation et contrôle", specialties: ["Automatique", "Télécommunication"] },
+                    { text: "Conception mécanique", specialties: ["Génie Mécanique", "Électromécanique"] },
+                    { text: "Énergie et électricité", specialties: ["Électrotechnique", "Électronique"] },
+                    { text: "Construction et infrastructure", specialties: ["Génie Civil", "Génie Minier"] }
+                ]
+            },
+            {
+                id: 3,
+                question: "Quel environnement de travail préférez-vous ?",
+                options: [
+                    { text: "Bureau et laboratoire", specialties: ["Automatique", "Télécommunication", "Électronique"] },
+                    { text: "Atelier et usine", specialties: ["Électromécanique", "Génie Mécanique"] },
+                    { text: "Site de construction", specialties: ["Génie Civil", "Génie Minier"] },
+                    { text: "Usine de production", specialties: ["Génie des Procédés", "Électrotechnique"] }
+                ]
+            },
+            {
+                id: 4,
+                question: "Quelle compétence souhaitez-vous développer ?",
+                options: [
+                    { text: "Programmation et algorithmes", specialties: ["Automatique", "Télécommunication"] },
+                    { text: "Conception et dessin technique", specialties: ["Génie Mécanique", "Génie Civil"] },
+                    { text: "Électronique et circuits", specialties: ["Électronique", "Électrotechnique"] },
+                    { text: "Gestion de projets", specialties: ["Génie des Procédés", "Génie Minier"] }
+                ]
+            },
+            {
+                id: 5,
+                question: "Quel type de problème aimez-vous résoudre ?",
+                options: [
+                    { text: "Problèmes logiques et mathématiques", specialties: ["Automatique", "Télécommunication"] },
+                    { text: "Problèmes mécaniques et physiques", specialties: ["Génie Mécanique", "Électromécanique"] },
+                    { text: "Problèmes électriques et électroniques", specialties: ["Électronique", "Électrotechnique"] },
+                    { text: "Problèmes de construction et d'infrastructure", specialties: ["Génie Civil", "Génie Minier"] }
+                ]
+            },
+            {
+                id: 6,
+                question: "Quel secteur industriel vous intéresse le plus ?",
+                options: [
+                    { text: "Technologies de l'information", specialties: ["Automatique", "Télécommunication"] },
+                    { text: "Industrie manufacturière", specialties: ["Génie Mécanique", "Électromécanique"] },
+                    { text: "Énergie et électricité", specialties: ["Électrotechnique", "Électronique"] },
+                    { text: "Construction et mines", specialties: ["Génie Civil", "Génie Minier"] }
+                ]
+            },
+            {
+                id: 7,
+                question: "Quelle activité préférez-vous pendant votre temps libre ?",
+                options: [
+                    { text: "Programmation et électronique", specialties: ["Automatique", "Télécommunication", "Électronique"] },
+                    { text: "Bricolage et mécanique", specialties: ["Génie Mécanique", "Électromécanique"] },
+                    { text: "Construction et design", specialties: ["Génie Civil"] },
+                    { text: "Expériences scientifiques", specialties: ["Génie des Procédés", "Génie Minier"] }
+                ]
+            },
+            {
+                id: 8,
+                question: "Quel type de travail en équipe préférez-vous ?",
+                options: [
+                    { text: "Développement logiciel", specialties: ["Automatique", "Télécommunication"] },
+                    { text: "Conception mécanique", specialties: ["Génie Mécanique", "Électromécanique"] },
+                    { text: "Installation électrique", specialties: ["Électrotechnique", "Électronique"] },
+                    { text: "Gestion de chantier", specialties: ["Génie Civil", "Génie Minier"] }
+                ]
+            },
+            {
+                id: 9,
+                question: "Quelle innovation technologique vous passionne le plus ?",
+                options: [
+                    { text: "Intelligence artificielle et IoT", specialties: ["Automatique", "Télécommunication"] },
+                    { text: "Robots et machines", specialties: ["Génie Mécanique", "Électromécanique"] },
+                    { text: "Énergies renouvelables", specialties: ["Électrotechnique", "Électronique"] },
+                    { text: "Matériaux avancés", specialties: ["Génie Civil", "Génie des Procédés"] }
+                ]
+            },
+            {
+                id: 10,
+                question: "Quel aspect de la technologie vous intéresse le plus ?",
+                options: [
+                    { text: "Contrôle et automatisation", specialties: ["Automatique", "Télécommunication"] },
+                    { text: "Mécanique et mouvement", specialties: ["Génie Mécanique", "Électromécanique"] },
+                    { text: "Électricité et électronique", specialties: ["Électrotechnique", "Électronique"] },
+                    { text: "Matériaux et structures", specialties: ["Génie Civil", "Génie Minier"] }
+                ]
+            },
+            {
+                id: 11,
+                question: "Quel type de logiciel vous intéresse le plus ?",
+                options: [
+                    { text: "Systèmes embarqués", specialties: ["Automatique", "Électronique"] },
+                    { text: "Réseaux et communication", specialties: ["Télécommunication"] },
+                    { text: "Simulation et CAO", specialties: ["Génie Mécanique", "Génie Civil"] },
+                    { text: "Contrôle de processus", specialties: ["Génie des Procédés", "Électrotechnique"] }
+                ]
+            },
+            {
+                id: 12,
+                question: "Quel type de défi technique vous motive le plus ?",
+                options: [
+                    { text: "Optimisation de systèmes", specialties: ["Automatique", "Télécommunication"] },
+                    { text: "Conception mécanique", specialties: ["Génie Mécanique", "Électromécanique"] },
+                    { text: "Énergie et puissance", specialties: ["Électrotechnique", "Électronique"] },
+                    { text: "Gestion de projets complexes", specialties: ["Génie Civil", "Génie Minier"] }
+                ]
+            },
+            {
+                id: 13,
+                question: "Quel aspect de la recherche vous intéresse ?",
+                options: [
+                    { text: "Intelligence artificielle", specialties: ["Automatique", "Télécommunication"] },
+                    { text: "Nouveaux matériaux", specialties: ["Génie Civil", "Génie Mécanique"] },
+                    { text: "Énergies renouvelables", specialties: ["Électrotechnique", "Électronique"] },
+                    { text: "Processus industriels", specialties: ["Génie des Procédés", "Électromécanique"] }
+                ]
+            },
+            {
+                id: 14,
+                question: "Quel type de stage vous attire le plus ?",
+                options: [
+                    { text: "Développement logiciel", specialties: ["Automatique", "Télécommunication"] },
+                    { text: "Conception mécanique", specialties: ["Génie Mécanique", "Électromécanique"] },
+                    { text: "Installation électrique", specialties: ["Électrotechnique", "Électronique"] },
+                    { text: "Gestion de chantier", specialties: ["Génie Civil", "Génie Minier"] }
+                ]
+            },
+            {
+                id: 15,
+                question: "Quel type de projet de fin d'études vous intéresse ?",
+                options: [
+                    { text: "Système automatisé", specialties: ["Automatique", "Télécommunication"] },
+                    { text: "Conception mécanique", specialties: ["Génie Mécanique", "Électromécanique"] },
+                    { text: "Installation électrique", specialties: ["Électrotechnique", "Électronique"] },
+                    { text: "Projet de construction", specialties: ["Génie Civil", "Génie Minier"] }
+                ]
+            },
+            {
+                id: 16,
+                question: "Quel type de compétition technique vous intéresse ?",
+                options: [
+                    { text: "Robotique", specialties: ["Automatique", "Électronique"] },
+                    { text: "Conception mécanique", specialties: ["Génie Mécanique", "Électromécanique"] },
+                    { text: "Énergie et électricité", specialties: ["Électrotechnique", "Électronique"] },
+                    { text: "Construction", specialties: ["Génie Civil", "Génie Minier"] }
+                ]
+            },
+            {
+                id: 17,
+                question: "Quel type de certification vous intéresse ?",
+                options: [
+                    { text: "Programmation et réseaux", specialties: ["Automatique", "Télécommunication"] },
+                    { text: "Conception assistée", specialties: ["Génie Mécanique", "Électromécanique"] },
+                    { text: "Électricité et électronique", specialties: ["Électrotechnique", "Électronique"] },
+                    { text: "Gestion de projet", specialties: ["Génie Civil", "Génie Minier"] }
+                ]
+            },
+            {
+                id: 18,
+                question: "Quel type de conférence vous intéresse ?",
+                options: [
+                    { text: "Technologies émergentes", specialties: ["Automatique", "Télécommunication"] },
+                    { text: "Innovation mécanique", specialties: ["Génie Mécanique", "Électromécanique"] },
+                    { text: "Énergie et électricité", specialties: ["Électrotechnique", "Électronique"] },
+                    { text: "Construction durable", specialties: ["Génie Civil", "Génie Minier"] }
+                ]
+            },
+            {
+                id: 19,
+                question: "Quel type de publication vous intéresse ?",
+                options: [
+                    { text: "Intelligence artificielle", specialties: ["Automatique", "Télécommunication"] },
+                    { text: "Conception mécanique", specialties: ["Génie Mécanique", "Électromécanique"] },
+                    { text: "Énergie et électricité", specialties: ["Électrotechnique", "Électronique"] },
+                    { text: "Construction et matériaux", specialties: ["Génie Civil", "Génie Minier"] }
+                ]
+            },
+            {
+                id: 20,
+                question: "Quel type de formation continue vous intéresse ?",
+                options: [
+                    { text: "Programmation avancée", specialties: ["Automatique", "Télécommunication"] },
+                    { text: "Conception mécanique", specialties: ["Génie Mécanique", "Électromécanique"] },
+                    { text: "Électricité et électronique", specialties: ["Électrotechnique", "Électronique"] },
+                    { text: "Gestion de projet", specialties: ["Génie Civil", "Génie Minier"] }
+                ]
+            },
+            {
+                id: 21,
+                question: "Quel type de laboratoire vous intéresse ?",
+                options: [
+                    { text: "Informatique et réseaux", specialties: ["Automatique", "Télécommunication"] },
+                    { text: "Mécanique et matériaux", specialties: ["Génie Mécanique", "Électromécanique"] },
+                    { text: "Électricité et électronique", specialties: ["Électrotechnique", "Électronique"] },
+                    { text: "Construction et structures", specialties: ["Génie Civil", "Génie Minier"] }
+                ]
+            },
+            {
+                id: 22,
+                question: "Quel type de projet de recherche vous intéresse ?",
+                options: [
+                    { text: "Intelligence artificielle", specialties: ["Automatique", "Télécommunication"] },
+                    { text: "Nouveaux matériaux", specialties: ["Génie Mécanique", "Génie Civil"] },
+                    { text: "Énergies renouvelables", specialties: ["Électrotechnique", "Électronique"] },
+                    { text: "Processus industriels", specialties: ["Génie des Procédés", "Électromécanique"] }
+                ]
+            },
+            {
+                id: 23,
+                question: "Quel type de stage à l'étranger vous intéresse ?",
+                options: [
+                    { text: "Technologies de pointe", specialties: ["Automatique", "Télécommunication"] },
+                    { text: "Industrie manufacturière", specialties: ["Génie Mécanique", "Électromécanique"] },
+                    { text: "Énergie et électricité", specialties: ["Électrotechnique", "Électronique"] },
+                    { text: "Construction internationale", specialties: ["Génie Civil", "Génie Minier"] }
+                ]
+            },
+            {
+                id: 24,
+                question: "Quel type de projet collaboratif vous intéresse ?",
+                options: [
+                    { text: "Développement logiciel", specialties: ["Automatique", "Télécommunication"] },
+                    { text: "Conception mécanique", specialties: ["Génie Mécanique", "Électromécanique"] },
+                    { text: "Installation électrique", specialties: ["Électrotechnique", "Électronique"] },
+                    { text: "Gestion de chantier", specialties: ["Génie Civil", "Génie Minier"] }
+                ]
+            },
+            {
+                id: 25,
+                question: "Quel type de compétence technique vous intéresse ?",
+                options: [
+                    { text: "Programmation avancée", specialties: ["Automatique", "Télécommunication"] },
+                    { text: "Conception mécanique", specialties: ["Génie Mécanique", "Électromécanique"] },
+                    { text: "Électricité et électronique", specialties: ["Électrotechnique", "Électronique"] },
+                    { text: "Gestion de projet", specialties: ["Génie Civil", "Génie Minier"] }
+                ]
+            },
+            {
+                id: 26,
+                question: "Quel type de projet entrepreneurial vous intéresse ?",
+                options: [
+                    { text: "Startup technologique", specialties: ["Automatique", "Télécommunication"] },
+                    { text: "Innovation mécanique", specialties: ["Génie Mécanique", "Électromécanique"] },
+                    { text: "Énergie verte", specialties: ["Électrotechnique", "Électronique"] },
+                    { text: "Construction durable", specialties: ["Génie Civil", "Génie Minier"] }
+                ]
+            },
+            {
+                id: 27,
+                question: "Quel type de réseau professionnel vous intéresse ?",
+                options: [
+                    { text: "Technologies émergentes", specialties: ["Automatique", "Télécommunication"] },
+                    { text: "Industrie manufacturière", specialties: ["Génie Mécanique", "Électromécanique"] },
+                    { text: "Énergie et électricité", specialties: ["Électrotechnique", "Électronique"] },
+                    { text: "Construction et mines", specialties: ["Génie Civil", "Génie Minier"] }
+                ]
+            },
+            {
+                id: 28,
+                question: "Quel type de projet social vous intéresse ?",
+                options: [
+                    { text: "Technologie accessible", specialties: ["Automatique", "Télécommunication"] },
+                    { text: "Innovation durable", specialties: ["Génie Mécanique", "Électromécanique"] },
+                    { text: "Énergie renouvelable", specialties: ["Électrotechnique", "Électronique"] },
+                    { text: "Construction sociale", specialties: ["Génie Civil", "Génie Minier"] }
+                ]
+            },
+            {
+                id: 29,
+                question: "Quel type de projet international vous intéresse ?",
+                options: [
+                    { text: "Coopération technologique", specialties: ["Automatique", "Télécommunication"] },
+                    { text: "Échange industriel", specialties: ["Génie Mécanique", "Électromécanique"] },
+                    { text: "Projet énergétique", specialties: ["Électrotechnique", "Électronique"] },
+                    { text: "Construction mondiale", specialties: ["Génie Civil", "Génie Minier"] }
+                ]
+            },
+            {
+                id: 30,
+                question: "Quel type de carrière vous intéresse le plus ?",
+                options: [
+                    { text: "Innovation technologique", specialties: ["Automatique", "Télécommunication"] },
+                    { text: "Conception et production", specialties: ["Génie Mécanique", "Électromécanique"] },
+                    { text: "Énergie et électricité", specialties: ["Électrotechnique", "Électronique"] },
+                    { text: "Construction et développement", specialties: ["Génie Civil", "Génie Minier"] }
+                ]
+            }
+        ];
+
+        let currentQuestion = 0;
+        let answers = [];
+        let specialtyScores = {
+            "Automatique": 0,
+            "Télécommunication": 0,
+            "Électronique": 0,
+            "Électromécanique": 0,
+            "Électrotechnique": 0,
+            "Génie Mécanique": 0,
+            "Génie des Procédés": 0,
+            "Génie Civil": 0,
+            "Génie Minier": 0
+        };
+
+        function displayQuestion() {
+            const question = questions[currentQuestion];
+            const quizContent = document.getElementById('quiz-content');
+            
+            let html = `
+                <div class="question-card animate-fade-in">
+                    <h2 class="text-xl font-semibold mb-4">Question ${currentQuestion + 1} sur ${questions.length}</h2>
+                    <p class="text-lg mb-6">${question.question}</p>
+                    <div class="options">
+            `;
+
+            question.options.forEach((option, index) => {
+                html += `
+                    <button class="option-btn" onclick="selectOption(${index})">
+                        ${option.text}
+                    </button>
+                `;
+            });
+
+            html += `
+                    </div>
+                </div>
+            `;
+
+            quizContent.innerHTML = html;
+            updateProgress();
+        }
+
+        function selectOption(optionIndex) {
+            const question = questions[currentQuestion];
+            const selectedOption = question.options[optionIndex];
+            
+            // Update specialty scores
+            selectedOption.specialties.forEach(specialty => {
+                specialtyScores[specialty] += 1;
+            });
+
+            // Move to next question
+            currentQuestion++;
+            
+            if (currentQuestion < questions.length) {
+                displayQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function updateProgress() {
+            const progress = (currentQuestion / questions.length) * 100;
+            document.querySelector('.progress-fill').style.width = `${progress}%`;
+        }
+
+        function showResults() {
+            const quizContent = document.getElementById('quiz-content');
+            const resultsDiv = document.getElementById('results');
+            
+            // Sort specialties by score
+            const sortedSpecialties = Object.entries(specialtyScores)
+                .sort(([,a], [,b]) => b - a)
+                .slice(0, 2);
+
+            let html = `
+                <div class="result-card animate-fade-in">
+                    <h2 class="text-2xl font-bold mb-6">Vos spécialités recommandées</h2>
+                    <div class="specialties">
+                        ${sortedSpecialties.map(([specialty, score]) => `
+                            <div class="specialty-badge text-lg">
+                                ${specialty}
+                            </div>
+                        `).join('')}
+                    </div>
+                    <p class="mt-6 text-gray-600">
+                        Ces recommandations sont basées sur vos réponses au quiz. 
+                        Nous vous conseillons de consulter également les programmes détaillés 
+                        de ces spécialités pour faire votre choix final.
+                    </p>
+                    <button onclick="restartQuiz()" class="mt-6 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                        Recommencer le quiz
+                    </button>
+                </div>
+            `;
+
+            quizContent.classList.add('hidden');
+            resultsDiv.classList.remove('hidden');
+            resultsDiv.innerHTML = html;
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            answers = [];
+            specialtyScores = Object.fromEntries(Object.keys(specialtyScores).map(key => [key, 0]));
+            
+            document.getElementById('results').classList.add('hidden');
+            document.getElementById('quiz-content').classList.remove('hidden');
+            displayQuestion();
+        }
+
+        // Initialize the quiz
+        displayQuestion();
+    </script>
+</body>
+</html> 
