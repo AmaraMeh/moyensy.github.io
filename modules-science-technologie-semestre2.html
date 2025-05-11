@@ -798,6 +798,53 @@
         .dark .exclusive-link .download-btn:hover {
             background: linear-gradient(135deg, rgba(59, 130, 246, 0.25), rgba(139, 92, 246, 0.25));
         }
+
+        .share-btn {
+            position: relative;
+            z-index: 10;
+        }
+
+        .share-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .share-btn i {
+            transition: transform 0.3s ease;
+        }
+
+        .share-btn:hover i {
+            transform: rotate(15deg);
+        }
+
+        .share-toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .share-toast.show {
+            opacity: 1;
+        }
+
+        .dark .share-btn {
+            background: hsl(var(--card));
+            color: hsl(var(--foreground));
+        }
+
+        .dark .share-btn:hover {
+            background: hsl(var(--accent));
+        }
     </style>
 </head>
 <body class="flex flex-col min-h-screen">
@@ -875,12 +922,17 @@
             
             <div id="moduleContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4 sm:gap-6 mb-8">
     <!-- Mathématique 2 -->
-    <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
-        <div class="flex items-center gap-3 mb-4">
-            <div class="module-icon bg-purple-100 p-3 rounded-full text-purple-600">
-                <i class="fas fa-square-root-alt fa-lg"></i>
+    <div id="module-math2" class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
+        <div class="flex items-center justify-between gap-3 mb-4">
+            <div class="flex items-center gap-3">
+                <div class="module-icon bg-purple-100 p-3 rounded-full text-purple-600">
+                    <i class="fas fa-square-root-alt fa-lg"></i>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-800">Mathématique 2</h3>
             </div>
-            <h3 class="text-xl font-semibold text-gray-800">Mathématique 2</h3>
+            <button onclick="shareModule('Mathématique 2', 'module-math2')" class="share-btn bg-gray-100 hover:bg-gray-200 p-2 rounded-full transition-all duration-300">
+                <i class="fas fa-share-alt text-gray-600"></i>
+            </button>
         </div>
         <div class="mt-auto flex flex-wrap gap-2">
             <button type="button" class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('Mathématique 2', 'cours')">
@@ -1448,32 +1500,50 @@
                         { title: 'Résumé Cours - Mme AISSANI', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=281253' }
                     ],
                     'tdtp': [
-                        { title: 'Série 1', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/532685/mod_folder/content/0/SERIES%20DE%20TD%20CHIMIE%2002%20-%20AVEC%20CORRIGE/TD%201_Chimie%202.pdf?forcedownload=1' },
-                        { title: 'Série 2', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/532685/mod_folder/content/0/SERIES%20DE%20TD%20CHIMIE%2002%20-%20AVEC%20CORRIGE/TD%202_Chimie%202.pdf?forcedownload=1' },
-                        { title: 'Série 3', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/532685/mod_folder/content/0/SERIES%20DE%20TD%20CHIMIE%2002%20-%20AVEC%20CORRIGE/TD%203_Chimie%202.pdf?forcedownload=1' },
-                        { title: 'Corrigé Série 1', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/532685/mod_folder/content/0/SERIES%20DE%20TD%20CHIMIE%2002%20-%20AVEC%20CORRIGE/Corrig%C3%A9%20TD%201%20Chimie%202.pdf?forcedownload=1' },
-                        { title: 'Corrigé Série 2', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/532685/mod_folder/content/0/SERIES%20DE%20TD%20CHIMIE%2002%20-%20AVEC%20CORRIGE/corrig%C3%A9_s%C3%A9rie%202.pdf?forcedownload=1' },
-                        { title: 'Corrigé Série 3', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/532685/mod_folder/content/0/Corrig%C3%A9_TD%203_Chimie%202.pdf?forcedownload=1' },
                         {
                             exclusive: true,
                             files: [
-                                { title: 'Série TD 1 (2025)', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=452063' },
-                                { title: 'Corrigé Série TD 1 (2025)', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=452064' }
+                                { 
+                                    title: 'Série 1 - Thermodynamique', 
+                                    url: 'https://drive.google.com/file/d/1m5HfaSqjOVX70z_VA_r-YjJch7ADhkwB/view?usp=drive_link' 
+                                },
+                                { 
+                                    title: 'Corrigé Série 1', 
+                                    url: 'https://drive.google.com/file/d/1EYSH4e1tYeC1MD56vbeZNAe8n3gDf_fO/view?usp=drive_link' 
+                                },
+                                { 
+                                    title: 'Série 2 - Thermodynamique', 
+                                    url: 'https://drive.google.com/file/d/1hcwFCljeHgsa4TlHoonKSsiVm90JrhQ-/view?usp=drive_link' 
+                                },
+                                { 
+                                    title: 'Corrigé Série 2', 
+                                    url: 'https://drive.google.com/file/d/1ONyBj7hpQAQcvXiuUGuTYs6JFL6jJYcQ/view?usp=drive_link' 
+                                },
+                                { 
+                                    title: 'Série 3 - Thermodynamique', 
+                                    url: 'https://drive.google.com/file/d/1jRJFFWHnQRH_hitVWzzB25sX1yQe1hE9/view?usp=drive_link' 
+                                },
+                                { 
+                                    title: 'Corrigé Série 3', 
+                                    url: 'https://drive.google.com/file/d/1ZeTibn0V6i48sAjHK_plNi06iqGRA0Dw/view?usp=drive_link' 
+                                }
                             ]
                         },
-                        { title: 'Série TD 1 2020/2021 avec corrigé', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=276257' },
-                        { title: 'Série Spéciale chimie 2', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=272402' },
-                        { title: 'Corrigé Série TD spéciale', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=285575' },
-                        { title: 'Série 2 2020/2021 avec corrigé', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=279985' },
-                        { title: 'Série 3 2020/2021 avec corrigé', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=284403' },
-                        { title: 'Série 1 2023/2024 + corrigé', url: 'https://elearning.univ-bejaia.dz/mod/folder/view.php?id=395559' },
-                        { title: 'Série 2 2023/2024 + corrigé', url: 'https://elearning.univ-bejaia.dz/mod/folder/view.php?id=395573' },
-                        { title: 'Série 3 2023/2024 + corrigé', url: 'https://elearning.univ-bejaia.dz/mod/folder/view.php?id=400195' },
-                        { title: 'Série 4 2023/2024 + corrigé', url: 'https://elearning.univ-bejaia.dz/mod/folder/view.php?id=400198' },
-                        {
-                            title: 'Intero (TD)',
-                            url: 'https://drive.google.com/file/d/1eDg17n4e3GKd6lCBu8oDQuy9fRY-rlDd/view'
-                        }
+                        { title: 'Série 1 + Corrigé', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/532703/mod_folder/content/0/S%C3%A9rie%20Exercices/s%C3%A9rie-TD-1-Phys2-2019_2020%2Bcorrig%C3%A9.pdf?forcedownload=1' },
+                        { title: 'Série 2 + Corrigé', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/532703/mod_folder/content/0/S%C3%A9rie%20Exercices/S%C3%A9rie-TD-2-Phys2-2019_2020%2Bcorrig%C3%A9.pdf?forcedownload=1' },
+                        { title: 'Série 3 + Corrigé', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/532703/mod_folder/content/0/S%C3%A9rie%20Exercices/S%C3%A9rie-TD-3-Phys2-2019_2020%2Bcorrig%C3%A9.pdf?forcedownload=1' },
+                        { title: 'Série 4 + Corrigé', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/532703/mod_folder/content/0/S%C3%A9rie%20Exercices/s%C3%A9rie-TD-4-Phys2-2019_2020%2Bcorrig%C3%A9.pdf?forcedownload=1' },
+                        { title: 'Série 5 + Corrigé', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/532703/mod_folder/content/0/S%C3%A9rie%20Exercices/S%C3%A9rie-TD-5-Phys2-2019_2020%2Bcorrig%C3%A9.pdf?forcedownload=1' },
+                        { title: 'Série 6 + Corrigé', url: 'https://elearning.univ-bejaia.dz/pluginfile.php/532703/mod_folder/content/0/S%C3%A9rie%20Exercices/S%C3%A9rie-TD-6-Phys2-2019_2020%2Bcorrig%C3%A9.pdf?forcedownload=1' },
+                        { title: 'Série TD 1 2021/2022', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=276090' },
+                        { title: 'Série TD 2 2021/2022', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=277944' },
+                        { title: 'Série TD 1 2021/2022', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=279261' },
+                        { title: 'Série TD 2 2021/2022', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=279264' },
+                        { title: 'Série TD 3 2021/2022', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=284859' },
+                        { title: 'Série TD 4 2021/2022', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=284860' },
+                        { title: 'Série TD 5 2021/2022', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=284861' },
+                        { title: 'Série TD 5 2022/2023', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=337999' },
+                        { title: 'Série TD 1 2019/2020', url: 'https://elearning.univ-bejaia.dz/mod/resource/view.php?id=206563' }
                     ],
                     'examen': [
                         { title: 'Examens (Dossier)', url: 'https://drive.google.com/drive/folders/11MQFzD-TvI1ElMiNp_dO6KY8aqgm9iwb?usp=drive_link' },
@@ -1560,7 +1630,7 @@
                                     url: 'https://drive.google.com/file/d/14FRz16HVbQxuTB8wJhyVRrek7jm8hcXh/view?usp=drive_link' 
                                 },
                                 { 
-                                    title: 'Cours 2 - MST2', 
+                                    title: 'Cours 2 - Bejaia', 
                                     url: 'https://drive.google.com/file/d/1b0C4qptcwEVHugKgJRkKkxYT5PMjQ-Uo/view?usp=drive_link' 
                                 },
                                 { 
@@ -2044,6 +2114,83 @@
                 });
             }
         }
+
+        // Add these new functions
+        function shareModule(moduleName, moduleId) {
+            const url = new URL(window.location.href);
+            url.hash = moduleId;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: `${moduleName} - Science et Technologie LMD S2`,
+                    text: `Consultez les ressources de ${moduleName} sur notre plateforme`,
+                    url: url.toString()
+                }).catch(console.error);
+            } else {
+                // Fallback for browsers that don't support Web Share API
+                navigator.clipboard.writeText(url.toString()).then(() => {
+                    showShareToast('Lien copié dans le presse-papiers !');
+                }).catch(() => {
+                    showShareToast('Erreur lors de la copie du lien');
+                });
+            }
+        }
+
+        function showShareToast(message) {
+            const toast = document.createElement('div');
+            toast.className = 'share-toast';
+            toast.innerHTML = `
+                <i class="fas fa-check-circle text-green-400"></i>
+                <span>${message}</span>
+            `;
+            document.body.appendChild(toast);
+            
+            // Show toast
+            setTimeout(() => toast.classList.add('show'), 100);
+            
+            // Remove toast after 3 seconds
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // Add scroll to module functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if there's a hash in the URL
+            if (window.location.hash) {
+                const moduleId = window.location.hash.substring(1);
+                const moduleElement = document.getElementById(moduleId);
+                
+                if (moduleElement) {
+                    // Smooth scroll to the module
+                    setTimeout(() => {
+                        moduleElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        
+                        // Add highlight effect
+                        moduleElement.classList.add('highlight-module');
+                        setTimeout(() => {
+                            moduleElement.classList.remove('highlight-module');
+                        }, 2000);
+                    }, 500);
+                }
+            }
+        });
+
+        // Add highlight animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes highlight {
+                0% { transform: scale(1); }
+                50% { transform: scale(1.05); box-shadow: 0 0 30px rgba(59, 130, 246, 0.5); }
+                100% { transform: scale(1); }
+            }
+            
+            .highlight-module {
+                animation: highlight 2s ease;
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
 </html>
