@@ -736,84 +736,120 @@
 
         /* --- EXCLUSIVE 2025 SECTION --- */
         .exclusive-2025-section {
-            background: linear-gradient(135deg, #f7e9a0 0%, #b4f7c5 100%);
-            border: 3px solid #ffd700;
-            border-radius: 1.25rem;
-            box-shadow: 0 0 32px 0 rgba(255, 215, 0, 0.25), 0 4px 32px 0 rgba(34,197,94,0.10);
-            padding: 2rem 1.5rem 1.5rem 1.5rem;
+            background: repeating-linear-gradient(135deg, #fffbe6 0 40px, #f7e9a0 40px 80px, #fffbe6 80px 120px);
+            border: 4px solid #ffd700;
+            border-radius: 1.5rem;
+            box-shadow: 0 0 32px 0 #ffd70055, 0 8px 32px 0 #22c55e22, 0 0 0 8px #fffbe6 inset;
+            padding: 2.5rem 1.5rem 2rem 1.5rem;
             margin-bottom: 2.5rem;
             position: relative;
+            overflow: visible;
             animation: glowGold 2.5s ease-in-out infinite alternate;
         }
+        .exclusive-2025-section::before {
+            content: '\f521'; /* fa-crown */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            color: #ffd700;
+            font-size: 3rem;
+            position: absolute;
+            top: -1.7rem;
+            left: 50%;
+            transform: translateX(-50%) rotate(-8deg);
+            filter: drop-shadow(0 2px 8px #ffd70088);
+            z-index: 2;
+            animation: floatCrown 2.5s ease-in-out infinite alternate;
+            pointer-events: none;
+        }
+        @keyframes floatCrown {
+            from { transform: translateX(-50%) rotate(-8deg) translateY(0); }
+            to   { transform: translateX(-50%) rotate(8deg) translateY(-10px); }
+        }
         @keyframes glowGold {
-            from { box-shadow: 0 0 12px 0 #ffd70044, 0 4px 32px 0 #22c55e22; }
-            to   { box-shadow: 0 0 32px 8px #ffd70099, 0 4px 32px 0 #22c55e33; }
+            from { box-shadow: 0 0 12px 0 #ffd70044, 0 8px 32px 0 #22c55e22, 0 0 0 8px #fffbe6 inset; }
+            to   { box-shadow: 0 0 48px 12px #ffd70099, 0 8px 32px 0 #22c55e33, 0 0 0 12px #fffbe6 inset; }
         }
         .exclusive-2025-badge {
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
-            font-size: 1.25rem;
-            font-weight: 700;
+            gap: 0.7rem;
+            font-size: 1.35rem;
+            font-weight: 800;
             background: linear-gradient(90deg, #ffd700 60%, #22c55e 100%);
             color: #fff;
             border-radius: 9999px;
-            padding: 0.5rem 1.5rem;
-            box-shadow: 0 2px 12px #ffd70055;
-            margin-bottom: 1.25rem;
-            border: 2px solid #fffbe6;
+            padding: 0.7rem 2.2rem 0.7rem 1.7rem;
+            box-shadow: 0 2px 16px #ffd70055, 0 0 0 4px #fffbe6 inset;
+            margin-bottom: 1.5rem;
+            border: 2.5px solid #fffbe6;
+            letter-spacing: 0.04em;
+            position: relative;
+            z-index: 1;
         }
         .exclusive-2025-badge i {
             color: #ffd700;
-            font-size: 1.5em;
+            font-size: 2em;
+            margin-right: 0.5rem;
+            filter: drop-shadow(0 2px 8px #ffd70088);
         }
         .exclusive-2025-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            background: linear-gradient(90deg, #ffd700, #22c55e);
+            font-size: 1.7rem;
+            font-weight: 900;
+            background: linear-gradient(90deg, #ffd700, #22c55e 80%);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            margin-bottom: 1.25rem;
+            margin-bottom: 1.5rem;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.7rem;
+            letter-spacing: 0.03em;
+        }
+        .exclusive-2025-title i {
+            color: #ffd700;
+            text-shadow: 0 2px 8px #ffd70088;
         }
         .exclusive-2025-resource-card {
-            background: #fffbe6;
-            border: 2px solid #ffd700;
-            border-radius: 1rem;
-            box-shadow: 0 2px 12px #ffd70022;
-            padding: 1rem 1.25rem;
-            margin-bottom: 1rem;
+            background: linear-gradient(90deg, #fffbe6 80%, #f7e9a0 100%);
+            border: 2.5px solid #ffd700;
+            border-radius: 1.1rem;
+            box-shadow: 0 2px 16px #ffd70022;
+            padding: 1.1rem 1.5rem;
+            margin-bottom: 1.1rem;
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 1.2rem;
             transition: transform 0.2s, box-shadow 0.2s;
+            font-size: 1.1rem;
+            font-weight: 600;
+            position: relative;
         }
         .exclusive-2025-resource-card:hover {
-            transform: scale(1.03) translateY(-2px);
-            box-shadow: 0 6px 24px #ffd70055;
+            transform: scale(1.04) translateY(-2px);
+            box-shadow: 0 8px 32px #ffd70055;
+            background: linear-gradient(90deg, #fffbe6 60%, #b4f7c5 100%);
         }
         .exclusive-2025-resource-card .fa-crown,
         .exclusive-2025-resource-card .fa-star {
             color: #ffd700;
-            font-size: 1.3em;
-            margin-right: 0.75rem;
+            font-size: 1.5em;
+            margin-right: 0.85rem;
+            filter: drop-shadow(0 2px 8px #ffd70088);
         }
         .exclusive-2025-resource-link {
             color: #bfa100;
-            font-weight: 600;
+            font-weight: 700;
             text-decoration: underline;
             transition: color 0.2s;
+            font-size: 1.08em;
         }
         .exclusive-2025-resource-link:hover {
             color: #22c55e;
         }
         @media (max-width: 600px) {
-            .exclusive-2025-section { padding: 1rem 0.5rem; }
-            .exclusive-2025-title { font-size: 1.1rem; }
-            .exclusive-2025-badge { font-size: 1rem; padding: 0.4rem 1rem; }
+            .exclusive-2025-section { padding: 1.2rem 0.3rem; }
+            .exclusive-2025-title { font-size: 1.15rem; }
+            .exclusive-2025-badge { font-size: 1.05rem; padding: 0.5rem 1.1rem; }
         }
     </style>
 </head>
@@ -896,6 +932,18 @@
 
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                <!-- EXCLUSIVE: Collection Examens SNV Biologie Animale -->
+                <div class="exclusive-2025-section mb-8">
+                    <div class="exclusive-2025-badge"><i class="fas fa-crown"></i> Examens SNV Biologie Animale</div>
+                    <div class="exclusive-2025-title"><i class="fas fa-star"></i>Collection Exclusive</div>
+                    <div>
+                        <div class='exclusive-2025-resource-card'>
+                            <i class="fas fa-crown"></i>
+                            <a href="https://drive.google.com/file/d/1xp6tXZxnSEfJm_YcdyAeiIQ0YREkeZki/view?usp=drivesdk" class="exclusive-2025-resource-link" target="_blank">Collection Examens SNV Biologie Animale</a>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Biologie Animale -->
                 <div class="module-card" data-aos="fade-up">
                     <div class="module-icon-wrapper">
@@ -1659,48 +1707,89 @@
 
         // --- PATCH showContent for exclusive 2025 Biologie Animale cours ---
         window.addEventListener('DOMContentLoaded', function() {
-            if (typeof showContent === 'function') {
-                const origShowContent = showContent;
-                window.showContent = function(moduleShortName, type) {
-                    const moduleName = moduleMapping[moduleShortName];
-                    if (moduleName === 'Biologie Animale' && type === 'cours') {
-                        const popupId = `popup-${type}`;
-                        const popup = document.getElementById(popupId);
-                        const popupTitle = document.getElementById(`popup-title-${type}`);
-                        const popupContentContainer = document.getElementById(`popup-content-${type}`);
-                        if (!popup || !popupTitle || !popupContentContainer) { return; }
-                        popupTitle.textContent = `${moduleName} - Cours`;
-                        popupContentContainer.innerHTML = '';
-                        // Render exclusive 2025 section first if present
-                        const moduleData = moduleContent[moduleName];
-                        const exclusive2025 = moduleData.bejaia && moduleData.bejaia.cours && moduleData.bejaia.cours['Exclusif & Conseillé 2025'];
-                        if (exclusive2025 && exclusive2025.length > 0) {
-                            const section = document.createElement('div');
-                            section.className = 'exclusive-2025-section';
-                            section.innerHTML = `
-                                <div class="exclusive-2025-badge"><i class="fas fa-crown"></i> 2025 <span style="font-size:1rem;font-weight:400;">Exclusif & Conseillé</span></div>
-                                <div class="exclusive-2025-title"><i class="fas fa-star"></i>Ressources Premium 2025</div>
-                                <div>
-                                    ${exclusive2025.map(item => `
-                                        <div class='exclusive-2025-resource-card'>
-                                            <i class="fas fa-crown"></i>
-                                            <a href="${item.url}" class="exclusive-2025-resource-link" target="_blank">${item.title}</a>
-                                        </div>
-                                    `).join('')}
-                                </div>
-                            `;
-                            popupContentContainer.appendChild(section);
+            setTimeout(function() {
+                if (typeof showContent === 'function') {
+                    const origShowContent = showContent;
+                    window.showContent = function(moduleShortName, type) {
+                        const moduleName = moduleMapping[moduleShortName];
+                        if (moduleName === 'Biologie Animale' && type === 'cours') {
+                            const popupId = `popup-${type}`;
+                            const popup = document.getElementById(popupId);
+                            const popupTitle = document.getElementById(`popup-title-${type}`);
+                            const popupContentContainer = document.getElementById(`popup-content-${type}`);
+                            if (!popup || !popupTitle || !popupContentContainer) { return; }
+                            popupTitle.textContent = `${moduleName} - Cours`;
+                            popupContentContainer.innerHTML = '';
+                            // Render exclusive 2025 section first if present
+                            const moduleData = moduleContent[moduleName];
+                            const exclusive2025 = moduleData.bejaia && moduleData.bejaia.cours && moduleData.bejaia.cours['Exclusif & Conseillé 2025'];
+                            if (exclusive2025 && exclusive2025.length > 0) {
+                                const section = document.createElement('div');
+                                section.className = 'exclusive-2025-section';
+                                section.innerHTML = `
+                                    <div class=\"exclusive-2025-badge\"><i class=\"fas fa-crown\"></i> 2025 <span style=\"font-size:1rem;font-weight:400;\">Exclusif & Conseillé</span></div>
+                                    <div class=\"exclusive-2025-title\"><i class=\"fas fa-star\"></i>Ressources Premium 2025</div>
+                                    <div>
+                                        ${exclusive2025.map(item => `
+                                            <div class='exclusive-2025-resource-card'>
+                                                <i class=\"fas fa-crown\"></i>
+                                                <a href=\"${item.url}\" class=\"exclusive-2025-resource-link\" target=\"_blank\">${item.title}</a>
+                                            </div>
+                                        `).join('')}
+                                    </div>
+                                `;
+                                popupContentContainer.appendChild(section);
+                                console.log('Exclusive 2025 section rendered!');
+                            } else {
+                                console.log('No exclusive 2025 section found!');
+                            }
+                            // Continue with the rest of the original rendering (other sections)
+                            origShowContent.apply(this, [moduleShortName, type]);
+                            popup.classList.add('active');
+                            document.body.style.overflow = 'hidden';
+                            return;
                         }
-                        // Continue with the rest of the original rendering (other sections)
-                        origShowContent.apply(this, [moduleShortName, type]);
-                        popup.classList.add('active');
-                        document.body.style.overflow = 'hidden';
-                        return;
-                    }
-                    // Otherwise, default
-                    origShowContent.apply(this, arguments);
-                };
-            }
+                        // --- PATCH for Biologie Animale EXAMEN exclusive collection ---
+                        if (moduleName === 'Biologie Animale' && type === 'examen') {
+                            const popupId = `popup-${type}`;
+                            const popup = document.getElementById(popupId);
+                            const popupTitle = document.getElementById(`popup-title-${type}`);
+                            const popupContentContainer = document.getElementById(`popup-content-${type}`);
+                            if (!popup || !popupTitle || !popupContentContainer) { return; }
+                            popupTitle.textContent = `${moduleName} - Examens`;
+                            popupContentContainer.innerHTML = '';
+                            // Render exclusive collection for examens
+                            const moduleData = moduleContent[moduleName];
+                            const archivesSujets = moduleData.bejaia && moduleData.bejaia.examen && moduleData.bejaia.examen['Archives Sujets'];
+                            if (archivesSujets && archivesSujets.length > 0) {
+                                const section = document.createElement('div');
+                                section.className = 'exclusive-2025-section';
+                                section.innerHTML = `
+                                    <div class=\"exclusive-2025-badge\"><i class=\"fas fa-crown\"></i> Examens SNV Biologie Animale</div>
+                                    <div class=\"exclusive-2025-title\"><i class=\"fas fa-star\"></i>Collection Exclusive</div>
+                                    <div>
+                                        ${archivesSujets.map(item => `
+                                            <div class='exclusive-2025-resource-card'>
+                                                <i class=\"fas fa-crown\"></i>
+                                                <a href=\"${item.url}\" class=\"exclusive-2025-resource-link\" target=\"_blank\">${item.title}</a>
+                                            </div>
+                                        `).join('')}
+                                    </div>
+                                `;
+                                popupContentContainer.appendChild(section);
+                            }
+                            // Continue with the rest of the original rendering (other sections)
+                            origShowContent.apply(this, [moduleShortName, type]);
+                            popup.classList.add('active');
+                            document.body.style.overflow = 'hidden';
+                            return;
+                        }
+                        // --- END PATCH ---
+                        // Otherwise, default
+                        origShowContent.apply(this, arguments);
+                    };
+                }
+            }, 0);
         });
 
         function showContent(moduleShortName, type) {
