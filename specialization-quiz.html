@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Quiz d'Orientation - Université de Bejaia</title>
-    <meta name="description" content="Quiz interactif pour aider les étudiants à choisir leur spécialité en ST">
+    <title>Quiz d'Orientation ST - Université de Bejaia</title>
+    <meta name="description" content="Quiz interactif pour aider les étudiants ST à choisir leur spécialité">
     <meta name="author" content="Amara Mehdi">
     <link rel="icon" type="image/png" href="assets/img/icon.png">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
@@ -332,7 +332,8 @@
     <header class="bg-background/80 backdrop-blur-sm shadow-lg py-6">
         <div class="container mx-auto px-4">
             <div class="flex flex-col items-center">
-                <h1 class="text-3xl font-bold" data-aos="fade-up">Quiz d'Orientation</h1>
+                <h1 class="text-3xl font-bold" data-aos="fade-up">Quiz d'Orientation ST</h1>
+                <p class="text-sm text-muted-foreground mt-2">Découvrez votre spécialité idéale en Sciences et Technologies</p>
                 <div class="mt-2 flex items-center space-x-2 text-sm text-muted-foreground">
                     <i class="fas fa-users"></i>
                     <span id="visitor-count">Chargement...</span>
@@ -444,76 +445,109 @@
         };
 
         // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
         const database = firebase.database();
 
         // Generate a unique visitor ID
         const visitorId = 'visitor_' + Math.random().toString(36).substr(2, 9);
 
         // Track page visit and active users
-        function trackPageVisit() {
-            const statsRef = database.ref('stats/modules/quiz');
-            const activeUsersRef = database.ref('activeUsers/quiz');
-            
-            // Increment total visits
-            statsRef.transaction((current) => (current || 0) + 1);
-
-            // Add current user to active users
-            activeUsersRef.child(visitorId).set({
-                lastActive: firebase.database.ServerValue.TIMESTAMP
-            });
-
-            // Remove user from active users when they leave
-            window.addEventListener('beforeunload', () => {
-                activeUsersRef.child(visitorId).remove();
-            });
-
-            // Update last active timestamp every 30 seconds
-            setInterval(() => {
-                activeUsersRef.child(visitorId).update({
-                    lastActive: firebase.database.ServerValue.TIMESTAMP
-                });
-            }, 30000);
-
-            // Clean up inactive users (inactive for more than 1 minute)
-            activeUsersRef.on('value', (snapshot) => {
-                const now = Date.now();
-                const activeUsers = snapshot.val() || {};
+        async function trackPageVisit() {
+            try {
+                const statsRef = database.ref('stats/modules/quiz');
+                const activeUsersRef = database.ref('activeUsers/quiz');
                 
-                Object.entries(activeUsers).forEach(([userId, data]) => {
-                    if (now - data.lastActive > 60000) {
-                        activeUsersRef.child(userId).remove();
-                    }
+                // Increment total visits using a transaction
+                await statsRef.transaction((current) => {
+                    return (current || 0) + 1;
                 });
-            });
+
+                // Add current user to active users
+                await activeUsersRef.child(visitorId).set({
+                    lastActive: firebase.database.ServerValue.TIMESTAMP,
+                    timestamp: Date.now()
+                });
+
+                // Set up cleanup for when user leaves
+                window.addEventListener('beforeunload', () => {
+                    activeUsersRef.child(visitorId).remove();
+                });
+
+                // Update last active timestamp every 15 seconds
+                setInterval(() => {
+                    activeUsersRef.child(visitorId).update({
+                        lastActive: firebase.database.ServerValue.TIMESTAMP,
+                        timestamp: Date.now()
+                    });
+                }, 15000);
+
+                // Clean up inactive users
+                activeUsersRef.on('value', (snapshot) => {
+                    const now = Date.now();
+                    const activeUsers = snapshot.val() || {};
+                    
+                    Object.entries(activeUsers).forEach(([userId, data]) => {
+                        if (now - data.timestamp > 30000) { // 30 seconds timeout
+                            activeUsersRef.child(userId).remove();
+                        }
+                    });
+                });
+            } catch (error) {
+                console.error('Error tracking page visit:', error);
+            }
         }
 
         // Update visitor count and active users in real-time
         function updateVisitorCount() {
-            const visitorCountRef = database.ref('stats/modules/quiz');
-            const activeUsersRef = database.ref('activeUsers/quiz');
+            try {
+                const visitorCountRef = database.ref('stats/modules/quiz');
+                const activeUsersRef = database.ref('activeUsers/quiz');
 
-            // Update total visitors
-            visitorCountRef.on('value', (snapshot) => {
-                const count = snapshot.val() || 0;
-                document.getElementById('visitor-count').textContent = `${count} visiteurs`;
-            });
+                // Update total visitors
+                visitorCountRef.on('value', (snapshot) => {
+                    const count = snapshot.val() || 0;
+                    const visitorCountElement = document.getElementById('visitor-count');
+                    if (visitorCountElement) {
+                        visitorCountElement.textContent = `${count} visiteurs`;
+                    }
+                });
 
-            // Update active users
-            activeUsersRef.on('value', (snapshot) => {
-                const activeUsers = snapshot.val() || {};
-                const activeCount = Object.keys(activeUsers).length;
-                document.getElementById('active-users').textContent = 
-                    activeCount > 1 ? `(${activeCount} actifs)` : '';
-            });
+                // Update active users
+                activeUsersRef.on('value', (snapshot) => {
+                    const activeUsers = snapshot.val() || {};
+                    const activeCount = Object.keys(activeUsers).length;
+                    const activeUsersElement = document.getElementById('active-users');
+                    if (activeUsersElement) {
+                        activeUsersElement.textContent = 
+                            activeCount > 1 ? `(${activeCount} actifs)` : '';
+                    }
+                });
+            } catch (error) {
+                console.error('Error updating visitor count:', error);
+            }
         }
 
-        // Initialize tracking
-        trackPageVisit();
-        updateVisitorCount();
+        // Initialize tracking with retry mechanism
+        function initializeTracking(retries = 3) {
+            try {
+                trackPageVisit();
+                updateVisitorCount();
+            } catch (error) {
+                console.error('Error initializing tracking:', error);
+                if (retries > 0) {
+                    setTimeout(() => initializeTracking(retries - 1), 1000);
+                }
+            }
+        }
 
-        // Quiz questions
-        const questions = [
+        // Start tracking when the page loads
+        window.addEventListener('load', initializeTracking);
+
+        // Question pool with 30 questions
+        const questionPool = [
+            // Academic Interests
             {
                 id: 1,
                 question: "Quelle matière préférez-vous le plus ?",
@@ -526,96 +560,38 @@
             },
             {
                 id: 2,
-                question: "Quel type de projet vous intéresse le plus ?",
+                question: "Quel type de problème mathématique préférez-vous résoudre ?",
                 options: [
-                    { text: "Programmation et contrôle", specialties: ["Automatique", "Télécommunication"] },
-                    { text: "Conception mécanique", specialties: ["Génie Mécanique", "Électromécanique"] },
-                    { text: "Énergie et électricité", specialties: ["Électrotechnique", "Électronique"] },
-                    { text: "Construction et infrastructure", specialties: ["Génie Civil", "Génie Minier"] }
+                    { text: "Équations différentielles", specialties: ["Automatique", "Télécommunication"] },
+                    { text: "Mécanique des fluides", specialties: ["Génie Mécanique", "Génie des Procédés"] },
+                    { text: "Circuits électriques", specialties: ["Électrotechnique", "Électronique"] },
+                    { text: "Statique et résistance", specialties: ["Génie Civil", "Génie Minier"] }
                 ]
             },
             {
                 id: 3,
-                question: "Quel environnement de travail préférez-vous ?",
+                question: "Quel aspect de la physique vous intéresse le plus ?",
                 options: [
-                    { text: "Bureau et laboratoire", specialties: ["Automatique", "Télécommunication", "Électronique"] },
-                    { text: "Atelier et usine", specialties: ["Électromécanique", "Génie Mécanique"] },
-                    { text: "Site de construction", specialties: ["Génie Civil", "Génie Minier"] },
-                    { text: "Usine de production", specialties: ["Génie des Procédés", "Électrotechnique"] }
+                    { text: "Électricité et magnétisme", specialties: ["Électrotechnique", "Électronique"] },
+                    { text: "Mécanique et mouvement", specialties: ["Génie Mécanique", "Électromécanique"] },
+                    { text: "Ondes et vibrations", specialties: ["Télécommunication", "Automatique"] },
+                    { text: "Thermodynamique", specialties: ["Génie des Procédés", "Génie Civil"] }
                 ]
             },
+
+            // Technical Skills
             {
                 id: 4,
-                question: "Quelle compétence souhaitez-vous développer ?",
+                question: "Quelle compétence technique souhaitez-vous développer ?",
                 options: [
                     { text: "Programmation et algorithmes", specialties: ["Automatique", "Télécommunication"] },
-                    { text: "Conception et dessin technique", specialties: ["Génie Mécanique", "Génie Civil"] },
+                    { text: "Conception mécanique", specialties: ["Génie Mécanique", "Électromécanique"] },
                     { text: "Électronique et circuits", specialties: ["Électronique", "Électrotechnique"] },
                     { text: "Gestion de projets", specialties: ["Génie des Procédés", "Génie Minier"] }
                 ]
             },
             {
                 id: 5,
-                question: "Quel type de problème aimez-vous résoudre ?",
-                options: [
-                    { text: "Problèmes logiques et mathématiques", specialties: ["Automatique", "Télécommunication"] },
-                    { text: "Problèmes mécaniques et physiques", specialties: ["Génie Mécanique", "Électromécanique"] },
-                    { text: "Problèmes électriques et électroniques", specialties: ["Électronique", "Électrotechnique"] },
-                    { text: "Problèmes de construction et d'infrastructure", specialties: ["Génie Civil", "Génie Minier"] }
-                ]
-            },
-            {
-                id: 6,
-                question: "Quel secteur industriel vous intéresse le plus ?",
-                options: [
-                    { text: "Technologies de l'information", specialties: ["Automatique", "Télécommunication"] },
-                    { text: "Industrie manufacturière", specialties: ["Génie Mécanique", "Électromécanique"] },
-                    { text: "Énergie et électricité", specialties: ["Électrotechnique", "Électronique"] },
-                    { text: "Construction et mines", specialties: ["Génie Civil", "Génie Minier"] }
-                ]
-            },
-            {
-                id: 7,
-                question: "Quelle activité préférez-vous pendant votre temps libre ?",
-                options: [
-                    { text: "Programmation et électronique", specialties: ["Automatique", "Télécommunication", "Électronique"] },
-                    { text: "Bricolage et mécanique", specialties: ["Génie Mécanique", "Électromécanique"] },
-                    { text: "Construction et design", specialties: ["Génie Civil"] },
-                    { text: "Expériences scientifiques", specialties: ["Génie des Procédés", "Génie Minier"] }
-                ]
-            },
-            {
-                id: 8,
-                question: "Quel type de travail en équipe préférez-vous ?",
-                options: [
-                    { text: "Développement logiciel", specialties: ["Automatique", "Télécommunication"] },
-                    { text: "Conception mécanique", specialties: ["Génie Mécanique", "Électromécanique"] },
-                    { text: "Installation électrique", specialties: ["Électrotechnique", "Électronique"] },
-                    { text: "Gestion de chantier", specialties: ["Génie Civil", "Génie Minier"] }
-                ]
-            },
-            {
-                id: 9,
-                question: "Quelle innovation technologique vous passionne le plus ?",
-                options: [
-                    { text: "Intelligence artificielle et IoT", specialties: ["Automatique", "Télécommunication"] },
-                    { text: "Robots et machines", specialties: ["Génie Mécanique", "Électromécanique"] },
-                    { text: "Énergies renouvelables", specialties: ["Électrotechnique", "Électronique"] },
-                    { text: "Matériaux avancés", specialties: ["Génie Civil", "Génie des Procédés"] }
-                ]
-            },
-            {
-                id: 10,
-                question: "Quel aspect de la technologie vous intéresse le plus ?",
-                options: [
-                    { text: "Contrôle et automatisation", specialties: ["Automatique", "Télécommunication"] },
-                    { text: "Mécanique et mouvement", specialties: ["Génie Mécanique", "Électromécanique"] },
-                    { text: "Électricité et électronique", specialties: ["Électrotechnique", "Électronique"] },
-                    { text: "Matériaux et structures", specialties: ["Génie Civil", "Génie Minier"] }
-                ]
-            },
-            {
-                id: 11,
                 question: "Quel type de logiciel vous intéresse le plus ?",
                 options: [
                     { text: "Systèmes embarqués", specialties: ["Automatique", "Électronique"] },
@@ -625,7 +601,39 @@
                 ]
             },
             {
-                id: 12,
+                id: 6,
+                question: "Quel type de certification vous intéresse ?",
+                options: [
+                    { text: "Programmation et réseaux", specialties: ["Automatique", "Télécommunication"] },
+                    { text: "Conception assistée", specialties: ["Génie Mécanique", "Électromécanique"] },
+                    { text: "Électricité et électronique", specialties: ["Électrotechnique", "Électronique"] },
+                    { text: "Gestion de projet", specialties: ["Génie Civil", "Génie Minier"] }
+                ]
+            },
+
+            // Work Environment
+            {
+                id: 7,
+                question: "Quel environnement de travail préférez-vous ?",
+                options: [
+                    { text: "Bureau et laboratoire", specialties: ["Automatique", "Télécommunication", "Électronique"] },
+                    { text: "Atelier et usine", specialties: ["Électromécanique", "Génie Mécanique"] },
+                    { text: "Site de construction", specialties: ["Génie Civil", "Génie Minier"] },
+                    { text: "Usine de production", specialties: ["Génie des Procédés", "Électrotechnique"] }
+                ]
+            },
+            {
+                id: 8,
+                question: "Quel type de projet vous intéresse le plus ?",
+                options: [
+                    { text: "Programmation et contrôle", specialties: ["Automatique", "Télécommunication"] },
+                    { text: "Conception mécanique", specialties: ["Génie Mécanique", "Électromécanique"] },
+                    { text: "Énergie et électricité", specialties: ["Électrotechnique", "Électronique"] },
+                    { text: "Construction et infrastructure", specialties: ["Génie Civil", "Génie Minier"] }
+                ]
+            },
+            {
+                id: 9,
                 question: "Quel type de défi technique vous motive le plus ?",
                 options: [
                     { text: "Optimisation de systèmes", specialties: ["Automatique", "Télécommunication"] },
@@ -634,8 +642,10 @@
                     { text: "Gestion de projets complexes", specialties: ["Génie Civil", "Génie Minier"] }
                 ]
             },
+
+            // Research and Innovation
             {
-                id: 13,
+                id: 10,
                 question: "Quel aspect de la recherche vous intéresse ?",
                 options: [
                     { text: "Intelligence artificielle", specialties: ["Automatique", "Télécommunication"] },
@@ -645,7 +655,61 @@
                 ]
             },
             {
+                id: 11,
+                question: "Quelle innovation technologique vous passionne le plus ?",
+                options: [
+                    { text: "Intelligence artificielle et IoT", specialties: ["Automatique", "Télécommunication"] },
+                    { text: "Robots et machines", specialties: ["Génie Mécanique", "Électromécanique"] },
+                    { text: "Énergies renouvelables", specialties: ["Électrotechnique", "Électronique"] },
+                    { text: "Matériaux avancés", specialties: ["Génie Civil", "Génie des Procédés"] }
+                ]
+            },
+            {
+                id: 12,
+                question: "Quel type de publication vous intéresse ?",
+                options: [
+                    { text: "Intelligence artificielle", specialties: ["Automatique", "Télécommunication"] },
+                    { text: "Conception mécanique", specialties: ["Génie Mécanique", "Électromécanique"] },
+                    { text: "Énergie et électricité", specialties: ["Électrotechnique", "Électronique"] },
+                    { text: "Construction et matériaux", specialties: ["Génie Civil", "Génie Minier"] }
+                ]
+            },
+
+            // Industry and Career
+            {
+                id: 13,
+                question: "Quel secteur industriel vous intéresse le plus ?",
+                options: [
+                    { text: "Technologies de l'information", specialties: ["Automatique", "Télécommunication"] },
+                    { text: "Industrie manufacturière", specialties: ["Génie Mécanique", "Électromécanique"] },
+                    { text: "Énergie et électricité", specialties: ["Électrotechnique", "Électronique"] },
+                    { text: "Construction et mines", specialties: ["Génie Civil", "Génie Minier"] }
+                ]
+            },
+            {
                 id: 14,
+                question: "Quel type de carrière vous intéresse le plus ?",
+                options: [
+                    { text: "Innovation technologique", specialties: ["Automatique", "Télécommunication"] },
+                    { text: "Conception et production", specialties: ["Génie Mécanique", "Électromécanique"] },
+                    { text: "Énergie et électricité", specialties: ["Électrotechnique", "Électronique"] },
+                    { text: "Construction et développement", specialties: ["Génie Civil", "Génie Minier"] }
+                ]
+            },
+            {
+                id: 15,
+                question: "Quel type de projet entrepreneurial vous intéresse ?",
+                options: [
+                    { text: "Startup technologique", specialties: ["Automatique", "Télécommunication"] },
+                    { text: "Innovation mécanique", specialties: ["Génie Mécanique", "Électromécanique"] },
+                    { text: "Énergie verte", specialties: ["Électrotechnique", "Électronique"] },
+                    { text: "Construction durable", specialties: ["Génie Civil", "Génie Minier"] }
+                ]
+            },
+
+            // Practical Skills
+            {
+                id: 16,
                 question: "Quel type de stage vous attire le plus ?",
                 options: [
                     { text: "Développement logiciel", specialties: ["Automatique", "Télécommunication"] },
@@ -655,7 +719,7 @@
                 ]
             },
             {
-                id: 15,
+                id: 17,
                 question: "Quel type de projet de fin d'études vous intéresse ?",
                 options: [
                     { text: "Système automatisé", specialties: ["Automatique", "Télécommunication"] },
@@ -665,7 +729,7 @@
                 ]
             },
             {
-                id: 16,
+                id: 18,
                 question: "Quel type de compétition technique vous intéresse ?",
                 options: [
                     { text: "Robotique", specialties: ["Automatique", "Électronique"] },
@@ -674,18 +738,20 @@
                     { text: "Construction", specialties: ["Génie Civil", "Génie Minier"] }
                 ]
             },
+
+            // Additional Questions
             {
-                id: 17,
-                question: "Quel type de certification vous intéresse ?",
+                id: 19,
+                question: "Quel type de laboratoire vous intéresse le plus ?",
                 options: [
-                    { text: "Programmation et réseaux", specialties: ["Automatique", "Télécommunication"] },
-                    { text: "Conception assistée", specialties: ["Génie Mécanique", "Électromécanique"] },
+                    { text: "Informatique et réseaux", specialties: ["Automatique", "Télécommunication"] },
+                    { text: "Mécanique et matériaux", specialties: ["Génie Mécanique", "Électromécanique"] },
                     { text: "Électricité et électronique", specialties: ["Électrotechnique", "Électronique"] },
-                    { text: "Gestion de projet", specialties: ["Génie Civil", "Génie Minier"] }
+                    { text: "Construction et structures", specialties: ["Génie Civil", "Génie Minier"] }
                 ]
             },
             {
-                id: 18,
+                id: 20,
                 question: "Quel type de conférence vous intéresse ?",
                 options: [
                     { text: "Technologies émergentes", specialties: ["Automatique", "Télécommunication"] },
@@ -695,33 +761,13 @@
                 ]
             },
             {
-                id: 19,
-                question: "Quel type de publication vous intéresse ?",
-                options: [
-                    { text: "Intelligence artificielle", specialties: ["Automatique", "Télécommunication"] },
-                    { text: "Conception mécanique", specialties: ["Génie Mécanique", "Électromécanique"] },
-                    { text: "Énergie et électricité", specialties: ["Électrotechnique", "Électronique"] },
-                    { text: "Construction et matériaux", specialties: ["Génie Civil", "Génie Minier"] }
-                ]
-            },
-            {
-                id: 20,
+                id: 21,
                 question: "Quel type de formation continue vous intéresse ?",
                 options: [
                     { text: "Programmation avancée", specialties: ["Automatique", "Télécommunication"] },
                     { text: "Conception mécanique", specialties: ["Génie Mécanique", "Électromécanique"] },
                     { text: "Électricité et électronique", specialties: ["Électrotechnique", "Électronique"] },
                     { text: "Gestion de projet", specialties: ["Génie Civil", "Génie Minier"] }
-                ]
-            },
-            {
-                id: 21,
-                question: "Quel type de laboratoire vous intéresse ?",
-                options: [
-                    { text: "Informatique et réseaux", specialties: ["Automatique", "Télécommunication"] },
-                    { text: "Mécanique et matériaux", specialties: ["Génie Mécanique", "Électromécanique"] },
-                    { text: "Électricité et électronique", specialties: ["Électrotechnique", "Électronique"] },
-                    { text: "Construction et structures", specialties: ["Génie Civil", "Génie Minier"] }
                 ]
             },
             {
@@ -766,16 +812,6 @@
             },
             {
                 id: 26,
-                question: "Quel type de projet entrepreneurial vous intéresse ?",
-                options: [
-                    { text: "Startup technologique", specialties: ["Automatique", "Télécommunication"] },
-                    { text: "Innovation mécanique", specialties: ["Génie Mécanique", "Électromécanique"] },
-                    { text: "Énergie verte", specialties: ["Électrotechnique", "Électronique"] },
-                    { text: "Construction durable", specialties: ["Génie Civil", "Génie Minier"] }
-                ]
-            },
-            {
-                id: 27,
                 question: "Quel type de réseau professionnel vous intéresse ?",
                 options: [
                     { text: "Technologies émergentes", specialties: ["Automatique", "Télécommunication"] },
@@ -785,7 +821,7 @@
                 ]
             },
             {
-                id: 28,
+                id: 27,
                 question: "Quel type de projet social vous intéresse ?",
                 options: [
                     { text: "Technologie accessible", specialties: ["Automatique", "Télécommunication"] },
@@ -795,7 +831,7 @@
                 ]
             },
             {
-                id: 29,
+                id: 28,
                 question: "Quel type de projet international vous intéresse ?",
                 options: [
                     { text: "Coopération technologique", specialties: ["Automatique", "Télécommunication"] },
@@ -805,19 +841,36 @@
                 ]
             },
             {
-                id: 30,
-                question: "Quel type de carrière vous intéresse le plus ?",
+                id: 29,
+                question: "Quel type de projet de développement durable vous intéresse ?",
                 options: [
-                    { text: "Innovation technologique", specialties: ["Automatique", "Télécommunication"] },
-                    { text: "Conception et production", specialties: ["Génie Mécanique", "Électromécanique"] },
-                    { text: "Énergie et électricité", specialties: ["Électrotechnique", "Électronique"] },
-                    { text: "Construction et développement", specialties: ["Génie Civil", "Génie Minier"] }
+                    { text: "Smart City", specialties: ["Automatique", "Télécommunication"] },
+                    { text: "Énergie verte", specialties: ["Électrotechnique", "Électronique"] },
+                    { text: "Industrie durable", specialties: ["Génie Mécanique", "Électromécanique"] },
+                    { text: "Construction écologique", specialties: ["Génie Civil", "Génie Minier"] }
+                ]
+            },
+            {
+                id: 30,
+                question: "Quel aspect de l'ingénierie vous passionne le plus ?",
+                options: [
+                    { text: "Innovation et technologie", specialties: ["Automatique", "Télécommunication"] },
+                    { text: "Conception et fabrication", specialties: ["Génie Mécanique", "Électromécanique"] },
+                    { text: "Énergie et systèmes", specialties: ["Électrotechnique", "Électronique"] },
+                    { text: "Infrastructure et développement", specialties: ["Génie Civil", "Génie Minier"] }
                 ]
             }
         ];
 
+        // Function to get random questions
+        function getRandomQuestions(count = 30) {
+            const shuffled = [...questionPool].sort(() => 0.5 - Math.random());
+            return shuffled.slice(0, count);
+        }
+
         let currentQuestion = 0;
         let answers = [];
+        let questions = [];
         let specialtyScores = {
             "Automatique": 0,
             "Télécommunication": 0,
@@ -921,13 +974,15 @@
             currentQuestion = 0;
             answers = [];
             specialtyScores = Object.fromEntries(Object.keys(specialtyScores).map(key => [key, 0]));
+            questions = getRandomQuestions(30);
             
             document.getElementById('results').classList.add('hidden');
             document.getElementById('quiz-content').classList.remove('hidden');
             displayQuestion();
         }
 
-        // Initialize the quiz
+        // Initialize the quiz with random questions
+        questions = getRandomQuestions(30);
         displayQuestion();
     </script>
 </body>
