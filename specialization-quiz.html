@@ -337,6 +337,7 @@
                     <i class="fas fa-users"></i>
                     <span id="visitor-count">Chargement...</span>
                     <span class="animate-pulse text-green-500">•</span>
+                    <span id="active-users" class="text-xs text-blue-500"></span>
                 </div>
             </div>
         </div>
@@ -439,25 +440,71 @@
             messagingSenderId: "517622731583",
             appId: "1:517622731583:web:25453d5e01226585bf798a",
             measurementId: "G-SQ0WWSCS7B",
-            databaseURL: "https://universite-de-bejaia-547fc-default-rtdb.firebaseio.com"
+            databaseURL: "https://universite-de-bejaia-547fc-default-rtdb.europe-west1.firebasedatabase.app"
         };
 
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
 
-        // Track page visit
+        // Generate a unique visitor ID
+        const visitorId = 'visitor_' + Math.random().toString(36).substr(2, 9);
+
+        // Track page visit and active users
         function trackPageVisit() {
             const statsRef = database.ref('stats/modules/quiz');
+            const activeUsersRef = database.ref('activeUsers/quiz');
+            
+            // Increment total visits
             statsRef.transaction((current) => (current || 0) + 1);
+
+            // Add current user to active users
+            activeUsersRef.child(visitorId).set({
+                lastActive: firebase.database.ServerValue.TIMESTAMP
+            });
+
+            // Remove user from active users when they leave
+            window.addEventListener('beforeunload', () => {
+                activeUsersRef.child(visitorId).remove();
+            });
+
+            // Update last active timestamp every 30 seconds
+            setInterval(() => {
+                activeUsersRef.child(visitorId).update({
+                    lastActive: firebase.database.ServerValue.TIMESTAMP
+                });
+            }, 30000);
+
+            // Clean up inactive users (inactive for more than 1 minute)
+            activeUsersRef.on('value', (snapshot) => {
+                const now = Date.now();
+                const activeUsers = snapshot.val() || {};
+                
+                Object.entries(activeUsers).forEach(([userId, data]) => {
+                    if (now - data.lastActive > 60000) {
+                        activeUsersRef.child(userId).remove();
+                    }
+                });
+            });
         }
 
-        // Update visitor count in real-time
+        // Update visitor count and active users in real-time
         function updateVisitorCount() {
             const visitorCountRef = database.ref('stats/modules/quiz');
+            const activeUsersRef = database.ref('activeUsers/quiz');
+
+            // Update total visitors
             visitorCountRef.on('value', (snapshot) => {
                 const count = snapshot.val() || 0;
                 document.getElementById('visitor-count').textContent = `${count} visiteurs`;
+            });
+
+            // Update active users
+            activeUsersRef.on('value', (snapshot) => {
+                const activeUsers = snapshot.val() || {};
+                const activeCount = Object.keys(activeUsers).length;
+                document.getElementById('active-users').textContent = 
+                    activeCount > 1 ? `(${activeCount} actifs)` : '';
             });
         }
 
