@@ -364,20 +364,15 @@
     <!-- AOS Script -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({
-            duration: 800,
-            once: true,
-            offset: 100,
-            disable: 'mobile'
-        });
+        AOS.init();
+    </script>
+    <script>
+        window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
 
-        // Re-enable AOS on mobile after a delay
-        if (window.innerWidth < 768) {
-            setTimeout(() => {
-                AOS.refresh();
-            }, 1000);
-        }
-
+    <!-- Theme toggle functionality
+    <script>
         // Theme toggle functionality
         function toggleTheme() {
             const body = document.body;
@@ -402,7 +397,10 @@
             document.body.classList.add('dark');
             document.querySelector('.theme-toggle i').classList.replace('fa-moon', 'fa-sun');
         }
+    </script>
 
+    <!-- Create floating particles
+    <script>
         // Create floating particles
         function createParticles() {
             const particlesContainer = document.getElementById('particles');
