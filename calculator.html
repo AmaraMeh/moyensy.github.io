@@ -214,7 +214,7 @@
         }
 
 
-        /* --- General Reset and Theme Application --- */
+        /* --- General Reset and Theme Application ---
         html {
             scroll-behavior: smooth;
         }
@@ -2538,13 +2538,13 @@
                      message = `Moyenne cible de ${targetAvg.toFixed(2)} déjà atteinte ou dépassée (moyenne avec 0 aux examens: ${avgWithZeroExam.toFixed(2)}) ! Il faudrait une note de <strong>${neededExamAvg.toFixed(2)}/20</strong> aux examens restants.`;
                  } else {
                       // This case indicates the target average is simply too low for a positive exam score
-                      message = `Impossible d’atteindre ${targetAvg.toFixed(2)}. Il faudrait une note de <strong>${neededExamAvg.toFixed(2)}/20</strong> aux examens restants.`;
+                      message = `Impossible d'atteindre ${targetAvg.toFixed(2)}. Il faudrait une note de <strong>${neededExamAvg.toFixed(2)}/20</strong> aux examens restants.`;
                  }
 
             } else if (neededExamAvg <= 20) {
                 message = `Pour atteindre ${targetAvg.toFixed(2)}, il vous faut en moyenne <strong>${neededExamAvg.toFixed(2)}/20</strong> aux examens restants.`;
             } else {
-                message = `Impossible d’atteindre ${targetAvg.toFixed(2)}. Il faudrait <strong>${neededExamAvg.toFixed(2)}/20</strong> à l'examen.`;
+                message = `Impossible d'atteindre ${targetAvg.toFixed(2)}. Il faudrait <strong>${neededExamAvg.toFixed(2)}/20</strong> à l'examen.`;
             }
 
             document.getElementById('minExamMessage').innerHTML = `<strong>Calcul "Et Si ?"</strong><br>${message}`;
@@ -2574,7 +2574,7 @@
             }
             const evals = Array.isArray(moduleData.evaluations) ? moduleData.evaluations.map(type => type.toLowerCase().replace(/\s+/g, '-')) : [];
             if (!evals.includes('examen')) {
-                alert('Pas d’examen défini pour ce module.');
+                alert('Pas d\'examen défini pour ce module.');
                 return;
             }
 
@@ -2825,6 +2825,10 @@
              setTimeout(createParticles, 100);
           });
     </script>
+    <script>
+        window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
 </body>
 
 </html>
