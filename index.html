@@ -336,8 +336,17 @@
                 <p class="text-muted-foreground">Accédez aux ressources et documents de cours</p>
             </a>
 
+            <!-- Plan de Révision Card -->
+            <a href="revision_plan_detailed.html" class="service-card group" data-aos="fade-right" data-aos-delay="200" id="revision-card">
+                <div class="service-icon group-hover:scale-110 transition-transform duration-300">
+                    <i class="fas fa-clock text-5xl"></i>
+                </div>
+                <h3 class="text-2xl font-semibold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-500">Mon Plan de Révision</h3>
+                <p class="text-muted-foreground">Suivez un planning de révision détaillé pour préparer vos examens</p>
+            </a>
+
             <!-- Quiz Card -->
-            <a href="specialization-quiz.html" class="service-card group" data-aos="fade-right" data-aos-delay="200" id="quiz-card">
+            <a href="specialization-quiz.html" class="service-card group" data-aos="fade-left" data-aos-delay="200" id="quiz-card">
                 <div class="service-icon group-hover:scale-110 transition-transform duration-300">
                     <i class="fas fa-graduation-cap text-5xl"></i>
                 </div>
@@ -468,6 +477,10 @@
         });
         document.getElementById('bib-card').addEventListener('click', function() {
             const statsRef = database.ref('stats/modules/bibliotheque');
+            statsRef.transaction((current) => (current || 0) + 1);
+        });
+        document.getElementById('revision-card').addEventListener('click', function() {
+            const statsRef = database.ref('stats/modules/revisionPlan');
             statsRef.transaction((current) => (current || 0) + 1);
         });
         document.getElementById('quiz-card').addEventListener('click', function() {
