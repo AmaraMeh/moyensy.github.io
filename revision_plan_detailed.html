@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Mon Plan de Révision Détaillé - E-Campus Platform</title>
+    <meta name="description" content="Votre plan de révision quotidien et détaillé pour les examens du Semestre 2.">
+    <meta name="author" content="Amara Mehdi">
+    <link rel="icon" type="image/png" href="assets/img/icon.png"> <!-- Assurez-vous que ce chemin est correct -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        :root {
+            --background: 0 0% 100%; --foreground: 222.2 84% 4.9%;
+            --card: 0 0% 100%; --card-foreground: 222.2 84% 4.9%;
+            --primary: 221.2 83.2% 53.3%; --primary-foreground: 210 40% 98%;
+            --secondary: 210 40% 96.1%; --secondary-foreground: 222.2 47.4% 11.2%;
+            --muted: 210 40% 96.1%; --muted-foreground: 215.4 16.3% 46.9%;
+            --accent: 210 40% 96.1%; --accent-foreground: 222.2 47.4% 11.2%;
+            --border: 214.3 31.8% 91.4%; --input: 214.3 31.8% 91.4%;
+            --ring: 221.2 83.2% 53.3%; --radius: 0.5rem;
+            --timeline-line-color: hsl(var(--border));
+        }
+        .dark {
+            --background: 222.2 84% 4.9%; --foreground: 210 40% 98%;
+            --card: 222.2 84% 4.9%; --card-foreground: 210 40% 98%;
+            --primary: 217.2 91.2% 59.8%; --primary-foreground: 222.2 47.4% 11.2%;
+            --secondary: 217.2 32.6% 17.5%; --secondary-foreground: 210 40% 98%;
+            --muted: 217.2 32.6% 17.5%; --muted-foreground: 215 20.2% 65.1%;
+            --accent: 217.2 32.6% 17.5%; --accent-foreground: 210 40% 98%;
+            --border: 217.2 32.6% 17.5%; --input: 217.2 32.6% 17.5%;
+            --ring: 224.3 76.3% 48%;
+            --timeline-line-color: hsl(var(--border));
+        }
+        body { font-family: 'Poppins', sans-serif; background: hsl(var(--background)); color: hsl(var(--foreground)); min-height: 100vh; -webkit-tap-highlight-color: transparent; transition: background-color 0.3s ease, color 0.3s ease; }
+        .theme-toggle { position: fixed; bottom: 1rem; right: 1rem; z-index: 100; width: 3rem; height: 3rem; border-radius: 9999px; background: hsl(var(--card) / 0.8); backdrop-filter: blur(8px); border: 1px solid hsl(var(--border)); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s ease; }
+        .theme-toggle:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .theme-toggle i { font-size: 1.25rem; color: hsl(var(--primary)); }
+
+        /* Daily Schedule Timeline Styles */
+        .schedule-item { border-left: 3px solid; padding-left: 1.5rem; position: relative; transition: all 0.3s ease; }
+        .schedule-item::before { content: ''; position: absolute; left: -8px; top: 12px; width: 14px; height: 14px; border-radius: 50%; background-color: hsl(var(--background)); border: 3px solid; z-index: 1; transition: all 0.3s ease;}
+        .schedule-item-study { border-color: hsl(var(--primary)); } .schedule-item-study::before { border-color: hsl(var(--primary)); }
+        .schedule-item-break { border-color: #60a5fa; } .schedule-item-break::before { border-color: #60a5fa; } /* Blue-400 */
+        .schedule-item-meal { border-color: #f97316; } .schedule-item-meal::before { border-color: #f97316; } /* Orange-500 */
+        .schedule-item-free { border-color: #22c55e; } .schedule-item-free::before { border-color: #22c55e; } /* Green-500 */
+        .schedule-item-exam { border-color: #ef4444; } .schedule-item-exam::before { border-color: #ef4444; background-color: #ef4444;} /* Red-500 */
+
+        .schedule-item.completed { opacity: 0.6; }
+        .schedule-item.completed .task-title { text-decoration: line-through; }
+        .schedule-item.completed::before { background-color: currentColor; } /* Use border color */
+
+        .schedule-time { font-weight: 600; font-size: 0.9rem; }
+        .task-title { font-weight: 500; font-size: 1.1rem; }
+        .task-description { font-size: 0.85rem; color: hsl(var(--muted-foreground));}
+
+        #current-time-indicator { transition: top 1s linear; }
+        #current-time-indicator-dot { transition: background-color 0.3s ease; }
+        .dark #current-time-indicator-dot { box-shadow: 0 0 8px hsl(var(--primary)); }
+
+        .priority-1 { background-color: #ef4444; color: white; } /* Red */
+        .priority-2 { background-color: #f97316; color: white; } /* Orange */
+        .priority-3 { background-color: #22c55e; color: white; } /* Green */
+
+        /* Custom checkbox from previous example */
+        .custom-checkbox { appearance: none; -webkit-appearance: none; width: 20px; height: 20px; border: 2px solid hsl(var(--border)); border-radius: 4px; cursor: pointer; position: relative; transition: background-color 0.2s, border-color 0.2s; vertical-align: middle;}
+        .custom-checkbox:checked { background-color: hsl(var(--primary)); border-color: hsl(var(--primary)); }
+        .custom-checkbox:checked::after { content: '✔'; font-size: 14px; color: hsl(var(--primary-foreground)); position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+
+        /* Progress bar styles */
+        .progress-bar-container { width: 100%; background-color: hsl(var(--muted)); border-radius: var(--radius); overflow: hidden; height: 10px; }
+        .progress-bar { height: 100%; background: linear-gradient(to right, hsl(var(--primary)), hsl(var(--ring))); transition: width 0.5s ease-in-out; border-radius: var(--radius); }
+
+        /* Card for module progress */
+        .module-progress-card { background: hsl(var(--card)); border: 1px solid hsl(var(--border)); border-radius: var(--radius); padding: 1.5rem; transition: all 0.3s; box-shadow: 0 4px 12px rgba(0,0,0,0.05);}
+        .module-progress-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+
+        /* Header stickiness */
+        header { position: sticky; top: 0; z-index: 50; }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" onclick="toggleTheme()">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <!-- Header -->
+    <header class="bg-background/80 backdrop-blur-sm shadow-lg py-4">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col sm:flex-row justify-between items-center">
+                <a href="index.html" class="text-2xl sm:text-3xl font-bold hover:text-primary transition-colors" data-aos="fade-right">E-Campus Platform</a>
+                <h2 class="text-xl sm:text-2xl font-semibold text-primary mt-2 sm:mt-0" data-aos="fade-left">
+                    Plan de Révision Détaillé
+                </h2>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-2 sm:px-4 py-8">
+        <!-- Date Navigation / Current Date Display -->
+        <section class="mb-6 p-4 bg-card rounded-lg shadow-md" data-aos="fade-down">
+            <div class="flex flex-col sm:flex-row justify-between items-center mb-3">
+                <h3 class="text-2xl font-bold text-primary">Mon Agenda de Révisions</h3>
+                <div class="text-md text-muted-foreground mt-2 sm:mt-0">
+                    Date Actuelle (Simulation): <strong id="simulated-current-date-display" class="text-accent-foreground">15 Mai 2025, 09:00</strong>
+                </div>
+            </div>
+            <div class="flex flex-col sm:flex-row justify-center items-center space-y-2 sm:space-y-0 sm:space-x-3 my-3">
+                <button id="prev-day" title="Jour Précédent" class="w-full sm:w-auto px-4 py-2 bg-secondary text-secondary-foreground rounded-md hover:bg-primary hover:text-primary-foreground transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center">
+                    <i class="fas fa-chevron-left mr-2"></i> Précédent
+                </button>
+                <h4 id="displayed-day-date" class="text-xl font-semibold text-center min-w-[280px] p-2 bg-muted rounded-md"></h4>
+                <button id="next-day" title="Jour Suivant" class="w-full sm:w-auto px-4 py-2 bg-secondary text-secondary-foreground rounded-md hover:bg-primary hover:text-primary-foreground transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center">
+                    Suivant <i class="fas fa-chevron-right ml-2"></i>
+                </button>
+            </div>
+             <div class="text-center mt-3">
+                <button id="goto-today" class="px-4 py-2 bg-primary/20 text-primary rounded-md hover:bg-primary/30 transition-colors">
+                    <i class="fas fa-calendar-day mr-2"></i> Aller à la date simulée (15 Mai)
+                </button>
+            </div>
+        </section>
+
+        <!-- Daily Schedule Display -->
+        <section id="daily-schedule-outer-container" class="mb-6 p-4 bg-card rounded-lg shadow-md relative min-h-[300px]" data-aos="fade-up">
+            <div id="daily-schedule-container" class="space-y-1 relative">
+                <!-- Schedule items will be appended here -->
+                 <div id="loading-schedule" class="absolute inset-0 flex items-center justify-center bg-card/50 backdrop-blur-sm z-20">
+                    <p class="text-lg text-primary flex items-center"><i class="fas fa-spinner fa-spin mr-2"></i> Chargement du planning...</p>
+                </div>
+            </div>
+            <!-- Current time indicator will be absolutely positioned relative to daily-schedule-container -->
+            <div id="current-time-indicator" class="absolute left-0 w-full h-0.5 bg-red-500 z-10" style="display: none;">
+                 <div id="current-time-indicator-dot" class="absolute right-0 -top-[5px] w-3 h-3 bg-red-500 rounded-full shadow-lg"></div>
+            </div>
+        </section>
+
+        <!-- Overall Module Progress -->
+        <section id="module-progress-container" class="mb-6" data-aos="fade-up" data-aos-delay="100">
+            <h3 class="text-2xl font-semibold mb-3 text-primary p-3 bg-card rounded-t-lg shadow-md">Progression des Modules</h3>
+            <div id="module-cards-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-3 bg-card rounded-b-lg shadow-md">
+                <!-- Module progress cards will be injected here -->
+            </div>
+        </section>
+
+        <!-- Exam Countdowns -->
+        <section id="exam-countdown-container" data-aos="fade-up" data-aos-delay="200">
+            <h3 class="text-2xl font-semibold mb-3 text-primary p-3 bg-card rounded-t-lg shadow-md">Compte à Rebours des Examens</h3>
+            <div id="exam-cards-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-3 bg-card rounded-b-lg shadow-md">
+                <!-- Exam countdown cards from previous version will be adapted and injected -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-background/80 backdrop-blur-sm py-6 mt-10">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-muted-foreground">
+                © <span id="current-year-footer">2025</span> Développé par Amara Mehdi - Université de Bejaia (Projet non officiel)
+            </p>
+        </div>
+    </footer>
+
+    <!-- AOS Script -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- Main JavaScript file for the revision plan -->
+    <script src="revision_plan_detailed.js" defer></script> 
+    <!-- Fallback script if JS is separate, or embed directly -->
+    <script>
+        // Basic Setup for Theme and AOS, Year
+        AOS.init({ duration: 700, once: true });
+        document.getElementById('current-year-footer').textContent = new Date().getFullYear();
+
+        function toggleTheme() {
+            const body = document.body;
+            const themeToggleIcon = document.querySelector('.theme-toggle i');
+            if (body.classList.contains('dark')) {
+                body.classList.remove('dark');
+                themeToggleIcon.classList.remove('fa-sun'); themeToggleIcon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.classList.add('dark');
+                themeToggleIcon.classList.remove('fa-moon'); themeToggleIcon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+        (function() { // IIFE for theme initialization
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark');
+                const icon = document.querySelector('.theme-toggle i');
+                if(icon) { icon.classList.replace('fa-moon', 'fa-sun'); }
+            }
+        })();
+    </script>
+</body>
+</html>
