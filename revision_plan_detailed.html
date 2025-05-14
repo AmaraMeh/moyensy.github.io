@@ -1366,15 +1366,18 @@
      </div>
 
 
-    <!-- Header section - Add back button -->
-    <header class="bg-background/80 backdrop-blur-sm shadow-lg py-6">
+    <!-- Header section - Improved with back button and better styling -->
+    <header class="bg-background/80 backdrop-blur-sm shadow-lg py-6 sticky top-0 z-50 border-b border-border/40">
         <div class="container mx-auto px-4">
-            <div class="flex flex-col items-center relative">
-                <a href="index.html" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-primary/10 hover:bg-primary/20 transition-colors p-2 rounded-full text-primary">
+            <div class="flex items-center justify-between">
+                <a href="index.html" class="bg-primary/10 hover:bg-primary/20 transition-colors p-2 rounded-full text-primary">
                     <i class="fas fa-arrow-left"></i>
                 </a>
-                <h1 class="text-2xl md:text-3xl font-bold" data-aos="fade-down">Mon Plan de Révision</h1>
-                <p class="text-muted-foreground text-sm mt-1">1ère Année Technologie (LMD) - Université de Bejaia</p>
+                <div class="text-center flex-1">
+                    <h1 class="text-2xl md:text-3xl font-bold" data-aos="fade-down">Mon Plan de Révision</h1>
+                    <p class="text-muted-foreground text-sm mt-1">1ère Année Technologie (LMD) - Université de Bejaia</p>
+                </div>
+                <div class="w-8"></div> <!-- Empty div for balance -->
             </div>
         </div>
     </header>
@@ -1401,23 +1404,7 @@
             <p><i class="fas fa-lightbulb mr-2"></i><span id="daily-quote">Chargement message...</span></p>
         </section>
 
-         <!-- Progress Section -->
-         <section id="progress-section" data-aos="fade-up" data-aos-delay="200">
-             <h4>Progression Globale</h4>
-             <div id="overall-progress">
-                  <h5>Plan Complet</h5>
-                  <div id="overall-progress-container">
-                      <div id="overall-progress-bar"></div>
-                  </div>
-                  <div id="overall-progress-text">0% terminé</div>
-             </div>
-
-             <div id="module-progress">
-                 <h5>Progression par Module (Sessions Terminées)</h5>
-                 <!-- Module progress bars will be injected here by JS -->
-             </div>
-
-         </section>
+    
 
 
         <!-- Revision Plan Timeline (Vertical View) -->
@@ -1459,13 +1446,25 @@
     <!-- AOS Script -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // Configure AOS to work with multiple containers if needed,
-        // but default AOS scans the whole DOM. Let's rely on that for simplicity.
-        AOS.init({
-            duration: 800,
-            once: false, // Animate elements every time they come into view
-            offset: 120, // Offset (in px) from the original trigger point
-            delay: 50, // Delay animation
+        // Configure AOS with better settings
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize AOS with improved settings
+            AOS.init({
+                duration: 800,
+                once: false,
+                offset: 120,
+                delay: 50,
+                mirror: false,  // Animation effects both when scrolling up and down
+                disable: window.innerWidth < 768 ? 'phone' : false, // Optional disable on mobile
+                anchorPlacement: 'top-bottom', // Define anchor placement
+                debounceDelay: 50, // The delay on debounce used while resizing window
+                throttleDelay: 99, // The delay on throttle used while scrolling the page
+            });
+            
+            // Refresh AOS on resize
+            window.addEventListener('resize', function() {
+                AOS.refresh();
+            });
         });
     </script>
 
@@ -1824,19 +1823,35 @@
                 viewToggleIcon.classList.remove('fa-table');
                 viewToggleIcon.classList.add('fa-list');
                 localStorage.setItem('view', 'table');
-                 scrollToCurrent('table'); // Scroll to current day/session in table view
+                
+                // Force refresh table elements
+                setTimeout(() => {
+                    // Refresh AOS animations
+                    if (typeof AOS !== 'undefined') {
+                        AOS.refresh();
+                    }
+                    scrollToCurrent('table'); // Scroll to current day/session in table view
+                }, 100);
             } else {
                 // Currently on Table view, switch to Timeline
                 tableView.style.display = 'none';
                 timelineView.style.display = 'block';
-                 viewToggleIcon.classList.remove('fa-list');
+                viewToggleIcon.classList.remove('fa-list');
                 viewToggleIcon.classList.add('fa-table');
                 localStorage.setItem('view', 'timeline');
-                 scrollToCurrent('timeline'); // Scroll to current day/session in timeline view
+                
+                // Force re-render timeline to ensure it's displayed correctly
+                renderTimeline();
+                
+                // Force refresh timeline elements
+                setTimeout(() => {
+                    // Refresh AOS animations
+                    if (typeof AOS !== 'undefined') {
+                        AOS.refresh();
+                    }
+                    scrollToCurrent('timeline'); // Scroll to current day/session in timeline view
+                }, 200);
             }
-             // Re-initialize AOS after view change if needed - AOS usually scans visible elements.
-             // Let's rely on AOS's default behavior first. If animations seem broken, re-init.
-             // AOS.refresh(); // Can be uncommented if needed
         }
 
         function applySavedView() {
@@ -1845,116 +1860,240 @@
             const tableView = document.getElementById('table-view');
             const viewToggleIcon = document.getElementById('view-toggle')?.querySelector('i');
 
+            if (!timelineView || !tableView) {
+                console.error('Timeline or table view elements not found');
+                return;
+            }
+
             if (savedView === 'table') {
+                // Set explicit display styles
                 timelineView.style.display = 'none';
                 tableView.style.display = 'block';
-                 if (viewToggleIcon) {
-                     viewToggleIcon.classList.remove('fa-table');
-                     viewToggleIcon.classList.add('fa-list');
-                 }
+                if (viewToggleIcon) {
+                    viewToggleIcon.classList.remove('fa-table');
+                    viewToggleIcon.classList.add('fa-list');
+                }
             } else {
+                // Default to timeline view
                 tableView.style.display = 'none';
                 timelineView.style.display = 'block';
-                 if (viewToggleIcon) {
-                     viewToggleIcon.classList.remove('fa-list');
-                     viewToggleIcon.classList.add('fa-table');
-                 }
+                if (viewToggleIcon) {
+                    viewToggleIcon.classList.remove('fa-list');
+                    viewToggleIcon.classList.add('fa-table');
+                }
             }
+        }
+
+        // Force timeline view to show (emergency fix)
+        function forceShowTimeline() {
+            const timelineView = document.getElementById('timeline-view');
+            const tableView = document.getElementById('table-view');
+            
+            if (timelineView && tableView) {
+                // Force timeline to be visible
+                timelineView.style.display = 'block';
+                tableView.style.display = 'none';
+                
+                // Update toggle button
+                const viewToggleIcon = document.getElementById('view-toggle')?.querySelector('i');
+                if (viewToggleIcon) {
+                    viewToggleIcon.classList.remove('fa-list');
+                    viewToggleIcon.classList.add('fa-table');
+                }
+                
+                // Save this view preference
+                localStorage.setItem('view', 'timeline');
+                
+                // Force AOS refresh
+                if (typeof AOS !== 'undefined') {
+                    setTimeout(() => {
+                        AOS.refresh();
+                    }, 100);
+                }
+                
+                // Scroll to current position
+                setTimeout(() => {
+                    scrollToCurrent('timeline');
+                }, 200);
+                
+                return true;
+            }
+            return false;
         }
 
 
         // --- Rendering Functions ---
 
         function renderTimeline() {
-             const timelineContainer = document.getElementById('timeline-view').querySelector('.timeline');
-             if (!timelineContainer) return;
-
-             // Clear existing items (except the disclaimer)
-             timelineContainer.querySelectorAll('.timeline-item:not(:first-child)').forEach(item => item.remove());
-
-             const disclaimerItem = timelineContainer.querySelector('.timeline-item:first-child');
-             const fragment = document.createDocumentFragment();
-
-             Object.keys(scheduleByDay).sort().forEach(dateKey => {
-                 const date = new Date(dateKey);
-                 const dayName = dayNames[date.getDay()];
-                 const day = date.getDate();
-                 const month = date.toLocaleString('fr-FR', { month: 'short' });
-
-                 // Add Day Item
-                 const dayItem = document.createElement('div');
-                 dayItem.className = 'timeline-item day-item';
-                 dayItem.dataset.date = dateKey;
-                 // Add data-aos here if needed for the day header itself
-                 dayItem.innerHTML = `
-                     <div class="timeline-date"><h3><i class="fas fa-calendar-day mr-2"></i>${dayName}. ${day} ${month}</h3></div>
+             try {
+                 console.log('Rendering timeline view...');
+                 const timelineContainer = document.getElementById('timeline-view');
+                 if (!timelineContainer) {
+                     console.error('Timeline container not found');
+                     return;
+                 }
+                 
+                 // Ensure timeline container is visible
+                 timelineContainer.style.display = 'block';
+                 
+                 // Check if there's existing timeline content
+                 let timelineContent = timelineContainer.querySelector('.timeline');
+                 
+                 // If timeline content container doesn't exist or is not a direct child, recreate it
+                 if (!timelineContent || timelineContent.parentNode !== timelineContainer) {
+                     console.log('Creating new timeline content container');
+                     timelineContainer.innerHTML = ''; // Clear the container
+                     timelineContent = document.createElement('div');
+                     timelineContent.className = 'timeline';
+                     timelineContent.setAttribute('data-aos-container', 'timeline-items');
+                     timelineContainer.appendChild(timelineContent);
+                 }
+                 
+                 // Clear existing items
+                 timelineContent.innerHTML = '';
+                 
+                 // Add disclaimer item
+                 const disclaimerItem = document.createElement('div');
+                 disclaimerItem.className = 'timeline-item';
+                 disclaimerItem.setAttribute('data-aos', 'fade-up');
+                 disclaimerItem.innerHTML = `
                      <div class="timeline-marker"></div>
+                     <div class="timeline-content break-time">
+                         <span class="timeline-timespan">Conseil</span>
+                         <h4><i class="fas fa-info-circle mr-2"></i> Note Importante</h4>
+                         <p>Ce plan est une suggestion. Adaptez les horaires et les tâches selon votre rythme. Prenez des pauses régulières, dormez bien et mangez sainement.</p>
+                     </div>
                  `;
-                 fragment.appendChild(dayItem);
-
-                 // Add items for this day
-                 scheduleByDay[dateKey].forEach(item => {
-                     const itemElement = document.createElement('div');
-                     itemElement.className = `timeline-item ${item.type}-event`; // Use type for class
-                     itemElement.dataset.itemId = item.id; // Use unique ID
-                     itemElement.dataset.date = item.date;
-                     itemElement.dataset.timeStart = item.startTime;
-                     itemElement.dataset.timeEnd = item.endTime;
-                     itemElement.dataset.module = item.module;
-
-                     // Add data-aos here for individual items
-                     itemElement.setAttribute('data-aos', 'fade-up');
-                     itemElement.setAttribute('data-aos-delay', Math.floor(Math.random() * 150)); // Random delay for effect
-
-                     let priorityTag = '';
-                     if (item.type === 'study' && item.priority) {
-                          priorityTag = `<span class="priority-tag p${item.priority}">Prio ${item.priority}</span>`;
-                          if (item.task.includes('EXAM J-')) {
-                              priorityTag = `<span class="priority-tag p${item.priority}">${item.task.substring(item.task.indexOf('EXAM'))}</span>`;
-                          }
-                     } else if (item.type === 'study' && item.task.includes('EXAM J-')) {
-                         // Handle EXAM J-X priority styling even if priority property isn't set
-                         const match = item.task.match(/EXAM J-(\d+)/);
-                         if (match && match[1] <= 3) { // Apply priority coloring for J-3 or less
-                              priorityTag = `<span class="priority-tag p1">${item.task.substring(item.task.indexOf('EXAM'))}</span>`;
-                         } else {
-                             priorityTag = `<span class="priority-tag p3">${item.task.substring(item.task.indexOf('EXAM'))}</span>`;
-                         }
-                     } else if (item.type === 'exam') {
-                          priorityTag = `<span class="priority-tag p1">EXAM</span>`;
-                     }
-
-
-                     const icon = item.type === 'study' ? '<i class="fas fa-book-open mr-2"></i>' :
-                                  item.type === 'break' ? '<i class="fas fa-mug-hot mr-2"></i>' :
-                                  item.type === 'free' ? '<i class="fas fa-smile mr-2"></i>' :
-                                  item.type === 'exam' ? '<i class="fas fa-file-alt mr-2"></i>' : '';
-
-                     const title = item.type === 'exam' ? item.task : item.module;
-                     const description = item.type === 'exam' ? `Bonne chance ! Salle: À vérifier sur l'affichage officiel.` : item.task;
-
-
-                     itemElement.innerHTML = `
+                 timelineContent.appendChild(disclaimerItem);
+                 
+                 // Create fragment for other items
+                 const fragment = document.createDocumentFragment();
+                 
+                 // Check if scheduleByDay is valid
+                 if (!scheduleByDay || Object.keys(scheduleByDay).length === 0) {
+                     console.error('Schedule data not properly grouped by day');
+                     const errorItem = document.createElement('div');
+                     errorItem.className = 'timeline-item';
+                     errorItem.innerHTML = `
                          <div class="timeline-marker"></div>
-                         <div class="timeline-content ${item.type === 'study' ? 'study-session' : item.type === 'break' || item.type === 'free' ? 'break-time' : 'exam-event'}">
-                             <span class="timeline-timespan">${item.startTime} - ${item.endTime}</span>
-                             <h4>${icon}${title} ${priorityTag}</h4>
-                             <p>${description}</p>
-                             ${item.type === 'study' ? `<label class="task-checkbox"><input type="checkbox" data-task-id="${item.id}" aria-label="Marquer cette tâche comme terminée"> Marquer comme terminé</label>` : ''}
-                              ${item.calendar ? `<div class="add-to-calendar"><button data-item-id="${item.id}"><i class="fas fa-calendar-plus"></i> Ajouter au calendrier</button></div>` : ''}
+                         <div class="timeline-content break-time">
+                             <span class="timeline-timespan">Erreur</span>
+                             <h4><i class="fas fa-exclamation-triangle mr-2"></i> Données non disponibles</h4>
+                             <p>Les données du calendrier n'ont pas pu être chargées. Veuillez rafraîchir la page.</p>
                          </div>
                      `;
-                      fragment.appendChild(itemElement);
+                     fragment.appendChild(errorItem);
+                     timelineContent.appendChild(fragment);
+                     return;
+                 }
+                 
+                 // Sort dates and create day items with events
+                 Object.keys(scheduleByDay).sort().forEach(dateKey => {
+                     const date = new Date(dateKey);
+                     const dayName = dayNames[date.getDay()];
+                     const day = date.getDate();
+                     const month = date.toLocaleString('fr-FR', { month: 'short' });
+                     
+                     // Create day header
+                     const dayItem = document.createElement('div');
+                     dayItem.className = 'timeline-item day-item';
+                     dayItem.dataset.date = dateKey;
+                     dayItem.setAttribute('data-aos', 'fade-up');
+                     dayItem.innerHTML = `
+                         <div class="timeline-date"><h3><i class="fas fa-calendar-day mr-2"></i>${dayName}. ${day} ${month}</h3></div>
+                         <div class="timeline-marker"></div>
+                     `;
+                     fragment.appendChild(dayItem);
+                     
+                     // Create event items for this day
+                     if (Array.isArray(scheduleByDay[dateKey])) {
+                         scheduleByDay[dateKey].forEach(item => {
+                             if (!item || !item.id || !item.type) {
+                                 console.warn('Invalid schedule item:', item);
+                                 return;
+                             }
+                             
+                             const itemElement = document.createElement('div');
+                             itemElement.className = `timeline-item ${item.type}-event`;
+                             itemElement.dataset.itemId = item.id;
+                             itemElement.dataset.date = item.date;
+                             itemElement.dataset.timeStart = item.startTime;
+                             itemElement.dataset.timeEnd = item.endTime;
+                             itemElement.dataset.module = item.module;
+                             
+                             // Add animation attributes
+                             itemElement.setAttribute('data-aos', 'fade-up');
+                             itemElement.setAttribute('data-aos-delay', Math.floor(Math.random() * 150));
+                             
+                             // Determine priority tag
+                             let priorityTag = '';
+                             if (item.type === 'study' && item.priority) {
+                                 priorityTag = `<span class="priority-tag p${item.priority}">Prio ${item.priority}</span>`;
+                                 if (item.task && item.task.includes('EXAM J-')) {
+                                     priorityTag = `<span class="priority-tag p${item.priority}">${item.task.substring(item.task.indexOf('EXAM'))}</span>`;
+                                 }
+                             } else if (item.type === 'study' && item.task && item.task.includes('EXAM J-')) {
+                                 const match = item.task.match(/EXAM J-(\d+)/);
+                                 if (match && match[1] <= 3) {
+                                     priorityTag = `<span class="priority-tag p1">${item.task.substring(item.task.indexOf('EXAM'))}</span>`;
+                                 } else {
+                                     priorityTag = `<span class="priority-tag p3">${item.task.substring(item.task.indexOf('EXAM'))}</span>`;
+                                 }
+                             } else if (item.type === 'exam') {
+                                 priorityTag = `<span class="priority-tag p1">EXAM</span>`;
+                             }
+                             
+                             // Determine icon
+                             const icon = item.type === 'study' ? '<i class="fas fa-book-open mr-2"></i>' :
+                                         item.type === 'break' ? '<i class="fas fa-mug-hot mr-2"></i>' :
+                                         item.type === 'free' ? '<i class="fas fa-smile mr-2"></i>' :
+                                         item.type === 'exam' ? '<i class="fas fa-file-alt mr-2"></i>' : '';
+                             
+                             // Determine title and description
+                             const title = item.type === 'exam' ? item.task : item.module;
+                             const description = item.type === 'exam' ? 
+                                 `Bonne chance ! Salle: À vérifier sur l'affichage officiel.` : 
+                                 item.task;
+                             
+                             // Create HTML content
+                             itemElement.innerHTML = `
+                                 <div class="timeline-marker"></div>
+                                 <div class="timeline-content ${item.type === 'study' ? 'study-session' : item.type === 'break' || item.type === 'free' ? 'break-time' : 'exam-event'}">
+                                     <span class="timeline-timespan">${item.startTime} - ${item.endTime}</span>
+                                     <h4>${icon}${title} ${priorityTag}</h4>
+                                     <p>${description}</p>
+                                     ${item.type === 'study' ? `<label class="task-checkbox"><input type="checkbox" data-task-id="${item.id}" aria-label="Marquer cette tâche comme terminée"> Marquer comme terminé</label>` : ''}
+                                     ${item.calendar ? `<div class="add-to-calendar"><button data-item-id="${item.id}"><i class="fas fa-calendar-plus"></i> Ajouter au calendrier</button></div>` : ''}
+                                 </div>
+                             `;
+                             
+                             fragment.appendChild(itemElement);
+                         });
+                     } else {
+                         console.error('Invalid day data for', dateKey, scheduleByDay[dateKey]);
+                     }
                  });
-             });
-
-             // Append all items to the timeline container (after the disclaimer)
-             timelineContainer.appendChild(fragment);
-
-             // Attach event listeners after rendering
-             attachTaskCompletionListeners();
-             attachCalendarButtonListeners();
-             updateProgress(); // Update progress after rendering items
+                 
+                 // Append all items
+                 timelineContent.appendChild(fragment);
+                 
+                 // Set up listeners and update progress
+                 attachTaskCompletionListeners();
+                 attachCalendarButtonListeners();
+                 updateProgress();
+                 
+                 // Force refresh AOS animations
+                 if (typeof AOS !== 'undefined') {
+                     setTimeout(() => {
+                         AOS.refresh();
+                     }, 100);
+                 }
+                 
+                 console.log('Timeline rendered successfully');
+             } catch (error) {
+                 console.error('Error rendering timeline:', error);
+                 alert('Erreur lors de l\'affichage du calendrier. Essayez de rafraîchir la page.');
+             }
         }
 
 
@@ -2194,20 +2333,31 @@
          }
 
         function updateClock() {
-            const now = new Date();
-             // Ensure accurate current date without time zone issues
-             const nowUTC = new Date(now.toUTCString());
+            try {
+                const now = new Date();
+                // Ensure accurate current date without time zone issues
+                const nowUTC = new Date(now.toUTCString());
 
+                const timeEl = document.getElementById('current-time');
+                const dateEl = document.getElementById('current-date');
 
-            const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit' };
-            const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                if (timeEl) {
+                    const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit' };
+                    timeEl.textContent = now.toLocaleTimeString('fr-FR', timeOptions);
+                }
+                
+                if (dateEl) {
+                    const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                    dateEl.textContent = now.toLocaleDateString('fr-FR', dateOptions);
+                }
 
-            document.getElementById('current-time').textContent = now.toLocaleTimeString('fr-FR', timeOptions);
-            document.getElementById('current-date').textContent = now.toLocaleDateString('fr-FR', dateOptions);
-
-            updateCountdowns(nowUTC);
-            highlightTimeline(nowUTC);
-             updateWhatsNext(nowUTC);
+                updateCountdowns(nowUTC);
+                highlightTimeline(nowUTC);
+                updateWhatsNext(nowUTC);
+            } catch (error) {
+                console.error('Error updating clock:', error);
+                // Don't let errors stop the page from working
+            }
         }
 
         function updateCountdowns(now) {
@@ -2320,61 +2470,85 @@
 
 
         function highlightTimeline(now) {
-            const todayStr = now.toISOString().split('T')[0];
+            try {
+                const todayStr = now.toISOString().split('T')[0];
+                
+                // Check if views exist before proceeding
+                const timelineView = document.getElementById('timeline-view');
+                const tableView = document.getElementById('table-view');
+                
+                if (!timelineView || !tableView) {
+                    return; // Exit if views don't exist
+                }
 
-            // Clear existing highlights and passed classes
-            document.querySelectorAll('.current-day').forEach(el => el.classList.remove('current-day'));
-             document.querySelectorAll('.current-session').forEach(el => el.classList.remove('current-session'));
-             document.querySelectorAll('.passed').forEach(el => el.classList.remove('passed'));
-             // Clear AOS classes that might prevent re-animation if view changes (manual approach)
-             document.querySelectorAll('[data-aos]').forEach(el => el.classList.remove('aos-animate'));
+                // Clear existing highlights and passed classes (with error handling)
+                document.querySelectorAll('.current-day').forEach(el => {
+                    try { el.classList.remove('current-day'); } catch(e) {}
+                });
+                
+                document.querySelectorAll('.current-session').forEach(el => {
+                    try { el.classList.remove('current-session'); } catch(e) {}
+                });
+                
+                document.querySelectorAll('.passed').forEach(el => {
+                    try { el.classList.remove('passed'); } catch(e) {}
+                });
 
+                let currentDayElement = null;
+                let currentSessionElement = null;
 
-            let currentDayElement = null;
-            let currentSessionElement = null;
+                // Iterate through data to apply classes to corresponding HTML elements
+                scheduleData.forEach(item => {
+                    try {
+                        const itemElementTimeline = document.querySelector(`#timeline-view [data-item-id="${item.id}"]`);
+                        const itemElementTable = document.querySelector(`#table-view [data-item-id="${item.id}"]`);
+                        const elements = [itemElementTimeline, itemElementTable].filter(el => el !== null);
 
-            // Iterate through data to apply classes to corresponding HTML elements
-            scheduleData.forEach(item => {
-                 const itemElementTimeline = document.querySelector(`#timeline-view [data-item-id="${item.id}"]`);
-                 const itemElementTable = document.querySelector(`#table-view [data-item-id="${item.id}"]`);
-                 const elements = [itemElementTimeline, itemElementTable].filter(el => el !== null); // Get existing elements for this item ID
+                        elements.forEach(el => {
+                            // Check if session is passed
+                            if (now >= item.endDateTime) {
+                                el.classList.add('passed');
+                            } else {
+                                el.classList.remove('passed');
+                            }
 
-                 elements.forEach(el => {
-                     // Check if session is passed
-                     if (now >= item.endDateTime) {
-                          el.classList.add('passed');
-                     } else {
-                          el.classList.remove('passed');
-                     }
+                            // Check if session is current
+                            if (now >= item.startDateTime && now < item.endDateTime) {
+                                el.classList.add('current-session');
+                                if (el === itemElementTimeline) currentSessionElement = itemElementTimeline;
+                            } else {
+                                el.classList.remove('current-session');
+                            }
+                        });
 
-                     // Check if session is current
-                     if (now >= item.startDateTime && now < item.endDateTime) {
-                         el.classList.add('current-session');
-                         if (el === itemElementTimeline) currentSessionElement = itemElementTimeline; // Store timeline element for scrolling
-                         // Note: Table view current session will be highlighted automatically by CSS
-                     } else {
-                          el.classList.remove('current-session');
-                     }
-                 });
+                        // Check if day is current
+                        if (item.date === todayStr) {
+                            const dayElementTimeline = document.querySelector(`#timeline-view .day-item[data-date="${item.date}"]`);
+                            const dayElementTable = document.querySelector(`#table-view .day-column[data-date="${item.date}"]`);
 
-                 // Check if day is current
-                 if (item.date === todayStr) {
-                     const dayElementTimeline = document.querySelector(`#timeline-view .day-item[data-date="${item.date}"]`);
-                     const dayElementTable = document.querySelector(`#table-view .day-column[data-date="${item.date}"]`);
+                            if (dayElementTimeline) {
+                                dayElementTimeline.classList.add('current-day');
+                                currentDayElement = dayElementTimeline;
+                            }
+                            
+                            if (dayElementTable) {
+                                dayElementTable.classList.add('current-day');
+                            }
+                        }
+                    } catch (itemError) {
+                        console.error('Error processing item in highlightTimeline:', itemError);
+                        // Continue with next item
+                    }
+                });
 
-                     if (dayElementTimeline) {
-                          dayElementTimeline.classList.add('current-day');
-                           currentDayElement = dayElementTimeline; // Store timeline element for scrolling
-                     }
-                     if (dayElementTable) {
-                          dayElementTable.classList.add('current-day');
-                           // No need to store for table scroll, we scroll the container
-                     }
-                 }
-            });
-
-             // Re-apply AOS if needed (AOS.refresh might be better overall)
-             // AOS.refreshHard();
+                // Refresh AOS if it exists
+                if (typeof AOS !== 'undefined' && AOS.refresh) {
+                    AOS.refresh();
+                }
+            } catch (error) {
+                console.error('Error in highlightTimeline:', error);
+                // Prevent function from breaking the page
+            }
         }
 
 
@@ -2558,40 +2732,190 @@
 
         // --- Initialization ---
         document.addEventListener('DOMContentLoaded', () => {
-            applySavedTheme();
-            createParticles();
-            renderTimeline(); // Render initial view
-            renderTable(); // Render the other view so elements exist for highlighting/completion
-            applySavedView(); // Switch to saved view if needed
-
-            // Initial highlight and scroll - must happen *after* rendering both views
-             updateTaskCompletionClasses(); // Apply completion status from localStorage
-             updateProgress(); // Calculate initial progress
-
-             // Initial scroll based on saved view preference
-             const initialView = localStorage.getItem('view') || 'timeline';
-             scrollToCurrent(initialView);
-
-
-            // Set daily quote
-            setDailyQuote();
-
-            // Update clock, countdown, and highlighting every second
-            updateClock();
-            setInterval(updateClock, 1000);
-
-             // Attach view toggle listener
-             document.getElementById('view-toggle').addEventListener('click', toggleView);
-
-            // Attach theme toggle listener
-             document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
-
-             // Recreate particles on window resize
-             window.addEventListener('resize', createParticles);
-
-             // Handle scroll position saving/restoring more robustly if needed
-             // Current scroll-to-current logic handles initial load.
+            try {
+                // Apply saved theme
+                applySavedTheme();
+                
+                // Create particles
+                createParticles();
+                
+                // Render views
+                renderTimeline();
+                renderTable();
+                
+                // Apply saved view preference
+                applySavedView();
+                
+                // Apply task completion status
+                updateTaskCompletionClasses();
+                
+                // Set daily quote
+                setDailyQuote();
+                
+                // Initialize AOS if loaded
+                if (typeof AOS !== 'undefined') {
+                    AOS.refresh();
+                }
+                
+                // First clock update
+                updateClock();
+                
+                // Initial scroll to current position
+                const initialView = localStorage.getItem('view') || 'timeline';
+                setTimeout(() => {
+                    scrollToCurrent(initialView);
+                }, 300);
+                
+                // Add emergency fix button
+                addEmergencyFixButton();
+                
+                // Set up timers
+                const clockTimer = setInterval(updateClock, 1000);
+                const aosRefreshTimer = setInterval(() => {
+                    if (typeof AOS !== 'undefined') {
+                        AOS.refresh();
+                    }
+                }, 30000); // Refresh AOS every 30 seconds
+                
+                // Store timers for cleanup if needed
+                window._appTimers = {
+                    clock: clockTimer,
+                    aosRefresh: aosRefreshTimer
+                };
+                
+                // Add event listeners
+                document.getElementById('view-toggle').addEventListener('click', toggleView);
+                document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+                window.addEventListener('resize', createParticles);
+                
+                // Handle page visibility changes (tab switching)
+                document.addEventListener('visibilitychange', () => {
+                    if (document.visibilityState === 'visible') {
+                        // When tab becomes visible again
+                        updateClock();
+                        
+                        // Check if views are showing correctly
+                        const currentView = localStorage.getItem('view') || 'timeline';
+                        const timelineView = document.getElementById('timeline-view');
+                        const tableView = document.getElementById('table-view');
+                        
+                        if (currentView === 'timeline' && timelineView && timelineView.style.display === 'none') {
+                            // Fix timeline not showing
+                            timelineView.style.display = 'block';
+                            if (tableView) tableView.style.display = 'none';
+                            
+                            // Update toggle button if needed
+                            const viewToggleIcon = document.getElementById('view-toggle')?.querySelector('i');
+                            if (viewToggleIcon) {
+                                viewToggleIcon.classList.remove('fa-list');
+                                viewToggleIcon.classList.add('fa-table');
+                            }
+                            
+                            // Refresh and scroll
+                            if (typeof AOS !== 'undefined') AOS.refresh();
+                            setTimeout(() => scrollToCurrent('timeline'), 100);
+                        } else if (currentView === 'table' && tableView && tableView.style.display === 'none') {
+                            // Fix table not showing
+                            tableView.style.display = 'block';
+                            if (timelineView) timelineView.style.display = 'none';
+                            
+                            // Update toggle button if needed
+                            const viewToggleIcon = document.getElementById('view-toggle')?.querySelector('i');
+                            if (viewToggleIcon) {
+                                viewToggleIcon.classList.remove('fa-table');
+                                viewToggleIcon.classList.add('fa-list');
+                            }
+                            
+                            // Refresh and scroll
+                            if (typeof AOS !== 'undefined') AOS.refresh();
+                            setTimeout(() => scrollToCurrent('table'), 100);
+                        }
+                    }
+                });
+                
+            } catch (error) {
+                console.error('Error initializing application:', error);
+                // Show a user-friendly error message
+                alert('Une erreur est survenue lors du chargement de l\'application. Veuillez rafraîchir la page.');
+            }
         });
+
+        // Add emergency fix button
+        function addEmergencyFixButton() {
+            const fixButton = document.createElement('button');
+            fixButton.id = 'emergency-fix';
+            fixButton.style.cssText = `
+                position: fixed;
+                bottom: 120px;
+                right: 1rem;
+                width: 3rem;
+                height: 3rem;
+                border-radius: 9999px;
+                background: hsl(var(--background) / 0.8);
+                backdrop-filter: blur(8px);
+                border: 1px solid hsl(var(--border));
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+                z-index: 50;
+            `;
+            fixButton.innerHTML = '<i class="fas fa-sync-alt" style="font-size: 1.25rem; color: hsl(var(--primary));"></i>';
+            fixButton.setAttribute('aria-label', 'Réparer la vue');
+            fixButton.setAttribute('title', 'Réparer la vue');
+            
+            fixButton.addEventListener('click', function() {
+                // Try to fix the view
+                const currentView = localStorage.getItem('view') || 'timeline';
+                if (currentView === 'timeline') {
+                    forceShowTimeline();
+                } else {
+                    // Force table view
+                    const timelineView = document.getElementById('timeline-view');
+                    const tableView = document.getElementById('table-view');
+                    if (timelineView && tableView) {
+                        timelineView.style.display = 'none';
+                        tableView.style.display = 'block';
+                        
+                        const viewToggleIcon = document.getElementById('view-toggle')?.querySelector('i');
+                        if (viewToggleIcon) {
+                            viewToggleIcon.classList.remove('fa-table');
+                            viewToggleIcon.classList.add('fa-list');
+                        }
+                        
+                        if (typeof AOS !== 'undefined') AOS.refresh();
+                        setTimeout(() => scrollToCurrent('table'), 100);
+                    }
+                }
+                
+                // Animate the button
+                this.classList.add('rotating');
+                setTimeout(() => {
+                    this.classList.remove('rotating');
+                }, 1000);
+            });
+            
+            // Add rotation animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes rotate {
+                    from { transform: rotate(0deg); }
+                    to { transform: rotate(360deg); }
+                }
+                #emergency-fix.rotating i {
+                    animation: rotate 1s linear;
+                }
+                #emergency-fix:hover {
+                    transform: translateY(-2px);
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                }
+            `;
+            document.head.appendChild(style);
+            
+            document.body.appendChild(fixButton);
+        }
 
         // --- Helper: Set daily motivational quote ---
         function setDailyQuote() {
@@ -2602,6 +2926,107 @@
                 // Add an offset (e.g., 42) to start from a different quote each year
                 const quoteIndex = (dayOfYear + 100) % motivationalQuotes.length;
                 quoteElement.textContent = motivationalQuotes[quoteIndex];
+            }
+        }
+        
+        // --- Helper: Check storage availability ---
+        function checkStorageAvailability() {
+            try {
+                // Test localStorage availability
+                const testKey = 'test_storage';
+                localStorage.setItem(testKey, 'test');
+                localStorage.removeItem(testKey);
+                
+                // Try to catch Chrome's disk space error
+                function detectDiskSpaceIssue() {
+                    return new Promise((resolve, reject) => {
+                        try {
+                            // Create a test object with increasing size
+                            const test = { data: '' };
+                            const chunk = new Array(1024).join('a'); // 1KB chunk
+                            
+                            for (let i = 0; i < 10; i++) { // Try to allocate ~10KB
+                                test.data += chunk;
+                                try {
+                                    localStorage.setItem('disk_space_test', JSON.stringify(test));
+                                    localStorage.removeItem('disk_space_test');
+                                } catch (e) {
+                                    if (e.name === 'QuotaExceededError' || 
+                                        e.code === 22 || 
+                                        e.code === 1014 ||
+                                        (e.message && e.message.includes('QuotaExceededError')) ||
+                                        (e.message && e.message.includes('Storage'))) {
+                                        reject('disk_full');
+                                        return;
+                                    }
+                                }
+                            }
+                            resolve('ok');
+                        } catch (e) {
+                            console.warn('Storage test error:', e);
+                            resolve('unknown'); // Unknown error, but don't block the app
+                        }
+                    });
+                }
+                
+                // Run the test asynchronously
+                detectDiskSpaceIssue().then(result => {
+                    if (result === 'disk_full') {
+                        showDiskSpaceWarning();
+                    }
+                }).catch(() => {
+                    // Silently fail
+                });
+                
+            } catch (e) {
+                console.warn('Storage might not be available:', e);
+                // Continue anyway
+            }
+        }
+        
+        function showDiskSpaceWarning() {
+            // Create warning element if not exists
+            if (!document.getElementById('disk-space-warning')) {
+                const warning = document.createElement('div');
+                warning.id = 'disk-space-warning';
+                warning.style.cssText = `
+                    position: fixed;
+                    bottom: 70px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    background: hsl(var(--exam-red-light));
+                    color: hsl(var(--exam-red-dark));
+                    border: 1px solid hsl(var(--exam-red));
+                    border-radius: var(--radius);
+                    padding: 10px 15px;
+                    font-size: 0.9rem;
+                    z-index: 1000;
+                    max-width: 90%;
+                    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+                    text-align: center;
+                `;
+                warning.innerHTML = `
+                    <i class="fas fa-exclamation-triangle mr-2"></i>
+                    Attention: Espace disque faible détecté. Certaines fonctionnalités pourraient ne pas fonctionner correctement.
+                    <button aria-label="Fermer" style="background:none; border:none; cursor:pointer; margin-left:10px;">
+                        <i class="fas fa-times"></i>
+                    </button>
+                `;
+                document.body.appendChild(warning);
+                
+                // Add close button functionality
+                warning.querySelector('button').addEventListener('click', () => {
+                    warning.style.display = 'none';
+                });
+                
+                // Auto-hide after 10 seconds
+                setTimeout(() => {
+                    warning.style.opacity = '0';
+                    warning.style.transition = 'opacity 0.5s ease';
+                    setTimeout(() => {
+                        warning.style.display = 'none';
+                    }, 500);
+                }, 10000);
             }
         }
 
