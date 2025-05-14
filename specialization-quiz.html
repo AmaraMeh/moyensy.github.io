@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Quiz d'Orientation ST - Université de Bejaia</title>
-    <meta name="description" content="Quiz interactif pour aider les étudiants ST à choisir leur spécialité">
+    <title>Quiz d'Orientation ST/SNV - E-Campus Platform</title>
+    <meta name="description" content="Quiz interactif pour aider les étudiants de Tronc Commun ST et SNV de l'Université de Bejaia à choisir leur spécialité en L2.">
     <meta name="author" content="Amara Mehdi">
     <link rel="icon" type="image/png" href="assets/img/icon.png">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
@@ -29,7 +29,7 @@
             --accent-foreground: 222.2 47.4% 11.2%;
             --border: 214.3 31.8% 91.4%;
             --input: 214.3 31.8% 91.4%;
-            --ring: 221.2 83.2% 53.3%;
+            --ring: 221.2 83.2% 53.3%; /* Ring can be different for more pop */
             --radius: 0.5rem;
         }
 
@@ -56,6 +56,7 @@
             background: hsl(var(--background));
             color: hsl(var(--foreground));
             min-height: 100vh;
+            -webkit-tap-highlight-color: transparent;
             transition: background-color 0.3s ease, color 0.3s ease;
         }
 
@@ -90,155 +91,98 @@
             background: linear-gradient(to top right, hsl(var(--ring) / 0.3), hsl(var(--accent) / 0.2), transparent);
         }
 
-        .quiz-container {
-            max-width: 800px;
-            margin: 2rem auto;
-            padding: 2rem;
+        .floating-dot {
+            position: absolute;
+            border-radius: 9999px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        .service-card { /* Re-used for quiz selection and results */
             background: hsl(var(--card));
+            backdrop-filter: blur(10px);
+            border: 1px solid hsl(var(--border));
             border-radius: var(--radius);
+            padding: 2.5rem;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
             position: relative;
-            z-index: 1;
-        }
-
-        .question-card {
-            background: hsl(var(--card));
-            border: 1px solid hsl(var(--border));
-            border-radius: var(--radius);
-            padding: 2rem;
-            margin-bottom: 1.5rem;
-            transition: all 0.3s ease;
-            transform-origin: center;
-            animation: slideIn 0.5s ease-out;
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateX(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .option-btn {
+            overflow: hidden;
+            cursor: pointer;
             display: block;
-            width: 100%;
-            padding: 1rem;
-            margin: 0.5rem 0;
-            border: 1px solid hsl(var(--border));
-            border-radius: var(--radius);
-            background: hsl(var(--background));
-            color: hsl(var(--foreground));
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
+            text-decoration: none;
+            color: hsl(var(--card-foreground));
+            transform: translateY(0);
         }
 
-        .option-btn:hover {
-            background: hsl(var(--primary) / 0.1);
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
             border-color: hsl(var(--primary));
-            transform: translateY(-2px);
         }
 
-        .option-btn.selected {
-            background: hsl(var(--primary));
-            color: hsl(var(--primary-foreground));
-        }
-
-        .option-btn::after {
+        .service-card::after {
             content: '';
             position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 5px;
-            height: 5px;
-            background: hsl(var(--primary) / 0.2);
-            opacity: 0;
-            border-radius: 100%;
-            transform: scale(1, 1) translate(-50%);
-            transform-origin: 50% 50%;
-        }
-
-        .option-btn:focus:not(:active)::after {
-            animation: ripple 1s ease-out;
-        }
-
-        @keyframes ripple {
-            0% {
-                transform: scale(0, 0);
-                opacity: 0.5;
-            }
-            100% {
-                transform: scale(100, 100);
-                opacity: 0;
-            }
-        }
-
-        .progress-bar {
-            height: 8px;
-            background: hsl(var(--muted));
-            border-radius: 9999px;
-            overflow: hidden;
-            margin: 2rem 0;
-            position: relative;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, hsl(var(--primary)), hsl(var(--ring)));
-            transition: width 0.5s ease;
-            position: relative;
-        }
-
-        .progress-fill::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(
-                90deg,
-                transparent,
-                rgba(255, 255, 255, 0.2),
-                transparent
+            inset: 0;
+            background: linear-gradient(45deg, 
+                hsl(var(--primary) / 0.1), 
+                hsl(var(--ring) / 0.1), 
+                hsl(var(--accent) / 0.1)
             );
-            animation: shimmer 2s infinite;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
-        @keyframes shimmer {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
+        .service-card:hover::after {
+            opacity: 1;
         }
 
-        .result-card {
-            text-align: center;
-            padding: 2rem;
-            border-radius: var(--radius);
-            background: hsl(var(--card));
-            border: 1px solid hsl(var(--border));
-            margin-top: 2rem;
-            animation: fadeIn 0.5s ease-out;
-        }
-
-        .specialty-badge {
-            display: inline-block;
-            padding: 0.5rem 1rem;
-            margin: 0.5rem;
-            border-radius: 9999px;
-            background: hsl(var(--primary) / 0.1);
-            color: hsl(var(--primary));
+        .service-icon { /* Re-used for quiz selection cards */
+            margin: 0 auto 2rem;
+            width: 120px;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--ring)));
+            border-radius: 50%;
+            color: hsl(var(--primary-foreground));
             transition: all 0.3s ease;
-            cursor: pointer;
+            position: relative;
+            box-shadow: 0 8px 16px hsl(var(--primary) / 0.2);
+        }
+        
+        .service-icon::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: inherit;
+            filter: blur(20px);
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
-        .specialty-badge:hover {
-            transform: scale(1.05);
-            background: hsl(var(--primary) / 0.2);
+        .service-card:hover .service-icon::after {
+            opacity: 0.5;
+        }
+
+        .service-card:hover .service-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+        
+        .service-card h3, .quiz-question-container h2 { /* Apply gradient to question titles too */
+            background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--ring)));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
 
         .theme-toggle {
@@ -269,15 +213,6 @@
             color: hsl(var(--primary));
         }
 
-        .animate-fade-in {
-            animation: fadeIn 0.5s ease-in;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
         .floating-particles {
             position: absolute;
             inset: 0;
@@ -303,6 +238,73 @@
                 opacity: 0.8;
             }
         }
+
+        .answer-option {
+            background: hsl(var(--secondary));
+            color: hsl(var(--secondary-foreground));
+            border: 1px solid hsl(var(--border));
+            padding: 1rem 1.5rem;
+            margin-bottom: 0.75rem;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            text-align: left;
+        }
+        .answer-option:hover {
+            border-color: hsl(var(--primary));
+            background: hsl(var(--accent));
+        }
+        .answer-option.selected {
+            background: hsl(var(--primary));
+            color: hsl(var(--primary-foreground));
+            border-color: hsl(var(--primary));
+            box-shadow: 0 0 15px hsl(var(--primary) / 0.5);
+        }
+
+        .quiz-button {
+            background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--ring)));
+            color: hsl(var(--primary-foreground));
+            padding: 0.75rem 2rem;
+            border-radius: var(--radius);
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px hsl(var(--primary) / 0.3);
+        }
+        .quiz-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px hsl(var(--primary) / 0.4);
+        }
+        .quiz-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+         .progress-bar-container {
+            width: 100%;
+            background-color: hsl(var(--muted));
+            border-radius: var(--radius);
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+        }
+        .progress-bar {
+            height: 10px;
+            background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--ring)));
+            width: 0%;
+            transition: width 0.3s ease-in-out;
+        }
+
+        @media (max-width: 640px) {
+            .service-card {
+                padding: 1.5rem;
+            }
+            .service-icon {
+                width: 90px;
+                height: 90px;
+                margin-bottom: 1.5rem;
+            }
+            .quiz-question-container h2 {
+                font-size: 1.5rem; /* Smaller title on mobile */
+            }
+        }
     </style>
 </head>
 <body class="min-h-screen">
@@ -324,95 +326,163 @@
         <i class="fas fa-moon"></i>
     </button>
 
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
-
     <!-- Header -->
     <header class="bg-background/80 backdrop-blur-sm shadow-lg py-6">
-        <div class="container mx-auto px-4">
-            <div class="flex flex-col items-center">
-                <h1 class="text-3xl font-bold" data-aos="fade-up">Quiz d'Orientation ST</h1>
-                <p class="text-sm text-muted-foreground mt-2">Découvrez votre spécialité idéale en Sciences et Technologies</p>
-                <div class="mt-2 flex items-center space-x-2 text-sm text-muted-foreground">
-                    <i class="fas fa-users"></i>
-                    <span id="visitor-count">Chargement...</span>
-                    <span class="animate-pulse text-green-500">•</span>
-                    <span id="active-users" class="text-xs text-blue-500"></span>
-                </div>
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <a href="index.html" class="flex items-center">
+                    <img src="assets/img/icon.png" alt="Logo E-Campus" class="h-8 w-8 mr-2">
+                    <h1 class="text-2xl font-bold">E-Campus Platform</h1>
+                </a>
             </div>
+            <nav>
+                 <a href="index.html" class="text-muted-foreground hover:text-primary transition-colors px-3">Accueil</a>
+            </nav>
         </div>
     </header>
 
-    <div class="container mx-auto px-4 py-8">
-        <div class="quiz-container">
-            <h1 class="text-3xl font-bold text-center mb-8">Découvrez votre spécialité idéale</h1>
-            <p class="text-center text-gray-600 mb-8">Répondez aux questions suivantes pour découvrir les spécialités qui correspondent le mieux à vos intérêts et compétences.</p>
-            
-            <div class="progress-bar">
-                <div class="progress-fill" style="width: 0%"></div>
-            </div>
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Page Title & Intro -->
+        <section class="text-center mb-12" data-aos="fade-up">
+            <h1 class="text-4xl md:text-6xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600">
+                Quiz d'Orientation
+            </h1>
+            <p class="text-lg text-muted-foreground max-w-2xl mx-auto">
+                Découvrez quelle spécialité correspond le mieux à vos intérêts et aptitudes. Choisissez votre tronc commun pour commencer.
+            </p>
+        </section>
 
-            <div id="quiz-content">
-                <!-- Questions will be dynamically inserted here -->
+        <!-- Quiz Selection Section -->
+        <section id="quiz-selection-section" class="mb-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="service-card group" onclick="startQuiz('ST')" data-aos="fade-right">
+                    <div class="service-icon group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-cogs text-5xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-4">Quiz Sciences et Technologies (ST)</h3>
+                    <p class="text-muted-foreground">Pour les étudiants du tronc commun ST souhaitant explorer les filières d'ingénierie et techniques.</p>
+                </div>
+                <div class="service-card group" onclick="startQuiz('SNV')" data-aos="fade-left">
+                    <div class="service-icon group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-leaf text-5xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-4">Quiz Sciences de la Nature et de la Vie (SNV)</h3>
+                    <p class="text-muted-foreground">Pour les étudiants du tronc commun SNV intéressés par la biologie, l'écologie, et les sciences du vivant.</p>
+                </div>
             </div>
+        </section>
 
-            <div id="results" class="hidden">
-                <!-- Results will be shown here -->
+        <!-- Quiz Area -->
+        <section id="quiz-area" class="hidden quiz-question-container max-w-3xl mx-auto bg-card p-6 sm:p-8 rounded-lg shadow-xl" data-aos="zoom-in">
+            <div class="progress-bar-container">
+                <div id="progress-bar" class="progress-bar"></div>
+            </div>
+            <h2 id="question-text" class="text-2xl font-semibold mb-6 text-center">Question placeholder</h2>
+            <div id="answers-container" class="space-y-3 mb-8">
+                <!-- Answer options will be injected here -->
+            </div>
+            <div class="text-center">
+                <button id="next-question-button" class="quiz-button" onclick="nextQuestion()" disabled>
+                    Question Suivante <i class="fas fa-arrow-right ml-2"></i>
+                </button>
+            </div>
+            <p id="question-counter" class="text-center text-sm text-muted-foreground mt-4"></p>
+        </section>
+
+        <!-- Results Area -->
+        <section id="results-area" class="hidden text-center" data-aos="fade-up">
+            <h2 class="text-3xl md:text-4xl font-bold mb-8 text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600">Vos recommandations de spécialités</h2>
+            <div id="results-cards-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
+                <!-- Result cards will be injected here -->
+            </div>
+            <button onclick="resetQuiz()" class="quiz-button">
+                <i class="fas fa-redo mr-2"></i> Refaire le Quiz
+            </button>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-background/80 backdrop-blur-sm py-8 mt-12">
+        <div class="container mx-auto px-4">
+            <div class="text-center">
+                <p class="text-muted-foreground">
+                    © <span id="currentYear"></span> Développé par Amara Mehdi<br>
+                    Université de Bejaia
+                </p>
             </div>
         </div>
-    </div>
+    </footer>
 
     <!-- AOS Script -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({
             duration: 800,
-            once: true,
-            offset: 100,
-            disable: 'mobile'
+            once: true // Animations trigger once per element load/scroll
         });
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
+    <script>
+        window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
 
-        // Theme toggle functionality
+    <!-- Theme toggle functionality -->
+    <script>
         function toggleTheme() {
             const body = document.body;
-            const themeToggle = document.querySelector('.theme-toggle i');
+            const themeToggleIcon = document.querySelector('.theme-toggle i');
             
             if (body.classList.contains('dark')) {
                 body.classList.remove('dark');
-                themeToggle.classList.remove('fa-sun');
-                themeToggle.classList.add('fa-moon');
+                themeToggleIcon.classList.remove('fa-sun');
+                themeToggleIcon.classList.add('fa-moon');
                 localStorage.setItem('theme', 'light');
             } else {
                 body.classList.add('dark');
-                themeToggle.classList.remove('fa-moon');
-                themeToggle.classList.add('fa-sun');
+                themeToggleIcon.classList.remove('fa-moon');
+                themeToggleIcon.classList.add('fa-sun');
                 localStorage.setItem('theme', 'dark');
             }
         }
 
-        // Check for saved theme preference
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'dark') {
-            document.body.classList.add('dark');
-            document.querySelector('.theme-toggle i').classList.replace('fa-moon', 'fa-sun');
-        }
+        // Apply saved theme on load
+        (function() {
+            const savedTheme = localStorage.getItem('theme');
+            const themeToggleIcon = document.querySelector('.theme-toggle i');
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark');
+                if (themeToggleIcon) {
+                    themeToggleIcon.classList.replace('fa-moon', 'fa-sun');
+                }
+            } else if (savedTheme === 'light') { // Explicitly set light if preferred (or default)
+                document.body.classList.remove('dark');
+                if (themeToggleIcon) {
+                    themeToggleIcon.classList.replace('fa-sun', 'fa-moon');
+                }
+            }
+            // If no saved theme, it defaults to light based on CSS.
+        })();
+    </script>
 
-        // Create floating particles
+    <!-- Create floating particles -->
+    <script>
         function createParticles() {
             const particlesContainer = document.getElementById('particles');
-            const colors = ['#3b82f6', '#8b5cf6', '#ec4899', '#10b981', '#f59e0b'];
+            if (!particlesContainer) return;
+            const colors = ['#3b82f6', '#8b5cf6', '#ec4899', '#10b981', '#f59e0b']; // Tailwind colors
             
-            for (let i = 0; i < 30; i++) {
+            for (let i = 0; i < 20; i++) { 
                 const particle = document.createElement('div');
                 particle.className = 'particle';
                 
                 const x = Math.random() * 100;
                 const y = Math.random() * 100;
-                const size = Math.random() * 5 + 2;
+                const size = Math.random() * 4 + 2; 
                 const color = colors[Math.floor(Math.random() * colors.length)];
-                const moveX = (Math.random() - 0.5) * 50;
-                const moveY = (Math.random() - 0.5) * 50;
+                const moveX = (Math.random() - 0.5) * 40;
+                const moveY = (Math.random() - 0.5) * 40;
                 
                 particle.style.cssText = `
                     left: ${x}%;
@@ -422,568 +492,484 @@
                     background-color: ${color};
                     --x: ${moveX}px;
                     --y: ${moveY}px;
-                    animation-delay: ${Math.random() * 5}s;
+                    animation-delay: ${Math.random() * 10}s;
                 `;
                 
                 particlesContainer.appendChild(particle);
             }
         }
-
-        // Initialize particles
         createParticles();
+    </script>
 
-        // Firebase Configuration
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+    <script>
+        // Firebase Configuration (same as index.html for consistency)
+        // IMPORTANT: Replace with your actual Firebase config. The API key below is a placeholder.
         const firebaseConfig = {
-            apiKey: "AIzaSyB5XYqWKhHdiVDXJx4iOwtpxD8eUCPRfKU",
+            apiKey: "AIzaSyB5XYqWKhHdiVDXJx4iOwtpxD8eUCPRfKU", 
             authDomain: "universite-de-bejaia-547fc.firebaseapp.com",
             projectId: "universite-de-bejaia-547fc",
             storageBucket: "universite-de-bejaia-547fc.appspot.com",
             messagingSenderId: "517622731583",
             appId: "1:517622731583:web:25453d5e01226585bf798a",
             measurementId: "G-SQ0WWSCS7B",
-            databaseURL: "https://universite-de-bejaia-547fc-default-rtdb.europe-west1.firebasedatabase.app"
+            databaseURL: "https://universite-de-bejaia-547fc-default-rtdb.firebaseio.com"
         };
-
         // Initialize Firebase
-        if (!firebase.apps.length) {
-            firebase.initializeApp(firebaseConfig);
-        }
-        const database = firebase.database();
-
-        // Generate a unique visitor ID
-        const visitorId = 'visitor_' + Math.random().toString(36).substr(2, 9);
-
-        // Track page visit and active users
-        async function trackPageVisit() {
-            try {
-                const statsRef = database.ref('stats/modules/quiz');
-                const activeUsersRef = database.ref('activeUsers/quiz');
-                
-                // Increment total visits using a transaction
-                await statsRef.transaction((current) => {
-                    return (current || 0) + 1;
-                });
-
-                // Add current user to active users
-                await activeUsersRef.child(visitorId).set({
-                    lastActive: firebase.database.ServerValue.TIMESTAMP,
-                    timestamp: Date.now()
-                });
-
-                // Set up cleanup for when user leaves
-                window.addEventListener('beforeunload', () => {
-                    activeUsersRef.child(visitorId).remove();
-                });
-
-                // Update last active timestamp every 15 seconds
-                setInterval(() => {
-                    activeUsersRef.child(visitorId).update({
-                        lastActive: firebase.database.ServerValue.TIMESTAMP,
-                        timestamp: Date.now()
-                    });
-                }, 15000);
-
-                // Clean up inactive users
-                activeUsersRef.on('value', (snapshot) => {
-                    const now = Date.now();
-                    const activeUsers = snapshot.val() || {};
-                    
-                    Object.entries(activeUsers).forEach(([userId, data]) => {
-                        if (now - data.timestamp > 30000) { // 30 seconds timeout
-                            activeUsersRef.child(userId).remove();
-                        }
-                    });
-                });
-            } catch (error) {
-                console.error('Error tracking page visit:', error);
+        try {
+            if (!firebase.apps.length) {
+                firebase.initializeApp(firebaseConfig);
             }
+            // const database = firebase.database(); // Not used directly for quiz logic on this page
+        } catch (e) {
+            console.error("Firebase initialization failed:", e);
+            // Optionally, inform the user that some features might not work
         }
+    </script>
 
-        // Update visitor count and active users in real-time
-        function updateVisitorCount() {
-            try {
-                const visitorCountRef = database.ref('stats/modules/quiz');
-                const activeUsersRef = database.ref('activeUsers/quiz');
-
-                // Update total visitors
-                visitorCountRef.on('value', (snapshot) => {
-                    const count = snapshot.val() || 0;
-                    const visitorCountElement = document.getElementById('visitor-count');
-                    if (visitorCountElement) {
-                        visitorCountElement.textContent = `${count} visiteurs`;
-                    }
-                });
-
-                // Update active users
-                activeUsersRef.on('value', (snapshot) => {
-                    const activeUsers = snapshot.val() || {};
-                    const activeCount = Object.keys(activeUsers).length;
-                    const activeUsersElement = document.getElementById('active-users');
-                    if (activeUsersElement) {
-                        activeUsersElement.textContent = 
-                            activeCount > 1 ? `(${activeCount} actifs)` : '';
-                    }
-                });
-            } catch (error) {
-                console.error('Error updating visitor count:', error);
+    <!-- Quiz Logic Script -->
+    <script>
+        const specializations = {
+            ST: {
+                "Automatique": { name: "Automatique", desc: "Contrôle des systèmes, robotique, et automatisation industrielle." },
+                "Télécommunication": { name: "Télécommunication", desc: "Réseaux, transmission de signaux, et technologies de communication." },
+                "Electronique": { name: "Electronique", desc: "Conception de circuits, composants électroniques, et systèmes embarqués." },
+                "Electromécanique": { name: "Electromécanique", desc: "Interaction entre systèmes électriques et mécaniques, moteurs, actionneurs." },
+                "Electrotechnique": { name: "Electrotechnique", desc: "Production, transport, et utilisation de l'énergie électrique." },
+                "Génie Mécanique": { name: "Génie Mécanique", desc: "Conception, fabrication, et maintenance de systèmes mécaniques." },
+                "Génie des Procédés": { name: "Génie des Procédés", desc: "Transformation chimique et physique de la matière à l'échelle industrielle." },
+                "Génie Civil": { name: "Génie Civil", desc: "Conception, construction, et gestion des infrastructures (bâtiments, ponts)." },
+                "Génie Minier": { name: "Génie Minier", desc: "Extraction et traitement des ressources minérales." }
+            },
+            SNV: {
+                "Alimentation, nutrition et pathologie": { name: "Alimentation, nutrition et pathologie", category: "Sciences alimentaires & Santé", desc: "Étude de l'alimentation, son impact sur la santé et les pathologies liées." },
+                "Biochimie": { name: "Biochimie", category: "Sciences biologiques fondamentales", desc: "Étude des processus chimiques au sein des organismes vivants." },
+                "Biologie et physiologie animale": { name: "Biologie et physiologie animale", category: "Sciences biologiques appliquées", desc: "Étude de la structure et du fonctionnement des animaux." },
+                "Biologie et physiologie végétale": { name: "Biologie et physiologie végétale", category: "Sciences biologiques appliquées", desc: "Étude de la structure et du fonctionnement des plantes." },
+                "Biotechnologie microbienne": { name: "Biotechnologie microbienne", category: "Biotechnologie", desc: "Utilisation des micro-organismes pour des applications industrielles ou médicales." },
+                "Ecologie et environnement": { name: "Ecologie et environnement", category: "Ecologie & Environnement", desc: "Étude des interactions entre les êtres vivants et leur milieu." },
+                "Génétique": { name: "Génétique", category: "Sciences biologiques fondamentales", desc: "Étude de l'hérédité et de la variation des caractères biologiques." },
+                "Aquaculture et pisciculture": { name: "Aquaculture et pisciculture", category: "Gestion des ressources aquatiques", desc: "Élevage d'organismes aquatiques (poissons, crustacés, algues)." },
+                "Microbiologie": { name: "Microbiologie", category: "Sciences biologiques fondamentales", desc: "Étude des micro-organismes (bactéries, virus, champignons)." },
+                "Technologie agroalimentaire et contrôle de qualité": { name: "Technologie agroalimentaire et contrôle de qualité", category: "Sciences alimentaires & Industrie", desc: "Transformation des produits agricoles en aliments et assurance de leur qualité." },
+                "Toxicologie": { name: "Toxicologie", category: "Santé & Environnement", desc: "Étude des substances toxiques et de leurs effets sur les organismes." }
             }
-        }
-
-        // Initialize tracking with retry mechanism
-        function initializeTracking(retries = 3) {
-            try {
-                trackPageVisit();
-                updateVisitorCount();
-            } catch (error) {
-                console.error('Error initializing tracking:', error);
-                if (retries > 0) {
-                    setTimeout(() => initializeTracking(retries - 1), 1000);
-                }
-            }
-        }
-
-        // Start tracking when the page loads
-        window.addEventListener('load', initializeTracking);
-
-        // Question pool with 30 questions
-        const questionPool = [
-            // Academic Interests
-            {
-                id: 1,
-                question: "Quelle matière préférez-vous le plus ?",
-                options: [
-                    { text: "Mathématiques", specialties: ["Automatique", "Télécommunication", "Électronique"] },
-                    { text: "Physique", specialties: ["Électromécanique", "Électrotechnique", "Génie Mécanique"] },
-                    { text: "Chimie", specialties: ["Génie des Procédés"] },
-                    { text: "Dessin technique", specialties: ["Génie Civil", "Génie Minier"] }
-                ]
-            },
-            {
-                id: 2,
-                question: "Quel type de problème mathématique préférez-vous résoudre ?",
-                options: [
-                    { text: "Équations différentielles", specialties: ["Automatique", "Télécommunication"] },
-                    { text: "Mécanique des fluides", specialties: ["Génie Mécanique", "Génie des Procédés"] },
-                    { text: "Circuits électriques", specialties: ["Électrotechnique", "Électronique"] },
-                    { text: "Statique et résistance", specialties: ["Génie Civil", "Génie Minier"] }
-                ]
-            },
-            {
-                id: 3,
-                question: "Quel aspect de la physique vous intéresse le plus ?",
-                options: [
-                    { text: "Électricité et magnétisme", specialties: ["Électrotechnique", "Électronique"] },
-                    { text: "Mécanique et mouvement", specialties: ["Génie Mécanique", "Électromécanique"] },
-                    { text: "Ondes et vibrations", specialties: ["Télécommunication", "Automatique"] },
-                    { text: "Thermodynamique", specialties: ["Génie des Procédés", "Génie Civil"] }
-                ]
-            },
-
-            // Technical Skills
-            {
-                id: 4,
-                question: "Quelle compétence technique souhaitez-vous développer ?",
-                options: [
-                    { text: "Programmation et algorithmes", specialties: ["Automatique", "Télécommunication"] },
-                    { text: "Conception mécanique", specialties: ["Génie Mécanique", "Électromécanique"] },
-                    { text: "Électronique et circuits", specialties: ["Électronique", "Électrotechnique"] },
-                    { text: "Gestion de projets", specialties: ["Génie des Procédés", "Génie Minier"] }
-                ]
-            },
-            {
-                id: 5,
-                question: "Quel type de logiciel vous intéresse le plus ?",
-                options: [
-                    { text: "Systèmes embarqués", specialties: ["Automatique", "Électronique"] },
-                    { text: "Réseaux et communication", specialties: ["Télécommunication"] },
-                    { text: "Simulation et CAO", specialties: ["Génie Mécanique", "Génie Civil"] },
-                    { text: "Contrôle de processus", specialties: ["Génie des Procédés", "Électrotechnique"] }
-                ]
-            },
-            {
-                id: 6,
-                question: "Quel type de certification vous intéresse ?",
-                options: [
-                    { text: "Programmation et réseaux", specialties: ["Automatique", "Télécommunication"] },
-                    { text: "Conception assistée", specialties: ["Génie Mécanique", "Électromécanique"] },
-                    { text: "Électricité et électronique", specialties: ["Électrotechnique", "Électronique"] },
-                    { text: "Gestion de projet", specialties: ["Génie Civil", "Génie Minier"] }
-                ]
-            },
-
-            // Work Environment
-            {
-                id: 7,
-                question: "Quel environnement de travail préférez-vous ?",
-                options: [
-                    { text: "Bureau et laboratoire", specialties: ["Automatique", "Télécommunication", "Électronique"] },
-                    { text: "Atelier et usine", specialties: ["Électromécanique", "Génie Mécanique"] },
-                    { text: "Site de construction", specialties: ["Génie Civil", "Génie Minier"] },
-                    { text: "Usine de production", specialties: ["Génie des Procédés", "Électrotechnique"] }
-                ]
-            },
-            {
-                id: 8,
-                question: "Quel type de projet vous intéresse le plus ?",
-                options: [
-                    { text: "Programmation et contrôle", specialties: ["Automatique", "Télécommunication"] },
-                    { text: "Conception mécanique", specialties: ["Génie Mécanique", "Électromécanique"] },
-                    { text: "Énergie et électricité", specialties: ["Électrotechnique", "Électronique"] },
-                    { text: "Construction et infrastructure", specialties: ["Génie Civil", "Génie Minier"] }
-                ]
-            },
-            {
-                id: 9,
-                question: "Quel type de défi technique vous motive le plus ?",
-                options: [
-                    { text: "Optimisation de systèmes", specialties: ["Automatique", "Télécommunication"] },
-                    { text: "Conception mécanique", specialties: ["Génie Mécanique", "Électromécanique"] },
-                    { text: "Énergie et puissance", specialties: ["Électrotechnique", "Électronique"] },
-                    { text: "Gestion de projets complexes", specialties: ["Génie Civil", "Génie Minier"] }
-                ]
-            },
-
-            // Research and Innovation
-            {
-                id: 10,
-                question: "Quel aspect de la recherche vous intéresse ?",
-                options: [
-                    { text: "Intelligence artificielle", specialties: ["Automatique", "Télécommunication"] },
-                    { text: "Nouveaux matériaux", specialties: ["Génie Civil", "Génie Mécanique"] },
-                    { text: "Énergies renouvelables", specialties: ["Électrotechnique", "Électronique"] },
-                    { text: "Processus industriels", specialties: ["Génie des Procédés", "Électromécanique"] }
-                ]
-            },
-            {
-                id: 11,
-                question: "Quelle innovation technologique vous passionne le plus ?",
-                options: [
-                    { text: "Intelligence artificielle et IoT", specialties: ["Automatique", "Télécommunication"] },
-                    { text: "Robots et machines", specialties: ["Génie Mécanique", "Électromécanique"] },
-                    { text: "Énergies renouvelables", specialties: ["Électrotechnique", "Électronique"] },
-                    { text: "Matériaux avancés", specialties: ["Génie Civil", "Génie des Procédés"] }
-                ]
-            },
-            {
-                id: 12,
-                question: "Quel type de publication vous intéresse ?",
-                options: [
-                    { text: "Intelligence artificielle", specialties: ["Automatique", "Télécommunication"] },
-                    { text: "Conception mécanique", specialties: ["Génie Mécanique", "Électromécanique"] },
-                    { text: "Énergie et électricité", specialties: ["Électrotechnique", "Électronique"] },
-                    { text: "Construction et matériaux", specialties: ["Génie Civil", "Génie Minier"] }
-                ]
-            },
-
-            // Industry and Career
-            {
-                id: 13,
-                question: "Quel secteur industriel vous intéresse le plus ?",
-                options: [
-                    { text: "Technologies de l'information", specialties: ["Automatique", "Télécommunication"] },
-                    { text: "Industrie manufacturière", specialties: ["Génie Mécanique", "Électromécanique"] },
-                    { text: "Énergie et électricité", specialties: ["Électrotechnique", "Électronique"] },
-                    { text: "Construction et mines", specialties: ["Génie Civil", "Génie Minier"] }
-                ]
-            },
-            {
-                id: 14,
-                question: "Quel type de carrière vous intéresse le plus ?",
-                options: [
-                    { text: "Innovation technologique", specialties: ["Automatique", "Télécommunication"] },
-                    { text: "Conception et production", specialties: ["Génie Mécanique", "Électromécanique"] },
-                    { text: "Énergie et électricité", specialties: ["Électrotechnique", "Électronique"] },
-                    { text: "Construction et développement", specialties: ["Génie Civil", "Génie Minier"] }
-                ]
-            },
-            {
-                id: 15,
-                question: "Quel type de projet entrepreneurial vous intéresse ?",
-                options: [
-                    { text: "Startup technologique", specialties: ["Automatique", "Télécommunication"] },
-                    { text: "Innovation mécanique", specialties: ["Génie Mécanique", "Électromécanique"] },
-                    { text: "Énergie verte", specialties: ["Électrotechnique", "Électronique"] },
-                    { text: "Construction durable", specialties: ["Génie Civil", "Génie Minier"] }
-                ]
-            },
-
-            // Practical Skills
-            {
-                id: 16,
-                question: "Quel type de stage vous attire le plus ?",
-                options: [
-                    { text: "Développement logiciel", specialties: ["Automatique", "Télécommunication"] },
-                    { text: "Conception mécanique", specialties: ["Génie Mécanique", "Électromécanique"] },
-                    { text: "Installation électrique", specialties: ["Électrotechnique", "Électronique"] },
-                    { text: "Gestion de chantier", specialties: ["Génie Civil", "Génie Minier"] }
-                ]
-            },
-            {
-                id: 17,
-                question: "Quel type de projet de fin d'études vous intéresse ?",
-                options: [
-                    { text: "Système automatisé", specialties: ["Automatique", "Télécommunication"] },
-                    { text: "Conception mécanique", specialties: ["Génie Mécanique", "Électromécanique"] },
-                    { text: "Installation électrique", specialties: ["Électrotechnique", "Électronique"] },
-                    { text: "Projet de construction", specialties: ["Génie Civil", "Génie Minier"] }
-                ]
-            },
-            {
-                id: 18,
-                question: "Quel type de compétition technique vous intéresse ?",
-                options: [
-                    { text: "Robotique", specialties: ["Automatique", "Électronique"] },
-                    { text: "Conception mécanique", specialties: ["Génie Mécanique", "Électromécanique"] },
-                    { text: "Énergie et électricité", specialties: ["Électrotechnique", "Électronique"] },
-                    { text: "Construction", specialties: ["Génie Civil", "Génie Minier"] }
-                ]
-            },
-
-            // Additional Questions
-            {
-                id: 19,
-                question: "Quel type de laboratoire vous intéresse le plus ?",
-                options: [
-                    { text: "Informatique et réseaux", specialties: ["Automatique", "Télécommunication"] },
-                    { text: "Mécanique et matériaux", specialties: ["Génie Mécanique", "Électromécanique"] },
-                    { text: "Électricité et électronique", specialties: ["Électrotechnique", "Électronique"] },
-                    { text: "Construction et structures", specialties: ["Génie Civil", "Génie Minier"] }
-                ]
-            },
-            {
-                id: 20,
-                question: "Quel type de conférence vous intéresse ?",
-                options: [
-                    { text: "Technologies émergentes", specialties: ["Automatique", "Télécommunication"] },
-                    { text: "Innovation mécanique", specialties: ["Génie Mécanique", "Électromécanique"] },
-                    { text: "Énergie et électricité", specialties: ["Électrotechnique", "Électronique"] },
-                    { text: "Construction durable", specialties: ["Génie Civil", "Génie Minier"] }
-                ]
-            },
-            {
-                id: 21,
-                question: "Quel type de formation continue vous intéresse ?",
-                options: [
-                    { text: "Programmation avancée", specialties: ["Automatique", "Télécommunication"] },
-                    { text: "Conception mécanique", specialties: ["Génie Mécanique", "Électromécanique"] },
-                    { text: "Électricité et électronique", specialties: ["Électrotechnique", "Électronique"] },
-                    { text: "Gestion de projet", specialties: ["Génie Civil", "Génie Minier"] }
-                ]
-            },
-            {
-                id: 22,
-                question: "Quel type de projet de recherche vous intéresse ?",
-                options: [
-                    { text: "Intelligence artificielle", specialties: ["Automatique", "Télécommunication"] },
-                    { text: "Nouveaux matériaux", specialties: ["Génie Mécanique", "Génie Civil"] },
-                    { text: "Énergies renouvelables", specialties: ["Électrotechnique", "Électronique"] },
-                    { text: "Processus industriels", specialties: ["Génie des Procédés", "Électromécanique"] }
-                ]
-            },
-            {
-                id: 23,
-                question: "Quel type de stage à l'étranger vous intéresse ?",
-                options: [
-                    { text: "Technologies de pointe", specialties: ["Automatique", "Télécommunication"] },
-                    { text: "Industrie manufacturière", specialties: ["Génie Mécanique", "Électromécanique"] },
-                    { text: "Énergie et électricité", specialties: ["Électrotechnique", "Électronique"] },
-                    { text: "Construction internationale", specialties: ["Génie Civil", "Génie Minier"] }
-                ]
-            },
-            {
-                id: 24,
-                question: "Quel type de projet collaboratif vous intéresse ?",
-                options: [
-                    { text: "Développement logiciel", specialties: ["Automatique", "Télécommunication"] },
-                    { text: "Conception mécanique", specialties: ["Génie Mécanique", "Électromécanique"] },
-                    { text: "Installation électrique", specialties: ["Électrotechnique", "Électronique"] },
-                    { text: "Gestion de chantier", specialties: ["Génie Civil", "Génie Minier"] }
-                ]
-            },
-            {
-                id: 25,
-                question: "Quel type de compétence technique vous intéresse ?",
-                options: [
-                    { text: "Programmation avancée", specialties: ["Automatique", "Télécommunication"] },
-                    { text: "Conception mécanique", specialties: ["Génie Mécanique", "Électromécanique"] },
-                    { text: "Électricité et électronique", specialties: ["Électrotechnique", "Électronique"] },
-                    { text: "Gestion de projet", specialties: ["Génie Civil", "Génie Minier"] }
-                ]
-            },
-            {
-                id: 26,
-                question: "Quel type de réseau professionnel vous intéresse ?",
-                options: [
-                    { text: "Technologies émergentes", specialties: ["Automatique", "Télécommunication"] },
-                    { text: "Industrie manufacturière", specialties: ["Génie Mécanique", "Électromécanique"] },
-                    { text: "Énergie et électricité", specialties: ["Électrotechnique", "Électronique"] },
-                    { text: "Construction et mines", specialties: ["Génie Civil", "Génie Minier"] }
-                ]
-            },
-            {
-                id: 27,
-                question: "Quel type de projet social vous intéresse ?",
-                options: [
-                    { text: "Technologie accessible", specialties: ["Automatique", "Télécommunication"] },
-                    { text: "Innovation durable", specialties: ["Génie Mécanique", "Électromécanique"] },
-                    { text: "Énergie renouvelable", specialties: ["Électrotechnique", "Électronique"] },
-                    { text: "Construction sociale", specialties: ["Génie Civil", "Génie Minier"] }
-                ]
-            },
-            {
-                id: 28,
-                question: "Quel type de projet international vous intéresse ?",
-                options: [
-                    { text: "Coopération technologique", specialties: ["Automatique", "Télécommunication"] },
-                    { text: "Échange industriel", specialties: ["Génie Mécanique", "Électromécanique"] },
-                    { text: "Projet énergétique", specialties: ["Électrotechnique", "Électronique"] },
-                    { text: "Construction mondiale", specialties: ["Génie Civil", "Génie Minier"] }
-                ]
-            },
-            {
-                id: 29,
-                question: "Quel type de projet de développement durable vous intéresse ?",
-                options: [
-                    { text: "Smart City", specialties: ["Automatique", "Télécommunication"] },
-                    { text: "Énergie verte", specialties: ["Électrotechnique", "Électronique"] },
-                    { text: "Industrie durable", specialties: ["Génie Mécanique", "Électromécanique"] },
-                    { text: "Construction écologique", specialties: ["Génie Civil", "Génie Minier"] }
-                ]
-            },
-            {
-                id: 30,
-                question: "Quel aspect de l'ingénierie vous passionne le plus ?",
-                options: [
-                    { text: "Innovation et technologie", specialties: ["Automatique", "Télécommunication"] },
-                    { text: "Conception et fabrication", specialties: ["Génie Mécanique", "Électromécanique"] },
-                    { text: "Énergie et systèmes", specialties: ["Électrotechnique", "Électronique"] },
-                    { text: "Infrastructure et développement", specialties: ["Génie Civil", "Génie Minier"] }
-                ]
-            }
-        ];
-
-        // Function to get random questions
-        function getRandomQuestions(count = 30) {
-            const shuffled = [...questionPool].sort(() => 0.5 - Math.random());
-            return shuffled.slice(0, count);
-        }
-
-        let currentQuestion = 0;
-        let answers = [];
-        let questions = [];
-        let specialtyScores = {
-            "Automatique": 0,
-            "Télécommunication": 0,
-            "Électronique": 0,
-            "Électromécanique": 0,
-            "Électrotechnique": 0,
-            "Génie Mécanique": 0,
-            "Génie des Procédés": 0,
-            "Génie Civil": 0,
-            "Génie Minier": 0
         };
+
+        const questionsData = {
+            ST: [
+                { q: "Quel type de problèmes préférez-vous résoudre ?", a: [
+                    { text: "Optimiser des systèmes et des processus complexes pour les rendre plus efficaces.", specs: ["Automatique", "Génie des Procédés", "Electrotechnique"] },
+                    { text: "Concevoir et construire des objets physiques tangibles, des machines ou des structures.", specs: ["Génie Mécanique", "Génie Civil", "Electromécanique"] },
+                    { text: "Travailler avec des signaux, des données, des informations et leur transmission.", specs: ["Télécommunication", "Electronique", "Automatique"] },
+                    { text: "Gérer l'énergie, les ressources naturelles et leur transformation durable.", specs: ["Electrotechnique", "Génie Minier", "Génie des Procédés", "Génie Civil"] }
+                ]},
+                { q: "Votre intérêt se porte plus naturellement vers :", a: [
+                    { text: "La logique, les algorithmes et le contrôle intelligent des systèmes.", specs: ["Automatique", "Electronique", "Télécommunication"] },
+                    { text: "Les machines, les mécanismes, leur conception et leur fonctionnement.", specs: ["Génie Mécanique", "Electromécanique"] },
+                    { text: "Les circuits électroniques, les ondes, et les systèmes de communication.", specs: ["Electronique", "Télécommunication"] },
+                    { text: "Les grandes structures, les matériaux de construction et l'aménagement du territoire.", specs: ["Génie Civil", "Génie Minier"] },
+                    { text: "Les transformations chimiques, les procédés industriels et l'optimisation des réactions.", specs: ["Génie des Procédés"] }
+                ]},
+                { q: "Si vous deviez choisir un projet concret, ce serait :", a: [
+                    { text: "Développer un système de pilotage automatique pour un drone ou un robot industriel.", specs: ["Automatique", "Electronique", "Electromécanique"] },
+                    { text: "Concevoir une nouvelle génération de moteur électrique plus efficient ou un système d'énergie renouvelable.", specs: ["Electrotechnique", "Electromécanique", "Génie Mécanique"] },
+                    { text: "Planifier et superviser la construction d'un pont ou d'un bâtiment écologique.", specs: ["Génie Civil"] },
+                    { text: "Optimiser une chaîne de production dans une usine chimique ou pharmaceutique.", specs: ["Génie des Procédés", "Automatique"] },
+                    { text: "Participer à l'exploration et à la valorisation de ressources souterraines de manière responsable.", specs: ["Génie Minier", "Génie des Procédés"] },
+                    { text: "Mettre en place un réseau de communication 5G ou IoT (Internet des Objets).", specs: ["Télécommunication", "Electronique"] }
+                ]},
+                { q: "Vous êtes particulièrement à l'aise avec :", a: [
+                    { text: "Les mathématiques appliquées, la modélisation et la simulation de systèmes.", specs: ["Automatique", "Télécommunication", "Electronique", "Electrotechnique"] },
+                    { text: "La physique (mécanique, thermodynamique, électricité, résistance des matériaux).", specs: ["Génie Mécanique", "Electrotechnique", "Electromécanique", "Génie Civil"] },
+                    { text: "La chimie (organique, inorganique, cinétique) et les bilans de matière/énergie.", specs: ["Génie des Procédés", "Génie Minier"] },
+                    { text: "Le dessin technique, la CAO (Conception Assistée par Ordinateur) et la visualisation 3D.", specs: ["Génie Mécanique", "Génie Civil", "Electromécanique"] }
+                ]},
+                { q: "Quel environnement de travail vous stimule le plus ?", a: [
+                    { text: "Un laboratoire de R&D, à la pointe de la technologie, pour innover.", specs: ["Electronique", "Télécommunication", "Automatique", "Génie des Procédés"] },
+                    { text: "Un bureau d'études, pour concevoir, calculer et planifier des projets d'envergure.", specs: ["Génie Civil", "Génie Mécanique", "Electrotechnique", "Génie des Procédés"] },
+                    { text: "Une usine ou un site industriel, au cœur de la production et de l'optimisation.", specs: ["Génie des Procédés", "Electromécanique", "Automatique", "Génie Mécanique", "Electrotechnique"] },
+                    { text: "Un chantier, un site d'extraction ou en extérieur, pour superviser et réaliser.", specs: ["Génie Civil", "Génie Minier", "Electrotechnique (installations)"] }
+                ]},
+                { q: "Préférez-vous travailler sur des projets à grande échelle (infrastructures, usines) ou des systèmes plus compacts (appareils, composants) ?", a: [
+                    { text: "Grande échelle (ex: ponts, réseaux électriques, usines chimiques).", specs: ["Génie Civil", "Génie des Procédés", "Génie Minier", "Electrotechnique"] },
+                    { text: "Systèmes compacts (ex: circuits imprimés, capteurs, petits moteurs).", specs: ["Electronique", "Automatique", "Electromécanique", "Génie Mécanique (petits mécanismes)"] },
+                    { text: "Les deux m'intéressent, je suis adaptable selon le défi technologique.", specs: ["Télécommunication", "Automatique", "Génie Mécanique"] }
+                ]},
+                { q: "Laquelle de ces affirmations décrit le mieux votre approche de la résolution de problèmes ?", a: [
+                    { text: "J'aime décomposer un grand problème en sous-systèmes logiques et gérables.", specs: ["Automatique", "Télécommunication", "Electronique", "Génie Mécanique"] },
+                    { text: "Je suis doué(e) pour visualiser des structures en 3D et comprendre leur assemblage.", specs: ["Génie Civil", "Génie Mécanique", "Electromécanique"] },
+                    { text: "Je suis attiré(e) par l'optimisation des flux (énergie, matière, information) et des transformations.", specs: ["Génie des Procédés", "Electrotechnique", "Génie Minier", "Télécommunication"] },
+                    { text: "Je suis méticuleux(se) et précis(e) dans l'analyse de circuits, de signaux ou de données.", specs: ["Electronique", "Télécommunication", "Automatique"] }
+                ]},
+                { q: "Quel type d'innovation vous motive le plus ?", a: [
+                    { text: "Améliorer l'efficacité énergétique et développer les énergies renouvelables.", specs: ["Electrotechnique", "Génie des Procédés", "Génie Mécanique", "Electromécanique"] },
+                    { text: "Développer de nouveaux matériaux ou procédés de construction/fabrication plus durables.", specs: ["Génie Civil", "Génie Mécanique", "Génie des Procédés", "Génie Minier"] },
+                    { text: "Créer des systèmes de communication plus rapides, fiables et sécurisés.", specs: ["Télécommunication", "Electronique"] },
+                    { text: "Concevoir des robots, des systèmes automatisés plus intelligents et autonomes.", specs: ["Automatique", "Electronique", "Electromécanique", "Génie Mécanique"] }
+                ]},
+                { q: "Face à un défi technique, quelle est votre première réaction ?", a: [
+                    { text: "Modéliser le système mathématiquement pour comprendre son comportement et prédire ses performances.", specs: ["Automatique", "Télécommunication", "Electrotechnique", "Génie des Procédés"] },
+                    { text: "Réaliser des simulations informatiques ou construire des prototypes pour tester des idées concrètement.", specs: ["Electronique", "Génie Mécanique", "Electromécanique", "Génie des Procédés", "Automatique"] },
+                    { text: "Analyser les plans existants, les contraintes du site/environnement et les normes applicables.", specs: ["Génie Civil", "Génie Minier", "Electrotechnique"] },
+                    { text: "Consulter la documentation technique, les articles scientifiques et les brevets pour trouver des solutions éprouvées ou innovantes.", specs: ["Tous", "Electronique", "Télécommunication", "Génie des Procédés"] }
+                ]},
+                { q: "Quel aspect de la gestion de projet vous semble le plus crucial ?", a: [
+                    { text: "La planification rigoureuse, le respect des délais et la maîtrise des budgets.", specs: ["Génie Civil", "Génie des Procédés", "Génie Minier", "Electrotechnique"] },
+                    { text: "L'innovation technique, la qualité de la conception et la performance du produit final.", specs: ["Electronique", "Automatique", "Génie Mécanique", "Télécommunication"] },
+                    { text: "La sécurité des opérations, des utilisateurs et la minimisation de l'impact environnemental.", specs: ["Génie Civil", "Electrotechnique", "Génie Minier", "Génie des Procédés", "Electromécanique"] },
+                    { text: "La coordination d'équipes multidisciplinaires et la communication efficace entre les parties prenantes.", specs: ["Tous les domaines d'ingénierie"] }
+                ]},
+                { q: "Vous êtes plus intéressé(e) par le fonctionnement interne de :", a: [
+                    { text: "Systèmes de contrôle en temps réel, régulation et asservissement.", specs: ["Automatique", "Electromécanique", "Electronique"] },
+                    { text: "Puces électroniques, microprocesseurs, et conception de circuits intégrés.", specs: ["Electronique"] },
+                    { text: "Technologies de fibre optique, antennes, et réseaux mobiles (5G, 6G).", specs: ["Télécommunication"] },
+                    { text: "Machines tournantes (moteurs, générateurs, turbines) et convertisseurs de puissance.", specs: ["Electrotechnique", "Electromécanique", "Génie Mécanique"] },
+                    { text: "Réacteurs chimiques, colonnes de distillation, et opérations unitaires.", specs: ["Génie des Procédés"] }
+                ]},
+                { q: "Dans un projet, vous préférez vous concentrer sur :", a: [
+                    { text: "La conception et l'analyse théorique, la R&D fondamentale.", specs: ["Automatique", "Télécommunication", "Electronique", "Génie des Procédés (modélisation)"] },
+                    { text: "La réalisation pratique, la fabrication, l'assemblage et les tests sur le terrain.", specs: ["Génie Mécanique", "Electromécanique", "Electronique (prototypage)", "Génie Civil", "Electrotechnique (installations)"] },
+                    { text: "La maintenance, le diagnostic des pannes et l'optimisation de systèmes existants.", specs: ["Electrotechnique", "Electromécanique", "Génie Mécanique", "Génie des Procédés", "Automatique", "Télécommunication (réseaux)"] },
+                    { text: "L'étude d'impact environnemental, la durabilité et l'économie circulaire.", specs: ["Génie Civil", "Génie des Procédés", "Génie Minier", "Electrotechnique"] }
+                ]},
+                { q: "Quel type de logiciel spécialisé seriez-vous le plus enclin à maîtriser ?", a: [
+                    { text: "Logiciels de CAO/DAO (ex: AutoCAD, SolidWorks, CATIA) pour la conception mécanique ou architecturale.", specs: ["Génie Mécanique", "Génie Civil", "Electromécanique"] },
+                    { text: "Logiciels de simulation de circuits (ex: SPICE, Proteus) ou de systèmes de contrôle/communication (MATLAB/Simulink, LabVIEW).", specs: ["Electronique", "Automatique", "Télécommunication", "Electrotechnique"] },
+                    { text: "Logiciels de simulation de procédés chimiques ou thermiques (ex: Aspen HYSYS, ProSim, COMSOL).", specs: ["Génie des Procédés", "Génie Mécanique (thermique)"] },
+                    { text: "Logiciels de SIG (Systèmes d'Information Géographique), de modélisation géologique ou de calcul de structures.", specs: ["Génie Civil", "Génie Minier"] }
+                ]},
+                { q: "Lequel de ces défis sociétaux vous interpelle le plus pour y contribuer par la technologie ?", a: [
+                    { text: "La transition énergétique, la lutte contre le changement climatique et la gestion des ressources.", specs: ["Electrotechnique", "Génie des Procédés", "Génie Mécanique", "Génie Minier", "Génie Civil"] },
+                    { text: "Le développement d'infrastructures (transport, habitat, eau) durables, résilientes et intelligentes.", specs: ["Génie Civil", "Electrotechnique", "Génie Mécanique"] },
+                    { text: "L'amélioration des systèmes de communication, l'accès à l'information et la cybersécurité.", specs: ["Télécommunication", "Electronique"] },
+                    { text: "L'automatisation pour améliorer la productivité, la qualité, la sécurité au travail et la médecine.", specs: ["Automatique", "Electromécanique", "Génie des Procédés", "Electronique"] }
+                ]},
+                { q: "Votre niveau de confort avec la programmation informatique (ex: Python, C++, MATLAB) est :", a: [
+                    { text: "Très à l'aise, j'aime coder, développer des algorithmes et analyser des données.", specs: ["Automatique", "Télécommunication", "Electronique", "Génie des Procédés (modélisation)"] },
+                    { text: "Confortable pour des scripts d'automatisation, d'analyse de données ou pour utiliser des logiciels spécialisés.", specs: ["Génie Mécanique", "Electrotechnique", "Génie Civil", "Génie Minier"] },
+                    { text: "Notions de base, je préfère utiliser des logiciels avec interface graphique intuitive.", specs: ["Electromécanique", "Génie Civil (certains aspects)", "Génie Minier (certains aspects)"] },
+                    { text: "Peu d'intérêt ou de compétences, je me concentre sur d'autres aspects techniques ou manuels.", specs: [] } // Option neutre ou pour réorienter
+                ]}
+            ],
+            SNV: [
+                { q: "Quelle échelle d'étude du vivant vous passionne le plus ?", a: [
+                    { text: "Le niveau moléculaire et cellulaire (ADN, protéines, métabolisme, organites).", specs: ["Biochimie", "Génétique", "Microbiologie", "Biotechnologie microbienne", "Toxicologie"] },
+                    { text: "L'organisme entier, animal ou végétal (physiologie, anatomie, comportement).", specs: ["Biologie et physiologie animale", "Biologie et physiologie végétale", "Alimentation, nutrition et pathologie"] },
+                    { text: "Les populations, les communautés et les écosystèmes (interactions, flux d'énergie).", specs: ["Ecologie et environnement", "Aquaculture et pisciculture", "Toxicologie (écotox)"] },
+                    { text: "L'application directe à l'alimentation humaine, à la santé ou à l'industrie.", specs: ["Alimentation, nutrition et pathologie", "Technologie agroalimentaire et contrôle de qualité", "Biotechnologie microbienne", "Toxicologie"] }
+                ]},
+                { q: "Vous êtes particulièrement intéressé(e) par :", a: [
+                    { text: "Comprendre les maladies, l'impact de l'environnement/alimentation sur la santé, et les mécanismes toxiques.", specs: ["Alimentation, nutrition et pathologie", "Toxicologie", "Biochimie", "Microbiologie (pathogènes)"] },
+                    { text: "Utiliser ou modifier des organismes (microbes, plantes, cellules) pour créer de nouveaux produits, solutions ou thérapies.", specs: ["Génétique", "Biotechnologie microbienne", "Microbiologie", "Biologie et physiologie végétale (amélioration)"] },
+                    { text: "La protection de la biodiversité, la gestion durable des ressources naturelles et la restauration des milieux.", specs: ["Ecologie et environnement", "Aquaculture et pisciculture (gestion durable)", "Biologie et physiologie animale/végétale (conservation)"] },
+                    { text: "L'étude du fonctionnement interne (métabolisme, croissance, reproduction) des animaux ou des plantes.", specs: ["Biologie et physiologie animale", "Biologie et physiologie végétale", "Biochimie", "Génétique"] },
+                    { text: "La transformation des matières premières agricoles, la qualité et la sécurité des aliments.", specs: ["Technologie agroalimentaire et contrôle de qualité", "Alimentation, nutrition et pathologie", "Microbiologie (alimentaire)"] }
+                ]},
+                { q: "Quel type d'activité pratique vous attire le plus ?", a: [
+                    { text: "Travail minutieux en laboratoire (pipetage, cultures cellulaires/microbiennes, analyses biochimiques/génétiques).", specs: ["Biochimie", "Génétique", "Microbiologie", "Biotechnologie microbienne", "Toxicologie", "Alimentation, nutrition et pathologie (analyses)"] },
+                    { text: "Observations, prélèvements et expérimentations sur le terrain, en milieu naturel ou agricole.", specs: ["Ecologie et environnement", "Biologie et physiologie animale", "Biologie et physiologie végétale", "Aquaculture et pisciculture"] },
+                    { text: "Travail dans des unités de production (agroalimentaire, pharmaceutique, aquaculture) ou des plateformes technologiques.", specs: ["Technologie agroalimentaire et contrôle de qualité", "Aquaculture et pisciculture", "Biotechnologie microbienne"] },
+                    { text: "L'analyse de données biologiques complexes (génomique, protéomique, écologique) et la modélisation.", specs: ["Génétique", "Ecologie et environnement", "Biochimie", "Biotechnologie microbienne", "Toxicologie"] }
+                ]},
+                { q: "Votre objectif professionnel idéal serait de :", a: [
+                    { text: "Contribuer directement à la santé humaine ou animale (diagnostic, recherche médicale, nutrition).", specs: ["Alimentation, nutrition et pathologie", "Toxicologie", "Biochimie", "Microbiologie", "Génétique (maladies)"] },
+                    { text: "Développer des innovations biotechnologiques, pharmaceutiques ou agroalimentaires.", specs: ["Biotechnologie microbienne", "Technologie agroalimentaire et contrôle de qualité", "Génétique", "Biochimie"] },
+                    { text: "Œuvrer pour la conservation de l'environnement, la gestion des écosystèmes et la sensibilisation.", specs: ["Ecologie et environnement", "Toxicologie (écotox)"] },
+                    { text: "Améliorer les productions agricoles, animales ou aquacoles de manière durable et eficiente.", specs: ["Biologie et physiologie animale", "Biologie et physiologie végétale", "Aquaculture et pisciculture", "Technologie agroalimentaire et contrôle de qualité", "Génétique (amélioration)"] },
+                    { text: "Faire de la recherche fondamentale pour repousser les frontières de la connaissance du vivant.", specs: ["Biochimie", "Génétique", "Microbiologie", "Biologie et physiologie animale", "Biologie et physiologie végétale", "Ecologie et environnement (fondamentale)"] }
+                ]},
+                { q: "Si vous deviez vous spécialiser sur un type d'organisme ou d'interaction, ce serait :", a: [
+                    { text: "Les micro-organismes (bactéries, virus, levures, champignons) et leurs multiples rôles.", specs: ["Microbiologie", "Biotechnologie microbienne", "Génétique (microbienne)"] },
+                    { text: "Les plantes, leur physiologie, leur amélioration et leurs applications (alimentation, médecine, matériaux).", specs: ["Biologie et physiologie végétale", "Technologie agroalimentaire et contrôle de qualité", "Ecologie et environnement", "Génétique (végétale)"] },
+                    { text: "Les animaux (sauvages ou d'élevage), leur biologie, leur comportement ou leur santé.", specs: ["Biologie et physiologie animale", "Aquaculture et pisciculture", "Ecologie et environnement", "Alimentation, nutrition et pathologie (animale)", "Toxicologie (animale)"] },
+                    { text: "Les interactions complexes entre les organismes et leur environnement (biotique et abiotique).", specs: ["Ecologie et environnement", "Toxicologie", "Microbiologie (interactions)"] },
+                    { text: "L'être humain, son alimentation, sa santé, ses maladies et les facteurs qui les influencent.", specs: ["Alimentation, nutrition et pathologie", "Toxicologie", "Biochimie", "Génétique (humaine)", "Microbiologie (humaine)"] }
+                ]},
+                 { q: "Quel type de recherche vous attire le plus ?", a: [
+                    { text: "Recherche fondamentale pour découvrir de nouveaux mécanismes biologiques (ex: expression des gènes, signalisation cellulaire).", specs: ["Biochimie", "Génétique", "Microbiologie", "Biologie et physiologie animale", "Biologie et physiologie végétale"] },
+                    { text: "Recherche appliquée pour résoudre des problèmes concrets (ex: développer un nouveau vaccin, dépolluer un site, améliorer un aliment).", specs: ["Alimentation, nutrition et pathologie", "Technologie agroalimentaire et contrôle de qualité", "Biotechnologie microbienne", "Ecologie et environnement", "Aquaculture et pisciculture", "Toxicologie"] },
+                    { text: "Recherche et développement en laboratoire pour créer de nouveaux produits ou procédés industriels.", specs: ["Biotechnologie microbienne", "Technologie agroalimentaire et contrôle de qualité", "Génétique (appliquée)"] },
+                    { text: "Études épidémiologiques ou cliniques pour comprendre la distribution et les déterminants des maladies.", specs: ["Alimentation, nutrition et pathologie", "Toxicologie", "Microbiologie (épidémiologie)"] }
+                ]},
+                { q: "Vous êtes sensible à :", a: [
+                    { text: "L'impact de l'homme sur les écosystèmes, la perte de biodiversité et le changement climatique.", specs: ["Ecologie et environnement", "Toxicologie (écotoxicologie)"] },
+                    { text: "Les problématiques de santé publique liées à l'alimentation, aux modes de vie et aux expositions environnementales.", specs: ["Alimentation, nutrition et pathologie", "Toxicologie", "Microbiologie (santé publique)"] },
+                    { text: "Le potentiel des micro-organismes pour l'industrie (fermentation, biocarburants) ou la dépollution (biorémédiation).", specs: ["Biotechnologie microbienne", "Microbiologie", "Ecologie et environnement (biorémédiation)"] },
+                    { text: "L'amélioration des productions agricoles et aquacoles de manière durable, respectueuse du bien-être animal et de l'environnement.", specs: ["Biologie et physiologie végétale", "Biologie et physiologie animale", "Aquaculture et pisciculture", "Technologie agroalimentaire et contrôle de qualité", "Génétique (amélioration)"] }
+                ]},
+                { q: "Quel aspect de la biologie moléculaire vous fascine le plus ?", a: [
+                    { text: "L'étude de l'ADN, des gènes, de leur régulation, de leur transmission et des mutations.", specs: ["Génétique", "Biochimie", "Biotechnologie microbienne"] },
+                    { text: "Le métabolisme cellulaire (catabolisme, anabolisme), les voies de signalisation et la communication intercellulaire.", specs: ["Biochimie", "Alimentation, nutrition et pathologie", "Biologie et physiologie animale/végétale"] },
+                    { text: "Les interactions moléculaires entre pathogènes (virus, bactéries) et leurs hôtes, et les mécanismes d'immunité.", specs: ["Microbiologie", "Toxicologie (mécanismes)", "Génétique (prédisposition)", "Biochimie (réponse immunitaire)"] },
+                    { text: "L'ingénierie génétique (CRISPR-Cas9), la biologie de synthèse et la création d'organismes génétiquement modifiés à des fins utiles.", specs: ["Biotechnologie microbienne", "Génétique"] }
+                ]},
+                { q: "Si vous deviez travailler avec des organismes, vous préféreriez :", a: [
+                    { text: "Des animaux en laboratoire (modèles d'étude) ou en milieu naturel (faune sauvage).", specs: ["Biologie et physiologie animale", "Ecologie et environnement", "Toxicologie (expérimentation animale)", "Génétique (modèles animaux)"] },
+                    { text: "Des plantes en serre, en champ, en culture in vitro ou en laboratoire.", specs: ["Biologie et physiologie végétale", "Ecologie et environnement", "Technologie agroalimentaire et contrôle de qualité (matières premières)", "Génétique (amélioration des plantes)"] },
+                    { text: "Des micro-organismes (bactéries, levures, virus, microalgues) en culture pour étude ou production.", specs: ["Microbiologie", "Biotechnologie microbienne", "Biochimie (enzymologie microbienne)", "Génétique (microbienne)"] },
+                    { text: "Des organismes aquatiques (poissons, crustacés, mollusques, algues) en bassins, en mer ou en laboratoire.", specs: ["Aquaculture et pisciculture", "Ecologie et environnement (milieux aquatiques)", "Biologie et physiologie animale (organismes aquatiques)"] }
+                ]},
+                { q: "Quel type d'analyse de données vous semble le plus intéressant ?", a: [
+                    { text: "Analyses statistiques de données écologiques, de populations, ou de diversité génétique.", specs: ["Ecologie et environnement", "Aquaculture et pisciculture", "Génétique (des populations)", "Biologie et physiologie animale/végétale (études de populations)"] },
+                    { text: "Analyses biochimiques (dosages, chromatographie, spectroscopie) et interprétation de résultats de laboratoire.", specs: ["Biochimie", "Microbiologie", "Alimentation, nutrition et pathologie", "Toxicologie", "Technologie agroalimentaire et contrôle de qualité"] },
+                    { text: "Analyses génomiques, transcriptomiques, protéomiques (séquençage, puces ADN) et bio-informatiques.", specs: ["Génétique", "Biotechnologie microbienne", "Biochimie", "Microbiologie (génomique)"] },
+                    { text: "Analyses sensorielles, physico-chimiques et microbiologiques pour le contrôle qualité de produits alimentaires.", specs: ["Technologie agroalimentaire et contrôle de qualité", "Alimentation, nutrition et pathologie"] }
+                ]},
+                { q: "Face à un problème environnemental (pollution, espèce menacée), votre approche serait :", a: [
+                    { text: "Étudier les causes, les mécanismes et les conséquences écologiques pour comprendre le problème en profondeur.", specs: ["Ecologie et environnement", "Toxicologie (écotoxicologie)"] },
+                    { text: "Développer des solutions biotechnologiques (biorémédiation, bioindicateurs, conservation génétique ex-situ).", specs: ["Biotechnologie microbienne", "Génétique (conservation)", "Microbiologie (biorémédiation)"] },
+                    { text: "Proposer des plans de gestion, de restauration des milieux et de conservation in-situ.", specs: ["Ecologie et environnement", "Aquaculture et pisciculture (gestion des stocks et des habitats)"] },
+                    { text: "Évaluer les risques pour la santé humaine et animale liés à la contamination environnementale.", specs: ["Toxicologie", "Alimentation, nutrition et pathologie (exposition via la chaîne alimentaire)"] }
+                ]},
+                { q: "Dans le domaine de l'agroalimentaire, qu'est-ce qui vous attire le plus ?", a: [
+                    { text: "L'innovation pour de nouveaux produits alimentaires (aliments fonctionnels, substituts) plus sains ou durables.", specs: ["Technologie agroalimentaire et contrôle de qualité", "Alimentation, nutrition et pathologie", "Biotechnologie microbienne (fermentation, probiotiques)"] },
+                    { text: "Le contrôle qualité, la sécurité sanitaire des aliments (détection de pathogènes, contaminants) et la traçabilité.", specs: ["Technologie agroalimentaire et contrôle de qualité", "Microbiologie (alimentaire)", "Toxicologie (contaminants)", "Alimentation, nutrition et pathologie"] },
+                    { text: "L'étude de l'impact de la transformation des aliments sur leurs qualités nutritionnelles et organoleptiques.", specs: ["Alimentation, nutrition et pathologie", "Technologie agroalimentaire et contrôle de qualité", "Biochimie (alimentaire)"] },
+                    { text: "L'optimisation des procédés de production, de conservation et de conditionnement des aliments.", specs: ["Technologie agroalimentaire et contrôle de qualité", "Biotechnologie microbienne (procédés fermentaires)"] }
+                ]},
+                { q: "Quel type de réglementation ou de normes aimeriez-vous maîtriser ?", a: [
+                    { text: "Normes environnementales (ISO 14001), législation sur la protection de la nature et études d'impact.", specs: ["Ecologie et environnement", "Toxicologie (réglementation des produits chimiques)"] },
+                    { text: "Réglementations sanitaires et normes qualité dans l'agroalimentaire (HACCP, ISO 22000, Codex Alimentarius).", specs: ["Technologie agroalimentaire et contrôle de qualité", "Alimentation, nutrition et pathologie", "Microbiologie (alimentaire)"] },
+                    { text: "Éthique de l'expérimentation animale ou végétale, et réglementation sur les OGM.", specs: ["Biologie et physiologie animale", "Biologie et physiologie végétale", "Génétique", "Toxicologie", "Biotechnologie microbienne"] },
+                    { text: "Bonnes pratiques de laboratoire (BPL), biosécurité et gestion des risques biologiques.", specs: ["Microbiologie", "Biotechnologie microbienne", "Biochimie", "Génétique", "Toxicologie", "Alimentation, nutrition et pathologie"] }
+                ]},
+                { q: "Votre curiosité scientifique se porte davantage sur :", a: [
+                    { text: "Les mécanismes d'adaptation des organismes (physiologiques, comportementaux, génétiques) à leur environnement changeant.", specs: ["Ecologie et environnement", "Biologie et physiologie animale", "Biologie et physiologie végétale", "Génétique (évolution)", "Microbiologie (adaptation)"] },
+                    { text: "Les bases moléculaires des maladies (cancers, maladies génétiques, infectieuses) et la recherche de cibles thérapeutiques.", specs: ["Biochimie", "Génétique", "Microbiologie", "Toxicologie", "Alimentation, nutrition et pathologie"] },
+                    { text: "La diversité du monde vivant, les relations phylogénétiques entre espèces et l'histoire de l'évolution.", specs: ["Ecologie et environnement (biodiversité)", "Biologie et physiologie animale/végétale (systématique)", "Microbiologie (diversité microbienne)", "Génétique (phylogénie)"] },
+                    { text: "Le rôle des nutriments (macro et micro) dans le fonctionnement de l'organisme, la prévention des carences et des excès.", specs: ["Alimentation, nutrition et pathologie", "Biochimie", "Biologie et physiologie animale/végétale (nutrition)"] }
+                ]},
+                { q: "Pour vous, l'avenir des sciences du vivant réside principalement dans :", a: [
+                    { text: "La biotechnologie et l'ingénierie du vivant pour répondre aux défis de santé, d'alimentation et d'environnement.", specs: ["Biotechnologie microbienne", "Génétique", "Technologie agroalimentaire et contrôle de qualité", "Biochimie (ingénierie enzymatique)"] },
+                    { text: "Une meilleure compréhension, préservation et restauration des écosystèmes et de la biodiversité face aux pressions anthropiques.", specs: ["Ecologie et environnement", "Aquaculture et pisciculture (durable)", "Toxicologie (préservation)"] },
+                    { text: "Les avancées en nutrition personnalisée, médecine préventive et thérapies ciblées pour améliorer la santé globale.", specs: ["Alimentation, nutrition et pathologie", "Toxicologie (prévention)", "Microbiologie (microbiote)", "Biochimie", "Génétique (pharmacogénomique)"] },
+                    { text: "L'optimisation durable des productions alimentaires (agriculture, élevage, aquaculture) pour nourrir la planète tout en respectant l'environnement.", specs: ["Technologie agroalimentaire et contrôle de qualité", "Biologie et physiologie végétale", "Biologie et physiologie animale", "Aquaculture et pisciculture", "Génétique (amélioration)"] }
+                ]}
+            ]
+        };
+
+        let currentQuizType = '';
+        let currentQuestionIndex = 0;
+        let scores = {};
+        let selectedAnswersForQuestion = []; // Holds specs for the currently selected answer
+
+        const quizSelectionSection = document.getElementById('quiz-selection-section');
+        const quizArea = document.getElementById('quiz-area');
+        const resultsArea = document.getElementById('results-area');
+        const questionTextEl = document.getElementById('question-text');
+        const answersContainerEl = document.getElementById('answers-container');
+        const nextButton = document.getElementById('next-question-button');
+        const resultsCardsContainerEl = document.getElementById('results-cards-container');
+        const progressBarEl = document.getElementById('progress-bar');
+        const questionCounterEl = document.getElementById('question-counter');
+
+
+        function startQuiz(type) {
+            currentQuizType = type;
+            currentQuestionIndex = 0;
+            scores = {};
+            Object.keys(specializations[type]).forEach(spec => scores[spec] = 0);
+
+            quizSelectionSection.classList.add('hidden');
+            resultsArea.classList.add('hidden');
+            quizArea.classList.remove('hidden');
+            
+            // Ensure quizArea re-animates if it was animated before (AOS 'once:true' behavior)
+            quizArea.classList.remove('aos-animate'); 
+            // data-aos="zoom-in" is already on the element in HTML.
+            AOS.refreshHard(); // Re-evaluate all AOS elements, quizArea should now animate.
+
+            displayQuestion();
+        }
 
         function displayQuestion() {
-            const question = questions[currentQuestion];
-            const quizContent = document.getElementById('quiz-content');
+            selectedAnswersForQuestion = []; // Reset for current question
+            const currentQuestions = questionsData[currentQuizType];
+            if (!currentQuestions || currentQuestionIndex >= currentQuestions.length) {
+                console.error("Question data not found or index out of bounds.");
+                showResults(); // Or handle error appropriately
+                return;
+            }
+            const questionData = currentQuestions[currentQuestionIndex];
             
-            let html = `
-                <div class="question-card animate-fade-in">
-                    <h2 class="text-xl font-semibold mb-4">Question ${currentQuestion + 1} sur ${questions.length}</h2>
-                    <p class="text-lg mb-6">${question.question}</p>
-                    <div class="options">
-            `;
-
-            question.options.forEach((option, index) => {
-                html += `
-                    <button class="option-btn" onclick="selectOption(${index})">
-                        ${option.text}
-                    </button>
-                `;
+            // Remove previous AOS state for re-animation of question text
+            questionTextEl.classList.remove('aos-animate');
+            // Clear old answer options and their AOS state
+            answersContainerEl.querySelectorAll('.answer-option').forEach(el => {
+                el.classList.remove('aos-animate'); // For re-animation of similar items
             });
+            answersContainerEl.innerHTML = ''; // Clear old answers
 
-            html += `
-                    </div>
-                </div>
-            `;
+            questionTextEl.textContent = questionData.q;
 
-            quizContent.innerHTML = html;
-            updateProgress();
+            questionData.a.forEach((answer, index) => {
+                const answerDiv = document.createElement('div');
+                answerDiv.classList.add('answer-option');
+                answerDiv.textContent = answer.text;
+                answerDiv.dataset.specs = JSON.stringify(answer.specs);
+                answerDiv.onclick = () => selectAnswer(answerDiv, answer.specs);
+                
+                // Set AOS attributes for new answers
+                answerDiv.setAttribute('data-aos', 'fade-up');
+                answerDiv.setAttribute('data-aos-delay', `${index * 75}`); // Stagger delay
+                answerDiv.setAttribute('data-aos-anchor', '#answers-container'); // Anchor to container
+                answersContainerEl.appendChild(answerDiv);
+            });
+            
+            updateProgressBar();
+            nextButton.disabled = true;
+            questionCounterEl.textContent = `Question ${currentQuestionIndex + 1} sur ${currentQuestions.length}`;
+
+            // Set AOS for question text
+            questionTextEl.setAttribute('data-aos', 'fade-down');
+            questionTextEl.setAttribute('data-aos-delay', '0');
+
+
+            // After DOM is updated, refresh AOS to pick up new/changed attributes
+            setTimeout(() => {
+                AOS.refresh();
+            }, 50); 
+        }
+        
+        function selectAnswer(selectedDiv, specs) {
+            answersContainerEl.querySelectorAll('.answer-option').forEach(div => div.classList.remove('selected'));
+            selectedDiv.classList.add('selected');
+            
+            selectedAnswersForQuestion = specs; 
+            nextButton.disabled = false;
         }
 
-        function selectOption(optionIndex) {
-            const question = questions[currentQuestion];
-            const selectedOption = question.options[optionIndex];
-            
-            // Update specialty scores
-            selectedOption.specialties.forEach(specialty => {
-                specialtyScores[specialty] += 1;
-            });
+        function nextQuestion() {
+            if (selectedAnswersForQuestion.length > 0) {
+                selectedAnswersForQuestion.forEach(specName => {
+                    if (scores.hasOwnProperty(specName)) {
+                        scores[specName]++;
+                    } else {
+                        // This can happen if a spec in questionsData is not in specializations
+                        console.warn(`Specialization "${specName}" from question answer not found in scores object for quiz type "${currentQuizType}".`);
+                    }
+                });
+            }
 
-            // Move to next question
-            currentQuestion++;
-            
-            if (currentQuestion < questions.length) {
+            currentQuestionIndex++;
+            const currentQuestions = questionsData[currentQuizType];
+            if (currentQuestionIndex < currentQuestions.length) {
                 displayQuestion();
             } else {
                 showResults();
             }
         }
+        
+        function updateProgressBar() {
+            const totalQuestions = questionsData[currentQuizType].length;
+            const progressPercentage = ((currentQuestionIndex) / totalQuestions) * 100; // currentQuestionIndex is 0-based for calculation before display
+            progressBarEl.style.width = `${progressPercentage}%`; // Update before question, then full on last
+            if (currentQuestionIndex === totalQuestions -1 && selectedAnswersForQuestion.length > 0) {
+                 // On last question answered, make it 100%
+                 setTimeout(() => progressBarEl.style.width = `100%`, 100); // Small delay for visual effect
+            } else if (currentQuestionIndex === totalQuestions) {
+                // If moving to results
+                 progressBarEl.style.width = `100%`;
+            }
 
-        function updateProgress() {
-            const progress = (currentQuestion / questions.length) * 100;
-            document.querySelector('.progress-fill').style.width = `${progress}%`;
         }
 
         function showResults() {
-            const quizContent = document.getElementById('quiz-content');
-            const resultsDiv = document.getElementById('results');
+            quizArea.classList.add('hidden');
+            resultsArea.classList.remove('hidden');
             
-            // Sort specialties by score
-            const sortedSpecialties = Object.entries(specialtyScores)
-                .sort(([,a], [,b]) => b - a)
-                .slice(0, 2);
+            resultsArea.classList.remove('aos-animate');
+            AOS.refreshHard(); // For results area itself
 
-            let html = `
-                <div class="result-card animate-fade-in">
-                    <h2 class="text-2xl font-bold mb-6">Vos spécialités recommandées</h2>
-                    <div class="specialties">
-                        ${sortedSpecialties.map(([specialty, score]) => `
-                            <div class="specialty-badge text-lg">
-                                ${specialty}
-                            </div>
-                        `).join('')}
+            const sortedScores = Object.entries(scores).sort(([,a],[,b]) => b-a);
+            
+            resultsCardsContainerEl.innerHTML = '';
+            // Show top 3 or more if tied
+            let topResults = [];
+            if (sortedScores.length > 0) {
+                topResults.push(sortedScores[0]);
+                if (sortedScores.length > 1) topResults.push(sortedScores[1]);
+                if (sortedScores.length > 2) {
+                     if(sortedScores[1][1] === sortedScores[2][1]) { // If 2nd and 3rd are tied, show 3rd
+                        topResults.push(sortedScores[2]);
+                     } else if (topResults.length < 2 && sortedScores.length >=2) { // if less than 2 results and more available
+                        //This logic path might be redundant given the above, but ensures at least two if available
+                     }
+                     // Default show 3rd if it's a high score or close
+                     if (topResults.length < 3 && sortedScores.length > 2 && sortedScores[2][1] > 0 && sortedScores[2][1] >= sortedScores[0][1]/2) {
+                         topResults.push(sortedScores[2]);
+                     }
+                }
+            }
+            
+            if (topResults.length === 0) {
+                 resultsCardsContainerEl.innerHTML = `<p class="text-muted-foreground md:col-span-2 lg:col-span-3">Aucune recommandation claire. Veuillez réessayer ou explorer les options.</p>`;
+                 return;
+            }
+
+
+            topResults.forEach((result, index) => {
+                const specKey = result[0];
+                const specDetails = specializations[currentQuizType][specKey];
+                if (!specDetails) {
+                    console.error(`Details for specialization key "${specKey}" not found.`);
+                    return; // Skip if spec details are missing
+                }
+                
+                const card = document.createElement('div');
+                // Make result cards a bit smaller than selection cards
+                card.className = 'service-card p-4 sm:p-6 text-sm'; 
+                card.setAttribute('data-aos', index % 2 === 0 ? 'fade-right' : 'fade-left');
+                card.setAttribute('data-aos-delay', (index * 100).toString());
+
+                let iconClass = "fa-star"; // Default icon
+                if (currentQuizType === 'ST') {
+                    if (['Automatique', 'Electronique', 'Télécommunication', 'Electrotechnique', 'Electromécanique'].includes(specKey)) iconClass = 'fa-bolt';
+                    else if (['Génie Mécanique', 'Génie Civil'].includes(specKey)) iconClass = 'fa-hard-hat';
+                    else if (['Génie des Procédés', 'Génie Minier'].includes(specKey)) iconClass = 'fa-industry';
+                } else if (currentQuizType === 'SNV') {
+                     if (['Biochimie', 'Génétique', 'Microbiologie', 'Biotechnologie microbienne'].includes(specKey)) iconClass = 'fa-dna';
+                     else if (['Toxicologie', 'Alimentation, nutrition et pathologie'].includes(specKey)) iconClass = 'fa-notes-medical';
+                     else if (['Biologie et physiologie animale', 'Biologie et physiologie végétale'].includes(specKey)) iconClass = 'fa-seedling';
+                     else if (['Ecologie et environnement', 'Aquaculture et pisciculture'].includes(specKey)) iconClass = 'fa-globe-africa';
+                     else if (['Technologie agroalimentaire et contrôle de qualité'].includes(specKey)) iconClass = 'fa-utensils';
+                }
+
+                card.innerHTML = `
+                    <div class="service-icon group-hover:scale-110 transition-transform duration-300 !w-20 !h-20 sm:!w-24 sm:!h-24 !mb-3">
+                        <i class="fas ${iconClass} text-3xl sm:text-4xl"></i>
                     </div>
-                    <p class="mt-6 text-gray-600">
-                        Ces recommandations sont basées sur vos réponses au quiz. 
-                        Nous vous conseillons de consulter également les programmes détaillés 
-                        de ces spécialités pour faire votre choix final.
-                    </p>
-                    <button onclick="restartQuiz()" class="mt-6 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
-                        Recommencer le quiz
-                    </button>
-                </div>
-            `;
-
-            quizContent.classList.add('hidden');
-            resultsDiv.classList.remove('hidden');
-            resultsDiv.innerHTML = html;
+                    <h3 class="text-lg sm:text-xl font-semibold mb-1">${specDetails.name}</h3>
+                    ${specDetails.category ? `<p class="text-xs sm:text-sm text-primary font-medium mb-1">${specDetails.category}</p>` : ''}
+                    <p class="text-muted-foreground text-xs sm:text-sm">${specDetails.desc}</p>
+                    <p class="mt-2 font-bold text-md sm:text-lg" style="color: hsl(var(--primary));">Score: ${result[1]}</p>
+                `;
+                resultsCardsContainerEl.appendChild(card);
+            });
+             AOS.refresh(); 
         }
 
-        function restartQuiz() {
-            currentQuestion = 0;
-            answers = [];
-            specialtyScores = Object.fromEntries(Object.keys(specialtyScores).map(key => [key, 0]));
-            questions = getRandomQuestions(30);
+        function resetQuiz() {
+            resultsArea.classList.add('hidden');
+            quizArea.classList.add('hidden'); // Also hide quiz area
+            quizSelectionSection.classList.remove('hidden');
             
-            document.getElementById('results').classList.add('hidden');
-            document.getElementById('quiz-content').classList.remove('hidden');
-            displayQuestion();
+            quizSelectionSection.classList.remove('aos-animate');
+            // Re-apply individual animations to selection cards if desired
+            document.querySelectorAll('#quiz-selection-section .service-card').forEach((card, index) => {
+                card.classList.remove('aos-animate');
+                card.setAttribute('data-aos', index === 0 ? 'fade-right' : 'fade-left');
+            });
+            AOS.refreshHard();
+
+            progressBarEl.style.width = `0%`;
+            questionCounterEl.textContent = '';
         }
 
-        // Initialize the quiz with random questions
-        questions = getRandomQuestions(30);
-        displayQuestion();
     </script>
+
 </body>
-</html> 
+</html>
