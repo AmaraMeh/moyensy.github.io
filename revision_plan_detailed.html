@@ -34,15 +34,15 @@
             --radius: 0.5rem;
 
             /* Priority Colors */
-            --priority-1: 38 92% 50%; /* Amber/Yellow */
-            --priority-2: 221.2 83.2% 53.3%; /* Primary Blue */
-            --priority-3: 142.1 76.2% 36.3%; /* Green */
+            --priority-1: 38 92% 50%;
+            --priority-2: 221.2 83.2% 53.3%;
+            --priority-3: 142.1 76.2% 36.3%;
 
              /* Other Specific Colors */
-             --exam-red: 350 80% 50%; /* Bright Red for exams */
-             --exam-red-light: 350 80% 95%; /* Light Red for exam background */
-             --exam-red-dark: 350 80% 30%; /* Darker Red for text */
-             --passed-color: 210 10% 70%; /* Grayish for passed */
+             --exam-red: 350 80% 50%;
+             --exam-red-light: 350 80% 95%;
+             --exam-red-dark: 350 80% 30%;
+             --passed-color: 210 10% 70%;
         }
 
         /* Dark Mode Variables */
@@ -69,10 +69,10 @@
              --priority-3: 149.1 68.3% 48.3%;
 
               /* Other Specific Colors */
-             --exam-red: 0 80% 60%; /* Lighter Red for dark mode */
-             --exam-red-light: 0 80% 15%; /* Dark Red for exam background */
-             --exam-red-dark: 0 80% 80%; /* Lighter Red for text */
-             --passed-color: 210 10% 40%; /* Darker Grayish for passed */
+             --exam-red: 0 80% 60%;
+             --exam-red-light: 0 80% 15%;
+             --exam-red-dark: 0 80% 80%;
+             --passed-color: 210 10% 40%;
         }
 
         body {
@@ -81,9 +81,23 @@
             color: hsl(var(--foreground));
             min-height: 100vh;
             -webkit-tap-highlight-color: transparent;
-            transition: background-color 0.3s ease, color 0.3s ease;
             position: relative;
         }
+         /* Smooth transition for all relevant properties */
+         body, body *,
+         body *::before, body *::after {
+             transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, box-shadow, opacity, transform;
+             transition-duration: 0.5s; /* Smoother transition */
+             transition-timing-function: ease-in-out;
+         }
+         /* Exclude elements managed by specific animations or libraries like AOS */
+         body *:not(.floating-dot, .particle, .gradient-blob, [data-aos], [data-aos] *),
+         body *::before:not([data-aos]), body *::after:not([data-aos]) {
+              transition-property: all;
+              transition-duration: 0.5s;
+              transition-timing-function: ease-in-out;
+         }
+
 
         /* Background Elements */
         .hero-bg {
@@ -92,17 +106,17 @@
             z-index: -10;
             overflow: hidden;
             pointer-events: none;
-            filter: saturate(0.9); /* Slightly less saturated */
-            opacity: 0.8; /* Slightly more subtle */
+            filter: saturate(0.9);
+            opacity: 0.8;
         }
 
         .gradient-blob {
             position: absolute;
             border-radius: 9999px;
-            filter: blur(80px); /* Increased blur */
-            opacity: 0.3; /* Reduced opacity */
+            filter: blur(80px);
+            opacity: 0.3;
             pointer-events: none;
-            animation: blob-float 15s infinite ease-in-out alternate; /* Animation */
+            animation: blob-float 15s infinite ease-in-out alternate;
         }
 
         .gradient-blob-1 {
@@ -128,14 +142,14 @@
             animation: pulse-dot 2s infinite ease-in-out alternate;
             pointer-events: none;
             opacity: 0.6;
-             box-shadow: 0 0 8px rgba(0,0,0,0.1);
+            box-shadow: 0 0 8px rgba(0,0,0,0.1);
         }
         @keyframes pulse-dot {
             0%, 100% { transform: scale(1); opacity: 0.6; }
             50% { transform: scale(1.1); opacity: 0.9; }
         }
 
-         /* Specific dot colors (using classes for clarity) */
+         /* Specific dot colors */
          .dot-primary { background-color: hsl(var(--primary)); }
          .dot-ring { background-color: hsl(var(--ring)); }
          .dot-p1 { background-color: hsl(var(--priority-1)); }
@@ -156,7 +170,7 @@
             position: absolute;
             border-radius: 50%;
             opacity: 0.7;
-            animation: float 12s infinite ease-in-out; /* Longer animation */
+            animation: float 12s infinite ease-in-out;
         }
 
         @keyframes float {
@@ -215,9 +229,9 @@
             top: 0;
             bottom: 0;
             left: 50%;
-            width: 3px; /* Thinner line */
+            width: 3px;
             background: hsl(var(--border));
-            margin-left: -1.5px; /* Center line */
+            margin-left: -1.5px;
             transition: background-color 0.3s ease;
         }
 
@@ -249,17 +263,17 @@
 
         .timeline-date h3 {
             display: inline-flex;
-             align-items: center;
+            align-items: center;
             background: hsl(var(--primary));
             color: hsl(var(--primary-foreground));
             padding: 5px 15px;
             border-radius: 20px;
             font-size: 1rem;
             font-weight: 600;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1));
-             min-width: 160px; /* Slightly smaller badge */
-             justify-content: center;
-             transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            min-width: 160px;
+            justify-content: center;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
         }
         .timeline-date i {
             margin-right: 8px;
@@ -271,18 +285,19 @@
             width: calc(50% - 25px);
             border: 1px solid hsl(var(--border));
             border-radius: var(--radius);
-            padding: 18px; /* Slightly less padding */
+            padding: 18px;
             background: hsl(var(--card));
-            box-shadow: 0 4px 10px rgba(0,0,0,0.06)); /* Subtle shadow */
+            box-shadow: 0 4px 10px rgba(0,0,0,0.06);
             transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
             display: flex;
-             flex-direction: column;
+            flex-direction: column;
+            min-height: 100px;
         }
 
         .timeline-content:hover {
-            transform: translateY(-4px); /* Subtle lift on hover */
+            transform: translateY(-4px);
             border-color: hsl(var(--primary));
-            box-shadow: 0 8px 18px rgba(0,0,0,0.1));
+            box-shadow: 0 8px 18px rgba(0,0,0,0.1);
         }
 
         .timeline-item:nth-child(odd) .timeline-content {
@@ -296,21 +311,21 @@
         }
 
          .timeline-timespan {
-             font-size: 0.85rem; /* Smaller time span */
+             font-size: 0.85rem;
              color: hsl(var(--muted-foreground));
-             margin-bottom: 6px; /* Reduced margin */
+             margin-bottom: 6px;
              display: block;
          }
 
         .timeline-marker {
             position: absolute;
-            width: 14px; /* Smaller marker */
+            width: 14px;
             height: 14px;
             border-radius: 50%;
             background: hsl(var(--primary));
             z-index: 1;
-            top: 22px; /* Adjusted vertical position */
-            margin-top: -7px; /* Center vertically */
+            top: 22px;
+            margin-top: -7px;
             transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
             box-shadow: 0 0 0 0px hsl(var(--primary) / 0.5);
         }
@@ -318,8 +333,8 @@
         /* Marker positioning */
         .timeline-item:nth-child(odd) .timeline-marker {
             left: 50%;
-            margin-left: -7px; /* Center horizontally */
-            transform: translateX(-calc(100% + 18px)); /* Adjusted position */
+            margin-left: -7px;
+            transform: translateX(-calc(100% + 18px));
         }
 
         .timeline-item:nth-child(even) .timeline-marker {
@@ -360,10 +375,10 @@
 
          /* Priority coloring for titles */
          .study-session h4 .priority-tag {
-             font-size: 0.75rem; /* Smaller tag */
+             font-size: 0.75rem;
              font-weight: 500;
              margin-left: auto;
-             padding: 1px 7px; /* Adjusted padding */
+             padding: 1px 7px;
              border-radius: 12px;
              background-color: hsl(var(--muted));
              color: hsl(var(--muted-foreground));
@@ -385,7 +400,7 @@
 
 
         .break-time, .free-time {
-            background: hsl(var(--secondary) / 0.7); /* Slightly transparent */
+            background: hsl(var(--secondary) / 0.7);
             color: hsl(var(--secondary-foreground));
             border-left: 3px solid hsl(var(--muted));
             padding-left: 15px;
@@ -427,81 +442,117 @@
          }
 
 
-        /* Media Queries for Responsiveness */
+        /* Media Queries */
         @media (max-width: 768px) {
             .timeline::before {
                 left: 20px;
                 margin-left: 0;
-                 width: 2px; /* Thinner line on mobile */
+                width: 2px;
             }
 
             .timeline-item {
-                margin-bottom: 20px; /* Less space on mobile */
+                margin-bottom: 30px; /* Increased spacing between items */
             }
 
-             .timeline-date {
-                 text-align: left;
-                 left: 20px;
-                 transform: none;
-             }
-             .timeline-date h3 {
-                 transform: translateX(-10px); /* Offset slightly from line */
-                 font-size: 0.85rem; /* Smaller font */
-                 min-width: auto;
-                 padding: 4px 8px;
-             }
-             .timeline-date i {
-                margin-right: 4px;
-             }
-
+            .timeline-date {
+                text-align: left;
+                position: relative;
+                top: 0;
+                left: 0;
+                transform: none;
+                margin-bottom: 10px;
+                z-index: 5;
+                width: auto;
+            }
+            
+            .timeline-date h3 {
+                transform: none;
+                font-size: 0.9rem;
+                min-width: auto;
+                padding: 4px 12px;
+                display: inline-flex;
+                margin-left: 30px; /* Align with content */
+            }
+            
+            .timeline-date i {
+                margin-right: 6px;
+            }
 
             .timeline-content {
-                width: calc(100% - 60px); /* Adjusted width */
+                width: calc(100% - 50px);
                 float: right;
-                margin-left: 60px; /* Space for marker, line, and offset */
-                padding: 12px; /* Less padding */
+                margin-left: 50px;
+                padding: 15px;
+                min-height: auto;
             }
 
             .timeline-item:nth-child(odd) .timeline-content,
             .timeline-item:nth-child(even) .timeline-content {
-                 float: right;
-                 clear: right;
-             }
-
+                float: right;
+                clear: right;
+            }
 
             .timeline-marker {
                 left: 20px;
                 margin-left: 0;
                 transform: translateX(0);
-                top: 18px; /* Adjusted vertical position */
-                 margin-top: -7px;
-                 width: 12px; /* Smaller marker */
-                 height: 12px;
+                top: 50%;
+                margin-top: -7px;
+                width: 12px;
+                height: 12px;
             }
 
-             .timeline-item:nth-child(odd) .timeline-marker,
-             .timeline-item:nth-child(even) .timeline-marker {
-                 left: 20px;
-                 margin-left: 0;
-                 transform: translateX(0);
-             }
+            .timeline-item:nth-child(odd) .timeline-marker,
+            .timeline-item:nth-child(even) .timeline-marker {
+                left: 20px;
+                margin-left: 0;
+                transform: translateX(0);
+            }
 
-             .timeline-content h4 {
-                 font-size: 1rem;
-                 margin-bottom: 3px;
-             }
-             .timeline-content p {
-                 font-size: 0.85rem;
-             }
+            .timeline-content h4 {
+                font-size: 1rem;
+                margin-bottom: 3px;
+            }
+            
+            .timeline-content p {
+                font-size: 0.85rem;
+            }
 
-             .timeline-timespan {
-                 font-size: 0.8rem;
-                 margin-bottom: 4px;
-             }
-             .study-session h4 .priority-tag {
-                  font-size: 0.7rem;
-                  padding: 0 5px;
-             }
+            .timeline-timespan {
+                font-size: 0.8rem;
+                margin-bottom: 4px;
+            }
+            
+            .study-session h4 .priority-tag {
+                font-size: 0.7rem;
+                padding: 0 5px;
+            }
+            
+            /* Header back button adjustment */
+            header .container .flex a.absolute {
+                left: 10px;
+                padding: 10px;
+            }
+            
+            /* Live info section */
+            #live-info {
+                padding: 15px;
+                margin-bottom: 25px;
+            }
+            
+            /* Motivational message */
+            #motivational-message {
+                padding: 12px;
+                margin-bottom: 25px;
+            }
+        }
+
+        /* Theme Toggle - move higher on mobile */
+        @media (max-width: 768px) {
+            .theme-toggle {
+                bottom: 1.5rem;
+                right: 1.5rem;
+            }
         }
 
         /* Live Info, Countdown, and Progress styles */
@@ -512,7 +563,7 @@
             padding: 20px;
             text-align: center;
             margin-bottom: 40px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.08));
+            box-shadow: 0 4px 8px rgba(0,0,0,0.08);
         }
         #live-info h3 {
             font-size: 1.5rem;
@@ -521,18 +572,18 @@
             color: hsl(var(--primary));
         }
         #live-info p {
-            font-size: 1rem; /* Slightly smaller main text */
+            font-size: 1rem;
             color: hsl(var(--foreground));
         }
          #live-info #countdown {
-            font-size: 1.1rem; /* Slightly smaller countdown */
+            font-size: 1.1rem;
             font-weight: 500;
             color: hsl(var(--primary));
             margin-top: 15px;
         }
 
          #live-info #current-session-countdown {
-             font-size: 0.9rem; /* Smaller session countdown */
+             font-size: 0.9rem;
              font-weight: 400;
              color: hsl(var(--muted-foreground));
              margin-top: 8px;
@@ -545,50 +596,112 @@
              color: hsl(var(--ring));
           }
 
-         #progress-container {
-             width: 100%;
-             height: 10px;
-             background: hsl(var(--secondary));
-             border-radius: 5px;
-             overflow: hidden;
-             margin-top: 20px;
-             box-shadow: inset 0 1px 3px rgba(0,0,0,0.05));
-         }
-         #progress-bar {
-             height: 100%;
-             width: 0%;
-             background: linear-gradient(to right, hsl(var(--primary)), hsl(var(--ring)));
-             border-radius: 5px;
-             transition: width 0.5s ease-in-out;
-         }
-          #progress-text {
-             font-size: 0.85rem; /* Smaller progress text */
-             color: hsl(var(--muted-foreground));
-             text-align: center;
-             margin-top: 8px;
-          }
+         #progress-section {
+            margin-top: 30px;
+            margin-bottom: 30px;
+            background: hsl(var(--card));
+            border: 1px solid hsl(var(--border));
+            border-radius: var(--radius);
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+        }
+        
+        #progress-container {
+            width: 100%;
+            height: 10px;
+            background: hsl(var(--secondary));
+            border-radius: 5px;
+            overflow: hidden;
+            margin-top: 20px;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+        }
+        
+        #progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(to right, hsl(var(--primary)), hsl(var(--ring)));
+            border-radius: 5px;
+            transition: width 0.5s ease-in-out;
+        }
+        
+        #progress-text {
+            font-size: 0.85rem;
+            color: hsl(var(--muted-foreground));
+            text-align: center;
+            margin-top: 8px;
+        }
 
          #module-progress {
              margin-top: 20px;
              text-align: left;
              font-size: 0.9rem;
              color: hsl(var(--muted-foreground));
+             display: grid;
+             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+             gap: 15px 20px; /* Increased gap */
          }
           #module-progress h5 {
              font-weight: 600;
-             margin-bottom: 8px;
+             margin-bottom: 12px; /* More space below title */
              color: hsl(var(--foreground));
+             grid-column: 1 / -1;
           }
          #module-progress > div {
-              margin-bottom: 6px;
               display: flex;
-              justify-content: space-between;
-              align-items: center;
+              flex-direction: column; /* Stack module name and bar */
+              align-items: flex-start;
+               padding-bottom: 0; /* Remove bottom padding */
+               border-bottom: none; /* Remove dashed border */
          }
-          #module-progress span {
+          #module-progress .module-name {
              font-weight: 500;
-             color: hsl(var(--primary)); /* Highlight percentage */
+             color: hsl(var(--foreground));
+             margin-bottom: 4px;
           }
+           #module-progress .module-progress-bar-container {
+              width: 100%;
+              height: 8px; /* Smaller bar */
+              background: hsl(var(--secondary));
+              border-radius: 4px;
+              overflow: hidden;
+              box-shadow: inset 0 1px 2px rgba(0,0,0,0.05));
+           }
+           #module-progress .module-progress-bar {
+               height: 100%;
+               width: 0%;
+               background: hsl(var(--primary)); /* Solid color for mini bar */
+               border-radius: 4px;
+               transition: width 0.5s ease-in-out, background-color 0.3s ease;
+           }
+           /* Color code mini bars by priority? */
+            #module-progress .module-progress-bar[data-priority="1"] { background-color: hsl(var(--priority-1)); }
+            #module-progress .module-progress-bar[data-priority="2"] { background-color: hsl(var(--priority-2)); }
+            #module-progress .module-progress-bar[data-priority="3"] { background-color: hsl(var(--priority-3)); }
+
+            #progress-section .progress-actions {
+                 margin-top: 20px;
+                 display: flex;
+                 justify-content: center;
+                 gap: 15px;
+            }
+             #progress-section .progress-actions button {
+                 background: hsl(var(--secondary));
+                 border: 1px solid hsl(var(--border));
+                 border-radius: var(--radius);
+                 padding: 8px 15px;
+                 font-size: 0.9rem;
+                 cursor: pointer;
+                 transition: all 0.2s ease;
+             }
+             #progress-section .progress-actions button:hover {
+                 background: hsl(var(--primary));
+                 color: hsl(var(--primary-foreground));
+                 border-color: hsl(var(--primary));
+             }
+             #progress-section .progress-actions button i {
+                 margin-right: 5px;
+             }
+
 
           /* What's Next Section */
           #whats-next {
@@ -598,8 +711,8 @@
               padding: 15px;
               margin-top: 30px;
               margin-bottom: 30px;
-              box-shadow: 0 4px 8px rgba(0,0,0,0.08));
-              border-left: 4px solid hsl(var(--ring)); /* Highlight with ring color */
+              box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+              border-left: 4px solid hsl(var(--ring));
           }
            #whats-next h4 {
               font-size: 1.2rem;
@@ -620,40 +733,67 @@
                  margin-right: 8px;
                  color: hsl(var(--primary));
             }
+             #whats-next .next-countdown {
+                 font-size: 0.9rem;
+                 color: hsl(var(--muted-foreground));
+                 margin-left: 10px;
+                 display: inline-flex;
+                 align-items: center;
+             }
+             #whats-next .next-countdown i {
+                  margin-right: 4px;
+                  font-size: 0.8rem;
+                  color: hsl(var(--ring));
+             }
 
-            /* Quick Navigation */
-            #quick-nav {
-                display: flex;
-                justify-content: center;
-                flex-wrap: wrap;
-                gap: 8px;
-                margin-bottom: 40px;
+          /* Motivational Message */
+          #motivational-message {
+               background: linear-gradient(to right, hsl(var(--primary) / 0.08), transparent);
+               border-left: 3px solid hsl(var(--primary));
+               padding: 15px;
+               border-radius: var(--radius);
+               margin-top: 30px;
+               margin-bottom: 30px;
+               font-style: italic;
+               color: hsl(var(--foreground));
+          }
+          #motivational-message i {
+               margin-right: 8px;
+               color: hsl(var(--primary));
+          }
+           .dark #motivational-message {
+               background: linear-gradient(to right, hsl(var(--primary) / 0.15), transparent);
+           }
+
+            /* Add to Calendar Button Styling */
+           .add-to-calendar {
+               margin-top: 10px;
+               font-size: 0.8rem;
+               color: hsl(var(--muted-foreground));
+               display: flex;
+               flex-wrap: wrap;
+               gap: 6px;
+               align-items: center;
+           }
+           .add-to-calendar button {
+               background: hsl(var(--background));
+               border: 1px solid hsl(var(--border));
+               border-radius: 4px;
+               padding: 4px 8px;
+               font-size: 0.75rem;
+               cursor: pointer;
+               transition: all 0.2s ease;
+               display: flex;
+               align-items: center;
+           }
+           .add-to-calendar button:hover {
+                background: hsl(var(--secondary));
+                border-color: hsl(var(--primary));
+                color: hsl(var(--primary));
+           }
+            .add-to-calendar button i {
+                margin-right: 4px;
             }
-             #quick-nav button {
-                 padding: 6px 12px;
-                 border-radius: 20px;
-                 border: 1px solid hsl(var(--border));
-                 background: hsl(var(--background));
-                 color: hsl(var(--foreground));
-                 font-size: 0.85rem;
-                 cursor: pointer;
-                 transition: all 0.2s ease;
-             }
-             #quick-nav button:hover {
-                 background: hsl(var(--secondary));
-                 border-color: hsl(var(--primary));
-                 color: hsl(var(--primary));
-             }
-              #quick-nav button.current-day-nav {
-                  background: hsl(var(--primary));
-                  color: hsl(var(--primary-foreground));
-                  border-color: hsl(var(--primary));
-                  font-weight: 500;
-              }
-               #quick-nav button.current-day-nav:hover {
-                   background: hsl(var(--ring));
-                   border-color: hsl(var(--ring));
-               }
 
 
         /* Highlighting */
@@ -667,8 +807,8 @@
          .current-session .timeline-content {
              border-color: hsl(var(--ring));
              background: linear-gradient(to right, hsl(var(--ring) / 0.1), transparent);
-             box-shadow: 0 6px 15px rgba(0,0,0,0.15));
-             transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease; /* Ensure smooth transition */
+             box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+             transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
          }
          .dark .current-session .timeline-content {
              background: linear-gradient(to right, hsl(var(--ring) / 0.2), transparent);
@@ -704,8 +844,8 @@
 
          /* Passed sessions styling */
          .passed .timeline-content {
-            opacity: 0.6; /* Make passed items less prominent */
-            background: hsl(var(--background) / 0.8); /* Lighter background */
+            opacity: 0.6;
+            background: hsl(var(--background) / 0.8);
              border-color: hsl(var(--border));
              box-shadow: none;
              transition: opacity 0.5s ease, background 0.3s ease;
@@ -729,7 +869,7 @@
               color: hsl(var(--muted-foreground) / 0.6);
           }
           .passed .timeline-marker {
-             background: hsl(var(--passed-color)); /* Gray marker */
+             background: hsl(var(--passed-color));
              box-shadow: none;
           }
 
@@ -749,8 +889,8 @@
              cursor: pointer;
         }
         .completed .timeline-content {
-            opacity: 0.7; /* Slightly higher opacity than just 'passed' */
-            background: hsl(var(--secondary) / 0.6); /* Use secondary for completed */
+            opacity: 0.7;
+            background: hsl(var(--secondary) / 0.6);
              border-color: hsl(var(--muted));
              box-shadow: none;
              transition: opacity 0.3s ease, background 0.3s ease;
@@ -771,33 +911,13 @@
          }
           .dark .completed .timeline-content h4,
          .dark .completed .timeline-content p,
-         .dark .completed .timeline-timespan {
+          .dark .completed .timeline-timespan {
              color: hsl(var(--muted-foreground) / 0.8);
          }
          .completed .timeline-marker {
-             background: hsl(var(--muted-foreground)); /* Gray marker */
+             background: hsl(var(--muted-foreground));
              box-shadow: none;
          }
-
-
-          /* Motivational Message */
-          #motivational-message {
-               background: linear-gradient(to right, hsl(var(--primary) / 0.08), transparent);
-               border-left: 3px solid hsl(var(--primary));
-               padding: 15px;
-               border-radius: var(--radius);
-               margin-top: 30px;
-               margin-bottom: 30px;
-               font-style: italic;
-               color: hsl(var(--foreground));
-          }
-          #motivational-message i {
-               margin-right: 8px;
-               color: hsl(var(--primary));
-          }
-           .dark #motivational-message {
-               background: linear-gradient(to right, hsl(var(--primary) / 0.15), transparent);
-           }
 
 
     </style>
@@ -807,7 +927,6 @@
     <div class="hero-bg">
         <div class="gradient-blob gradient-blob-1"></div>
         <div class="gradient-blob gradient-blob-2"></div>
-        <!-- Added class names for dots -->
         <div class="floating-dot dot-p2 w-4 h-4 top-1/4 left-1/4" style="--x: 20px; --y: -10px; animation-delay: 0s;"></div>
         <div class="floating-dot dot-primary w-3 h-3 top-1/3 right-1/4" style="--x: -15px; --y: 15px; animation-delay: 1s;"></div>
         <div class="floating-dot dot-p1 w-2 h-2 bottom-1/4 left-1/3" style="--x: 10px; --y: 20px; animation-delay: 2s;"></div>
@@ -824,12 +943,15 @@
         <i class="fas fa-moon"></i>
     </button>
 
-    <!-- Header -->
+    <!-- Header section - Add back button -->
     <header class="bg-background/80 backdrop-blur-sm shadow-lg py-6">
         <div class="container mx-auto px-4">
-            <div class="flex flex-col items-center">
+            <div class="flex flex-col items-center relative">
+                <a href="index.html" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-primary/10 hover:bg-primary/20 transition-colors p-2 rounded-full">
+                    <i class="fas fa-arrow-left text-primary"></i>
+                </a>
                 <h1 class="text-2xl md:text-3xl font-bold" data-aos="fade-down">Mon Plan de Révision</h1>
-                 <p class="text-muted-foreground text-sm mt-1">1ère Année Technologie (LMD) - Université de Bejaia</p>
+                <p class="text-muted-foreground text-sm mt-1">1ère Année Technologie (LMD) - Université de Bejaia</p>
             </div>
         </div>
     </header>
@@ -837,43 +959,18 @@
     <!-- Main Content -->
     <main class="container mx-auto px-4 py-8 max-w-3xl">
 
-         <!-- Live Clock, Countdown, and Session Countdown -->
+        <!-- Live Clock and Countdown -->
         <section id="live-info" data-aos="fade-up">
             <p><i class="fas fa-clock mr-2 text-primary"></i> Heure Actuelle: <span id="current-time"></span></p>
             <p class="mt-1"><i class="fas fa-calendar-day mr-2 text-primary"></i> Date Actuelle: <span id="current-date"></span></p>
-             <p id="countdown" class="font-semibold mt-3"></p>
-             <p id="current-session-countdown" class="hidden"></p>
+            <p id="countdown" class="font-semibold mt-3"></p>
+            <p id="current-session-countdown" class="hidden"></p>
         </section>
 
-        <!-- What's Next Section -->
-        <section id="whats-next" data-aos="fade-up" data-aos-delay="150">
-             <h4><i class="fas fa-forward mr-2"></i>Prochaine Tâche</h4>
-             <div id="next-task-content">
-                 <p>Chargement...</p>
-             </div>
+        <!-- Motivational Message -->
+        <section id="motivational-message" data-aos="fade-up" data-aos-delay="150">
+            <p><i class="fas fa-lightbulb mr-2"></i><span id="daily-quote">Chargement message...</span></p>
         </section>
-
-
-        <!-- Overall Progress Bar -->
-        <section id="progress-section" data-aos="fade-up" data-aos-delay="200">
-             <div id="progress-container">
-                 <div id="progress-bar"></div>
-             </div>
-             <p id="progress-text"></p>
-             <div id="module-progress" class="mt-4">
-                  <h5>Progrès par Module :</h5>
-                  <!-- Module progress will be inserted here by JS -->
-             </div>
-        </section>
-
-         <!-- Motivational Message -->
-         <section id="motivational-message" data-aos="fade-up" data-aos-delay="250">
-              <p><i class="fas fa-lightbulb mr-2"></i><span id="daily-quote">Chargement message...</span></p>
-         </section>
-
-
-         <!-- Quick Navigation -->
-         <section id="quick-nav" data-aos="fade-up" data-aos-delay="300"></section>
 
 
         <!-- Revision Plan Timeline -->
@@ -896,13 +993,14 @@
             <div class="timeline-item day-item" data-date="2025-05-15" data-aos="fade-up">
                  <div class="timeline-date"><h3><i class="fas fa-calendar-day mr-2"></i>Jeu. 15 Mai</h3></div>
                  <div class="timeline-marker"></div>
-                <div class="timeline-content study-session" data-time-start="09:00" data-time-end="10:30" data-module="Mathématiques 2" data-task="Révision et Pratique">
+                <div class="timeline-content study-session" data-time-start="09:00" data-time-end="10:30" data-module="Mathématiques 2" data-task="Révision Concepts Clés">
                      <span class="timeline-timespan">09:00 - 10:30</span>
                     <h4>Mathématiques 2 <span class="priority-tag p1">Prio 1</span></h4>
-                    <p>Révision des concepts clés et pratique d'exercices.</p>
+                    <p>Révision approfondie des concepts et définitions.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-            <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
+            <div class="timeline-item" data-aos="fade-up" data-aos-delay="50">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content break-time" data-time-start="10:30" data-time-end="11:00" data-module="Pause">
                      <span class="timeline-timespan">10:30 - 11:00</span>
@@ -910,15 +1008,16 @@
                     <p>Break.</p>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
                 <div class="timeline-marker"></div>
-                <div class="timeline-content study-session" data-time-start="11:00" data-time-end="12:00" data-module="Physique 2" data-task="Révision Conceptuelle">
+                <div class="timeline-content study-session" data-time-start="11:00" data-time-end="12:00" data-module="Physique 2" data-task="Révision Chapitre 1">
                      <span class="timeline-timespan">11:00 - 12:00</span>
                     <h4>Physique 2 <span class="priority-tag p1">Prio 1</span></h4>
-                    <p>Révision des concepts difficiles.</p>
+                    <p>Révision du Chapitre 1.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="300">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="150">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content free-time" data-time-start="12:00" data-time-end="14:00" data-module="Déjeuner & Temps Libre">
                      <span class="timeline-timespan">12:00 - 14:00</span>
@@ -926,15 +1025,16 @@
                     <p>Repas et détente.</p>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="400">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
                 <div class="timeline-marker"></div>
-                <div class="timeline-content study-session" data-time-start="14:00" data-time-end="15:30" data-module="Informatique 2" data-task="Pratique TP">
+                <div class="timeline-content study-session" data-time-start="14:00" data-time-end="15:30" data-module="Informatique 2" data-task="Révision TP / Exercices">
                      <span class="timeline-timespan">14:00 - 15:30</span>
                     <h4>Informatique 2 <span class="priority-tag p2">Prio 2</span></h4>
-                    <p>Pratique d'exercices TP ou annales.</p>
+                    <p>Révision et pratique d'exercices ou TP.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="500">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="250">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content break-time" data-time-start="15:30" data-time-end="16:00" data-module="Pause">
                      <span class="timeline-timespan">15:30 - 16:00</span>
@@ -942,15 +1042,16 @@
                     <p>Break.</p>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="600">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="300">
                 <div class="timeline-marker"></div>
-                <div class="timeline-content study-session" data-time-start="16:00" data-time-end="17:30" data-module="Chimie 2" data-task="Révision & Pratique">
+                <div class="timeline-content study-session" data-time-start="16:00" data-time-end="17:30" data-module="Chimie 2" data-task="Révision Chapitre 1">
                      <span class="timeline-timespan">16:00 - 17:30</span>
                     <h4>Chimie 2 <span class="priority-tag p1">Prio 1</span></h4>
-                    <p>Révision des chapitres et pratique d'exercices.</p>
+                    <p>Révision du Chapitre 1.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="700">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="350">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content free-time" data-time-start="17:30" data-time-end="19:30" data-module="Dîner & Temps Libre">
                      <span class="timeline-timespan">17:30 - 19:30</span>
@@ -958,15 +1059,16 @@
                     <p>Repas du soir et détente.</p>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="800">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="400">
                 <div class="timeline-marker"></div>
-                <div class="timeline-content study-session" data-time-start="19:30" data-time-end="20:30" data-module="MP" data-task="Révision Concepts">
+                <div class="timeline-content study-session" data-time-start="19:30" data-time-end="20:30" data-module="MP" data-task="Révision Chapitre 1">
                      <span class="timeline-timespan">19:30 - 20:30</span>
                     <h4>MP <span class="priority-tag p3">Prio 3</span></h4>
-                    <p>Révision des concepts de base.</p>
+                    <p>Révision du Chapitre 1.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="900">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="450">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content free-time" data-time-start="20:30" data-time-end="22:00" data-module="Temps Libre">
                      <span class="timeline-timespan">20:30 - 22:00</span>
@@ -979,13 +1081,14 @@
              <div class="timeline-item day-item" data-date="2025-05-16" data-aos="fade-up">
                  <div class="timeline-date"><h3><i class="fas fa-calendar-day mr-2"></i>Ven. 16 Mai</h3></div>
                  <div class="timeline-marker"></div>
-                <div class="timeline-content study-session" data-time-start="09:00" data-time-end="10:30" data-module="Mathématiques 2" data-task="Pratique Exercices">
+                <div class="timeline-content study-session" data-time-start="09:00" data-time-end="10:30" data-module="Mathématiques 2" data-task="Révision Chapitre 2">
                      <span class="timeline-timespan">09:00 - 10:30</span>
                     <h4>Mathématiques 2 <span class="priority-tag p1">Prio 1</span></h4>
-                    <p>Pratique d'exercices type annales.</p>
+                    <p>Révision du Chapitre 2.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-            <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
+            <div class="timeline-item" data-aos="fade-up" data-aos-delay="50">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content break-time" data-time-start="10:30" data-time-end="11:00" data-module="Pause">
                      <span class="timeline-timespan">10:30 - 11:00</span>
@@ -993,15 +1096,16 @@
                     <p>Break.</p>
                 </div>
             </div>
-            <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
+            <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
                 <div class="timeline-marker"></div>
-                <div class="timeline-content study-session" data-time-start="11:00" data-time-end="12:00" data-module="Physique 2" data-task="Pratique Exercices">
+                <div class="timeline-content study-session" data-time-start="11:00" data-time-end="12:00" data-module="Physique 2" data-task="Révision Chapitre 2">
                      <span class="timeline-timespan">11:00 - 12:00</span>
                     <h4>Physique 2 <span class="priority-tag p1">Prio 1</span></h4>
-                    <p>Pratique d'exercices type annales.</p>
+                    <p>Révision du Chapitre 2.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="300">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="150">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content free-time" data-time-start="12:00" data-time-end="14:00" data-module="Déjeuner & Temps Libre">
                      <span class="timeline-timespan">12:00 - 14:00</span>
@@ -1009,15 +1113,16 @@
                     <p>Repas et détente.</p>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="400">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
                 <div class="timeline-marker"></div>
-                <div class="timeline-content study-session" data-time-start="14:00" data-time-end="15:30" data-module="Informatique 2" data-task="Révision Concepts">
+                <div class="timeline-content study-session" data-time-start="14:00" data-time-end="15:30" data-module="Informatique 2" data-task="Révision Chapitre 2">
                      <span class="timeline-timespan">14:00 - 15:30</span>
                     <h4>Informatique 2 <span class="priority-tag p2">Prio 2</span></h4>
-                    <p>Révision des concepts et structures.</p>
+                    <p>Révision du Chapitre 2.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="500">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="250">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content break-time" data-time-start="15:30" data-time-end="16:00" data-module="Pause">
                      <span class="timeline-timespan">15:30 - 16:00</span>
@@ -1025,15 +1130,16 @@
                     <p>Break.</p>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="600">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="300">
                 <div class="timeline-marker"></div>
-                <div class="timeline-content study-session" data-time-start="16:00" data-time-end="17:30" data-module="Chimie 2" data-task="Pratique Exercices">
+                <div class="timeline-content study-session" data-time-start="16:00" data-time-end="17:30" data-module="Chimie 2" data-task="Révision Chapitre 2">
                      <span class="timeline-timespan">16:00 - 17:30</span>
                     <h4>Chimie 2 <span class="priority-tag p1">Prio 1</span></h4>
-                    <p>Pratique d'exercices type annales.</p>
+                    <p>Révision du Chapitre 2.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="700">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="350">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content free-time" data-time-start="17:30" data-time-end="19:30" data-module="Dîner & Temps Libre">
                      <span class="timeline-timespan">17:30 - 19:30</span>
@@ -1041,15 +1147,16 @@
                     <p>Repas du soir et détente.</p>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="800">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="400">
                 <div class="timeline-marker"></div>
-                <div class="timeline-content study-session" data-time-start="19:30" data-time-end="20:30" data-module="MST 2" data-task="Révision Points Clés">
+                <div class="timeline-content study-session" data-time-start="19:30" data-time-end="20:30" data-module="MP" data-task="Révision Chapitre 2">
                      <span class="timeline-timespan">19:30 - 20:30</span>
-                    <h4>MST 2 <span class="priority-tag p3">Prio 3</span></h4>
-                    <p>Révision des points clés et définitions.</p>
+                    <h4>MP <span class="priority-tag p3">Prio 3</span></h4>
+                    <p>Révision du Chapitre 2.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-            <div class="timeline-item" data-aos="fade-up" data-aos-delay="900">
+            <div class="timeline-item" data-aos="fade-up" data-aos-delay="450">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content free-time" data-time-start="20:30" data-time-end="22:00" data-module="Temps Libre">
                      <span class="timeline-timespan">20:30 - 22:00</span>
@@ -1062,13 +1169,14 @@
              <div class="timeline-item day-item" data-date="2025-05-17" data-aos="fade-up">
                  <div class="timeline-date"><h3><i class="fas fa-calendar-day mr-2"></i>Sam. 17 Mai</h3></div>
                  <div class="timeline-marker"></div>
-                <div class="timeline-content study-session" data-time-start="09:00" data-time-end="10:30" data-module="Mathématiques 2" data-task="Pratique Annales">
+                <div class="timeline-content study-session" data-time-start="09:00" data-time-end="10:30" data-module="Mathématiques 2" data-task="Pratique TD 1 & 2">
                      <span class="timeline-timespan">09:00 - 10:30</span>
                     <h4>Mathématiques 2 <span class="priority-tag p1">Prio 1</span></h4>
-                    <p>Pratique intensive d'exercices d'annales.</p>
+                    <p>Pratique d'exercices des TD 1 et 2.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-            <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
+            <div class="timeline-item" data-aos="fade-up" data-aos-delay="50">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content break-time" data-time-start="10:30" data-time-end="11:00" data-module="Pause">
                      <span class="timeline-timespan">10:30 - 11:00</span>
@@ -1076,15 +1184,16 @@
                     <p>Break.</p>
                 </div>
             </div>
-            <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
+            <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
                 <div class="timeline-marker"></div>
-                <div class="timeline-content study-session" data-time-start="11:00" data-time-end="12:00" data-module="Physique 2" data-task="Révision Formules">
+                <div class="timeline-content study-session" data-time-start="11:00" data-time-end="12:00" data-module="Physique 2" data-task="Pratique TD 1 & 2">
                      <span class="timeline-timespan">11:00 - 12:00</span>
                     <h4>Physique 2 <span class="priority-tag p1">Prio 1</span></h4>
-                    <p>Révision et mémorisation des formules clés.</p>
+                    <p>Pratique d'exercices des TD 1 et 2.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="300">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="150">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content free-time" data-time-start="12:00" data-time-end="14:00" data-module="Déjeuner & Temps Libre">
                      <span class="timeline-timespan">12:00 - 14:00</span>
@@ -1092,15 +1201,16 @@
                     <p>Repas et détente.</p>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="400">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
                 <div class="timeline-marker"></div>
-                <div class="timeline-content study-session" data-time-start="14:00" data-time-end="15:30" data-module="Informatique 2" data-task="Révision Finale">
+                <div class="timeline-content study-session" data-time-start="14:00" data-time-end="15:30" data-module="Informatique 2" data-task="Pratique TP 1 & 2">
                      <span class="timeline-timespan">14:00 - 15:30</span>
                     <h4>Informatique 2 <span class="priority-tag p2">Prio 2</span></h4>
-                    <p>Révision rapide des points essentiels avant l'examen.</p>
+                    <p>Revoir et pratiquer les TP 1 et 2.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="500">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="250">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content break-time" data-time-start="15:30" data-time-end="16:00" data-module="Pause">
                      <span class="timeline-timespan">15:30 - 16:00</span>
@@ -1108,15 +1218,16 @@
                     <p>Break.</p>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="600">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="300">
                 <div class="timeline-marker"></div>
-                <div class="timeline-content study-session" data-time-start="16:00" data-time-end="17:30" data-module="Chimie 2" data-task="Révision Formules">
+                <div class="timeline-content study-session" data-time-start="16:00" data-time-end="17:30" data-module="Chimie 2" data-task="Pratique TD 1">
                      <span class="timeline-timespan">16:00 - 17:30</span>
                     <h4>Chimie 2 <span class="priority-tag p1">Prio 1</span></h4>
-                    <p>Révision et mémorisation des formules clés.</p>
+                    <p>Pratique d'exercices du TD 1.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="700">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="350">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content free-time" data-time-start="17:30" data-time-end="19:30" data-module="Dîner & Temps Libre">
                      <span class="timeline-timespan">17:30 - 19:30</span>
@@ -1124,15 +1235,16 @@
                     <p>Repas du soir et détente.</p>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="800">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="400">
                 <div class="timeline-marker"></div>
-                <div class="timeline-content study-session" data-time-start="19:30" data-time-end="20:30" data-module="Anglais 2" data-task="Révision Vocabulaire">
+                <div class="timeline-content study-session" data-time-start="19:30" data-time-end="20:30" data-module="MST 2" data-task="Révision Pages Clés (1-8)">
                      <span class="timeline-timespan">19:30 - 20:30</span>
-                    <h4>Anglais 2 <span class="priority-tag p3">Prio 3</span></h4>
-                    <p>Révision du vocabulaire important.</p>
+                    <h4>MST 2 <span class="priority-tag p3">Prio 3</span></h4>
+                    <p>Révision des pages clés 1 à 8 du PDF.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-            <div class="timeline-item" data-aos="fade-up" data-aos-delay="900">
+            <div class="timeline-item" data-aos="fade-up" data-aos-delay="450">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content free-time" data-time-start="20:30" data-time-end="22:00" data-module="Temps Libre">
                      <span class="timeline-timespan">20:30 - 22:00</span>
@@ -1149,9 +1261,10 @@
                      <span class="timeline-timespan">09:00 - 11:00</span>
                     <h4>Mathématiques 2 <span class="priority-tag p1">Prio 1</span></h4>
                     <p>Faire un examen blanc ou une série d'annales complète en temps limité.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-            <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
+            <div class="timeline-item" data-aos="fade-up" data-aos-delay="50">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content break-time" data-time-start="11:00" data-time-end="11:30" data-module="Pause">
                      <span class="timeline-timespan">11:00 - 11:30</span>
@@ -1159,15 +1272,16 @@
                     <p>Break.</p>
                 </div>
             </div>
-            <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
+            <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
                 <div class="timeline-marker"></div>
-                <div class="timeline-content study-session" data-time-start="11:30" data-time-end="12:30" data-module="Mathématiques 2" data-task="Correction Simulation">
+                <div class="timeline-content study-session" data-time-start="11:30" data-time-end="12:30" data-module="Mathématiques 2" data-task="Correction Simulation + Points Faibles">
                      <span class="timeline-timespan">11:30 - 12:30</span>
                     <h4>Mathématiques 2 <span class="priority-tag p1">Prio 1</span></h4>
-                    <p>Corriger la simulation et revoir les erreurs.</p>
+                    <p>Corriger la simulation et revoir les points faibles.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="300">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="150">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content free-time" data-time-start="12:00" data-time-end="14:00" data-module="Déjeuner & Temps Libre">
                      <span class="timeline-timespan">12:00 - 14:00</span>
@@ -1175,15 +1289,16 @@
                     <p>Repas et détente.</p>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="400">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
                 <div class="timeline-marker"></div>
-                <div class="timeline-content study-session" data-time-start="14:00" data-time-end="15:30" data-module="Physique 2" data-task="Pratique Annales">
+                <div class="timeline-content study-session" data-time-start="14:00" data-time-end="15:30" data-module="Physique 2" data-task="Pratique Annales Intenses">
                      <span class="timeline-timespan">14:00 - 15:30</span>
                     <h4>Physique 2 <span class="priority-tag p1">Prio 1</span></h4>
-                    <p>Pratique intense d'exercices d'annales.</p>
+                    <p>Pratique intensive d'exercices d'annales.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="500">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="250">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content break-time" data-time-start="15:30" data-time-end="16:00" data-module="Pause">
                      <span class="timeline-timespan">15:30 - 16:00</span>
@@ -1191,15 +1306,16 @@
                     <p>Break.</p>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="600">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="300">
                 <div class="timeline-marker"></div>
-                <div class="timeline-content study-session" data-time-start="16:00" data-time-end="17:30" data-module="Chimie 2" data-task="Pratique Annales">
+                <div class="timeline-content study-session" data-time-start="16:00" data-time-end="17:30" data-module="Chimie 2" data-task="Pratique Annales Intenses">
                      <span class="timeline-timespan">16:00 - 17:30</span>
                     <h4>Chimie 2 <span class="priority-tag p1">Prio 1</span></h4>
-                    <p>Pratique intense d'exercices d'annales.</p>
+                    <p>Pratique intensive d'exercices d'annales.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="700">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="350">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content free-time" data-time-start="17:30" data-time-end="19:30" data-module="Dîner & Temps Libre">
                      <span class="timeline-timespan">17:30 - 19:30</span>
@@ -1207,15 +1323,16 @@
                     <p>Repas du soir et détente.</p>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="800">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="400">
                 <div class="timeline-marker"></div>
-                <div class="timeline-content study-session" data-time-start="19:30" data-time-end="20:30" data-module="MST 2" data-task="Révision Finale">
+                <div class="timeline-content study-session" data-time-start="19:30" data-time-end="20:30" data-module="MST 2" data-task="Révision Finale Rapide">
                      <span class="timeline-timespan">19:30 - 20:30</span>
                     <h4>MST 2 <span class="priority-tag p3">Prio 3</span></h4>
                     <p>Révision rapide des points clés avant l'examen.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-            <div class="timeline-item" data-aos="fade-up" data-aos-delay="900">
+            <div class="timeline-item" data-aos="fade-up" data-aos-delay="450">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content free-time" data-time-start="20:30" data-time-end="22:00" data-module="Temps Libre">
                      <span class="timeline-timespan">20:30 - 22:00</span>
@@ -1232,9 +1349,10 @@
                      <span class="timeline-timespan">09:00 - 11:00</span>
                     <h4>Mathématiques 2 <span class="priority-tag p1">Prio 1</span></h4>
                     <p>Révision globale et pratique d'annales.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-            <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
+            <div class="timeline-item" data-aos="fade-up" data-aos-delay="50">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content break-time" data-time-start="11:00" data-time-end="11:30" data-module="Pause">
                      <span class="timeline-timespan">11:00 - 11:30</span>
@@ -1242,15 +1360,16 @@
                     <p>Break.</p>
                 </div>
             </div>
-            <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
+            <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
                 <div class="timeline-marker"></div>
-                <div class="timeline-content study-session" data-time-start="11:30" data-time-end="13:00" data-module="Informatique 2" data-task="Pratique Annales">
+                <div class="timeline-content study-session" data-time-start="11:30" data-time-end="13:00" data-module="Informatique 2" data-task="Pratique Annales Intenses">
                      <span class="timeline-timespan">11:30 - 13:00</span>
                     <h4>Informatique 2 <span class="priority-tag p2">Prio 2</span></h4>
                     <p>Pratique intensive d'exercices type annales.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="300">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="150">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content free-time" data-time-start="12:00" data-time-end="14:00" data-module="Déjeuner & Temps Libre">
                      <span class="timeline-timespan">12:00 - 14:00</span>
@@ -1258,15 +1377,16 @@
                     <p>Repas et détente.</p>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="400">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
                 <div class="timeline-marker"></div>
                 <div class="timeline-content study-session" data-time-start="14:00" data-time-end="15:30" data-module="Chimie 2" data-task="Révision Générale + Annales">
                      <span class="timeline-timespan">14:00 - 15:30</span>
                     <h4>Chimie 2 <span class="priority-tag p1">Prio 1</span></h4>
                     <p>Révision globale et pratique d'annales.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="500">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="250">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content break-time" data-time-start="15:30" data-time-end="16:00" data-module="Pause">
                      <span class="timeline-timespan">15:30 - 16:00</span>
@@ -1274,15 +1394,16 @@
                     <p>Break.</p>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="600">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="300">
                 <div class="timeline-marker"></div>
                 <div class="timeline-content study-session" data-time-start="16:00" data-time-end="17:30" data-module="Physique 2" data-task="Révision Générale + Annales">
                      <span class="timeline-timespan">16:00 - 17:30</span>
                     <h4>Physique 2 <span class="priority-tag p1">Prio 1</span></h4>
                     <p>Révision globale et pratique d'annales sur les chapitres importants.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="700">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="350">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content free-time" data-time-start="17:30" data-time-end="19:30" data-module="Dîner & Temps Libre">
                      <span class="timeline-timespan">17:30 - 19:30</span>
@@ -1290,15 +1411,16 @@
                     <p>Repas du soir et détente.</p>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="800">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="400">
                 <div class="timeline-marker"></div>
-                <div class="timeline-content study-session" data-time-start="19:30" data-time-end="20:30" data-module="MP" data-task="Révision Finale">
+                <div class="timeline-content study-session" data-time-start="19:30" data-time-end="20:30" data-module="MP" data-task="Révision Chapitre 1 & 2 Finale">
                      <span class="timeline-timespan">19:30 - 20:30</span>
                     <h4>MP <span class="priority-tag p3">EXAM J-1</span></h4>
-                    <p>Dernière révision rapide des points clés.</p>
+                    <p>Dernière révision rapide des Chapitres 1 et 2.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-            <div class="timeline-item" data-aos="fade-up" data-aos-delay="900">
+            <div class="timeline-item" data-aos="fade-up" data-aos-delay="450">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content free-time" data-time-start="20:30" data-time-end="22:00" data-module="Temps Libre">
                      <span class="timeline-timespan">20:30 - 22:00</span>
@@ -1311,13 +1433,14 @@
             <div class="timeline-item day-item exam-day" data-date="2025-05-20" data-aos="fade-up">
                  <div class="timeline-date"><h3><i class="fas fa-calendar-check mr-2"></i>Mar. 20 Mai</h3></div>
                  <div class="timeline-marker"></div>
-                <div class="timeline-content study-session" data-time-start="09:00" data-time-end="11:00" data-module="MP" data-task="Révision Finale">
+                <div class="timeline-content study-session" data-time-start="09:00" data-time-end="11:00" data-module="MP" data-task="Révision Finale Avant Examen">
                      <span class="timeline-timespan">09:00 - 11:00</span>
                     <h4>MP <span class="priority-tag p3">EXAM J-0</span></h4>
                     <p>Révision rapide des points clés avant l'examen.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-            <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
+            <div class="timeline-item" data-aos="fade-up" data-aos-delay="50">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content free-time" data-time-start="11:00" data-time-end="14:00" data-module="Déjeuner & Préparation Examen">
                      <span class="timeline-timespan">11:00 - 14:00</span>
@@ -1325,15 +1448,16 @@
                     <p>Repas, dernier coup d'œil, direction la fac.</p>
                 </div>
             </div>
-             <div class="timeline-item exam-event" data-time-start="14:30" data-time-end="16:00" data-module="Examen MP" data-aos="fade-up" data-aos-delay="200">
+             <div class="timeline-item exam-event" data-time-start="14:30" data-time-end="16:00" data-module="Examen MP" data-aos="fade-up" data-aos-delay="100">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content">
                       <span class="timeline-timespan">14:30 - 16:00</span>
                     <h4><i class="fas fa-file-alt mr-2"></i> EXAMEN MP</h4>
-                    <p>Bonne chance !</p>
+                    <p>Bonne chance ! Salle: À vérifier sur l'affichage officiel.</p>
+                     <div class="add-to-calendar"></div>
                  </div>
              </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="300">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="150">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content free-time" data-time-start="16:00" data-time-end="22:00" data-module="Après Examen">
                      <span class="timeline-timespan">16:00 - 22:00</span>
@@ -1350,9 +1474,10 @@
                      <span class="timeline-timespan">09:00 - 11:00</span>
                     <h4>Informatique 2 <span class="priority-tag p2">EXAM J-1</span></h4>
                     <p>Pratique intensive d'annales pour Informatique 2.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-            <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
+            <div class="timeline-item" data-aos="fade-up" data-aos-delay="50">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content break-time" data-time-start="11:00" data-time-end="11:30" data-module="Pause">
                      <span class="timeline-timespan">11:00 - 11:30</span>
@@ -1360,15 +1485,16 @@
                     <p>Break.</p>
                 </div>
             </div>
-            <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
+            <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
                 <div class="timeline-marker"></div>
                 <div class="timeline-content study-session" data-time-start="11:30" data-time-end="12:00" data-module="Informatique 2" data-task="Révision Finale">
                      <span class="timeline-timespan">11:30 - 12:00</span>
                     <h4>Informatique 2 <span class="priority-tag p2">EXAM J-1</span></h4>
                     <p>Dernière révision des concepts clés et algorithmes.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="300">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="150">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content free-time" data-time-start="12:00" data-time-end="14:00" data-module="Déjeuner & Temps Libre">
                      <span class="timeline-timespan">12:00 - 14:00</span>
@@ -1376,15 +1502,16 @@
                     <p>Repas et détente.</p>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="400">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
                 <div class="timeline-marker"></div>
                 <div class="timeline-content study-session" data-time-start="14:00" data-time-end="15:30" data-module="Mathématiques 2" data-task="Pratique Annales">
                      <span class="timeline-timespan">14:00 - 15:30</span>
                     <h4>Mathématiques 2 <span class="priority-tag p1">EXAM J-4</span></h4>
                     <p>Résolution d'exercices type annales pour Math 2.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="500">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="250">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content break-time" data-time-start="15:30" data-time-end="16:00" data-module="Pause">
                      <span class="timeline-timespan">15:30 - 16:00</span>
@@ -1392,15 +1519,16 @@
                     <p>Break.</p>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="600">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="300">
                 <div class="timeline-marker"></div>
-                <div class="timeline-content study-session" data-time-start="16:00" data-time-end="17:30" data-module="Physique 2" data-task="Révision + Pratique">
+                <div class="timeline-content study-session" data-time-start="16:00" data-time-end="17:30" data-module="Physique 2" data-task="Révision Chapitre 3">
                      <span class="timeline-timespan">16:00 - 17:30</span>
                     <h4>Physique 2 <span class="priority-tag p1">EXAM J-12</span></h4>
-                    <p>Révision et pratique d'exercices.</p>
+                    <p>Révision du Chapitre 3.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="700">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="350">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content free-time" data-time-start="17:30" data-time-end="19:30" data-module="Dîner & Temps Libre">
                      <span class="timeline-timespan">17:30 - 19:30</span>
@@ -1408,15 +1536,16 @@
                     <p>Repas du soir et détente.</p>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="800">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="400">
                 <div class="timeline-marker"></div>
-                <div class="timeline-content study-session" data-time-start="19:30" data-time-end="21:00" data-module="Chimie 2" data-task="Pratique Annales">
+                <div class="timeline-content study-session" data-time-start="19:30" data-time-end="21:00" data-module="Chimie 2" data-task="Révision Chapitre 3">
                      <span class="timeline-timespan">19:30 - 21:00</span>
                     <h4>Chimie 2 <span class="priority-tag p1">EXAM J-8</span></h4>
-                    <p>Pratique d'exercices type annales.</p>
+                    <p>Révision du Chapitre 3.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="900">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="450">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content free-time" data-time-start="21:00" data-time-end="22:00" data-module="Temps Libre">
                      <span class="timeline-timespan">21:00 - 22:00</span>
@@ -1430,13 +1559,14 @@
             <div class="timeline-item day-item exam-day" data-date="2025-05-22" data-aos="fade-up">
                  <div class="timeline-date"><h3><i class="fas fa-calendar-check mr-2"></i>Jeu. 22 Mai</h3></div>
                  <div class="timeline-marker"></div>
-                <div class="timeline-content study-session" data-time-start="09:00" data-time-end="11:00" data-module="Informatique 2" data-task="Révision Finale">
+                <div class="timeline-content study-session" data-time-start="09:00" data-time-end="11:00" data-module="Informatique 2" data-task="Révision Finale Avant Examen">
                      <span class="timeline-timespan">09:00 - 11:00</span>
                     <h4>Informatique 2 <span class="priority-tag p2">EXAM J-0</span></h4>
                     <p>Dernier coup d'œil aux structures et algorithmes clés.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-            <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
+            <div class="timeline-item" data-aos="fade-up" data-aos-delay="50">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content free-time" data-time-start="11:00" data-time-end="12:00" data-module="Préparation Examen">
                      <span class="timeline-timespan">11:00 - 12:00</span>
@@ -1444,15 +1574,16 @@
                     <p>Repas léger et préparation.</p>
                 </div>
             </div>
-             <div class="timeline-item exam-event" data-time-start="12:30" data-time-end="14:00" data-module="Examen Informatique 2" data-aos="fade-up" data-aos-delay="200">
+             <div class="timeline-item exam-event" data-time-start="12:30" data-time-end="14:00" data-module="Examen Informatique 2" data-aos="fade-up" data-aos-delay="100">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content">
                       <span class="timeline-timespan">12:30 - 14:00</span>
                     <h4><i class="fas fa-file-alt mr-2"></i> EXAMEN Informatique 2</h4>
-                    <p>Bonne chance !</p>
+                    <p>Bonne chance ! Salle: À vérifier sur l'affichage officiel.</p>
+                     <div class="add-to-calendar"></div>
                  </div>
              </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="300">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="150">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content free-time" data-time-start="14:00" data-time-end="17:00" data-module="Après Examen">
                      <span class="timeline-timespan">14:00 - 17:00</span>
@@ -1460,15 +1591,16 @@
                     <p>Détente. Ne pensez plus à l'examen.</p>
                 </div>
             </div>
-            <div class="timeline-item" data-aos="fade-up" data-aos-delay="400">
+            <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
                 <div class="timeline-marker"></div>
-                <div class="timeline-content study-session" data-time-start="17:00" data-time-end="18:30" data-module="Mathématiques 2" data-task="Pratique Annales">
+                <div class="timeline-content study-session" data-time-start="17:00" data-time-end="18:30" data-module="Mathématiques 2" data-task="Pratique TD 3 + Annales">
                      <span class="timeline-timespan">17:00 - 18:30</span>
                     <h4>Mathématiques 2 <span class="priority-tag p1">EXAM J-3</span></h4>
-                    <p>Résolution d'exercices type annales pour Math 2.</p>
+                    <p>Pratique d'exercices du TD 3 et type annales.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="500">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="250">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content free-time" data-time-start="18:30" data-time-end="20:00" data-module="Dîner & Temps Libre">
                      <span class="timeline-timespan">18:30 - 20:00</span>
@@ -1476,15 +1608,16 @@
                     <p>Repas du soir et détente.</p>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="600">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="300">
                 <div class="timeline-marker"></div>
-                <div class="timeline-content study-session" data-time-start="20:00" data-time-end="21:30" data-module="Physique 2" data-task="Révision + Pratique">
+                <div class="timeline-content study-session" data-time-start="20:00" data-time-end="21:30" data-module="Physique 2" data-task="Révision Chapitre 4">
                      <span class="timeline-timespan">20:00 - 21:30</span>
                     <h4>Physique 2 <span class="priority-tag p1">EXAM J-11</span></h4>
-                    <p>Révision et pratique d'exercices.</p>
+                    <p>Révision du Chapitre 4.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-            <div class="timeline-item" data-aos="fade-up" data-aos-delay="700">
+            <div class="timeline-item" data-aos="fade-up" data-aos-delay="350">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content free-time" data-time-start="21:30" data-time-end="22:00" data-module="Temps Libre">
                      <span class="timeline-timespan">21:30 - 22:00</span>
@@ -1497,13 +1630,14 @@
              <div class="timeline-item day-item" data-date="2025-05-23" data-aos="fade-up">
                  <div class="timeline-date"><h3><i class="fas fa-calendar-day mr-2"></i>Ven. 23 Mai</h3></div>
                  <div class="timeline-marker"></div>
-                <div class="timeline-content study-session" data-time-start="09:00" data-time-end="11:00" data-module="Mathématiques 2" data-task="Pratique Annales">
+                <div class="timeline-content study-session" data-time-start="09:00" data-time-end="11:00" data-module="Mathématiques 2" data-task="Pratique Annales Intenses">
                      <span class="timeline-timespan">09:00 - 11:00</span>
                     <h4>Mathématiques 2 <span class="priority-tag p1">EXAM J-2</span></h4>
                     <p>Pratique intensive d'exercices d'annales.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-            <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
+            <div class="timeline-item" data-aos="fade-up" data-aos-delay="50">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content break-time" data-time-start="11:00" data-time-end="11:30" data-module="Pause">
                      <span class="timeline-timespan">11:00 - 11:30</span>
@@ -1511,15 +1645,16 @@
                     <p>Break.</p>
                 </div>
             </div>
-            <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
+            <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
                 <div class="timeline-marker"></div>
-                <div class="timeline-content study-session" data-time-start="11:30" data-time-end="12:30" data-module="Mathématiques 2" data-task="Révision Finale">
+                <div class="timeline-content study-session" data-time-start="11:30" data-time-end="12:30" data-module="Mathématiques 2" data-task="Révision Finale Concepts">
                      <span class="timeline-timespan">11:30 - 12:30</span>
                     <h4>Mathématiques 2 <span class="priority-tag p1">EXAM J-2</span></h4>
                     <p>Dernier coup d'œil aux définitions et théorèmes clés.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="300">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="150">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content free-time" data-time-start="12:00" data-time-end="14:00" data-module="Déjeuner & Temps Libre">
                      <span class="timeline-timespan">12:00 - 14:00</span>
@@ -1527,15 +1662,16 @@
                     <p>Repas et détente.</p>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="400">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
                 <div class="timeline-marker"></div>
-                <div class="timeline-content study-session" data-time-start="14:00" data-time-end="15:30" data-module="Chimie 2" data-task="Révision + Pratique">
+                <div class="timeline-content study-session" data-time-start="14:00" data-time-end="15:30" data-module="Chimie 2" data-task="Révision Chapitre 4 & 5">
                      <span class="timeline-timespan">14:00 - 15:30</span>
                     <h4>Chimie 2 <span class="priority-tag p1">EXAM J-7</span></h4>
-                    <p>Révision des chapitres et pratique d'exercices.</p>
+                    <p>Révision des Chapitres 4 et 5.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="500">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="250">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content break-time" data-time-start="15:30" data-time-end="16:00" data-module="Pause">
                      <span class="timeline-timespan">15:30 - 16:00</span>
@@ -1543,15 +1679,16 @@
                     <p>Break.</p>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="600">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="300">
                 <div class="timeline-marker"></div>
-                <div class="timeline-content study-session" data-time-start="16:00" data-time-end="17:30" data-module="Physique 2" data-task="Révision + Pratique">
+                <div class="timeline-content study-session" data-time-start="16:00" data-time-end="17:30" data-module="Physique 2" data-task="Révision Chapitre 5">
                      <span class="timeline-timespan">16:00 - 17:30</span>
                     <h4>Physique 2 <span class="priority-tag p1">EXAM J-10</span></h4>
-                    <p>Révision et pratique d'exercices.</p>
+                    <p>Révision du Chapitre 5.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="700">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="350">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content free-time" data-time-start="17:30" data-time-end="19:30" data-module="Dîner & Temps Libre">
                      <span class="timeline-timespan">17:30 - 19:30</span>
@@ -1559,15 +1696,16 @@
                     <p>Repas du soir et détente.</p>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="800">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="400">
                 <div class="timeline-marker"></div>
-                <div class="timeline-content study-session" data-time-start="19:30" data-time-end="20:30" data-module="Anglais 2" data-task="Pratique Annales">
+                <div class="timeline-content study-session" data-time-start="19:30" data-time-end="20:30" data-module="Anglais 2" data-task="Révision Leçon 3 + Annales">
                      <span class="timeline-timespan">19:30 - 20:30</span>
                     <h4>Anglais 2 <span class="priority-tag p3">EXAM J-8</span></h4>
-                    <p>Pratique d'exercices type annales.</p>
+                    <p>Révision de la Leçon 3 et pratique d'annales.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-            <div class="timeline-item" data-aos="fade-up" data-aos-delay="900">
+            <div class="timeline-item" data-aos="fade-up" data-aos-delay="450">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content free-time" data-time-start="20:30" data-time-end="22:00" data-module="Temps Libre">
                      <span class="timeline-timespan">20:30 - 22:00</span>
@@ -1584,9 +1722,10 @@
                      <span class="timeline-timespan">09:00 - 11:00</span>
                     <h4>Mathématiques 2 <span class="priority-tag p1">EXAM J-1</span></h4>
                     <p>Faire un examen blanc ou une série d'annales complète en temps limité.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-            <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
+            <div class="timeline-item" data-aos="fade-up" data-aos-delay="50">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content break-time" data-time-start="11:00" data-time-end="11:30" data-module="Pause">
                      <span class="timeline-timespan">11:00 - 11:30</span>
@@ -1594,15 +1733,16 @@
                     <p>Break.</p>
                 </div>
             </div>
-            <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
+            <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
                 <div class="timeline-marker"></div>
-                <div class="timeline-content study-session" data-time-start="11:30" data-time-end="12:30" data-module="Mathématiques 2" data-task="Correction Simulation + Révision Points Faibles">
+                <div class="timeline-content study-session" data-time-start="11:30" data-time-end="12:30" data-module="Mathématiques 2" data-task="Correction Simulation + Points Faibles">
                      <span class="timeline-timespan">11:30 - 12:30</span>
                     <h4>Mathématiques 2 <span class="priority-tag p1">EXAM J-1</span></h4>
                     <p>Corriger la simulation et revoir les points faibles.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="300">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="150">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content free-time" data-time-start="12:00" data-time-end="14:00" data-module="Déjeuner & Temps Libre">
                      <span class="timeline-timespan">12:00 - 14:00</span>
@@ -1610,15 +1750,16 @@
                     <p>Repas et détente.</p>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="400">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
                 <div class="timeline-marker"></div>
                 <div class="timeline-content study-session" data-time-start="14:00" data-time-end="15:30" data-module="Chimie 2" data-task="Pratique Annales">
                      <span class="timeline-timespan">14:00 - 15:30</span>
                     <h4>Chimie 2 <span class="priority-tag p1">EXAM J-6</span></h4>
                     <p>Pratique intensive d'annales.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="500">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="250">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content break-time" data-time-start="15:30" data-time-end="16:00" data-module="Pause">
                      <span class="timeline-timespan">15:30 - 16:00</span>
@@ -1626,15 +1767,16 @@
                     <p>Break.</p>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="600">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="300">
                 <div class="timeline-marker"></div>
                 <div class="timeline-content study-session" data-time-start="16:00" data-time-end="17:00" data-module="MST 2" data-task="Révision Finale Rapide">
                      <span class="timeline-timespan">16:00 - 17:00</span>
                     <h4>MST 2 <span class="priority-tag p3">EXAM J-3</span></h4>
                     <p>Révision très rapide avant l'examen.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="700">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="350">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content free-time" data-time-start="17:00" data-time-end="19:00" data-module="Dîner & Temps Libre">
                      <span class="timeline-timespan">17:00 - 19:00</span>
@@ -1642,15 +1784,16 @@
                     <p>Repas du soir et détente.</p>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="800">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="400">
                 <div class="timeline-marker"></div>
-                <div class="timeline-content study-session" data-time-start="19:00" data-time-end="20:30" data-module="Physique 2" data-task="Révision + Pratique Annales">
+                <div class="timeline-content study-session" data-time-start="19:00" data-time-end="20:30" data-module="Physique 2" data-task="Pratique Annales Intenses">
                      <span class="timeline-timespan">19:00 - 20:30</span>
                     <h4>Physique 2 <span class="priority-tag p1">EXAM J-9</span></h4>
-                    <p>Révision et pratique d'annales.</p>
+                    <p>Pratique intensive d'annales.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-            <div class="timeline-item" data-aos="fade-up" data-aos-delay="900">
+            <div class="timeline-item" data-aos="fade-up" data-aos-delay="450">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content free-time" data-time-start="20:30" data-time-end="22:00" data-module="Temps Libre">
                      <span class="timeline-timespan">20:30 - 22:00</span>
@@ -1663,13 +1806,14 @@
             <div class="timeline-item day-item exam-day" data-date="2025-05-25" data-aos="fade-up">
                  <div class="timeline-date"><h3><i class="fas fa-calendar-check mr-2"></i>Dim. 25 Mai</h3></div>
                  <div class="timeline-marker"></div>
-                <div class="timeline-content study-session" data-time-start="08:00" data-time-end="10:00" data-module="Mathématiques 2" data-task="Révision Finale">
+                <div class="timeline-content study-session" data-time-start="08:00" data-time-end="10:00" data-module="Mathématiques 2" data-task="Révision Finale Avant Examen">
                      <span class="timeline-timespan">08:00 - 10:00</span>
                     <h4>Mathématiques 2 <span class="priority-tag p1">EXAM J-0</span></h4>
                     <p>Dernier coup d'œil aux définitions, théorèmes et méthodes clés.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-            <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
+            <div class="timeline-item" data-aos="fade-up" data-aos-delay="50">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content free-time" data-time-start="10:00" data-time-end="10:30" data-module="Préparation Examen">
                      <span class="timeline-timespan">10:00 - 10:30</span>
@@ -1677,15 +1821,16 @@
                     <p>Direction la salle d'examen.</p>
                 </div>
             </div>
-             <div class="timeline-item exam-event" data-time-start="10:30" data-time-end="12:00" data-module="Examen Mathématiques 2" data-aos="fade-up" data-aos-delay="200">
+             <div class="timeline-item exam-event" data-time-start="10:30" data-time-end="12:00" data-module="Examen Mathématiques 2" data-aos="fade-up" data-aos-delay="100">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content">
                       <span class="timeline-timespan">10:30 - 12:00</span>
                     <h4><i class="fas fa-file-alt mr-2"></i> EXAMEN Mathématiques 2</h4>
-                    <p>Bonne chance !</p>
+                    <p>Bonne chance ! Salle: À vérifier sur l'affichage officiel.</p>
+                     <div class="add-to-calendar"></div>
                  </div>
              </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="300">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="150">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content free-time" data-time-start="12:00" data-time-end="16:00" data-module="Après Examen">
                      <span class="timeline-timespan">12:00 - 16:00</span>
@@ -1693,15 +1838,16 @@
                     <p>Détente prolongée.</p>
                 </div>
             </div>
-            <div class="timeline-item" data-aos="fade-up" data-aos-delay="400">
+            <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
                 <div class="timeline-marker"></div>
                 <div class="timeline-content study-session" data-time-start="16:00" data-time-end="17:00" data-module="MST 2" data-task="Révision Très Rapide">
                      <span class="timeline-timespan">16:00 - 17:00</span>
                     <h4>MST 2 <span class="priority-tag p3">EXAM J-2</span></h4>
                     <p>Révision très rapide des points clés pour l'examen de demain.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="500">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="250">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content break-time" data-time-start="17:00" data-time-end="17:30" data-module="Pause">
                      <span class="timeline-timespan">17:00 - 17:30</span>
@@ -1709,15 +1855,16 @@
                     <p>Break.</p>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="600">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="300">
                 <div class="timeline-marker"></div>
-                <div class="timeline-content study-session" data-time-start="17:30" data-time-end="19:00" data-module="Physique 2" data-task="Pratique Annales">
+                <div class="timeline-content study-session" data-time-start="17:30" data-time-end="19:00" data-module="Physique 2" data-task="Pratique Annales Intenses">
                      <span class="timeline-timespan">17:30 - 19:00</span>
                     <h4>Physique 2 <span class="priority-tag p1">EXAM J-8</span></h4>
                     <p>Pratique intensive d'exercices type annales.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="700">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="350">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content free-time" data-time-start="19:00" data-time-end="20:30" data-module="Dîner & Temps Libre">
                      <span class="timeline-timespan">19:00 - 20:30</span>
@@ -1725,15 +1872,16 @@
                     <p>Repas du soir et détente.</p>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="800">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="400">
                 <div class="timeline-marker"></div>
-                <div class="timeline-content study-session" data-time-start="20:30" data-time-end="21:30" data-module="Anglais 2" data-task="Révision Finale">
+                <div class="timeline-content study-session" data-time-start="20:30" data-time-end="21:30" data-module="Anglais 2" data-task="Révision Finale Rapide">
                      <span class="timeline-timespan">20:30 - 21:30</span>
                     <h4>Anglais 2 <span class="priority-tag p3">EXAM J-7</span></h4>
                     <p>Révision rapide des 3 leçons.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-            <div class="timeline-item" data-aos="fade-up" data-aos-delay="900">
+            <div class="timeline-item" data-aos="fade-up" data-aos-delay="450">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content free-time" data-time-start="21:30" data-time-end="22:00" data-module="Temps Libre">
                      <span class="timeline-timespan">21:30 - 22:00</span>
@@ -1746,13 +1894,14 @@
              <div class="timeline-item day-item" data-date="2025-05-26" data-aos="fade-up">
                  <div class="timeline-date"><h3><i class="fas fa-calendar-day mr-2"></i>Lun. 26 Mai</h3></div>
                  <div class="timeline-marker"></div>
-                <div class="timeline-content study-session" data-time-start="09:00" data-time-end="11:00" data-module="MST 2" data-task="Révision Finale">
+                <div class="timeline-content study-session" data-time-start="09:00" data-time-end="11:00" data-module="MST 2" data-task="Révision Finale Avant Examen">
                      <span class="timeline-timespan">09:00 - 11:00</span>
                     <h4>MST 2 <span class="priority-tag p3">EXAM J-1</span></h4>
                     <p>Révision rapide des 8 pages clés et des exercices types.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-            <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
+            <div class="timeline-item" data-aos="fade-up" data-aos-delay="50">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content free-time" data-time-start="11:00" data-time-end="14:00" data-module="Déjeuner & Préparation Examen">
                      <span class="timeline-timespan">11:00 - 14:00</span>
@@ -1760,15 +1909,16 @@
                     <p>Repas et préparation.</p>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
                 <div class="timeline-marker"></div>
                 <div class="timeline-content study-session" data-time-start="14:00" data-time-end="15:30" data-module="Chimie 2" data-task="Pratique Annales">
                      <span class="timeline-timespan">14:00 - 15:30</span>
                     <h4>Chimie 2 <span class="priority-tag p1">EXAM J-3</span></h4>
                     <p>Pratique intensive d'exercices type annales pour Chimie 2.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="300">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="150">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content break-time" data-time-start="15:30" data-time-end="16:00" data-module="Pause">
                      <span class="timeline-timespan">15:30 - 16:00</span>
@@ -1776,15 +1926,16 @@
                     <p>Break.</p>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="400">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
                 <div class="timeline-marker"></div>
-                <div class="timeline-content study-session" data-time-start="16:00" data-time-end="17:30" data-module="Physique 2" data-task="Révision Générale">
+                <div class="timeline-content study-session" data-time-start="16:00" data-time-end="17:30" data-module="Physique 2" data-task="Révision Générale Concepts">
                      <span class="timeline-timespan">16:00 - 17:30</span>
                     <h4>Physique 2 <span class="priority-tag p1">EXAM J-7</span></h4>
                     <p>Révision globale des concepts et méthodes.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="500">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="250">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content free-time" data-time-start="17:30" data-time-end="19:30" data-module="Dîner & Temps Libre">
                      <span class="timeline-timespan">17:30 - 19:30</span>
@@ -1792,15 +1943,16 @@
                     <p>Repas du soir et détente.</p>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="600">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="300">
                 <div class="timeline-marker"></div>
                 <div class="timeline-content study-session" data-time-start="19:30" data-time-end="20:30" data-module="Anglais 2" data-task="Pratique Annales">
                      <span class="timeline-timespan">19:30 - 20:30</span>
                     <h4>Anglais 2 <span class="priority-tag p3">EXAM J-5</span></h4>
                     <p>Pratique d'exercices type annales.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="700">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="350">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content free-time" data-time-start="20:30" data-time-end="22:00" data-module="Temps Libre">
                      <span class="timeline-timespan">20:30 - 22:00</span>
@@ -1813,13 +1965,14 @@
             <div class="timeline-item day-item exam-day" data-date="2025-05-27" data-aos="fade-up">
                  <div class="timeline-date"><h3><i class="fas fa-calendar-check mr-2"></i>Mar. 27 Mai</h3></div>
                  <div class="timeline-marker"></div>
-                <div class="timeline-content study-session" data-time-start="09:00" data-time-end="11:00" data-module="MST 2" data-task="Révision Finale">
+                <div class="timeline-content study-session" data-time-start="09:00" data-time-end="11:00" data-module="MST 2" data-task="Révision Finale Avant Examen">
                      <span class="timeline-timespan">09:00 - 11:00</span>
                     <h4>MST 2 <span class="priority-tag p3">EXAM J-0</span></h4>
                     <p>Dernier coup d'œil sur les définitions et points clés.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-            <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
+            <div class="timeline-item" data-aos="fade-up" data-aos-delay="50">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content free-time" data-time-start="11:00" data-time-end="14:00" data-module="Déjeuner & Préparation Examen">
                      <span class="timeline-timespan">11:00 - 14:00</span>
@@ -1827,15 +1980,16 @@
                     <p>Repas et préparation.</p>
                 </div>
             </div>
-             <div class="timeline-item exam-event" data-time-start="14:30" data-time-end="16:00" data-module="Examen MST 2" data-aos="fade-up" data-aos-delay="200">
+             <div class="timeline-item exam-event" data-time-start="14:30" data-time-end="16:00" data-module="Examen MST 2" data-aos="fade-up" data-aos-delay="100">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content">
                       <span class="timeline-timespan">14:30 - 16:00</span>
                     <h4><i class="fas fa-file-alt mr-2"></i> EXAMEN MST 2</h4>
-                    <p>Bonne chance !</p>
+                    <p>Bonne chance ! Salle: À vérifier sur l'affichage officiel.</p>
+                     <div class="add-to-calendar"></div>
                  </div>
              </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="300">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="150">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content free-time" data-time-start="16:00" data-time-end="19:00" data-module="Après Examen">
                      <span class="timeline-timespan">16:00 - 19:00</span>
@@ -1843,15 +1997,16 @@
                     <p>Détente. Focus maintenant sur les examens restants.</p>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="400">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
                 <div class="timeline-marker"></div>
                 <div class="timeline-content study-session" data-time-start="19:00" data-time-end="20:30" data-module="Chimie 2" data-task="Pratique Annales">
                      <span class="timeline-timespan">19:00 - 20:30</span>
                     <h4>Chimie 2 <span class="priority-tag p1">EXAM J-2</span></h4>
                     <p>Pratique intensive d'exercices type annales.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="500">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="250">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content free-time" data-time-start="20:30" data-time-end="22:00" data-module="Dîner & Fin de Journée">
                      <span class="timeline-timespan">20:30 - 22:00</span>
@@ -1864,13 +2019,14 @@
              <div class="timeline-item day-item" data-date="2025-05-28" data-aos="fade-up">
                  <div class="timeline-date"><h3><i class="fas fa-calendar-day mr-2"></i>Mer. 28 Mai</h3></div>
                  <div class="timeline-marker"></div>
-                <div class="timeline-content study-session" data-time-start="09:00" data-time-end="11:00" data-module="Chimie 2" data-task="Révision Finale">
+                <div class="timeline-content study-session" data-time-start="09:00" data-time-end="11:00" data-module="Chimie 2" data-task="Révision Finale Concepts & Formules">
                      <span class="timeline-timespan">09:00 - 11:00</span>
                     <h4>Chimie 2 <span class="priority-tag p1">EXAM J-1</span></h4>
                     <p>Dernier coup d'œil aux formules et concepts clés.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-            <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
+            <div class="timeline-item" data-aos="fade-up" data-aos-delay="50">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content break-time" data-time-start="11:00" data-time-end="11:30" data-module="Pause">
                      <span class="timeline-timespan">11:00 - 11:30</span>
@@ -1878,15 +2034,16 @@
                     <p>Break.</p>
                 </div>
             </div>
-            <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
+            <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
                 <div class="timeline-marker"></div>
                 <div class="timeline-content study-session" data-time-start="11:30" data-time-end="13:00" data-module="Chimie 2" data-task="Simulation Examen">
                      <span class="timeline-timespan">11:30 - 13:00</span>
                     <h4>Chimie 2 <span class="priority-tag p1">EXAM J-1</span></h4>
                     <p>Faire un exercice type examen en temps limité.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="300">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="150">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content free-time" data-time-start="12:00" data-time-end="14:00" data-module="Déjeuner & Temps Libre">
                      <span class="timeline-timespan">12:00 - 14:00</span>
@@ -1894,15 +2051,16 @@
                     <p>Repas et détente.</p>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="400">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
                 <div class="timeline-marker"></div>
-                <div class="timeline-content study-session" data-time-start="14:00" data-time-end="15:30" data-module="Physique 2" data-task="Pratique Annales">
+                <div class="timeline-content study-session" data-time-start="14:00" data-time-end="15:30" data-module="Physique 2" data-task="Pratique Annales Chapitre 4">
                      <span class="timeline-timespan">14:00 - 15:30</span>
                     <h4>Physique 2 <span class="priority-tag p1">EXAM J-5</span></h4>
-                    <p>Pratique d'exercices type annales.</p>
+                    <p>Pratique d'exercices type annales sur Chapitre 4.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="500">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="250">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content break-time" data-time-start="15:30" data-time-end="16:00" data-module="Pause">
                      <span class="timeline-timespan">15:30 - 16:00</span>
@@ -1910,15 +2068,16 @@
                     <p>Break.</p>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="600">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="300">
                 <div class="timeline-marker"></div>
                 <div class="timeline-content study-session" data-time-start="16:00" data-time-end="17:00" data-module="Anglais 2" data-task="Simulation Examen">
                      <span class="timeline-timespan">16:00 - 17:00</span>
                     <h4>Anglais 2 <span class="priority-tag p3">EXAM J-3</span></h4>
                     <p>Faire un exercice type examen.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="700">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="350">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content free-time" data-time-start="17:00" data-time-end="19:00" data-module="Dîner & Temps Libre">
                      <span class="timeline-timespan">17:00 - 19:00</span>
@@ -1926,15 +2085,16 @@
                     <p>Repas du soir et détente.</p>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="800">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="400">
                 <div class="timeline-marker"></div>
-                <div class="timeline-content study-session" data-time-start="19:00" data-time-end="20:30" data-module="Physique 2" data-task="Pratique Annales">
+                <div class="timeline-content study-session" data-time-start="19:00" data-time-end="20:30" data-module="Physique 2" data-task="Pratique Annales Chapitre 5">
                      <span class="timeline-timespan">19:00 - 20:30</span>
                     <h4>Physique 2 <span class="priority-tag p1">EXAM J-5</span></h4>
-                    <p>Pratique intensive d'annales.</p>
+                    <p>Pratique d'exercices type annales sur Chapitre 5.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-            <div class="timeline-item" data-aos="fade-up" data-aos-delay="900">
+            <div class="timeline-item" data-aos="fade-up" data-aos-delay="450">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content free-time" data-time-start="20:30" data-time-end="22:00" data-module="Temps Libre">
                      <span class="timeline-timespan">20:30 - 22:00</span>
@@ -1947,13 +2107,14 @@
             <div class="timeline-item day-item exam-day" data-date="2025-05-29" data-aos="fade-up">
                  <div class="timeline-date"><h3><i class="fas fa-calendar-check mr-2"></i>Jeu. 29 Mai</h3></div>
                  <div class="timeline-marker"></div>
-                <div class="timeline-content study-session" data-time-start="09:00" data-time-end="11:00" data-module="Chimie 2" data-task="Révision Finale">
+                <div class="timeline-content study-session" data-time-start="09:00" data-time-end="11:00" data-module="Chimie 2" data-task="Révision Finale Avant Examen">
                      <span class="timeline-timespan">09:00 - 11:00</span>
                     <h4>Chimie 2 <span class="priority-tag p1">EXAM J-0</span></h4>
                     <p>Dernière révision des concepts clés et formules.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-            <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
+            <div class="timeline-item" data-aos="fade-up" data-aos-delay="50">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content free-time" data-time-start="11:00" data-time-end="12:00" data-module="Préparation Examen">
                      <span class="timeline-timespan">11:00 - 12:00</span>
@@ -1961,15 +2122,16 @@
                     <p>Repas léger et préparation.</p>
                 </div>
             </div>
-             <div class="timeline-item exam-event" data-time-start="12:30" data-time-end="14:00" data-module="Examen Chimie 2" data-aos="fade-up" data-aos-delay="200">
+             <div class="timeline-item exam-event" data-time-start="12:30" data-time-end="14:00" data-module="Examen Chimie 2" data-aos="fade-up" data-aos-delay="100">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content">
                       <span class="timeline-timespan">12:30 - 14:00</span>
                     <h4><i class="fas fa-file-alt mr-2"></i> EXAMEN Chimie 2</h4>
-                    <p>Bonne chance !</p>
+                    <p>Bonne chance ! Salle: À vérifier sur l'affichage officiel.</p>
+                     <div class="add-to-calendar"></div>
                  </div>
              </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="300">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="150">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content free-time" data-time-start="14:00" data-time-end="17:00" data-module="Après Examen">
                      <span class="timeline-timespan">14:00 - 17:00</span>
@@ -1977,15 +2139,16 @@
                     <p>Détente. Préparez-vous mentalement pour Anglais et Physique.</p>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="400">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
                 <div class="timeline-marker"></div>
-                <div class="timeline-content study-session" data-time-start="17:00" data-time-end="18:30" data-module="Anglais 2" data-task="Révision Finale">
+                <div class="timeline-content study-session" data-time-start="17:00" data-time-end="18:30" data-module="Anglais 2" data-task="Révision Finale Rapide">
                      <span class="timeline-timespan">17:00 - 18:30</span>
                     <h4>Anglais 2 <span class="priority-tag p3">EXAM J-2</span></h4>
                     <p>Révision rapide des points clés.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="500">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="250">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content free-time" data-time-start="18:30" data-time-end="22:00" data-module="Dîner & Fin de Journée">
                      <span class="timeline-timespan">18:30 - 22:00</span>
@@ -2002,9 +2165,10 @@
                      <span class="timeline-timespan">09:00 - 11:00</span>
                     <h4>Physique 2 <span class="priority-tag p1">EXAM J-3</span></h4>
                     <p>Pratique intensive d'exercices d'annales.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-            <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
+            <div class="timeline-item" data-aos="fade-up" data-aos-delay="50">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content break-time" data-time-start="11:00" data-time-end="11:30" data-module="Pause">
                      <span class="timeline-timespan">11:00 - 11:30</span>
@@ -2012,15 +2176,16 @@
                     <p>Break.</p>
                 </div>
             </div>
-            <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
+            <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
                 <div class="timeline-marker"></div>
                 <div class="timeline-content study-session" data-time-start="11:30" data-time-end="13:00" data-module="Physique 2" data-task="Correction Annales + Points Faibles">
                      <span class="timeline-timespan">11:30 - 13:00</span>
                     <h4>Physique 2 <span class="priority-tag p1">EXAM J-3</span></h4>
                     <p>Correction des annales et ciblage des points faibles.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="300">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="150">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content free-time" data-time-start="12:00" data-time-end="14:00" data-module="Déjeuner & Temps Libre">
                      <span class="timeline-timespan">12:00 - 14:00</span>
@@ -2028,15 +2193,16 @@
                     <p>Repas et détente.</p>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="400">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
                 <div class="timeline-marker"></div>
                 <div class="timeline-content study-session" data-time-start="14:00" data-time-end="15:30" data-module="Chimie 2" data-task="Révision Formules Finales">
                      <span class="timeline-timespan">14:00 - 15:30</span>
                     <h4>Chimie 2 <span class="priority-tag p1">EXAM J-3</span></h4>
                     <p>Révision finale des formules et concepts clés.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="500">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="250">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content break-time" data-time-start="15:30" data-time-end="16:00" data-module="Pause">
                      <span class="timeline-timespan">15:30 - 16:00</span>
@@ -2044,15 +2210,16 @@
                     <p>Break.</p>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="600">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="300">
                 <div class="timeline-marker"></div>
-                <div class="timeline-content study-session" data-time-start="16:00" data-time-end="17:00" data-module="Anglais 2" data-task="Simulation Examen Finale">
+                <div class="timeline-content study-session" data-time-start="16:00" data-time-end="17:00" data-module="Anglais 2" data-task="Simulation Examen">
                      <span class="timeline-timespan">16:00 - 17:00</span>
                     <h4>Anglais 2 <span class="priority-tag p3">EXAM J-1</span></h4>
                     <p>Faire un exercice type examen final.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="700">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="350">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content free-time" data-time-start="17:00" data-time-end="19:00" data-module="Dîner & Temps Libre">
                      <span class="timeline-timespan">17:00 - 19:00</span>
@@ -2060,15 +2227,16 @@
                     <p>Repas du soir et détente.</p>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="800">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="400">
                 <div class="timeline-marker"></div>
                 <div class="timeline-content study-session" data-time-start="19:00" data-time-end="20:30" data-module="Physique 2" data-task="Révision Formules & Théorèmes">
                      <span class="timeline-timespan">19:00 - 20:30</span>
                     <h4>Physique 2 <span class="priority-tag p1">EXAM J-3</span></h4>
                     <p>Révision et mémorisation des formules et théorèmes importants.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-            <div class="timeline-item" data-aos="fade-up" data-aos-delay="900">
+            <div class="timeline-item" data-aos="fade-up" data-aos-delay="450">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content free-time" data-time-start="20:30" data-time-end="22:00" data-module="Temps Libre">
                      <span class="timeline-timespan">20:30 - 22:00</span>
@@ -2081,13 +2249,14 @@
             <div class="timeline-item day-item exam-day" data-date="2025-05-31" data-aos="fade-up">
                  <div class="timeline-date"><h3><i class="fas fa-calendar-check mr-2"></i>Sam. 31 Mai</h3></div>
                  <div class="timeline-marker"></div>
-                <div class="timeline-content study-session" data-time-start="09:00" data-time-end="11:00" data-module="Anglais 2" data-task="Révision Finale">
+                <div class="timeline-content study-session" data-time-start="09:00" data-time-end="11:00" data-module="Anglais 2" data-task="Révision Finale Avant Examen">
                      <span class="timeline-timespan">09:00 - 11:00</span>
                     <h4>Anglais 2 <span class="priority-tag p3">EXAM J-0</span></h4>
                     <p>Dernier coup d'œil au vocabulaire, grammaire et structures.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-            <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
+            <div class="timeline-item" data-aos="fade-up" data-aos-delay="50">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content free-time" data-time-start="11:00" data-time-end="14:00" data-module="Déjeuner & Préparation Examen">
                      <span class="timeline-timespan">11:00 - 14:00</span>
@@ -2095,15 +2264,16 @@
                     <p>Repas et préparation.</p>
                 </div>
             </div>
-             <div class="timeline-item exam-event" data-time-start="14:30" data-time-end="16:00" data-module="Examen Anglais 2" data-aos="fade-up" data-aos-delay="200">
+             <div class="timeline-item exam-event" data-time-start="14:30" data-time-end="16:00" data-module="Examen Anglais 2" data-aos="fade-up" data-aos-delay="100">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content">
                       <span class="timeline-timespan">14:30 - 16:00</span>
                     <h4><i class="fas fa-file-alt mr-2"></i> EXAMEN Anglais 2</h4>
-                    <p>Bonne chance !</p>
+                    <p>Bonne chance ! Salle: À vérifier sur l'affichage officiel.</p>
+                     <div class="add-to-calendar"></div>
                  </div>
              </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="300">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="150">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content free-time" data-time-start="16:00" data-time-end="19:00" data-module="Après Examen">
                      <span class="timeline-timespan">16:00 - 19:00</span>
@@ -2111,15 +2281,16 @@
                     <p>Détente. Concentration maximale sur Physique 2.</p>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="400">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
                 <div class="timeline-marker"></div>
                 <div class="timeline-content study-session" data-time-start="19:00" data-time-end="20:30" data-module="Physique 2" data-task="Simulation Examen">
                      <span class="timeline-timespan">19:00 - 20:30</span>
                     <h4>Physique 2 <span class="priority-tag p1">EXAM J-2</span></h4>
                     <p>Faire un exercice type examen complet en temps limité.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="500">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="250">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content free-time" data-time-start="20:30" data-time-end="22:00" data-module="Dîner & Fin de Journée">
                      <span class="timeline-timespan">20:30 - 22:00</span>
@@ -2136,9 +2307,10 @@
                      <span class="timeline-timespan">09:00 - 11:30</span>
                     <h4>Physique 2 <span class="priority-tag p1">EXAM J-1</span></h4>
                     <p>Pratique intense d'exercices d'annales, surtout sur les points difficiles.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-            <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
+            <div class="timeline-item" data-aos="fade-up" data-aos-delay="50">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content break-time" data-time-start="11:30" data-time-end="12:00" data-module="Pause">
                      <span class="timeline-timespan">11:30 - 12:00</span>
@@ -2146,15 +2318,16 @@
                     <p>Break.</p>
                 </div>
             </div>
-            <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
+            <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
                 <div class="timeline-marker"></div>
                 <div class="timeline-content study-session" data-time-start="12:00" data-time-end="13:00" data-module="Physique 2" data-task="Révision Formules & Théorèmes">
                      <span class="timeline-timespan">12:00 - 13:00</span>
                     <h4>Physique 2 <span class="priority-tag p1">EXAM J-1</span></h4>
                     <p>Réviser toutes les formules et théorèmes clés.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="300">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="150">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content free-time" data-time-start="12:00" data-time-end="14:00" data-module="Déjeuner & Temps Libre">
                      <span class="timeline-timespan">12:00 - 14:00</span>
@@ -2162,20 +2335,21 @@
                     <p>Repas et détente.</p>
                 </div>
             </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="400">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
                 <div class="timeline-marker"></div>
                 <div class="timeline-content study-session" data-time-start="14:00" data-time-end="16:00" data-module="Physique 2" data-task="Correction Annales">
                      <span class="timeline-timespan">14:00 - 16:00</span>
                     <h4>Physique 2 <span class="priority-tag p1">EXAM J-1</span></h4>
                     <p>Corriger les annales faites et revoir les erreurs.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-            <div class="timeline-item" data-aos="fade-up" data-aos-delay="500">
+            <div class="timeline-item" data-aos="fade-up" data-aos-delay="250">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content free-time" data-time-start="16:00" data-time-end="22:00" data-module="Temps Libre Soirée">
                      <span class="timeline-timespan">16:00 - 22:00</span>
                     <h4>Temps Libre Soirée</h4>
-                    <p>Détendez-vous, ne faites plus de révision intense.</p>
+                    <p>Détendez-vous. Ne faites plus de révision intense.</p>
                 </div>
             </div>
 
@@ -2184,13 +2358,14 @@
             <div class="timeline-item day-item exam-day" data-date="2025-06-02" data-aos="fade-up">
                  <div class="timeline-date"><h3><i class="fas fa-calendar-check mr-2"></i>Lun. 02 Juin</h3></div>
                  <div class="timeline-marker"></div>
-                <div class="timeline-content study-session" data-time-start="08:00" data-time-end="10:00" data-module="Physique 2" data-task="Révision Finale">
+                <div class="timeline-content study-session" data-time-start="08:00" data-time-end="10:00" data-module="Physique 2" data-task="Révision Finale Avant Examen">
                      <span class="timeline-timespan">08:00 - 10:00</span>
                     <h4>Physique 2 <span class="priority-tag p1">EXAM J-0</span></h4>
                     <p>Révision rapide des formules et des méthodes importantes.</p>
+                     <div class="add-to-calendar"></div>
                 </div>
             </div>
-            <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
+            <div class="timeline-item" data-aos="fade-up" data-aos-delay="50">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content free-time" data-time-start="10:00" data-time-end="12:00" data-module="Préparation Examen">
                      <span class="timeline-timespan">10:00 - 12:00</span>
@@ -2198,26 +2373,27 @@
                     <p>Dernière préparation, direction la salle d'examen.</p>
                 </div>
             </div>
-             <div class="timeline-item exam-event" data-time-start="12:30" data-time-end="14:00" data-module="Examen Physique 2" data-aos="fade-up" data-aos-delay="200">
+             <div class="timeline-item exam-event" data-time-start="12:30" data-time-end="14:00" data-module="Examen Physique 2" data-aos="fade-up" data-aos-delay="100">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content">
                       <span class="timeline-timespan">12:30 - 14:00</span>
                     <h4><i class="fas fa-file-alt mr-2"></i> EXAMEN Physique 2</h4>
-                    <p>Bonne chance ! C'est le dernier !</p>
+                    <p>Bonne chance ! C'est le dernier ! Salle: À vérifier sur l'affichage officiel.</p>
+                     <div class="add-to-calendar"></div>
                  </div>
              </div>
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="300">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="150">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content free-time" data-time-start="14:00" data-time-end="22:00" data-module="FIN DES EXAMENS !">
                       <span class="timeline-timespan">14:00 - 22:00</span>
                     <h4><i class="fas fa-champagne-glasses mr-2"></i> FIN DES EXAMENS !</h4>
-                    <p>Félicitations, vous avez terminé ! Profitez bien !</p>
+                    <p>Félicitations, vous avez terminé ! Profitez bien de votre liberté retrouvée !</p>
                 </div>
             </div>
 
 
             <!-- End of Timeline -->
-             <div class="timeline-item" data-aos="fade-up" data-aos-delay="400">
+             <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
                 <div class="timeline-marker"></div>
                  <div class="timeline-content break-time">
                      <span class="timeline-timespan">Plan Terminé</span>
@@ -2248,8 +2424,9 @@
     <script>
         AOS.init({
             duration: 800,
-            once: false, // Animations happen every time they come into view
-            offset: 120, // Trigger animations 120px before the element is visible
+            once: false,
+            offset: 120,
+            delay: 50,
         });
     </script>
 
@@ -2259,6 +2436,9 @@
         function toggleTheme() {
             const body = document.body;
             const themeToggleIcon = document.querySelector('.theme-toggle i');
+
+            // Apply the transition class *before* changing the theme class
+            document.documentElement.classList.add('theme-transition');
 
             if (body.classList.contains('dark')) {
                 body.classList.remove('dark');
@@ -2271,7 +2451,14 @@
                 themeToggleIcon.classList.add('fa-sun');
                 localStorage.setItem('theme', 'dark');
             }
-             // Recreate particles to pick up new CSS variables
+
+             // Remove the transition class after the transition completes
+             window.setTimeout(() => {
+                  document.documentElement.classList.remove('theme-transition');
+             }, 500); // Should match the CSS transition duration
+
+
+             // Recreate particles to pick up new CSS variables colors smoothly
              createParticles();
         }
 
@@ -2305,11 +2492,11 @@
                  style.getPropertyValue('--ring'),
                  style.getPropertyValue('--accent'),
                  style.getPropertyValue('--muted-foreground')
-             ].map(color => color.trim() + ' / 0.6)'); // Add opacity directly
+             ].map(color => color.trim() + ' / 0.6)');
 
-             particlesContainer.innerHTML = ''; // Clear existing particles
+             particlesContainer.innerHTML = '';
 
-             const numParticles = window.innerWidth > 768 ? 60 : 40; // More particles
+             const numParticles = window.innerWidth > 768 ? 60 : 40;
 
              for (let i = 0; i < numParticles; i++) {
                  const particle = document.createElement('div');
@@ -2317,13 +2504,13 @@
 
                  const x = Math.random() * 100;
                  const y = Math.random() * 100;
-                 const size = Math.random() * 4 + 2; // Particle size range
+                 const size = Math.random() * 4 + 2;
                  const color = colors[Math.floor(Math.random() * colors.length)];
-                 const moveRange = 30; // Pixels movement
+                 const moveRange = 30;
                  const moveX = (Math.random() - 0.5) * moveRange * 2;
                  const moveY = (Math.random() - 0.5) * moveRange * 2;
-                 const animationDuration = 10 + Math.random() * 10; // 10-20 seconds
-                 const animationDelay = Math.random() * 8; // 0-8 seconds
+                 const animationDuration = 10 + Math.random() * 10;
+                 const animationDelay = Math.random() * 8;
 
                  particle.style.cssText = `
                     left: ${x}vw;
@@ -2351,7 +2538,7 @@
     </script>
 
 
-    <!-- Live Time, Countdown, Timeline Highlight, Progress, What's Next, Navigation Script -->
+    <!-- Live Time, Countdown, Timeline Highlight Script -->
     <script>
         const examDates = [
             { module: "MP", date: new Date("2025-05-20T14:30:00") },
@@ -2374,7 +2561,17 @@
             "N'abandonnez pas ! La ligne d'arrivée est en vue.",
             "Croyez en vous et en vos capacités.",
             "La difficulté renforce. Chaque défi vous rend plus fort.",
-            "Respirez, concentrez-vous et donnez le meilleur de vous-même."
+            "Respirez, concentrez-vous et donnez le meilleur de vous-même.",
+            "Soyez fier de chaque petit progrès.",
+            "Votre travail acharné portera ses fruits.",
+            "La réussite n'est pas finale, l'échec n'est pas fatal : c'est le courage de continuer qui compte.",
+             "Le chemin vers le succès est toujours en construction.",
+             "Transformez les obstacles en opportunités.",
+             "Chaque session de révision est une étape vers la maîtrise.",
+             "Restez positif, concentrez-vous sur vos objectifs.",
+             "Vous avez les ressources nécessaires en vous.",
+             "Petit à petit, l'oiseau fait son nid de notes excellentes.",
+             "La connaissance est votre super-pouvoir."
          ];
 
 
@@ -2388,8 +2585,6 @@
 
             updateCountdowns(now);
             highlightTimeline(now);
-             updateProgress();
-             updateWhatsNext(now); // Update "What's Next"
         }
 
         function updateCountdowns(now) {
@@ -2397,7 +2592,6 @@
             const sessionCountdownElement = document.getElementById('current-session-countdown');
             let nextExam = null;
 
-            // Find the next upcoming exam
             for (const exam of examDates) {
                 if (exam.date > now) {
                     nextExam = exam;
@@ -2407,13 +2601,15 @@
 
             if (nextExam) {
                 const diff = nextExam.date.getTime() - now.getTime();
-                 if (diff < 1000 * 60 * 60 * 24) { // Less than 24 hours left
+                 if (diff <= 0) {
+                     countdownElement.innerHTML = `<i class="fas fa-check-circle mr-2 text-primary"></i> L'examen ${nextExam.module} est en cours ou vient de se terminer !`;
+                 } else if (diff < 1000 * 60 * 60 * 24) {
                      const hours = Math.floor(diff / (1000 * 60 * 60));
                      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
                      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
                      countdownElement.innerHTML = `<i class="fas fa-exclamation-triangle mr-2 text-red-500"></i> Examen ${nextExam.module} très bientôt ! ${hours}h ${minutes}m ${seconds}s`;
                  }
-                 else if (diff < 1000 * 60 * 60 * 24 * 3) { // Less than 3 days left
+                 else if (diff < 1000 * 60 * 60 * 24 * 3) {
                       const days = Math.floor(diff / (1000 * 60 * 60 * 24));
                       const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                       countdownElement.innerHTML = `<i class="fas fa-calendar-alt mr-2 text-orange-500"></i> Examen ${nextExam.module} dans ${days}j ${hours}h`;
@@ -2427,7 +2623,6 @@
                 countdownElement.innerHTML = `<i class="fas fa-check-circle mr-2 text-primary"></i> Tous les examens sont terminés !`;
             }
 
-             // Update current session countdown
              const activeSession = document.querySelector('.timeline-item.current-session .timeline-content');
              if (activeSession && !activeSession.closest('.exam-event')) {
                  const end = activeSession.dataset.timeEnd;
@@ -2438,10 +2633,9 @@
 
                   if (endHour === 23 && endMinute === 59) {
                       sessionDate.setHours(23, 59, 59, 999);
-                  } else if (endHour === 0 && endMinute === 0) { // Handle midnight if needed, though plan ends at 22:00
+                  } else if (endHour === 0 && endMinute === 0) {
                       sessionDate.setDate(sessionDate.getDate() + 1);
                   }
-
 
                  const sessionDiff = sessionDate.getTime() - now.getTime();
 
@@ -2459,142 +2653,93 @@
              }
         }
 
-         // Function to scroll to a specific element smoothly
          function scrollToElement(element) {
              if (element) {
-                 // Check if the element is already mostly in view
-                 const rect = element.getBoundingClientRect();
-                 const isVisible = (rect.top >= 0) && (rect.bottom <= window.innerHeight);
-
-                 if (!isVisible) {
-                    element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                 }
+                 const headerOffset = 80; // Account for header height
+                 const elementPosition = element.getBoundingClientRect().top;
+                 const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                 
+                 window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                 });
              }
          }
 
         function highlightTimeline(now) {
             const todayStr = now.toISOString().split('T')[0];
-            const nowMinutes = now.getHours() * 60 + now.getMinutes(); // Current time in minutes
 
-            // Remove previous highlights and "passed" class
             document.querySelectorAll('.current-day').forEach(el => el.classList.remove('current-day'));
              document.querySelectorAll('.current-session').forEach(el => el.classList.remove('current-session'));
              document.querySelectorAll('.timeline-item').forEach(el => el.classList.remove('passed'));
 
-
             let currentDayElement = null;
             let currentSessionElement = null;
-            let firstUpcomingSessionElement = null; // To find the "What's Next"
-
 
             const dayItems = document.querySelectorAll('.timeline-item.day-item');
-            let foundCurrentDay = false;
 
-             // Iterate through days to mark 'passed' and find current day/session
             dayItems.forEach(dayItem => {
                  const dateStr = dayItem.dataset.date;
                  const dayDate = new Date(dateStr);
-                  // Normalize dayDate to start of day for comparison
                  dayDate.setHours(0, 0, 0, 0);
                  const todayNormalized = new Date(todayStr);
                  todayNormalized.setHours(0, 0, 0, 0);
 
-
+                 const itemsInDay = [];
                  let nextItem = dayItem.nextElementSibling;
-
                  while (nextItem && !nextItem.classList.contains('day-item')) {
-                      const content = nextItem.querySelector('.timeline-content');
-                      if (content && content.dataset.timeStart && content.dataset.timeEnd) {
-                          const [startHour, startMinute] = content.dataset.timeStart.split(':').map(Number);
-                          const [endHour, endMinute] = content.dataset.timeEnd.split(':').map(Number);
-
-                          const startDateTime = new Date(dateStr);
-                          startDateTime.setHours(startHour, startMinute, 0, 0);
-
-                          const endDateTime = new Date(dateStr);
-                          endDateTime.setHours(endHour, endMinute, 0, 0);
-
-                           // Handle 23:59 end time
-                           if (endHour === 23 && endMinute === 59) {
-                               endDateTime.setHours(23, 59, 59, 999);
-                           } else if (endHour === 0 && endMinute === 0) { // Handle sessions crossing midnight if any
-                                endDateTime.setDate(endDateTime.getDate() + 1);
-                                endDateTime.setHours(0, 0, 0, 0);
-                           }
-
-
-                          // Check if the session is in the past
-                          if (now > endDateTime) {
-                              nextItem.classList.add('passed');
-                               // Also add 'completed' if it's a study session and not already marked
-                               if (nextItem.classList.contains('study-session') && !nextItem.classList.contains('completed')) {
-                                   // This assumes tasks are automatically marked passed if time is past and not manually completed.
-                                   // If you only want manual completion, remove this block.
-                                   // console.log(`Marking task as passed due to time: ${dateStr} ${content.dataset.timeStart}`);
-                                   // const taskId = dateStr + '-' + content.dataset.timeStart.replace(':', '') + '-' + content.dataset.module.replace(/\s+/g, '');
-                                   // localStorage.setItem(taskId, 'true');
-                                   // nextItem.classList.add('completed'); // Add completed class directly
-                               }
-
-                          } else if (now >= startDateTime && now < endDateTime) {
-                              // This is the current session
-                              if (dateStr === todayStr) { // Make sure it's today's current session
-                                   currentSessionElement = nextItem;
-                              }
-                          } else if (now < startDateTime && !firstUpcomingSessionElement && (dayDate >= todayNormalized)) {
-                              // This is the first upcoming session
-                              firstUpcomingSessionElement = nextItem;
-                          }
-                      } else {
-                          // Mark non-study items that are fully in the past day as passed
-                           if (dayDate < todayNormalized) {
-                               nextItem.classList.add('passed');
-                           } else if (dayDate.toDateString() === todayNormalized.toDateString()) {
-                               // For today, mark breaks/free time *before* now as passed
-                               const [itemEndHour, itemEndMinute] = content.dataset.timeEnd.split(':').map(Number);
-                               const itemEndTimeToday = new Date(todayStr);
-                               itemEndTimeToday.setHours(itemEndHour, itemEndMinute, 0, 0);
-                                if (now > itemEndTimeToday) {
-                                     nextItem.classList.add('passed');
-                                }
-                           }
-                      }
-                      nextItem = nextItem.nextElementSibling;
+                     itemsInDay.push(nextItem);
+                     nextItem = nextItem.nextElementSibling;
                  }
 
-                 // After processing items for a day, mark the day header as passed if the *entire* day is in the past
-                 if (dayDate < todayNormalized) {
-                      dayItem.classList.add('passed');
+                 itemsInDay.forEach(item => {
+                      const content = item.querySelector('.timeline-content');
+                      if (!content || !content.dataset.timeStart || !content.dataset.timeEnd) return;
+
+                      const [startHour, startMinute] = content.dataset.timeStart.split(':').map(Number);
+                      const [endHour, endMinute] = content.dataset.timeEnd.split(':').map(Number);
+
+                      const startDateTime = new Date(dateStr);
+                      startDateTime.setHours(startHour, startMinute, 0, 0);
+
+                      const endDateTime = new Date(dateStr);
+                      endDateTime.setHours(endHour, endMinute, 0, 0);
+
+                       if (endHour === 23 && endMinute === 59) {
+                           endDateTime.setHours(23, 59, 59, 999);
+                       } else if (endHour === 0 && endMinute === 0 && startHour !== 0) {
+                            endDateTime.setDate(endDateTime.getDate() + 1);
+                       }
+
+                       const nowLocal = new Date(now.toLocaleString('en-US', { timeZone: 'UTC' }));
+                       nowLocal.setHours(now.getHours(), now.getMinutes(), now.getSeconds(), now.getMilliseconds());
+
+
+                      if (nowLocal > endDateTime) {
+                          item.classList.add('passed');
+                      } else if (nowLocal >= startDateTime && nowLocal < endDateTime) {
+                           if (dateStr === todayStr) {
+                                currentSessionElement = item;
+                           }
+                      }
+                 });
+
+                 const lastItemOfDay = itemsInDay.length > 0 ? itemsInDay[itemsInDay.length - 1] : null;
+                 if (lastItemOfDay && lastItemOfDay.classList.contains('passed')) {
+                     dayItem.classList.add('passed');
+                 } else if (!lastItemOfDay && dayDate < todayNormalized) {
+                     dayItem.classList.add('passed');
                  } else if (dayDate.toDateString() === todayNormalized.toDateString()) {
-                      // If it's today, check if the *last* session of the day is passed
-                      const lastItemOfDay = dayItem.parentElement.querySelector('.timeline-item:last-child:not(.day-item)');
-                      if (lastItemOfDay && !lastItemOfDay.classList.contains('day-item')) {
-                          const lastContent = lastItemOfDay.querySelector('.timeline-content');
-                           if (lastContent && lastContent.dataset.timeEnd) {
-                               const [lastEndHour, lastEndMinute] = lastContent.dataset.timeEnd.split(':').map(Number);
-                                const lastEndTimeToday = new Date(todayStr);
-                                lastEndTimeToday.setHours(lastEndHour, lastEndMinute, 59, 999);
-                                if (now > lastEndTimeToday) {
-                                    dayItem.classList.add('passed');
-                                }
-                           }
-                      } else if (!lastItemOfDay) { // Handle days with only the header? (shouldn't happen in this plan)
-                           if (dayDate < now) {
-                                dayItem.classList.add('passed');
-                           }
+                      if (itemsInDay.every(item => item.classList.contains('passed'))) {
+                          dayItem.classList.add('passed');
                       }
-
                  }
-
 
                  if (dateStr === todayStr) {
-                     currentDayElement = dayItem; // Found today's day header
-                     foundCurrentDay = true;
+                     currentDayElement = dayItem;
                  }
             });
 
-
-            // Apply highlighting
             if (currentDayElement) {
                 currentDayElement.classList.add('current-day');
             }
@@ -2603,246 +2748,116 @@
                  currentSessionElement.classList.add('current-session');
             }
 
-             // Update "What's Next" display
-            updateWhatsNextDisplay(firstUpcomingSessionElement);
-
-
-            // Scrolling Logic (only on initial load or specific trigger, not every second)
-            // Use a flag to ensure auto-scroll happens only once per page load
             if (!sessionStorage.getItem('scrolledToDay')) {
-                 // Small delay to allow AOS to position elements before scrolling
                 setTimeout(() => {
+                     let elementToScrollTo = null;
+
                      if (currentSessionElement) {
-                         scrollToElement(currentSessionElement);
+                         elementToScrollTo = currentSessionElement;
                      } else if (currentDayElement) {
-                         // If no current session (e.g., before 9am or after 22pm) but on the current day
-                         scrollToElement(currentDayElement);
+                         elementToScrollTo = currentDayElement;
                      } else if (now < planStartDate) {
-                          // If before the plan starts, scroll to the very first item
-                          const firstItem = document.querySelector('.timeline-item');
-                          if (firstItem) scrollToElement(firstItem);
+                          elementToScrollTo = document.querySelector('.timeline-item:first-of-type');
                       } else if (now > planEndDate) {
-                          // If after the plan ends, scroll to the very last item
-                          const lastItem = document.querySelector('.timeline-item:last-of-type');
-                          if (lastItem) scrollToElement(lastItem);
+                          elementToScrollTo = document.querySelector('.timeline-item:last-of-type');
                       } else {
-                           // Fallback: If today is within the plan range but doesn't have a day-item (unlikely with this structure)
-                           // Or if it's a day with only exam events before now etc.
-                           // Try to find the first element that is NOT passed
-                           const firstActiveItem = document.querySelector('.timeline-item:not(.passed)');
-                            if (firstActiveItem) {
-                                scrollToElement(firstActiveItem);
-                            } else {
-                                // If everything is passed, scroll to the end
-                                const lastItem = document.querySelector('.timeline-item:last-of-type');
-                                if (lastItem) scrollToElement(lastItem);
-                            }
+                           elementToScrollTo = document.querySelector('.timeline-item:not(.passed)');
+                           if (!elementToScrollTo) {
+                                elementToScrollTo = document.querySelector('.timeline-item:last-of-type');
+                           }
                       }
-                     // Set the flag after the first scroll attempt
-                     sessionStorage.setItem('scrolledToDay', 'true');
-                }, 300); // Delay slightly
+
+                     if (elementToScrollTo) {
+                          scrollToElement(elementToScrollTo);
+                          sessionStorage.setItem('scrolledToDay', 'true');
+                     } else {
+                         sessionStorage.setItem('scrolledToDay', 'true');
+                     }
+
+                }, 300);
             }
         }
 
-         function updateWhatsNextDisplay(nextItemElement) {
-             const whatsNextDiv = document.getElementById('next-task-content');
-             if (nextItemElement) {
-                 const content = nextItemElement.querySelector('.timeline-content');
-                  if (content) {
-                      const time = content.dataset.timeStart;
-                      const module = content.dataset.module;
-                      const task = content.dataset.task;
-                       const type = content.classList.contains('study-session') ? 'Révision' :
-                                    content.classList.contains('break-time') ? 'Pause' :
-                                    content.classList.contains('free-time') ? 'Temps Libre' :
-                                    content.classList.contains('exam-event') ? 'Examen' : 'Activité';
-                      whatsNextDiv.innerHTML = `<p><span class="next-time">${time}</span> - <i class="${getIconForType(type)}"></i> <strong>${module}</strong>: ${task}</p>`;
-                  } else {
-                       whatsNextDiv.innerHTML = "<p>Erreur d'affichage de la prochaine tâche.</p>";
-                  }
+        // Task Completion (using localStorage)
+        function initTaskCompletion() {
+            const tasks = document.querySelectorAll('.timeline-item.study-session');
+            tasks.forEach((taskItem) => {
+                const taskContent = taskItem.querySelector('.timeline-content');
+                const date = taskItem.closest('.day-item')?.dataset.date || '';
+                const time = taskContent.dataset.timeStart?.replace(':', '') || '';
+                const module = taskContent.dataset.module?.replace(/[^a-zA-Z0-9]/g, '') || '';
+                const taskId = `${date}-${time}-${module}`;
 
-             } else if (new Date() > planEndDate) {
-                 whatsNextDiv.innerHTML = "<p>Le plan de révision est terminé. Profitez de votre temps libre !</p>";
-             }
-             else {
-                 whatsNextDiv.innerHTML = "<p>Aucune tâche planifiée pour le moment. Profitez de votre temps libre !</p>";
-             }
-         }
+                if (taskContent.querySelector(`input[type="checkbox"][data-task-id="${taskId}"]`)) {
+                    return;
+                }
 
-         function getIconForType(type) {
-              switch(type) {
-                  case 'Révision': return 'fas fa-book-open';
-                  case 'Pause': return 'fas fa-coffee';
-                  case 'Temps Libre': return 'fas fa-couch';
-                  case 'Examen': return 'fas fa-file-alt';
-                  default: return 'fas fa-info-circle';
-              }
-         }
+                const checkboxHtml = `
+                   <label class="task-checkbox">
+                       <input type="checkbox" data-task-id="${taskId}" aria-label="Marquer cette tâche comme terminée">
+                       Marquer comme terminé
+                   </label>
+                `;
+                taskContent.innerHTML += checkboxHtml;
 
+                const checkbox = taskContent.querySelector(`input[type="checkbox"][data-task-id="${taskId}"]`);
+                if (!checkbox) return;
 
-         // Task Completion (using localStorage)
-         function initTaskCompletion() {
-             const tasks = document.querySelectorAll('.timeline-content.study-session');
-             tasks.forEach((taskContent) => {
-                 // Generate a unique ID based on date, time, and module
-                 const taskItem = taskContent.closest('.timeline-item');
-                 const date = taskItem.dataset.date;
-                 const time = taskContent.dataset.timeStart.replace(':', '');
-                 const module = taskContent.dataset.module.replace(/[^a-zA-Z0-9]/g, ''); // Use alphanumeric part of module name
-                 const taskId = `${date}-${time}-${module}`;
+                const isCompleted = localStorage.getItem(taskId) === 'true';
+                if (isCompleted) {
+                    checkbox.checked = true;
+                    taskItem.classList.add('completed');
+                }
 
-                 // Check if checkbox already exists
-                 if (taskContent.querySelector(`input[type="checkbox"][data-task-id="${taskId}"]`)) {
-                     return; // Already initialized
-                 }
+                checkbox.addEventListener('change', function() {
+                    if (this.checked) {
+                        localStorage.setItem(taskId, 'true');
+                        taskItem.classList.add('completed');
+                    } else {
+                        localStorage.removeItem(taskId);
+                        taskItem.classList.remove('completed');
+                    }
+                });
+            });
+        }
 
-                 // Create checkbox HTML
-                 const checkboxHtml = `
-                    <label class="task-checkbox">
-                        <input type="checkbox" data-task-id="${taskId}" aria-label="Marquer cette tâche comme terminée">
-                        Marquer comme terminé
-                    </label>
-                 `;
-                 taskContent.innerHTML += checkboxHtml;
-
-                 const checkbox = taskContent.querySelector(`input[type="checkbox"][data-task-id="${taskId}"]`);
-                 const parentItem = taskContent.closest('.timeline-item');
-
-                 // Load saved state
-                 const isCompleted = localStorage.getItem(taskId) === 'true';
-                 if (isCompleted) {
-                     checkbox.checked = true;
-                     parentItem.classList.add('completed');
-                 }
-
-                 // Add event listener to save state
-                 checkbox.addEventListener('change', function() {
-                     if (this.checked) {
-                         localStorage.setItem(taskId, 'true');
-                         parentItem.classList.add('completed');
-                     } else {
-                         localStorage.removeItem(taskId);
-                         parentItem.classList.remove('completed');
-                     }
-                      updateProgress(); // Update progress bar
-                      // No need to call updateWhatsNext immediately here, updateClock does it every second
-                 });
-             });
-         }
-
-         // Update overall progress bar and module progress
-         function updateProgress() {
-             const allTasks = document.querySelectorAll('.timeline-content.study-session');
-             const completedTasks = document.querySelectorAll('.timeline-item.completed .timeline-content.study-session');
-
-             const totalTasks = allTasks.length;
-             const doneTasks = completedTasks.length;
-
-              // Overall progress
-             const overallPercentage = totalTasks === 0 ? 0 : (doneTasks / totalTasks) * 100;
-             document.getElementById('progress-bar').style.width = overallPercentage + '%';
-             document.getElementById('progress-text').textContent = totalTasks === 0 ? 'Aucune tâche de révision définie.' : `Progrès global : ${doneTasks} / ${totalTasks} tâches terminées (${overallPercentage.toFixed(1)}%)`;
-
-
-             // Module progress
-             const moduleProgressDiv = document.getElementById('module-progress');
-             moduleProgressDiv.innerHTML = '<h5>Progrès par Module :</h5>'; // Reset
-
-             const moduleStats = {}; // { moduleName: { total: 0, done: 0 } }
-
-             allTasks.forEach(task => {
-                 const moduleName = task.dataset.module;
-                 if (!moduleStats[moduleName]) {
-                     moduleStats[moduleName] = { total: 0, done: 0 };
-                 }
-                 moduleStats[moduleName].total++;
-             });
-
-              completedTasks.forEach(task => {
-                 const moduleName = task.dataset.module;
-                 if (moduleStats[moduleName]) { // Should always exist if task is in allTasks
-                     moduleStats[moduleName].done++;
-                 }
-              });
-
-              // Sort modules alphabetically for consistent display
-              const sortedModules = Object.keys(moduleStats).sort();
-
-              sortedModules.forEach(moduleName => {
-                  const stats = moduleStats[moduleName];
-                  const percentage = stats.total === 0 ? 0 : (stats.done / stats.total) * 100;
-                  moduleProgressDiv.innerHTML += `
-                      <div>
-                          <span>${moduleName}:</span>
-                          <span>${stats.done} / ${stats.total} (${percentage.toFixed(0)}%)</span>
-                      </div>
-                  `;
-              });
-
-
-         }
-
-         // Initialize Quick Navigation
-         function initQuickNav() {
-              const quickNavContainer = document.getElementById('quick-nav');
-              quickNavContainer.innerHTML = ''; // Clear existing buttons
-
-              const dayItems = document.querySelectorAll('.timeline-item.day-item');
-              const todayStr = new Date().toISOString().split('T')[0];
-
-              dayItems.forEach(dayItem => {
-                  const dateStr = dayItem.dataset.date;
-                   const dayName = dayItem.querySelector('h3').textContent.split(' ')[0]; // e.g., "Jeu."
-                   const dayOfMonth = dayItem.querySelector('h3').textContent.split(' ')[2]; // e.g., "15"
-
-                   const button = document.createElement('button');
-                   button.textContent = `${dayName} ${dayOfMonth}`; // Display short name + day
-                   button.setAttribute('aria-label', `Naviguer vers ${dayItem.querySelector('h3').textContent}`); // Accessibility
-                   button.onclick = () => scrollToElement(dayItem);
-
-                   if (dateStr === todayStr) {
-                       button.classList.add('current-day-nav');
-                   }
-
-                   quickNavContainer.appendChild(button);
-              });
-         }
-
-          // Set daily motivational quote
-          function setDailyQuote() {
-               const quoteElement = document.getElementById('daily-quote');
-               if (quoteElement) {
-                   const today = new Date();
-                   const dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / 1000 / 60 / 60 / 24);
-                    // Use day of year + a seed to get a consistent quote for the day
-                   const quoteIndex = (dayOfYear + 42) % motivationalQuotes.length; // 42 is just a random seed
-                   quoteElement.textContent = motivationalQuotes[quoteIndex];
-               }
-          }
-
+        // Set daily motivational quote
+        function setDailyQuote() {
+            const quoteElement = document.getElementById('daily-quote');
+            if (quoteElement) {
+                const today = new Date();
+                const dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / 1000 / 60 / 60 / 24);
+                const quoteIndex = (dayOfYear + 42) % motivationalQuotes.length;
+                quoteElement.textContent = motivationalQuotes[quoteIndex];
+            }
+        }
 
         // Initial calls and set intervals
         initTaskCompletion();
-         initQuickNav(); // Initialize quick navigation
-         setDailyQuote(); // Set initial quote
-        updateClock(); // Initial update
-        // updateProgress(); // Called within updateClock now
-        // updateWhatsNext(); // Called within updateClock now
-
-
-        // Update every second
+        setDailyQuote();
+        updateClock();
         setInterval(updateClock, 1000);
 
+        // Clear scroll flag when leaving the page
+        window.addEventListener('beforeunload', () => {
+            sessionStorage.removeItem('scrolledToDay');
+            sessionStorage.setItem('scrollY', window.scrollY); // Save scroll position
+        });
 
-         // Clear scroll flag when leaving the page (optional, depends on desired behavior)
-         window.addEventListener('beforeunload', () => {
-             sessionStorage.removeItem('scrolledToDay');
-         });
-
+        // Restore scroll position on page load
+        window.addEventListener('load', () => {
+            const savedScrollY = sessionStorage.getItem('scrollY');
+            if (savedScrollY && sessionStorage.getItem('scrolledToDay') === 'true') {
+                // Use setTimeout to allow layout rendering before scrolling
+                setTimeout(() => {
+                    window.scrollTo(0, parseInt(savedScrollY, 10));
+                }, 50); // Small delay
+            }
+        });
 
     </script>
 
-     <!-- Firebase SDK (kept commented out as before) -->
+    <!-- Firebase SDK (kept commented out as before) -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
     <script>
