@@ -845,49 +845,6 @@
         .dark .share-btn:hover {
             background: hsl(var(--accent));
         }
-
-        /* Add these new styles */
-        .ad-container {
-            display: none; /* Hidden by default */
-        }
-
-        .ad-container-mobile {
-            display: block; /* Visible on mobile by default */
-        }
-
-        .ad-container-desktop {
-            display: none; /* Hidden on mobile */
-        }
-
-        .ad-sidebar {
-            position: sticky;
-            top: 20px;
-            height: fit-content;
-        }
-
-        @media (min-width: 1024px) {
-            .ad-container-mobile {
-                display: none; /* Hide mobile ads on desktop */
-            }
-
-            .ad-container-desktop {
-                display: block; /* Show desktop ads */
-            }
-
-            .main-content {
-                display: grid;
-                grid-template-columns: 1fr 300px;
-                gap: 2rem;
-            }
-
-            .module-grid {
-                grid-column: 1;
-            }
-
-            .ad-sidebar {
-                grid-column: 2;
-            }
-        }
     </style>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-4QK3R858YJ"></script>
@@ -897,6 +854,17 @@
       gtag('js', new Date());
       gtag('config', 'G-4QK3R858YJ');
     </script>
+    <!-- Header Banner -->
+    <script type="text/javascript">
+        atOptions = {
+            'key' : '869717dd7595664af8ec12f26a83e2d3',
+            'format' : 'iframe',
+            'height' : 50,
+            'width' : 320,
+            'params' : {}
+        };
+    </script>
+    <script type="text/javascript" src="//www.highperformanceformat.com/869717dd7595664af8ec12f26a83e2d3/invoke.js"></script>
 </head>
 <body class="flex flex-col min-h-screen">
     <!-- Hero Background -->
@@ -971,292 +939,196 @@
 
             <h1 class="text-3xl font-bold mb-8 text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600">Science et Technologie LMD - Semestre 2</h1>
             
-            <div class="main-content">
-                <div class="module-grid">
-                    <div id="moduleContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4 sm:gap-6 mb-8">
-                        <!-- Mathématique 2 -->
-                        <div id="module-math2" class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
-                            <div class="flex items-center justify-between gap-3 mb-4">
-                                <div class="flex items-center gap-3">
-                                <div class="module-icon bg-purple-100 p-3 rounded-full text-purple-600">
-                                    <i class="fas fa-square-root-alt fa-lg"></i>
-                                </div>
-                                <h3 class="text-xl font-semibold text-gray-800">Mathématique 2</h3>
-                                </div>
-                                <button onclick="shareModule('Mathématique 2', 'module-math2')" class="share-btn bg-gray-100 hover:bg-gray-200 p-2 rounded-full transition-all duration-300">
-                                    <i class="fas fa-share-alt text-gray-600"></i>
-                                </button>
-                            </div>
-                            <div class="mt-auto flex flex-wrap gap-2">
-                                <button type="button" class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('Mathématique 2', 'cours')">
-                                    <i class="fas fa-book mr-1"></i> Cours
-                                </button>
-                                <button type="button" class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('Mathématique 2', 'tdtp')">
-                                    <i class="fas fa-pencil-alt mr-1"></i> TD+TP
-                                </button>
-                                <button type="button" class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('Mathématique 2', 'examen')">
-                                    <i class="fas fa-file-alt mr-1"></i> Examen
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <!-- Mobile Ad 1 -->
-                        <div class="col-span-full ad-container-mobile">
-                            <script async="async" data-cfasync="false" src="//pl26653486.profitableratecpm.com/d1f9b352227deef2c547c2b12b9d3b19/invoke.js"></script>
-                            <div id="container-d1f9b352227deef2c547c2b12b9d3b19"></div>
-                        </div>
-                        
-                        <!-- Physique 2 -->
-                        <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
-                            <div class="flex items-center gap-3 mb-4">
-                                <div class="module-icon bg-blue-100 p-3 rounded-full text-blue-600">
-                                    <i class="fas fa-atom fa-lg"></i>
-                                </div>
-                                <h3 class="text-xl font-semibold text-gray-800">Physique 2</h3>
-                            </div>
-                            <div class="mt-auto flex flex-wrap gap-2">
-                                <button type="button" class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('Physique 2', 'cours')">
-                                    <i class="fas fa-book mr-1"></i> Cours
-                                </button>
-                                <button type="button" class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('Physique 2', 'tdtp')">
-                                    <i class="fas fa-pencil-alt mr-1"></i> TD+TP
-                                </button>
-                                <button type="button" class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('Physique 2', 'examen')">
-                                    <i class="fas fa-file-alt mr-1"></i> Examen
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <!-- Mobile Ad 2 -->
-                        <div class="col-span-full ad-container-mobile">
-                            <script async="async" data-cfasync="false" src="//pl26653486.profitableratecpm.com/d1f9b352227deef2c547c2b12b9d3b19/invoke.js"></script>
-                            <div id="container-d1f9b352227deef2c547c2b12b9d3b19"></div>
-                        </div>
-                        
-                        <!-- Thermodynamique (Chimie 2) -->
-                        <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
-                            <div class="flex items-center gap-3 mb-4">
-                                <div class="module-icon bg-red-100 p-3 rounded-full text-red-600">
-                                    <i class="fas fa-flask fa-lg"></i>
-                                </div>
-                                <h3 class="text-xl font-semibold text-gray-800">Thermodynamique (Chimie 2)</h3>
-                            </div>
-                            <div class="mt-auto flex flex-wrap gap-2">
-                                <button type="button" class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('Thermodynamique (Chimie 2)', 'cours')">
-                                    <i class="fas fa-book mr-1"></i> Cours
-                                </button>
-                                <button type="button" class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('Thermodynamique (Chimie 2)', 'tdtp')">
-                                    <i class="fas fa-pencil-alt mr-1"></i> TD+TP
-                                </button>
-                                <button type="button" class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('Thermodynamique (Chimie 2)', 'examen')">
-                                    <i class="fas fa-file-alt mr-1"></i> Examen
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <!-- Mobile Ad 3 -->
-                        <div class="col-span-full ad-container-mobile">
-                            <script async="async" data-cfasync="false" src="//pl26653486.profitableratecpm.com/d1f9b352227deef2c547c2b12b9d3b19/invoke.js"></script>
-                            <div id="container-d1f9b352227deef2c547c2b12b9d3b19"></div>
-                        </div>
-                        
-                        <!-- Informatique 2 -->
-                        <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
-                            <div class="flex items-center gap-3 mb-4">
-                                <div class="module-icon bg-green-100 p-3 rounded-full text-green-600">
-                                    <i class="fas fa-laptop-code fa-lg"></i>
-                                </div>
-                                <h3 class="text-xl font-semibold text-gray-800">Informatique 2</h3>
-                            </div>
-                            <div class="mt-auto flex flex-wrap gap-2">
-                                <button type="button" class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('Informatique 2', 'cours')">
-                                    <i class="fas fa-book mr-1"></i> Cours
-                                </button>
-                                <button type="button" class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('Informatique 2', 'tdtp')">
-                                    <i class="fas fa-pencil-alt mr-1"></i> TD+TP
-                                </button>
-                                <button type="button" class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('Informatique 2', 'examen')">
-                                    <i class="fas fa-file-alt mr-1"></i> Examen
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <!-- Mobile Ad 4 -->
-                        <div class="col-span-full ad-container-mobile">
-                            <script async="async" data-cfasync="false" src="//pl26653486.profitableratecpm.com/d1f9b352227deef2c547c2b12b9d3b19/invoke.js"></script>
-                            <div id="container-d1f9b352227deef2c547c2b12b9d3b19"></div>
-                        </div>
-                        
-                        <!-- MP -->
-                        <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
-                            <div class="flex items-center gap-3 mb-4">
-                                <div class="module-icon bg-yellow-100 p-3 rounded-full text-yellow-600">
-                                    <i class="fas fa-project-diagram fa-lg"></i>
-                                </div>
-                                <h3 class="text-xl font-semibold text-gray-800">MP</h3>
-                            </div>
-                            <div class="mt-auto flex flex-wrap gap-2">
-                                <button type="button" class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('MP', 'cours')">
-                                    <i class="fas fa-book mr-1"></i> Cours
-                                </button>
-                                <button type="button" class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('MP', 'tdtp')">
-                                    <i class="fas fa-pencil-alt mr-1"></i> TD+TP
-                                </button>
-                                <button type="button" class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('MP', 'examen')">
-                                    <i class="fas fa-file-alt mr-1"></i> Examen
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <!-- Mobile Ad 5 -->
-                        <div class="col-span-full ad-container-mobile">
-                            <script async="async" data-cfasync="false" src="//pl26653486.profitableratecpm.com/d1f9b352227deef2c547c2b12b9d3b19/invoke.js"></script>
-                            <div id="container-d1f9b352227deef2c547c2b12b9d3b19"></div>
-                        </div>
-                        
-                        <!-- MST 2 -->
-                        <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
-                            <div class="flex items-center gap-3 mb-4">
-                                <div class="module-icon bg-gray-100 p-3 rounded-full text-gray-600">
-                                    <i class="fas fa-cogs fa-lg"></i>
-                                </div>
-                                <h3 class="text-xl font-semibold text-gray-800">MST 2</h3>
-                            </div>
-                            <div class="mt-auto flex flex-wrap gap-2">
-                                <button type="button" class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('MST 2', 'cours')">
-                                    <i class="fas fa-book mr-1"></i> Cours
-                                </button>
-                                <button type="button" class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('MST 2', 'tdtp')">
-                                    <i class="fas fa-pencil-alt mr-1"></i> TD+TP
-                                </button>
-                                <button type="button" class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('MST 2', 'examen')">
-                                    <i class="fas fa-file-alt mr-1"></i> Examen
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <!-- Mobile Ad 6 -->
-                        <div class="col-span-full ad-container-mobile">
-                            <script async="async" data-cfasync="false" src="//pl26653486.profitableratecpm.com/d1f9b352227deef2c547c2b12b9d3b19/invoke.js"></script>
-                            <div id="container-d1f9b352227deef2c547c2b12b9d3b19"></div>
-                        </div>
-                        
-                        <!-- Langue étrangère 2 -->
-                        <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
-                            <div class="flex items-center gap-3 mb-4">
-                                <div class="module-icon bg-pink-100 p-3 rounded-full text-pink-600">
-                                    <i class="fas fa-language fa-lg"></i>
-                                </div>
-                                <h3 class="text-xl font-semibold text-gray-800">Langue étrangère 2</h3>
-                            </div>
-                            <div class="mt-auto flex flex-wrap gap-2">
-                                <button type="button" class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('Langue étrangère 2 (français et/ou anglais)', 'cours')">
-                                    <i class="fas fa-book mr-1"></i> Cours
-                                </button>
-                                <button type="button" class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('Langue étrangère 2 (français et/ou anglais)', 'tdtp')">
-                                    <i class="fas fa-pencil-alt mr-1"></i> TD+TP
-                                </button>
-                                <button type="button" class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('Langue étrangère 2 (français et/ou anglais)', 'examen')">
-                                    <i class="fas fa-file-alt mr-1"></i> Examen
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <!-- Mobile Ad 7 -->
-                        <div class="col-span-full ad-container-mobile">
-                            <script async="async" data-cfasync="false" src="//pl26653486.profitableratecpm.com/d1f9b352227deef2c547c2b12b9d3b19/invoke.js"></script>
-                            <div id="container-d1f9b352227deef2c547c2b12b9d3b19"></div>
-                        </div>
-                        
-                        <!-- TP Physique 2 -->
-                        <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
-                            <div class="flex items-center gap-3 mb-4">
-                                <div class="module-icon bg-indigo-100 p-3 rounded-full text-indigo-600">
-                                    <i class="fas fa-atom fa-lg"></i>
-                                </div>
-                                <h3 class="text-xl font-semibold text-gray-800">TP Physique 2</h3>
-                            </div>
-                            <div class="mt-auto flex flex-wrap gap-2">
-                                <button type="button" class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('TP Physique 2', 'tdtp')">
-                                    <i class="fas fa-flask mr-1"></i> TP
-                                </button>
-                                <button type="button" class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('TP Physique 2', 'compterendu')">
-                                    <i class="fas fa-file-alt mr-1"></i> Compte rendu
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <!-- Mobile Ad 8 -->
-                        <div class="col-span-full ad-container-mobile">
-                            <script async="async" data-cfasync="false" src="//pl26653486.profitableratecpm.com/d1f9b352227deef2c547c2b12b9d3b19/invoke.js"></script>
-                            <div id="container-d1f9b352227deef2c547c2b12b9d3b19"></div>
-                        </div>
-                        
-                        <!-- TP Chimie 2 -->
-                        <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
-                            <div class="flex items-center gap-3 mb-4">
-                                <div class="module-icon bg-orange-100 p-3 rounded-full text-orange-600">
-                                    <i class="fas fa-flask-vial fa-lg"></i>
-                                </div>
-                                <h3 class="text-xl font-semibold text-gray-800">TP Chimie 2</h3>
-                            </div>
-                            <div class="mt-auto flex flex-wrap gap-2">
-                                <button type="button" class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('TP Chimie 2', 'tdtp')">
-                                    <i class="fas fa-flask mr-1"></i> TP
-                                </button>
-                                <button type="button" class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('TP Chimie 2', 'compterendu')">
-                                    <i class="fas fa-file-alt mr-1"></i> Compte rendu
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <!-- Mobile Ad 9 -->
-                        <div class="col-span-full ad-container-mobile">
-                            <script async="async" data-cfasync="false" src="//pl26653486.profitableratecpm.com/d1f9b352227deef2c547c2b12b9d3b19/invoke.js"></script>
-                            <div id="container-d1f9b352227deef2c547c2b12b9d3b19"></div>
-                        </div>
-                        
-                        <!-- Ad 10 -->
-                        <div class="col-span-full">
-                            <script async="async" data-cfasync="false" src="//pl26653486.profitableratecpm.com/d1f9b352227deef2c547c2b12b9d3b19/invoke.js"></script>
-                            <div id="container-d1f9b352227deef2c547c2b12b9d3b19"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Desktop Sidebar Ads -->
-                <div class="ad-sidebar ad-container-desktop">
-                    <!-- Desktop Ad 1 -->
-                    <div class="mb-6">
-                        <script async="async" data-cfasync="false" src="//pl26653486.profitableratecpm.com/d1f9b352227deef2c547c2b12b9d3b19/invoke.js"></script>
-                        <div id="container-d1f9b352227deef2c547c2b12b9d3b19"></div>
-                    </div>
-
-                    <!-- Desktop Ad 2 -->
-                    <div class="mb-6">
-                        <script async="async" data-cfasync="false" src="//pl26653486.profitableratecpm.com/d1f9b352227deef2c547c2b12b9d3b19/invoke.js"></script>
-                        <div id="container-d1f9b352227deef2c547c2b12b9d3b19"></div>
-                    </div>
-
-                    <!-- Desktop Ad 3 -->
-                    <div class="mb-6">
-                        <script async="async" data-cfasync="false" src="//pl26653486.profitableratecpm.com/d1f9b352227deef2c547c2b12b9d3b19/invoke.js"></script>
-                        <div id="container-d1f9b352227deef2c547c2b12b9d3b19"></div>
-                    </div>
-
-                    <!-- Desktop Ad 4 -->
-                    <div class="mb-6">
-                        <script async="async" data-cfasync="false" src="//pl26653486.profitableratecpm.com/d1f9b352227deef2c547c2b12b9d3b19/invoke.js"></script>
-                        <div id="container-d1f9b352227deef2c547c2b12b9d3b19"></div>
-                    </div>
-
-                    <!-- Desktop Ad 5 -->
-                    <div class="mb-6">
-                        <script async="async" data-cfasync="false" src="//pl26653486.profitableratecpm.com/d1f9b352227deef2c547c2b12b9d3b19/invoke.js"></script>
-                        <div id="container-d1f9b352227deef2c547c2b12b9d3b19"></div>
-                    </div>
-                </div>
+            <div id="moduleContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4 sm:gap-6 mb-8">
+    <!-- Mathématique 2 -->
+    <div id="module-math2" class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
+        <div class="flex items-center justify-between gap-3 mb-4">
+            <div class="flex items-center gap-3">
+            <div class="module-icon bg-purple-100 p-3 rounded-full text-purple-600">
+                <i class="fas fa-square-root-alt fa-lg"></i>
             </div>
+            <h3 class="text-xl font-semibold text-gray-800">Mathématique 2</h3>
+            </div>
+            <button onclick="shareModule('Mathématique 2', 'module-math2')" class="share-btn bg-gray-100 hover:bg-gray-200 p-2 rounded-full transition-all duration-300">
+                <i class="fas fa-share-alt text-gray-600"></i>
+            </button>
+        </div>
+        <div class="mt-auto flex flex-wrap gap-2">
+            <button type="button" class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('Mathématique 2', 'cours')">
+                <i class="fas fa-book mr-1"></i> Cours
+            </button>
+            <button type="button" class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('Mathématique 2', 'tdtp')">
+                <i class="fas fa-pencil-alt mr-1"></i> TD+TP
+            </button>
+            <button type="button" class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('Mathématique 2', 'examen')">
+                <i class="fas fa-file-alt mr-1"></i> Examen
+            </button>
+        </div>
+    </div>
+    
+    <!-- Physique 2 -->
+    <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
+        <div class="flex items-center gap-3 mb-4">
+            <div class="module-icon bg-blue-100 p-3 rounded-full text-blue-600">
+                <i class="fas fa-atom fa-lg"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800">Physique 2</h3>
+        </div>
+        <div class="mt-auto flex flex-wrap gap-2">
+            <button type="button" class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('Physique 2', 'cours')">
+                <i class="fas fa-book mr-1"></i> Cours
+            </button>
+            <button type="button" class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('Physique 2', 'tdtp')">
+                <i class="fas fa-pencil-alt mr-1"></i> TD+TP
+            </button>
+            <button type="button" class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('Physique 2', 'examen')">
+                <i class="fas fa-file-alt mr-1"></i> Examen
+            </button>
+        </div>
+    </div>
+    
+    <!-- Thermodynamique (Chimie 2) -->
+    <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
+        <div class="flex items-center gap-3 mb-4">
+            <div class="module-icon bg-red-100 p-3 rounded-full text-red-600">
+                <i class="fas fa-flask fa-lg"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800">Thermodynamique (Chimie 2)</h3>
+        </div>
+        <div class="mt-auto flex flex-wrap gap-2">
+            <button type="button" class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('Thermodynamique (Chimie 2)', 'cours')">
+                <i class="fas fa-book mr-1"></i> Cours
+            </button>
+            <button type="button" class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('Thermodynamique (Chimie 2)', 'tdtp')">
+                <i class="fas fa-pencil-alt mr-1"></i> TD+TP
+            </button>
+            <button type="button" class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('Thermodynamique (Chimie 2)', 'examen')">
+                <i class="fas fa-file-alt mr-1"></i> Examen
+            </button>
+        </div>
+    </div>
+    
+    <!-- Informatique 2 -->
+    <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
+        <div class="flex items-center gap-3 mb-4">
+            <div class="module-icon bg-green-100 p-3 rounded-full text-green-600">
+                <i class="fas fa-laptop-code fa-lg"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800">Informatique 2</h3>
+        </div>
+        <div class="mt-auto flex flex-wrap gap-2">
+            <button type="button" class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('Informatique 2', 'cours')">
+                <i class="fas fa-book mr-1"></i> Cours
+            </button>
+            <button type="button" class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('Informatique 2', 'tdtp')">
+                <i class="fas fa-pencil-alt mr-1"></i> TD+TP
+            </button>
+            <button type="button" class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('Informatique 2', 'examen')">
+                <i class="fas fa-file-alt mr-1"></i> Examen
+            </button>
+        </div>
+    </div>
+    
+    <!-- MP -->
+    <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
+        <div class="flex items-center gap-3 mb-4">
+            <div class="module-icon bg-yellow-100 p-3 rounded-full text-yellow-600">
+                <i class="fas fa-project-diagram fa-lg"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800">MP</h3>
+        </div>
+        <div class="mt-auto flex flex-wrap gap-2">
+            <button type="button" class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('MP', 'cours')">
+                <i class="fas fa-book mr-1"></i> Cours
+            </button>
+            <button type="button" class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('MP', 'tdtp')">
+                <i class="fas fa-pencil-alt mr-1"></i> TD+TP
+            </button>
+            <button type="button" class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('MP', 'examen')">
+                <i class="fas fa-file-alt mr-1"></i> Examen
+            </button>
+        </div>
+    </div>
+    
+    <!-- MST 2 -->
+    <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
+        <div class="flex items-center gap-3 mb-4">
+            <div class="module-icon bg-gray-100 p-3 rounded-full text-gray-600">
+                <i class="fas fa-cogs fa-lg"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800">MST 2</h3>
+        </div>
+        <div class="mt-auto flex flex-wrap gap-2">
+            <button type="button" class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('MST 2', 'cours')">
+                <i class="fas fa-book mr-1"></i> Cours
+            </button>
+            <button type="button" class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('MST 2', 'tdtp')">
+                <i class="fas fa-pencil-alt mr-1"></i> TD+TP
+            </button>
+            <button type="button" class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('MST 2', 'examen')">
+                <i class="fas fa-file-alt mr-1"></i> Examen
+            </button>
+        </div>
+    </div>
+    
+    <!-- Langue étrangère 2 -->
+    <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
+        <div class="flex items-center gap-3 mb-4">
+            <div class="module-icon bg-pink-100 p-3 rounded-full text-pink-600">
+                <i class="fas fa-language fa-lg"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800">Langue étrangère 2</h3>
+        </div>
+        <div class="mt-auto flex flex-wrap gap-2">
+            <button type="button" class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('Langue étrangère 2 (français et/ou anglais)', 'cours')">
+                <i class="fas fa-book mr-1"></i> Cours
+            </button>
+            <button type="button" class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('Langue étrangère 2 (français et/ou anglais)', 'tdtp')">
+                <i class="fas fa-pencil-alt mr-1"></i> TD+TP
+            </button>
+            <button type="button" class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('Langue étrangère 2 (français et/ou anglais)', 'examen')">
+                <i class="fas fa-file-alt mr-1"></i> Examen
+            </button>
+        </div>
+    </div>
+    
+    <!-- TP Physique 2 -->
+    <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
+        <div class="flex items-center gap-3 mb-4">
+            <div class="module-icon bg-indigo-100 p-3 rounded-full text-indigo-600">
+                <i class="fas fa-atom fa-lg"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800">TP Physique 2</h3>
+        </div>
+        <div class="mt-auto flex flex-wrap gap-2">
+            <button type="button" class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('TP Physique 2', 'tdtp')">
+                <i class="fas fa-flask mr-1"></i> TP
+            </button>
+            <button type="button" class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('TP Physique 2', 'compterendu')">
+                <i class="fas fa-file-alt mr-1"></i> Compte rendu
+            </button>
+        </div>
+    </div>
+    
+    <!-- TP Chimie 2 -->
+    <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
+        <div class="flex items-center gap-3 mb-4">
+            <div class="module-icon bg-orange-100 p-3 rounded-full text-orange-600">
+                <i class="fas fa-flask-vial fa-lg"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800">TP Chimie 2</h3>
+        </div>
+        <div class="mt-auto flex flex-wrap gap-2">
+            <button type="button" class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('TP Chimie 2', 'tdtp')">
+                <i class="fas fa-flask mr-1"></i> TP
+            </button>
+            <button type="button" class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('TP Chimie 2', 'compterendu')">
+                <i class="fas fa-file-alt mr-1"></i> Compte rendu
+            </button>
+        </div>
+    </div>
+</div>
+
         </div>
     </div>
 
@@ -2427,5 +2299,16 @@
         window.va('pageview');
     </script>
     <script defer src="/_vercel/insights/script.js"></script>
+    <!-- Footer Banner -->
+    <script type="text/javascript">
+        atOptions = {
+            'key' : '869717dd7595664af8ec12f26a83e2d3',
+            'format' : 'iframe',
+            'height' : 50,
+            'width' : 320,
+            'params' : {}
+        };
+    </script>
+    <script type="text/javascript" src="//www.highperformanceformat.com/869717dd7595664af8ec12f26a83e2d3/invoke.js"></script>
 </body>
 </html>
