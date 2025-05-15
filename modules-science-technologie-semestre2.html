@@ -2281,6 +2281,41 @@
             }
         `;
         document.head.appendChild(style);
+
+        // Add mobile detection function
+        function isMobile() {
+            return window.innerWidth <= 768;
+        }
+
+        // Function to insert ads between module cards
+        function insertAdsBetweenModules() {
+            if (!isMobile()) return;
+
+            const moduleCards = document.querySelectorAll('.module-card');
+            const adScript = '<div class="ad-container my-4"><script type="text/javascript">aclib.runBanner({zoneId: \'9947614\'});<\/script></div>';
+
+            // Insert ads after every 2nd module card (to get 7-8 ads total)
+            moduleCards.forEach((card, index) => {
+                if (index > 0 && index % 2 === 0) {
+                    const adDiv = document.createElement('div');
+                    adDiv.innerHTML = adScript;
+                    card.parentNode.insertBefore(adDiv, card.nextSibling);
+                }
+            });
+        }
+
+        // Call the function when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            insertAdsBetweenModules();
+            
+            // Also handle window resize
+            window.addEventListener('resize', function() {
+                // Remove existing ads
+                document.querySelectorAll('.ad-container').forEach(ad => ad.remove());
+                // Re-insert ads if on mobile
+                insertAdsBetweenModules();
+            });
+        });
     </script>
     <script>
         window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
