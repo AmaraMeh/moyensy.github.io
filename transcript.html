@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Relevé de Notes - PROGRES</title>
+    <meta name="description" content="Relevé de notes complet via l'API PROGRES.">
+    <meta name="author" content="Amara Mehdi">
+    <link rel="icon" type="image/png" href="assets/img/icon.png">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --background: 0 0% 100%;
+            --foreground: 222.2 84% 4.9%;
+            --card: 0 0% 100%;
+            --card-foreground: 222.2 84% 4.9%;
+            --primary: 221.2 83.2% 53.3%;
+            --primary-foreground: 210 40% 98%;
+            --secondary: 210 40% 96.1%;
+            --secondary-foreground: 222.2 47.4% 11.2%;
+            --muted: 210 40% 96.1%;
+            --muted-foreground: 215.4 16.3% 46.9%;
+            --accent: 210 40% 96.1%;
+            --accent-foreground: 222.2 47.4% 11.2%;
+            --border: 214.3 31.8% 91.4%;
+            --input: 214.3 31.8% 91.4%;
+            --ring: 221.2 83.2% 53.3%;
+            --radius: 0.5rem;
+        }
+        .dark {
+            --background: 222.2 84% 4.9%;
+            --foreground: 210 40% 98%;
+            --card: 222.2 84% 4.9%;
+            --card-foreground: 210 40% 98%;
+            --primary: 217.2 91.2% 59.8%;
+            --primary-foreground: 222.2 47.4% 11.2%;
+            --secondary: 217.2 32.6% 17.5%;
+            --secondary-foreground: 210 40% 98%;
+            --muted: 217.2 32.6% 17.5%;
+            --muted-foreground: 215 20.2% 65.1%;
+            --accent: 217.2 32.6% 17.5%;
+            --accent-foreground: 210 40% 98%;
+            --border: 217.2 32.6% 17.5%;
+            --input: 217.2 32.6% 17.5%;
+            --ring: 224.3 76.3% 48%;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: hsl(var(--background));
+            color: hsl(var(--foreground));
+            min-height: 100vh;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .service-card {
+            background: hsl(var(--card));
+            border: 1px solid hsl(var(--border));
+            border-radius: var(--radius);
+            padding: 2.5rem;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            margin-top: 3rem;
+        }
+        .theme-toggle {
+            position: fixed;
+            bottom: 1rem;
+            right: 1rem;
+            z-index: 50;
+            width: 3rem;
+            height: 3rem;
+            border-radius: 9999px;
+            background: hsl(var(--background) / 0.8);
+            border: 1px solid hsl(var(--border));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .theme-toggle i {
+            font-size: 1.25rem;
+            color: hsl(var(--primary));
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <button class="theme-toggle" onclick="toggleTheme()">
+        <i class="fas fa-moon"></i>
+    </button>
+    <header class="bg-background/80 backdrop-blur-sm shadow-lg py-6">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col items-center">
+                <h1 class="text-3xl font-bold">Relevé de Notes</h1>
+            </div>
+        </div>
+    </header>
+    <main class="container mx-auto px-4 py-8">
+        <div class="service-card max-w-2xl mx-auto">
+            <h3 class="text-xl font-semibold mb-4">Relevé de Notes (Transcript)</h3>
+            <div class="text-red-500 font-bold mb-4">Impossible d'accéder à l'API PROGRES directement depuis le navigateur (CORS).<br>Veuillez utiliser un backend proxy ou un CORS proxy pour le développement.</div>
+            <a href="progres.html" class="inline-block px-6 py-3 bg-blue-600 text-white rounded hover:bg-blue-700 transition font-semibold"><i class="fas fa-arrow-left mr-2"></i>Retour au tableau de bord</a>
+        </div>
+    </main>
+    <script>
+    function toggleTheme() {
+        const body = document.body;
+        const themeToggle = document.querySelector('.theme-toggle i');
+        if (body.classList.contains('dark')) {
+            body.classList.remove('dark');
+            themeToggle.classList.remove('fa-sun');
+            themeToggle.classList.add('fa-moon');
+            localStorage.setItem('theme', 'light');
+        } else {
+            body.classList.add('dark');
+            themeToggle.classList.remove('fa-moon');
+            themeToggle.classList.add('fa-sun');
+            localStorage.setItem('theme', 'dark');
+        }
+    }
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+        document.body.classList.add('dark');
+        document.querySelector('.theme-toggle i').classList.replace('fa-moon', 'fa-sun');
+    }
+    </script>
+</body>
+</html> 
