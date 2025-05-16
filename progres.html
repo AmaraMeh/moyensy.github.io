@@ -117,12 +117,13 @@
                 <div class="service-card" id="annual-report-card"></div>
                 <div class="service-card" id="semester1-report-card"></div>
                 <div class="service-card" id="semester2-report-card"></div>
-                <div class="service-card" id="inscriptions-card"></div>
-                <div class="service-card" id="groups-card"></div>
-                <div class="service-card" id="scholarship-card"></div>
                 <div class="service-card col-span-1 md:col-span-2" id="transcript-card"></div>
             </div>
         </section>
+        <!-- Optionally, add a link to a dedicated transcript page -->
+        <div id="transcript-link" class="hidden text-center mt-8">
+            <a href="transcript.html" class="inline-block px-6 py-3 bg-blue-600 text-white rounded hover:bg-blue-700 transition font-semibold"><i class="fas fa-file-alt mr-2"></i>Voir le relevé de notes complet</a>
+        </div>
     </main>
     <footer class="bg-background/80 backdrop-blur-sm py-8 mt-12">
         <div class="container mx-auto px-4">
@@ -182,81 +183,6 @@
         } finally {
             button.disabled = false;
             button.textContent = 'Se connecter';
-        }
-    });
-
-    // Annual report fetch logic
-    document.getElementById('annual-report-form').addEventListener('submit', async function(e) {
-        e.preventDefault();
-        const uuid = document.getElementById('annual-uuid').value;
-        const idDia = document.getElementById('annual-idDia').value;
-        const loading = document.getElementById('annual-report-loading');
-        const errorDiv = document.getElementById('annual-report-error');
-        const resultDiv = document.getElementById('annual-report-result');
-        loading.classList.remove('hidden');
-        errorDiv.classList.add('hidden');
-        resultDiv.innerHTML = '';
-        try {
-            const url = `https://progres.mesrs.dz/api/infos/bac/${uuid}/dias/${idDia}/periode/bilans`;
-            const response = await fetch(url, {
-                headers: { 'Authorization': progresToken }
-            });
-            if (!response.ok) throw new Error('Erreur lors de la récupération du bilan annuel.');
-            const data = await response.json();
-            if (!Array.isArray(data) || data.length === 0) {
-                resultDiv.innerHTML = '<div class="text-gray-500">Aucun bilan trouvé.</div>';
-            } else {
-                // Display as table (show main fields)
-                let table = '<table class="min-w-full text-sm"><thead><tr>';
-                table += '<th class="px-2 py-1">Année</th><th class="px-2 py-1">Moyenne</th><th class="px-2 py-1">Crédits</th><th class="px-2 py-1">Décision</th></tr></thead><tbody>';
-                for (const bilan of data) {
-                    table += `<tr><td class="border px-2 py-1">${bilan.periodeLibelleFr || ''}</td><td class="border px-2 py-1">${bilan.moyenne || ''}</td><td class="border px-2 py-1">${bilan.credit || ''}</td><td class="border px-2 py-1">${bilan.typeDecisionLibelleFr || ''}</td></tr>`;
-                }
-                table += '</tbody></table>';
-                resultDiv.innerHTML = table;
-            }
-        } catch (err) {
-            errorDiv.textContent = err.message;
-            errorDiv.classList.remove('hidden');
-        } finally {
-            loading.classList.add('hidden');
-        }
-    });
-
-    // Semester report fetch logic
-    document.getElementById('semester-report-form').addEventListener('submit', async function(e) {
-        e.preventDefault();
-        const uuid = document.getElementById('semester-uuid').value;
-        const idDia = document.getElementById('semester-idDia').value;
-        const idPeriode = document.getElementById('semester-idPeriode').value;
-        const loading = document.getElementById('semester-report-loading');
-        const errorDiv = document.getElementById('semester-report-error');
-        const resultDiv = document.getElementById('semester-report-result');
-        loading.classList.remove('hidden');
-        errorDiv.classList.add('hidden');
-        resultDiv.innerHTML = '';
-        try {
-            const url = `https://progres.mesrs.dz/api/infos/bac/${uuid}/dia/${idDia}/periode/${idPeriode}/bilan`;
-            const response = await fetch(url, {
-                headers: { 'Authorization': progresToken }
-            });
-            if (!response.ok) throw new Error('Erreur lors de la récupération du bilan semestre.');
-            const data = await response.json();
-            if (!data) {
-                resultDiv.innerHTML = '<div class="text-gray-500">Aucun bilan trouvé.</div>';
-            } else {
-                // Display as table (show main fields)
-                let table = '<table class="min-w-full text-sm"><thead><tr>';
-                table += '<th class="px-2 py-1">Semestre</th><th class="px-2 py-1">Moyenne</th><th class="px-2 py-1">Crédits</th><th class="px-2 py-1">Décision</th></tr></thead><tbody>';
-                table += `<tr><td class="border px-2 py-1">${data.periode && data.periode.libelleFr || ''}</td><td class="border px-2 py-1">${data.moyenne || ''}</td><td class="border px-2 py-1">${data.credit || ''}</td><td class="border px-2 py-1">${data.typeDecisionLibelleFr || ''}</td></tr>`;
-                table += '</tbody></table>';
-                resultDiv.innerHTML = table;
-            }
-        } catch (err) {
-            errorDiv.textContent = err.message;
-            errorDiv.classList.remove('hidden');
-        } finally {
-            loading.classList.add('hidden');
         }
     });
 
@@ -427,55 +353,7 @@
             setCardError('semester1-report-card', err.message);
             setCardError('semester2-report-card', err.message);
         }
-        // 4. Administrative Inscriptions
-        setCardLoading('inscriptions-card');
-        try {
-            const inscRes = await fetch(`https://progres.mesrs.dz/api/infos/bac/${uuid}/dias`, { headers: { Authorization: progresToken } });
-            if (!inscRes.ok) throw new Error('Impossible de récupérer les inscriptions administratives.');
-            const inscData = await inscRes.json();
-            let html = `<h3 class='text-xl font-semibold mb-2'>Inscriptions Administratives</h3>`;
-            if (!Array.isArray(inscData) || inscData.length === 0) {
-                html += '<div class="text-gray-500">Aucune inscription trouvée.</div>';
-            } else {
-                html += '<table class="min-w-full text-sm"><thead><tr><th class="px-2 py-1">Année</th><th class="px-2 py-1">Type</th></tr></thead><tbody>';
-                for (const insc of inscData) {
-                    html += `<tr><td class="border px-2 py-1">${insc.anneeAcademiqueCode || ''}</td><td class="border px-2 py-1">${insc.refLibelleTypeInscription || ''}</td></tr>`;
-                }
-                html += '</tbody></table>';
-            }
-            setCardContent('inscriptions-card', html);
-        } catch (err) {
-            setCardError('inscriptions-card', err.message);
-        }
-        // 5. Pedagogical Groups
-        setCardLoading('groups-card');
-        try {
-            const groupsRes = await fetch(`https://progres.mesrs.dz/api/infos/dia/${idDia}/groups`, { headers: { Authorization: progresToken } });
-            if (!groupsRes.ok) throw new Error('Impossible de récupérer les groupes pédagogiques.');
-            const groupsData = await groupsRes.json();
-            let html = `<h3 class='text-xl font-semibold mb-2'>Groupes Pédagogiques</h3>`;
-            if (!Array.isArray(groupsData) || groupsData.length === 0) {
-                html += '<div class="text-gray-500">Aucun groupe trouvé.</div>';
-            } else {
-                html += '<table class="min-w-full text-sm"><thead><tr><th class="px-2 py-1">Groupe</th><th class="px-2 py-1">Année</th></tr></thead><tbody>';
-                for (const group of groupsData) {
-                    html += `<tr><td class="border px-2 py-1">${group.codeGroupePedagogique || ''}</td><td class="border px-2 py-1">${group.annee || ''}</td></tr>`;
-                }
-                html += '</tbody></table>';
-            }
-            setCardContent('groups-card', html);
-        } catch (err) {
-            setCardError('groups-card', err.message);
-        }
-        // 6. Scholarship/Accommodation (if available)
-        setCardLoading('scholarship-card');
-        try {
-            // This is a placeholder; actual endpoint/fields may differ
-            setCardContent('scholarship-card', `<h3 class='text-xl font-semibold mb-2'>Bourse & Hébergement</h3><div class='text-gray-500'>Fonctionnalité à venir / Données non disponibles.</div>`);
-        } catch (err) {
-            setCardError('scholarship-card', err.message);
-        }
-        // 7. Transcript (summary)
+        // 4. Transcript (summary)
         setCardLoading('transcript-card');
         try {
             // For now, summarize annual + semester reports
