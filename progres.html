@@ -111,7 +111,34 @@
         </section>
         <!-- Placeholder for dashboard after login -->
         <section id="progres-dashboard" class="hidden mt-12">
-            <!-- All PROGRES features will be rendered here after login -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Annual Reports Card -->
+                <div class="service-card" id="annual-report-card">
+                    <h3 class="text-xl font-semibold mb-2">Bilans par Année</h3>
+                    <form id="annual-report-form" class="space-y-2 mb-2">
+                        <input type="text" id="annual-uuid" class="w-full px-3 py-2 border rounded" placeholder="UUID étudiant" required>
+                        <input type="text" id="annual-idDia" class="w-full px-3 py-2 border rounded" placeholder="ID Dossier Inscription" required>
+                        <button type="submit" class="w-full py-2 px-4 bg-blue-600 text-white rounded hover:bg-blue-700 transition">Afficher le bilan annuel</button>
+                    </form>
+                    <div id="annual-report-loading" class="text-blue-500 hidden">Chargement...</div>
+                    <div id="annual-report-error" class="text-red-500 hidden"></div>
+                    <div id="annual-report-result" class="overflow-x-auto mt-2"></div>
+                </div>
+                <!-- Semester Reports Card -->
+                <div class="service-card" id="semester-report-card">
+                    <h3 class="text-xl font-semibold mb-2">Bilans par Semestre</h3>
+                    <form id="semester-report-form" class="space-y-2 mb-2">
+                        <input type="text" id="semester-uuid" class="w-full px-3 py-2 border rounded" placeholder="UUID étudiant" required>
+                        <input type="text" id="semester-idDia" class="w-full px-3 py-2 border rounded" placeholder="ID Dossier Inscription" required>
+                        <input type="text" id="semester-idPeriode" class="w-full px-3 py-2 border rounded" placeholder="ID Période (Semestre)" required>
+                        <button type="submit" class="w-full py-2 px-4 bg-blue-600 text-white rounded hover:bg-blue-700 transition">Afficher le bilan semestre</button>
+                    </form>
+                    <div id="semester-report-loading" class="text-blue-500 hidden">Chargement...</div>
+                    <div id="semester-report-error" class="text-red-500 hidden"></div>
+                    <div id="semester-report-result" class="overflow-x-auto mt-2"></div>
+                </div>
+            </div>
+            <!-- More features will be added below -->
         </section>
     </main>
     <footer class="bg-background/80 backdrop-blur-sm py-8 mt-12">
@@ -134,7 +161,7 @@
         const username = document.getElementById('progres-username').value;
         const password = document.getElementById('progres-password').value;
         const errorDiv = document.getElementById('progres-login-error');
-        const button = this.querySelector('button[type="submit"]');
+        const button = this.querySelector('button[type=\"submit\"]');
         errorDiv.classList.add('hidden');
         button.disabled = true;
         button.textContent = 'Connexion...';
@@ -154,13 +181,87 @@
             progresToken = data.token;
             document.getElementById('progres-dashboard').classList.remove('hidden');
             document.querySelector('section.flex').classList.add('hidden');
-            // TODO: Fetch and display dashboard data
         } catch (err) {
             errorDiv.textContent = err.message;
             errorDiv.classList.remove('hidden');
         } finally {
             button.disabled = false;
             button.textContent = 'Se connecter';
+        }
+    });
+
+    // Annual report fetch logic
+    document.getElementById('annual-report-form').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const uuid = document.getElementById('annual-uuid').value;
+        const idDia = document.getElementById('annual-idDia').value;
+        const loading = document.getElementById('annual-report-loading');
+        const errorDiv = document.getElementById('annual-report-error');
+        const resultDiv = document.getElementById('annual-report-result');
+        loading.classList.remove('hidden');
+        errorDiv.classList.add('hidden');
+        resultDiv.innerHTML = '';
+        try {
+            const url = `https://progres.mesrs.dz/api/infos/bac/${uuid}/dias/${idDia}/periode/bilans`;
+            const response = await fetch(url, {
+                headers: { 'Authorization': progresToken }
+            });
+            if (!response.ok) throw new Error('Erreur lors de la récupération du bilan annuel.');
+            const data = await response.json();
+            if (!Array.isArray(data) || data.length === 0) {
+                resultDiv.innerHTML = '<div class="text-gray-500">Aucun bilan trouvé.</div>';
+            } else {
+                // Display as table (show main fields)
+                let table = '<table class="min-w-full text-sm"><thead><tr>';
+                table += '<th class="px-2 py-1">Année</th><th class="px-2 py-1">Moyenne</th><th class="px-2 py-1">Crédits</th><th class="px-2 py-1">Décision</th></tr></thead><tbody>';
+                for (const bilan of data) {
+                    table += `<tr><td class="border px-2 py-1">${bilan.periodeLibelleFr || ''}</td><td class="border px-2 py-1">${bilan.moyenne || ''}</td><td class="border px-2 py-1">${bilan.credit || ''}</td><td class="border px-2 py-1">${bilan.typeDecisionLibelleFr || ''}</td></tr>`;
+                }
+                table += '</tbody></table>';
+                resultDiv.innerHTML = table;
+            }
+        } catch (err) {
+            errorDiv.textContent = err.message;
+            errorDiv.classList.remove('hidden');
+        } finally {
+            loading.classList.add('hidden');
+        }
+    });
+
+    // Semester report fetch logic
+    document.getElementById('semester-report-form').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const uuid = document.getElementById('semester-uuid').value;
+        const idDia = document.getElementById('semester-idDia').value;
+        const idPeriode = document.getElementById('semester-idPeriode').value;
+        const loading = document.getElementById('semester-report-loading');
+        const errorDiv = document.getElementById('semester-report-error');
+        const resultDiv = document.getElementById('semester-report-result');
+        loading.classList.remove('hidden');
+        errorDiv.classList.add('hidden');
+        resultDiv.innerHTML = '';
+        try {
+            const url = `https://progres.mesrs.dz/api/infos/bac/${uuid}/dia/${idDia}/periode/${idPeriode}/bilan`;
+            const response = await fetch(url, {
+                headers: { 'Authorization': progresToken }
+            });
+            if (!response.ok) throw new Error('Erreur lors de la récupération du bilan semestre.');
+            const data = await response.json();
+            if (!data) {
+                resultDiv.innerHTML = '<div class="text-gray-500">Aucun bilan trouvé.</div>';
+            } else {
+                // Display as table (show main fields)
+                let table = '<table class="min-w-full text-sm"><thead><tr>';
+                table += '<th class="px-2 py-1">Semestre</th><th class="px-2 py-1">Moyenne</th><th class="px-2 py-1">Crédits</th><th class="px-2 py-1">Décision</th></tr></thead><tbody>';
+                table += `<tr><td class="border px-2 py-1">${data.periode && data.periode.libelleFr || ''}</td><td class="border px-2 py-1">${data.moyenne || ''}</td><td class="border px-2 py-1">${data.credit || ''}</td><td class="border px-2 py-1">${data.typeDecisionLibelleFr || ''}</td></tr>`;
+                table += '</tbody></table>';
+                resultDiv.innerHTML = table;
+            }
+        } catch (err) {
+            errorDiv.textContent = err.message;
+            errorDiv.classList.remove('hidden');
+        } finally {
+            loading.classList.add('hidden');
         }
     });
     </script>
