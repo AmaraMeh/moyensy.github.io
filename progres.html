@@ -329,12 +329,179 @@
 
     // Main function to fetch and display all PROGRES data after login
     async function fetchAndDisplayAllProgresData() {
-        // 1. Fetch personal info (get UUID, idDia, current year, etc.)
-        // 2. Fetch and display: personal info, bac grades, annual/semester reports, inscriptions, groups, scholarship, transcript
-        // 3. For semester/annual reports, show current year, semester 1 and 2 directly
-        // 4. For transcript, summarize all grades/decisions
-        // ...
-        // (Implementation will be filled in next step)
+        // Helper to set card content
+        function setCardLoading(cardId) {
+            document.getElementById(cardId).innerHTML = '<div class="text-blue-500">Chargement...</div>';
+        }
+        function setCardError(cardId, msg) {
+            document.getElementById(cardId).innerHTML = `<div class='text-red-500'>${msg}</div>`;
+        }
+        function setCardContent(cardId, html) {
+            document.getElementById(cardId).innerHTML = html;
+        }
+        // 1. Personal Info
+        setCardLoading('personal-info-card');
+        let uuid = '', idDia = '', currentYear = '', studentName = '';
+        try {
+            // Fetch administrative inscriptions to get uuid and idDia
+            const inscRes = await fetch('https://progres.mesrs.dz/api/infos/bac/infos', { headers: { Authorization: progresToken } });
+            if (!inscRes.ok) throw new Error('Impossible de récupérer les informations administratives.');
+            const inscData = await inscRes.json();
+            uuid = inscData.uuid;
+            idDia = inscData.dossierInscriptionAdministrativeId;
+            studentName = inscData.nomLatinEtudiant + ' ' + inscData.prenomLatinEtudiant;
+            currentYear = inscData.anneeAcademiqueCode;
+            progresUUID = uuid;
+            progresIdDia = idDia;
+            progresCurrentYear = currentYear;
+            setCardContent('personal-info-card', `
+                <h3 class='text-xl font-semibold mb-2'>Informations Personnelles</h3>
+                <div><b>Nom:</b> ${studentName}</div>
+                <div><b>UUID:</b> ${uuid}</div>
+                <div><b>ID Dossier:</b> ${idDia}</div>
+                <div><b>Année académique:</b> ${currentYear}</div>
+            `);
+        } catch (err) {
+            setCardError('personal-info-card', err.message);
+            return;
+        }
+        // 2. Bac Grades
+        setCardLoading('bac-grades-card');
+        try {
+            const bacRes = await fetch(`https://progres.mesrs.dz/api/infos/bac/${uuid}/notes`, { headers: { Authorization: progresToken } });
+            if (!bacRes.ok) throw new Error('Impossible de récupérer les notes du bac.');
+            const bacData = await bacRes.json();
+            let html = `<h3 class='text-xl font-semibold mb-2'>Notes du Bac</h3>`;
+            if (!Array.isArray(bacData) || bacData.length === 0) {
+                html += '<div class="text-gray-500">Aucune note trouvée.</div>';
+            } else {
+                html += '<table class="min-w-full text-sm"><thead><tr><th class="px-2 py-1">Matière</th><th class="px-2 py-1">Note</th></tr></thead><tbody>';
+                for (const note of bacData) {
+                    html += `<tr><td class="border px-2 py-1">${note.refCodeMatiereLibelleFr || note.refCodeMatiere || ''}</td><td class="border px-2 py-1">${note.Note || ''}</td></tr>`;
+                }
+                html += '</tbody></table>';
+            }
+            setCardContent('bac-grades-card', html);
+        } catch (err) {
+            setCardError('bac-grades-card', err.message);
+        }
+        // 3. Annual and Semester Reports (current year, semester 1 & 2)
+        setCardLoading('annual-report-card');
+        setCardLoading('semester1-report-card');
+        setCardLoading('semester2-report-card');
+        try {
+            // Annual
+            const annualRes = await fetch(`https://progres.mesrs.dz/api/infos/bac/${uuid}/dias/${idDia}/periode/bilans`, { headers: { Authorization: progresToken } });
+            if (!annualRes.ok) throw new Error('Erreur lors de la récupération du bilan annuel.');
+            const annualData = await annualRes.json();
+            let annualHtml = `<h3 class='text-xl font-semibold mb-2'>Bilan Annuel (${currentYear})</h3>`;
+            if (!Array.isArray(annualData) || annualData.length === 0) {
+                annualHtml += '<div class="text-gray-500">Aucun bilan trouvé.</div>';
+            } else {
+                annualHtml += '<table class="min-w-full text-sm"><thead><tr><th class="px-2 py-1">Année</th><th class="px-2 py-1">Moyenne</th><th class="px-2 py-1">Crédits</th><th class="px-2 py-1">Décision</th></tr></thead><tbody>';
+                for (const bilan of annualData) {
+                    if (bilan.periodeLibelleFr && bilan.periodeLibelleFr.includes(currentYear)) {
+                        annualHtml += `<tr><td class="border px-2 py-1">${bilan.periodeLibelleFr}</td><td class="border px-2 py-1">${bilan.moyenne || ''}</td><td class="border px-2 py-1">${bilan.credit || ''}</td><td class="border px-2 py-1">${bilan.typeDecisionLibelleFr || ''}</td></tr>`;
+                    }
+                }
+                annualHtml += '</tbody></table>';
+            }
+            setCardContent('annual-report-card', annualHtml);
+            // Semester 1 & 2
+            let sem1Id = '', sem2Id = '';
+            if (Array.isArray(annualData) && annualData.length > 0) {
+                for (const bilan of annualData) {
+                    if (bilan.sessions && bilan.sessions.length > 0) {
+                        for (const session of bilan.sessions) {
+                            if (session.periodeLibelleFr && session.periodeLibelleFr.includes('Semestre 1')) sem1Id = session.periodeId;
+                            if (session.periodeLibelleFr && session.periodeLibelleFr.includes('Semestre 2')) sem2Id = session.periodeId;
+                        }
+                    }
+                }
+            }
+            // Semester 1
+            if (sem1Id) {
+                const sem1Res = await fetch(`https://progres.mesrs.dz/api/infos/bac/${uuid}/dia/${idDia}/periode/${sem1Id}/bilan`, { headers: { Authorization: progresToken } });
+                const sem1Data = await sem1Res.json();
+                let sem1Html = `<h3 class='text-xl font-semibold mb-2'>Bilan Semestre 1 (${currentYear})</h3>`;
+                sem1Html += `<div><b>Moyenne:</b> ${sem1Data.moyenne || ''}</div><div><b>Crédits:</b> ${sem1Data.credit || ''}</div><div><b>Décision:</b> ${sem1Data.typeDecisionLibelleFr || ''}</div>`;
+                setCardContent('semester1-report-card', sem1Html);
+            } else {
+                setCardContent('semester1-report-card', '<div class="text-gray-500">Aucun bilan Semestre 1 trouvé.</div>');
+            }
+            // Semester 2
+            if (sem2Id) {
+                const sem2Res = await fetch(`https://progres.mesrs.dz/api/infos/bac/${uuid}/dia/${idDia}/periode/${sem2Id}/bilan`, { headers: { Authorization: progresToken } });
+                const sem2Data = await sem2Res.json();
+                let sem2Html = `<h3 class='text-xl font-semibold mb-2'>Bilan Semestre 2 (${currentYear})</h3>`;
+                sem2Html += `<div><b>Moyenne:</b> ${sem2Data.moyenne || ''}</div><div><b>Crédits:</b> ${sem2Data.credit || ''}</div><div><b>Décision:</b> ${sem2Data.typeDecisionLibelleFr || ''}</div>`;
+                setCardContent('semester2-report-card', sem2Html);
+            } else {
+                setCardContent('semester2-report-card', '<div class="text-gray-500">Aucun bilan Semestre 2 trouvé.</div>');
+            }
+        } catch (err) {
+            setCardError('annual-report-card', err.message);
+            setCardError('semester1-report-card', err.message);
+            setCardError('semester2-report-card', err.message);
+        }
+        // 4. Administrative Inscriptions
+        setCardLoading('inscriptions-card');
+        try {
+            const inscRes = await fetch(`https://progres.mesrs.dz/api/infos/bac/${uuid}/dias`, { headers: { Authorization: progresToken } });
+            if (!inscRes.ok) throw new Error('Impossible de récupérer les inscriptions administratives.');
+            const inscData = await inscRes.json();
+            let html = `<h3 class='text-xl font-semibold mb-2'>Inscriptions Administratives</h3>`;
+            if (!Array.isArray(inscData) || inscData.length === 0) {
+                html += '<div class="text-gray-500">Aucune inscription trouvée.</div>';
+            } else {
+                html += '<table class="min-w-full text-sm"><thead><tr><th class="px-2 py-1">Année</th><th class="px-2 py-1">Type</th></tr></thead><tbody>';
+                for (const insc of inscData) {
+                    html += `<tr><td class="border px-2 py-1">${insc.anneeAcademiqueCode || ''}</td><td class="border px-2 py-1">${insc.refLibelleTypeInscription || ''}</td></tr>`;
+                }
+                html += '</tbody></table>';
+            }
+            setCardContent('inscriptions-card', html);
+        } catch (err) {
+            setCardError('inscriptions-card', err.message);
+        }
+        // 5. Pedagogical Groups
+        setCardLoading('groups-card');
+        try {
+            const groupsRes = await fetch(`https://progres.mesrs.dz/api/infos/dia/${idDia}/groups`, { headers: { Authorization: progresToken } });
+            if (!groupsRes.ok) throw new Error('Impossible de récupérer les groupes pédagogiques.');
+            const groupsData = await groupsRes.json();
+            let html = `<h3 class='text-xl font-semibold mb-2'>Groupes Pédagogiques</h3>`;
+            if (!Array.isArray(groupsData) || groupsData.length === 0) {
+                html += '<div class="text-gray-500">Aucun groupe trouvé.</div>';
+            } else {
+                html += '<table class="min-w-full text-sm"><thead><tr><th class="px-2 py-1">Groupe</th><th class="px-2 py-1">Année</th></tr></thead><tbody>';
+                for (const group of groupsData) {
+                    html += `<tr><td class="border px-2 py-1">${group.codeGroupePedagogique || ''}</td><td class="border px-2 py-1">${group.annee || ''}</td></tr>`;
+                }
+                html += '</tbody></table>';
+            }
+            setCardContent('groups-card', html);
+        } catch (err) {
+            setCardError('groups-card', err.message);
+        }
+        // 6. Scholarship/Accommodation (if available)
+        setCardLoading('scholarship-card');
+        try {
+            // This is a placeholder; actual endpoint/fields may differ
+            setCardContent('scholarship-card', `<h3 class='text-xl font-semibold mb-2'>Bourse & Hébergement</h3><div class='text-gray-500'>Fonctionnalité à venir / Données non disponibles.</div>`);
+        } catch (err) {
+            setCardError('scholarship-card', err.message);
+        }
+        // 7. Transcript (summary)
+        setCardLoading('transcript-card');
+        try {
+            // For now, summarize annual + semester reports
+            let html = `<h3 class='text-xl font-semibold mb-2'>Relevé de Notes (Transcript)</h3>`;
+            html += '<div class="text-gray-500">Fonctionnalité à venir / Export PDF bientôt disponible.</div>';
+            setCardContent('transcript-card', html);
+        } catch (err) {
+            setCardError('transcript-card', err.message);
+        }
     }
     </script>
 </body>
