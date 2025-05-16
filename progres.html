@@ -112,33 +112,16 @@
         <!-- Placeholder for dashboard after login -->
         <section id="progres-dashboard" class="hidden mt-12">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- Annual Reports Card -->
-                <div class="service-card" id="annual-report-card">
-                    <h3 class="text-xl font-semibold mb-2">Bilans par Année</h3>
-                    <form id="annual-report-form" class="space-y-2 mb-2">
-                        <input type="text" id="annual-uuid" class="w-full px-3 py-2 border rounded" placeholder="UUID étudiant" required>
-                        <input type="text" id="annual-idDia" class="w-full px-3 py-2 border rounded" placeholder="ID Dossier Inscription" required>
-                        <button type="submit" class="w-full py-2 px-4 bg-blue-600 text-white rounded hover:bg-blue-700 transition">Afficher le bilan annuel</button>
-                    </form>
-                    <div id="annual-report-loading" class="text-blue-500 hidden">Chargement...</div>
-                    <div id="annual-report-error" class="text-red-500 hidden"></div>
-                    <div id="annual-report-result" class="overflow-x-auto mt-2"></div>
-                </div>
-                <!-- Semester Reports Card -->
-                <div class="service-card" id="semester-report-card">
-                    <h3 class="text-xl font-semibold mb-2">Bilans par Semestre</h3>
-                    <form id="semester-report-form" class="space-y-2 mb-2">
-                        <input type="text" id="semester-uuid" class="w-full px-3 py-2 border rounded" placeholder="UUID étudiant" required>
-                        <input type="text" id="semester-idDia" class="w-full px-3 py-2 border rounded" placeholder="ID Dossier Inscription" required>
-                        <input type="text" id="semester-idPeriode" class="w-full px-3 py-2 border rounded" placeholder="ID Période (Semestre)" required>
-                        <button type="submit" class="w-full py-2 px-4 bg-blue-600 text-white rounded hover:bg-blue-700 transition">Afficher le bilan semestre</button>
-                    </form>
-                    <div id="semester-report-loading" class="text-blue-500 hidden">Chargement...</div>
-                    <div id="semester-report-error" class="text-red-500 hidden"></div>
-                    <div id="semester-report-result" class="overflow-x-auto mt-2"></div>
-                </div>
+                <div class="service-card" id="personal-info-card"></div>
+                <div class="service-card" id="bac-grades-card"></div>
+                <div class="service-card" id="annual-report-card"></div>
+                <div class="service-card" id="semester1-report-card"></div>
+                <div class="service-card" id="semester2-report-card"></div>
+                <div class="service-card" id="inscriptions-card"></div>
+                <div class="service-card" id="groups-card"></div>
+                <div class="service-card" id="scholarship-card"></div>
+                <div class="service-card col-span-1 md:col-span-2" id="transcript-card"></div>
             </div>
-            <!-- More features will be added below -->
         </section>
     </main>
     <footer class="bg-background/80 backdrop-blur-sm py-8 mt-12">
