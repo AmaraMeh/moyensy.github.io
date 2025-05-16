@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hydraulique - Semestre 2</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <style>
+        :root {
+            --background: 0 0% 100%;
+            --foreground: 222.2 84% 4.9%;
+            --card: 0 0% 100%;
+            --card-foreground: 222.2 84% 4.9%;
+            --primary: 221.2 83.2% 53.3%;
+            --primary-foreground: 210 40% 98%;
+            --secondary: 210 40% 96.1%;
+            --secondary-foreground: 222.2 47.4% 11.2%;
+            --muted: 210 40% 96.1%;
+            --muted-foreground: 215.4 16.3% 46.9%;
+            --accent: 210 40% 96.1%;
+            --accent-foreground: 222.2 47.4% 11.2%;
+            --border: 214.3 31.8% 91.4%;
+            --input: 214.3 31.8% 91.4%;
+            --ring: 221.2 83.2% 53.3%;
+            --radius: 0.5rem;
+        }
+        .dark {
+            --background: 222.2 84% 4.9%;
+            --foreground: 210 40% 98%;
+            --card: 222.2 84% 4.9%;
+            --card-foreground: 210 40% 98%;
+            --primary: 217.2 91.2% 59.8%;
+            --primary-foreground: 222.2 47.4% 11.2%;
+            --secondary: 217.2 32.6% 17.5%;
+            --secondary-foreground: 210 40% 98%;
+            --muted: 217.2 32.6% 17.5%;
+            --muted-foreground: 215 20.2% 65.1%;
+            --accent: 217.2 32.6% 17.5%;
+            --accent-foreground: 210 40% 98%;
+            --border: 217.2 32.6% 17.5%;
+            --input: 217.2 32.6% 17.5%;
+            --ring: 224.3 76.3% 48%;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: hsl(var(--background));
+            color: hsl(var(--foreground));
+            min-height: 100vh;
+            -webkit-tap-highlight-color: transparent;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            z-index: -10;
+            overflow: hidden;
+        }
+        .gradient-blob {
+            position: absolute;
+            border-radius: 9999px;
+            filter: blur(60px);
+            opacity: 0.5;
+        }
+        .gradient-blob-1 {
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 500px;
+            background: linear-gradient(to bottom right, hsl(var(--primary) / 0.4), hsl(var(--ring) / 0.2), hsl(var(--accent) / 0.1));
+            transform: translateY(-50%);
+        }
+        .gradient-blob-2 {
+            bottom: 0;
+            right: 0;
+            width: 500px;
+            height: 500px;
+            background: linear-gradient(to top right, hsl(var(--ring) / 0.3), hsl(var(--accent) / 0.2), transparent);
+        }
+        .floating-dot {
+            position: absolute;
+            border-radius: 9999px;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+        .module-card {
+            background: hsl(var(--card) / 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid hsl(var(--border));
+            border-radius: var(--radius);
+            padding: 2.5rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: visible;
+        }
+        .module-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            border-color: hsl(var(--primary));
+        }
+        .module-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(45deg, hsl(var(--primary) / 0.1), hsl(var(--ring) / 0.1), hsl(var(--accent) / 0.1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .module-card:hover::after {
+            opacity: 1;
+        }
+        .module-icon {
+            margin: 0 auto 2rem;
+            width: 120px;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--ring)));
+            border-radius: 50%;
+            color: hsl(var(--primary-foreground));
+            transition: all 0.3s ease;
+            position: relative;
+            box-shadow: 0 8px 16px hsl(var(--primary) / 0.2);
+            font-size: 2.5rem;
+        }
+        .module-icon::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: inherit;
+            filter: blur(20px);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .module-card:hover .module-icon::after {
+            opacity: 0.5;
+        }
+        .module-card:hover .module-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+        .module-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: white;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            position: relative;
+            z-index: 1;
+        }
+        .module-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        .module-btn i {
+            margin-right: 0.5rem;
+        }
+        .popup {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 50;
+            padding: 1rem;
+        }
+        .popup.active {
+            display: flex;
+        }
+        .popup-content {
+            background: hsl(var(--card));
+            border: 1px solid hsl(var(--border));
+            border-radius: var(--radius);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+        .popup.active .popup-content {
+            transform: scale(1);
+        }
+        .popup-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid hsl(var(--border));
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            background: hsl(var(--card));
+            z-index: 1;
+        }
+        .popup-header h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--ring)));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .popup-body {
+            padding: 1.5rem;
+        }
+        .close-popup-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            background: hsl(var(--error));
+            color: white;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        .close-popup-btn:hover {
+            background: hsl(var(--error) / 0.9);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+    <!-- Hero Background -->
+    <div class="hero-bg">
+        <div class="gradient-blob gradient-blob-1"></div>
+        <div class="gradient-blob gradient-blob-2"></div>
+        <div class="floating-dot w-4 h-4 bg-blue-500 top-1/4 left-1/4"></div>
+        <div class="floating-dot w-3 h-3 bg-purple-500 top-1/3 right-1/4"></div>
+        <div class="floating-dot w-2 h-2 bg-green-500 bottom-1/4 left-1/3"></div>
+        <div class="floating-dot w-3 h-3 bg-amber-500 top-2/3 right-1/3"></div>
+    </div>
+    <div class="floating-particles" id="particles"></div>
+    <div class="container mx-auto px-4 flex-grow">
+        <header class="mb-12 mt-8" data-aos="fade-down">
+            <div class="header-container flex justify-between items-center">
+                <a href="bib.html" class="back-button hover:scale-110 transform transition-all duration-300">
+                    <i class="fas fa-arrow-left"></i>
+                    Retour
+                </a>
+            </div>
+        </header>
+        <div class="glass-card" data-aos="fade-up">
+            <h1 class="text-3xl font-bold mb-8 text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600">Hydraulique - Semestre 2</h1>
+            <div id="moduleContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4 sm:gap-6 mb-8">
+                <!-- Mathématiques 2 -->
+                <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="module-icon bg-purple-100 p-3 rounded-full text-purple-600">
+                            <i class="fas fa-square-root-alt fa-lg"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800">Mathématiques 2</h3>
+                    </div>
+                    <div class="mt-auto flex flex-wrap gap-2">
+                        <button type="button" class="module-btn bg-purple-500 hover:bg-purple-600" onclick="showContent('Mathématiques 2')">
+                            <i class="fas fa-book mr-1"></i> Voir contenu
+                        </button>
+                    </div>
+                </div>
+                <!-- Physique 2 -->
+                <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="module-icon bg-blue-100 p-3 rounded-full text-blue-600">
+                            <i class="fas fa-atom fa-lg"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800">Physique 2</h3>
+                    </div>
+                    <div class="mt-auto flex flex-wrap gap-2">
+                        <button type="button" class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('Physique 2')">
+                            <i class="fas fa-book mr-1"></i> Voir contenu
+                        </button>
+                    </div>
+                </div>
+                <!-- Thermodynamique -->
+                <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="module-icon bg-red-100 p-3 rounded-full text-red-600">
+                            <i class="fas fa-fire fa-lg"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800">Thermodynamique</h3>
+                    </div>
+                    <div class="mt-auto flex flex-wrap gap-2">
+                        <button type="button" class="module-btn bg-red-500 hover:bg-red-600" onclick="showContent('Thermodynamique')">
+                            <i class="fas fa-book mr-1"></i> Voir contenu
+                        </button>
+                    </div>
+                </div>
+                <!-- TP Physique 2 -->
+                <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="module-icon bg-green-100 p-3 rounded-full text-green-600">
+                            <i class="fas fa-flask fa-lg"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800">TP Physique 2</h3>
+                    </div>
+                    <div class="mt-auto flex flex-wrap gap-2">
+                        <button type="button" class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('TP Physique 2')">
+                            <i class="fas fa-book mr-1"></i> Voir contenu
+                        </button>
+                    </div>
+                </div>
+                <!-- TP Chimie 2 -->
+                <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="module-icon bg-green-100 p-3 rounded-full text-green-600">
+                            <i class="fas fa-vial fa-lg"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800">TP Chimie 2</h3>
+                    </div>
+                    <div class="mt-auto flex flex-wrap gap-2">
+                        <button type="button" class="module-btn bg-green-500 hover:bg-green-600" onclick="showContent('TP Chimie 2')">
+                            <i class="fas fa-book mr-1"></i> Voir contenu
+                        </button>
+                    </div>
+                </div>
+                <!-- Informatique 2 -->
+                <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="module-icon bg-gray-100 p-3 rounded-full text-gray-600">
+                            <i class="fas fa-desktop fa-lg"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800">Informatique 2</h3>
+                    </div>
+                    <div class="mt-auto flex flex-wrap gap-2">
+                        <button type="button" class="module-btn bg-gray-700 hover:bg-gray-800" onclick="showContent('Informatique 2')">
+                            <i class="fas fa-book mr-1"></i> Voir contenu
+                        </button>
+                    </div>
+                </div>
+                <!-- Méthodologie de la présentation -->
+                <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="module-icon bg-yellow-100 p-3 rounded-full text-yellow-600">
+                            <i class="fas fa-chalkboard-teacher fa-lg"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800">Méthodologie de la présentation</h3>
+                    </div>
+                    <div class="mt-auto flex flex-wrap gap-2">
+                        <button type="button" class="module-btn bg-yellow-500 hover:bg-yellow-600" onclick="showContent('Méthodologie de la présentation')">
+                            <i class="fas fa-book mr-1"></i> Voir contenu
+                        </button>
+                    </div>
+                </div>
+                <!-- Les métiers en sciences et technologies 2 -->
+                <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="module-icon bg-pink-100 p-3 rounded-full text-pink-600">
+                            <i class="fas fa-briefcase fa-lg"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800">Les métiers en sciences et technologies 2</h3>
+                    </div>
+                    <div class="mt-auto flex flex-wrap gap-2">
+                        <button type="button" class="module-btn bg-pink-500 hover:bg-pink-600" onclick="showContent('Les métiers en sciences et technologies 2')">
+                            <i class="fas fa-book mr-1"></i> Voir contenu
+                        </button>
+                    </div>
+                </div>
+                <!-- Langue étrangère 2 -->
+                <div class="module-card p-5 flex flex-col transform transition-all duration-300 hover:scale-105">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="module-icon bg-blue-100 p-3 rounded-full text-blue-600">
+                            <i class="fas fa-language fa-lg"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800">Langue étrangère 2<br><span class="text-base font-normal">(Français et/ou anglais)</span></h3>
+                    </div>
+                    <div class="mt-auto flex flex-wrap gap-2">
+                        <button type="button" class="module-btn bg-blue-500 hover:bg-blue-600" onclick="showContent('Langue étrangère 2')">
+                            <i class="fas fa-book mr-1"></i> Voir contenu
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Popup for module content -->
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <div class="popup-header">
+                <h2 id="popup-title"></h2>
+                <button type="button" class="close-popup-btn" onclick="closePopup()">
+                    <i class="fas fa-times"></i> <span>Fermer</span>
+                </button>
+            </div>
+            <div class="popup-body" id="popup-body">
+                <p>Contenu non disponible pour le moment.</p>
+            </div>
+        </div>
+    </div>
+    <footer class="text-center text-gray-600 text-sm py-4">
+        <div>&copy; 2025 Université de Bejaia. Développé par Amara Mehdi</div>
+    </footer>
+    <button class="theme-toggle" onclick="toggleTheme()" style="position: fixed; bottom: 1rem; right: 1rem; z-index: 100; width: 3rem; height: 3rem; border-radius: 9999px; background: hsl(var(--card)); border: 1px solid hsl(var(--border)); display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1); cursor: pointer;">
+        <i class="fas fa-moon"></i>
+    </button>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            AOS.init({ duration: 800, once: true });
+            createParticles();
+            // Theme preference
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark');
+                document.querySelector('.theme-toggle i').classList.replace('fa-moon', 'fa-sun');
+            }
+            // Popup close on outside click
+            document.getElementById('popup').addEventListener('click', function(e) {
+                if (e.target === this) closePopup();
+            });
+            // Popup close on Escape
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && document.getElementById('popup').classList.contains('active')) closePopup();
+            });
+            // Hash navigation highlight
+            if (window.location.hash) {
+                const moduleId = window.location.hash.substring(1);
+                const moduleElement = document.getElementById(moduleId);
+                if (moduleElement) {
+                    setTimeout(() => {
+                        moduleElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        moduleElement.classList.add('highlight-module');
+                        setTimeout(() => moduleElement.classList.remove('highlight-module'), 2000);
+                    }, 500);
+                }
+            }
+        });
+        function showContent(moduleName) {
+            document.getElementById('popup-title').textContent = moduleName;
+            document.getElementById('popup-body').innerHTML = '<p>Contenu non disponible pour le moment.</p>';
+            document.getElementById('popup').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closePopup() {
+            document.getElementById('popup').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        function toggleTheme() {
+            const body = document.body;
+            const themeToggle = document.querySelector('.theme-toggle i');
+            if (body.classList.contains('dark')) {
+                body.classList.remove('dark');
+                themeToggle.classList.remove('fa-sun');
+                themeToggle.classList.add('fa-moon');
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.classList.add('dark');
+                themeToggle.classList.remove('fa-moon');
+                themeToggle.classList.add('fa-sun');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            particlesContainer.innerHTML = '';
+            const colors = ['#3b82f6', '#8b5cf6', '#ec4899', '#10b981', '#f59e0b'];
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.left = `${Math.random() * 100}vw`;
+                particle.style.top = `${Math.random() * 100}vh`;
+                particle.style.width = `${Math.random() * 3 + 1}px`;
+                particle.style.height = particle.style.width;
+                particlesContainer.appendChild(particle);
+                // Animate particle
+                const duration = Math.random() * 20 + 10;
+                const delay = Math.random() * 5;
+                particle.animate([
+                    { transform: 'translate(0, 0)' },
+                    { transform: `translate(${Math.random() * 200 - 100}px, ${Math.random() * 200 - 100}px)` }
+                ], {
+                    duration: duration * 1000,
+                    delay: delay * 1000,
+                    iterations: Infinity,
+                    direction: 'alternate',
+                    easing: 'ease-in-out'
+                });
+            }
+        }
+        function shareModule(moduleName, moduleId) {
+            const url = new URL(window.location.href);
+            url.hash = moduleId;
+            if (navigator.share) {
+                navigator.share({
+                    title: `${moduleName} - Hydraulique S2`,
+                    text: `Consultez les ressources de ${moduleName} sur notre plateforme`,
+                    url: url.toString()
+                }).catch(console.error);
+            } else {
+                navigator.clipboard.writeText(url.toString()).then(() => {
+                    showShareToast('Lien copié dans le presse-papiers !');
+                }).catch(() => {
+                    showShareToast('Erreur lors de la copie du lien');
+                });
+            }
+        }
+        function showShareToast(message) {
+            const toast = document.createElement('div');
+            toast.className = 'share-toast';
+            toast.innerHTML = `<i class="fas fa-check-circle text-green-400"></i><span>${message}</span>`;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.classList.add('show'), 100);
+            setTimeout(() => { toast.classList.remove('show'); setTimeout(() => toast.remove(), 300); }, 3000);
+        }
+        // Highlight animation
+        const style = document.createElement('style');
+        style.textContent = `@keyframes highlight {0%{transform:scale(1);}50%{transform:scale(1.05);box-shadow:0 0 30px rgba(59,130,246,0.5);}100%{transform:scale(1);}}.highlight-module{animation:highlight 2s ease;}`;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html> 
