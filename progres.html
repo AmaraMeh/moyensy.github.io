@@ -151,10 +151,20 @@
             </div>
         </div>
     </footer>
+    <!-- Add theme toggle button and floating particles -->
+    <button class="theme-toggle" onclick="toggleTheme()" style="position: fixed; bottom: 1rem; right: 1rem; z-index: 50;">
+        <i class="fas fa-moon"></i>
+    </button>
+    <div class="floating-particles" id="particles"></div>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>AOS.init();</script>
     <script>
     let progresToken = null;
+    let progresUUID = null;
+    let progresIdDia = null;
+    let progresCurrentYear = null;
+    let progresSemesters = [];
+    let progresTranscript = null;
     // Handle login form submission (API integration)
     document.getElementById('progres-login-form').addEventListener('submit', async function(e) {
         e.preventDefault();
@@ -181,6 +191,8 @@
             progresToken = data.token;
             document.getElementById('progres-dashboard').classList.remove('hidden');
             document.querySelector('section.flex').classList.add('hidden');
+            // Fetch all user info and dashboard data automatically
+            await fetchAndDisplayAllProgresData();
         } catch (err) {
             errorDiv.textContent = err.message;
             errorDiv.classList.remove('hidden');
@@ -264,6 +276,66 @@
             loading.classList.add('hidden');
         }
     });
+
+    // Theme toggle functionality (copied from index.html)
+    function toggleTheme() {
+        const body = document.body;
+        const themeToggle = document.querySelector('.theme-toggle i');
+        if (body.classList.contains('dark')) {
+            body.classList.remove('dark');
+            themeToggle.classList.remove('fa-sun');
+            themeToggle.classList.add('fa-moon');
+            localStorage.setItem('theme', 'light');
+        } else {
+            body.classList.add('dark');
+            themeToggle.classList.remove('fa-moon');
+            themeToggle.classList.add('fa-sun');
+            localStorage.setItem('theme', 'dark');
+        }
+    }
+    // Check for saved theme preference
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+        document.body.classList.add('dark');
+        document.querySelector('.theme-toggle i').classList.replace('fa-moon', 'fa-sun');
+    }
+    // Create floating particles (copied from index.html)
+    function createParticles() {
+        const particlesContainer = document.getElementById('particles');
+        const colors = ['#3b82f6', '#8b5cf6', '#ec4899', '#10b981', '#f59e0b'];
+        for (let i = 0; i < 30; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            const x = Math.random() * 100;
+            const y = Math.random() * 100;
+            const size = Math.random() * 5 + 2;
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            const moveX = (Math.random() - 0.5) * 50;
+            const moveY = (Math.random() - 0.5) * 50;
+            particle.style.cssText = `
+                left: ${x}%;
+                top: ${y}%;
+                width: ${size}px;
+                height: ${size}px;
+                background-color: ${color};
+                --x: ${moveX}px;
+                --y: ${moveY}px;
+                animation-delay: ${Math.random() * 5}s;
+            `;
+            particlesContainer.appendChild(particle);
+        }
+    }
+    createParticles();
+
+    // Main function to fetch and display all PROGRES data after login
+    async function fetchAndDisplayAllProgresData() {
+        // 1. Fetch personal info (get UUID, idDia, current year, etc.)
+        // 2. Fetch and display: personal info, bac grades, annual/semester reports, inscriptions, groups, scholarship, transcript
+        // 3. For semester/annual reports, show current year, semester 1 and 2 directly
+        // 4. For transcript, summarize all grades/decisions
+        // ...
+        // (Implementation will be filled in next step)
+    }
     </script>
 </body>
 </html> 
