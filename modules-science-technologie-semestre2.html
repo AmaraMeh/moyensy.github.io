@@ -7,17 +7,16 @@
     <!-- Add Firebase SDK -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, collection, doc, getDoc, setDoc, increment } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getFirestore, collection, doc, getDoc, setDoc, increment, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
         // Your web app's Firebase configuration
         const firebaseConfig = {
-            apiKey: "AIzaSyB5XYqWKhHdiVDXJx4iOwtpxD8eUCPRfKU",
-            authDomain: "universite-de-bejaia-547fc.firebaseapp.com",
-            projectId: "universite-de-bejaia-547fc",
-            storageBucket: "universite-de-bejaia-547fc.appspot.com",
-            messagingSenderId: "517622731583",
-            appId: "1:517622731583:web:25453d5e01226585bf798a",
-            measurementId: "G-SQ0WWSCS7B"
+            apiKey: "AIzaSyAfI6CuKUzkW-FETIVTexTlYPLZ0HixnOQ",
+            authDomain: "sample-firebase-ai-app-929dd.firebaseapp.com",
+            projectId: "sample-firebase-ai-app-929dd",
+            storageBucket: "sample-firebase-ai-app-929dd.firebasestorage.app",
+            messagingSenderId: "980647438529",
+            appId: "1:980647438529:web:731a26901f907f102c4c40"
         };
 
         // Initialize Firebase
@@ -26,36 +25,27 @@
 
         // Function to update download count
         window.updateDownloadCount = async function() {
-            const counterRef = doc(db, 'counters', 'downloads');
+            const counterRef = doc(db, 'counters', 'science_tech');
             const counterDoc = await getDoc(counterRef);
             
             if (!counterDoc.exists()) {
-                // Initialize counter if it doesn't exist
-                await setDoc(counterRef, { count: 0 });
+                await setDoc(counterRef, { count: 30000 });
             }
             
-            // Increment the counter
             await setDoc(counterRef, { count: increment(1) }, { merge: true });
         };
 
         // Listen for changes in download count
-        const counterRef = doc(db, 'counters', 'downloads');
-        const updateCounter = async () => {
-            const counterDoc = await getDoc(counterRef);
-            const count = counterDoc.exists() ? counterDoc.data().count : 0;
+        const counterRef = doc(db, 'counters', 'science_tech');
+        onSnapshot(counterRef, (doc) => {
+            const count = doc.exists() ? doc.data().count : 30000;
             const counter = document.getElementById('downloadCount');
-            counter.textContent = count;
-            
-            // Add animation effect
-            counter.classList.add('animate-bounce');
-            setTimeout(() => counter.classList.remove('animate-bounce'), 1000);
-        };
-
-        // Initial update
-        updateCounter();
-
-        // Set up real-time listener
-        setInterval(updateCounter, 2000); // Update every 2 seconds
+            if (counter) {
+                counter.textContent = count;
+                counter.classList.add('animate-bounce');
+                setTimeout(() => counter.classList.remove('animate-bounce'), 1000);
+            }
+        });
     </script>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -1211,18 +1201,6 @@
         </div>
 
         <!-- Footer Banner 2 -->
-        <div class="flex justify-center">
-            <script type="text/javascript">
-                atOptions = {
-                    'key' : '869717dd7595664af8ec12f26a83e2d3',
-                    'format' : 'iframe',
-                    'height' : 50,
-                    'width' : 320,
-                    'params' : {}
-                };
-            </script>
-            <script type="text/javascript" src="//www.highperformanceformat.com/869717dd7595664af8ec12f26a83e2d3/invoke.js"></script>
-        </div>
         <div class="flex justify-center">
             <script type="text/javascript">
                 atOptions = {

@@ -2044,43 +2044,45 @@
     </script>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, doc, getDoc, setDoc, increment } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getFirestore, doc, getDoc, setDoc, increment, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
+        // Your web app's Firebase configuration
         const firebaseConfig = {
-            apiKey: "AIzaSyB5XYqWKhHdiVDXJx4iOwtpxD8eUCPRfKU",
-            authDomain: "universite-de-bejaia-547fc.firebaseapp.com",
-            projectId: "universite-de-bejaia-547fc",
-            storageBucket: "universite-de-bejaia-547fc.appspot.com",
-            messagingSenderId: "517622731583",
-            appId: "1:517622731583:web:25453d5e01226585bf798a",
-            measurementId: "G-SQ0WWSCS7B"
+            apiKey: "AIzaSyAfI6CuKUzkW-FETIVTexTlYPLZ0HixnOQ",
+            authDomain: "sample-firebase-ai-app-929dd.firebaseapp.com",
+            projectId: "sample-firebase-ai-app-929dd",
+            storageBucket: "sample-firebase-ai-app-929dd.firebasestorage.app",
+            messagingSenderId: "980647438529",
+            appId: "1:980647438529:web:731a26901f907f102c4c40"
         };
 
+        // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
         // Function to update resource count
         window.updateBioResourceCount = async function() {
-            const counterRef = doc(db, 'counters', 'biologie_resources');
+            const counterRef = doc(db, 'counters', 'biologie');
             const counterDoc = await getDoc(counterRef);
+            
             if (!counterDoc.exists()) {
-                await setDoc(counterRef, { count: 0 });
+                await setDoc(counterRef, { count: 30000 });
             }
+            
             await setDoc(counterRef, { count: increment(3) }, { merge: true });
         };
 
         // Listen for changes in resource count
-        const counterRef = doc(db, 'counters', 'biologie_resources');
-        const updateCounter = async () => {
-            const counterDoc = await getDoc(counterRef);
-            const count = counterDoc.exists() ? counterDoc.data().count : 0;
+        const counterRef = doc(db, 'counters', 'biologie');
+        onSnapshot(counterRef, (doc) => {
+            const count = doc.exists() ? doc.data().count : 30000;
             const counter = document.getElementById('bioDownloadCount');
-            if (counter) counter.textContent = count;
-            counter.classList.add('animate-bounce');
-            setTimeout(() => counter.classList.remove('animate-bounce'), 1000);
-        };
-        updateCounter();
-        setInterval(updateCounter, 2000);
+            if (counter) {
+                counter.textContent = count;
+                counter.classList.add('animate-bounce');
+                setTimeout(() => counter.classList.remove('animate-bounce'), 1000);
+            }
+        });
     </script>
     <script>
         window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
