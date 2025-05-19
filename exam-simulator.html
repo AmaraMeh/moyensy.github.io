@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Simulateur d'Examen - Méthodologie de la Présentation</title>
+    <meta name="description" content="Simulateur d'examen pour la révision des étudiants en Méthodologie de la Présentation">
+    <meta name="author" content="Amara Mehdi">
+    <link rel="icon" type="image/png" href="assets/img/icon.png">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --background: 0 0% 100%;
+            --foreground: 222.2 84% 4.9%;
+            --card: 0 0% 100%;
+            --card-foreground: 222.2 84% 4.9%;
+            --primary: 221.2 83.2% 53.3%;
+            --primary-foreground: 210 40% 98%;
+            --secondary: 210 40% 96.1%;
+            --secondary-foreground: 222.2 47.4% 11.2%;
+            --muted: 210 40% 96.1%;
+            --muted-foreground: 215.4 16.3% 46.9%;
+            --accent: 210 40% 96.1%;
+            --accent-foreground: 222.2 47.4% 11.2%;
+            --border: 214.3 31.8% 91.4%;
+            --input: 214.3 31.8% 91.4%;
+            --ring: 221.2 83.2% 53.3%;
+            --radius: 0.5rem;
+        }
+
+        .dark {
+            --background: 222.2 84% 4.9%;
+            --foreground: 210 40% 98%;
+            --card: 222.2 84% 4.9%;
+            --card-foreground: 210 40% 98%;
+            --primary: 217.2 91.2% 59.8%;
+            --primary-foreground: 222.2 47.4% 11.2%;
+            --secondary: 217.2 32.6% 17.5%;
+            --secondary-foreground: 210 40% 98%;
+            --muted: 217.2 32.6% 17.5%;
+            --muted-foreground: 215 20.2% 65.1%;
+            --accent: 217.2 32.6% 17.5%;
+            --accent-foreground: 210 40% 98%;
+            --border: 217.2 32.6% 17.5%;
+            --input: 217.2 32.6% 17.5%;
+            --ring: 224.3 76.3% 48%;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: hsl(var(--background));
+            color: hsl(var(--foreground));
+            min-height: 100vh;
+            -webkit-tap-highlight-color: transparent;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .exam-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .exam-card {
+            background: hsl(var(--card));
+            border: 1px solid hsl(var(--border));
+            border-radius: var(--radius);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .timer {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: hsl(var(--primary));
+            text-align: center;
+            margin: 1rem 0;
+        }
+
+        .question-container {
+            margin: 2rem 0;
+        }
+
+        .option {
+            display: flex; /* Use flex to align radio/checkbox */
+            align-items: center;
+            width: 100%;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            border: 1px solid hsl(var(--border));
+            border-radius: var(--radius);
+            background: hsl(var(--card));
+            cursor: pointer;
+            transition: all 0.3s ease;
+            gap: 0.75rem; /* Space between input and text */
+        }
+
+        .option:hover {
+            background: hsl(var(--accent));
+            border-color: hsl(var(--primary));
+        }
+
+        .option input[type="radio"],
+        .option input[type="checkbox"] {
+            margin-right: 0; /* Remove default margin */
+            width: 1.2rem;
+            height: 1.2rem;
+            flex-shrink: 0; /* Prevent input from shrinking */
+        }
+
+         /* Style for selected options */
+        .option input[type="radio"]:checked + span,
+        .option input[type="checkbox"]:checked + span {
+             color: hsl(var(--primary-foreground)); /* Text color when selected */
+        }
+
+        .option input[type="radio"]:checked,
+        .option input[type="checkbox"]:checked {
+             accent-color: hsl(var(--primary)); /* Change accent color of the radio/checkbox itself */
+        }
+
+         /* Custom class for selected options background */
+        .option.selected-option {
+            background: hsl(var(--primary));
+            color: hsl(var(--primary-foreground));
+            border-color: hsl(var(--primary));
+        }
+        .option.selected-option input[type="radio"],
+        .option.selected-option input[type="checkbox"] {
+             accent-color: hsl(var(--primary-foreground)); /* Change accent color in selected state */
+        }
+
+
+        .theme-toggle {
+            position: fixed;
+            bottom: 1rem;
+            right: 1rem;
+            z-index: 50;
+            padding: 0.75rem; /* Increased padding */
+            border-radius: 50%;
+            background: hsl(var(--primary));
+            color: hsl(var(--primary-foreground));
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Add subtle shadow */
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        .login-form, .waiting-message {
+            max-width: 400px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: hsl(var(--card));
+            border-radius: var(--radius);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            text-align: center; /* Center content in waiting message */
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.75rem;
+            margin: 0.5rem 0;
+            border: 1px solid hsl(var(--border));
+            border-radius: var(--radius);
+            background: hsl(var(--input));
+            color: hsl(var(--foreground));
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: hsl(var(--primary));
+            color: hsl(var(--primary-foreground));
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+        .btn:disabled {
+            background-color: hsl(var(--muted));
+            color: hsl(var(--muted-foreground));
+            cursor: not-allowed;
+            transform: none;
+            opacity: 1;
+        }
+
+
+        .leaderboard {
+            margin-top: 2rem;
+        }
+
+        .leaderboard-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid hsl(var(--border));
+        }
+
+        .leaderboard-item:last-child {
+            border-bottom: none;
+        }
+
+        .stats-card {
+            background: hsl(var(--card));
+            border: 1px solid hsl(var(--border));
+            border-radius: var(--radius);
+            padding: 1rem;
+            margin: 1rem 0;
+            text-align: center;
+        }
+
+        .stats-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: hsl(var(--primary));
+        }
+
+        .question-number {
+            font-weight: bold;
+            color: hsl(var(--primary));
+            margin-bottom: 0.5rem;
+        }
+
+        .question-text {
+            margin-bottom: 1rem;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .checkbox-option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .checkbox-option input[type="checkbox"] {
+            width: 1.2rem;
+            height: 1.2rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 0.5rem;
+            background: hsl(var(--muted));
+            border-radius: var(--radius);
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: hsl(var(--primary));
+            transition: width 0.3s ease;
+        }
+
+        .countdown-container {
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .countdown-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .countdown-timer {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: hsl(var(--primary));
+        }
+
+        .rules-container {
+            background: hsl(var(--card));
+            border: 1px solid hsl(var(--border));
+            border-radius: var(--radius);
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .rules-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: hsl(var(--primary));
+        }
+
+        .rules-list {
+            list-style-type: disc;
+            padding-left: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .rules-list li {
+            margin: 0.5rem 0;
+        }
+
+        .correction-item {
+             border-bottom: 1px solid hsl(var(--border));
+             padding: 1rem 0;
+        }
+         .correction-item:last-child {
+             border-bottom: none;
+         }
+         .correction-item .question-text {
+             margin-bottom: 0.5rem;
+             font-weight: 500;
+         }
+         .correction-item .correct-answer {
+             color: green;
+             font-weight: bold;
+             font-size: 0.9rem;
+             margin-top: 0.5rem;
+         }
+         .correction-item .user-answer {
+             color: red;
+             font-weight: bold;
+             font-size: 0.9rem;
+             margin-top: 0.2rem;
+         }
+         .correction-item .user-answer.correct {
+             color: green;
+         }
+    </style>
+</head>
+<body>
+    <div class="exam-container">
+        <!-- Login Section -->
+        <div id="loginSection" class="login-form">
+            <h2 class="text-2xl font-bold mb-4">Simulateur d'Examen</h2>
+            <p class="text-lg mb-4">Méthodologie de la Présentation</p>
+
+            <!-- Countdown Section -->
+            <div class="countdown-container">
+                <div class="countdown-title">Statut de l'examen :</div>
+                <div class="countdown-timer" id="countdownTimer">--:--:--</div>
+            </div>
+
+            <!-- Rules Section -->
+            <div class="rules-container text-left">
+                <div class="rules-title">Règlement de l'examen simulé</div>
+                <ul class="rules-list">
+                    <li>L'examen commence le **19 mai 2025 à 21:00** (Heure d'Algérie - GMT+1)</li>
+                    <li>Il se termine le **19 mai 2025 à 22:30** (Heure d'Algérie - GMT+1)</li>
+                    <li>Durée totale : **1h30**</li>
+                    <li>**30 questions** au total (20 Vrai/Faux et 10 QCM)</li>
+                    <li>Barème : **1 point par réponse correcte** (pour les QCM, toutes les bonnes options doivent être cochées et aucune mauvaise)</li>
+                    <li>Les résultats et le classement seront affichés à **22:45** (Heure d'Algérie - GMT+1)</li>
+                    <li>En cas de problème de connexion, vos réponses seront sauvegardées localement dans votre navigateur.</li>
+                    <li>Vous pouvez rejoindre l'examen même après son début, dans la limite du temps disponible.</li>
+                </ul>
+            </div>
+
+            <div class="stats-card">
+                <div class="stats-number" id="registeredCount">0</div>
+                <div>Participants enregistrés</div>
+            </div>
+
+            <form id="loginForm">
+                <input type="text" id="pseudo" class="form-input" placeholder="Pseudo" required>
+                <input type="password" id="pin" class="form-input" placeholder="Code PIN (4 chiffres)" pattern="[0-9]{4}" maxlength="4" required>
+                <button type="submit" class="btn w-full mt-4">S'enregistrer pour l'examen</button>
+            </form>
+        </div>
+
+        <!-- Waiting for Exam Section -->
+        <div id="waitingSection" class="waiting-message hidden">
+            <h2 class="text-2xl font-bold mb-4">Bienvenue <span id="waitingPseudo"></span></h2>
+            <div class="countdown-container">
+                <div class="countdown-title">Début de l'examen dans :</div>
+                <div class="countdown-timer" id="examStartCountdown">--:--:--</div>
+            </div>
+            <div class="mt-4">
+                <p>Veuillez patienter jusqu'à l'heure de début.</p>
+                <p>L'examen commencera automatiquement.</p>
+            </div>
+        </div>
+
+        <!-- Exam Section -->
+        <div id="examSection" class="exam-card hidden">
+            <div class="flex flex-col sm:flex-row justify-between items-center mb-4">
+                <div class="timer mb-4 sm:mb-0" id="timer">01:30:00</div>
+                <div class="stats-card w-full sm:w-auto">
+                    <div class="stats-number" id="questionProgress">0/30</div>
+                    <div>Questions répondues</div>
+                </div>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+            </div>
+            <form id="examForm">
+                 <div id="questionsContainer" class="question-container">
+                     <!-- Questions will be dynamically added here -->
+                 </div>
+                <button type="submit" id="submitExam" class="btn w-full mt-4">Soumettre l'examen</button>
+            </form>
+        </div>
+
+        <!-- Waiting for Results Section -->
+        <div id="waitingResultsSection" class="waiting-message hidden">
+             <h2 class="text-2xl font-bold mb-4">Examen soumis !</h2>
+             <p class="mb-4">Merci d'avoir participé.</p>
+             <div class="countdown-container">
+                 <div class="countdown-title">Les résultats seront disponibles dans :</div>
+                 <div class="countdown-timer" id="resultsCountdown">--:--:--</div>
+             </div>
+             <div class="mt-4">
+                 <p>Revenez après 22:45 (Heure d'Algérie) pour consulter les résultats et le classement.</p>
+             </div>
+        </div>
+
+
+        <!-- Results Section -->
+        <div id="resultsSection" class="exam-card hidden">
+            <h2 class="text-2xl font-bold mb-4">Résultats et Classement</h2>
+
+             <div id="userResultSummary" class="mb-6 hidden">
+                 <div class="stats-card">
+                     <div class="stats-number" id="userScore">--/30</div>
+                     <div>Votre score</div>
+                 </div>
+                 <button id="showCorrectionBtn" class="btn mt-4">Voir la correction</button>
+             </div>
+
+            <div class="stats-card">
+                <div class="stats-number" id="submittedCount">0</div>
+                <div>Participants ayant soumis</div>
+            </div>
+
+            <div class="leaderboard">
+                <h3 class="text-xl font-bold mb-2">Classement Top 10</h3>
+                <div id="leaderboardList">
+                    <!-- Leaderboard will be dynamically added here -->
+                     <div class="text-center p-4 text-muted-foreground">Chargement du classement...</div>
+                </div>
+            </div>
+
+             <div id="correctionSection" class="correction-section mt-8 hidden">
+                 <h3 class="text-xl font-bold mb-4">Votre Correction</h3>
+                 <div id="correctionList">
+                     <!-- Correction will be dynamically added here -->
+                 </div>
+             </div>
+        </div>
+    </div>
+
+    <button id="themeToggle" class="theme-toggle">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, doc, getDoc, setDoc, collection, addDoc, getDocs, query, orderBy, limit, serverTimestamp, onSnapshot, where, increment } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        // Firebase configuration (Use the one you provided, assuming it's correct)
+        const firebaseConfig = {
+            apiKey: "AIzaSyAfI6CuKUzkW-FETIVTexTlYPLZ0HixnOQ",
+            authDomain: "sample-firebase-ai-app-929dd.firebaseapp.com",
+            projectId: "sample-firebase-ai-app-929dd",
+            storageBucket: "sample-firebase-ai-app-929dd.firebasestorage.app",
+            messagingSenderId: "980647438529",
+            appId: "1:980647438529:web:731a26901f907f102c4c40"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Exam Timings (Algeria Time GMT+1) - Use 2025
+        const EXAM_START_TIME = new Date('2025-05-19T21:00:00+01:00');
+        const EXAM_END_TIME = new Date('2025-05-19T22:30:00+01:00'); // 1h30 duration
+        const RESULTS_TIME = new Date('2025-05-19T22:45:00+01:00');
+
+        // Helper function to get current time in Algeria (GMT+1)
+        function getAlgeriaTime() {
+            const now = new Date();
+            const utc = now.getTime() + (now.getTimezoneOffset() * 60000); // Convert to UTC
+            return new Date(utc + (1 * 60 * 60 * 1000)); // Add GMT+1 offset
+        }
+
+        // UI Elements
+        const loginSection = document.getElementById('loginSection');
+        const waitingSection = document.getElementById('waitingSection');
+        const examSection = document.getElementById('examSection');
+        const waitingResultsSection = document.getElementById('waitingResultsSection');
+        const resultsSection = document.getElementById('resultsSection');
+
+        const countdownTimerElement = document.getElementById('countdownTimer');
+        const examStartCountdownElement = document.getElementById('examStartCountdown');
+        const examTimerElement = document.getElementById('timer');
+        const resultsCountdownElement = document.getElementById('resultsCountdown');
+
+        const loginForm = document.getElementById('loginForm');
+        const pseudoInput = document.getElementById('pseudo');
+        const pinInput = document.getElementById('pin');
+        const registeredCountElement = document.getElementById('registeredCount');
+        const submittedCountElement = document.getElementById('submittedCount');
+
+        const questionsContainer = document.getElementById('questionsContainer');
+        const questionProgressElement = document.getElementById('questionProgress');
+        const progressFillElement = document.getElementById('progressFill');
+        const submitExamButton = document.getElementById('submitExam');
+
+        const userResultSummaryElement = document.getElementById('userResultSummary');
+        const userScoreElement = document.getElementById('userScore');
+        const leaderboardListElement = document.getElementById('leaderboardList');
+        const correctionSectionElement = document.getElementById('correctionSection');
+        const correctionListElement = document.getElementById('correctionList');
+        const showCorrectionBtn = document.getElementById('showCorrectionBtn');
+
+
+        // Questions data (Integrated from your list)
+        const questions = [
+            // Question 1: Vrai ou Faux (20 questions)
+            { type: 'trueFalse', text: 'Faire un exposé oral implique de présenter les résultats d\'un travail de recherche devant un auditoire.', answer: true },
+            { type: 'trueFalse', text: 'L\'un des buts de l\'exposé oral est de convaincre l\'auditoire.', answer: true },
+            { type: 'trueFalse', text: 'Un exposé oral efficace ne nécessite pas d\'être visuel ou expressif.', answer: false },
+            { type: 'trueFalse', text: 'Pour préparer un exposé oral, il est nécessaire de trouver une problématique et d\'y répondre de façon argumentée.', answer: true },
+            { type: 'trueFalse', text: 'Lorsque l\'on utilise Internet pour un exposé, il est important de trier les sources et d\'analyser les documents pertinents.', answer: true },
+            { type: 'trueFalse', text: 'Pour une présentation orale, le plan structuré doit idéalement comporter cinq parties ou plus.', answer: false },
+            { type: 'trueFalse', text: 'Lors d\'une présentation orale, il est préférable d\'écrire l\'intégralité de son texte sur les supports (comme des notes) pour éviter d\'oublier des points.', answer: false },
+            { type: 'trueFalse', text: 'L\'échelle de déformation du message décrit une perte progressive du message entre l\'émetteur et le récepteur.', answer: true },
+            { type: 'trueFalse', text: 'Le "Code" dans le schéma de communication est la personne qui est à l\'origine du message.', answer: false },
+            { type: 'trueFalse', text: 'Le corps et la voix sont des instruments de l\'expression orale.', answer: true },
+            { type: 'trueFalse', text: 'La façon de s\'exprimer oralement ne change pas en fonction de l\'interlocuteur (ami, collègue, supérieur).', answer: false },
+            { type: 'trueFalse', text: 'La respiration est importante car elle conditionne la bonne émission du son et favorise la détente.', answer: true },
+            { type: 'trueFalse', text: 'L\'Intonation est le mouvement mélodique de la voix.', answer: true },
+            { type: 'trueFalse', text: 'Un débit de parole uniforme est conseillé pour éviter de perturber l\'auditoire.', answer: false },
+            { type: 'trueFalse', text: 'L\'Articulation est le fait de varier le ton de la voix.', answer: false },
+            { type: 'trueFalse', text: 'Le trac est la peur ressentie avant d\'affronter un public.', answer: true },
+            { type: 'trueFalse', text: 'Le trac ne se dissipe pas dans l\'action, il ne fait qu\'empirer.', answer: false },
+            { type: 'trueFalse', text: 'La répétition d\'un mot ou d\'une expression est une technique inutile en expression orale.', answer: false },
+            { type: 'trueFalse', text: 'Le silence pendant un exposé permet notamment de reprendre son souffle et de regarder l\'auditoire.', answer: true },
+            { type: 'trueFalse', text: 'Le regard de l\'orateur peut transmettre des sentiments ou des volontés.', answer: true },
+            // Question 2: QCM (10 questions)
+            { type: 'multiple', text: 'Selon le cours, quels sont les principaux facteurs du schéma de communication ?', options: ['Le Rythme', 'Le Récepteur', 'Le Support Visuel', 'Le Canal', 'Le Message'], answer: [1, 3, 4] }, // Indices des bonnes réponses
+            { type: 'multiple', text: 'Parmi les éléments suivants, lesquels font partie des techniques d\'expression orale liées à la voix, telles que décrites dans le cours ?', options: ['Les Gestes', 'Le Débit', 'La Posture', 'La Modulation', 'L\'Articulation'], answer: [1, 3, 4] },
+            { type: 'multiple', text: 'Le trac peut entraîner les manifestations physiques suivantes :', options: ['Jambes molles', 'Sentiment d\'oppression', 'Langue desséchée', 'Grande confiance en soi', 'Crampes'], answer: [0, 1, 2, 4] },
+            { type: 'multiple', text: 'Selon le cours, la gestion du trac peut être améliorée par :', options: ['Une préparation insuffisante pour stimuler l\'adrénaline', 'La relaxation physique et mentale', 'Un entraînement régulier', 'L\'amélioration de la respiration', 'La consommation de boissons énergisantes'], answer: [1, 2, 3] },
+            { type: 'multiple', text: 'Quelle(s) distance(s) de communication interpersonnelle est/sont décrite(s) dans le cours ?', options: ['La zone Intime', 'La zone Professionnelle', 'La zone Sociale', 'La zone Personnelle', 'La zone Publique'], answer: [0, 2, 3, 4] },
+            { type: 'multiple', text: 'Selon le Chapitre 2, la réussite d\'une présentation orale dépend de :', options: ['La qualité de l\'oralité', 'La complexité des graphiques utilisés', 'La rigueur du support visuel', 'La pertinence du contenu'], answer: [0, 2, 3] },
+            { type: 'multiple', text: 'Quelle est la structure temporelle recommandée pour les différentes parties d\'une présentation orale ?', options: ['L\'introduction représente 10% du temps.', 'Le corps représente la majeure partie du temps.', 'La conclusion doit être aussi longue que l\'introduction.', 'Le corps représente 80% du temps.'], answer: [0, 1, 3] },
+            { type: 'multiple', text: 'Lors de la conception des diapositives, que recommande le cours concernant la typographie ?', options: ['Utiliser uniquement des polices fantaisie pour capter l\'attention.', 'Préférer des polices comme ARIAL ou UNIVERS.', 'La taille minimale des caractères doit être de 18 points.', 'La taille idéale des caractères est entre 26 et 28 points.'], answer: [1, 2, 3] },
+            { type: 'multiple', text: 'Concernant le graphisme des diapositives, quels conseils sont donnés ?', options: ['Utiliser un fond différent pour chaque diapositive.', 'Préférer un fond uni et identique pour toutes les diapositives.', 'Utiliser des couleurs agressives comme le rouge vif pour les titres.', 'Éviter le souligné en écriture électronique.'], answer: [1, 3] },
+            { type: 'multiple', text: 'Que faut-il éviter lors de la création du support visuel selon le cours ?', options: ['Les fautes d\'orthographe.', 'L\'écriture en majuscules.', 'L\'abus d\'animations complexes.', 'De mettre des mots-clés sur les diapositives.'], answer: [0, 1, 2] }
+        ];
+
+
+        // --- Firebase Counters for Registered Participants ---
+        const registeredCounterRef = doc(db, 'counters', 'exam_participants');
+
+        // Initialize counter if it doesn't exist
+        const initializeRegisteredCounter = async () => {
+            try {
+                const counterDoc = await getDoc(registeredCounterRef);
+                if (!counterDoc.exists()) {
+                    await setDoc(registeredCounterRef, { count: 0 });
+                }
+            } catch (error) {
+                console.error("Error initializing registered counter:", error);
+            }
+        };
+
+        // Listen for real-time updates to the registered counter
+        onSnapshot(registeredCounterRef, (doc) => {
+            if (doc.exists()) {
+                registeredCountElement.textContent = doc.data().count;
+            } else {
+                 registeredCountElement.textContent = 'N/A'; // Should not happen if initialized
+            }
+        });
+
+        // --- Firebase Exam Results ---
+        const examResultsCollection = collection(db, 'examResults');
+
+
+        // --- Countdown & Timer Logic ---
+        let examTimerInterval = null;
+        let globalCountdownInterval = null;
+        let resultsCountdownInterval = null;
+
+        function formatTime(ms) {
+            if (ms < 0) ms = 0;
+            const totalSeconds = Math.floor(ms / 1000);
+            const hours = Math.floor(totalSeconds / 3600);
+            const minutes = Math.floor((totalSeconds % 3600) / 60);
+            const seconds = totalSeconds % 60;
+            return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        function updateGlobalCountdown() {
+            const now = getAlgeriaTime();
+
+            // If after results time
+            if (now >= RESULTS_TIME) {
+                clearInterval(globalCountdownInterval);
+                countdownTimerElement.textContent = "Résultats disponibles";
+                showResults();
+                return;
+            }
+
+            // If during exam
+            if (now >= EXAM_START_TIME && now < EXAM_END_TIME) {
+                 clearInterval(globalCountdownInterval); // Stop this countdown once exam starts
+                 countdownTimerElement.textContent = "Examen en cours";
+                 const savedUser = localStorage.getItem('examUser');
+                 if(savedUser) {
+                      // If user is logged in and exam is running, start the exam UI
+                      const userData = JSON.parse(savedUser);
+                      startExam(userData); // Pass user data if needed later
+                 } else {
+                     // User is not logged in, still show login screen but indicate exam is running
+                     loginSection.classList.remove('hidden');
+                     examSection.classList.add('hidden');
+                     waitingSection.classList.add('hidden');
+                     waitingResultsSection.classList.add('hidden');
+                     resultsSection.classList.add('hidden');
+                 }
+                 return; // Exit this countdown function
+            }
+
+            // If after exam but before results
+            if (now >= EXAM_END_TIME && now < RESULTS_TIME) {
+                 clearInterval(globalCountdownInterval); // Stop this countdown
+                 const timeToResults = RESULTS_TIME - now;
+                 countdownTimerElement.textContent = `Résultats dans ${formatTime(timeToResults)}`;
+                 // If user was in exam state, transition to waiting results
+                 if(examSection.classList.contains('hidden') && !resultsSection.classList.contains('hidden')) {
+                      // Already in results or waiting results state, maybe do nothing
+                 } else {
+                     // Assume user might be on login or exam page that just ended
+                     showWaitingForResults(); // Show waiting for results screen
+                 }
+
+                 // Start results countdown if not already running
+                 if(!resultsCountdownInterval) {
+                     resultsCountdownInterval = setInterval(updateResultsCountdown, 1000);
+                     updateResultsCountdown(); // Call immediately
+                 }
+                 return; // Exit this countdown function
+            }
+
+            // If before exam
+            if (now < EXAM_START_TIME) {
+                const timeToStart = EXAM_START_TIME - now;
+                countdownTimerElement.textContent = `Début dans ${formatTime(timeToStart)}`;
+                // If user is logged in, show waiting screen
+                const savedUser = localStorage.getItem('examUser');
+                 if(savedUser && waitingSection.classList.contains('hidden')) {
+                      const userData = JSON.parse(savedUser);
+                       showWaitingForExam(userData.pseudo);
+                       // Start exam start countdown if not running
+                       if(!examStartCountdownElement.textContent.includes(':')) { // Check if it's the initial state
+                           startExamStartCountdown();
+                       }
+                 } else if (!savedUser) {
+                     // Show login screen
+                     showLogin();
+                 }
+                 return; // Exit this countdown function
+            }
+
+            // Fallback, should not be reached if logic is correct
+            countdownTimerElement.textContent = "Statut inconnu";
+        }
+
+        function startExamStartCountdown() {
+             const interval = setInterval(() => {
+                 const now = getAlgeriaTime();
+                 const timeToStart = EXAM_START_TIME - now;
+
+                 if (timeToStart <= 0) {
+                     clearInterval(interval);
+                     // Transition to exam
+                     const savedUser = localStorage.getItem('examUser');
+                     if(savedUser) {
+                          const userData = JSON.parse(savedUser);
+                          startExam(userData);
+                     } else {
+                          // User somehow waited without logging in? Redirect to login.
+                          showLogin();
+                     }
+                     return;
+                 }
+
+                 examStartCountdownElement.textContent = formatTime(timeToStart);
+             }, 1000);
+        }
+
+        function startExamTimer() {
+            const now = getAlgeriaTime();
+            let duration = EXAM_END_TIME - now; // Time left until the end of the exam
+
+            if (duration <= 0) {
+                 // Exam already ended
+                 submitExam(); // Auto-submit if time is already up
+                 return;
+            }
+
+            examTimerElement.textContent = formatTime(duration);
+
+            examTimerInterval = setInterval(() => {
+                duration -= 1000; // Decrease by 1 second
+
+                if (duration <= 0) {
+                    clearInterval(examTimerInterval);
+                    examTimerElement.textContent = "00:00:00";
+                    submitExam(); // Time's up, submit
+                    return;
+                }
+
+                examTimerElement.textContent = formatTime(duration);
+            }, 1000);
+        }
+
+         function updateResultsCountdown() {
+             const now = getAlgeriaTime();
+             const timeToResults = RESULTS_TIME - now;
+
+             if (timeToResults <= 0) {
+                 clearInterval(resultsCountdownInterval);
+                 showResults(); // Time to show results
+                 return;
+             }
+
+             resultsCountdownElement.textContent = formatTime(timeToResults);
+         }
+
+
+        // --- UI State Management ---
+        function hideAllSections() {
+            loginSection.classList.add('hidden');
+            waitingSection.classList.add('hidden');
+            examSection.classList.add('hidden');
+            waitingResultsSection.classList.add('hidden');
+            resultsSection.classList.add('hidden');
+        }
+
+        function showLogin() {
+             hideAllSections();
+             loginSection.classList.remove('hidden');
+             // Ensure countdown is running for login screen
+             if(!globalCountdownInterval) {
+                 globalCountdownInterval = setInterval(updateGlobalCountdown, 1000);
+                 updateGlobalCountdown(); // Call immediately
+             }
+        }
+
+        function showWaitingForExam(pseudo) {
+            hideAllSections();
+            waitingSection.classList.remove('hidden');
+            document.getElementById('waitingPseudo').textContent = pseudo;
+        }
+
+        function startExam(userData) {
+            hideAllSections();
+            examSection.classList.remove('hidden');
+            displayQuestions(); // Render questions
+            loadSavedAnswers(); // Load answers from local storage
+            updateProgress(); // Update progress based on loaded answers
+            startExamTimer(); // Start the countdown timer
+        }
+
+        function showWaitingForResults() {
+             hideAllSections();
+             waitingResultsSection.classList.remove('hidden');
+              // Start results countdown if not already running
+             if(!resultsCountdownInterval) {
+                 resultsCountdownInterval = setInterval(updateResultsCountdown, 1000);
+                 updateResultsCountdown(); // Call immediately
+             }
+        }
+
+        async function showResults() {
+            hideAllSections();
+            resultsSection.classList.remove('hidden');
+
+            // Always show leaderboard and total participants who submitted
+            await updateLeaderboard();
+            await updateSubmittedCount();
+
+            // Show user's result and correction if logged in and result exists
+            const savedUser = localStorage.getItem('examUser');
+            if (savedUser) {
+                const userData = JSON.parse(savedUser);
+                try {
+                    const userResultQuery = query(examResultsCollection, where('pseudo', '==', userData.pseudo), limit(1));
+                    const userResultSnapshot = await getDocs(userResultQuery);
+
+                    if (!userResultSnapshot.empty) {
+                        const userResult = userResultSnapshot.docs[0].data();
+                        userResultSummaryElement.classList.remove('hidden');
+                        userScoreElement.textContent = `${userResult.score}/${questions.length}`;
+
+                        // Add event listener to show correction
+                        showCorrectionBtn.onclick = () => displayCorrection(userResult.userAnswers);
+
+                    } else {
+                         // User logged in but no result found (maybe didn't submit?)
+                         userResultSummaryElement.innerHTML = `<div class="stats-card"><p>Aucun résultat trouvé pour ${userData.pseudo}.</p></div>`;
+                         userResultSummaryElement.classList.remove('hidden');
+                    }
+                } catch (error) {
+                     console.error("Error fetching user result:", error);
+                     userResultSummaryElement.innerHTML = `<div class="stats-card"><p>Erreur lors du chargement de vos résultats.</p></div>`;
+                     userResultSummaryElement.classList.remove('hidden');
+                }
+            } else {
+                // Not logged in, hide user-specific result section
+                userResultSummaryElement.classList.add('hidden');
+            }
+        }
+
+        // --- Login Functionality ---
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const now = getAlgeriaTime();
+
+            if (now >= EXAM_END_TIME) {
+                alert("L'examen est terminé. Les résultats seront disponibles à 22:45 (heure d'Algérie).");
+                showResults(); // Redirect to results if exam is over
+                return;
+            }
+
+            const pseudo = pseudoInput.value.trim();
+            const pin = pinInput.value; // PIN validation is pattern/maxlength on input
+
+            if (!pseudo) {
+                 alert("Veuillez entrer un Pseudo.");
+                 return;
+            }
+
+             // Check if pseudo already has a *submitted* result
+            try {
+                const existingResultQuery = query(examResultsCollection, where('pseudo', '==', pseudo));
+                const existingResultSnapshot = await getDocs(existingResultQuery);
+                 if (!existingResultSnapshot.empty) {
+                     alert("Ce pseudo a déjà un résultat soumis.");
+                     return; // Prevent multiple submissions from same pseudo
+                 }
+            } catch (error) {
+                 console.error("Error checking for existing result:", error);
+                 // Continue anyway, maybe Firebase is offline
+            }
+
+
+            const userData = { pseudo, pin };
+            localStorage.setItem('examUser', JSON.stringify(userData)); // Save user info
+
+            // Increment participant counter only on successful "registration" click
+             try {
+                // We use the increment function imported from Firebase SDK
+                await setDoc(registeredCounterRef, { count: increment(1) }, { merge: true });
+             } catch (error) {
+                 console.error("Error incrementing registered counter:", error);
+                 // Continue anyway, counter might not be critical
+             }
+
+            // Determine next state based on time
+            if (now < EXAM_START_TIME) {
+                showWaitingForExam(pseudo);
+                 startExamStartCountdown(); // Start countdown to exam start
+            } else { // During exam time
+                 startExam(userData); // Go directly to exam
+            }
+        });
+
+        // --- Exam Logic ---
+        function displayQuestions() {
+            questionsContainer.innerHTML = ''; // Clear existing questions
+            questions.forEach((question, index) => {
+                const questionElement = document.createElement('div');
+                questionElement.className = 'mb-8';
+                questionElement.innerHTML = `
+                    <div class="question-number">Question ${index + 1}</div>
+                    <div class="question-text">${question.text}</div>
+                    ${question.type === 'trueFalse' ? `
+                        <div class="options-grid">
+                            <label class="option" data-q="${index}" data-value="true">
+                                <input type="radio" name="q${index}" value="true" required>
+                                <span>Vrai</span>
+                            </label>
+                            <label class="option" data-q="${index}" data-value="false">
+                                <input type="radio" name="q${index}" value="false" required>
+                                <span>Faux</span>
+                            </label>
+                        </div>
+                    ` : `
+                        <div class="options-grid">
+                            ${question.options.map((option, optIndex) => `
+                                <label class="option checkbox-option" data-q="${index}" data-value="${optIndex}">
+                                    <input type="checkbox" name="q${index}" value="${optIndex}">
+                                    <span>${option}</span>
+                                </label>
+                            `).join('')}
+                        </div>
+                    `}
+                `;
+                questionsContainer.appendChild(questionElement);
+            });
+
+             // Add event listener for answer selection to save and update progress
+            questionsContainer.addEventListener('change', handleAnswerChange);
+
+             // Add visual feedback for selected options
+             questionsContainer.addEventListener('click', handleOptionClick);
+        }
+
+         function handleOptionClick(e) {
+             const optionLabel = e.target.closest('.option');
+             if (optionLabel) {
+                 const input = optionLabel.querySelector('input');
+                 if (input) {
+                     // Let the default change event handle the state update
+                     // Just prevent double-handling for the click event itself
+                     // The 'change' listener will update local storage and progress
+                 }
+             }
+         }
+
+
+        function handleAnswerChange(e) {
+            const input = e.target;
+            if (input.matches('input[type="radio"], input[type="checkbox"]')) {
+                 saveAnswers(); // Save all answers on any change
+                 updateProgress(); // Update progress bar
+                 updateOptionClasses(); // Update visual selected class
+            }
+        }
+
+         function updateOptionClasses() {
+             document.querySelectorAll('.option').forEach(label => {
+                 const input = label.querySelector('input');
+                 if (input && input.checked) {
+                     label.classList.add('selected-option');
+                     // For radio buttons, ensure others in the group are unselected
+                     if (input.type === 'radio') {
+                         document.querySelectorAll(`input[name="${input.name}"]`).forEach(otherInput => {
+                             if (otherInput !== input) {
+                                 otherInput.closest('.option').classList.remove('selected-option');
+                             }
+                         });
+                     }
+                 } else {
+                     label.classList.remove('selected-option');
+                 }
+             });
+         }
+
+
+        function saveAnswers() {
+            const answers = {};
+            questions.forEach((_, index) => {
+                const selectedInputs = document.querySelectorAll(`input[name="q${index}"]:checked`);
+                if (selectedInputs.length > 0) {
+                    if (questions[index].type === 'trueFalse') {
+                        answers[index] = selectedInputs[0].value === 'true';
+                    } else { // multiple choice
+                        answers[index] = Array.from(selectedInputs).map(input => parseInt(input.value));
+                    }
+                }
+            });
+            localStorage.setItem('examAnswers', JSON.stringify(answers));
+        }
+
+        function loadSavedAnswers() {
+            const savedAnswers = localStorage.getItem('examAnswers');
+            if (savedAnswers) {
+                try {
+                    const answers = JSON.parse(savedAnswers);
+                    for (const qIndex in answers) {
+                        const question = questions[qIndex];
+                        const userAnswer = answers[qIndex];
+
+                        if (question.type === 'trueFalse') {
+                            const input = document.querySelector(`input[name="q${qIndex}"][value="${userAnswer}"]`);
+                            if (input) {
+                                input.checked = true;
+                            }
+                        } else { // multiple choice
+                            if (Array.isArray(userAnswer)) {
+                                userAnswer.forEach(optIndex => {
+                                    const input = document.querySelector(`input[name="q${qIndex}"][value="${optIndex}"][type="checkbox"]`);
+                                    if (input) {
+                                        input.checked = true;
+                                    }
+                                });
+                            }
+                        }
+                    }
+                     updateOptionClasses(); // Apply selected style after loading
+                } catch (e) {
+                    console.error("Failed to load saved answers from localStorage:", e);
+                    localStorage.removeItem('examAnswers'); // Clear potentially corrupted data
+                }
+            }
+        }
+
+
+        function updateProgress() {
+            let answeredCount = 0;
+             questions.forEach((_, index) => {
+                 const selectedInputs = document.querySelectorAll(`input[name="q${index}"]:checked`);
+                 if (selectedInputs.length > 0) {
+                     // For True/False, any checked radio counts as answered
+                     // For Multiple Choice, any checked checkbox counts as answered for progress
+                     answeredCount++;
+                 }
+             });
+
+            questionProgressElement.textContent = `${answeredCount}/${questions.length}`;
+            progressFillElement.style.width = `${(answeredCount / questions.length) * 100}%`;
+        }
+
+
+        function calculateScore(userAnswers) {
+            let score = 0;
+            questions.forEach((question, index) => {
+                const userAnswer = userAnswers ? userAnswers[index] : undefined; // Get answer from saved object
+
+                if (question.type === 'trueFalse') {
+                    // Check if user answer matches correct answer (1 point for correct TF)
+                    if (userAnswer === question.answer) {
+                        score++;
+                    }
+                } else { // multiple choice
+                    // Check if the array of selected indices exactly matches the array of correct indices (1 point for perfectly answered MCQ)
+                    const correctAnswers = question.answer.sort(); // Sort to compare arrays easily
+                     if (Array.isArray(userAnswer) && userAnswer.sort().every((val, i) => val === correctAnswers[i]) && userAnswer.length === correctAnswers.length) {
+                        score++;
+                    }
+                }
+            });
+            return score;
+        }
+
+        // Submit Exam
+        document.getElementById('examForm').addEventListener('submit', async (e) => {
+             e.preventDefault(); // Prevent default form submission
+             await submitExam(); // Call the async submit function
+        });
+
+
+        async function submitExam() {
+            const now = getAlgeriaTime();
+
+             // Disable submit button immediately to prevent double clicks
+             submitExamButton.disabled = true;
+             submitExamButton.textContent = 'Soumission en cours...';
+
+            const userAnswers = {};
+            questions.forEach((_, index) => {
+                const selectedInputs = document.querySelectorAll(`input[name="q${index}"]:checked`);
+                 if (selectedInputs.length > 0) {
+                    if (questions[index].type === 'trueFalse') {
+                        userAnswers[index] = selectedInputs[0].value === 'true';
+                    } else { // multiple choice
+                        userAnswers[index] = Array.from(selectedInputs).map(input => parseInt(input.value));
+                    }
+                 }
+                 // If no answer, it's simply not added to userAnswers[index], which is fine
+            });
+
+            const score = calculateScore(userAnswers);
+            const userData = JSON.parse(localStorage.getItem('examUser'));
+
+             if (!userData || !userData.pseudo) {
+                 alert("Erreur: Impossible de trouver vos informations utilisateur.");
+                 // Re-enable button or redirect
+                 showLogin();
+                 return;
+             }
+
+            try {
+                // Check if pseudo already has a result submitted to prevent duplicates in Firebase
+                 const existingResultQuery = query(examResultsCollection, where('pseudo', '==', userData.pseudo), limit(1));
+                 const existingResultSnapshot = await getDocs(existingResultQuery);
+
+                 if (!existingResultSnapshot.empty) {
+                     alert("Vous avez déjà soumis votre examen. Votre score précédent était de " + existingResultSnapshot.docs[0].data().score + "/30.");
+                 } else {
+                     // Save results to Firebase
+                     await addDoc(examResultsCollection, {
+                         pseudo: userData.pseudo,
+                         score: score,
+                         userAnswers: userAnswers, // Save user's answers for correction
+                         timestamp: serverTimestamp() // Use server timestamp
+                     });
+                     alert("Votre examen a été soumis avec succès !");
+                 }
+
+                // Clear local storage for this exam's answers
+                localStorage.removeItem('examAnswers');
+                 // Keep examUser in local storage for results phase
+
+            } catch (error) {
+                console.error("Erreur lors de la soumission de l'examen:", error);
+                alert("Une erreur est survenue lors de la soumission de l'examen. Votre score n'a peut-être pas été enregistré.");
+                 // Don't clear local storage in case of Firebase error, user might retry
+                 // Re-enable the button? Or guide the user. Let's re-enable for now.
+                 submitExamButton.disabled = false;
+                 submitExamButton.textContent = 'Soumettre l\'examen';
+                 return; // Stop here if Firebase submission failed
+            }
+
+            // Transition to waiting for results screen
+            if (now < RESULTS_TIME) {
+                 showWaitingForResults();
+            } else {
+                 // If already after results time, show results directly
+                 showResults();
+            }
+             // Re-enable button is handled after the try/catch if there was an error
+        }
+
+
+        // --- Results Logic ---
+        async function updateLeaderboard() {
+            try {
+                const snapshot = await getDocs(query(examResultsCollection, orderBy('score', 'desc'), limit(10)));
+                leaderboardListElement.innerHTML = ''; // Clear current list
+
+                if (snapshot.empty) {
+                    leaderboardListElement.innerHTML = '<div class="text-center p-4 text-muted-foreground">Aucun résultat disponible pour le moment.</div>';
+                } else {
+                    snapshot.forEach((doc, index) => {
+                        const data = doc.data();
+                        const item = document.createElement('div');
+                        item.className = 'leaderboard-item';
+                        item.innerHTML = `
+                            <span>${index + 1}. ${data.pseudo}</span>
+                            <span>${data.score}/${questions.length}</span>
+                        `;
+                        leaderboardListElement.appendChild(item);
+                    });
+                }
+            } catch (error) {
+                 console.error("Error fetching leaderboard:", error);
+                 leaderboardListElement.innerHTML = '<div class="text-center p-4 text-muted-foreground">Erreur lors du chargement du classement.</div>';
+            }
+        }
+
+         async function updateSubmittedCount() {
+             try {
+                  // Count documents in examResults collection
+                  const snapshot = await getDocs(examResultsCollection);
+                  submittedCountElement.textContent = snapshot.size;
+             } catch (error) {
+                  console.error("Error fetching submitted count:", error);
+                  submittedCountElement.textContent = 'N/A';
+             }
+         }
+
+
+         function displayCorrection(userAnswers) {
+             correctionListElement.innerHTML = ''; // Clear previous correction
+             correctionSectionElement.classList.remove('hidden'); // Show the correction section
+
+             questions.forEach((q, index) => {
+                 const userAnswer = userAnswers ? userAnswers[index] : undefined; // Can be undefined if not answered
+                 const isAnswered = userAnswer !== undefined;
+                 let userAnswerText = isAnswered ? (q.type === 'trueFalse' ? (userAnswer ? 'Vrai' : 'Faux') : (Array.isArray(userAnswer) ? userAnswer.sort().map(i => q.options[i]).join(', ') : '')) : 'Non répondu';
+
+                 let correctAnswerText;
+                 if (q.type === 'trueFalse') {
+                     correctAnswerText = q.answer ? 'Vrai' : 'Faux';
+                 } else {
+                     correctAnswerText = q.answer.sort().map(i => q.options[i]).join(', ');
+                 }
+
+                 const isCorrect = calculateScore({[index]: userAnswer}) === 1; // Check score for this single question
+
+                 const correctionItem = document.createElement('div');
+                 correctionItem.className = 'correction-item';
+                 correctionItem.innerHTML = `
+                     <div class="font-bold">Question ${index + 1}</div>
+                     <div class="question-text">${q.text}</div>
+                     <div class="text-sm mt-1">
+                         <span class="correct-answer">Correcte: ${correctAnswerText}</span><br>
+                         <span class="user-answer ${isCorrect ? 'correct' : ''}">${isAnswered ? 'Votre réponse: ' + userAnswerText : 'Vous n\'avez pas répondu'}</span>
+                     </div>
+                 `;
+                 correctionListElement.appendChild(correctionItem);
+             });
+             showCorrectionBtn.classList.add('hidden'); // Hide button after showing correction
+         }
+
+
+        // --- Theme Toggle ---
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark');
+            const icon = themeToggle.querySelector('i');
+            icon.classList.toggle('fa-moon');
+            icon.classList.toggle('fa-sun');
+            localStorage.setItem('theme', body.classList.contains('dark') ? 'dark' : 'light');
+        });
+
+        // Load saved theme on startup
+        function loadTheme() {
+             if (localStorage.getItem('theme') === 'dark') {
+                 body.classList.add('dark');
+                 themeToggle.querySelector('i').classList.replace('fa-moon', 'fa-sun');
+             }
+        }
+
+
+        // --- Initialization on Page Load ---
+        window.addEventListener('load', async () => {
+            loadTheme(); // Apply saved theme
+            await initializeRegisteredCounter(); // Ensure counter exists
+
+            // Start the main countdown logic that determines the state
+            globalCountdownInterval = setInterval(updateGlobalCountdown, 1000);
+            updateGlobalCountdown(); // Initial call to set the correct state immediately
+
+             // If user is logged in, check if exam answers are saved locally (e.g., after a refresh)
+             const savedUser = localStorage.getItem('examUser');
+             const savedAnswers = localStorage.getItem('examAnswers');
+             const now = getAlgeriaTime();
+
+             if (savedUser && savedAnswers && now >= EXAM_START_TIME && now < EXAM_END_TIME) {
+                 // If user was logged in, had answers saved, and it's still during the exam, resume exam state
+                 const userData = JSON.parse(savedUser);
+                 startExam(userData);
+             } else if (savedUser && now < EXAM_START_TIME) {
+                  // If user was logged in but before exam start, go to waiting screen
+                  const userData = JSON.parse(savedUser);
+                  showWaitingForExam(userData.pseudo);
+                  startExamStartCountdown();
+             } else if (now >= RESULTS_TIME) {
+                  // If after results time, show results directly
+                  showResults();
+             } else if (now >= EXAM_END_TIME && now < RESULTS_TIME) {
+                  // If after exam but before results, show waiting for results
+                  showWaitingForResults();
+             }
+             // Otherwise, default state is login (handled by updateGlobalCountdown if no saved user/state matches)
+        });
+
+         // Event listener for updating option classes (visual feedback)
+         // Moved logic into handleAnswerChange and loadSavedAnswers
+    </script>
+</body>
+</html>
