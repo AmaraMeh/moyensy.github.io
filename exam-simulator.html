@@ -522,7 +522,7 @@
             </div>
 
             <div class="leaderboard">
-                <h3 class="text-xl font-bold mb-2">Classement Top 10</h3>
+                <h3 class="text-xl font-bold mb-2">Classement</h3>
                 <div id="leaderboardList">
                     <!-- Leaderboard will be dynamically added here -->
                      <div class="text-center p-4 text-muted-foreground">Chargement du classement...</div>
@@ -948,62 +948,53 @@
         async function showResults() {
             hideAllSections();
             resultsSection.classList.remove('hidden');
-
-            // Start registered counter listener again when on results page
             startRegisteredCounterListener();
 
-            // Always show leaderboard and total participants who submitted
-            await updateSubmittedCount();
-            await updateLeaderboard();
+            // Clear previous user-specific content first
+            userResultSummaryElement.innerHTML = '';
+            userResultSummaryElement.classList.add('hidden');
+            correctionListElement.innerHTML = '';
+            correctionSectionElement.classList.add('hidden');
 
-
-            // Show user's result and correction if logged in and result exists
             const savedUser = localStorage.getItem('examUser');
             if (savedUser) {
                 const userData = JSON.parse(savedUser);
-                 // Clear any previous user result/correction display
-                 userResultSummaryElement.innerHTML = ''; // Clear previous content
-                 correctionListElement.innerHTML = ''; // Clear previous correction list
-                 correctionSectionElement.classList.add('hidden'); // Hide correction section
-                 showCorrectionBtn.classList.add('hidden'); // Hide correction button
-
                 try {
                     const userResultQuery = query(examResultsCollection, where('pseudo', '==', userData.pseudo), limit(1));
                     const userResultSnapshot = await getDocs(userResultQuery);
 
                     if (!userResultSnapshot.empty) {
                         const userResult = userResultSnapshot.docs[0].data();
+                        userResultSummaryElement.innerHTML = `
+                            <div class="stats-card">
+                                <div class="stats-number">${userResult.score}/${questions.length}</div>
+                                <div>Votre score</div>
+                            </div>
+                        `;
                         userResultSummaryElement.classList.remove('hidden');
-                         userResultSummaryElement.innerHTML = `
-                              <div class="stats-card">
-                                  <div class="stats-number" id="userScore">${userResult.score}/${questions.length}</div>
-                                  <div>Votre score</div>
-                              </div>
-                              <button id="showCorrectionBtnInner" class="btn mt-4">Voir la correction</button>
-                         `;
-                         const showCorrectionBtnInner = userResultSummaryElement.querySelector('#showCorrectionBtnInner');
-                         if(showCorrectionBtnInner) {
-                             showCorrectionBtnInner.onclick = () => displayCorrection(userResult.userAnswers);
-                         }
-
-
+                        displayCorrection(userResult.userAnswers, false); // Personalized correction
                     } else {
-                         // User logged in but no result found (maybe didn't submit?)
-                         userResultSummaryElement.innerHTML = `<div class="stats-card"><p>Aucun résultat trouvé pour ${userData.pseudo}. Vous n'avez peut-être pas soumis l'examen.</p></div>`;
-                         userResultSummaryElement.classList.remove('hidden');
+                        userResultSummaryElement.innerHTML = `<div class="stats-card"><p>Aucun résultat trouvé pour ${userData.pseudo}. Vous n'avez peut-être pas soumis l'examen.</p></div>`;
+                        userResultSummaryElement.classList.remove('hidden');
+                        displayCorrection(null, true); // Generic correction
                     }
                 } catch (error) {
-                     console.error("Error fetching user result:", error);
-                     userResultSummaryElement.innerHTML = `<div class="stats-card"><p>Erreur lors du chargement de vos résultats.</p></div>`;
-                     userResultSummaryElement.classList.remove('hidden');
+                    console.error("Error fetching user result:", error);
+                    userResultSummaryElement.innerHTML = `<div class="stats-card"><p>Erreur lors du chargement de vos résultats.</p></div>`;
+                    userResultSummaryElement.classList.remove('hidden');
+                    displayCorrection(null, true); // Generic correction on error
                 }
-                 // Show logout button when logged in and viewing results
-                 logoutBtn.classList.remove('hidden');
+                logoutBtn.classList.remove('hidden');
             } else {
-                // Not logged in, hide user-specific result section
-                userResultSummaryElement.classList.add('hidden');
-                logoutBtn.classList.add('hidden'); // Hide logout button
+                // Not logged in
+                userResultSummaryElement.classList.add('hidden'); // Ensure score section is hidden
+                displayCorrection(null, true); // Show generic correction
+                logoutBtn.classList.add('hidden');
             }
+
+            // Update general stats (submitted count) and leaderboard for everyone
+            await updateSubmittedCount();
+            await updateLeaderboard();
         }
 
         // --- Login Functionality ---
@@ -1384,7 +1375,7 @@
         async function updateLeaderboard() {
             try {
                  // Order by score descending, then timestamp ascending (for ties)
-                const snapshot = await getDocs(query(examResultsCollection, orderBy('score', 'desc'), orderBy('timestamp', 'asc'), limit(10)));
+                const snapshot = await getDocs(query(examResultsCollection, orderBy('score', 'desc'), orderBy('timestamp', 'asc')));
                 leaderboardListElement.innerHTML = ''; // Clear current list
 
                 if (snapshot.empty) {
@@ -1420,37 +1411,37 @@
          }
 
 
-         function displayCorrection(userAnswers) {
+         function displayCorrection(userAnswers, isGenericView = false) {
              correctionListElement.innerHTML = ''; // Clear previous correction
-             correctionSectionElement.classList.remove('hidden'); // Show the correction section
-              const showCorrectionBtnInner = userResultSummaryElement.querySelector('#showCorrectionBtnInner');
-             if(showCorrectionBtnInner) {
-                  showCorrectionBtnInner.classList.add('hidden'); // Hide button after showing correction
+             const correctionTitleElement = correctionSectionElement.querySelector('h3');
+
+             if (isGenericView) {
+                 correctionTitleElement.textContent = 'Correction des Questions';
+             } else {
+                 correctionTitleElement.textContent = 'Votre Correction';
              }
+             correctionSectionElement.classList.remove('hidden'); // Show the correction section
 
 
              questions.forEach((q, index) => {
-                 // Get user answer from the object passed to the function
                  const userAnswer = userAnswers ? userAnswers[index] : undefined;
                  const isAnswered = userAnswer !== undefined;
 
-                 let userAnswerText = 'Non répondu';
-                 if (isAnswered) {
+                 let userAnswerText = ''; // Will be populated only if not generic and answered
+                 if (!isGenericView && isAnswered) {
                      if (q.type === 'trueFalse') {
                          userAnswerText = userAnswer ? 'Vrai' : 'Faux';
                      } else if (Array.isArray(userAnswer)) {
-                         // Map selected indices back to option text
                          const selectedOptionsText = userAnswer.sort().map(i => {
-                              // Ensure option index is valid
                              if (q.options && q.options[i] !== undefined) {
                                 return q.options[i];
                              } else {
-                                 return `Option Index ${i}`; // Fallback if option data is inconsistent
+                                 return `Option Index ${i}`;
                              }
                          });
                          userAnswerText = selectedOptionsText.length > 0 ? selectedOptionsText.join(', ') : 'Aucune option sélectionnée';
                      } else {
-                          userAnswerText = 'Format de réponse inattendu'; // Should not happen with current save logic
+                          userAnswerText = 'Format de réponse inattendu';
                      }
                  }
 
@@ -1458,29 +1449,40 @@
                  if (q.type === 'trueFalse') {
                      correctAnswerText = q.answer ? 'Vrai' : 'Faux';
                  } else {
-                     // Map correct indices back to option text
                      const correctOptionsText = q.answer.sort().map(i => {
                          if (q.options && q.options[i] !== undefined) {
                                 return q.options[i];
                             } else {
-                                return `Option Index ${i}`; // Fallback
+                                return `Option Index ${i}`;
                             }
                      });
                      correctAnswerText = correctOptionsText.join(', ');
                  }
 
-                 // Check if the user's answer is perfectly correct for scoring this question
-                 const singleQuestionScore = calculateScore({[index]: userAnswer}); // Pass a temp object with just this answer
-                 const isCorrect = singleQuestionScore === 1;
+                 let singleQuestionScore = 0;
+                 if (!isGenericView && isAnswered) { // Only calculate score if it's a user's correction and they answered
+                    singleQuestionScore = calculateScore({[index]: userAnswer});
+                 }
+                 const isCorrect = !isGenericView && isAnswered && singleQuestionScore === 1;
 
                  const correctionItem = document.createElement('div');
                  correctionItem.className = 'correction-item';
+
+                 let userAnswerLine = '';
+                 if (!isGenericView) {
+                     if (isAnswered) {
+                         userAnswerLine = `<br><span class="user-answer ${isCorrect ? 'correct' : ''}">Votre réponse: ${userAnswerText}</span>`;
+                     } else {
+                         userAnswerLine = `<br><span class="user-answer">Vous n'avez pas répondu</span>`;
+                     }
+                 }
+
                  correctionItem.innerHTML = `
                      <div class="font-bold">Question ${index + 1}</div>
                      <div class="question-text">${q.text}</div>
                      <div class="text-sm mt-1">
-                         <span class="correct-answer">Correcte: ${correctAnswerText}</span><br>
-                         <span class="user-answer ${isCorrect ? 'correct' : ''}">${isAnswered ? 'Votre réponse: ' + userAnswerText : 'Vous n\'avez pas répondu'}</span>
+                         <span class="correct-answer">Correcte: ${correctAnswerText}</span>
+                         ${userAnswerLine}
                      </div>
                  `;
                  correctionListElement.appendChild(correctionItem);
