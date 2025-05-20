@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Simulateur Informatique 2</title>
+    <link rel="icon" type="image/png" href="../assets/img/icon.png">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --background: 0 0% 100%;
+            --foreground: 222.2 84% 4.9%;
+            --card: 0 0% 100%;
+            --card-foreground: 222.2 84% 4.9%;
+            --primary: 221.2 83.2% 53.3%;
+            --primary-foreground: 210 40% 98%;
+            --secondary: 210 40% 96.1%;
+            --secondary-foreground: 222.2 47.4% 11.2%;
+            --muted: 210 40% 96.1%;
+            --muted-foreground: 215.4 16.3% 46.9%;
+            --accent: 210 40% 96.1%;
+            --accent-foreground: 222.2 47.4% 11.2%;
+            --border: 214.3 31.8% 91.4%;
+            --input: 214.3 31.8% 91.4%;
+            --ring: 221.2 83.2% 53.3%;
+            --radius: 0.5rem;
+        }
+        .dark {
+            --background: 222.2 84% 4.9%;
+            --foreground: 210 40% 98%;
+            --card: 222.2 84% 4.9%;
+            --card-foreground: 210 40% 98%;
+            --primary: 217.2 91.2% 59.8%;
+            --primary-foreground: 222.2 47.4% 11.2%;
+            --secondary: 217.2 32.6% 17.5%;
+            --secondary-foreground: 210 40% 98%;
+            --muted: 217.2 32.6% 17.5%;
+            --muted-foreground: 215 20.2% 65.1%;
+            --accent: 217.2 32.6% 17.5%;
+            --accent-foreground: 210 40% 98%;
+            --border: 217.2 32.6% 17.5%;
+            --input: 217.2 32.6% 17.5%;
+            --ring: 224.3 76.3% 48%;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: hsl(var(--background));
+            color: hsl(var(--foreground));
+            min-height: 100vh;
+            -webkit-tap-highlight-color: transparent;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .simu-card {
+            background: hsl(var(--card));
+            border: 1px solid hsl(var(--border));
+            border-radius: var(--radius);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+            transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+        }
+        .simu-card:hover {
+            transform: translateY(-6px) scale(1.01);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.13);
+            border-color: hsl(var(--primary));
+        }
+        .simu-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: hsl(var(--primary));
+            margin-bottom: 1rem;
+        }
+        .simu-btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: hsl(var(--primary));
+            color: hsl(var(--primary-foreground));
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-weight: 500;
+            text-align: center;
+        }
+        .simu-btn:disabled {
+            background: hsl(var(--muted));
+            color: hsl(var(--muted-foreground));
+            cursor: not-allowed;
+        }
+        .simu-btn:hover:not(:disabled) {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+        .theme-toggle {
+            position: fixed;
+            bottom: 1rem;
+            right: 1rem;
+            z-index: 50;
+            padding: 0.75rem;
+            border-radius: 50%;
+            background: hsl(var(--primary));
+            color: hsl(var(--primary-foreground));
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            border: none;
+        }
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="max-w-2xl mx-auto py-10 px-4">
+        <div class="simu-card text-center">
+            <div class="simu-title mb-2">Simulateur Informatique 2</div>
+            <div class="mb-4 text-lg">Préparez-vous aux examens d'Informatique 2 (Pascal, tableaux, sous-programmes...)</div>
+            <div class="flex justify-center gap-4 mb-4">
+                <button id="showRegister" class="simu-btn">Inscription</button>
+                <button id="showLogin" class="simu-btn">Connexion</button>
+            </div>
+            <form id="registerForm" class="hidden">
+                <input type="text" id="registerPseudo" class="form-input w-full mb-2" placeholder="Pseudo" required>
+                <input type="password" id="registerPin" class="form-input w-full mb-2" placeholder="Code PIN (4 chiffres)" pattern="[0-9]{4}" maxlength="4" required>
+                <button type="submit" class="simu-btn w-full">S'inscrire</button>
+            </form>
+            <form id="loginForm" class="hidden">
+                <input type="text" id="loginPseudo" class="form-input w-full mb-2" placeholder="Pseudo" required>
+                <input type="password" id="loginPin" class="form-input w-full mb-2" placeholder="Code PIN (4 chiffres)" pattern="[0-9]{4}" maxlength="4" required>
+                <button type="submit" class="simu-btn w-full">Se connecter</button>
+            </form>
+        </div>
+        <div id="examList" class="hidden">
+            <div class="simu-title mb-4">Choisissez un examen</div>
+            <div class="grid gap-6">
+                <div class="simu-card">
+                    <div class="font-bold text-lg mb-2">Examen 1 (Ouvert 24/24)</div>
+                    <div class="mb-2 text-sm">Classement et stats en direct</div>
+                    <button class="simu-btn w-full" onclick="startExam(1)">Accéder</button>
+                </div>
+                <div class="simu-card">
+                    <div class="font-bold text-lg mb-2">Examen 2</div>
+                    <div class="mb-2 text-sm">Débute le 20 mai à 21:00 (GMT+1)</div>
+                    <button class="simu-btn w-full" id="exam2Btn" onclick="startExam(2)" disabled>Non disponible</button>
+                </div>
+                <div class="simu-card">
+                    <div class="font-bold text-lg mb-2">Examen 3</div>
+                    <div class="mb-2 text-sm">21 mai 9:00-10:30 (GMT+1)</div>
+                    <button class="simu-btn w-full" id="exam3Btn" onclick="startExam(3)" disabled>Non disponible</button>
+                </div>
+                <div class="simu-card">
+                    <div class="font-bold text-lg mb-2">Examen 4</div>
+                    <div class="mb-2 text-sm">21 mai 11:00-12:30 (GMT+1)</div>
+                    <button class="simu-btn w-full" id="exam4Btn" onclick="startExam(4)" disabled>Non disponible</button>
+                </div>
+                <div class="simu-card">
+                    <div class="font-bold text-lg mb-2">Examen 5</div>
+                    <div class="mb-2 text-sm">21 mai 14:00-15:30 (GMT+1)</div>
+                    <button class="simu-btn w-full" id="exam5Btn" onclick="startExam(5)" disabled>Non disponible</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button class="theme-toggle" onclick="toggleTheme()" title="Changer de thème">
+        <i class="fas fa-moon"></i>
+    </button>
+    <script src="js/simulator-main.js"></script>
+</body>
+</html> 

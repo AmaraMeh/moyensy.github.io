@@ -194,13 +194,13 @@
          }
 
 
-        .login-form, .waiting-message {
+        .login-form {
             max-width: 400px;
             margin: 1.5rem auto; /* Adjusted margin */
             padding: 1.5rem; /* Adjusted padding */
             background: hsl(var(--card));
             border-radius: var(--radius);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 44px 6px -1px rgba(0, 0, 0, 0.1);
             text-align: center;
         }
 
@@ -323,34 +323,6 @@
             transition: width 0.3s ease;
         }
 
-        .countdown-container {
-            text-align: center;
-            margin: 1.5rem 0; /* Adjusted margin */
-        }
-
-        .countdown-title {
-            font-size: 1.25rem; /* Adjusted size */
-            font-weight: bold;
-            margin-bottom: 0.75rem; /* Adjusted margin */
-        }
-         @media (min-width: 640px) {
-             .countdown-title {
-                 font-size: 1.5rem;
-             }
-         }
-
-
-        .countdown-timer {
-            font-size: 2rem; /* Adjusted size */
-            font-weight: bold;
-            color: hsl(var(--primary));
-        }
-         @media (min-width: 640px) {
-             .countdown-timer {
-                 font-size: 2.5rem;
-             }
-         }
-
 
         .rules-container {
             background: hsl(var(--card));
@@ -410,6 +382,11 @@
          .correction-item .user-answer.correct {
              color: hsl(var(--correct-color));
          }
+         /* Style for generic correction (when no user answer is shown) */
+         .correction-item .correct-answer.generic {
+             display: block; /* Ensure it takes its own line below the question */
+             margin-top: 0.5rem;
+         }
     </style>
 </head>
 <body>
@@ -424,50 +401,29 @@
             <h2 class="text-2xl font-bold mb-4">Simulateur d'Examen</h2>
             <p class="text-lg mb-4">Méthodologie de la Présentation</p>
 
-            <!-- Countdown Section -->
-            <div class="countdown-container">
-                <div class="countdown-title">Statut de l'examen :</div>
-                <div class="countdown-timer" id="countdownTimer">--:--:--</div>
-            </div>
-
-            <!-- Rules Section -->
             <div class="rules-container text-left">
                 <div class="rules-title">Règlement de l'examen simulé</div>
                 <ul class="rules-list">
-                    <li>L'examen commence le **19 mai 2025 à 21:00** (Heure d'Algérie - GMT+1)</li>
-                    <li>Il se termine le **19 mai 2025 à 22:30** (Heure d'Algérie - GMT+1)</li>
-                    <li>Durée totale : **1h30**</li>
+                    <li>L'examen est disponible **24h/24, 7j/7**.</li>
+                    <li>Une fois l'examen démarré, vous disposez de **1h30** pour le compléter.</li>
                     <li>**30 questions** au total (20 Vrai/Faux et 10 QCM)</li>
-                    <li>Barème : **1 point par réponse correcte** (pour les QCM, toutes les bonnes options doivent être cochées et aucune mauvaise)</li>
-                    <li>Les résultats et le classement seront affichés à **22:45** (Heure d'Algérie - GMT+1)</li>
-                    <li>En cas de problème de connexion, vos réponses seront sauvegardées localement dans votre navigateur.</li>
-                    <li>Vous pouvez rejoindre l'examen même après son début, dans la limite du temps disponible.</li>
+                    <li>Barème : **1 point par réponse correcte** (pour les QCM, toutes les bonnes options doivent être cochées et aucune mauvaise).</li>
+                    <li>Votre score et la correction seront affichés **immédiatement après la soumission** de l'examen.</li>
+                    <li>Vos réponses sont sauvegardées localement dans votre navigateur pendant la session active (1h30).</li>
+                    <li>Vous ne pouvez soumettre l'examen **qu'une seule fois** par pseudo.</li>
                 </ul>
             </div>
 
             <div class="stats-card">
                 <div class="stats-number" id="registeredCount">0</div>
-                <div>Participants enregistrés</div>
+                <div>Participants enregistrés (total)</div>
             </div>
 
             <form id="loginForm">
                 <input type="text" id="pseudo" class="form-input" placeholder="Pseudo" required>
                 <input type="password" id="pin" class="form-input" placeholder="Code PIN (4 chiffres)" pattern="[0-9]{4}" maxlength="4" required>
-                <button type="submit" class="btn w-full mt-4">S'enregistrer pour l'examen</button>
+                <button type="submit" class="btn w-full mt-4">Commencer l'examen</button>
             </form>
-        </div>
-
-        <!-- Waiting for Exam Section -->
-        <div id="waitingSection" class="waiting-message hidden">
-            <h2 class="text-2xl font-bold mb-4">Bienvenue <span id="waitingPseudo"></span></h2>
-            <div class="countdown-container">
-                <div class="countdown-title">Début de l'examen dans :</div>
-                <div class="countdown-timer" id="examStartCountdown">--:--:--</div>
-            </div>
-            <div class="mt-4">
-                <p>Veuillez patienter jusqu'à l'heure de début.</p>
-                <p>L'examen commencera automatiquement.</p>
-            </div>
         </div>
 
         <!-- Exam Section -->
@@ -490,36 +446,31 @@
             </form>
         </div>
 
-        <!-- Waiting for Results Section -->
-        <div id="waitingResultsSection" class="waiting-message hidden">
-             <h2 class="text-2xl font-bold mb-4">Examen soumis !</h2>
-             <p class="mb-4">Merci d'avoir participé.</p>
-             <div class="countdown-container">
-                 <div class="countdown-title">Les résultats seront disponibles dans :</div>
-                 <div class="countdown-timer" id="resultsCountdown">--:--:--</div>
-             </div>
-             <div class="mt-4">
-                 <p>Revenez après 22:45 (Heure d'Algérie) pour consulter les résultats et le classement.</p>
-             </div>
-        </div>
-
-
         <!-- Results Section -->
         <div id="resultsSection" class="exam-card hidden">
             <h2 class="text-2xl font-bold mb-4">Résultats et Classement</h2>
 
-             <div id="userResultSummary" class="mb-6 hidden">
-                 <div class="stats-card">
-                     <div class="stats-number" id="userScore">--/30</div>
-                     <div>Votre score</div>
-                 </div>
-                 <button id="showCorrectionBtn" class="btn mt-4">Voir la correction</button>
-             </div>
+            <!-- User Result Summary (Shown if logged in and result found) -->
+            <div id="userResultSummary" class="mb-6 hidden">
+                <div class="stats-card">
+                    <div class="stats-number" id="userScore">--/30</div>
+                    <div>Votre score</div>
+                </div>
+                <!-- Correction is now always shown for logged-in user if result is found -->
+            </div>
 
             <div class="stats-card">
                 <div class="stats-number" id="submittedCount">0</div>
                 <div>Participants ayant soumis</div>
             </div>
+
+            <!-- Correction Section (Moved above leaderboard) -->
+             <div id="correctionSection" class="correction-section mt-4 mb-8 hidden">
+                 <h3 class="text-xl font-bold mb-4" id="correctionTitle">Votre Correction</h3>
+                 <div id="correctionList">
+                     <!-- Correction will be dynamically added here -->
+                 </div>
+             </div>
 
             <div class="leaderboard">
                 <h3 class="text-xl font-bold mb-2">Classement</h3>
@@ -528,13 +479,6 @@
                      <div class="text-center p-4 text-muted-foreground">Chargement du classement...</div>
                 </div>
             </div>
-
-             <div id="correctionSection" class="correction-section mt-8 hidden">
-                 <h3 class="text-xl font-bold mb-4">Votre Correction</h3>
-                 <div id="correctionList">
-                     <!-- Correction will be dynamically added here -->
-                 </div>
-             </div>
         </div>
     </div>
 
@@ -547,11 +491,8 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getFirestore, doc, getDoc, setDoc, collection, addDoc, getDocs, query, orderBy, limit, serverTimestamp, onSnapshot, where, increment } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-        // getAnalytics was requested but isn't used in this specific logic
-        // import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
 
-
-        // Your web app's Firebase configuration (UPDATED)
+        // Your web app's Firebase configuration (replace with your actual config)
         const firebaseConfig = {
             apiKey: "AIzaSyB5XYqWKhHdiVDXJx4iOwtpxD8eUCPRfKU",
             authDomain: "universite-de-bejaia-547fc.firebaseapp.com",
@@ -563,37 +504,25 @@
             measurementId: "G-SQ0WWSCS7B" // Analytics ID
         };
 
-
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
-        // const analytics = getAnalytics(app); // Analytics initialized but not used in exam logic
 
-        // Helper function to get current time in Algeria (GMT+1) - MOVED HERE
-        function getAlgeriaTime() {
-            const now = new Date();
-            // Corrected typo: getTimezoneOffset
-            const utc = now.getTime() + (now.getTimezoneOffset() * 60000); // Convert to UTC
-            return new Date(utc + (1 * 60 * 60 * 1000)); // Add GMT+1 offset
+        // Helper function to get current time (using local time for session start/end calculations)
+        // Note: Firebase timestamp is used for submission time, ensuring consistency.
+        function getClientTime() {
+            return new Date();
         }
 
-
-        // Exam Timings (Algeria Time GMT+1) - Using 2025 dates as requested
-        const EXAM_START_TIME = new Date('2025-05-19T21:00:00+01:00');
-        const EXAM_END_TIME = new Date('2025-05-19T22:30:00+01:00'); // 1h30 duration
-        const RESULTS_TIME = new Date('2025-05-19T22:45:00+01:00');
+        // Exam Duration (1 hour 30 minutes)
+        const SESSION_DURATION_MS = 90 * 60 * 1000;
 
         // UI Elements
         const loginSection = document.getElementById('loginSection');
-        const waitingSection = document.getElementById('waitingSection');
         const examSection = document.getElementById('examSection');
-        const waitingResultsSection = document.getElementById('waitingResultsSection');
         const resultsSection = document.getElementById('resultsSection');
 
-        const countdownTimerElement = document.getElementById('countdownTimer');
-        const examStartCountdownElement = document.getElementById('examStartCountdown');
         const examTimerElement = document.getElementById('timer');
-        const resultsCountdownElement = document.getElementById('resultsCountdown');
 
         const loginForm = document.getElementById('loginForm');
         const pseudoInput = document.getElementById('pseudo');
@@ -611,13 +540,12 @@
         const leaderboardListElement = document.getElementById('leaderboardList');
         const correctionSectionElement = document.getElementById('correctionSection');
         const correctionListElement = document.getElementById('correctionList');
-        const showCorrectionBtn = document.getElementById('showCorrectionBtn');
+         const correctionTitleElement = document.getElementById('correctionTitle'); // Get title element
          const logoutBtn = document.getElementById('logoutBtn');
 
 
-        // Questions data (Integrated from your list)
+        // Questions data (Integrated from your list) - Same as before
         const questions = [
-            // Question 1: Vrai ou Faux (20 questions)
             { type: 'trueFalse', text: 'Faire un exposé oral implique de présenter les résultats d\'un travail de recherche devant un auditoire.', answer: true },
             { type: 'trueFalse', text: 'L\'un des buts de l\'exposé oral est de convaincre l\'auditoire.', answer: true },
             { type: 'trueFalse', text: 'Un exposé oral efficace ne nécessite pas d\'être visuel ou expressif.', answer: false },
@@ -638,7 +566,6 @@
             { type: 'trueFalse', text: 'La répétition d\'un mot ou d\'une expression est une technique inutile en expression orale.', answer: false },
             { type: 'trueFalse', text: 'Le silence pendant un exposé permet notamment de reprendre son souffle et de regarder l\'auditoire.', answer: true },
             { type: 'trueFalse', text: 'Le regard de l\'orateur peut transmettre des sentiments ou des volontés.', answer: true },
-            // Question 2: QCM (10 questions)
             { type: 'multiple', text: 'Selon le cours, quels sont les principaux facteurs du schéma de communication ?', options: ['Le Rythme', 'Le Récepteur', 'Le Support Visuel', 'Le Canal', 'Le Message'], answer: [1, 3, 4] }, // Indices des bonnes réponses
             { type: 'multiple', text: 'Parmi les éléments suivants, lesquels font partie des techniques d\'expression orale liées à la voix, telles que décrites dans le cours ?', options: ['Les Gestes', 'Le Débit', 'La Posture', 'La Modulation', 'L\'Articulation'], answer: [1, 3, 4] },
             { type: 'multiple', text: 'Le trac peut entraîner les manifestations physiques suivantes :', options: ['Jambes molles', 'Sentiment d\'oppression', 'Langue desséchée', 'Grande confiance en soi', 'Crampes'], answer: [0, 1, 2, 4] },
@@ -651,10 +578,9 @@
             { type: 'multiple', text: 'Que faut-il éviter lors de la création du support visuel selon le cours ?', options: ['Les fautes d\'orthographe.', 'L\'écriture en majuscules.', 'L\'abus d\'animations complexes.', 'De mettre des mots-clés sur les diapositives.'], answer: [0, 1, 2] }
         ];
 
-
-        // --- Firebase Counters for Registered Participants ---
-        // Using 'methodologie_presentation_registered' as the counter key for this specific exam
+        // --- Firebase Counters ---
         const registeredCounterRef = doc(db, 'counters', 'methodologie_presentation_registered');
+        const examResultsCollection = collection(db, 'examResults_methodologie');
 
         // Initialize counter if it doesn't exist
         const initializeRegisteredCounter = async () => {
@@ -665,19 +591,18 @@
                 }
             } catch (error) {
                 console.error("Error initializing registered counter:", error);
-                // Log error, but don't block the app
             }
         };
 
         // Listen for real-time updates to the registered counter
-        let unsubscribeRegisteredCounter = null; // Keep track of listener
+        let unsubscribeRegisteredCounter = null;
         const startRegisteredCounterListener = () => {
-             if (!unsubscribeRegisteredCounter) { // Only start if not already listening
+             if (!unsubscribeRegisteredCounter) {
                 unsubscribeRegisteredCounter = onSnapshot(registeredCounterRef, (doc) => {
                     if (doc.exists()) {
                         registeredCountElement.textContent = doc.data().count;
                     } else {
-                         registeredCountElement.textContent = 'N/A'; // Should ideally not happen if initialized
+                         registeredCountElement.textContent = 'N/A';
                     }
                 }, (error) => {
                      console.error("Error listening to registered counter:", error);
@@ -692,15 +617,9 @@
              }
         };
 
-
-        // --- Firebase Exam Results ---
-        const examResultsCollection = collection(db, 'examResults_methodologie'); // Using a specific collection for this exam
-
-
-        // --- Countdown & Timer Logic ---
+        // --- Timer Logic (Per Session) ---
         let examTimerInterval = null;
-        let globalCountdownInterval = null;
-        let resultsCountdownInterval = null;
+        let sessionStartTime = null; // Stored locally in localStorage
 
         function formatTime(ms) {
             if (ms < 0) ms = 0;
@@ -711,260 +630,108 @@
             return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
         }
 
-        function updateGlobalCountdown() {
-            const now = getAlgeriaTime();
-
-            // If after results time
-            if (now >= RESULTS_TIME) {
-                clearAllIntervals(); // Clear all timers/countdowns
-                countdownTimerElement.textContent = "Résultats disponibles";
-                showResults();
-                return;
-            }
-
-            // If during exam
-            if (now >= EXAM_START_TIME && now < EXAM_END_TIME) {
-                 // Note: The logic to transition to exam state for logged-in users
-                 // happens primarily on login submit or window load check.
-                 // This global countdown just updates the text on the login screen.
-                 countdownTimerElement.textContent = "Examen en cours";
-
-                  // If currently showing waitingForResults (edge case when results time passes)
-                  if (waitingResultsSection.classList.contains('hidden') === false && now < RESULTS_TIME) {
-                      showWaitingForResults(); // Re-assert waiting state if needed
-                  } else if (loginSection.classList.contains('hidden') && examSection.classList.contains('hidden') && waitingSection.classList.contains('hidden') && resultsSection.classList.contains('hidden')) {
-                      // If no section is currently visible (e.g., after manual time change or refresh)
-                       const savedUser = localStorage.getItem('examUser');
-                       if (savedUser) {
-                           startExam(JSON.parse(savedUser)); // Go to exam if logged in
-                       } else {
-                           showLogin(); // Go to login if not logged in
-                       }
-                  }
-
-
-                 return; // Continue global countdown loop if not yet at results time
-            }
-
-            // If after exam but before results
-            if (now >= EXAM_END_TIME && now < RESULTS_TIME) {
-                 const timeToResults = RESULTS_TIME - now;
-                 countdownTimerElement.textContent = `Résultats dans ${formatTime(timeToResults)}`;
-
-                 // Transition to waiting for results screen if not already there
-                 if (waitingResultsSection.classList.contains('hidden')) {
-                     showWaitingForResults(); // This starts the results countdown
-                 }
-                 return; // Continue global countdown loop
-            }
-
-            // If before exam
-            if (now < EXAM_START_TIME) {
-                const timeToStart = EXAM_START_TIME - now;
-                countdownTimerElement.textContent = `Début dans ${formatTime(timeToStart)}`;
-
-                 // If currently showing exam or waiting results (edge case)
-                 if (examSection.classList.contains('hidden') === false || waitingResultsSection.classList.contains('hidden') === false) {
-                      // If somehow on exam or waiting results screen before exam start,
-                      // redirect based on login state
-                       const savedUser = localStorage.getItem('examUser');
-                       if (savedUser) {
-                            showWaitingForExam(JSON.parse(savedUser).pseudo);
-                            startExamStartCountdown();
-                       } else {
-                           showLogin();
-                       }
-                 }
-
-                 return; // Continue global countdown loop
-            }
-
-             // Fallback, should not be reached if logic is correct
-            countdownTimerElement.textContent = "Statut inconnu";
-        }
-
-        function startExamStartCountdown() {
-             // Clear any existing start countdown to prevent multiple intervals
-             if (waitingSection.dataset.intervalId) {
-                 clearInterval(parseInt(waitingSection.dataset.intervalId));
-             }
-
-             const interval = setInterval(() => {
-                 const now = getAlgeriaTime();
-                 const timeToStart = EXAM_START_TIME - now;
-
-                 if (timeToStart <= 0) {
-                     clearInterval(interval);
-                     delete waitingSection.dataset.intervalId; // Clear interval ID from dataset
-                     // Transition to exam
-                     const savedUser = localStorage.getItem('examUser');
-                     if(savedUser) {
-                          const userData = JSON.parse(savedUser);
-                          startExam(userData); // Start the exam UI
-                          // Stop the global countdown interval on login page if it's still running
-                          if(globalCountdownInterval) {
-                             clearInterval(globalCountdownInterval);
-                             globalCountdownInterval = null;
-                          }
-                     } else {
-                          // Should not happen if flow is correct, but as fallback
-                          showLogin();
-                     }
-                     return;
-                 }
-
-                 examStartCountdownElement.textContent = formatTime(timeToStart);
-             }, 1000);
-
-             waitingSection.dataset.intervalId = interval.toString(); // Store interval ID as string
-        }
-
         function startExamTimer() {
             // Clear any existing exam timer
             if (examTimerInterval) {
                  clearInterval(examTimerInterval);
             }
 
-            const now = getAlgeriaTime();
-            let durationMs = EXAM_END_TIME - now; // Time left until the end of the exam in milliseconds
+             // Load session start time from localStorage
+             const savedStartTime = localStorage.getItem('examStartTime_methodologie');
+             if (!savedStartTime) {
+                 // This should ideally be set before calling this function, but as a fallback
+                 console.error("Session start time not found. Starting new session.");
+                 sessionStartTime = getClientTime().getTime();
+                 localStorage.setItem('examStartTime_methodologie', sessionStartTime.toString());
+             } else {
+                 sessionStartTime = parseInt(savedStartTime);
+             }
 
-            if (durationMs <= 0) {
-                 // Exam already ended or will end immediately
+            const now = getClientTime().getTime();
+            let remainingTimeMs = SESSION_DURATION_MS - (now - sessionStartTime);
+
+            if (remainingTimeMs <= 0) {
+                 // Time already up or expired
                  examTimerElement.textContent = "00:00:00";
+                 // Automatically submit if time is up
                  // Use a small timeout to ensure the UI updates before submitting
-                 setTimeout(submitExam, 50); // Submit immediately
+                 setTimeout(submitExam, 50);
                  return;
             }
 
-            examTimerElement.textContent = formatTime(durationMs);
+            examTimerElement.textContent = formatTime(remainingTimeMs);
 
             examTimerInterval = setInterval(() => {
-                durationMs -= 1000; // Decrease by 1 second
+                remainingTimeMs -= 1000; // Decrease by 1 second
 
-                if (durationMs <= 0) {
+                if (remainingTimeMs <= 0) {
                     clearInterval(examTimerInterval);
-                    examTimerInterval = null; // Clear interval ID
+                    examTimerInterval = null;
                     examTimerElement.textContent = "00:00:00";
                     submitExam(); // Time's up, submit
+                    alert("Votre temps est écoulé ! L'examen a été soumis automatiquement.");
                     return;
                 }
 
-                examTimerElement.textContent = formatTime(durationMs);
+                examTimerElement.textContent = formatTime(remainingTimeMs);
             }, 1000);
         }
 
-         function updateResultsCountdown() {
-             const now = getAlgeriaTime();
-             const timeToResults = RESULTS_TIME - now;
-
-             if (timeToResults <= 0) {
-                 clearAllIntervals(); // Clear all timers/countdowns
-                 showResults(); // Time to show results
-                 return;
+        function stopExamTimer() {
+             if (examTimerInterval) {
+                 clearInterval(examTimerInterval);
+                 examTimerInterval = null;
              }
-
-             resultsCountdownElement.textContent = formatTime(timeToResults);
-         }
-
-         function clearAllIntervals() {
-             if (examTimerInterval) clearInterval(examTimerInterval);
-             if (globalCountdownInterval) clearInterval(globalCountdownInterval);
-             if (resultsCountdownInterval) clearInterval(resultsCountdownInterval);
-             if (waitingSection.dataset.intervalId) clearInterval(parseInt(waitingSection.dataset.intervalId));
-
-             examTimerInterval = null;
-             globalCountdownInterval = null;
-             resultsCountdownInterval = null;
-             delete waitingSection.dataset.intervalId;
-         }
+        }
 
         // --- UI State Management ---
         function hideAllSections() {
             loginSection.classList.add('hidden');
-            waitingSection.classList.add('hidden');
             examSection.classList.add('hidden');
-            waitingResultsSection.classList.add('hidden');
             resultsSection.classList.add('hidden');
-            logoutBtn.classList.add('hidden'); // Hide logout by default
+            logoutBtn.classList.add('hidden');
         }
 
         function showLogin() {
              hideAllSections();
              loginSection.classList.remove('hidden');
-             // Ensure global countdown is running for login screen status
-             if(!globalCountdownInterval) {
-                 globalCountdownInterval = setInterval(updateGlobalCountdown, 1000);
-             }
-             updateGlobalCountdown(); // Initial call to set status text
-             // Hide logout button on login page
-             logoutBtn.classList.add('hidden');
-             stopRegisteredCounterListener(); // Stop listener when not on login/results
-        }
-
-        function showWaitingForExam(pseudo) {
-            hideAllSections();
-            waitingSection.classList.remove('hidden');
-            document.getElementById('waitingPseudo').textContent = pseudo;
-             // Show logout button when logged in and waiting
-             logoutBtn.classList.remove('hidden');
-             stopRegisteredCounterListener(); // Stop listener when waiting for exam
+             logoutBtn.classList.add('hidden'); // Hide logout button on login page
+             startRegisteredCounterListener(); // Listen on login page
         }
 
         function startExam(userData) {
             hideAllSections();
             examSection.classList.remove('hidden');
+            logoutBtn.classList.remove('hidden'); // Show logout during exam
             displayQuestions(); // Render questions
-            loadSavedAnswers(); // Load answers from local storage
+            loadSavedAnswers(); // Load answers from local storage (and sessionStartTime)
             updateProgress(); // Update progress based on loaded answers
-            startExamTimer(); // Start the countdown timer
-             // Show logout button during exam
-             logoutBtn.classList.remove('hidden');
-             stopRegisteredCounterListener(); // Stop listener during exam
-             // Ensure global countdown stops if it was running on the login page
-             if(globalCountdownInterval) {
-                 clearInterval(globalCountdownInterval);
-                 globalCountdownInterval = null;
-             }
+            startExamTimer(); // Start the countdown timer based on session start time
+            stopRegisteredCounterListener(); // Stop listener during exam
         }
 
-        function showWaitingForResults() {
-             hideAllSections();
-             waitingResultsSection.classList.remove('hidden');
-              // Start results countdown if not already running
-             if(!resultsCountdownInterval) {
-                 resultsCountdownInterval = setInterval(updateResultsCountdown, 1000);
-                 updateResultsCountdown(); // Call immediately
-             }
-              // Show logout button if user was logged in when exam ended/submitted
-             const savedUser = localStorage.getItem('examUser');
-             if(savedUser) {
-                 logoutBtn.classList.remove('hidden');
-             } else {
-                  logoutBtn.classList.add('hidden'); // Should be hidden if not logged in
-             }
-             stopRegisteredCounterListener(); // Stop listener when waiting for results
-        }
-
-        async function showResults() {
+        async function showResults(userData = null) {
             hideAllSections();
             resultsSection.classList.remove('hidden');
-            startRegisteredCounterListener();
+            logoutBtn.classList.remove('hidden'); // Show logout on results page
+            startRegisteredCounterListener(); // Listen on results page
 
-            // Clear previous user-specific content first
-            userResultSummaryElement.innerHTML = '';
+            // Clear previous content
             userResultSummaryElement.classList.add('hidden');
             correctionListElement.innerHTML = '';
             correctionSectionElement.classList.add('hidden');
+            leaderboardListElement.innerHTML = '<div class="text-center p-4 text-muted-foreground">Chargement du classement...</div>';
 
-            const savedUser = localStorage.getItem('examUser');
-            if (savedUser) {
-                const userData = JSON.parse(savedUser);
+
+            let userResult = null;
+            if (userData) {
                 try {
+                    // Fetch the submitted result for the logged-in user
                     const userResultQuery = query(examResultsCollection, where('pseudo', '==', userData.pseudo), limit(1));
                     const userResultSnapshot = await getDocs(userResultQuery);
 
                     if (!userResultSnapshot.empty) {
-                        const userResult = userResultSnapshot.docs[0].data();
+                        userResult = userResultSnapshot.docs[0].data();
                         userResultSummaryElement.innerHTML = `
                             <div class="stats-card">
                                 <div class="stats-number">${userResult.score}/${questions.length}</div>
@@ -972,24 +739,25 @@
                             </div>
                         `;
                         userResultSummaryElement.classList.remove('hidden');
-                        displayCorrection(userResult.userAnswers, false); // Personalized correction
+                         // Display personalized correction if logged in and result found
+                         displayCorrection(userResult.userAnswers, false);
                     } else {
-                        userResultSummaryElement.innerHTML = `<div class="stats-card"><p>Aucun résultat trouvé pour ${userData.pseudo}. Vous n'avez peut-être pas soumis l'examen.</p></div>`;
-                        userResultSummaryElement.classList.remove('hidden');
-                        displayCorrection(null, true); // Generic correction
+                         // Logged in but no result found (e.g., session timed out before submitting)
+                         userResultSummaryElement.innerHTML = `<div class="stats-card"><p>Aucun résultat soumis trouvé pour ${userData.pseudo}.</p></div>`;
+                         userResultSummaryElement.classList.remove('hidden');
+                         // Display generic correction
+                         displayCorrection(null, true);
                     }
                 } catch (error) {
                     console.error("Error fetching user result:", error);
                     userResultSummaryElement.innerHTML = `<div class="stats-card"><p>Erreur lors du chargement de vos résultats.</p></div>`;
                     userResultSummaryElement.classList.remove('hidden');
-                    displayCorrection(null, true); // Generic correction on error
+                     // Display generic correction on error
+                     displayCorrection(null, true);
                 }
-                logoutBtn.classList.remove('hidden');
             } else {
-                // Not logged in
-                userResultSummaryElement.classList.add('hidden'); // Ensure score section is hidden
-                displayCorrection(null, true); // Show generic correction
-                logoutBtn.classList.add('hidden');
+                // Not logged in, just show generic correction
+                displayCorrection(null, true);
             }
 
             // Update general stats (submitted count) and leaderboard for everyone
@@ -997,91 +765,77 @@
             await updateLeaderboard();
         }
 
+         async function checkExistingSubmission(pseudo) {
+             try {
+                 const existingResultQuery = query(examResultsCollection, where('pseudo', '==', pseudo), limit(1));
+                 const existingResultSnapshot = await getDocs(existingResultQuery);
+                 return !existingResultSnapshot.empty;
+             } catch (error) {
+                 console.error("Error checking for existing submission:", error);
+                 // In case of error, err on the side of caution and allow starting, but warn
+                 alert("Erreur de connexion lors de la vérification de votre pseudo. Veuillez réessayer.");
+                 return false; // Assume no existing submission if check fails
+             }
+         }
+
+
         // --- Login Functionality ---
         loginForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const now = getAlgeriaTime();
-
-            // Check time bounds before proceeding
-             if (now < EXAM_START_TIME) {
-                alert(`L'examen n'a pas encore commencé. Il débutera le ${EXAM_START_TIME.toLocaleString('fr-FR', {dateStyle: 'short', timeStyle: 'short'})} (Heure d'Algérie).`);
-                return;
-             }
-            if (now >= EXAM_END_TIME && now < RESULTS_TIME) {
-                alert("L'examen est terminé. Les résultats seront disponibles à 22:45 (heure d'Algérie).");
-                showWaitingForResults(); // Redirect to waiting for results
-                return;
-            }
-             if (now >= RESULTS_TIME) {
-                alert("Les résultats sont disponibles.");
-                showResults(); // Redirect to results
-                return;
-            }
-
 
             const pseudo = pseudoInput.value.trim();
-            const pin = pinInput.value; // PIN validation is pattern/maxlength on input
+            const pin = pinInput.value;
 
             if (!pseudo) {
                  alert("Veuillez entrer un Pseudo.");
                  return;
             }
-             // Basic PIN format check
              if (!/^[0-9]{4}$/.test(pin)) {
                  alert("Le Code PIN doit être composé de 4 chiffres.");
                  return;
              }
 
             // Check if pseudo already has a *submitted* result to prevent duplicates
-            try {
-                const existingResultQuery = query(examResultsCollection, where('pseudo', '==', pseudo));
-                const existingResultSnapshot = await getDocs(existingResultQuery);
-                 if (!existingResultSnapshot.empty) {
-                      // Check if there's a PIN match for existing user (if PIN was saved)
-                      // Currently, PIN isn't strongly used for verification on return login.
-                      // We'll block if a result exists with this pseudo.
-                     alert(`Un résultat existe déjà pour le pseudo "${pseudo}". Vous ne pouvez soumettre l'examen qu'une seule fois.`);
-                     return; // Prevent multiple submissions from same pseudo
-                 }
-            } catch (error) {
-                 console.error("Error checking for existing result:", error);
-                 // Allow proceeding if Firebase check fails? Or block? Let's block for safety.
-                 alert("Une erreur est survenue lors de la vérification de votre pseudo. Veuillez vérifier votre connexion ou réessayer.");
-                 return;
-            }
+             const existingSubmission = await checkExistingSubmission(pseudo);
+             if (existingSubmission) {
+                 alert(`Un résultat existe déjà pour le pseudo "${pseudo}". Vous ne pouvez soumettre l'examen qu'une seule fois.`);
+                 // Redirect to results page where they can see their score/correction
+                 const userData = { pseudo, pin }; // Keep user data for results page
+                 localStorage.setItem('examUser', JSON.stringify(userData));
+                 showResults(userData);
+                 return; // Prevent starting the exam
+             }
 
-            // Store user data locally upon successful pseudo/pin validation and check
+
+            // If no existing submission, store user data and start the exam session
             const userData = { pseudo, pin };
             localStorage.setItem('examUser', JSON.stringify(userData));
+            // Also set the session start time now
+            const startTime = getClientTime().getTime();
+            localStorage.setItem('examStartTime_methodologie', startTime.toString());
 
-            // Increment participant counter
+
+            // Increment participant counter (only on first successful login without prior submission)
              try {
                 await setDoc(registeredCounterRef, { count: increment(1) }, { merge: true });
              } catch (error) {
                  console.error("Error incrementing registered counter:", error);
-                 // Log error, but don't prevent user from taking the exam
              }
 
-            // Determine next state based on time (during exam)
-             startExam(userData); // User logged in during the exam window, go to exam
-             // Note: The "before exam" case is handled by the time checks at the start of this listener
-             // and the initial load logic which directs to the waiting screen.
-
+            startExam(userData);
         });
 
          // --- Logout Functionality ---
          logoutBtn.addEventListener('click', handleLogout);
 
          function handleLogout() {
-             // Check if currently in exam state
              const inExam = !examSection.classList.contains('hidden');
 
              if (inExam) {
                  if (!confirm("Vous êtes en train de passer l'examen. Si vous vous déconnectez, votre progression locale sera perdue et votre examen ne sera pas soumis. Voulez-vous continuer la déconnexion ?")) {
                      return; // User cancelled logout
                  }
-                 // If user confirms during exam, attempt to save answers before logging out
-                 saveAnswers(); // Save current state locally just in case
+                 // If user confirms during exam, answers are saved locally by the input change listener
              } else {
                   // If not in exam, just ask for confirmation
                  if (!confirm("Voulez-vous vraiment vous déconnecter ?")) {
@@ -1089,9 +843,12 @@
                  }
              }
 
+             // Clear all local storage related to the exam session/user
              localStorage.removeItem('examUser');
-             localStorage.removeItem('examAnswers'); // Also clear saved answers on logout
-             clearAllIntervals(); // Stop all timers/intervals
+             localStorage.removeItem('examAnswers');
+             localStorage.removeItem('examStartTime_methodologie');
+
+             stopExamTimer(); // Stop the timer
              showLogin(); // Go back to the login screen
              alert("Vous avez été déconnecté.");
          }
@@ -1135,9 +892,6 @@
 
              // Add event listener for answer selection to save and update progress
             questionsContainer.addEventListener('change', handleAnswerChange);
-
-             // Add visual feedback for selected options (re-delegate the click/change logic)
-             // The change listener handles both the data saving and the class update now.
         }
 
         function handleAnswerChange(e) {
@@ -1174,16 +928,22 @@
 
                 if (selectedInputs.length > 0) {
                     if (questions[index].type === 'trueFalse') {
-                         // For radio, only one is checked
                         answers[index] = selectedInputs[0].value === 'true';
                     } else { // multiple choice
-                         // For checkbox, collect all checked values
                         answers[index] = Array.from(selectedInputs).map(input => parseInt(input.value));
                     }
                  }
-                 // If selectedInputs.length is 0, the key is simply not added to the answers object, meaning unanswered
+                 // If selectedInputs.length is 0, the key for that question is not added, meaning unanswered
             });
+
+            // Also save the current session start time
+            const currentSessionStartTime = localStorage.getItem('examStartTime_methodologie');
+
             localStorage.setItem('examAnswers', JSON.stringify(answers));
+             // Ensure start time is saved alongside answers
+             if (currentSessionStartTime) {
+                 localStorage.setItem('examStartTime_methodologie', currentSessionStartTime);
+             }
         }
 
         function loadSavedAnswers() {
@@ -1193,11 +953,10 @@
                     const answers = JSON.parse(savedAnswers);
                     questionsContainer.querySelectorAll('.mb-8').forEach(questionElement => {
                         const qIndex = parseInt(questionElement.getAttribute('data-question-index'));
-                        const userAnswer = answers[qIndex]; // Can be undefined if not saved
+                        const userAnswer = answers[qIndex];
 
-                        if (userAnswer !== undefined) { // Only try to load if there's a saved answer for this question
+                        if (userAnswer !== undefined) {
                             if (questions[qIndex].type === 'trueFalse') {
-                                 // Check if the user answer (boolean) matches the value string ('true' or 'false')
                                 const input = questionElement.querySelector(`input[name="q${qIndex}"][value="${userAnswer}"]`);
                                 if (input) {
                                     input.checked = true;
@@ -1217,8 +976,11 @@
                      updateOptionClasses(); // Apply selected style after loading
                 } catch (e) {
                     console.error("Failed to load saved answers from localStorage:", e);
-                    localStorage.removeItem('examAnswers'); // Clear potentially corrupted data
-                    alert("Erreur: Impossible de charger vos réponses sauvegardées localement.");
+                    // Clear potentially corrupted data and the related start time
+                    localStorage.removeItem('examAnswers');
+                    localStorage.removeItem('examStartTime_methodologie');
+                    alert("Erreur: Impossible de charger vos réponses sauvegardées localement. Vous commencerez un nouvel examen.");
+                    // If loading fails, treat as a fresh start for answers, but the timer logic handles session expiration.
                 }
             }
         }
@@ -1226,7 +988,6 @@
 
         function updateProgress() {
             let answeredCount = 0;
-             // Count questions that have *any* option checked
              questionsContainer.querySelectorAll('.mb-8').forEach(questionElement => {
                  const selectedInputs = questionElement.querySelectorAll('input:checked');
                  if (selectedInputs.length > 0) {
@@ -1242,23 +1003,19 @@
         function calculateScore(userAnswersObject) {
             let score = 0;
             questions.forEach((question, index) => {
-                // Get user answer from the object passed to the function
                 const userAnswer = userAnswersObject ? userAnswersObject[index] : undefined;
 
                 if (userAnswer === undefined) {
-                    // Question was not answered, score is 0 for this question
-                    return; // Continue to next question
+                    return; // Unanswered question gets 0 points
                 }
 
                 if (question.type === 'trueFalse') {
-                    // Check if user answer matches correct answer (1 point for correct TF)
                     if (userAnswer === question.answer) {
                         score++;
                     }
                 } else { // multiple choice
-                    // Check if the array of selected indices exactly matches the array of correct indices (1 point for perfectly answered MCQ)
-                    const correctAnswers = question.answer.slice().sort(); // Get a copy and sort
-                    const submittedAnswers = Array.isArray(userAnswer) ? userAnswer.slice().sort() : []; // Get a copy and sort submitted answers
+                    const correctAnswers = question.answer.slice().sort();
+                    const submittedAnswers = Array.isArray(userAnswer) ? userAnswer.slice().sort() : [];
 
                      if (submittedAnswers.length === correctAnswers.length &&
                          submittedAnswers.every((val, i) => val === correctAnswers[i])) {
@@ -1271,27 +1028,13 @@
 
         // Submit Exam
         document.getElementById('examForm').addEventListener('submit', async (e) => {
-             e.preventDefault(); // Prevent default form submission
-             await submitExam(); // Call the async submit function
+             e.preventDefault();
+             await submitExam();
         });
 
 
         async function submitExam() {
-            const now = getAlgeriaTime();
-
-            // Check if exam time has already passed
-             if (now >= EXAM_END_TIME) {
-                 alert("L'heure limite de l'examen est dépassée. Votre examen ne peut pas être soumis.");
-                 // Transition to the next state (waiting for results or results)
-                 if (now < RESULTS_TIME) {
-                     showWaitingForResults();
-                 } else {
-                     showResults();
-                 }
-                 return; // Stop submission
-             }
-
-             // Disable submit button immediately to prevent double clicks
+             // Disable submit button
              submitExamButton.disabled = true;
              submitExamButton.textContent = 'Soumission en cours...';
 
@@ -1302,35 +1045,32 @@
                  const selectedInputs = questionElement.querySelectorAll(`input[name="q${index}"]:checked`);
                  if (selectedInputs.length > 0) {
                     if (questions[index].type === 'trueFalse') {
-                        // Store as boolean true/false
                         userAnswers[index] = selectedInputs[0].value === 'true';
                     } else { // multiple choice
-                        // Store as array of numbers
                         userAnswers[index] = Array.from(selectedInputs).map(input => parseInt(input.value));
                     }
                  }
              });
-
 
             const score = calculateScore(userAnswers);
             const userData = JSON.parse(localStorage.getItem('examUser'));
 
              if (!userData || !userData.pseudo || !userData.pin) {
                  alert("Erreur de session : Veuillez vous reconnecter.");
-                 showLogin(); // Send back to login if user data is missing
-                  // Re-enable button before returning
-                 submitExamButton.disabled = false;
-                 submitExamButton.textContent = 'Soumettre l\'examen';
+                 showLogin();
+                  submitExamButton.disabled = false; // Re-enable if login redirect fails for some reason
+                  submitExamButton.textContent = 'Soumettre l\'examen';
                  return;
              }
 
             try {
-                // Check if pseudo already has a result submitted in Firebase *again* before submitting
-                 const existingResultQuery = query(examResultsCollection, where('pseudo', '==', userData.pseudo), limit(1));
-                 const existingResultSnapshot = await getDocs(existingResultQuery);
+                // Check for existing submission one last time before writing
+                 const existingSubmission = await checkExistingSubmission(userData.pseudo);
 
-                 if (!existingResultSnapshot.empty) {
+                 if (existingSubmission) {
                      alert(`Un résultat existe déjà pour le pseudo "${userData.pseudo}". Votre examen précédent a déjà été enregistré.`);
+                     // Redirect to results page
+                     showResults(userData);
                  } else {
                      // Save results to Firebase
                      await addDoc(examResultsCollection, {
@@ -1338,36 +1078,30 @@
                          pin: userData.pin, // Optionally save PIN
                          score: score,
                          userAnswers: userAnswers, // Save user's answers for correction
-                         timestamp: serverTimestamp() // Use server timestamp
+                         timestamp: serverTimestamp() // Use server timestamp for ranking ties
                      });
 
                     alert(`Votre examen a été soumis avec succès ! Votre score est de ${score}/${questions.length}.`);
 
-                    // Clear local storage for this exam's answers after successful submission
+                    // Clear local storage for this exam's session after successful submission
                     localStorage.removeItem('examAnswers');
-                     // Keep examUser in local storage for results phase
-                 }
+                    localStorage.removeItem('examStartTime_methodologie');
+                    stopExamTimer(); // Stop the timer
 
+                     // Update submitted count immediately
+                    await updateSubmittedCount(); // Call async function
+
+                    // Transition to results page
+                    showResults(userData);
+                 }
 
             } catch (error) {
                 console.error("Erreur lors de la soumission de l'examen:", error);
                 alert("Une erreur est survenue lors de la soumission de l'examen. Veuillez vérifier votre connexion. Si le problème persiste, notez votre score et contactez l'organisateur.");
-                 // Don't clear local storage in case of Firebase error, user might retry or inspect locally.
-                 // Re-enable the button.
-                 submitExamButton.disabled = false;
+                 submitExamButton.disabled = false; // Re-enable button on error
                  submitExamButton.textContent = 'Soumettre l\'examen';
-                 return; // Stop here if Firebase submission failed
+                 // Don't clear local storage in case of Firebase error
             }
-
-            // Transition to waiting for results screen
-            if (now < RESULTS_TIME) {
-                 showWaitingForResults();
-            } else {
-                 // If already after results time, show results directly
-                 showResults();
-            }
-             // Button is re-enabled only in the catch block if there was an error,
-             // otherwise the page state changes.
         }
 
 
@@ -1385,7 +1119,6 @@
                         const data = doc.data();
                         const item = document.createElement('div');
                         item.className = 'leaderboard-item';
-                        // Add timestamp if needed for debugging ties: data.timestamp?.toDate().toLocaleString()
                         item.innerHTML = `
                             <span>${index + 1}. ${data.pseudo}</span>
                             <span>${data.score}/${questions.length}</span>
@@ -1401,7 +1134,6 @@
 
          async function updateSubmittedCount() {
              try {
-                  // Count documents in examResults collection
                   const snapshot = await getDocs(examResultsCollection);
                   submittedCountElement.textContent = snapshot.size;
              } catch (error) {
@@ -1413,7 +1145,6 @@
 
          function displayCorrection(userAnswers, isGenericView = false) {
              correctionListElement.innerHTML = ''; // Clear previous correction
-             const correctionTitleElement = correctionSectionElement.querySelector('h3');
 
              if (isGenericView) {
                  correctionTitleElement.textContent = 'Correction des Questions';
@@ -1427,8 +1158,14 @@
                  const userAnswer = userAnswers ? userAnswers[index] : undefined;
                  const isAnswered = userAnswer !== undefined;
 
-                 let userAnswerText = ''; // Will be populated only if not generic and answered
+                 let userAnswerText = '';
+                 let isCorrect = false; // Assume incorrect unless proven correct
+
                  if (!isGenericView && isAnswered) {
+                     // Calculate score for this single question
+                     const singleQuestionScore = calculateScore({[index]: userAnswer});
+                     isCorrect = (singleQuestionScore === 1);
+
                      if (q.type === 'trueFalse') {
                          userAnswerText = userAnswer ? 'Vrai' : 'Faux';
                      } else if (Array.isArray(userAnswer)) {
@@ -1441,7 +1178,7 @@
                          });
                          userAnswerText = selectedOptionsText.length > 0 ? selectedOptionsText.join(', ') : 'Aucune option sélectionnée';
                      } else {
-                          userAnswerText = 'Format de réponse inattendu';
+                          userAnswerText = 'Format de réponse inattendu'; // Should not happen with correct saving
                      }
                  }
 
@@ -1459,12 +1196,6 @@
                      correctAnswerText = correctOptionsText.join(', ');
                  }
 
-                 let singleQuestionScore = 0;
-                 if (!isGenericView && isAnswered) { // Only calculate score if it's a user's correction and they answered
-                    singleQuestionScore = calculateScore({[index]: userAnswer});
-                 }
-                 const isCorrect = !isGenericView && isAnswered && singleQuestionScore === 1;
-
                  const correctionItem = document.createElement('div');
                  correctionItem.className = 'correction-item';
 
@@ -1475,14 +1206,17 @@
                      } else {
                          userAnswerLine = `<br><span class="user-answer">Vous n'avez pas répondu</span>`;
                      }
+                 } else {
+                      // In generic view, add a class to the correct answer span for styling consistency
+                      correctAnswerText = `<span class="correct-answer generic">Correcte: ${correctAnswerText}</span>`;
                  }
+
 
                  correctionItem.innerHTML = `
                      <div class="font-bold">Question ${index + 1}</div>
                      <div class="question-text">${q.text}</div>
                      <div class="text-sm mt-1">
-                         <span class="correct-answer">Correcte: ${correctAnswerText}</span>
-                         ${userAnswerLine}
+                          ${isGenericView ? correctAnswerText : `<span class="correct-answer">Correcte: ${correctAnswerText}</span>${userAnswerLine}`}
                      </div>
                  `;
                  correctionListElement.appendChild(correctionItem);
@@ -1515,58 +1249,69 @@
         window.addEventListener('load', async () => {
             loadTheme(); // Apply saved theme
             await initializeRegisteredCounter(); // Ensure counter exists
-             startRegisteredCounterListener(); // Start listening to registered count immediately
+            // Start listening to registered count immediately - it's shown on login/results
 
-
-            // Check user state and time immediately on load
             const savedUser = localStorage.getItem('examUser');
-            const now = getAlgeriaTime();
+            const savedStartTimeStr = localStorage.getItem('examStartTime_methodologie');
+            const now = getClientTime().getTime();
 
-            if (now >= RESULTS_TIME) {
-                // If after results time, show results directly
-                showResults();
-            } else if (now >= EXAM_END_TIME && now < RESULTS_TIME) {
-                 // If after exam but before results, show waiting for results
-                 showWaitingForResults(); // This will start the results countdown
-            } else if (now >= EXAM_START_TIME && now < EXAM_END_TIME) {
-                 // If during exam time
-                 if(savedUser) {
-                      // If logged in, start the exam
-                      const userData = JSON.parse(savedUser);
-                      startExam(userData); // This will start the exam timer and load answers
+            if (savedUser) {
+                 const userData = JSON.parse(savedUser);
+
+                 // Check if the user already submitted
+                 const existingSubmission = await checkExistingSubmission(userData.pseudo);
+
+                 if (existingSubmission) {
+                     // User already submitted, go straight to results
+                     localStorage.removeItem('examAnswers'); // Clear any lingering local answers
+                     localStorage.removeItem('examStartTime_methodologie'); // Clear lingering start time
+                     showResults(userData);
+                 } else if (savedStartTimeStr) {
+                     // User is logged in and has a saved session start time
+                     const startTime = parseInt(savedStartTimeStr);
+                     const timeElapsed = now - startTime;
+
+                     if (timeElapsed >= SESSION_DURATION_MS) {
+                         // Session expired, clear local data and show results
+                         localStorage.removeItem('examAnswers');
+                         localStorage.removeItem('examStartTime_methodologie');
+                         alert("Votre session d'examen précédente a expiré.");
+                          // Since they didn't submit in time, show generic results or a message
+                          // For simplicity, show generic results+leaderboard
+                         showResults(); // Show results without user specific data initially, maybe fetch their result later if it exists
+                     } else {
+                         // Session is still active, resume the exam
+                         startExam(userData);
+                     }
                  } else {
-                      // Not logged in, show login screen indicating exam is live
-                      showLogin(); // This will start the global countdown showing "Examen en cours"
+                     // Logged in, but no saved session start time or answers (e.g., cleared local data, or new login after timeout)
+                      // Since existingSubmission check passed, they can start a new attempt session
+                     alert("Démarrage d'une nouvelle session d'examen.");
+                     const startTime = getClientTime().getTime();
+                     localStorage.setItem('examStartTime_methodologie', startTime.toString());
+                     startExam(userData);
                  }
-            } else { // Before exam start time
-                 if(savedUser) {
-                     // If logged in, show waiting screen
-                     const userData = JSON.parse(savedUser);
-                     showWaitingForExam(userData.pseudo);
-                     startExamStartCountdown(); // Start countdown to exam start
-                 } else {
-                     // Not logged in, show login screen with countdown to start
-                     showLogin(); // This will start the global countdown showing time to start
-                 }
+            } else {
+                 // Not logged in, show login page
+                 // Clear any orphaned local data just in case
+                 localStorage.removeItem('examUser');
+                 localStorage.removeItem('examAnswers');
+                 localStorage.removeItem('examStartTime_methodologie');
+                 showLogin();
             }
-
-             // Start the main global countdown loop only if it's not already running
-             // and it's before the results time. It's primarily used on the login page.
-             if (!globalCountdownInterval && now < RESULTS_TIME) {
-                 globalCountdownInterval = setInterval(updateGlobalCountdown, 1000);
-             }
-
         });
 
          // Clean up intervals and Firebase listeners when the window is closed or navigated away
          window.addEventListener('beforeunload', () => {
-             clearAllIntervals();
-             // Unsubscribe Firebase listeners
+             stopExamTimer(); // Ensure timer interval is cleared
+             // Unsubscribe Firebase listeners if they are active (registered count listener)
              stopRegisteredCounterListener();
-             // Attempt to save current answers one last time if in exam
+
+             // If currently in exam state, attempt to save answers one last time
              if (!examSection.classList.contains('hidden')) {
-                  saveAnswers();
+                  saveAnswers(); // This saves answers and start time
              }
+             // If not in exam, local data is already cleared on logout or handled by load logic
          });
     </script>
 </body>

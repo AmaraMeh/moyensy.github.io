@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Examen 3 - Simulateur Informatique 2</title>
+    <link rel="icon" type="image/png" href="../../assets/img/icon.png">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="max-w-3xl mx-auto py-8 px-4">
+        <div class="flex justify-between items-center mb-8">
+            <button class="back-btn" onclick="window.location.href='../index.html'">
+                <i class="fas fa-arrow-left"></i> Retour
+            </button>
+            <div class="exam-title">Examen 3 - Informatique 2</div>
+            <div class="timer" id="timer">--:--</div>
+        </div>
+        <div class="question-section">
+            <h2 class="text-xl font-bold mb-2">Questions de cours</h2>
+            <div id="questionsCours"></div>
+            <h2 class="text-xl font-bold mt-6 mb-2">Exercices</h2>
+            <div id="questionsExos"></div>
+            <h2 class="text-xl font-bold mt-6 mb-2">Zone de code Pascal</h2>
+            <textarea id="codeInput" class="code-input" placeholder="Écrivez votre code Pascal ici..."></textarea>
+            <button class="submit-btn w-full" id="submitBtn">Soumettre</button>
+        </div>
+        <div class="question-section">
+            <h2 class="text-xl font-bold mb-2">Déroulement (Tableau interactif)</h2>
+            <div id="deroulementContainer"></div>
+        </div>
+        <div class="stats-section">
+            <h2 class="text-lg font-bold mb-2">Classement & Statistiques (Live)</h2>
+            <div id="statsLive"></div>
+        </div>
+    </div>
+    <button class="theme-toggle" onclick="toggleTheme()" title="Changer de thème">
+        <i class="fas fa-moon"></i>
+    </button>
+    <script src="../js/exam3.js" type="module"></script>
+</body>
+</html> 
