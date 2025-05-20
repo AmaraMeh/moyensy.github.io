@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        /* Keep your existing styles */
         :root {
             --background: 0 0% 100%;
             --foreground: 222.2 84% 4.9%;
@@ -50,9 +51,11 @@
             color: hsl(var(--foreground));
             min-height: 100vh;
             -webkit-tap-highlight-color: transparent;
+            user-select: none; /* Prevent text selection */
+            -webkit-user-select: none;
             transition: background-color 0.3s ease, color 0.3s ease;
         }
-        .simu-card {
+         .simu-card {
             background: hsl(var(--card));
             border: 1px solid hsl(var(--border));
             border-radius: var(--radius);
@@ -60,11 +63,17 @@
             margin-bottom: 2rem;
             box-shadow: 0 4px 16px rgba(0,0,0,0.08);
             transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+            overflow: hidden; /* Ensures box-shadow on hover doesn't leak */
         }
         .simu-card:hover {
             transform: translateY(-6px) scale(1.01);
             box-shadow: 0 12px 32px rgba(0,0,0,0.13);
             border-color: hsl(var(--primary));
+        }
+        #examList .simu-card:hover { /* Keep original shadow/border for exam cards */
+             transform: none;
+             box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+             border-color: hsl(var(--border));
         }
         .simu-title {
             font-size: 2rem;
@@ -88,6 +97,7 @@
             background: hsl(var(--muted));
             color: hsl(var(--muted-foreground));
             cursor: not-allowed;
+            opacity: 0.6;
         }
         .simu-btn:hover:not(:disabled) {
             opacity: 0.9;
@@ -106,34 +116,86 @@
             transition: all 0.3s ease;
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
             border: none;
+            display: flex; /* Center icon */
+            align-items: center;
+            justify-content: center;
+            width: 40px; /* Fixed size */
+            height: 40px;
         }
         .theme-toggle:hover {
             transform: scale(1.1);
         }
+        .form-input {
+             padding: 0.75rem 1rem;
+             border: 1px solid hsl(var(--border));
+             border-radius: var(--radius);
+             background: hsl(var(--input));
+             color: hsl(var(--foreground));
+             transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: hsl(var(--primary));
+            box-shadow: 0 0 0 2px hsla(var(--primary), 0.3); /* Simple focus ring */
+        }
+        #registerForm:not(.hidden),
+        #loginForm:not(.hidden) {
+            margin-top: 1.5rem;
+        }
+         .feedback-message {
+            text-align: center;
+            font-size: 0.875rem; /* text-sm */
+            margin-top: 0.5rem; /* my-2 */
+            margin-bottom: 0.5rem; /* my-2 */
+         }
+         .feedback-success {
+            color: #16a34a; /* green-600 */
+         }
+         .feedback-error {
+            color: #dc2626; /* red-600 */
+         }
     </style>
 </head>
 <body>
     <div class="max-w-2xl mx-auto py-10 px-4">
-        <div class="simu-card text-center">
+        <!-- Authentication Card -->
+        <div id="authCard" class="simu-card text-center">
             <div class="simu-title mb-2">Simulateur Informatique 2</div>
             <div class="mb-4 text-lg">Préparez-vous aux examens d'Informatique 2 (Pascal, tableaux, sous-programmes...)</div>
-            <div class="flex justify-center gap-4 mb-4">
+
+            <!-- Auth Buttons Container -->
+            <div id="authButtons" class="flex justify-center gap-4 mb-4">
                 <button id="showRegister" class="simu-btn">Inscription</button>
                 <button id="showLogin" class="simu-btn">Connexion</button>
             </div>
+
+            <!-- Feedback Message Placeholder -->
+            <div id="feedbackMsg" class="feedback-message"></div>
+
+            <!-- Registration Form -->
             <form id="registerForm" class="hidden">
-                <input type="text" id="registerPseudo" class="form-input w-full mb-2" placeholder="Pseudo" required>
+                <input type="text" id="registerPseudo" class="form-input w-full mb-2" placeholder="Pseudo (minimum 2 caractères)" required minlength="2">
+                <!-- NOTE: Firebase Auth requires minimum 6 characters for passwords by default. A 4-digit PIN might be rejected unless you change Firebase Auth settings or use a different strategy. -->
                 <input type="password" id="registerPin" class="form-input w-full mb-2" placeholder="Code PIN (4 chiffres)" pattern="[0-9]{4}" maxlength="4" required>
                 <button type="submit" class="simu-btn w-full">S'inscrire</button>
             </form>
+
+            <!-- Login Form -->
             <form id="loginForm" class="hidden">
                 <input type="text" id="loginPseudo" class="form-input w-full mb-2" placeholder="Pseudo" required>
+                 <!-- NOTE: Firebase Auth requires minimum 6 characters for passwords by default. A 4-digit PIN might be rejected unless you change Firebase Auth settings or use a different strategy. -->
                 <input type="password" id="loginPin" class="form-input w-full mb-2" placeholder="Code PIN (4 chiffres)" pattern="[0-9]{4}" maxlength="4" required>
                 <button type="submit" class="simu-btn w-full">Se connecter</button>
             </form>
         </div>
+
+        <!-- Exam List Section (Hidden initially) -->
         <div id="examList" class="hidden">
-            <div class="simu-title mb-4">Choisissez un examen</div>
+             <div class="flex justify-between items-center mb-4">
+                <div class="simu-title">Choisissez un examen</div>
+                <button id="logoutBtn" class="simu-btn text-sm px-3 py-2">Déconnexion</button>
+            </div>
+
             <div class="grid gap-6">
                 <div class="simu-card">
                     <div class="font-bold text-lg mb-2">Examen 1 (Ouvert 24/24)</div>
@@ -142,30 +204,32 @@
                 </div>
                 <div class="simu-card">
                     <div class="font-bold text-lg mb-2">Examen 2</div>
-                    <div class="mb-2 text-sm">Débute le 20 mai à 21:00 (GMT+1)</div>
+                    <div class="mb-2 text-sm" id="exam2TimeInfo">Débute le 20 mai à 21:00 (GMT+1)</div>
                     <button class="simu-btn w-full" id="exam2Btn" onclick="startExam(2)" disabled>Non disponible</button>
                 </div>
                 <div class="simu-card">
                     <div class="font-bold text-lg mb-2">Examen 3</div>
-                    <div class="mb-2 text-sm">21 mai 9:00-10:30 (GMT+1)</div>
+                    <div class="mb-2 text-sm" id="exam3TimeInfo">21 mai 9:00-10:30 (GMT+1)</div>
                     <button class="simu-btn w-full" id="exam3Btn" onclick="startExam(3)" disabled>Non disponible</button>
                 </div>
                 <div class="simu-card">
                     <div class="font-bold text-lg mb-2">Examen 4</div>
-                    <div class="mb-2 text-sm">21 mai 11:00-12:30 (GMT+1)</div>
+                    <div class="mb-2 text-sm" id="exam4TimeInfo">21 mai 11:00-12:30 (GMT+1)</div>
                     <button class="simu-btn w-full" id="exam4Btn" onclick="startExam(4)" disabled>Non disponible</button>
                 </div>
                 <div class="simu-card">
                     <div class="font-bold text-lg mb-2">Examen 5</div>
-                    <div class="mb-2 text-sm">21 mai 14:00-15:30 (GMT+1)</div>
+                    <div class="mb-2 text-sm" id="exam5TimeInfo">21 mai 14:00-15:30 (GMT+1)</div>
                     <button class="simu-btn w-full" id="exam5Btn" onclick="startExam(5)" disabled>Non disponible</button>
                 </div>
             </div>
         </div>
     </div>
-    <button class="theme-toggle" onclick="toggleTheme()" title="Changer de thème">
+    <button class="theme-toggle" id="themeToggleBtn" onclick="toggleTheme()" title="Changer de thème">
         <i class="fas fa-moon"></i>
     </button>
-    <script src="js/simulator-main.js"></script>
+
+    <!-- Load your main script as a module -->
+    <script src="./js/simulator-main.js" type="module"></script>
 </body>
-</html> 
+</html>

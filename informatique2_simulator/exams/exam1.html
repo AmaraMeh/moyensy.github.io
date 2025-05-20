@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        /* Keep your existing styles */
         :root {
             --background: 0 0% 100%;
             --foreground: 222.2 84% 4.9%;
@@ -90,19 +91,23 @@
             margin-bottom: 2rem;
             box-shadow: 0 4px 16px rgba(0,0,0,0.08);
         }
-        .code-input {
+        .code-input, .form-input { /* Added form-input here for textareas/inputs */
             width: 100%;
-            min-height: 120px;
-            font-family: 'Fira Mono', 'Consolas', monospace;
+            font-family: 'Fira Mono', 'Consolas', monospace; /* Added font for code */
             font-size: 1rem;
             background: hsl(var(--input));
             color: hsl(var(--foreground));
             border: 1px solid hsl(var(--border));
             border-radius: var(--radius);
             padding: 1rem;
-            margin-bottom: 1rem;
+            /* margin-bottom: 1rem; Removed to let parent divs handle spacing */
             resize: vertical;
         }
+         .form-input { /* Override code-input styles for general inputs */
+            font-family: 'Poppins', sans-serif;
+            padding: 0.75rem 1rem;
+         }
+
         .deroulement-table {
             width: 100%;
             border-collapse: collapse;
@@ -117,6 +122,14 @@
             background: hsl(var(--secondary));
             color: hsl(var(--primary));
         }
+        .deroulement-table .animate-pulse {
+            animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse {
+          0%, 100% { opacity: 1; }
+          50% { opacity: .5; }
+        }
+
         .submit-btn {
             display: inline-block;
             padding: 0.75rem 1.5rem;
@@ -133,6 +146,13 @@
             opacity: 0.9;
             transform: translateY(-1px);
         }
+         .submit-btn:disabled {
+             background: hsl(var(--muted));
+             color: hsl(var(--muted-foreground));
+             cursor: not-allowed;
+             opacity: 0.6;
+         }
+
         .stats-section {
             background: hsl(var(--card));
             border: 1px solid hsl(var(--border));
@@ -140,6 +160,23 @@
             padding: 1.5rem;
             margin-bottom: 2rem;
         }
+        .stats-section table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+         .stats-section th, .stats-section td {
+            border: 1px solid hsl(var(--border));
+            padding: 0.5rem;
+            text-align: left;
+         }
+         .stats-section th {
+             background: hsl(var(--secondary));
+             color: hsl(var(--primary));
+         }
+         .stats-section tr.bg-blue-100 { /* Keep Tailwind classes */ }
+         .dark .stats-section tr.bg-blue-900 { /* Keep Tailwind classes */ }
+
         .theme-toggle {
             position: fixed;
             bottom: 1rem;
@@ -153,10 +190,23 @@
             transition: all 0.3s ease;
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
             border: none;
+            display: flex; /* Center icon */
+            align-items: center;
+            justify-content: center;
+            width: 40px; /* Fixed size */
+            height: 40px;
         }
         .theme-toggle:hover {
             transform: scale(1.1);
         }
+         /* Add padding to question divs for input spacing */
+         #questionsCours > div, #questionsExos > div {
+             margin-bottom: 1.5rem; /* More space between questions */
+         }
+          #questionsCours textarea, #questionsExos input {
+              margin-top: 0.5rem; /* Space between question text and input */
+          }
+
     </style>
 </head>
 <body>
@@ -169,26 +219,38 @@
             <div class="timer" id="timer">--:--</div>
         </div>
         <div class="question-section">
-            <h2 class="text-xl font-bold mb-2">Questions de cours</h2>
-            <div id="questionsCours"></div>
-            <h2 class="text-xl font-bold mt-6 mb-2">Exercices</h2>
-            <div id="questionsExos"></div>
-            <h2 class="text-xl font-bold mt-6 mb-2">Zone de code Pascal</h2>
+            <h2 class="text-xl font-bold mb-4">Questions de cours</h2>
+            <div id="questionsCours">
+                <!-- Questions will be rendered here by JS -->
+            </div>
+            <h2 class="text-xl font-bold mt-6 mb-4">Exercices (Partie A)</h2>
+            <div id="questionsExos">
+                 <!-- Questions will be rendered here by JS -->
+            </div>
+             <h2 class="text-xl font-bold mt-6 mb-4">Zone de code Pascal (Partie B)</h2>
             <textarea id="codeInput" class="code-input" placeholder="Écrivez votre code Pascal ici..."></textarea>
-            <button class="submit-btn w-full" id="submitBtn">Soumettre</button>
+
+            <button class="submit-btn w-full mt-6" id="submitBtn">Soumettre mes réponses</button>
+             <div id="submitFeedback" class="text-center text-sm mt-2"></div>
         </div>
+
         <div class="question-section">
-            <h2 class="text-xl font-bold mb-2">Déroulement (Tableau interactif)</h2>
-            <div id="deroulementContainer"></div>
+            <h2 class="text-xl font-bold mb-4">Déroulement Interactif</h2>
+            <div id="deroulementContainer">
+                <!-- Table and button will be rendered here by JS -->
+            </div>
         </div>
+
         <div class="stats-section">
             <h2 class="text-lg font-bold mb-2">Classement & Statistiques (Live)</h2>
-            <div id="statsLive"></div>
+            <div id="statsLive">
+                <!-- Stats and leaderboard will be rendered here by JS -->
+            </div>
         </div>
     </div>
-    <button class="theme-toggle" onclick="toggleTheme()" title="Changer de thème">
+    <button class="theme-toggle" id="themeToggleBtn" onclick="toggleTheme()" title="Changer de thème">
         <i class="fas fa-moon"></i>
     </button>
     <script src="../js/exam1.js" type="module"></script>
 </body>
-</html> 
+</html>
