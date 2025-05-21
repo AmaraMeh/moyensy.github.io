@@ -13,6 +13,21 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 
+    <!-- Vercel Analytics -->
+    <script>
+        window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SQ0WWSCS7B"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-SQ0WWSCS7B');
+    </script>
+
     <style>
         :root {
             --background: 0 0% 100%;
@@ -843,65 +858,19 @@ End.`,
             ],
             points: 2
         },
-        // Partie A, Q2: Déroulement - Total 3 points
+        // Partie A, Q2: Déduction - Total 1 point (ajusté de 0.5 à 1)
         {
-            id: 'q-exo1-2-deroulement', type: 'deroulement', text: 'Déroulez l\'algorithme "TraitementVecteur" (partie Traitement uniquement) pour les valeurs d\'entrée : N = 5, V = [5, 11, 20, 15, 8]. Complétez le tableau ci-dessous.',
-            inputDescription: 'N = 5, V = [5, 11, 20, 15, 8]',
-            algorithmCode: `// Partie Traitement de l'algorithme
-Count <-- 0 ;
-Pour i <-- 1 à N Faire
-  Si (V[i] > 10 ET V[i] MOD 2 <> 0) Alors
-    Count <-- Count + 1 ;
-  FinSi ;
-FinPour ;`, // Ajout de l'extrait d'algorithme pour référence
-            tableHeaders: ['Instruction', 'N', 'i', 'V[i]', 'Condition (V[i]>10 ET V[i] MOD 2 <> 0) ?', 'Count', 'Notes'], // Headers de la table
-            traceSteps: [ // Étapes pour guider le déroulement
-                { Instruction: 'Count <-- 0' },
-                { Instruction: 'Pour i <-- 1 à N Faire' }, // Début boucle
-                { Instruction: 'i=1, Si (...)' }, // Étape pour i=1 condition
-                { Instruction: 'i <-- 2' }, // Incrémentation i
-                { Instruction: 'i=2, Si (...)' }, // Étape pour i=2 condition
-                { Instruction: 'Count <-- Count + 1' }, // Étape pour i=2 action
-                { Instruction: 'i <-- 3' }, // Incrémentation i
-                { Instruction: 'i=3, Si (...)' }, // Étape pour i=3 condition
-                { Instruction: 'i <-- 4' }, // Incrémentation i
-                { Instruction: 'i=4, Si (...)' }, // Étape pour i=4 condition
-                { Instruction: 'Count <-- Count + 1' }, // Étape pour i=4 action
-                { Instruction: 'i <-- 5' }, // Incrémentation i
-                { Instruction: 'i=5, Si (...)' }, // Étape pour i=5 condition
-                { Instruction: 'FinPour' } // Fin boucle (après i=5)
-            ],
-             // Données correctes pour le déroulement (pour la correction)
-             correctTraceData: [
-                // Instruction                      | N   | i   | V[i] | Condition ? | Count | Notes
-                ['Count <-- 0',                     '5', '/', '/', '/', '0', 'Initialisation'],
-                ['Pour i <-- 1 à N Faire',          '5', '1', '/', '/', '0', 'Début boucle i=1'],
-                ['i=1, Si (...)',                   '5', '1', '5', 'Faux', '0', '5 > 10 est faux'],
-                ['i <-- 2',                         '5', '2', '/', 'Faux', '0', ''],
-                ['i=2, Si (...)',                   '5', '2', '11', 'Vrai', '0', '11 > 10 vrai ET 11 MOD 2 <> 0 vrai'],
-                ['Count <-- Count + 1',             '5', '2', '11', 'Vrai', '1', 'Count = 0 + 1'],
-                ['i <-- 3',                         '5', '3', '/', 'Vrai', '1', ''],
-                ['i=3, Si (...)',                   '5', '3', '20', 'Faux', '1', '20 MOD 2 <> 0 est faux'],
-                ['i <-- 4',                         '5', '4', '/', 'Faux', '1', ''],
-                ['i=4, Si (...)',                   '5', '4', '15', 'Vrai', '1', '15 > 10 vrai ET 15 MOD 2 <> 0 vrai'],
-                ['Count <-- Count + 1',             '5', '4', '15', 'Vrai', '2', 'Count = 1 + 1'],
-                ['i <-- 5',                         '5', '5', '/', 'Vrai', '2', ''],
-                ['i=5, Si (...)',                   '5', '5', '8', 'Faux', '2', '8 > 10 est faux'],
-                ['FinPour',                         '5', '6', '/', 'Faux', '2', 'Fin boucle (i=6)'] // État après le dernier pas
-             ],
-            points: 3 // Correction manuelle
+            id: 'q-exo1-3-deduction',
+            type: 'textInput',
+            text: 'Déduisez ce que fait l\'algorithme "TraitementVecteur" (Exercice 1).',
+            correctAnswer: 'L\'algorithme compte le nombre d\'éléments du vecteur V qui sont strictement supérieurs à 10 ET impairs.',
+            points: 1
         },
-         // Partie A, Q3: Déduction - Total 0.5 point
-         {
-             id: 'q-exo1-3-deduction', type: 'textInput', text: 'Déduisez ce que fait l\'algorithme "TraitementVecteur" (Exercice 1).',
-             correctAnswer: 'L\'algorithme compte le nombre d\'éléments du vecteur V qui sont strictement supérieurs à 10 ET impairs.', // Réponse attendue
-             points: 0.5 // Correction manuelle
-         },
-         // Partie A, Q4: Transformation de Boucle - Total 1.5 points
-         {
-             id: 'q-exo1-4-loop',
-             type: 'codeWrite',
-             text: 'Reecrivez la partie **Traitement** de l\'algorithme "TraitementVecteur" en remplacant la boucle `Pour` par une boucle **`Repeter...Jusqu\'a` (Repeat...Until)**. Complétez les cases vides dans le code fourni.',
+        // Partie A, Q3: Transformation de Boucle - Total 1.5 points
+        {
+            id: 'q-exo1-4-loop',
+            type: 'codeWrite',
+            text: 'Reecrivez la partie **Traitement** de l\'algorithme "TraitementVecteur" en remplacant la boucle `Pour` par une boucle **`Repeter...Jusqu\'a` (Repeat...Until)**. Complétez les cases vides dans le code fourni.',
             algorithmCode: "// Traitement (original)\n" +
                 "Count <-- 0;\n" +
                 "Pour i <-- 1 \u00e0 N Faire;\n" +
@@ -944,12 +913,11 @@ End.`,
         },
 
 
-        // Exercice 02 : [8 points] -- Correction du barème original (8.5 -> 8) pour arriver à un total de 20
-        // Question de Code - Programme Complet (Fonction + Procédure + PP)
+        // Exercice 02 : [8 points]
         {
             id: 'q-exo2-1-code',
             type: 'codeWrite',
-            text: 'Soit une matrice carrée `M` d\'ordre `N` (N lignes, N colonnes) contenant des nombres `Réel`. Complétez le programme PASCAL suivant pour :\n1. Lire la taille `N` de la matrice et ses éléments (2 pts).\n2. Calculer la somme des éléments de la **diagonale principale** de la matrice en utilisant une **Fonction** nommée "SommeDiagPrinc" (2 pts).\n3. Modifier la matrice en multipliant par 2 **tous** les éléments situés **au-dessus** de la diagonale principale, en utilisant une **Procédure** nommée "ModifierMatrice" (3 pts).\n4. Afficher la matrice modifiée (1 pt).',
+            text: 'Soit une matrice carrée `M` d\'ordre `N` (N lignes, N colonnes) contenant des nombres `Réel`. Complétez le programme PASCAL suivant pour :\n1. Lire la taille `N` de la matrice et ses éléments (2 pts) :\n   - Lecture de N : 0.5 pt\n   - Lecture des éléments : 1.5 pt\n2. Calculer la somme des éléments de la **diagonale principale** de la matrice en utilisant une **Fonction** nommée "SommeDiagPrinc" (2 pts) :\n   - Initialisation de Somme : 0.5 pt\n   - Boucle et accumulation : 1 pt\n   - Retour de la somme : 0.5 pt\n3. Modifier la matrice en multipliant par 2 **tous** les éléments situés **au-dessus** de la diagonale principale, en utilisant une **Procédure** nommée "ModifierMatrice" (3 pts) :\n   - Boucles imbriquées : 1 pt\n   - Condition pour éléments au-dessus de la diagonale : 1 pt\n   - Multiplication par 2 : 1 pt\n4. Afficher la matrice modifiée (1 pt) :\n   - Boucles d\'affichage : 1 pt\n\nNote : Des points partiels seront attribués pour chaque partie correctement implémentée.',
             correctCode: `Program MatriceOperations;
 Const MAX_SIZE = 10;
 Type MatriceType = Array[1..MAX_SIZE, 1..MAX_SIZE] of Real;
@@ -960,10 +928,10 @@ Var
   i : Integer;
   Somme : Real;
 Begin
-  [1] := 0.0;  (* Initialisation de Somme *)
+  [1] := 0.0;  (* Initialisation de Somme - 0.5 pt *)
   For i := 1 to [2] do
-    [3] := [4] + [5];  (* Accumulation de la somme *)
-  [6] := [7];  (* Retour de la somme *)
+    [3] := [4] + [5];  (* Accumulation de la somme - 1 pt *)
+  [6] := [7];  (* Retour de la somme - 0.5 pt *)
 End;
 
 // Procédure pour modifier les éléments au-dessus de la diagonale
@@ -971,11 +939,11 @@ Procedure ModifierMatrice(Var M : MatriceType; N : Integer);
 Var
   i, j : Integer;
 Begin
-  For i := 1 to [8] do
+  For i := 1 to [8] do  (* Boucles imbriquées - 1 pt *)
     For j := 1 to [9] do
     Begin
-      If [10] < [11] Then  (* Condition pour être au-dessus de la diagonale *)
-        M[i, j] := [12] * 2.0;  (* Multiplication par 2 *)
+      If [10] < [11] Then  (* Condition pour éléments au-dessus de la diagonale - 1 pt *)
+        M[i, j] := [12] * 2.0;  (* Multiplication par 2 - 1 pt *)
     End;
 End;
 
@@ -986,12 +954,12 @@ Var
   ResultatSomme : Real;
 
 Begin
-  // 1. Lire la taille N et les éléments de la matrice
+  // 1. Lire la taille N et les éléments de la matrice (2 pts)
   Write('Donner la taille N de la matrice (max ', MAX_SIZE, ') : ');
-  ReadLn([13]);
+  ReadLn([13]);  (* Lecture de N - 0.5 pt *)
 
   WriteLn('Donner les elements de la matrice :');
-  For i := 1 to [14] do
+  For i := 1 to [14] do  (* Lecture des éléments - 1.5 pts *)
     Begin
       For j := 1 to [15] do
         Read([16]);
@@ -1007,9 +975,9 @@ Begin
   // 3. Modifier la matrice
   [22]([23], [24]);
 
-  // 4. Afficher la matrice modifiée
+  // 4. Afficher la matrice modifiée (1 pt)
   WriteLn('La matrice modifiee est :');
-  For i := 1 to [25] do
+  For i := 1 to [25] do  (* Affichage - 1 pt *)
     Begin
       For j := 1 to [26] do
         Write([27]:6:2, ' ');
