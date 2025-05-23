@@ -2,58 +2,387 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Authentification - ISET'COM</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Authentification - E-Campus Platform</title>
+    <meta name="description" content="Page d'authentification pour la plateforme E-Campus de l'Université de Bejaia - Campus El-Kseur.">
+    <meta name="author" content="Amara Mehdi">
+    <link rel="icon" type="image/png" href="assets/img/icon.png">
+
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/auth.css">
-    <link rel="stylesheet" href="assets/css/dark.css" id="darkCss">
-    <link rel="stylesheet" href="assets/css/dark1.css" id="dark1Css">
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-    <!-- Add these styles to your existing <style> section or auth.css -->
+
+    <!-- Combined and Adapted Styles -->
     <style>
-        @keyframes scaleIn {
-            from { transform: scale(0); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
+        /* --- CSS Variables from bib.html --- */
+        :root {
+            --background: 0 0% 100%;
+            --foreground: 222.2 84% 4.9%;
+            --card: 0 0% 100%;
+            --card-foreground: 222.2 84% 4.9%;
+            --primary: 221.2 83.2% 53.3%;
+            --primary-foreground: 210 40% 98%;
+            --secondary: 210 40% 96.1%;
+            --secondary-foreground: 222.2 47.4% 11.2%;
+            --muted: 210 40% 96.1%;
+            --muted-foreground: 215.4 16.3% 46.9%;
+            --accent: 210 40% 96.1%;
+            --accent-foreground: 222.2 47.4% 11.2%;
+            --border: 214.3 31.8% 91.4%;
+            --input: 214.3 31.8% 91.4%;
+            --ring: 221.2 83.2% 53.3%;
+            --radius: 0.5rem;
+            --success: 142.1 76.2% 36.3%;
+            --warning: 38 92% 50%;
+            --error: 0 84.2% 60.2%;
         }
 
-        @keyframes checkmarkAppear {
-            0% { transform: scale(0); opacity: 0; }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); opacity: 1; }
+        .dark {
+            --background: 222.2 84% 4.9%;
+            --foreground: 210 40% 98%;
+            --card: 222.2 84% 4.9%;
+            --card-foreground: 210 40% 98%;
+            --primary: 217.2 91.2% 59.8%;
+            --primary-foreground: 222.2 47.4% 11.2%;
+            --secondary: 217.2 32.6% 17.5%;
+            --secondary-foreground: 210 40% 98%;
+            --muted: 217.2 32.6% 17.5%;
+            --muted-foreground: 215 20.2% 65.1%;
+            --accent: 217.2 32.6% 17.5%;
+            --accent-foreground: 210 40% 98%;
+            --border: 217.2 32.6% 17.5%;
+            --input: 217.2 32.6% 17.5%;
+            --ring: 224.3 76.3% 48%;
+            --success: 142.1 70.6% 45.3%;
+            --warning: 48 96.5% 53.9%;
+            --error: 0 60% 60%;
         }
 
-        .success-checkmark {
-            animation: checkmarkAppear 0.5s ease-out forwards;
+        /* --- Base Body Styling --- */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: hsl(var(--background));
+            color: hsl(var(--foreground));
+            min-height: 100vh;
+            -webkit-tap-highlight-color: transparent;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- Background Effects --- */
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .gradient-blob {
+            position: absolute;
+            border-radius: 9999px;
+            filter: blur(60px);
+            opacity: 0.5;
+        }
+
+        .gradient-blob-1 {
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 500px;
+            background: linear-gradient(to bottom right, hsl(var(--primary) / 0.4), hsl(var(--ring) / 0.2), hsl(var(--accent) / 0.1));
+            transform: translateY(-50%);
+        }
+
+        .gradient-blob-2 {
+            bottom: 0;
+            right: 0;
+            width: 500px;
+            height: 500px;
+            background: linear-gradient(to top right, hsl(var(--ring) / 0.3), hsl(var(--accent) / 0.2), transparent);
+        }
+
+        .floating-dot {
+            position: absolute;
+            border-radius: 9999px;
+            animation: pulse 2s infinite;
+        }
+
+        .floating-dot.dot-blue { background-color: theme('colors.blue.500'); }
+        .dark .floating-dot.dot-blue { background-color: theme('colors.blue.700'); }
+        .floating-dot.dot-purple { background-color: theme('colors.purple.500'); }
+         .dark .floating-dot.dot-purple { background-color: theme('colors.purple.700'); }
+        .floating-dot.dot-green { background-color: theme('colors.green.500'); }
+         .dark .floating-dot.dot-green { background-color: theme('colors.green.700'); }
+        .floating-dot.dot-amber { background-color: theme('colors.amber.500'); }
+         .dark .floating-dot.dot-amber { background-color: theme('colors.amber.700'); }
+
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        /* --- Auth Card Styling --- */
+        .auth-card {
+            background: hsl(var(--card) / 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid hsl(var(--border));
+            border-radius: var(--radius);
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            max-width: 480px;
+             margin-left: auto;
+             margin-right: auto;
+        }
+         .dark .auth-card {
+             background: hsl(var(--card) / 0.9);
+             border-color: hsl(var(--border));
+             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+         }
+
+
+        /* --- Tabs Styling --- */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid hsl(var(--border));
+        }
+        .tabs .tab-btn {
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            border-bottom: 2px solid transparent; /* Initial transparent border */
+            font-weight: 500;
+            color: hsl(var(--muted-foreground));
+            text-align: center;
+            flex-grow: 1;
+            position: relative;
+            z-index: 1;
+            text-decoration: none;
+        }
+        .tabs .tab-btn.active {
+            color: hsl(var(--primary));
+             /* No border-bottom here, let the ::after pseudo-element handle it */
+        }
+        .tabs .tab-btn:hover:not(.active) {
+             color: hsl(var(--primary));
+        }
+         /* Active/Hover Indicator */
+         .tabs .tab-btn::after {
+             content: '';
+             position: absolute;
+             left: 0;
+             right: 0;
+             bottom: -1px;
+             height: 2px;
+             background-color: hsl(var(--primary));
+             transform: scaleX(0);
+             transition: transform 0.3s ease;
+             z-index: 2; /* Ensure it's above the border */
+         }
+         .tabs .tab-btn:hover::after,
+         .tabs .tab-btn.active::after {
+             transform: scaleX(1);
+         }
+
+
+         /* Tab Content Styling */
+         .tab-content {
+             display: none; /* Hide inactive tabs */
+         }
+         .tab-content.active {
+             display: block; /* Show active tab */
+         }
+
+
+        /* --- Form Input Styling --- */
+         .form-input {
+            display: block;
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid hsl(var(--border));
+            border-radius: var(--radius);
+            background-color: hsl(var(--input));
+            color: hsl(var(--foreground));
+            transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: hsl(var(--ring));
+            box-shadow: 0 0 0 1px hsl(var(--ring));
+            background-color: hsl(var(--card));
+        }
+
+        /* --- Theme Toggle Styling --- */
+        .theme-toggle {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            z-index: 50;
+            width: 3rem;
+            height: 3rem;
+            border-radius: 9999px;
+            background: hsl(var(--background) / 0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid hsl(var(--border));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .theme-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        .theme-toggle i {
+            font-size: 1.25rem;
+            color: hsl(var(--primary));
+             transition: transform 0.3s ease;
+        }
+         .theme-toggle:hover i {
+             transform: rotate(180deg);
+         }
+
+
+        /* --- Floating Particles Styling --- */
+        .floating-particles {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: -5;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.7;
+            animation: float 10s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+                opacity: 0.3;
+            }
+            50% {
+                transform: translate(var(--x), var(--y)) scale(1.2);
+                opacity: 0.8;
+            }
+        }
+
+         /* --- Success Popup Styling --- */
+        #popupBox {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 50;
+            padding: 1rem;
+        }
+
+        #popupBox.show {
+            display: flex;
         }
 
         #popupContent {
-            backdrop-filter: blur(10px);
-            background: rgba(255, 255, 255, 0.95);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: hsl(var(--card));
+            border: 1px solid hsl(var(--border));
+            border-radius: 1rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+            width: 100%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: scale(0.8);
+            opacity: 0;
+            transition: transform 0.4s ease-out, opacity 0.4s ease-out;
+            position: relative;
+            text-align: center;
+        }
+         #popupBox.show #popupContent {
+             transform: scale(1);
+             opacity: 1;
+         }
+
+         .popup-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid hsl(var(--border));
+            display: flex;
+            align-items: center;
+            justify-content: center; /* Center items by default */
+            position: sticky;
+            top: 0;
+            background: hsl(var(--card));
+            z-index: 1;
         }
 
-        #popupBox.show #popupContent {
-            animation: scaleIn 0.5s ease-out forwards;
+        .popup-header h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--ring)));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
 
-        .glass-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+         /* Close button styling (adapted from bib.html popup) */
+        .close-popup-btn {
+             position: absolute;
+             top: 50%;
+             right: 1rem;
+             transform: translateY(-50%);
+             z-index: 2;
+
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            background: hsl(var(--error));
+            color: white;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
         }
-    </style>
-    <!-- Add these styles to your existing <style> section -->
-    <style>
-        /* Enhanced animations for the popup */
+
+        .close-popup-btn:hover {
+            background: hsl(var(--error) / 0.9);
+            transform: translateY(-50%) scale(1.05);
+        }
+         @media (max-width: 768px) {
+             .close-popup-btn span {
+                 display: none;
+             }
+             .close-popup-btn {
+                 padding: 0.5rem;
+             }
+              .close-popup-btn i {
+                  font-size: 1.1rem;
+              }
+         }
+
+
+        /* Specific Popup Animations (Kept) */
         @keyframes scaleIn {
-            from { transform: scale(0); opacity: 0; }
+            from { transform: scale(0.8); opacity: 0; }
             to { transform: scale(1); opacity: 1; }
         }
 
@@ -69,289 +398,389 @@
             100% { transform: scale(1); }
         }
 
-        #popupContent {
-            background: rgba(255, 255, 255, 0.97);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+         /* Needs initial opacity 0 for animation to work */
+         #welcomeHeading, #welcomeSubheading { opacity: 0; }
+
+         #popupBox.show #welcomeHeading {
+             animation: slideDown 0.6s ease-out forwards;
+             animation-delay: 0.3s;
+         }
+
+         #popupBox.show #welcomeSubheading {
+             animation: slideDown 0.6s ease-out forwards;
+             animation-delay: 0.5s;
+         }
+
+         /* Needs initial transform scale 0 for animation to work */
+         .success-checkmark {
+             animation: checkmarkBounce 0.8s forwards;
+             animation-delay: 0.2s;
+             transform: scale(0);
+         }
+
+         .success-avatar {
+             animation: scaleIn 0.5s ease-out forwards;
+         }
+         /* Ensure avatar icon and checkmark colors work with themes */
+         .success-avatar .fa-user { color: hsl(var(--primary-foreground)); }
+         /* Use theme colors for checkmark background/border */
+         .success-checkmark { background-color: hsl(var(--primary)); border-color: hsl(var(--card)); }
+
+         /* Style 'What's new' section in popup */
+         #popupContent .bg-blue-50 {
+            background: hsl(var(--primary) / 0.1);
+         }
+         #popupContent .text-blue-700 {
+             color: hsl(var(--primary));
+         }
+         #popupContent .fa-bell-on {
+             color: hsl(var(--primary));
+         }
+          #popupContent .fa-check-circle {
+             color: hsl(var(--success));
+          }
+
+
+        /* --- General Text Color Adaptation --- */
+        /* Use foreground colors for main text */
+        .text-gray-800, .text-gray-700 { color: hsl(var(--foreground)); }
+        /* Use muted-foreground for secondary text */
+        .text-gray-600, .text-gray-500, .text-gray-400 { color: hsl(var(--muted-foreground)); }
+        .hover\:text-gray-600:hover { color: hsl(var(--muted-foreground)); opacity: 1; }
+        /* Specific link color */
+        .text-blue-500 { color: theme('colors.blue.500'); }
+        .hover\:text-blue-700:hover { color: theme('colors.blue.700'); }
+
+
+        /* --- Style popup buttons --- */
+         #popupContent button:not(.close-popup-btn) {
+            color: hsl(var(--primary-foreground));
+            font-weight: 500;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius);
+            transition: all 0.3s ease;
+         }
+         #homeButton {
+             background: linear-gradient(to right, theme('colors.blue.500'), theme('colors.blue.600'));
+         }
+         #homeButton:hover {
+             background: linear-gradient(to right, theme('colors.blue.600'), theme('colors.blue.700'));
+             transform: translateY(-2px);
+         }
+         #coursesButton {
+             background: linear-gradient(to right, theme('colors.indigo.500'), theme('colors.purple.600'));
+         }
+         #coursesButton:hover {
+             background: linear-gradient(to right, theme('colors.indigo.600'), theme('colors.purple.700'));
+             transform: translateY(-2px);
+         }
+         #profileButton {
+             background: linear-gradient(to right, theme('colors.green.500'), theme('colors.emerald.600'));
+         }
+          #profileButton:hover {
+             background: linear-gradient(to right, theme('colors.green.600'), theme('colors.emerald.700'));
+             transform: translateY(-2px);
+         }
+
+
+        /* --- Helper text for matricule validation --- */
+        .matricule-help {
+            transition: all 0.3s ease;
         }
 
-        #popupBox.show #welcomeHeading {
-            animation: slideDown 0.6s ease-out forwards;
-            animation-delay: 0.3s;
-            opacity: 0;
+        /* Ensure icons within helpers get color */
+        .matricule-help .fa-exclamation-circle { color: theme('colors.red.500'); }
+        .matricule-help .fa-info-circle { color: theme('colors.yellow.500'); }
+        .matricule-help .fa-check-circle { color: theme('colors.green.500'); }
+
+
+        /* --- Back Button Style --- */
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: hsl(var(--primary));
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            background: hsl(var(--primary) / 0.1);
+             text-decoration: none;
+             z-index: 10; /* Ensure it's above background effects */
         }
 
-        #popupBox.show #welcomeSubheading {
-            animation: slideDown 0.6s ease-out forwards;
-            animation-delay: 0.5s;
-            opacity: 0;
+        .back-button:hover {
+            background: hsl(var(--primary) / 0.2);
+            transform: translateX(-4px);
         }
 
-        .success-checkmark {
-            animation: checkmarkBounce 0.8s forwards;
-            animation-delay: 0.2s;
-            transform: scale(0);
+
+        /* --- Ad Container Styling --- */
+         .ad-container {
+             min-height: 50px;
+             display: flex;
+             justify-content: center;
+             align-items: center;
+             background-color: hsl(var(--background) / 0.5);
+             border: 1px dashed hsl(var(--border));
+             color: hsl(var(--muted-foreground));
+             font-size: 0.875rem;
+             padding: 0.5rem;
+             margin: 1rem auto; /* Center ads */
+             width: 100%;
+             max-width: 728px; /* Common banner width */
+         }
+          @media (min-width: 768px) {
+             .ad-container {
+                 min-height: 90px; /* Larger banner height on desktop */
+             }
+         }
+
+
+        /* --- Header Title Centering --- */
+        .header-container {
+            display: flex;
+            align-items: center;
+             justify-content: space-between;
+             width: 100%;
+             position: relative; /* Needed for absolute positioning of title wrapper */
         }
 
-        .success-avatar {
-            animation: scaleIn 0.5s ease-out forwards;
+        .header-title-wrapper {
+             position: absolute; /* Position title wrapper absolutely */
+             left: 0;
+             right: 0;
+             top: 50%;
+             transform: translateY(-50%);
+             text-align: center;
+             pointer-events: none; /* Allow clicks to pass through to elements behind */
+             z-index: 5; /* Below back button/toggle, above background */
         }
-    </style>
-    <!-- Add this additional CSS to your dark.css file or inline styles -->
-    <style>
-        /* Dark mode toggle button styles */
-        #darkModeToggle {
-            opacity: 0.9;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+
+        .header-title-wrapper h1 {
+             /* Specific styles already applied */
+             /* Keep inline-block if needed for gradient clip */
         }
-        
-        #darkModeToggle:hover {
-            transform: scale(1.1);
-            opacity: 1;
+
+        /* Adjustments for small screens */
+        @media (max-width: 640px) {
+             .header-container {
+                  justify-content: flex-start;
+                  gap: 1rem;
+             }
+             .header-title-wrapper {
+                  position: static; /* Static positioning on small screens */
+                  transform: none;
+                  text-align: left;
+                  pointer-events: auto; /* Restore pointer events */
+                  z-index: auto;
+             }
+             .header-container .back-button {
+                  z-index: auto; /* No need for high z-index on small screen layout */
+             }
+              /* Hide the empty div used for centering balance on desktop */
+             .header-container > .w-[5rem] {
+                 display: none;
+             }
         }
-        
-        .dark-theme #darkModeToggle {
-            background-color: rgba(255, 255, 255, 0.15);
-            border-color: rgba(255, 255, 255, 0.3);
-        }
-        
-        .dark-theme #darkModeToggle i.fa-sun {
-            color: #fbbf24; /* Bright yellow in dark mode */
-        }
-        
-        .dark-theme #darkModeToggle:hover {
-            background-color: rgba(255, 255, 255, 0.25);
-        }
+
+
     </style>
 </head>
-<body class="flex flex-col min-h-screen bg-gray-50">
-    <div class="cyberpunk-grid"></div>
-    <div class="gradient-top"></div>
-    <div class="gradient-bottom"></div>
-    <!-- Top banner -->
-    <div>
-        <script type="text/javascript">
-            aclib.runBanner({
-                zoneId: '9521434',
-            });
-        </script>
+<body class="flex flex-col min-h-screen">
+    <!-- Hero Background -->
+    <div class="hero-bg">
+        <div class="gradient-blob gradient-blob-1"></div>
+        <div class="gradient-blob gradient-blob-2"></div>
+        <!-- Add floating dots with specific colors using classes -->
+        <div class="floating-dot dot-blue w-4 h-4 top-1/4 left-1/4"></div>
+        <div class="floating-dot dot-purple w-3 h-3 top-1/3 right-1/4"></div>
+        <div class="floating-dot dot-green w-2 h-2 bottom-1/4 left-1/3"></div>
+        <div class="floating-dot dot-amber w-3 h-3 top-2/3 right-1/3"></div>
     </div>
 
-    <header class="mb-12 mt-8" data-aos="fade-down">
-        <div class="header-container flex justify-between items-center px-4">
-            <a href="index.html" class="back-button hover:scale-110 transform transition-all duration-300">
+    <!-- Floating Particles -->
+    <div class="floating-particles" id="particles"></div>
+
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" onclick="toggleTheme()" id="darkModeToggle">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <!-- Top banner (Ad) -->
+    <div class="relative z-10 w-full text-center">
+         <div id="ad-container-top" class="ad-container"></div>
+    </div>
+
+    <header class="relative z-10 mb-12 mt-8" data-aos="fade-down">
+        <div class="container mx-auto px-4 header-container">
+            <a href="index.html" class="back-button">
                 <i class="fas fa-arrow-left"></i>
                 Retour
             </a>
-            <img src="assets/img/LOGO.png" alt="ISET'COM" class="max-w-[200px]">
+            <div class="header-title-wrapper">
+                 <h1 class="text-2xl md:text-3xl font-bold text-foreground text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 inline-block">Authentification</h1>
+            </div>
+             <!-- Add an empty div to help center the title by balancing the back button's space -->
+            <div class="w-[5rem] flex-shrink-0"></div> <!-- Added flex-shrink-0 -->
         </div>
     </header>
 
-    <div class="container mx-auto px-4 max-w-6xl flex-grow flex justify-center items-center">
-        <div class="glass-card w-full max-w-md p-8 rounded-lg shadow-lg" data-aos="fade-up">
-            <div class="tabs flex justify-center mb-6">
-                <button class="tab-btn active" data-tab="login">Connexion</button>
-                <button class="tab-btn" data-tab="register">Inscription</button>
-            </div>
-            
-            <!-- Login Form -->
-            <div id="login" class="tab-content active">
-                <h1 class="text-3xl font-bold mb-8 text-center text-gray-800">Connexion</h1>
-                <form id="loginForm" class="space-y-6">
-                    <div>
-                        <label for="emailLogin" class="block text-sm font-medium text-gray-700 mb-2">Email</label>
-                        <input type="email" id="emailLogin" class="custom-input" required>
-                    </div>
-                    <div>
-                        <label for="passwordLogin" class="block text-sm font-medium text-gray-700 mb-2">Mot de passe</label>
-                        <input type="password" id="passwordLogin" class="custom-input" required>
-                    </div>
-                    <div class="text-center mt-8">
-                        <button type="submit" class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transform hover:scale-105 transition-all duration-300 shadow-lg">
-                            <i class="fas fa-sign-in-alt mr-2"></i>
-                            Se connecter
-                        </button>
-                    </div>
-                </form>
-            </div>
+    <main class="container mx-auto px-4 flex-grow flex justify-center items-center relative z-10"> <!-- Use main for semantic HTML -->
+        <div class="auth-card w-full max-w-md rounded-lg shadow-lg" data-aos="fade-up">
+             <div class="p-8">
+                <div class="tabs mb-6">
+                    <button class="tab-btn active" data-tab="login">Connexion</button>
+                    <button class="tab-btn" data-tab="register">Inscription</button>
+                </div>
 
-            <!-- Registration Form -->
-            <div id="register" class="tab-content">
-                <h1 class="text-3xl font-bold mb-8 text-center text-gray-800">Inscription</h1>
-                <form id="registerForm" class="space-y-6">
-                    <div>
-                        <label for="fullNameRegister" class="block text-sm font-medium text-gray-700 mb-2">Nom complet</label>
-                        <input type="text" id="fullNameRegister" class="custom-input" required>
-                    </div>
-                    <div>
-                        <label for="matriculeRegister" class="block text-sm font-medium text-gray-700 mb-2">Numéro d'immatriculation</label>
-                        <input type="text" id="matriculeRegister" class="custom-input" required>
-                    </div>
-                    <div>
-                        <label for="yearRegister" class="block text-sm font-medium text-gray-700 mb-2">Année d'étude</label>
-                        <select id="yearRegister" class="custom-input" required onchange="updateSpecialities()">
-                            <option value="">Sélectionnez votre année</option>
-                            <option value="1">1ère année</option>
-                            <option value="2">2ème année</option>
-                            <option value="3">3ème année</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label for="specialityRegister" class="block text-sm font-medium text-gray-700 mb-2">Spécialité</label>
-                        <select id="specialityRegister" class="custom-input" required>
-                            <option value="">Sélectionnez d'abord une année</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label for="emailRegister" class="block text-sm font-medium text-gray-700 mb-2">Email</label>
-                        <input type="email" id="emailRegister" class="custom-input" required>
-                    </div>
-                    <div>
-                        <label for="passwordRegister" class="block text-sm font-medium text-gray-700 mb-2">Mot de passe</label>
-                        <input type="password" id="passwordRegister" class="custom-input" required>
-                    </div>
-                    <div>
-                        <label for="phoneNumberRegister" class="block text-sm font-medium text-gray-700 mb-2">Numéro de téléphone</label>
-                        <input type="text" id="phoneNumberRegister" class="custom-input" required>
-                    </div>
-                    <div class="text-center mt-8">
-                        <button type="submit" class="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transform hover:scale-105 transition-all duration-300 shadow-lg">
-                            <i class="fas fa-user-plus mr-2"></i>
-                            S'inscrire
-                        </button>
-                    </div>
-                </form>
-            </div>
+                <!-- Login Form -->
+                <div id="login" class="tab-content active">
+                    <h1 class="text-3xl font-bold mb-8 text-center text-gray-800">Connexion</h1>
+                    <form id="loginForm" class="space-y-6">
+                        <div>
+                            <label for="emailLogin" class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                            <input type="email" id="emailLogin" class="form-input" required>
+                        </div>
+                        <div>
+                            <label for="passwordLogin" class="block text-sm font-medium text-gray-700 mb-2">Mot de passe</label>
+                            <input type="password" id="passwordLogin" class="form-input" required>
+                        </div>
+                        <div class="text-center mt-8">
+                            <button type="submit" class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transform hover:scale-105 transition-all duration-300 shadow-lg w-full">
+                                <i class="fas fa-sign-in-alt mr-2"></i>
+                                Se connecter
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Registration Form -->
+                <div id="register" class="tab-content">
+                    <h1 class="text-3xl font-bold mb-8 text-center text-gray-800">Inscription</h1>
+                    <form id="registerForm" class="space-y-6">
+                        <div>
+                            <label for="fullNameRegister" class="block text-sm font-medium text-gray-700 mb-2">Nom complet</label>
+                            <input type="text" id="fullNameRegister" class="form-input" required>
+                        </div>
+                        <div>
+                            <label for="matriculeRegister" class="block text-sm font-medium text-gray-700 mb-2">Numéro d'immatriculation</label>
+                            <input type="text" id="matriculeRegister" class="form-input" required maxlength="12" pattern="\d{12}">
+                            <!-- Matricule help text will be appended here by JS -->
+                        </div>
+                        <div>
+                            <label for="yearRegister" class="block text-sm font-medium text-gray-700 mb-2">Année d'étude</label>
+                            <select id="yearRegister" class="form-input" required onchange="updateSpecialities()">
+                                <option value="">Sélectionnez votre année</option>
+                                <option value="1">1ère année</option>
+                                <option value="2">2ème année</option>
+                                <option value="3">3ème année</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="specialityRegister" class="block text-sm font-medium text-gray-700 mb-2">Spécialité</label>
+                            <select id="specialityRegister" class="form-input" required>
+                                <option value="">Sélectionnez d'abord une année</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="emailRegister" class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                            <input type="email" id="emailRegister" class="form-input" required>
+                        </div>
+                        <div>
+                            <label for="passwordRegister" class="block text-sm font-medium text-gray-700 mb-2">Mot de passe</label>
+                            <input type="password" id="passwordRegister" class="form-input" required minlength="6">
+                        </div>
+                        <div>
+                            <label for="phoneNumberRegister" class="block text-sm font-medium text-gray-700 mb-2">Numéro de téléphone</label>
+                            <input type="text" id="phoneNumberRegister" class="form-input" required>
+                        </div>
+                        <div class="text-center mt-8">
+                            <button type="submit" class="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transform hover:scale-105 transition-all duration-300 shadow-lg w-full">
+                                <i class="fas fa-user-plus mr-2"></i>
+                                S'inscrire
+                            </button>
+                        </div>
+                    </form>
+                </div>
+             </div>
         </div>
+    </main>
+
+    <!-- Middle banner (Ad) -->
+    <div class="relative z-10 mt-8 w-full text-center">
+        <div id="ad-container-middle" class="ad-container"></div>
     </div>
 
-    <!-- Middle banner -->
-    <div>
-        <script type="text/javascript">
-            aclib.runBanner({
-                zoneId: '9521434',
-            });
-        </script>
-    </div>
-
-    <footer class="text-center text-gray-600 text-sm py-4">
-        <div>&copy; 2025 Université de Bejaia. Développé par <a href="mailto:mehdi.amara@tech.univ-bejaia.dz" class="text-blue-500 hover:text-blue-700">Amara Mehdi</a></div>
+    <footer class="text-center text-gray-600 text-sm py-4 mt-12 relative z-10 bg-background/80 backdrop-blur-sm">
+        <div class="container mx-auto px-4">
+            <p class="text-muted-foreground">
+                © 2025 Université de Bejaia. Développé par <a href="mailto:mehdi.amara@tech.univ-bejaia.dz" class="text-blue-500 hover:text-blue-700">Amara Mehdi</a>
+            </p>
+        </div>
     </footer>
 
-    <!-- Replace the existing popup markup with this enhanced version -->
-    <div id="popupBox" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden z-50">
-        <div id="popupContent" class="relative w-full max-w-md p-8 rounded-2xl shadow-2xl text-center transform transition-all duration-500 scale-0">
-            <!-- Close button -->
-            <button id="closePopup" class="absolute top-3 right-3 text-gray-400 hover:text-gray-600 transition-colors">
-                <i class="fas fa-times"></i>
-            </button>
-            
-            <!-- Profile avatar -->
-            <div class="mb-6">
-                <div class="success-avatar relative mx-auto">
-                    <div class="w-24 h-24 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center mx-auto overflow-hidden">
-                        <i class="fas fa-user text-white text-4xl"></i>
-                    </div>
-                    <div class="success-checkmark absolute bottom-0 right-0 bg-green-400 rounded-full p-2 border-4 border-white">
-                        <i class="fas fa-check text-white"></i>
+    <!-- Success Popup -->
+    <div id="popupBox" class="fixed inset-0 flex items-center justify-center hidden z-50">
+        <div id="popupContent" class="relative w-full max-w-md rounded-2xl text-center transform transition-all duration-500 opacity-0">
+             <div class="popup-header">
+                <h2 class="text-2xl font-bold text-gray-800" id="welcomeHeading">Connexion réussie!</h2>
+                 <!-- Close button positioned inside header -->
+                <button type="button" id="closePopup" class="close-popup-btn">
+                    <i class="fas fa-times"></i>
+                    <span>Fermer</span>
+                </button>
+             </div>
+            <div class="popup-body p-8"> <!-- Added padding to body -->
+                <!-- Profile avatar -->
+                <div class="mb-6">
+                    <div class="success-avatar relative mx-auto">
+                        <div class="w-24 h-24 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center mx-auto overflow-hidden">
+                             <i class="fas fa-user text-white text-4xl"></i>
+                        </div>
+                        <div class="success-checkmark absolute bottom-0 right-0 bg-green-400 rounded-full p-2 border-4 border-white">
+                            <i class="fas fa-check text-white text-lg"></i>
+                        </div>
                     </div>
                 </div>
-            </div>
-            
-            <!-- Welcome message with user name -->
-            <h2 class="text-3xl font-bold mb-2 text-gray-800" id="welcomeHeading">Connexion réussie!</h2>
-            <p class="text-lg text-blue-600 mb-2" id="welcomeSubheading">Bienvenue sur CampusElkseur</p>
-            <p class="text-gray-600 mb-8">Votre identité a été vérifiée avec succès.</p>
-            
-            <!-- What's new section -->
-            <div class="bg-blue-50 p-4 rounded-lg mb-6 text-left">
-                <h3 class="font-semibold text-blue-700 flex items-center">
-                    <i class="fas fa-bell-on mr-2"></i>Nouveautés
-                </h3>
-                <ul class="text-sm text-gray-700 mt-2 space-y-1">
-                    <li class="flex items-start">
-                        <i class="fas fa-check-circle text-green-500 mr-2 mt-0.5"></i>
-                        <span>Ajout de la bibliothèque numérique</span>
-                    </li>
-                    <li class="flex items-start">
-                        <i class="fas fa-check-circle text-green-500 mr-2 mt-0.5"></i>
-                        <span>Favoris personnalisés disponibles</span>
-                    </li>
-                </ul>
-            </div>
-            
-            <!-- Navigation buttons with improved design -->
-            <div class="grid grid-cols-1 gap-4">
-                <button id="homeButton" class="px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg hover:from-blue-600 hover:to-blue-700 transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center shadow-md">
-                    <i class="fas fa-home mr-3"></i>Accueil
-                </button>
-                <button id="coursesButton" class="px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-lg hover:from-indigo-600 hover:to-purple-700 transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center shadow-md">
-                    <i class="fas fa-book-open mr-3"></i>Espace Cours
-                </button>
-                <button id="profileButton" class="px-6 py-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-lg hover:from-green-600 hover:to-emerald-700 transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center shadow-md">
-                    <i class="fas fa-user mr-3"></i>Mon Profil
-                </button>
+
+                <!-- Welcome message with user name -->
+                <p class="text-lg text-blue-600 mb-2" id="welcomeSubheading">Bienvenue sur CampusElkseur</p>
+                <p class="text-gray-600 mb-8">Votre identité a été vérifiée avec succès.</p>
+
+                <!-- What's new section -->
+                <div class="bg-blue-50 p-4 rounded-lg mb-6 text-left">
+                     <h3 class="font-semibold text-blue-700 flex items-center mb-2">
+                        <i class="fas fa-bell-on mr-2"></i>Nouveautés
+                    </h3>
+                    <ul class="text-sm text-gray-700 space-y-1">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mr-2 mt-0.5"></i>
+                            <span>Ajout de la bibliothèque numérique</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mr-2 mt-0.5"></i>
+                            <span>Favoris personnalisés disponibles</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Navigation buttons with improved design -->
+                <div class="grid grid-cols-1 gap-4">
+                    <button id="homeButton" class="px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg hover:from-blue-600 hover:to-blue-700 transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center shadow-md">
+                        <i class="fas fa-home mr-3"></i>Accueil
+                    </button>
+                    <button id="coursesButton" class="px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-lg hover:from-indigo-600 hover:to-purple-700 transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center shadow-md">
+                        <i class="fas fa-book-open mr-3"></i>Espace Cours
+                    </button>
+                    <button id="profileButton" class="px-6 py-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-lg hover:from-green-600 hover:to-emerald-700 transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center shadow-md">
+                        <i class="fas fa-user mr-3"></i>Mon Profil
+                    </button>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="floating-cards hidden dark-mode-only">
-        <!-- Card 1 -->
-        <div class="floating-card" style="left: 5%; top: 20%; transform: rotate(-3deg);">
-            <div class="floating-card-content">
-                <div class="floating-card-icon"></div>
-                <div>
-                    <div class="floating-card-text"></div>
-                    <div class="floating-card-subtext"></div>
-                </div>
-            </div>
-            <div class="floating-card-actions">
-                <div class="floating-card-button"></div>
-                <div class="floating-card-button"></div>
-            </div>
-        </div>
-        
-        <!-- Card 2 -->
-        <div class="floating-card" style="right: 10%; top: 15%; transform: rotate(2deg);">
-            <div class="floating-card-content">
-                <div class="floating-card-icon"></div>
-                <div>
-                    <div class="floating-card-text"></div>
-                    <div class="floating-card-subtext"></div>
-                </div>
-            </div>
-            <div class="floating-card-actions">
-                <div class="floating-card-button"></div>
-                <div class="floating-card-button"></div>
-            </div>
-        </div>
-        
-        <!-- Card 3 -->
-        <div class="floating-card" style="left: 15%; bottom: 20%; transform: rotate(3deg);">
-            <div class="floating-card-content">
-                <div class="floating-card-icon"></div>
-                <div>
-                    <div class="floating-card-text"></div>
-                    <div class="floating-card-subtext"></div>
-                </div>
-            </div>
-            <div class="floating-card-actions">
-                <div class="floating-card-button"></div>
-                <div class="floating-card-button"></div>
-            </div>
-        </div>
-    </div>
-
-    <button
-  id="darkModeToggle"
-  class="fixed top-4 right-4 z-50 p-3 bg-gray-800/70 backdrop-blur-md rounded-full shadow-lg hover:bg-gray-700/80 border border-gray-600/50 text-yellow-300 text-lg transition-all duration-300 flex items-center justify-center"
-  onclick="toggleDarkMode()"
->
-  <i class="fas fa-adjust"></i>
-</button>
-
-    <button onclick="toggleDarkMode()">Toggle Dark Mode</button>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
@@ -361,7 +790,64 @@
             once: true
         });
 
-        // Firebase Configuration
+         // --- Theme toggle functionality ---
+        function toggleTheme() {
+            const body = document.body;
+            const themeToggleIcon = document.querySelector('#darkModeToggle i');
+
+            if (body.classList.contains('dark')) {
+                body.classList.remove('dark');
+                themeToggleIcon.classList.remove('fa-sun');
+                themeToggleIcon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.classList.add('dark');
+                themeToggleIcon.classList.remove('fa-moon');
+                themeToggleIcon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+         // --- Create floating particles ---
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            if (!particlesContainer) return;
+
+             // Use hsl values based on primary/accent from CSS variables
+            const colors = [
+                'hsl(var(--primary) / 0.6)',
+                'hsl(var(--ring) / 0.6)',
+                'hsl(var(--accent) / 0.6)'
+            ];
+
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                const size = Math.random() * 5 + 2;
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                const moveX = (Math.random() - 0.5) * 50;
+                const moveY = (Math.random() - 0.5) * 50;
+
+                particle.style.cssText = `
+                    left: ${x}vw;
+                    top: ${y}vh;
+                    width: ${size}px;
+                    height: ${size}px;
+                    background-color: ${color};
+                    --x: ${moveX}px;
+                    --y: ${moveY}px;
+                    animation-delay: ${Math.random() * 5}s;
+                `;
+
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+
+        // --- Firebase Configuration (Kept v8) ---
         const firebaseConfig = {
             apiKey: "AIzaSyB5XYqWKhHdiVDXJx4iOwtpxD8eUCPRfKU",
             authDomain: "universite-de-bejaia-547fc.firebaseapp.com",
@@ -373,80 +859,44 @@
         };
 
         // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
+        if (!firebase.apps.length) {
+          firebase.initializeApp(firebaseConfig);
+        } else {
+          firebase.app();
+        }
         const auth = firebase.auth();
         const db = firebase.firestore();
 
-        // Update the specialities object with all specialties from bib.html
+
+        // --- Specialities Data and Function (Kept) ---
         const specialities = {
             1: [
-                "Science et Technologie LMD",
-                "Informatique LMD",
-                "Biologie",
-                "Mathématiques",
-                "Science de la matière",
-                "Science et Technologie Ingénieur",
-                "Informatique ING",
-                "Architecture",
-                "Médecine",
-                "Pharmacie",
-                "Droit",
-                "SEGC",
-                "Langue Française",
-                "Langue Arabe",
-                "Langue Tamazight",
-                "Langue Anglaise",
-                "Science Sociale",
-                "Traduction"
+                "Science et Technologie LMD", "Informatique LMD", "Biologie", "Mathématiques", "Science de la matière",
+                "Science et Technologie Ingénieur", "Informatique ING", "Architecture", "Médecine", "Pharmacie",
+                "Droit", "SEGC", "Langue Française", "Langue Arabe", "Langue Tamazight", "Langue Anglaise",
+                "Science Sociale", "Traduction"
             ],
             2: [
-                "Génie des Procédés",
-                "Automatique",
-                "Exploitation des mines",
-                "Génie Civil",
-                "Télécommunications",
-                "Valorisation des ressources minérales",
-                "Électronique",
-                "Électrotechnique",
-                "Hydraulique",
-                "Mathématiques",
-                "Informatique",
-                "Biologie",
-                "Physique",
-                "Chimie",
-                "Économie",
-                "Sciences Commerciales",
-                "Sciences de Gestion",
-                "Langue et Littérature Française",
-                "Langue et Littérature Anglaise",
+                "Génie des Procédés", "Automatique", "Exploitation des mines", "Génie Civil", "Télécommunications",
+                "Valorisation des ressources minérales", "Électronique", "Électrotechnique", "Hydraulique",
+                "Mathématiques", "Informatique", "Biologie", "Physique", "Chimie", "Économie", "Sciences Commerciales",
+                "Sciences de Gestion", "Langue et Littérature Française", "Langue et Littérature Anglaise",
                 "Langue et Littérature Arabe"
             ],
             3: [
-                "Génie des Procédés",
-                "Automatique",
-                "Exploitation des mines",
-                "Génie Civil",
-                "Télécommunications",
-                "Architecture",
-                "Biotechnologie",
-                "Électronique",
-                "Électrotechnique",
-                "Informatique",
-                "Sciences Commerciales",
-                "Sciences de Gestion",
-                "Microbiologie",
-                "Biochimie",
-                "Physique Énergétique",
-                "Chimie Analytique"
+                "Génie des Procédés", "Automatique", "Exploitation des mines", "Génie Civil", "Télécommunications",
+                "Architecture", "Biotechnologie", "Électronique", "Électrotechnique", "Informatique", "Sciences Commerciales",
+                "Sciences de Gestion", "Microbiologie", "Biochimie", "Physique Énergétique", "Chimie Analytique"
             ]
         };
 
         function updateSpecialities() {
             const yearSelect = document.getElementById('yearRegister');
             const specialitySelect = document.getElementById('specialityRegister');
-            const year = yearSelect.value;
+            const year = yearSelect ? yearSelect.value : null;
 
-            // Clear current options
+            if (!specialitySelect) return;
+
             specialitySelect.innerHTML = '<option value="">Sélectionnez votre spécialité</option>';
 
             if (year && specialities[year]) {
@@ -456,413 +906,538 @@
                     option.textContent = speciality;
                     specialitySelect.appendChild(option);
                 });
+            } else {
+                const defaultOption = document.createElement('option');
+                defaultOption.value = "";
+                defaultOption.textContent = "Sélectionnez d'abord une année";
+                specialitySelect.appendChild(defaultOption);
             }
         }
 
-        // Add this function for matricule validation before your DOMContentLoaded event
+        // --- Matricule Validation Function ---
         function validateMatricule(matricule) {
-            // Check if it's exactly 12 digits
+             if (!matricule || matricule.length === 0) {
+                 return { valid: false, message: "Le numéro d'immatriculation est requis." };
+             }
             if (!/^\d{12}$/.test(matricule)) {
                 return {
                     valid: false,
-                    message: "Le numéro d'immatriculation doit contenir exactement 12 chiffres"
+                    message: "Le numéro d'immatriculation doit contenir exactement 12 chiffres."
                 };
             }
-            
-            // Check if it starts with a valid prefix
+
             const validPrefixes = ['1515', '1616', '1717', '1818', '1919', '2020', '2121', '2222', '2323', '2424'];
             const prefix = matricule.substring(0, 4);
-            
+
             if (!validPrefixes.includes(prefix)) {
                 return {
                     valid: false,
-                    message: "Le numéro d'immatriculation doit commencer par l'un des codes suivants: 1515, 1616, 1717, 1818, 1919, 2020, 2121, 2222, 2323, 2424"
+                    message: `Le numéro d'immatriculation doit commencer par l'un des codes suivants: ${validPrefixes.join(', ')}.`
                 };
             }
-            
+
             return { valid: true };
         }
 
+        // --- Helper functions for general error messages ---
+        function displayGeneralErrorMessage(formId, message) {
+            const form = document.querySelector(formId);
+             if (!form) return;
+
+            removeGeneralErrorMessage(formId);
+
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'bg-red-100 dark:bg-red-900 border border-red-400 dark:border-red-700 text-red-700 dark:text-red-300 px-4 py-3 rounded relative mt-4 text-sm';
+            errorDiv.innerHTML = `<strong class="font-bold">Erreur:</strong><span class="block sm:inline ml-2">${message}</span>`;
+
+            form.insertBefore(errorDiv, form.firstChild);
+
+            setTimeout(() => {
+                if(errorDiv.parentNode) errorDiv.remove();
+            }, 7000);
+        }
+
+        function removeGeneralErrorMessage(formId) {
+            const form = document.querySelector(formId);
+             if (!form) return;
+            const existingError = form.querySelector('.bg-red-100, .dark\\:bg-red-900');
+            if (existingError) {
+                existingError.remove();
+            }
+        }
+
+         // --- Helper function for matricule help text ---
+         function displayMatriculeHelpError(message) {
+            const matriculeInput = document.getElementById('matriculeRegister');
+            const helpElement = document.getElementById('matriculeHelp');
+             if (!matriculeInput || !helpElement) return;
+
+             removeGeneralErrorMessage('#registerForm');
+
+            matriculeInput.className = 'form-input border-red-500 dark:border-red-700 bg-red-50 dark:bg-red-900';
+            helpElement.className = 'text-xs mt-2 p-2 rounded-md matricule-help bg-red-100 dark:bg-red-900 border border-red-400 dark:border-red-700 text-red-700 dark:text-red-300';
+            helpElement.innerHTML = `
+                 <div class="flex items-start">
+                    <i class="fas fa-exclamation-circle mt-0.5 mr-2 text-red-500"></i>
+                    <div class="w-full">
+                         <div class="font-medium">Erreur de format:</div>
+                         <div class="mt-1">${message}</div>
+                     </div>
+                 </div>
+             `;
+             helpElement.classList.remove('hidden');
+         }
+
+
+        // --- DOM Content Loaded ---
         document.addEventListener('DOMContentLoaded', () => {
-            // Tab Handling
+
+            // Theme Toggle: Check saved preference and set initial icon
+             const savedTheme = localStorage.getItem('theme');
+             const themeToggleIcon = document.querySelector('#darkModeToggle i');
+
+             if (savedTheme === 'dark') {
+                 document.body.classList.add('dark');
+                 if (themeToggleIcon) {
+                     themeToggleIcon.classList.replace('fa-moon', 'fa-sun');
+                 }
+             } else {
+                  document.body.classList.remove('dark');
+                  if (themeToggleIcon) {
+                     themeToggleIcon.classList.remove('fa-sun');
+                     themeToggleIcon.classList.add('fa-moon');
+                  }
+             }
+
+
+            // Tab Handling (Fixed display logic and initial state)
             const tabs = document.querySelectorAll('.tab-btn');
             const contents = document.querySelectorAll('.tab-content');
 
+            const switchTab = (targetTabId) => {
+                 tabs.forEach(t => t.classList.remove('active'));
+                 contents.forEach(c => {
+                      c.classList.remove('active');
+                     c.style.display = 'none'; // Explicitly hide
+                 });
+
+                 const targetTabButton = document.querySelector(`.tab-btn[data-tab="${targetTabId}"]`);
+                 const targetContent = document.getElementById(targetTabId);
+
+                 if (targetTabButton) targetTabButton.classList.add('active');
+                 if (targetContent) {
+                     targetContent.classList.add('active');
+                     targetContent.style.display = 'block'; // Explicitly show
+                 }
+
+                 // Clear any previous messages/validation state when switching tabs
+                 removeGeneralErrorMessage('#loginForm');
+                 removeGeneralErrorMessage('#registerForm');
+                 const matriculeInput = document.getElementById('matriculeRegister');
+                 if(matriculeInput) {
+                     matriculeInput.className = 'form-input'; // Reset input style
+                 }
+                 const matriculeHelp = document.getElementById('matriculeHelp');
+                 if(matriculeHelp) {
+                    matriculeHelp.classList.add('hidden'); // Hide help text
+                 }
+                 // Reset form fields when switching tabs? Depends on desired UX. Let's not reset for now.
+                 // document.getElementById('loginForm').reset();
+                 // document.getElementById('registerForm').reset();
+            };
+
             tabs.forEach(tab => {
                 tab.addEventListener('click', () => {
-                    tabs.forEach(t => t.classList.remove('active'));
-                    contents.forEach(c => c.classList.remove('active'));
-                    tab.classList.add('active');
-                    document.getElementById(tab.dataset.tab).classList.add('active');
+                   switchTab(tab.dataset.tab);
                 });
             });
 
-            // Registration Handler
-            document.getElementById('registerForm').addEventListener('submit', async (e) => {
-                e.preventDefault();
-                const email = document.getElementById('emailRegister').value;
-                const password = document.getElementById('passwordRegister').value;
-                const fullName = document.getElementById('fullNameRegister').value;
-                const phoneNumber = document.getElementById('phoneNumberRegister').value;
-                const matricule = document.getElementById('matriculeRegister').value;
-                const year = document.getElementById('yearRegister').value;
-                const speciality = document.getElementById('specialityRegister').value;
-                
-                // Validate the matricule
-                const matriculeValidation = validateMatricule(matricule);
-                if (!matriculeValidation.valid) {
-                    // Show error message
-                    const errorDiv = document.createElement('div');
-                    errorDiv.className = 'bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-4';
-                    errorDiv.innerHTML = `<strong class="font-bold">Erreur!</strong><span class="block sm:inline"> ${matriculeValidation.message}</span>`;
-                    
-                    // Remove any existing error message
-                    const existingError = document.querySelector('#registerForm .bg-red-100');
-                    if (existingError) {
-                        existingError.remove();
-                    }
-                    
-                    const form = document.getElementById('registerForm');
-                    form.insertBefore(errorDiv, form.firstChild);
-                    
-                    // Remove error message after 5 seconds
-                    setTimeout(() => errorDiv.remove(), 5000);
-                    return;
-                }
+             // Set initial active tab on load (default to login)
+             switchTab('login');
 
-                try {
-                    const userCredential = await auth.createUserWithEmailAndPassword(email, password);
-                    
-                    await db.collection('users').doc(userCredential.user.uid).set({
-                        fullName,
-                        email,
-                        phoneNumber,
-                        matricule,
-                        year,
-                        speciality,
-                        createdAt: firebase.firestore.FieldValue.serverTimestamp()
-                    });
 
-                    // Show success message and redirect to login
-                    alert('Inscription réussie! Vous pouvez maintenant vous connecter.');
-                    document.querySelector('[data-tab="login"]').click();
-                    document.getElementById('registerForm').reset();
-                } catch (error) {
-                    handleAuthError(error);
-                }
-            });
+            // Registration Form Setup
+             const registerForm = document.getElementById('registerForm');
+             const matriculeInput = document.getElementById('matriculeRegister');
+             let matriculeHelp = document.getElementById('matriculeHelp');
 
-            // Login Handler
-            document.getElementById('loginForm').addEventListener('submit', async (e) => {
-                e.preventDefault();
-                const email = document.getElementById('emailLogin').value;
-                const password = document.getElementById('passwordLogin').value;
-
-                try {
-                    // Add loading state
-                    const submitBtn = e.target.querySelector('button[type="submit"]');
-                    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Connexion...';
-                    submitBtn.disabled = true;
-
-                    // Attempt login
-                    const userCredential = await firebase.auth().signInWithEmailAndPassword(email, password);
-                    
-                    if (userCredential.user) {
-                        try {
-                            // Get user data from Firestore
-                            const userDoc = await db.collection('users').doc(userCredential.user.uid).get();
-                            
-                            if (userDoc.exists) {
-                                const userData = userDoc.data();
-                                // Store user data in localStorage
-                                localStorage.setItem('userData', JSON.stringify(userData));
-                                localStorage.setItem('userId', userCredential.user.uid);
-                                
-                                // Get fresh token
-                                const token = await userCredential.user.getIdToken(true);
-                                localStorage.setItem('token', token);
-
-                                // Show success popup with improved animation and personalization
-                                const popupBox = document.getElementById('popupBox');
-                                const popupContent = document.getElementById('popupContent');
-                                const welcomeHeading = document.getElementById('welcomeHeading');
-                                const welcomeSubheading = document.getElementById('welcomeSubheading');
-
-                                // Get user's name for personalized welcome
-                                try {
-                                    const userObj = JSON.parse(userData);
-                                    const firstName = userObj.fullName.split(' ')[0]; // Extract first name
-                                    welcomeHeading.textContent = 'Connexion réussie!';
-                                    welcomeSubheading.textContent = `Bienvenue, ${firstName}!`;
-                                } catch (e) {
-                                    welcomeHeading.textContent = 'Connexion réussie!';
-                                    welcomeSubheading.textContent = 'Bienvenue sur CampusElkseur';
-                                }
-
-                                // Display the overlay and animate the popup in
-                                popupBox.style.display = 'flex';
-                                popupBox.classList.remove('hidden');
-                                popupBox.classList.add('show');
-                                setTimeout(() => {
-                                    popupContent.style.transform = 'scale(1)';
-                                }, 100);
-
-                                // Add close button functionality
-                                document.getElementById('closePopup').addEventListener('click', () => {
-                                    closeLoginPopup();
-                                });
-
-                                function closeLoginPopup() {
-                                    popupContent.style.transform = 'scale(0)';
-                                    setTimeout(() => {
-                                        popupBox.classList.add('hidden');
-                                        popupBox.classList.remove('show');
-                                        // Redirect to index page when closing
-                                        window.location.href = 'index.html';
-                                    }, 300);
-                                }
-                            } else {
-                                throw new Error('User document not found');
-                            }
-                        } catch (firestoreError) {
-                            console.error('Firestore error:', firestoreError);
-                            throw new Error('Error fetching user data');
-                        }
-                    }
-                } catch (error) {
-                    console.error('Login error:', error);
-                    let errorMessage = "Une erreur est survenue lors de la connexion";
-                    
-                    if (error.code === 'auth/wrong-password' || error.code === 'auth/user-not-found' || error.code === 'auth/invalid-login-credentials') {
-                        errorMessage = "Email ou mot de passe incorrect";
-                    } else if (error.code === 'auth/too-many-requests') {
-                        errorMessage = "Trop de tentatives échouées. Veuillez réessayer plus tard";
-                    }
-                    
-                    // Show error in a more user-friendly way
-                    const errorDiv = document.createElement('div');
-                    errorDiv.className = 'bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-4';
-                    errorDiv.innerHTML = `<strong class="font-bold">Erreur!</strong><span class="block sm:inline"> ${errorMessage}</span>`;
-                    
-                    const form = document.getElementById('loginForm');
-                    form.insertBefore(errorDiv, form.firstChild);
-                    
-                    // Remove error message after 5 seconds
-                    setTimeout(() => errorDiv.remove(), 5000);
-                } finally {
-                    // Reset button state
-                    const submitBtn = document.querySelector('#loginForm button[type="submit"]');
-                    submitBtn.innerHTML = '<i class="fas fa-sign-in-alt mr-2"></i>Se connecter';
-                    submitBtn.disabled = false;
-                }
-            });
-
-            // Auth State Listener
-            auth.onAuthStateChanged(user => {
-                if (user) {
-                    // User is signed in
-                    console.log('User logged in:', user.uid);
-                } else {
-                    // User is signed out
-                    console.log('User signed out');
-                }
-            });
-
-            // Popup Handlers
-            document.getElementById('homeButton').addEventListener('click', () => {
-                window.location.href = 'index.html';
-            });
-
-            document.getElementById('coursesButton').addEventListener('click', () => {
-                window.location.href = 'bib.html'; // Changed from courses.html to bib.html
-            });
-
-            document.getElementById('profileButton').addEventListener('click', () => {
-                window.location.href = 'profile.html';
-            });
-
-            // Error Handling
-            function handleAuthError(error) {
-                let message = "Une erreur est survenue";
-                switch (error.code) {
-                    case 'auth/email-already-in-use':
-                        message = "Cet email est déjà utilisé";
-                        break;
-                    case 'auth/invalid-email':
-                        message = "Email invalide";
-                        break;
-                    case 'auth/weak-password':
-                        message = "Le mot de passe doit contenir au moins 6 caractères";
-                        break;
-                    case 'auth/wrong-password':
-                        message = "Mot de passe incorrect";
-                        break;
-                    case 'auth/user-not-found':
-                        message = "Utilisateur non trouvé";
-                        break;
-                }
-                alert(message);
+            // Create matricule help div if it doesn't exist and input exists
+            if (matriculeInput && !matriculeHelp) {
+                 matriculeHelp = document.createElement('div');
+                 matriculeHelp.className = 'text-xs mt-2 p-2 rounded-md hidden matricule-help';
+                 matriculeHelp.id = 'matriculeHelp';
+                 matriculeInput.parentNode.insertBefore(matriculeHelp, matriculeInput.nextSibling);
             }
 
-            // Add this to ensure popup can be closed
-            document.addEventListener('click', (e) => {
-                const popupBox = document.getElementById('popupBox');
-                const popupContent = document.getElementById('popupContent');
-                if (e.target === popupBox) {
-                    popupContent.style.transform = 'scale(0)';
-                    setTimeout(() => {
-                        popupBox.classList.add('hidden');
-                        popupBox.classList.remove('show');
-                    }, 300);
-                }
-            });
 
-            // Add this inside your DOMContentLoaded event
-            const matriculeInput = document.getElementById('matriculeRegister');
-            const matriculeHelp = document.createElement('div');
-            matriculeHelp.className = 'text-xs mt-2 p-2 rounded-md hidden'; // Hidden initially
-            matriculeHelp.id = 'matriculeHelp';
-            matriculeInput.parentNode.appendChild(matriculeHelp);
+            // Registration Handler
+            if (registerForm) {
+                registerForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const emailInput = document.getElementById('emailRegister');
+                    const passwordInput = document.getElementById('passwordRegister');
+                    const fullNameInput = document.getElementById('fullNameRegister');
+                    const phoneNumberInput = document.getElementById('phoneNumberRegister');
+                    const yearSelect = document.getElementById('yearRegister');
+                    const specialitySelect = document.getElementById('specialityRegister');
 
-            // Remove the focus event listener - don't show help on focus
 
-            // Modified input validation - only show format requirements on error
-            matriculeInput.addEventListener('input', function() {
-                const value = this.value;
-                
-                // Only allow digits
-                if (!/^\d*$/.test(value)) {
-                    this.value = value.replace(/\D/g, '');
-                    return;
-                }
-                
-                const validPrefixes = ['1515', '1616', '1717', '1818', '1919', '2020', '2121', '2222', '2323', '2424'];
-                
-                // Reset input styling
-                this.className = 'custom-input';
-                
-                // Hide help if empty
-                if (value.length === 0) {
-                    matriculeHelp.classList.add('hidden');
-                    return;
-                } else {
-                    matriculeHelp.classList.remove('hidden');
-                }
-                
-                // Check prefix if we have at least 4 digits
-                if (value.length >= 4) {
-                    const prefix = value.substring(0, 4);
-                    
-                    if (!validPrefixes.includes(prefix)) {
-                        // INVALID PREFIX: Show full format requirements
-                        this.className += ' border-red-500 bg-red-50';
-                        matriculeHelp.className = 'text-xs text-red-700 mt-2 p-2 bg-red-50 border border-red-200 rounded-md';
-                        matriculeHelp.innerHTML = `
+                    const email = emailInput ? emailInput.value : '';
+                    const password = passwordInput ? passwordInput.value : '';
+                    const fullName = fullNameInput ? fullNameInput.value : '';
+                    const phoneNumber = phoneNumberInput ? phoneNumberInput.value : '';
+                    const matricule = matriculeInput ? matriculeInput.value : '';
+                    const year = yearSelect ? yearSelect.value : '';
+                    const speciality = specialitySelect ? specialitySelect.value : '';
+
+                    if (!email || !password || !fullName || !phoneNumber || !matricule || !year || !speciality) {
+                         displayGeneralErrorMessage('#registerForm', "Veuillez remplir tous les champs requis.");
+                         return;
+                    }
+                    if (password.length < 6) {
+                         displayGeneralErrorMessage('#registerForm', "Le mot de passe doit contenir au moins 6 caractères.");
+                         return;
+                    }
+
+                    const matriculeValidation = validateMatricule(matricule);
+                    if (!matriculeValidation.valid) {
+                        displayMatriculeHelpError(matriculeValidation.message);
+                        return;
+                    }
+
+                     removeGeneralErrorMessage('#registerForm');
+
+                     const submitBtn = registerForm.querySelector('button[type="submit"]');
+                     const originalBtnContent = submitBtn ? submitBtn.innerHTML : '';
+                     if(submitBtn) {
+                        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Inscription...';
+                        submitBtn.disabled = true;
+                     }
+
+                    try {
+                        const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+
+                        await db.collection('users').doc(userCredential.user.uid).set({
+                            fullName,
+                            email,
+                            phoneNumber,
+                            matricule,
+                            year: parseInt(year),
+                            speciality,
+                            createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                        });
+
+                        // Show success message and switch to login tab
+                        // No alert here, just switch tab and let user log in
+                        // alert('Inscription réussie! Vous pouvez maintenant vous connecter.');
+                        switchTab('login'); // Switch to login tab
+                        registerForm.reset(); // Reset the form fields
+                         if(matriculeInput) matriculeInput.className = 'form-input';
+                         if(matriculeHelp) matriculeHelp.classList.add('hidden');
+
+
+                    } catch (error) {
+                        console.error('Registration error:', error);
+                        handleAuthError(error, '#registerForm');
+                    } finally {
+                         if(submitBtn) {
+                            submitBtn.innerHTML = originalBtnContent;
+                            submitBtn.disabled = false;
+                         }
+                    }
+                });
+            }
+
+
+            // Matricule input validation and help text listener
+            if (matriculeInput && matriculeHelp) {
+                 matriculeInput.addEventListener('input', function() {
+                     const value = this.value.trim();
+                     const helpElement = document.getElementById('matriculeHelp');
+
+                     if (!/^\d*$/.test(value)) {
+                         this.value = value.replace(/\D/g, '');
+                         return;
+                     }
+
+                     removeGeneralErrorMessage('#registerForm');
+
+                     this.className = 'form-input';
+
+                     if (value.length === 0) {
+                         helpElement.classList.add('hidden');
+                         return;
+                     }
+
+                     helpElement.classList.remove('hidden');
+
+                     const validPrefixes = ['1515', '1616', '1717', '1818', '1919', '2020', '2121', '2222', '2323', '2424'];
+                     const prefix = value.substring(0, 4);
+                     const hasValidPrefix = value.length >= 4 && validPrefixes.includes(prefix);
+                     const isExactLength = value.length === 12;
+
+
+                     if (isExactLength && hasValidPrefix) {
+                        this.className = 'form-input border-green-500 dark:border-green-700 bg-green-50 dark:bg-green-900';
+                        helpElement.className = 'text-xs mt-2 p-2 rounded-md matricule-help text-green-700 dark:text-green-300 bg-green-50 dark:bg-green-900 border border-green-200 dark:border-green-600';
+                        helpElement.innerHTML = `
                             <div class="flex items-start">
-                                <i class="fas fa-exclamation-circle mt-0.5 mr-2 text-red-500"></i>
+                                <i class="fas fa-check-circle mt-0.5 mr-2 text-green-500"></i>
                                 <div>
-                                    <div class="font-medium">Préfixe "${prefix}" non valide!</div>
-                                    <div class="mt-1">Format: 12 chiffres commençant par l'un des codes suivants:</div>
-                                    <div class="font-mono text-red-800 mt-1 flex flex-wrap gap-1">
-                                        <span class="bg-red-100 px-1 rounded">1515</span>
-                                        <span class="bg-red-100 px-1 rounded">1616</span>
-                                        <span class="bg-red-100 px-1 rounded">1717</span>
-                                        <span class="bg-red-100 px-1 rounded">1818</span>
-                                        <span class="bg-red-100 px-1 rounded">1919</span>
-                                        <span class="bg-red-100 px-1 rounded">2020</span>
-                                        <span class="bg-red-100 px-1 rounded">2121</span>
-                                        <span class="bg-red-100 px-1 rounded">2222</span>
-                                        <span class="bg-red-100 px-1 rounded">2323</span>
-                                        <span class="bg-red-100 px-1 rounded">2424</span>
+                                    <div class="font-medium">Numéro d'immatriculation valide!</div>
+                                     <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5 mt-2">
+                                        <div class="bg-green-500 dark:bg-green-700 h-1.5 rounded-full" style="width: 100%"></div>
                                     </div>
                                 </div>
                             </div>
                         `;
-                        return;
-                    }
-                }
-                
-                // At this point, either: 
-                // 1. We have less than 4 digits, or 
-                // 2. We have a valid prefix
-                
-                if (value.length < 12) {
-                    // Show simple progress bar
-                    const prefix = value.length >= 4 ? value.substring(0, 4) : '';
-                    const isValidPrefix = value.length >= 4 && validPrefixes.includes(prefix);
-                    
-                    const barColor = isValidPrefix ? 'bg-blue-500' : 'bg-yellow-500';
-                    const textColor = isValidPrefix ? 'text-blue-700' : 'text-yellow-700';
-                    const bgColor = isValidPrefix ? 'bg-blue-50' : 'bg-yellow-50';
-                    const borderColor = isValidPrefix ? 'border-blue-200' : 'border-yellow-200';
-                    const icon = isValidPrefix ? 
-                        '<i class="fas fa-check-circle mt-0.5 mr-2 text-blue-500"></i>' : 
-                        '<i class="fas fa-info-circle mt-0.5 mr-2 text-yellow-500"></i>';
-                        
-                    this.className += isValidPrefix ? ' border-blue-500 bg-blue-50' : ' border-yellow-400 bg-yellow-50';
-                    
-                    matriculeHelp.className = `text-xs ${textColor} mt-2 p-2 ${bgColor} border ${borderColor} rounded-md`;
-                    matriculeHelp.innerHTML = `
-                        <div class="flex items-start">
-                            ${icon}
-                            <div class="w-full">
-                                <div class="font-medium">${isValidPrefix ? `Préfixe "${prefix}" valide!` : 'Saisie en cours...'}</div>
-                                <div class="w-full bg-gray-200 rounded-full h-1.5 mt-2">
-                                    <div class="${barColor} h-1.5 rounded-full" style="width: ${Math.min(100, (value.length/12)*100)}%"></div>
-                                </div>
-                                <div class="text-right text-xs mt-1">${value.length}/12 chiffres</div>
-                            </div>
-                        </div>
-                    `;
-                } else if (value.length === 12) {
-                    // Full number entered - show success
-                    this.className += ' border-green-500 bg-green-50';
-                    matriculeHelp.className = 'text-xs text-green-700 mt-2 p-2 bg-green-50 border border-green-200 rounded-md';
-                    matriculeHelp.innerHTML = `
-                        <div class="flex items-start">
-                            <i class="fas fa-check-circle mt-0.5 mr-2 text-green-500"></i>
-                            <div>
-                                <div class="font-medium">Numéro d'immatriculation valide!</div>
-                                <div class="w-full bg-gray-200 rounded-full h-1.5 mt-2">
-                                    <div class="bg-green-500 h-1.5 rounded-full" style="width: 100%"></div>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                } else {
-                    // Trim to 12 digits if somehow longer
-                    this.value = value.substring(0, 12);
-                }
-            });
+                    } else if (value.length < 12) {
+                        const barColor = hasValidPrefix ? 'bg-blue-500 dark:bg-blue-700' : 'bg-yellow-500 dark:bg-yellow-700';
+                        const textColor = hasValidPrefix ? 'text-blue-700 dark:text-blue-300' : 'text-yellow-700 dark:text-yellow-300';
+                        const bgColor = hasValidPrefix ? 'bg-blue-50 dark:bg-blue-900' : 'bg-yellow-50 dark:bg-yellow-900';
+                        const borderColor = hasValidPrefix ? 'border-blue-200 dark:border-blue-600' : 'border-yellow-200 dark:border-yellow-600';
+                        const icon = hasValidPrefix ?
+                            '<i class="fas fa-check-circle mt-0.5 mr-2 text-green-500"></i>' :
+                            '<i class="fas fa-info-circle mt-0.5 mr-2 text-yellow-500"></i>';
 
-            // Add close button functionality
-            const closeBtn = document.getElementById('closePopup');
-            if (closeBtn) {
-                closeBtn.addEventListener('click', () => {
-                    const popupContent = document.getElementById('popupContent');
-                    const popupBox = document.getElementById('popupBox');
-                    
-                    popupContent.style.transform = 'scale(0)';
-                    setTimeout(() => {
-                        popupBox.classList.add('hidden');
-                        popupBox.classList.remove('show');
-                    }, 300);
+                        this.className = `form-input ${hasValidPrefix ? ' border-blue-500 dark:border-blue-700 bg-blue-50 dark:bg-blue-900' : ' border-yellow-400 dark:border-yellow-700 bg-yellow-50 dark:bg-yellow-900'}`;
+
+
+                        helpElement.className = `text-xs mt-2 p-2 rounded-md matricule-help ${textColor} ${bgColor} border ${borderColor}`;
+                        helpElement.innerHTML = `
+                            <div class="flex items-start">
+                                ${icon}
+                                <div class="w-full">
+                                    <div class="font-medium">${hasValidPrefix ? `Préfixe "${prefix}" valide!` : 'Saisie en cours...'}</div>
+                                     <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5 mt-2">
+                                        <div class="${barColor} h-1.5 rounded-full" style="width: ${Math.min(100, (value.length/12)*100)}%"></div>
+                                    </div>
+                                    <div class="text-right text-xs mt-1">${value.length}/12 chiffres</div>
+                                </div>
+                            </div>
+                        `;
+                     } else {
+                         displayMatriculeHelpError(`Préfixe "${prefix}" non valide! Le numéro doit commencer par l'un des codes suivants: ${validPrefixes.join(', ')}.`);
+                         this.className = 'form-input border-red-500 dark:border-red-700 bg-red-50 dark:bg-red-900';
+                     }
+                 });
+            }
+
+
+            // Login Handler
+            const loginForm = document.getElementById('loginForm');
+            if (loginForm) {
+                loginForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const emailInput = document.getElementById('emailLogin');
+                    const passwordInput = document.getElementById('passwordLogin');
+
+                    const email = emailInput ? emailInput.value : '';
+                    const password = passwordInput ? passwordInput.value : '';
+
+                    if (!email || !password) {
+                         displayGeneralErrorMessage('#loginForm', "Veuillez entrer votre email et mot de passe.");
+                         return;
+                     }
+
+                     removeGeneralErrorMessage('#loginForm');
+
+                    const submitBtn = loginForm.querySelector('button[type="submit"]');
+                    const originalBtnContent = submitBtn ? submitBtn.innerHTML : '';
+                    if(submitBtn) {
+                       submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Connexion...';
+                       submitBtn.disabled = true;
+                    }
+
+                    try {
+                        const userCredential = await auth.signInWithEmailAndPassword(email, password);
+
+                        if (userCredential.user) {
+                            try {
+                                const userDoc = await db.collection('users').doc(userCredential.user.uid).get();
+
+                                if (userDoc.exists) {
+                                    const userData = userDoc.data();
+                                    localStorage.setItem('userData', JSON.stringify(userData));
+                                    localStorage.setItem('userId', userCredential.user.uid);
+                                    const token = await userCredential.user.getIdToken(true);
+                                    localStorage.setItem('token', token);
+
+                                    const popupBox = document.getElementById('popupBox');
+                                    const welcomeHeading = document.getElementById('welcomeHeading');
+                                    const welcomeSubheading = document.getElementById('welcomeSubheading');
+
+                                    try {
+                                        const userObj = userData;
+                                        const firstName = userObj.fullName.split(' ')[0];
+                                        welcomeHeading.textContent = 'Connexion réussie!';
+                                        welcomeSubheading.textContent = `Bienvenue, ${firstName}!`;
+                                    } catch (nameError) {
+                                        console.error("Error extracting user name:", nameError);
+                                        welcomeHeading.textContent = 'Connexion réussie!';
+                                        welcomeSubheading.textContent = 'Bienvenue sur CampusElkseur';
+                                    }
+
+                                    if (popupBox) {
+                                        popupBox.classList.remove('hidden');
+                                        popupBox.classList.add('show');
+                                        // Delay redirect until popup is closed by user
+                                    }
+
+
+                                } else {
+                                    console.error('User document not found in Firestore for UID:', userCredential.user.uid);
+                                     await auth.signOut(); // Sign out the user if their data isn't complete
+                                    throw new Error('Vos informations ne sont pas complètes. Veuillez réessayer l\'inscription.');
+                                }
+                            } catch (firestoreError) {
+                                console.error('Firestore or Data Processing error:', firestoreError);
+                                 // Sign out user on data retrieval error too
+                                 await auth.signOut();
+                                throw new Error('Erreur lors de la récupération de vos données. Veuillez réessayer.');
+                            }
+                        }
+                    } catch (error) {
+                        console.error('Login error:', error);
+                         let errorMessage = "Une erreur est survenue lors de la connexion";
+
+                        if (error.code === 'auth/wrong-password' || error.code === 'auth/user-not-found' || error.code === 'auth/invalid-login-credentials') {
+                             errorMessage = "Email ou mot de passe incorrect.";
+                         } else if (error.code === 'auth/invalid-email') {
+                             errorMessage = "Format d'email invalide.";
+                         }
+                         else if (error.code === 'auth/user-disabled') {
+                             errorMessage = "Votre compte a été désactivé.";
+                         }
+                         else if (error.code === 'auth/too-many-requests') {
+                            errorMessage = "Trop de tentatives échouées. Veuillez réessayer plus tard.";
+                        } else {
+                            errorMessage = error.message || "Une erreur inconnue est survenue.";
+                        }
+
+                        displayGeneralErrorMessage('#loginForm', errorMessage);
+
+                    } finally {
+                         if(submitBtn) {
+                           submitBtn.innerHTML = originalBtnContent;
+                           submitBtn.disabled = false;
+                         }
+                    }
                 });
             }
-        });
 
-        function toggleDarkMode() {
-            const darkCss = document.getElementById('darkCss');
-            const dark1Css = document.getElementById('dark1Css');
-            const isDisabled = darkCss.disabled && dark1Css.disabled;
-            darkCss.disabled = isDisabled ? false : true;
-            dark1Css.disabled = isDisabled ? false : true;
-        }
+
+            // --- Popup Button Handlers ---
+            const homeButton = document.getElementById('homeButton');
+            const coursesButton = document.getElementById('coursesButton');
+            const profileButton = document.getElementById('profileButton');
+            const closePopupBtn = document.getElementById('closePopup');
+            const popupBox = document.getElementById('popupBox');
+
+
+            if (homeButton) homeButton.addEventListener('click', () => { window.location.href = 'index.html'; });
+            if (coursesButton) coursesButton.addEventListener('click', () => { window.location.href = 'bib.html'; });
+            if (profileButton) profileButton.addEventListener('click', () => {
+                 const userId = localStorage.getItem('userId');
+                 if (userId) {
+                    window.location.href = `profile.html?id=${userId}`;
+                 } else {
+                     // Fallback to auth if no user ID
+                     window.location.href = 'auth.html';
+                 }
+            });
+
+
+            // --- Close Popup Logic ---
+            if (closePopupBtn) {
+                closePopupBtn.addEventListener('click', () => {
+                    closeLoginPopup();
+                });
+            }
+
+             // Close when clicking outside the popup content
+            if (popupBox) {
+                popupBox.addEventListener('click', (e) => {
+                    const popupContent = document.getElementById('popupContent');
+                    if (popupContent && !popupContent.contains(e.target)) { // Check if click is *outside* content
+                        closeLoginPopup();
+                    }
+                });
+            }
+
+             // Close when pressing Escape key
+             document.addEventListener('keydown', (e) => {
+                 const popupBox = document.getElementById('popupBox');
+                 if (e.key === 'Escape' && popupBox && popupBox.classList.contains('show')) {
+                     closeLoginPopup();
+                 }
+             });
+
+
+            function closeLoginPopup() {
+                const popupContent = document.getElementById('popupContent');
+                const popupBox = document.getElementById('popupBox');
+
+                 if (!popupContent || !popupBox) return;
+
+                popupContent.style.transform = 'scale(0.8)';
+                popupContent.style.opacity = 0;
+
+                setTimeout(() => {
+                    popupBox.classList.add('hidden');
+                    popupBox.classList.remove('show');
+                    // Redirect to index page AFTER closing animation finishes
+                    window.location.href = 'index.html';
+                }, 400); // Match the CSS transition duration
+            }
+
+
+             // Initial call to update specialities in case the register tab is shown by default
+             // or if the page is refreshed on the register tab
+             updateSpecialities();
+
+
+        }); // End DOMContentLoaded
+
+
+         // Ad scripts - target specific containers
+         window.aclib = window.aclib || {};
+         aclib.runBanner = aclib.runBanner || function(config) {
+             console.log('aclib.runBanner called with', config);
+              const adContainer = document.getElementById(config.container || 'ad-container-top');
+              if (adContainer) {
+                 adContainer.innerHTML = '<div class="bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 p-2 text-center text-sm">Ad Zone 1</div>';
+             }
+         };
+          aclib.runAutoTag = aclib.runAutoTag || function(config) {
+              console.log('aclib.runAutoTag called with', config);
+              const adContainer = document.getElementById(config.container || 'ad-container-middle');
+              if (adContainer) {
+                   adContainer.innerHTML = '<div class="bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 p-2 text-center text-sm">Ad Zone 2</div>';
+              }
+          };
+
+         // Run ad scripts after DOM is ready
+         document.addEventListener('DOMContentLoaded', () => {
+             aclib.runBanner({ zoneId: '9521434', container: 'ad-container-top' });
+             aclib.runAutoTag({ zoneId: '747hk1i2j2', container: 'ad-container-middle' });
+         });
+
+
     </script>
-    <script src="js/dark-mode.js"></script>
+
+    <!-- Firebase SDKs -->
+    <!-- Kept v8 -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+
+
     <script>
+        // Vercel analytics
         window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
     </script>
     <script defer src="/_vercel/insights/script.js"></script>
+
 </body>
 </html>
