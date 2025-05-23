@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Notes ST LMD - Semestre 1 - ISET'COM</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> <!-- Using Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"> <!-- Using Font Awesome 6.5.1 for consistency -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script id="aclib" type="text/javascript" src="//acscdn.com/script/aclib.js"></script>
 
     <style>
         :root {
@@ -17,21 +18,24 @@
             --foreground: 222.2 84% 4.9%;
             --card: 0 0% 100%;
             --card-foreground: 222.2 84% 4.9%;
-            --primary: 221.2 83.2% 53.3%; /* Blueish for ST */
+            /* Primary color adjusted to match index/st.html */
+            --primary: 221.2 83.2% 53.3%; 
             --primary-foreground: 210 40% 98%;
             --secondary: 210 40% 96.1%;
             --secondary-foreground: 222.2 47.4% 11.2%;
             --muted: 210 40% 96.1%;
             --muted-foreground: 215.4 16.3% 46.9%;
-            --accent: 142.1 76.2% 36.3%; /* Green accent */
-            --accent-foreground: 210 40% 98%;
+            /* Accent color adjusted to match secondary in index/st.html */
+            --accent: 210 40% 96.1%; 
+            --accent-foreground: 222.2 47.4% 11.2%;
             --border: 214.3 31.8% 91.4%;
             --input: 214.3 31.8% 91.4%;
             --ring: 221.2 83.2% 53.3%; /* Same as primary */
-            --radius: 0.75rem;
+            /* Radius adjusted to match index/st.html */
+            --radius: 0.5rem; 
             --success: 142.1 76.2% 36.3%; /* Green */
-            --warning: 38 92% 50%;
-            --error: 0 84.2% 60.2%;
+            --warning: 38 92% 50%; /* Yellow */
+            --error: 0 84.2% 60.2%; /* Red */
         }
 
         .dark {
@@ -39,91 +43,143 @@
             --foreground: 210 40% 98%;
             --card: 222.2 84% 4.9%;
             --card-foreground: 210 40% 98%;
-            --primary: 217.2 91.2% 59.8%; /* Darker Blue */
+            /* Primary color adjusted for dark mode to match index/st.html */
+            --primary: 217.2 91.2% 59.8%; 
             --primary-foreground: 222.2 47.4% 11.2%;
             --secondary: 217.2 32.6% 17.5%;
             --secondary-foreground: 210 40% 98%;
             --muted: 217.2 32.6% 17.5%;
             --muted-foreground: 215 20.2% 65.1%;
-            --accent: 142.1 70.6% 45.3%; /* Darker Green */
+            /* Accent color adjusted for dark mode to match secondary */
+            --accent: 217.2 32.6% 17.5%; 
             --accent-foreground: 210 40% 98%;
             --border: 217.2 32.6% 17.5%;
             --input: 217.2 32.6% 17.5%;
-            --ring: 224.3 76.3% 48%;
-            --success: 142.1 70.6% 45.3%;
-            --warning: 48 96.5% 53.9%;
-            --error: 0 84.2% 60.2%;
+            --ring: 224.3 76.3% 48%; /* Slightly different ring in dark mode */
+            --success: 142.1 70.6% 45.3%; /* Darker Green */
+            --warning: 48 96.5% 53.9%; /* Darker Yellow */
+            --error: 0 84.2% 60.2%; /* Red (same) */
         }
 
         body {
             font-family: 'Poppins', sans-serif;
             background: hsl(var(--background));
             color: hsl(var(--foreground));
-            min-height: 100vh;
+            min-height: 100vh; /* Keep min-height for layout */
             -webkit-tap-highlight-color: transparent;
             transition: background-color 0.3s ease, color 0.3s ease;
             padding-top: 80px; /* Add padding to prevent content from going under sticky header */
         }
 
-        .hero-bg { position: fixed; inset: 0; z-index: -10; overflow: hidden; } /* Use fixed position */
-        .gradient-blob { position: absolute; border-radius: 9999px; filter: blur(80px); opacity: 0.4; }
-        .gradient-blob-1 { top: 0; left: 0; right: 0; height: 500px; background: linear-gradient(to bottom right, hsl(var(--primary) / 0.4), hsl(var(--accent) / 0.2), hsl(var(--secondary) / 0.1)); transform: translateY(-50%); }
-        .gradient-blob-2 { bottom: 0; right: 0; width: 500px; height: 500px; background: linear-gradient(to top right, hsl(var(--accent) / 0.3), hsl(var(--primary) / 0.2), transparent); }
+        /* Hero Background styles copied from index/st.html */
+        .hero-bg { position: fixed; inset: 0; z-index: -10; overflow: hidden; } 
+        .gradient-blob { position: absolute; border-radius: 9999px; filter: blur(60px); opacity: 0.5; }
+        .gradient-blob-1 { top: 0; left: 0; right: 0; height: 500px; background: linear-gradient(to bottom right, hsl(var(--primary) / 0.4), hsl(var(--ring) / 0.2), hsl(var(--accent) / 0.1)); transform: translateY(-50%); }
+        .gradient-blob-2 { bottom: 0; right: 0; width: 500px; height: 500px; background: linear-gradient(to top right, hsl(var(--ring) / 0.3), hsl(var(--accent) / 0.2), transparent); }
         .floating-dot { position: absolute; border-radius: 9999px; animation: pulse 2s infinite; }
         @keyframes pulse { 0%, 100% { opacity: 0.5; transform: scale(1); } 50% { opacity: 1; transform: scale(1.2); } }
 
+        /* Floating Particles styles copied from index/st.html */
+        .floating-particles { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: -5; } 
+        .particle { position: absolute; border-radius: 50%; opacity: 0.7; animation: float 10s infinite ease-in-out; }
+        @keyframes float { 0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.3; } 50% { transform: translate(var(--x), var(--y)) scale(1.2); opacity: 0.8; } }
+        /* Particles colors adapted for ST page theme */
+        .particle-blue { background-color: hsl(var(--primary)); }
+        .particle-green { background-color: hsl(var(--success)); }
+        .particle-yellow { background-color: hsl(var(--warning)); }
+
+
+        /* Header styles adapted from index/st.html */
         .header-section {
-            position: fixed; /* Make header sticky */
+            position: fixed; 
             top: 0;
             left: 0;
             right: 0;
-            background: hsl(var(--card) / 0.85);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid hsl(var(--border));
+            /* Use background with opacity and blur like index/st.html */
+            background: hsl(var(--background) / 0.8); 
+            backdrop-filter: blur(8px);
+            /* Use shadow like index/st.html */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+            border-bottom: none; /* Remove border-bottom */
             z-index: 50;
-            transition: background-color 0.3s ease, border-color 0.3s ease;
-            padding: 1rem 0; /* Adjust padding */
+            transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+            padding: 1rem 0; 
         }
         .dark .header-section {
-            background: hsl(var(--card) / 0.9);
-            border-bottom-color: hsl(var(--border));
+            background: hsl(var(--background) / 0.9);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
         }
 
+        img[alt="ISET'COM Logo"] { 
+            max-width: 60px; /* Adjusted size to fit header better */
+            height: auto; /* Maintain aspect ratio */
+            transition: transform 0.3s ease; 
+        } 
+        img[alt="ISET'COM Logo"]:hover { transform: scale(1.05); }
+        .dark img[alt="ISET'COM Logo"] { filter: brightness(0.9); /* Less harsh filter */ }
 
+        /* Main Content Card styles adapted from index/st.html */
         .main-content-card {
-            background: hsl(var(--card) / 0.85); backdrop-filter: blur(12px); border: 1px solid hsl(var(--border));
-            border-radius: var(--radius); padding: 2rem; box-shadow: 0 10px 35px rgba(0, 0, 0, 0.1); margin-top: 1rem; /* Reduced margin top */
-            visibility: hidden; /* Hidden initially, shown after login */
+            /* Use background with opacity and blur like index/st.html service cards */
+            background: hsl(var(--card) / 0.8); 
+            backdrop-filter: blur(10px); 
+            border: 1px solid hsl(var(--border));
+            border-radius: var(--radius); 
+            padding: 2rem; 
+            /* Adjusted box-shadow */
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); 
+            margin-top: 1rem;
+            visibility: hidden; 
         }
-        .dark .main-content-card { background: hsl(var(--card) / 0.9); }
+        .dark .main-content-card { background: hsl(var(--card) / 0.9); border-color: hsl(var(--border)); }
 
+        /* Filters Container styles */
         .filters-container {
-            margin-bottom: 2rem; padding: 1.5rem; background: hsl(var(--secondary) / 0.5);
-            border-radius: var(--radius); border: 1px solid hsl(var(--border));
+            margin-bottom: 2rem; padding: 1.5rem; 
+            /* Use secondary background with some opacity */
+            background: hsl(var(--secondary) / 0.5); 
+            border-radius: var(--radius); 
+            border: 1px solid hsl(var(--border));
         }
         .dark .filters-container { background: hsl(var(--secondary) / 0.3); border-color: hsl(var(--border) / 0.5); }
 
+        /* Page Title style - keep gradient effect idea */
         .page-title {
             font-size: 1.75rem; font-weight: 600; margin-bottom: 1.5rem; text-align: center;
-            color: hsl(var(--primary));
+            /* Use gradient for title */
+            background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--ring)));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
-        .dark .page-title { color: hsl(var(--primary)); }
+        .dark .page-title { 
+             background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--ring)));
+             -webkit-background-clip: text;
+             background-clip: text;
+             color: transparent;
+        }
+
 
         .filters-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; }
         .filter-group { display: flex; flex-direction: column; }
         .filter-label { font-size: 0.875rem; font-weight: 500; margin-bottom: 0.25rem; color: hsl(var(--muted-foreground)); }
         .filter-select {
-            padding: 0.6rem 0.8rem; border: 1px solid hsl(var(--border)); border-radius: calc(var(--radius) / 1.5);
-            background: hsl(var(--card)); color: hsl(var(--foreground)); transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            padding: 0.6rem 0.8rem; border: 1px solid hsl(var(--border)); border-radius: var(--radius); /* Use --radius */
+            background: hsl(var(--input)); /* Use --input for consistency */
+            color: hsl(var(--foreground)); 
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
         .filter-select:focus { outline: none; border-color: hsl(var(--primary)); box-shadow: 0 0 0 2px hsl(var(--primary) / 0.2); }
         .dark .filter-select { background: hsl(var(--input)); border-color: hsl(var(--border)); color: hsl(var(--foreground)); }
 
+        /* Back button style */
         .back-button {
             display: inline-flex; align-items: center; gap: 0.5rem; color: hsl(var(--primary)); font-weight: 500;
-            transition: all 0.3s ease; padding: 0.5rem 1rem; border-radius: 9999px; background: hsl(var(--primary) / 0.08);
+            transition: all 0.3s ease; padding: 0.5rem 1rem; border-radius: 9999px; 
+            /* Use primary color with opacity like other buttons */
+            background: hsl(var(--primary) / 0.1); 
         }
-        .back-button:hover { background: hsl(var(--primary) / 0.15); transform: translateX(-3px); }
+        .back-button:hover { background: hsl(var(--primary) / 0.2); transform: translateX(-3px); }
         .dark .back-button { color: hsl(var(--primary)); background: hsl(var(--primary) / 0.2); }
         .dark .back-button:hover { background: hsl(var(--primary) / 0.3); }
 
@@ -143,7 +199,9 @@
         #marksTable tbody tr:hover { background-color: hsl(var(--secondary) / 0.5); }
         .dark #marksTable tbody tr:hover { background-color: hsl(var(--secondary) / 0.3); }
 
-        .sticky-header { position: sticky; top: 0; z-index: 10; background: inherit; } /* Inherit background from th */
+        .sticky-header { position: sticky; top: 0; z-index: 10; background: hsl(var(--secondary)); } /* Explicitly set sticky header background */
+        .dark .sticky-header { background: hsl(var(--secondary)); } /* Explicitly set sticky header background in dark mode */
+        
         .name-column { min-width: 200px; }
         .grade-column { text-align: center; min-width: 80px; }
         .text-cell { font-size: 0.875rem; color: hsl(var(--muted-foreground)); }
@@ -181,36 +239,61 @@
         .dark .sort-indicator.sort-asc { border-bottom-color: hsl(var(--foreground)); }
         .dark .sort-indicator.sort-desc { border-top-color: hsl(var(--foreground)); }
 
-        /* Auth Overlay (Login Popup) Styles */
-        .popup { /* General popup styles */
-            position: fixed; inset: 0; background: hsla(var(--background), 0.5); backdrop-filter: blur(8px);
+        /* Auth Overlay (Login Popup) Styles adapted from popup styles in st.html */
+        .popup { 
+            position: fixed; inset: 0; 
+            /* Use standard background blur */
+            background: hsla(var(--background), 0.5); 
+            backdrop-filter: blur(8px);
             display: none; align-items: center; justify-content: center; z-index: 1000; padding: 1rem; opacity: 0; transition: opacity 0.3s ease;
         }
         .popup.active { display: flex; opacity: 1; }
         .popup-content-wrapper { /* Specific wrapper for content */
-            background: hsl(var(--card)); border: 1px solid hsl(var(--border)); border-radius: var(--radius);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15); width: 100%; max-width: 450px; /* Adjusted max-width */
+            /* Use standard card styles */
+            background: hsl(var(--card)); 
+            border: 1px solid hsl(var(--border)); 
+            border-radius: var(--radius); 
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15); width: 100%; max-width: 450px; 
             overflow: hidden; display: flex; flex-direction: column; transform: scale(0.95) translateY(10px);
-            transition: transform 0.3s ease, opacity 0.3s ease; padding: 2.5rem; text-align: center; /* Added padding & text-align */
+            transition: transform 0.3s ease, opacity 0.3s ease; padding: 2.5rem; text-align: center; 
         }
         .popup.active .popup-content-wrapper { transform: scale(1) translateY(0); opacity: 1; }
-        .dark .popup-content-wrapper { background: hsl(var(--card) / 0.95); }
+        .dark .popup-content-wrapper { background: hsl(var(--card)); border-color: hsl(var(--border)); } /* No opacity needed in dark card */
         
         .popup-content-wrapper h2 { /* Title inside the box */
-            margin-bottom: 1.5rem; font-size: 1.5rem; font-weight: 600; color: hsl(var(--primary));
+            margin-bottom: 1.5rem; font-size: 1.5rem; font-weight: 600; 
+            /* Use gradient like page title */
+            background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--ring)));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
+        .dark .popup-content-wrapper h2 {
+             background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--ring)));
+             -webkit-background-clip: text;
+             background-clip: text;
+             color: transparent;
+        }
+
         .popup-content-wrapper input[type="password"] {
-            width: 100%; padding: 0.75rem; font-size: 1rem; border: 1px solid hsl(var(--border)); border-radius: calc(var(--radius) / 1.5);
-            margin-bottom: 1.5rem; background: hsl(var(--background)); color: hsl(var(--foreground));
+            width: 100%; padding: 0.75rem; font-size: 1rem; border: 1px solid hsl(var(--border)); border-radius: var(--radius); /* Use --radius */
+            margin-bottom: 1.5rem; 
+            /* Use standard input background */
+            background: hsl(var(--input)); 
+            color: hsl(var(--foreground));
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
         .dark .popup-content-wrapper input[type="password"] { background: hsl(var(--input)); border-color: hsl(var(--border)); color: hsl(var(--foreground)); }
         .popup-content-wrapper input[type="password"]:focus { outline: none; border-color: hsl(var(--primary)); box-shadow: 0 0 0 2px hsl(var(--primary) / 0.2); }
         
-        .popup-content-wrapper button { /* Login button */
-            width: 100%; padding: 0.75rem; font-size: 1rem; background: hsl(var(--primary)); color: hsl(var(--primary-foreground));
-            border: none; border-radius: calc(var(--radius) / 1.5); cursor: pointer; transition: background-color 0.3s ease;
+        .popup-content-wrapper button { /* Login button - style like module-btn */
+            width: 100%; padding: 0.75rem; font-size: 1rem; 
+            background: hsl(var(--primary)); 
+            color: hsl(var(--primary-foreground));
+            border: none; border-radius: var(--radius); /* Use --radius */
+            cursor: pointer; transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
         }
-        .popup-content-wrapper button:hover { background: hsl(var(--primary) / 0.9); }
+        .popup-content-wrapper button:hover { background: hsl(var(--primary) / 0.9); transform: translateY(-2px); box-shadow: 0 4px 8px hsl(var(--primary) / 0.2); }
         .dark .popup-content-wrapper button { background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); }
         .dark .popup-content-wrapper button:hover { background: hsl(var(--primary) / 0.9); }
         
@@ -220,40 +303,73 @@
         .popup-content-wrapper .auth-message {
             margin-top: 1.5rem; font-size: 0.85rem; color: hsl(var(--muted-foreground)); line-height: 1.5;
         }
-        .instagram-link { color: #E1306C; text-decoration: none; font-weight: 500; }
-        .instagram-link:hover { text-decoration: underline; }
+        /* Instagram link color */
+        .instagram-link { color: #E1306C; text-decoration: none; font-weight: 500; transition: color 0.3s ease, text-decoration 0.3s ease; }
+        .instagram-link:hover { text-decoration: underline; color: #C13584; }
+        .dark .instagram-link { color: #F56040; } /* Adjusted for dark mode visibility */
+        .dark .instagram-link:hover { color: #FF7D64; }
 
+
+        /* Theme Toggle styles copied from index/st.html */
         .theme-toggle {
-            position: fixed; bottom: 1rem; right: 1rem; z-index: 1001; /* Above overlay */
+            position: fixed; bottom: 1rem; right: 1rem; z-index: 1001; 
             width: 3rem; height: 3rem; border-radius: 9999px;
             background: hsl(var(--card)); border: 1px solid hsl(var(--border)); display: flex; align-items: center; justify-content: center;
             cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
         .theme-toggle:hover { transform: translateY(-2px) scale(1.05); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15); }
-        .theme-toggle i { font-size: 1.25rem; color: hsl(var(--primary)); transition: transform 0.4s ease, color 0.3s ease; }
-        .dark .theme-toggle i { color: hsl(var(--warning)); }
+        /* Theme toggle icon color slightly adjusted for consistency */
+        .theme-toggle i { font-size: 1.25rem; color: hsl(var(--foreground)); transition: transform 0.4s ease, color 0.3s ease; } 
+        .dark .theme-toggle i { color: hsl(var(--foreground)); } 
         .theme-toggle:hover i { transform: rotate(20deg) scale(1.1); }
-        .dark .theme-toggle { background: hsl(var(--card) / 0.9); border-color: hsl(var(--border)); }
+        .dark .theme-toggle { background: hsl(var(--card)); border-color: hsl(var(--border)); }
 
-        .floating-particles { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: -5; } /* Use fixed position */
-        .particle { position: absolute; border-radius: 50%; opacity: 0.7; animation: float 10s infinite ease-in-out; }
-        @keyframes float { 0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.3; } 50% { transform: translate(var(--x), var(--y)) scale(1.2); opacity: 0.8; } }
 
-        img[alt="ISET'COM Logo"] { max-width: 100px; transition: transform 0.3s ease; } /* Adjusted size */
-        img[alt="ISET'COM Logo"]:hover { transform: scale(1.05); }
-        .dark img[alt="ISET'COM Logo"] { filter: contrast(1.1) brightness(0.9); }
+        /* Add shake animation CSS */
+        @keyframes shake { 10%, 90% { transform: translate3d(-1px, 0, 0); } 20%, 80% { transform: translate3d(2px, 0, 0); } 30%, 50%, 70% { transform: translate3d(-4px, 0, 0); } 40%, 60% { transform: translate3d(4px, 0, 0); } }
+        .animate-shake { animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both; transform: translate3d(0, 0, 0); }
+
+         /* Footer styles copied from index/st.html */
+        footer {
+             text-center text-gray-600 dark:text-gray-400 text-sm py-6 border-t border-gray-200 dark:border-gray-700 mt-12; /* Keep original footer classes */
+             background: hsl(var(--background) / 0.8); /* Match header blur/opacity */
+             backdrop-filter: blur(8px);
+        }
+        .dark footer {
+            background: hsl(var(--background) / 0.9);
+        }
+
+        /* Link styles in footer */
+        footer a {
+            color: hsl(var(--primary));
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease, text-decoration 0.3s ease;
+        }
+        footer a:hover {
+            color: hsl(var(--primary) / 0.8);
+            text-decoration: underline;
+        }
+        .dark footer a {
+            color: hsl(var(--primary));
+        }
+        .dark footer a:hover {
+            color: hsl(var(--primary) / 0.8);
+        }
+
 
     </style>
 </head>
-<body class="flex flex-col"> <!-- Removed min-h-screen as body takes full height -->
+<body class="flex flex-col"> 
     <!-- Hero Background -->
     <div class="hero-bg">
         <div class="gradient-blob gradient-blob-1"></div>
         <div class="gradient-blob gradient-blob-2"></div>
+        <!-- Floating dots with colors from index/st.html -->
         <div class="floating-dot w-4 h-4 bg-blue-500 top-1/4 left-1/4"></div>
-        <div class="floating-dot w-3 h-3 bg-green-500 top-1/3 right-1/4"></div>
-        <div class="floating-dot w-2 h-2 bg-blue-400 bottom-1/4 left-1/3"></div>
-        <div class="floating-dot w-3 h-3 bg-green-400 top-2/3 right-1/3"></div>
+        <div class="floating-dot w-3 h-3 bg-purple-500 top-1/3 right-1/4"></div>
+        <div class="floating-dot w-2 h-2 bg-green-500 bottom-1/4 left-1/3"></div>
+        <div class="floating-dot w-3 h-3 bg-amber-500 top-2/3 right-1/3"></div>
     </div>
 
     <!-- Floating Particles -->
@@ -261,7 +377,7 @@
 
     <!-- Header -->
     <header class="header-section">
-        <div class="container mx-auto px-4 max-w-7xl flex items-center justify-between"> <!-- Wider container -->
+        <div class="container mx-auto px-4 max-w-7xl flex items-center justify-between"> 
             <div class="flex items-center gap-3">
                 <img src="assets/img/LOGO.png" alt="ISET'COM Logo" />
                  <h1 class="text-xl md:text-2xl font-semibold text-gray-700 dark:text-gray-200">
@@ -273,7 +389,7 @@
     </header>
 
     <!-- Main Content -->
-    <main class="container mx-auto px-4 max-w-7xl flex-grow py-8"> <!-- Wider container -->
+    <main class="container mx-auto px-4 max-w-7xl flex-grow py-8"> 
         <!-- This card wraps filters and table, initially hidden -->
         <div id="mainContentCard" class="main-content-card" data-aos="fade-up">
             <div class="filters-container">
@@ -297,7 +413,7 @@
                 </div>
               </div>
               <div class="text-center mt-6">
-                <a href="#" class="back-button" onclick="goBack()">
+                <a href="notes-science-technologie.html" class="back-button"> <!-- Changed href to a specific page if needed -->
                   <i class="fas fa-arrow-left"></i>
                   <span>Retour Sélection</span>
                 </a>
@@ -341,7 +457,7 @@
                   </thead>
                   <tbody>
                     <!-- Table body will be populated by JavaScript -->
-                     <tr><td colspan="12" class="text-center py-10 text-gray-500">Chargement des données...</td></tr>
+                     <tr><td colspan="12" class="text-center py-10 text-gray-500 dark:text-gray-400">Chargement des données...</td></tr>
                   </tbody>
                 </table>
               </div>
@@ -350,7 +466,7 @@
     </main>
 
     <!-- Authentication Overlay -->
-    <div id="loginOverlay" class="popup active"> <!-- Start as active -->
+    <div id="loginOverlay" class="popup active"> 
       <div class="popup-content-wrapper">
         <h2>Authentification Requise</h2>
         <input type="password" id="passwordInput" placeholder="Entrez le mot de passe">
@@ -364,15 +480,19 @@
       </div>
     </div>
 
-    <footer class="text-center text-gray-600 dark:text-gray-400 text-sm py-6 border-t border-gray-200 dark:border-gray-700 mt-12">
+    <footer>
          © <span id="currentYear"></span> Université de Bejaia. Développé par 
-         <a href="mailto:mehdi.amara@tech.univ-bejaia.dz" class="text-blue-500 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-semibold">Amara Mehdi</a>
+         <a href="mailto:mehdi.amara@tech.univ-bejaia.dz">Amara Mehdi</a>
          <p class="text-xs mt-1">Initiative étudiante non officielle à des fins éducatives.</p>
      </footer>
 
     <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
         <i class="fas fa-moon"></i>
     </button>
+     <script>
+        window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
 
     <script>
         AOS.init({ duration: 800, once: true, offset: 50 });
@@ -392,44 +512,43 @@
             }
         }
 
+        // Create floating particles - adapted for ST page theme colors
         function createParticles() {
             const particlesContainer = document.getElementById('particles');
             if (!particlesContainer) return;
-            const colors = ['hsl(var(--primary))', 'hsl(var(--accent))', 'hsl(var(--warning))']; // Blue, Green, Yellow
-            for (let i = 0; i < 20; i++) {
+            const colors = ['hsl(var(--primary))', 'hsl(var(--success))', 'hsl(var(--warning))']; // Blue, Green, Yellow using CSS variables
+            for (let i = 0; i < 30; i++) { // More particles for density
                 const particle = document.createElement('div');
                 particle.className = 'particle';
                 particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
                 particle.style.left = `${Math.random() * 100}vw`; particle.style.top = `${Math.random() * 100}vh`;
-                const size = Math.random() * 2.5 + 1;
+                const size = Math.random() * 3 + 1; // Slightly larger particles
                 particle.style.width = `${size}px`; particle.style.height = particle.style.width;
-                particle.style.setProperty('--x', `${Math.random() * 150 - 75}px`); particle.style.setProperty('--y', `${Math.random() * 150 - 75}px`);
-                particle.style.animationDuration = `${Math.random() * 15 + 8}s`; particle.style.animationDelay = `${Math.random() * 3}s`;
+                particle.style.setProperty('--x', `${(Math.random() - 0.5) * 200}px`); // Wider movement range
+                particle.style.setProperty('--y', `${(Math.random() - 0.5) * 200}px`);
+                particle.style.animationDuration = `${Math.random() * 15 + 10}s`; // Slower animation
+                particle.style.animationDelay = `${Math.random() * 5}s`; // Varied delays
                 particlesContainer.appendChild(particle);
             }
         }
         
-        function closePopup(popupId) { // General close function (though only login uses it now)
+        function closePopup(popupId) { 
             const popup = document.getElementById(popupId);
             if (popup) {
-                popup.classList.remove('active');
-                // Optional: Add outro animation class
-                 setTimeout(() => {
-                     if (!document.querySelector('.popup.active')) { // Re-enable scroll only if no popups are active
-                          document.body.style.overflow = '';
-                     }
-                 }, 300); // Match animation duration
+                // popup.classList.remove('active'); // Keep the popup active until password is correct
+                // Only hide if the password is correct
+                 document.body.style.overflow = ''; // Re-enable scroll
             }
         }
 
-        // --- Existing ST Marks JS (slightly adapted) ---
+        // --- Existing ST Marks JS (adapted for new styles and password) ---
         let marksData = [];
         let currentSort = { column: '', direction: 'asc' };
 
         function getBaseUrl() {
             const currentUrl = window.location.href;
-            if (currentUrl.includes('icosium.store')) { return 'https://icosium.store/'; }
-            if (currentUrl.includes('github.io')) { return 'https://amarameh.github.io/moyensy.github.io/'; }
+             // Assuming the data is always relative to the repo root or local
+             if (currentUrl.includes('github.io')) { return 'https://amarameh.github.io/moyensy.github.io/'; }
             return './'; // Default for local testing
         }
 
@@ -437,15 +556,17 @@
             try {
                 const fullUrl = `${getBaseUrl()}data/Marks.json`;
                 console.log('Attempting to load data from:', fullUrl);
-                const response = await fetch(fullUrl, { method: 'GET', headers: { 'Accept': 'application/json', 'Cache-Control': 'no-cache' }});
+                // Using fetch with headers to prevent caching issues during development
+                const response = await fetch(fullUrl, { headers: { 'Cache-Control': 'no-cache' }});
                 if (!response.ok) throw new Error(`HTTP error! status: ${response.status}, URL: ${fullUrl}`);
                 const data = await response.json();
                 if (!Array.isArray(data)) throw new Error('Invalid data format: expected array');
 
-                marksData = data.filter(item => item.hasOwnProperty("N°") || item.hasOwnProperty("Angl 1")); // Keep original filter logic
+                // Filter data if needed (original code had a filter, keeping it)
+                marksData = data.filter(item => item.hasOwnProperty("N°") || item.hasOwnProperty("Angl 1")); 
                 console.log('Filtered data:', marksData.length, 'records');
                 
-                // Render table (initially hidden, shown on password success)
+                // Render table with initial data (it will be hidden by the overlay)
                 renderTable(marksData);
 
             } catch (error) {
@@ -460,26 +581,33 @@
           const group = document.getElementById('groupSelect').value;
           let filtered = marksData.filter(item => {
             const rowGroup = item["Group"] || "";
-            const matchesSection = section ? rowGroup.startsWith(section) : true;
-            const matchesGroup = group ? rowGroup.endsWith(group) : true;
+            // Handle potential null/undefined for Group
+            const matchesSection = section ? (rowGroup ? rowGroup.startsWith(section) : false) : true;
+            const matchesGroup = group ? (rowGroup ? rowGroup.endsWith(group) : false) : true;
             return matchesSection && matchesGroup;
           });
           
           // Re-apply sort if active
           if (currentSort.column) {
-            sortData(filtered, currentSort.column, currentSort.direction); // Use a helper
+            sortData(filtered, currentSort.column, currentSort.direction); 
           }
           renderTable(filtered);
         }
         
         function sortData(dataArray, column, direction) {
              dataArray.sort((a, b) => {
-                let aVal = parseFloat(a[column]) || -1; // Treat NaN/missing as -1 for sorting
-                let bVal = parseFloat(b[column]) || -1;
+                // Safely get values, treat missing/NaN as a value that sorts predictably
+                let aVal = a[column] !== undefined && a[column] !== null ? parseFloat(a[column].replace(',', '.')) : -Infinity; 
+                let bVal = b[column] !== undefined && b[column] !== null ? parseFloat(b[column].replace(',', '.')) : -Infinity;
+
+                // Handle non-numeric values if necessary, though marks should be numeric
+                if (isNaN(aVal) && isNaN(bVal)) return 0; // Both non-numeric, treat as equal
+                if (isNaN(aVal)) return direction === 'asc' ? 1 : -1; // a is non-numeric, b is numeric
+                if (isNaN(bVal)) return direction === 'asc' ? -1 : 1; // b is non-numeric, a is numeric
+
                 return direction === 'asc' ? aVal - bVal : bVal - aVal;
             });
         }
-
 
         function renderTable(data) {
           const tbody = document.querySelector('#marksTable tbody');
@@ -492,10 +620,11 @@
           
           data.forEach(item => {
             const tr = document.createElement('tr');
-            const isFounder = item["N°"] === "942" && item["Nom"] === "AMARA" && item["Prénom"] === "MEHDI";
+            // Ensure 'N°', 'Nom', 'Prénom' are checked safely
+            const isFounder = (item["N°"] == "942" || item["N°"] === 942) && (item["Nom"] || "").toUpperCase() === "AMARA" && (item["Prénom"] || "").toUpperCase() === "MEHDI";
             if (isFounder) { tr.classList.add('founder-row'); }
             
-            // Use || "" to handle potentially missing fields gracefully
+            // Use || "" to handle potentially missing fields gracefully, replace '.' with ',' for display
             tr.innerHTML = `
               <td class="name-cell">
                 ${item["Nom"] || ""} ${item["Prénom"] || ""}
@@ -503,29 +632,68 @@
               </td>
               <td class="text-cell">${item["Matricule"] || ""}</td>
               <td class="text-cell">${item["Group"] || ""}</td>
-              <td class="grade-cell ${colorMark(item["Maths 1"])}">${item["Maths 1"] !== undefined ? item["Maths 1"] : ""}</td>
-              <td class="grade-cell ${colorMark(item["Phys1"])}">${item["Phys1"] !== undefined ? item["Phys1"] : ""}</td>
-              <td class="grade-cell ${colorMark(item["Chimie 1"])}">${item["Chimie 1"] !== undefined ? item["Chimie 1"] : ""}</td>
-              <td class="grade-cell ${colorMark(item["Info 1"])}">${item["Info 1"] !== undefined ? item["Info 1"] : ""}</td>
-              <td class="grade-cell ${colorMark(item["MR"])}">${item["MR"] !== undefined ? item["MR"] : ""}</td>
-              <td class="grade-cell ${colorMark(item["MST1"])}">${item["MST1"] !== undefined ? item["MST1"] : ""}</td>
-              <td class="grade-cell ${colorMark(item["DED"])}">${item["DED"] !== undefined ? item["DED"] : ""}</td>
-              <td class="grade-cell ${colorMark(item["Angl 1"])}">${item["Angl 1"] !== undefined ? item["Angl 1"] : ""}</td>
-              <td class="grade-cell text-gray-400 dark:text-gray-500 italic">N/A</td> <!-- Placeholder for Moyenne -->
+              <td class="grade-cell ${colorMark(item["Maths 1"])}">${formatMark(item["Maths 1"])}</td>
+              <td class="grade-cell ${colorMark(item["Phys1"])}">${formatMark(item["Phys1"])}</td>
+              <td class="grade-cell ${colorMark(item["Chimie 1"])}">${formatMark(item["Chimie 1"])}</td>
+              <td class="grade-cell ${colorMark(item["Info 1"])}">${formatMark(item["Info 1"])}</td>
+              <td class="grade-cell ${colorMark(item["MR"])}">${formatMark(item["MR"])}</td>
+              <td class="grade-cell ${colorMark(item["MST1"])}">${formatMark(item["MST1"])}</td>
+              <td class="grade-cell ${colorMark(item["DED"])}">${formatMark(item["DED"])}</td>
+              <td class="grade-cell ${colorMark(item["Angl 1"])}">${formatMark(item["Angl 1"])}</td>
+              <!-- Moyenne Générale - Calculate if possible -->
+              <td class="grade-cell ${colorMark(calculateMoyenne(item))}">${formatMark(calculateMoyenne(item))}</td>
             `;
             tbody.appendChild(tr);
           });
         }
+         
+         function formatMark(mark) {
+            if (mark === undefined || mark === null || mark === "") return "";
+            const num = parseFloat(String(mark).replace(',', '.'));
+            if (isNaN(num)) return String(mark); // Return original if not a number
+            return num.toFixed(2).replace('.', ','); // Format to 2 decimal places, use comma
+         }
 
         function colorMark(mark) {
-          const num = parseFloat(mark);
+          const num = parseFloat(String(mark).replace(',', '.'));
           if (isNaN(num)) return 'text-gray-400 dark:text-gray-500'; // Style for missing marks
           return num < 10 ? 'grade-failing' : 'grade-passing';
         }
 
+        // Function to calculate general average
+        function calculateMoyenne(item) {
+            const modules = ['Maths 1', 'Phys1', 'Chimie 1', 'Info 1', 'MR', 'MST1', 'DED', 'Angl 1'];
+            let totalPoints = 0;
+            let totalCredits = 0; // Assuming 1 credit per module for simplicity or adjust as needed
+
+            // Example credits (adjust based on actual curriculum if known)
+            // Using a simplified 1 credit per module assumption as data doesn't include credits
+            const credits = { 
+                'Maths 1': 1, 'Phys1': 1, 'Chimie 1': 1, 'Info 1': 1, 
+                'MR': 1, 'MST1': 1, 'DED': 1, 'Angl 1': 1
+            };
+
+            modules.forEach(module => {
+                const mark = parseFloat(String(item[module]).replace(',', '.'));
+                if (!isNaN(mark) && mark >= 0) { // Include non-zero marks
+                    const moduleCredits = credits[module] || 0;
+                    totalPoints += mark * moduleCredits;
+                    totalCredits += moduleCredits;
+                }
+            });
+
+            if (totalCredits === 0) return "N/A"; // Avoid division by zero
+            const moyenne = totalPoints / totalCredits;
+             // Check if the student passed the semester (assuming 10 average)
+            // This is a simplification, actual validation rules might be different
+            return moyenne; // Return the calculated average
+        }
+
+
         function sortTable(column) {
-          const moduleColumns = ['Maths 1', 'Phys1', 'Chimie 1', 'Info 1', 'MR', 'MST1', 'DED', 'Angl 1'];
-          if (!moduleColumns.includes(column)) return;
+          // Allow sorting on module columns and Moyenne Générale if calculated
+          const sortableColumns = ['Maths 1', 'Phys1', 'Chimie 1', 'Info 1', 'MR', 'MST1', 'DED', 'Angl 1', 'Moyenne Générale']; 
+          if (!sortableColumns.includes(column)) return;
 
           if (currentSort.column === column) {
             currentSort.direction = currentSort.direction === 'asc' ? 'desc' : 'asc';
@@ -539,50 +707,79 @@
           const group = document.getElementById('groupSelect').value;
           let dataToSort = marksData.filter(item => {
              const rowGroup = item["Group"] || "";
-             const matchesSection = section ? rowGroup.startsWith(section) : true;
-             const matchesGroup = group ? rowGroup.endsWith(group) : true;
+             const matchesSection = section ? (rowGroup ? rowGroup.startsWith(section) : false) : true;
+             const matchesGroup = group ? (rowGroup ? rowGroup.endsWith(group) : false) : true;
              return matchesSection && matchesGroup;
            });
 
-          sortData(dataToSort, column, currentSort.direction); // Sort the filtered data
+           // Custom sort for Moyenne Générale
+           if (column === 'Moyenne Générale') {
+                dataToSort.sort((a, b) => {
+                    let aMoy = calculateMoyenne(a);
+                    let bMoy = calculateMoyenne(b);
+
+                    // Treat "N/A" as a value that sorts to the bottom
+                    if (aMoy === "N/A" && bMoy === "N/A") return 0;
+                    if (aMoy === "N/A") return direction === 'asc' ? 1 : -1;
+                    if (bMoy === "N/A") return direction === 'asc' ? -1 : 1;
+
+                    return direction === 'asc' ? aMoy - bMoy : bMoy - aMoy;
+                });
+           } else {
+                sortData(dataToSort, column, currentSort.direction); // Use existing sortData for modules
+           }
 
           updateSortIndicators(column);
           renderTable(dataToSort); // Render the sorted filtered data
         }
 
         function updateSortIndicators(column) {
-          document.querySelectorAll('.sort-indicator').forEach(indicator => {
-            indicator.classList.remove('sort-asc', 'sort-desc');
+          // Remove indicators from all sortable headers
+          document.querySelectorAll('#marksTable th.sortable').forEach(th => {
+            const indicator = th.querySelector('.sort-indicator');
+             if (indicator) { // Check if indicator exists
+                indicator.classList.remove('sort-asc', 'sort-desc');
+             }
           });
-          const th = document.querySelector(`th[onclick="sortTable('${column}')"]`);
+          
+          // Add indicator to the currently sorted column
+          const th = document.querySelector(`th[onclick*="sortTable('${column}')"]`); // Use * to find the right th
           if (th) {
             const indicator = th.querySelector('.sort-indicator');
-            indicator.classList.add(currentSort.direction === 'asc' ? 'sort-asc' : 'sort-desc');
+             if (indicator) { // Check if indicator exists
+                indicator.classList.add(currentSort.direction === 'asc' ? 'sort-asc' : 'sort-desc');
+             }
           }
         }
 
         function goBack() {
-            // Simplified: Go back to a general selection page or index. Adjust if needed.
-            window.location.href = 'notes-science-technologie.html'; // Or your main notes page
+            // Go back to the general notes selection page
+            window.location.href = 'notes-science-technologie.html'; 
         }
 
         function checkPassword() {
             const input = document.getElementById('passwordInput').value;
             const errorMsg = document.getElementById('loginError');
-            const correctPassword = 'rattrapage'; // Keep original password
+            const correctPassword = 'Hachak2025'; // New Password
             
             if (input === correctPassword) {
-                closePopup('loginOverlay'); // Use the general close function
+                // Password is correct, close the overlay and show the content
+                const loginOverlay = document.getElementById('loginOverlay');
+                loginOverlay.classList.remove('active'); 
                 document.getElementById('mainContentCard').style.visibility = 'visible'; // Show main content
+                document.body.style.overflow = ''; // Re-enable scrolling
+                
+                // Optional: Add a small animation to the main content card after showing
+                AOS.refresh(); // Make sure AOS picks up the now visible card
             } else {
                 errorMsg.style.display = 'block';
                 // Add shake animation to input on error
                 const passInput = document.getElementById('passwordInput');
-                passInput.classList.add('animate-shake'); // Requires animate-shake CSS
+                passInput.classList.add('animate-shake'); 
                 setTimeout(() => {
                     errorMsg.style.display = 'none';
                     passInput.classList.remove('animate-shake');
-                }, 3000);
+                }, 1000); // Reduced timeout for faster feedback
             }
         }
 
@@ -600,30 +797,24 @@
              document.getElementById('sectionSelect').addEventListener('change', applyFilters);
              document.getElementById('groupSelect').addEventListener('change', applyFilters);
 
-             // Handle closing the overlay if user clicks outside (optional, good UX)
-             const loginOverlay = document.getElementById('loginOverlay');
-             loginOverlay.addEventListener('click', (e) => {
-                 if (e.target === loginOverlay) {
-                     // Maybe don't close automatically on outside click for login?
-                     // closePopup('loginOverlay'); 
-                 }
-             });
+            // Add keypress listener for Enter key on password input
+            const passwordInput = document.getElementById('passwordInput');
+            if(passwordInput) {
+                passwordInput.addEventListener('keypress', function(event) {
+                    if (event.key === 'Enter') {
+                        event.preventDefault(); // Prevent default form submission (if any)
+                        checkPassword();
+                    }
+                });
+            }
 
-             // Handle Escape key for login overlay
-             document.addEventListener('keydown', (e) => {
-                 if (e.key === 'Escape' && loginOverlay.classList.contains('active')) {
-                     // Don't close login with Esc, force password entry
-                     // closePopup('loginOverlay'); 
-                 }
-             });
+             // Lock body scroll when popup is active
+             const loginOverlay = document.getElementById('loginOverlay');
+             if(loginOverlay.classList.contains('active')) {
+                 document.body.style.overflow = 'hidden';
+             }
         });
 
     </script>
-
-    <!-- Add shake animation -->
-    <style>
-        @keyframes shake { 10%, 90% { transform: translate3d(-1px, 0, 0); } 20%, 80% { transform: translate3d(2px, 0, 0); } 30%, 50%, 70% { transform: translate3d(-4px, 0, 0); } 40%, 60% { transform: translate3d(4px, 0, 0); } }
-        .animate-shake { animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both; transform: translate3d(0, 0, 0); }
-    </style>
 </body>
 </html>
