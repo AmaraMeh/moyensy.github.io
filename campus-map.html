@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Map - 3D Interactive</title>
+    
+    <!-- Mapbox GL JS -->
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css' rel='stylesheet' />
+    
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <!-- Custom Styles -->
+    <style>
+        :root {
+            --primary-color: #4a90e2;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --background-light: #ffffff;
+            --text-light: #333333;
+            --background-dark: #1a1a1a;
+            --text-dark: #ffffff;
+            --success-color: #34C759;
+            --warning-color: #FFA500;
+        }
+
+        [data-theme="dark"] {
+            --background: var(--background-dark);
+            --text: var(--text-dark);
+        }
+
+        [data-theme="light"] {
+            --background: var(--background-light);
+            --text: var(--text-light);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--background);
+            color: var(--text);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .controls {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 1;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(10px);
+            width: 300px;
+        }
+
+        .campus-selector {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .campus-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .campus-btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .campus-btn.active {
+            background: var(--accent-color);
+            box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);
+        }
+
+        .theme-toggle {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-bottom: 15px;
+            transition: all 0.3s;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .theme-toggle:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .info-panel {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            max-width: 350px;
+            display: none;
+            backdrop-filter: blur(10px);
+            animation: slideUp 0.3s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .info-panel h3 {
+            margin-bottom: 10px;
+            color: var(--secondary-color);
+            font-size: 1.2em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .info-panel p {
+            margin-bottom: 15px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .info-panel .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: var(--secondary-color);
+            transition: color 0.3s;
+        }
+
+        .info-panel .close-btn:hover {
+            color: var(--accent-color);
+        }
+
+        .loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .loading-spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--primary-color);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .marker {
+            background-color: var(--primary-color);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+        }
+
+        .marker:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        .marker.entrance {
+            background-color: var(--success-color);
+        }
+
+        .marker.exit {
+            background-color: var(--warning-color);
+        }
+
+        .marker.parking {
+            background-color: #8e44ad;
+        }
+
+        .marker.residence {
+            background-color: #16a085;
+        }
+
+        .marker.restaurant {
+            background-color: #e67e22;
+        }
+
+        .marker.library {
+            background-color: #2980b9;
+        }
+
+        .marker.amphitheater {
+            background-color: #c0392b;
+        }
+
+        .marker.department {
+            background-color: #27ae60;
+        }
+
+        .marker.administration {
+            background-color: #7f8c8d;
+        }
+
+        .search-box {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 1;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(10px);
+            width: 300px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 10px 15px;
+            border: 2px solid var(--primary-color);
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.2);
+        }
+
+        .search-results {
+            margin-top: 10px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .search-result-item {
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .search-result-item:hover {
+            background: rgba(74, 144, 226, 0.1);
+        }
+
+        .legend {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(10px);
+            z-index: 1;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+            font-size: 12px;
+        }
+
+        .legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    
+    <div class="search-box">
+        <input type="text" class="search-input" placeholder="Rechercher un lieu..." id="searchInput">
+        <div class="search-results" id="searchResults"></div>
+    </div>
+
+    <div class="controls">
+        <div class="campus-selector">
+            <button class="campus-btn active" onclick="focusOnCampus('el-kseur')">
+                <span class="material-icons">school</span>
+                Campus El-Kseur
+            </button>
+            <button class="campus-btn" onclick="focusOnCampus('aboudaou')">
+                <span class="material-icons">local_hospital</span>
+                Campus Aboudaou
+            </button>
+            <button class="campus-btn" onclick="focusOnCampus('targa')">
+                <span class="material-icons">engineering</span>
+                Targa Ouzemmour
+            </button>
+        </div>
+        <button class="theme-toggle" onclick="toggleTheme()">
+            <span class="material-icons">dark_mode</span>
+            Toggle Theme
+        </button>
+    </div>
+
+    <div class="legend">
+        <div class="legend-item">
+            <div class="legend-color" style="background-color: var(--success-color)"></div>
+            <span>Entrée</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background-color: var(--warning-color)"></div>
+            <span>Sortie</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background-color: #8e44ad"></div>
+            <span>Parking</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background-color: #16a085"></div>
+            <span>Résidence</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background-color: #e67e22"></div>
+            <span>Restaurant</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background-color: #2980b9"></div>
+            <span>Bibliothèque</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background-color: #c0392b"></div>
+            <span>Amphithéâtre</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background-color: #27ae60"></div>
+            <span>Département</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background-color: #7f8c8d"></div>
+            <span>Administration</span>
+        </div>
+    </div>
+
+    <div class="info-panel" id="infoPanel">
+        <button class="close-btn" onclick="closeInfoPanel()">×</button>
+        <h3 id="locationTitle"></h3>
+        <p id="locationDescription"></p>
+    </div>
+
+    <div class="loading" id="loading">
+        <div class="loading-spinner"></div>
+        <div>Loading 3D Map...</div>
+    </div>
+
+    <script>
+        // Mapbox token
+        mapboxgl.accessToken = 'pk.eyJ1IjoiYW1hcmFtZWhkaTExIiwiYSI6ImNtYjA0OGFmaTBzeGIybXNjdzE1djlkdDcifQ.-nR5sGjTJXJPcv_ZhoWIsQ';
+
+        // Campus data
+        const CAMPUS_DATA = {
+            'el-kseur': {
+                center: [4.8530, 36.6920],
+                zoom: 16,
+                pois: [
+                    { id: 'ek-admin', position: [4.8537, 36.6922], title: "Administration", icon: "business", type: "administration", description: "Bâtiment administratif principal" },
+                    { id: 'ek-dept-tech-bio', position: [4.8535, 36.6918], title: "Dépt. Tech/Bio", icon: "science", type: "department", description: "Technologie (RDC), Biologie (1er étage)" },
+                    { id: 'ek-dept-info-math-sm-arch', position: [4.8537, 36.6918], title: "Dépt. Info/Math/SM/Arch", icon: "computer", type: "department", description: "Info/Math/SM (RDC), Arch (1er étage)" },
+                    { id: 'ek-bloc2', position: [4.8515, 36.6925], title: "Bloc Enseignement 2", icon: "school", type: "department", description: "ST / Architecture" },
+                    { id: 'ek-calc-center', position: [4.8521, 36.6918], title: "Centre de Calcul", icon: "memory", type: "department", description: "Labos ST/Bio, Salles Info" },
+                    { id: 'ek-amphi9', position: [4.8515, 36.6923], title: "Amphi 9", icon: "event_seat", type: "amphitheater" },
+                    { id: 'ek-amphi10', position: [4.8513, 36.6923], title: "Amphi 10", icon: "event_seat", type: "amphitheater" },
+                    { id: 'ek-amphi4', position: [4.8521, 36.6918], title: "Amphi 4", icon: "event_seat", type: "amphitheater" },
+                    { id: 'ek-amphi3', position: [4.8521, 36.6918], title: "Amphi 3", icon: "event_seat", type: "amphitheater" },
+                    { id: 'ek-amphi2', position: [4.8518, 36.6922], title: "Amphi 2", icon: "event_seat", type: "amphitheater" },
+                    { id: 'ek-amphi1', position: [4.8518, 36.6922], title: "Amphi 1", icon: "event_seat", type: "amphitheater" },
+                    { id: 'ek-amphi5', position: [4.8521, 36.6918], title: "Amphi 5", icon: "event_seat", type: "amphitheater" },
+                    { id: 'ek-amphi6', position: [4.8521, 36.6918], title: "Amphi 6", icon: "event_seat", type: "amphitheater" },
+                    { id: 'ek-biblio', position: [4.8521, 36.6927], title: "Bibliothèque Centrale", icon: "local_library", type: "library" },
+                    { id: 'ek-cafet', position: [4.8518, 36.6922], title: "Cafétéria", icon: "restaurant", type: "restaurant" },
+                    { id: 'ek-foire', position: [4.8518, 36.6922], title: "La Foire SNV", icon: "storefront", type: "restaurant" },
+                    { id: 'ek-atelier-arch', position: [4.8518, 36.6922], title: "Atelier Arch.", icon: "architecture", type: "department" },
+                    { id: 'ek-parking-etu', position: [4.8521, 36.6918], title: "Parking Étudiants", icon: "local_parking", type: "parking" },
+                    { id: 'ek-parking1', position: [4.8537, 36.6922], title: "Parking Ens. 1", icon: "local_parking", type: "parking" },
+                    { id: 'ek-parking2', position: [4.8521, 36.6918], title: "Parking Ens. 2", icon: "local_parking", type: "parking" },
+                    { id: 'ek-res-ber2', position: [4.8518, 36.6918], title: "Résidence Berchiche 2", icon: "apartment", type: "residence" },
+                    { id: 'ek-res-ber3', position: [4.8518, 36.6918], title: "Résidence Berchiche 3", icon: "apartment", type: "residence" },
+                    { id: 'ek-res-ber4', position: [4.8518, 36.6918], title: "Résidence Berchiche 4", icon: "apartment", type: "residence" },
+                    { id: 'ek-resto-ber4', position: [4.8518, 36.6918], title: "Resto Berchiche 4", icon: "restaurant", type: "restaurant" },
+                    { id: 'ek-resto-ber3', position: [4.8518, 36.6918], title: "Resto Berchiche 3", icon: "restaurant", type: "restaurant" },
+                    { id: 'ek-resto-ber2', position: [4.8518, 36.6918], title: "Resto Berchiche 2", icon: "restaurant", type: "restaurant" },
+                    { id: 'ek-entree-sec', position: [4.8521, 36.6918], title: "Entrée Secondaire", icon: "exit_to_app", type: "exit" },
+                    { id: 'ek-entree-princ', position: [4.8537, 36.6918], title: "Entrée Principale", icon: "login", type: "entrance" }
+                ]
+            },
+            'aboudaou': {
+                center: [5.040, 36.748],
+                zoom: 16,
+                pois: [
+                    { id: 'ab1', position: [5.039, 36.749], title: "Faculté de Médecine", icon: "local_hospital", type: "department" },
+                    { id: 'ab2', position: [5.041, 36.747], title: "Bloc Sciences & Lettres", icon: "science", type: "department" },
+                    { id: 'ab3', position: [5.0405, 36.7485], title: "Restaurant Universitaire", icon: "restaurant", type: "restaurant" },
+                    { id: 'ab4', position: [5.0395, 36.7475], title: "Bibliothèque Aboudaou", icon: "local_library", type: "library" },
+                    { id: 'ab5', position: [5.0415, 36.7495], title: "Administration Aboudaou", icon: "business", type: "administration" }
+                ]
+            },
+            'targa': {
+                center: [5.030, 36.717],
+                zoom: 16,
+                pois: [
+                    { id: 'to1', position: [5.029, 36.718], title: "Département Technologie", icon: "engineering", type: "department" },
+                    { id: 'to2', position: [5.031, 36.716], title: "Laboratoires", icon: "science", type: "department", description: "Génie Elec/Méca" },
+                    { id: 'to3', position: [5.0305, 36.7175], title: "Halle Technologie", icon: "factory", type: "department" },
+                    { id: 'to4', position: [5.0295, 36.7165], title: "Bloc Droit & Sciences Eco", icon: "gavel", type: "department" },
+                    { id: 'to5', position: [5.0315, 36.7185], title: "Amphithéâtres Targa", icon: "event_seat", type: "amphitheater" }
+                ]
+            }
+        };
+
+        // Initialize map
+        const map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/dark-v11',
+            center: CAMPUS_DATA['el-kseur'].center,
+            zoom: CAMPUS_DATA['el-kseur'].zoom,
+            pitch: 60,
+            bearing: 0,
+            antialias: true
+        });
+
+        // Theme management
+        let currentTheme = 'dark';
+        
+        function toggleTheme() {
+            currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.body.setAttribute('data-theme', currentTheme);
+            map.setStyle(currentTheme === 'dark' ? 
+                'mapbox://styles/mapbox/dark-v11' : 
+                'mapbox://styles/mapbox/light-v11'
+            );
+        }
+
+        // Search functionality
+        const searchInput = document.getElementById('searchInput');
+        const searchResults = document.getElementById('searchResults');
+
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            if (query.length < 2) {
+                searchResults.innerHTML = '';
+                return;
+            }
+
+            const results = [];
+            Object.values(CAMPUS_DATA).forEach(campus => {
+                campus.pois.forEach(poi => {
+                    if (poi.title.toLowerCase().includes(query)) {
+                        results.push(poi);
+                    }
+                });
+            });
+
+            searchResults.innerHTML = results.map(poi => `
+                <div class="search-result-item" onclick="focusOnLocation(${poi.position[0]}, ${poi.position[1]}, '${poi.title}')">
+                    <span class="material-icons">${poi.icon}</span>
+                    <span>${poi.title}</span>
+                </div>
+            `).join('');
+        });
+
+        function focusOnLocation(lng, lat, title) {
+            map.flyTo({
+                center: [lng, lat],
+                zoom: 18,
+                pitch: 60,
+                bearing: 0,
+                duration: 2000
+            });
+            showInfo(title, '');
+            searchInput.value = '';
+            searchResults.innerHTML = '';
+        }
+
+        // Campus navigation
+        function focusOnCampus(campusId) {
+            const campus = CAMPUS_DATA[campusId];
+            if (!campus) return;
+
+            // Update active button
+            document.querySelectorAll('.campus-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.currentTarget.classList.add('active');
+
+            // Fly to campus
+            map.flyTo({
+                center: campus.center,
+                zoom: campus.zoom,
+                pitch: 60,
+                bearing: 0,
+                duration: 2000
+            });
+
+            // Add markers
+            addMarkers(campus.pois);
+        }
+
+        // Add markers for POIs
+        function addMarkers(pois) {
+            // Remove existing markers
+            const markers = document.getElementsByClassName('marker');
+            while(markers[0]) {
+                markers[0].remove();
+            }
+
+            // Add new markers
+            pois.forEach(poi => {
+                const el = document.createElement('div');
+                el.className = `marker ${poi.type || ''}`;
+                el.innerHTML = `<span class="material-icons">${poi.icon}</span>`;
+                
+                new mapboxgl.Marker(el)
+                    .setLngLat(poi.position)
+                    .setPopup(new mapboxgl.Popup({ offset: 25 })
+                        .setHTML(`
+                            <h3>${poi.title}</h3>
+                            ${poi.description ? `<p>${poi.description}</p>` : ''}
+                        `))
+                    .addTo(map);
+            });
+        }
+
+        // Info panel management
+        function showInfo(title, description) {
+            const panel = document.getElementById('infoPanel');
+            document.getElementById('locationTitle').textContent = title;
+            document.getElementById('locationDescription').textContent = description;
+            panel.style.display = 'block';
+        }
+
+        function closeInfoPanel() {
+            document.getElementById('infoPanel').style.display = 'none';
+        }
+
+        // Add 3D buildings
+        map.on('load', () => {
+            map.addLayer({
+                'id': '3d-buildings',
+                'source': 'composite',
+                'source-layer': 'building',
+                'filter': ['==', 'extrude', 'true'],
+                'type': 'fill-extrusion',
+                'minzoom': 12,
+                'paint': {
+                    'fill-extrusion-color': '#aaa',
+                    'fill-extrusion-height': [
+                        'interpolate',
+                        ['linear'],
+                        ['zoom'],
+                        12,
+                        0,
+                        15.05,
+                        ['get', 'height']
+                    ],
+                    'fill-extrusion-base': [
+                        'interpolate',
+                        ['linear'],
+                        ['zoom'],
+                        12,
+                        0,
+                        15.05,
+                        ['get', 'min_height']
+                    ],
+                    'fill-extrusion-opacity': 0.6
+                }
+            });
+
+            // Hide loading screen
+            document.getElementById('loading').style.display = 'none';
+
+            // Add initial markers
+            addMarkers(CAMPUS_DATA['el-kseur'].pois);
+        });
+
+        // Add navigation controls
+        map.addControl(new mapboxgl.NavigationControl(), 'top-left');
+
+        // Add geolocation control
+        map.addControl(new mapboxgl.GeolocateControl({
+            positionOptions: {
+                enableHighAccuracy: true
+            },
+            trackUserLocation: true
+        }), 'top-left');
+    </script>
+</body>
+</html> 
