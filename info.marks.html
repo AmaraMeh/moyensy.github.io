@@ -1,386 +1,678 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr"> <!-- Changed lang to fr -->
 <head>
   <meta charset="UTF-8">
-  <title>Student Marks - ST LMD</title>
-  <link rel="stylesheet" href="assets/css/style.css">
-  <link rel="stylesheet" href="assets/css/st.marks.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-  <link rel="stylesheet" href="assets/css/animations.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notes Info LMD - Semestre 1 - ISET'COM</title> <!-- Adjusted title -->
+
+  <!-- Use latest Font Awesome for consistency -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
-  <!-- Insert this style block inside the <head> section or within a dedicated CSS file -->
   <style>
-    .search-container {
-      margin: 1rem auto;
-      max-width: 500px;
-    }
-
-    .search-input {
-      width: 100%;
-      padding: 0.75rem;
-      font-size: 1rem;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      transition: border-color 0.3s ease;
-    }
-
-    .search-input:focus {
-      outline: none;
-      border-color: #007BFF;
-      box-shadow: 0 0 0 2px rgba(0,123,255,0.25);
-    }
-
-    .search-wrapper {
-        display: flex;
-        max-width: 500px;
-        margin: 0 auto;
-        position: relative;
-    }
-
-    .search-input {
-        flex: 1;
-        border-right: none;
-        border-top-right-radius: 0;
-        border-bottom-right-radius: 0;
-        padding-right: 40px;
-        transition: all 0.3s ease;
-    }
-
-    .search-button {
-        border: 1px solid #2563eb;
-        background-color: #2563eb;
-        color: white;
-        cursor: pointer;
-        border-top-right-radius: 0.5rem;
-        border-bottom-right-radius: 0.5rem;
-        transition: all 0.3s ease;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0.75rem 1.5rem;
-        transform: translateZ(0);
-    }
-
-    .search-button:hover {
-        background-color: #1d4ed8;
-        transform: translateY(-1px);
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    }
-
-    .search-button:active {
-        transform: translateY(0);
-        box-shadow: none;
-    }
-
-    .search-button i {
-        transition: transform 0.2s ease;
-    }
-
-    .search-button:hover i {
-        transform: scale(1.1);
-    }
-
-    @keyframes pulse {
-        0% { transform: scale(1); }
-        50% { transform: scale(1.05); }
-        100% { transform: scale(1); }
-    }
-
-    .search-button.searching {
-        animation: pulse 1s infinite;
-        background-color: #1d4ed8;
-    }
-
-    .search-input:focus + .search-button {
-        border-color: #1d4ed8;
-        background-color: #1d4ed8;
-    }
-
-    .passing-grade {
-        color: #22c55e;
-        font-weight: 600;
-    }
-
-    .failing-grade {
-        color: #ef4444;
-        font-weight: 600;
-    }
-
-    .password-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(17, 24, 39, 0.7);
-        backdrop-filter: blur(8px);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 1000;
-    }
-
-    .password-box {
-        background: white;
-        padding: 2rem;
-        border-radius: 1rem;
-        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-        max-width: 90%;
-        width: 400px;
-        text-align: center;
-        animation: slideIn 0.3s ease-out;
-    }
-
-    @keyframes slideIn {
-        from {
-            transform: translateY(-20px);
-            opacity: 0;
+        :root {
+            /* Colors adapted for the theme from previous files */
+            --background: 0 0% 100%;
+            --foreground: 222.2 84% 4.9%;
+            --card: 0 0% 100%;
+            --card-foreground: 222.2 84% 4.9%;
+            --primary: 221.2 83.2% 53.3%; /* Blueish for theme */
+            --primary-foreground: 210 40% 98%;
+            --secondary: 210 40% 96.1%;
+            --secondary-foreground: 222.2 47.4% 11.2%;
+            --muted: 210 40% 96.1%;
+            --muted-foreground: 215.4 16.3% 46.9%;
+            --accent: 210 40% 96.1%; /* Consistent accent/secondary */
+            --accent-foreground: 222.2 47.4% 11.2%;
+            --border: 214.3 31.8% 91.4%;
+            --input: 214.3 31.8% 91.4%;
+            --ring: 221.2 83.2% 53.3%; /* Same as primary */
+            --radius: 0.5rem; /* Consistent radius */
+            --success: 142.1 76.2% 36.3%; /* Green */
+            --warning: 38 92% 50%; /* Yellow */
+            --error: 0 84.2% 60.2%; /* Red */
         }
-        to {
+
+        .dark {
+            --background: 222.2 84% 4.9%;
+            --foreground: 210 40% 98%;
+            --card: 222.2 84% 4.9%;
+            --card-foreground: 210 40% 98%;
+            --primary: 217.2 91.2% 59.8%; /* Darker Blue */
+            --primary-foreground: 222.2 47.4% 11.2%;
+            --secondary: 217.2 32.6% 17.5%;
+            --secondary-foreground: 210 40% 98%;
+            --muted: 217.2 32.6% 17.5%;
+            --muted-foreground: 215 20.2% 65.1%;
+             --accent: 217.2 32.6% 17.5%; /* Consistent accent/secondary dark */
+            --accent-foreground: 210 40% 98%;
+            --border: 217.2 32.6% 17.5%;
+            --input: 217.2 32.6% 17.5%;
+            --ring: 224.3 76.3% 48%;
+            --success: 142.1 70.6% 45.3%; /* Darker Green */
+            --warning: 48 96.5% 53.9%; /* Darker Yellow */
+            --error: 0 84.2% 60.2%; /* Red (same) */
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: hsl(var(--background));
+            color: hsl(var(--foreground));
+            min-height: 100vh;
+            -webkit-tap-highlight-color: transparent;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            padding-top: 80px; /* Add padding for sticky header */
+        }
+        
+        /* Hero Background styles */
+        .hero-bg { position: fixed; inset: 0; z-index: -10; overflow: hidden; } 
+        .gradient-blob { position: absolute; border-radius: 9999px; filter: blur(60px); opacity: 0.5; }
+        .gradient-blob-1 { top: 0; left: 0; right: 0; height: 500px; background: linear-gradient(to bottom right, hsl(var(--primary) / 0.4), hsl(var(--ring) / 0.2), hsl(var(--accent) / 0.1)); transform: translateY(-50%); }
+        .gradient-blob-2 { bottom: 0; right: 0; width: 500px; height: 500px; background: linear-gradient(to top right, hsl(var(--ring) / 0.3), hsl(var(--accent) / 0.2), transparent); }
+        .floating-dot { position: absolute; border-radius: 9999px; animation: pulse 2s infinite; }
+         /* Floating dot colors from index.html */
+        .floating-dot:nth-child(3) { background-color: #3b82f6; } /* blue-500 */
+        .floating-dot:nth-child(4) { background-color: #8b5cf6; } /* purple-500 */
+        .floating-dot:nth-child(5) { background-color: #10b981; } /* green-500 */
+        .floating-dot:nth-child(6) { background-color: #f59e0b; } /* amber-500 */
+
+        @keyframes pulse { 0%, 100% { opacity: 0.5; transform: scale(1); } 50% { opacity: 1; transform: scale(1.2); } }
+
+        /* Floating Particles styles */
+        .floating-particles { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: -5; } 
+        .particle { position: absolute; border-radius: 50%; opacity: 0.7; animation: float 10s infinite ease-in-out; }
+        @keyframes float { 0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.3; } 50% { transform: translate(var(--x), var(--y)) scale(1.2); opacity: 0.8; } }
+        /* Particles colors adapted for the main theme */
+         .particle-blue { background-color: hsl(var(--primary)); }
+        .particle-green { background-color: hsl(var(--success)); }
+        .particle-yellow { background-color: hsl(var(--warning)); }
+
+
+        /* Header styles */
+        .header-section {
+            position: fixed; 
+            top: 0;
+            left: 0;
+            right: 0;
+            background: hsl(var(--background) / 0.8); 
+            backdrop-filter: blur(8px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+            border-bottom: none; 
+            z-index: 50;
+            transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+            padding: 0.75rem 0; /* Adjusted padding */
+        }
+        .dark .header-section {
+            background: hsl(var(--background) / 0.9);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            max-width: 900px; /* Match container width */
+            margin: 0 auto; /* Center the wrapper */
+            padding: 0 1rem; /* Add padding for smaller screens */
+        }
+
+        .logo-image {
+            max-width: 60px; /* Adjusted size */
+             height: auto; /* Maintain aspect ratio */
+            transition: transform 0.3s ease; 
+        }
+        .logo-image:hover { transform: scale(1.05); }
+        .dark .logo-image { filter: brightness(0.9); }
+
+         /* Main Content Container - Add a wrapper */
+        .main-content-wrapper {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            background: hsl(var(--card) / 0.8); 
+            backdrop-filter: blur(10px); 
+            border: 1px solid hsl(var(--border));
+            border-radius: var(--radius); 
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); 
+            /* visibility: hidden; Removed, using display: none instead */
+             display: none; /* Hidden initially */
+             padding-top: 1rem; /* Adjusted padding */
+             padding-bottom: 2rem;
+             /* Removed opacity/transform transitions as display handles visibility */
+        }
+        .dark .main-content-wrapper { background: hsl(var(--card) / 0.9); border-color: hsl(var(--border)); }
+
+        /* Filters & Search Container - Apply card-like styles */
+        .filters-container {
+             margin-bottom: 1.5rem; /* Less margin bottom */
+             padding: 1.5rem; 
+             background: hsl(var(--secondary) / 0.5); 
+             border-radius: var(--radius); 
+             border: 1px solid hsl(var(--border));
+             max-width: calc(100% - 2rem); /* Adjusted width */
+             margin-left: auto;
+             margin-right: auto;
+        }
+         .dark .filters-container { background: hsl(var(--secondary) / 0.3); border-color: hsl(var(--border) / 0.5); }
+
+
+        /* Page Title style - Keep gradient text */
+        .page-title {
+            font-size: 1.75rem; 
+            font-weight: 600; 
+            margin-bottom: 1.5rem; 
+            text-align: center;
+             background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--ring)));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+             padding: 0 1rem;
+        }
+         .dark .page-title { 
+             background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--ring)));
+             -webkit-background-clip: text;
+             background-clip: text;
+             color: transparent;
+        }
+
+        /* Return button style - style like back-button */
+        .return-button {
+            display: inline-flex; align-items: center; gap: 0.5rem; color: hsl(var(--primary)); font-weight: 500;
+            transition: all 0.3s ease; padding: 0.5rem 1rem; border-radius: 9999px; 
+            background: hsl(var(--primary) / 0.1); 
+        }
+        .return-button:hover { background: hsl(var(--primary) / 0.2); transform: translateX(-3px); }
+        .dark .return-button { color: hsl(var(--primary)); background: hsl(var(--primary) / 0.2); }
+        .dark .return-button:hover { background: hsl(var(--primary) / 0.3); }
+
+         /* Search input and button styles */
+         .search-wrapper {
+            display: flex;
+            max-width: 500px;
+            margin: 1rem auto 0 auto; /* Center the search wrapper */
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 0.75rem 1rem; /* Adjusted padding */
+            font-size: 1rem;
+            border: 1px solid hsl(var(--border)); /* Use border variable */
+            border-right: none;
+            border-top-left-radius: var(--radius); /* Use radius variable */
+            border-bottom-left-radius: var(--radius); /* Use radius variable */
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+            background: hsl(var(--input)); /* Use input background variable */
+            color: hsl(var(--foreground));
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: hsl(var(--primary)); /* Use primary color */
+            box-shadow: 0 0 0 2px hsl(var(--primary) / 0.2); /* Use primary color */
+             z-index: 1; /* Ensure focus style is on top */
+        }
+         .dark .search-input { background: hsl(var(--input)); border-color: hsl(var(--border)); color: hsl(var(--foreground)); }
+
+
+        .search-button {
+            border: 1px solid hsl(var(--primary)); /* Use primary color */
+            background-color: hsl(var(--primary)); /* Use primary color */
+            color: hsl(var(--primary-foreground)); /* Use primary-foreground */
+            cursor: pointer;
+            border-top-right-radius: var(--radius); /* Use radius variable */
+            border-bottom-right-radius: var(--radius); /* Use radius variable */
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            transform: translateZ(0);
+             position: relative; /* Needed for z-index */
+             z-index: 0; /* Ensure button is below focused input */
+        }
+
+        .search-button:hover {
+            background-color: hsl(var(--primary) / 0.9); /* Darker on hover */
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .search-button:active {
             transform: translateY(0);
-            opacity: 1;
+            box-shadow: none;
+             background-color: hsl(var(--primary)); /* Reset to normal on active */
         }
-    }
 
-    .password-box h2 {
-        color: #1a1a1a;
-        font-size: 1.5rem;
-        margin-bottom: 1rem;
-        font-weight: 600;
-    }
+        .search-button i {
+            transition: transform 0.2s ease;
+        }
 
-    .password-box input {
-        width: 100%;
-        padding: 0.75rem;
-        margin: 1rem 0;
-        border: 2px solid #e5e7eb;
-        border-radius: 0.5rem;
-        font-size: 1rem;
-        transition: all 0.3s ease;
-    }
+        .search-button:hover i {
+            transform: scale(1.1);
+        }
 
-    .password-box input:focus {
-        outline: none;
-        border-color: #2563eb;
-        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-    }
+        /* Remove original pulsing keyframes if replacing */
+        /* @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } } */
 
-    .password-box button {
-        background: #2563eb;
-        color: white;
-        padding: 0.75rem 1.5rem;
-        border-radius: 0.5rem;
-        border: none;
-        font-weight: 500;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        width: 100%;
-        margin-top: 1rem;
-    }
+        .search-button.searching {
+             /* Re-use pulse for searching indicator */
+            animation: pulse 1s infinite; 
+            background-color: hsl(var(--primary) / 0.9); /* Slightly darker while searching */
+        }
 
-    .password-box button:hover {
-        background: #1d4ed8;
-        transform: translateY(-1px);
-    }
+        .search-input:focus + .search-button {
+            border-color: hsl(var(--primary) / 0.9); /* Match focused input border */
+            background-color: hsl(var(--primary) / 0.9); /* Match focused input color */
+        }
+         .dark .search-button { background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); border-color: hsl(var(--primary)); }
+         .dark .search-button:hover { background: hsl(var(--primary) / 0.9); border-color: hsl(var(--primary) / 0.9); }
+         .dark .search-input:focus + .search-button {
+            border-color: hsl(var(--primary) / 0.9);
+            background-color: hsl(var(--primary) / 0.9);
+        }
 
-    .password-box .instagram-note {
-        margin-top: 1rem;
-        font-size: 0.875rem;
-        color: #6b7280;
-        line-height: 1.5;
-    }
 
-    .password-box .instagram-link {
-        color: #2563eb;
-        text-decoration: none;
-        font-weight: 500;
-    }
+        /* Table Styles */
+         .table-wrapper {
+            margin: 1.5rem auto; /* Adjusted margin */
+            max-width: calc(100% - 2rem); /* Adjusted width */
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+             /* padding: 0 1rem; Removed padding as wrapper has it */
+        }
 
-    .password-box .instagram-link:hover {
-        text-decoration: underline;
-    }
+        .table-scroll {
+             /* Use card styling for the scrollable container */
+            border: 1px solid hsl(var(--border)); 
+            border-radius: var(--radius);
+             overflow-y: auto; /* Keep vertical scroll */
+             max-height: 60vh; /* Limit height */
+        }
+         .dark .table-scroll { border-color: hsl(var(--border)); }
 
-    .error-message {
-        color: #dc2626;
-        font-size: 0.875rem;
-        margin-top: 0.5rem;
-        display: none;
-    }
 
-    /* Add responsive table styles */
-    .table-wrapper {
-        margin: 1rem auto;
-        max-width: 100%;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        padding: 0 1rem;
-    }
+        #marksTable {
+             width: 100%;
+             min-width: 400px; /* Increased min-width */
+            border-collapse: collapse;
+        }
 
-    .table-scroll {
-        width: 100%;
-    }
+        #marksTable th, #marksTable td {
+            padding: 0.75rem 1rem; /* Adjusted padding */
+            text-align: left;
+            border-bottom: 1px solid hsl(var(--border)); /* Use border color */
+             white-space: nowrap; /* Prevent wrapping */
+        }
+         .dark #marksTable th, .dark #marksTable td { border-bottom-color: hsl(var(--border)); }
 
-    table {
-        width: 100%;
-        min-width: 300px;
-        border-collapse: collapse;
-    }
 
-    th, td {
-        padding: 1rem;
-        text-align: left;
-        border-bottom: 1px solid #e5e7eb;
-    }
+        #marksTable th {
+             background: hsl(var(--secondary)); /* Use secondary background */
+            font-weight: 600; 
+            color: hsl(var(--secondary-foreground)); /* Use secondary foreground */
+            font-size: 0.875rem; 
+            text-transform: uppercase; 
+            letter-spacing: 0.05em;
+        }
+        .dark #marksTable th { background: hsl(var(--secondary)); color: hsl(var(--secondary-foreground)); }
 
-    /* Mobile-friendly header */
-    .page-title {
-        font-size: clamp(1.5rem, 5vw, 2rem);
-        padding: 0 1rem;
-    }
+         #marksTable tbody tr:hover { background-color: hsl(var(--secondary) / 0.5); }
+         .dark #marksTable tbody tr:hover { background-color: hsl(var(--secondary) / 0.3); }
 
-    /* Responsive search container */
-    .search-container {
-        margin: 1rem;
-        width: calc(100% - 2rem);
-        max-width: 500px;
-    }
 
-    /* Mobile-friendly password box */
-    .password-box {
-        margin: 1rem;
-        width: calc(100% - 2rem);
-        max-width: 400px;
-    }
+        /* Mobile-friendly header - Keep original logic */
+        .page-title {
+            font-size: clamp(1.5rem, 5vw, 2rem);
+            /* padding: 0 1rem; Kept padding in the rule above */
+        }
 
-    /* Add sticky header support */
-    .sticky-header {
-        position: sticky;
-        top: 0;
-        background: white;
-        z-index: 10;
-    }
+        /* Responsive search container - Keep original logic */
+        /* .search-container { margin: 1rem; width: calc(100% - 2rem); max-width: 500px; } */ /* Merged with search-wrapper margin */
 
-    /* Better sort indicators */
-    .sortable {
-        cursor: pointer;
-        position: relative;
-        padding-right: 1.5rem;
-    }
+        /* Mobile-friendly password box - Keep original logic */
+        /* .password-box { margin: 1rem; width: calc(100% - 2rem); max-width: 400px; } */ /* Styles below are more specific */
 
-    .sort-indicator::after {
-        content: '↕️';
-        position: absolute;
-        right: 0.5rem;
-        opacity: 0.5;
-    }
+        /* Add sticky header support - Style fixed */
+        .sticky-header {
+            position: sticky;
+            top: 0;
+            background: hsl(var(--secondary)); /* Use secondary background */
+            z-index: 10;
+        }
+         .dark .sticky-header { background: hsl(var(--secondary)); }
 
-    .sort-asc::after {
-        content: '↑';
-        opacity: 1;
-    }
 
-    .sort-desc::after {
-        content: '↓';
-        opacity: 1;
-    }
+        /* Better sort indicators - Use arrows */
+        .sortable {
+            cursor: pointer;
+            position: relative;
+            padding-right: 1.5rem !important; /* Important to override padding */
+        }
 
-    /* Mobile-optimized text sizes */
-    @media (max-width: 640px) {
-        .name-cell {
+        .sort-indicator {
+             position: absolute; right: 0.5rem; top: 50%; transform: translateY(-50%);
+            width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent;
+            opacity: 0.4; transition: opacity 0.2s ease;
+        }
+        .sortable:hover .sort-indicator { opacity: 0.7; }
+        .sort-indicator.sort-asc { border-bottom: 6px solid hsl(var(--foreground)); border-top: 0; opacity: 1; }
+        .sort-indicator.sort-desc { border-top: 6px solid hsl(var(--foreground)); border-bottom: 0; opacity: 1; }
+        .dark .sort-indicator.sort-asc { border-bottom-color: hsl(var(--foreground)); }
+        .dark .sort-indicator.sort-desc { border-top-color: hsl(var(--foreground)); }
+
+        /* Mobile-optimized text sizes - Keep original logic */
+        @media (max-width: 640px) {
+            #marksTable th, #marksTable td { /* Applied to table cells */
+                padding: 0.5rem 0.75rem; /* Reduced padding on mobile */
+            }
+            .name-cell {
+                font-size: 0.875rem;
+            }
+            .grade-cell {
+                font-size: 0.875rem;
+                 text-align: left; /* Keep text aligned left on mobile */
+            }
+             .sortable { padding-right: 1rem !important; } /* Adjust padding for sort indicator on mobile */
+             .sort-indicator { right: 0.2rem; } /* Adjust indicator position on mobile */
+        }
+
+        /* Grade Coloring - Match new variable classes */
+        .grade-passing {
+            color: hsl(var(--success)); 
+            font-weight: 600;
+        }
+
+        .grade-failing {
+            color: hsl(var(--error));
+            font-weight: 600;
+        }
+
+         /* Alert Banner Styles */
+        .alert-banner {
+             /* Keep original specific gradient for alert */
+            background: linear-gradient(135deg, #fff5f5 0%, #fed7d7 100%);
+            border-top: 1px solid #fecaca;
+            border-bottom: 1px solid #fecaca;
+            margin: 0; /* Remove margin here, add padding to main-content-wrapper */
+            padding: 1rem 0; /* Add vertical padding */
+            width: 100%;
+            position: relative; /* Allows z-index */
+            z-index: 20; /* Below header, above main content card */
+        }
+
+        .alert-content {
+             max-width: 900px; /* Match main content width */
+            margin: 0 auto; /* Center content */
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            padding: 0 1rem; /* Add horizontal padding */
+        }
+
+        .alert-icon {
+            color: #e53e3e;
+            font-size: 1.75rem;
+            flex-shrink: 0;
+            margin-top: 0.2rem;
+            animation: pulse 2s infinite; /* Re-using pulse from background */
+        }
+
+        /* Remove redundant pulse animation if re-using */
+        /* @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } } */
+
+        .alert-text {
+            font-size: 1rem;
+            color: #742a2a;
+            line-height: 1.6;
+        }
+         .dark .alert-banner {
+             background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(185, 28, 28, 0.1) 100%);
+            border-top-color: hsl(var(--error) / 0.5);
+            border-bottom-color: hsl(var(--error) / 0.5);
+         }
+         .dark .alert-icon { color: hsl(var(--error)); }
+         .dark .alert-text { color: hsl(var(--error) / 0.8); }
+         .dark .alert-text strong { color: hsl(var(--error)); }
+         .dark .last-update { color: hsl(var(--muted-foreground)); }
+
+
+        .alert-text p {
+            margin: 0.5rem 0;
+        }
+
+        .alert-text strong {
+            color: #9b2c2c;
+            font-weight: 600;
+        }
+
+        .last-update {
             font-size: 0.875rem;
+            color: #718096;
+            margin-top: 0.75rem !important;
+            font-style: italic;
         }
-        .grade-cell {
+
+        @media (max-width: 640px) {
+            .alert-content {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                gap: 1rem;
+            }
+
+            .alert-icon {
+                margin: 0 0 0.5rem 0;
+            }
+
+            .alert-text {
+                font-size: 0.95rem;
+            }
+        }
+
+
+        /* Password Overlay Styles - Match popup in previous files */
+        .password-overlay {
+            position: fixed;
+            inset: 0; /* Use inset for full screen */
+            /* Use standard background blur */
+            background: hsla(var(--background), 0.5); 
+            backdrop-filter: blur(8px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 1rem; /* Add padding */
+            opacity: 0; /* Start hidden with transition */
+            transition: opacity 0.3s ease;
+        }
+
+         .password-overlay.active { display: flex; opacity: 1; } /* Use active class for showing */
+
+        .password-box {
+             /* Use standard card styles */
+            background: hsl(var(--card)); 
+            border: 1px solid hsl(var(--border)); 
+            border-radius: var(--radius); 
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15); /* Larger shadow */
+            max-width: 450px; /* Adjusted max-width */
+            width: 100%; /* Make it fill width up to max */
+            padding: 2.5rem; /* Adjusted padding */
+            text-align: center;
+            transform: scale(0.95) translateY(10px); /* Add transform for animation */
+            transition: transform 0.3s ease, opacity 0.3s ease;
+             overflow: hidden; /* Hide potential overflow */
+        }
+        /* Animation on active */
+        .password-overlay.active .password-box { transform: scale(1) translateY(0); opacity: 1; }
+
+        .dark .password-box { background: hsl(var(--card)); border-color: hsl(var(--border)); } /* No opacity needed in dark card */
+
+
+        .password-box h2 {
+            /* Use gradient like page title */
+             margin-bottom: 1.5rem; 
+            font-size: 1.5rem; 
+            font-weight: 600; 
+             background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--ring)));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+         .dark .password-box h2 {
+             background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--ring)));
+             -webkit-background-clip: text;
+             background-clip: text;
+             color: transparent;
+        }
+
+
+        .password-box input {
+            width: 100%;
+            padding: 0.75rem;
+            margin: 1rem 0 1.5rem 0; /* Adjusted margins */
+            border: 1px solid hsl(var(--border)); /* Use border variable */
+            border-radius: var(--radius); /* Use radius variable */
+            font-size: 1rem;
+            transition: all 0.3s ease;
+             background: hsl(var(--input)); /* Use input background */
+            color: hsl(var(--foreground));
+        }
+         .dark .password-box input { background: hsl(var(--input)); border-color: hsl(var(--border)); color: hsl(var(--foreground)); }
+
+
+        .password-box input:focus {
+            outline: none;
+             border-color: hsl(var(--primary)); /* Use primary color */
+             box-shadow: 0 0 0 2px hsl(var(--primary) / 0.2); /* Use primary color */
+        }
+
+        .password-box button {
+             /* Style like module-btn / login button in previous files */
+            background: hsl(var(--primary)); 
+            color: hsl(var(--primary-foreground));
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius); /* Use radius variable */
+            border: none;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            width: 100%;
+            margin-top: 0; /* No top margin needed */
+        }
+         .password-box button:hover { background: hsl(var(--primary) / 0.9); transform: translateY(-2px); box-shadow: 0 4px 8px hsl(var(--primary) / 0.2); }
+         .dark .password-box button { background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); }
+         .dark .password-box button:hover { background: hsl(var(--primary) / 0.9); }
+
+
+        .password-box .instagram-note {
+            margin-top: 1.5rem; /* Adjusted margin */
+            font-size: 0.85rem; /* Adjusted size */
+            color: hsl(var(--muted-foreground)); /* Use muted-foreground */
+            line-height: 1.5;
+        }
+
+        /* Instagram link color - Match previous files */
+        .password-box .instagram-link {
+            color: #E1306C; /* Specific Instagram color */
+            text-decoration: none;
+            font-weight: 500;
+             transition: color 0.3s ease, text-decoration 0.3s ease;
+        }
+         .password-box .instagram-link:hover { text-decoration: underline; color: #C13584; }
+         .dark .password-box .instagram-link { color: #F56040; } 
+         .dark .password-box .instagram-link:hover { color: #FF7D64; }
+
+
+        .error-message {
+            color: hsl(var(--error)); /* Use error color */
             font-size: 0.875rem;
-            text-align: right;
+            margin-top: 0.5rem;
+            display: none;
         }
-        th {
-            font-size: 0.875rem;
+
+        /* Remove or update the part that referred to the connect link */
+         /* .password-box p.mb-4 { display: none; } */ /* This was in the previous file, not this one, keeping it commented */
+
+
+        /* Theme Toggle styles */
+        .theme-toggle {
+            position: fixed; bottom: 1rem; right: 1rem; z-index: 1001; 
+            width: 3rem; height: 3rem; border-radius: 9999px;
+            background: hsl(var(--card)); border: 1px solid hsl(var(--border)); display: flex; align-items: center; justify-content: center;
+            cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
-    }
+        .theme-toggle:hover { transform: translateY(-2px) scale(1.05); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15); }
+         /* Theme toggle icon color adjusted */
+        .theme-toggle i { font-size: 1.25rem; color: hsl(var(--foreground)); transition: transform 0.4s ease, color 0.3s ease; } 
+        .dark .theme-toggle i { color: hsl(var(--foreground)); } 
+        .theme-toggle:hover i { transform: rotate(20deg) scale(1.1); }
+        .dark .theme-toggle { background: hsl(var(--card)); border-color: hsl(var(--border)); }
 
-    .alert-banner {
-      background: linear-gradient(135deg, #fff5f5 0%, #fed7d7 100%);
-      border-top: 1px solid #fecaca;
-      border-bottom: 1px solid #fecaca;
-      margin: 1rem 0;
-      padding: 1rem;
-      width: 100%;
-    }
+        /* Footer styles */
+         footer {
+             text-align: center;
+             color: hsl(var(--muted-foreground)); /* Use muted-foreground */
+             font-size: 0.875rem; /* Adjusted size */
+             padding: 1.5rem 0; /* Adjusted padding */
+            border-top: 1px solid hsl(var(--border)); /* Use border color */
+             margin-top: 3rem; /* Adjusted margin */
+             background: hsl(var(--background) / 0.8); /* Match header blur/opacity */
+             backdrop-filter: blur(8px);
+        }
+        .dark footer {
+             border-top-color: hsl(var(--border));
+            background: hsl(var(--background) / 0.9);
+        }
 
-    .alert-content {
-      max-width: 900px;
-      margin: 0 auto;
-      display: flex;
-      align-items: flex-start;
-      gap: 1.5rem;
-      padding: 0.5rem 1rem;
-    }
+        /* Link styles in footer */
+        footer a {
+            color: hsl(var(--primary));
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease, text-decoration 0.3s ease;
+        }
+        footer a:hover {
+            color: hsl(var(--primary) / 0.8);
+            text-decoration: underline;
+        }
+         .dark footer a { color: hsl(var(--primary)); }
+         .dark footer a:hover { color: hsl(var(--primary) / 0.8); }
 
-    .alert-icon {
-      color: #e53e3e;
-      font-size: 1.75rem;
-      flex-shrink: 0;
-      margin-top: 0.2rem;
-      animation: pulse 2s infinite;
-    }
 
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.1); }
-      100% { transform: scale(1); }
-    }
+        /* Add shake animation CSS */
+        @keyframes shake { 10%, 90% { transform: translate3d(-1px, 0, 0); } 20%, 80% { transform: translate3d(2px, 0, 0); } 30%, 50%, 70% { transform: translate3d(-4px, 0, 0); } 40%, 60% { transform: translate3d(4px, 0, 0); } }
+        .animate-shake { animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both; transform: translate3d(0, 0, 0); }
 
-    .alert-text {
-      font-size: 1rem;
-      color: #742a2a;
-      line-height: 1.6;
-    }
-
-    .alert-text p {
-      margin: 0.5rem 0;
-    }
-
-    .alert-text strong {
-      color: #9b2c2c;
-      font-weight: 600;
-    }
-
-    .last-update {
-      font-size: 0.875rem;
-      color: #718096;
-      margin-top: 0.75rem !important;
-      font-style: italic;
-    }
-
-    @media (max-width: 640px) {
-      .alert-content {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        gap: 1rem;
-      }
-
-      .alert-icon {
-        margin: 0 0 0.5rem 0;
-      }
-
-      .alert-text {
-        font-size: 0.95rem;
-      }
-    }
-
-    /* Remove or update the part that referred to the connect link */
-    .password-box p.mb-4 {
-      display: none; /* Or remove the entire <p> if you prefer */
-    }
   </style>
 </head>
-<body class="bg-gray-50 flex flex-col min-h-screen">
-  <div id="passwordOverlay" class="password-overlay">
+<body class="flex flex-col min-h-screen">
+    <!-- Hero Background -->
+    <div class="hero-bg">
+        <div class="gradient-blob gradient-blob-1"></div>
+        <div class="gradient-blob gradient-blob-2"></div>
+        <!-- Floating dots with colors from index.html -->
+        <div class="floating-dot w-4 h-4 bg-blue-500 top-1/4 left-1/4"></div>
+        <div class="floating-dot w-3 h-3 bg-purple-500 top-1/3 right-1/4"></div>
+        <div class="floating-dot w-2 h-2 bg-green-500 bottom-1/4 left-1/3"></div>
+        <div class="floating-dot w-3 h-3 bg-amber-500 top-2/3 right-1/3"></div>
+    </div>
+
+    <!-- Floating Particles -->
+    <div class="floating-particles" id="particles"></div>
+
+  <div id="passwordOverlay" class="password-overlay active"> <!-- Start as active -->
     <div class="password-box">
       <h2>Accès Sécurisé</h2>
-      <!-- Removed the "connectez-vous" text block -->
       <input 
         type="password" 
         id="passwordInput" 
@@ -405,78 +697,109 @@
     </div>
   </header>
 
-  <!-- Add alert banner here -->
-  <div class="alert-banner">
-    <div class="alert-content">
-      <i class="fas fa-exclamation-triangle alert-icon"></i>
-      <div class="alert-text">
-        <p><strong>Avis Important :</strong> Une mise à jour des moyennes est en cours. Les modifications seront reflétées en temps réel sur le site.</p>
-        <p>Les notes des travaux pratiques d'Algorithmique sont actuellement en cours de traitement et n'ont pas été incluses dans certains calculs de moyenne.</p>
-        <p class="last-update">Dernière mise à jour : 21 Février 2025, 00:07</p>
-      </div>
-    </div>
-  </div>
-
-  <main class="main-content">
-    <div class="filters-container fade-in">
-      <h1 class="page-title">Informatique LMD - Notes</h1>
-      
-      <div class="text-center mt-4">
-        <a href="notes.html" class="return-button">
-          <i class="fas fa-arrow-left"></i>
-          <span>Retour</span>
-        </a>
-      </div>
-        
-      <!-- Add search bar -->
-      <div class="search-container mt-4">
-        <div class="search-wrapper">
-          <input 
-            type="text" 
-            id="searchInput" 
-            placeholder="Rechercher par nom..."
-            class="search-input px-4 py-2 border rounded-l-lg"
-            onkeypress="handleKeyPress(event)"
-          >
-          <button 
-            id="searchButton"
-            onclick="handleSearch()" 
-            class="search-button"
-          >
-            <i class="fas fa-search"></i>
-          </button>
+  <main class="main-content flex-grow"> <!-- Added flex-grow -->
+    <!-- Add alert banner here -->
+    <div class="alert-banner">
+      <div class="alert-content">
+        <i class="fas fa-exclamation-triangle alert-icon"></i>
+        <div class="alert-text">
+          <p><strong>Avis Important :</strong> Une mise à jour des moyennes est en cours. Les modifications seront reflétées en temps réel sur le site.</p>
+          <p>Les notes des travaux pratiques d'Algorithmique sont actuellement en cours de traitement et n'ont pas été incluses dans certains calculs de moyenne.</p>
+          <p class="last-update">Dernière mise à jour : 21 Février 2025, 00:07</p>
         </div>
       </div>
     </div>
-    
-    <div class="table-wrapper">
-      <div class="table-scroll">
-        <table id="marksTable">
-          <thead>
-            <tr>
-              <th class="name-column sticky-header">Nom et Prenom</th>
-              <th class="grade-column sticky-header sortable" onclick="sortTable('Moyenne du Semestre')">
-                Moyenne du Semestre 
-                <span class="sort-indicator"></span>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- Table body will be populated by JavaScript -->
-          </tbody>
-        </table>
-      </div>
-    </div>
+
+    <div id="mainContentWrapper" class="main-content-wrapper" data-aos="fade-up"> <!-- Added wrapper -->
+        <div class="filters-container fade-in">
+          <h1 class="page-title">Informatique LMD - Notes</h1>
+          
+          <div class="text-center mt-4">
+            <a href="notes.html" class="return-button">
+              <i class="fas fa-arrow-left"></i>
+              <span>Retour</span>
+            </a>
+          </div>
+            
+          <!-- Add search bar -->
+          <div class="search-container mt-4">
+            <div class="search-wrapper">
+              <input 
+                type="text" 
+                id="searchInput" 
+                placeholder="Rechercher par nom..."
+                class="search-input"
+                onkeypress="handleKeyPress(event)"
+              >
+              <button 
+                id="searchButton"
+                onclick="handleSearch()" 
+                class="search-button"
+              >
+                <i class="fas fa-search"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="table-wrapper">
+          <div class="table-scroll">
+            <table id="marksTable">
+              <thead>
+                <tr>
+                  <th class="name-column sticky-header">Nom et Prenom</th>
+                  <th class="grade-column sticky-header sortable" onclick="sortTable('Moyenne du Semestre')">
+                    Moyenne du Semestre 
+                    <span class="sort-indicator"></span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Table body will be populated by JavaScript -->
+                 <tr><td colspan="2" class="text-center py-10 text-gray-500 dark:text-gray-400">Chargement des données...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+     </div> <!-- End main content wrapper -->
   </main>
+
+    <footer>
+         © <span id="currentYear"></span> Université de Bejaia. Développé par 
+         <a href="mailto:mehdi.amara@tech.univ-bejaia.dz">Amara Mehdi</a>
+         <p class="text-xs mt-1">Initiative étudiante non officielle à des fins éducatives.</p>
+     </footer>
+
+     <!-- Theme Toggle -->
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+        <i class="fas fa-moon"></i>
+    </button>
 
   <script>
     let marksData = [];
     let currentSort = { column: '', direction: 'asc' };
 
+    function getBaseUrl() {
+         // Assuming the data is always relative to the repo root or local
+         const currentUrl = window.location.href;
+         // Check if the URL contains 'github.io' or 'vercel.app' for hosted versions
+         if (currentUrl.includes('github.io')) { return 'https://amarameh.github.io/moyensy.github.io/'; }
+         if (currentUrl.includes('vercel.app')) {
+            // Adjust if your vercel app uses a specific subpath, otherwise relative is fine
+             const pathSegments = window.location.pathname.split('/').filter(segment => segment !== '');
+             // Assuming the data folder is at the root of the Vercel deployment, adjust if needed
+             return '/'; // Or window.location.origin + '/'
+         }
+         return './'; // Default for local testing
+     }
+
     async function loadData() {
       try {
-        const response = await fetch('data/marksinfo.json');
-        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+         const fullUrl = `${getBaseUrl()}data/marksinfo.json`;
+        console.log('Attempting to load data from:', fullUrl);
+         // Use fetch with headers to prevent caching issues during development
+        const response = await fetch(fullUrl, { headers: { 'Cache-Control': 'no-cache' }});
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}, URL: ${fullUrl}`);
         
         const data = await response.json();
         if (!Array.isArray(data)) throw new Error('Invalid data format: expected array');
@@ -485,7 +808,9 @@
           item.hasOwnProperty("Nom et Prenom") && 
           item.hasOwnProperty("Moyenne du Semestre")
         );
-        renderTable(marksData);
+        console.log('Loaded data:', marksData.length, 'records');
+        renderTable(marksData); // Render table after data is loaded
+
       } catch (error) {
         console.error('Error loading data:', error);
         showError(error.message);
@@ -494,35 +819,42 @@
 
     // Add colorMark function
     function colorMark(mark) {
-        const numMark = parseFloat(mark);
+        const numMark = parseFloat(String(mark).replace(',', '.')); // Handle comma decimal
         if (isNaN(numMark)) return '';
-        if (numMark >= 10) return 'passing-grade';
-        return 'failing-grade';
+        if (numMark >= 10) return 'grade-passing'; // Use new class names
+        return 'grade-failing'; // Use new class names
     }
 
     // Update filterTable function to use a search button
     function filterTable() {
         const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
-        if (!searchTerm) {
-            renderTable(marksData);
-            return;
-        }
         
-        const filteredData = marksData.filter(item => 
-            item["Nom et Prenom"] && 
-            item["Nom et Prenom"].toLowerCase().includes(searchTerm)
-        );
+        const filteredData = marksData.filter(item => {
+             const name = item["Nom et Prenom"] || "";
+             return name.toLowerCase().includes(searchTerm);
+        });
+        
+        // Re-apply sorting to filtered data
+         if (currentSort.column) {
+             sortData(filteredData, currentSort.column, currentSort.direction);
+         }
+
         renderTable(filteredData);
     }
 
     function renderTable(data) {
       const tbody = document.querySelector('#marksTable tbody');
-      tbody.innerHTML = '';
-      
+      // Clear previous rows but keep the "Loading..." message if it's the only row
+      if (tbody.children.length === 1 && tbody.children[0].classList.contains('loading-message')) {
+           // Keep the loading message for now, it will be replaced
+      } else {
+          tbody.innerHTML = ''; // Clear only if it's not the initial loading row
+      }
+
       if (data.length === 0) {
         tbody.innerHTML = `
           <tr>
-            <td colspan="2" class="text-center py-4 text-gray-500">
+            <td colspan="2" class="text-center py-4 text-gray-500 dark:text-gray-400">
               Aucun résultat trouvé
             </td>
           </tr>
@@ -532,16 +864,45 @@
 
       data.forEach(item => {
         const tr = document.createElement('tr');
+        // Ensure Nom et Prenom and Moyenne du Semestre are accessed safely
+        const name = item["Nom et Prenom"] || "";
+        const moyenne = item["Moyenne du Semestre"]; // Keep original value for sorting/display
+        const formattedMoyenne = moyenne !== undefined && moyenne !== null && moyenne !== "" ? String(moyenne).replace('.', ',') : "";
+
         tr.innerHTML = `
-          <td class="name-cell">${item["Nom et Prenom"] || ""}</td>
-          <td class="grade-cell ${colorMark(item["Moyenne du Semestre"])}">${item["Moyenne du Semestre"] || ""}</td>
+          <td class="name-cell">${name}</td>
+          <td class="grade-cell ${colorMark(moyenne)}">${formattedMoyenne}</td>
         `;
         tbody.appendChild(tr);
       });
     }
 
+    // Helper function for sorting data array
+     function sortData(dataArray, column, direction) {
+         dataArray.sort((a, b) => {
+            // Safely get values, treat missing/NaN/empty as a value that sorts to the bottom
+            let aVal = a[column] !== undefined && a[column] !== null && a[column] !== "" ? parseFloat(String(a[column]).replace(',', '.')) : -Infinity; 
+            let bVal = b[column] !== undefined && b[column] !== null && b[column] !== "" ? parseFloat(String(b[column]).replace(',', '.')) : -Infinity;
+
+            // Handle non-numeric values if necessary
+            if (isNaN(aVal) && isNaN(bVal)) return 0; // Both non-numeric, treat as equal
+            if (isNaN(aVal)) return direction === 'asc' ? 1 : -1; // a is non-numeric, b is numeric
+            if (isNaN(bVal)) return direction === 'asc' ? -1 : 1; // b is non-numeric, a is numeric
+
+            return direction === 'asc' ? aVal - bVal : bVal - aVal;
+        });
+     }
+
+
     function sortTable(column) {
         if (column !== 'Moyenne du Semestre') return;
+
+        // Apply sort to the currently *filtered* data
+        const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
+        let dataToSort = marksData.filter(item => {
+             const name = item["Nom et Prenom"] || "";
+             return name.toLowerCase().includes(searchTerm);
+        });
 
         if (currentSort.column === column) {
             currentSort.direction = currentSort.direction === 'asc' ? 'desc' : 'asc';
@@ -550,34 +911,33 @@
             currentSort.direction = 'asc';
         }
 
-        const sorted = [...marksData].sort((a, b) => {
-            const aVal = parseFloat(a[column]) || 0;
-            const bVal = parseFloat(b[column]) || 0;
-            return currentSort.direction === 'asc' ? aVal - bVal : bVal - aVal;
-        });
+        sortData(dataToSort, column, currentSort.direction);
+
 
         updateSortIndicators(column);
-        renderTable(sorted);
+        renderTable(dataToSort);
     }
 
     function updateSortIndicators(column) {
         const headers = document.querySelectorAll('th.sortable');
         headers.forEach(header => {
             const indicator = header.querySelector('.sort-indicator');
-            if (header.textContent.includes(column)) {
+            // Check if the header's text content includes the column name
+            if (header.textContent.trim().includes(column) && indicator) { // Check if indicator exists
                 indicator.classList.remove('sort-asc', 'sort-desc');
                 indicator.classList.add(`sort-${currentSort.direction}`);
-            } else {
+            } else if (indicator) {
                 indicator.classList.remove('sort-asc', 'sort-desc');
             }
         });
     }
 
+
     function showError(message) {
       const tbody = document.querySelector('#marksTable tbody');
       tbody.innerHTML = `
         <tr>
-          <td colspan="2" class="text-center py-4 text-red-600">
+          <td colspan="2" class="text-center py-4 text-red-600 dark:text-red-400">
             <i class="fas fa-exclamation-triangle mr-2"></i>
             Error loading data: ${message}
           </td>
@@ -592,17 +952,17 @@
         
         // Add loading state
         const icon = button.querySelector('i');
-        icon.classList.remove('fa-search');
-        icon.classList.add('fa-spinner', 'fa-spin');
+        icon.classList.remove('fa-search', 'fa-spinner', 'fa-spin'); // Remove existing
+        icon.classList.add('fa-spinner', 'fa-spin'); // Add spinner
         
-        // Perform search
+        // Perform search and render filtered/sorted data
         filterTable();
         
         // Reset button state after short delay
         setTimeout(() => {
             button.classList.remove('searching');
-            icon.classList.remove('fa-spinner', 'fa-spin');
-            icon.classList.add('fa-search');
+            icon.classList.remove('fa-spinner', 'fa-spin'); // Remove spinner
+            icon.classList.add('fa-search'); // Add search icon back
         }, 500);
     }
 
@@ -612,55 +972,111 @@
         }
     }
 
-    // Add this to your existing script section
+    // Password Check Function
     function checkPassword() {
         const password = document.getElementById('passwordInput').value;
         const errorElement = document.getElementById('passwordError');
+        const passwordInput = document.getElementById('passwordInput');
         
-        // Replace 'your_password_here' with the actual password
-        if (password === 'Campus202425') {
-            document.getElementById('passwordOverlay').style.display = 'none';
+        const correctPassword = 'Campus202425'; // The specified password
+        
+        if (password === correctPassword) {
+            const passwordOverlay = document.getElementById('passwordOverlay');
+             passwordOverlay.classList.remove('active'); // Hide the overlay with transition
+             // Use a timeout to ensure the overlay is visually hidden before showing main content
+             setTimeout(() => {
+                  passwordOverlay.style.display = 'none'; // Fully hide after transition
+                  document.getElementById('mainContentWrapper').style.display = 'block'; // Show main content using display: block
+                   document.body.style.overflow = ''; // Re-enable scrolling
+                    AOS.refresh(); // Trigger AOS on now visible content
+             }, 300); // Match transition duration
+            
             loadData(); // Load data only after correct password
+            
         } else {
             errorElement.style.display = 'block';
-            document.getElementById('passwordInput').value = '';
+             passwordInput.classList.add('animate-shake'); // Add shake animation
+             errorElement.textContent = 'Mot de passe incorrect'; // Ensure error message is set
+            
+            setTimeout(() => {
+                errorElement.style.display = 'none';
+                 passwordInput.classList.remove('animate-shake');
+            }, 1000); // Reduced timeout for faster feedback
+            document.getElementById('passwordInput').value = ''; // Clear input
         }
     }
 
     function handlePasswordKeyPress(event) {
         if (event.key === 'Enter') {
+            event.preventDefault(); // Prevent default form submission
             checkPassword();
         }
     }
 
+    // Theme toggle functionality
+     function toggleTheme() {
+            const body = document.body;
+            const themeToggleIcon = document.querySelector('.theme-toggle i');
+            if (body.classList.contains('dark')) {
+                body.classList.remove('dark');
+                themeToggleIcon.classList.remove('fa-sun'); themeToggleIcon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.classList.add('dark');
+                themeToggleIcon.classList.remove('fa-moon'); themeToggleIcon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+    // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            if (!particlesContainer) return;
+            // Using CSS variables for colors
+            const colors = ['hsl(var(--primary))', 'hsl(var(--success))', 'hsl(var(--warning))']; 
+            for (let i = 0; i < 30; i++) { // More particles for density
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.left = `${Math.random() * 100}vw`; particle.style.top = `${Math.random() * 100}vh`;
+                const size = Math.random() * 3 + 1; // Slightly larger particles
+                particle.style.width = `${size}px`; particle.style.height = particle.style.width;
+                particle.style.setProperty('--x', `${(Math.random() - 0.5) * 200}px`); // Wider movement range
+                particle.style.setProperty('--y', `${(Math.random() - 0.5) * 200}px`);
+                particle.style.animationDuration = `${Math.random() * 15 + 10}s`; // Slower animation
+                particle.style.animationDelay = `${Math.random() * 5}s`; // Varied delays
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+
     // Update the DOMContentLoaded event
     document.addEventListener('DOMContentLoaded', () => {
-        // Don't load data immediately, wait for password
-        document.getElementById('passwordOverlay').style.display = 'flex';
+        // Apply saved theme
+         const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark');
+                document.querySelector('.theme-toggle i').classList.replace('fa-moon', 'fa-sun');
+            }
+        
+        // Show the password overlay and lock scroll
+        const passwordOverlay = document.getElementById('passwordOverlay');
+        passwordOverlay.style.display = 'flex'; // Ensure it's display:flex before transition
+         // Use a short timeout to ensure the element is block before adding the active class
+         setTimeout(() => { passwordOverlay.classList.add('active'); }, 10); 
+        document.body.style.overflow = 'hidden';
+
+         // Create particles
+        createParticles();
+
+        // Get current year for footer
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
     });
   </script>
 
-  <script>
-    // Debug info
-    console.log('Current URL:', window.location.href);
-    console.log('Hostname:', window.location.hostname);
-    console.log('Pathname:', window.location.pathname);
-  </script>
+  <!-- Removed advertisements -->
+  <!-- <script id="aclib" type="text/javascript" src="//acscdn.com/script/aclib.js"></script> -->
 
-
-    // Update the checkPassword function
-    function checkPassword() {
-      const password = document.getElementById('passwordInput').value;
-      const errorElement = document.getElementById('passwordError');
-      
-      if (password === 'Campus202425') {
-        document.getElementById('passwordOverlay').style.display = 'none';
-        loadData();
-      } else {
-        errorElement.style.display = 'block';
-        document.getElementById('passwordInput').value = '';
-      }
-    }
-  </script>
 </body>
 </html>
