@@ -6,13 +6,12 @@
     <title>Simulateur d'Examen - Thermodynamique (Chimie 2)</title>
     <meta name="description" content="Simulateur d'examen pour la révision des étudiants en Thermodynamique (Chimie 2) - ST LMD Campus El-Kseur">
     <meta name="author" content="El-Kseur ST LMD Helper">
-    <link rel="icon" type="image/png" href="assets/img/icon.png"> <!-- Make sure you have this icon or update path -->
+    <link rel="icon" type="image/png" href="assets/img/icon.png">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;500;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
-
 
     <!-- Vercel Analytics -->
     <script>
@@ -35,27 +34,25 @@
             --foreground: 222.2 84% 4.9%;
             --card: 0 0% 100%;
             --card-foreground: 222.2 84% 4.9%;
-            --primary: 221.2 83.2% 53.3%; /* Bleu vif */
-            --primary-foreground: 210 40% 98%; /* Blanc cassé */
-            --secondary: 210 40% 96.1%; /* Gris clair */
-            --secondary-foreground: 222.2 47.4% 11.2%; /* Gris foncé */
+            --primary: 221.2 83.2% 53.3%;
+            --primary-foreground: 210 40% 98%;
+            --secondary: 210 40% 96.1%;
+            --secondary-foreground: 222.2 47.4% 11.2%;
             --muted: 210 40% 96.1%;
             --muted-foreground: 215.4 16.3% 46.9%;
             --accent: 210 40% 96.1%;
             --accent-foreground: 222.2 47.4% 11.2%;
-            --border: 214.3 31.8% 91.4%; /* Bordure gris clair */
+            --border: 214.3 31.8% 91.4%;
             --input: 214.3 31.8% 91.4%;
             --ring: 221.2 83.2% 53.3%;
             --radius: 0.5rem;
-
-            /* Custom colors for correction */
-            --correct-color: 145 63% 42%; /* Vert */
-            --incorrect-color: 350 80% 50%; /* Rouge */
-            --manual-color: 38 92% 50%; /* Jaune orangé */
-            --tolerance-color: 200 80% 50%; /* Bleu pour réponse dans la tolérance mais pas exacte */
+            --correct-color: 145 63% 42%;
+            --incorrect-color: 350 80% 50%;
+            --manual-color: 38 92% 50%;
+            --tolerance-color: 200 80% 50%;
             --font-sans: 'Poppins', sans-serif;
             --font-mono: 'Roboto Mono', monospace;
-            --font-readable: 'Lato', sans-serif; /* Added for better readability of long texts */
+            --font-readable: 'Lato', sans-serif;
         }
 
         .dark {
@@ -74,50 +71,21 @@
             --border: 217.2 32.6% 17.5%;
             --input: 217.2 32.6% 17.5%;
             --ring: 224.3 76.3% 48%;
-
             --correct-color: 145 58% 55%;
             --incorrect-color: 350 70% 65%;
             --manual-color: 48 92% 60%;
             --tolerance-color: 200 70% 65%;
         }
 
-        body {
-            font-family: var(--font-readable); /* Changed to Lato for general text */
-            line-height: 1.6;
-            background: hsl(var(--background));
-            color: hsl(var(--foreground));
-            min-height: 100vh;
-            -webkit-tap-highlight-color: transparent;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-
-        h1, h2, h3, h4, h5, h6 {
-            font-family: var(--font-sans); /* Poppins for headings */
-        }
-
+        body { font-family: var(--font-readable); line-height: 1.6; background: hsl(var(--background)); color: hsl(var(--foreground)); min-height: 100vh; -webkit-tap-highlight-color: transparent; transition: background-color 0.3s ease, color 0.3s ease; }
+        h1, h2, h3, h4, h5, h6 { font-family: var(--font-sans); }
         .exam-container { max-width: 1200px; margin: 0 auto; padding: 1rem; }
         .exam-card { background: hsl(var(--card)); border: 1px solid hsl(var(--border)); border-radius: var(--radius); padding: 1.5rem; margin-bottom: 1.5rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); }
         .timer { font-family: var(--font-mono); font-size: 1.25rem; font-weight: bold; color: hsl(var(--primary)); text-align: center; margin: 1rem 0; }
         @media (min-width: 640px) { .timer { font-size: 1.5rem; } }
         .question-container { margin: 1.5rem 0; }
-
-        .exercise-title {
-            font-family: var(--font-sans);
-            font-size: 1.35rem; /* Slightly larger */
-            font-weight: 600;
-            color: hsl(var(--primary));
-            margin-top: 2rem;
-            margin-bottom: 1rem;
-            border-bottom: 2px solid hsl(var(--primary));
-            padding-bottom: 0.5rem;
-        }
-         .exercise-points-summary {
-             font-size: 0.9rem;
-             color: hsl(var(--muted-foreground));
-             margin-left: 0.5rem;
-         }
-
-
+        .exercise-title { font-family: var(--font-sans); font-size: 1.35rem; font-weight: 600; color: hsl(var(--primary)); margin-top: 2rem; margin-bottom: 1rem; border-bottom: 2px solid hsl(var(--primary)); padding-bottom: 0.5rem; }
+        .exercise-points-summary { font-size: 0.9rem; color: hsl(var(--muted-foreground)); margin-left: 0.5rem; }
         .option { display: flex; align-items: center; width: 100%; padding: 0.75rem; margin: 0.4rem 0; border: 1px solid hsl(var(--border)); border-radius: var(--radius); background: hsl(var(--card)); cursor: pointer; transition: all 0.3s ease; gap: 0.6rem; user-select: none; -webkit-user-select: none; -moz-user-select: none; }
         .option:hover:not(.disabled-option) { background: hsl(var(--accent)); border-color: hsl(var(--primary)); }
         .option.disabled-option { cursor: default; opacity: 0.8; }
@@ -131,74 +99,53 @@
         .option.correct { background: hsl(var(--correct-color)); color: white; border-color: hsl(var(--correct-color)); }
         .option.incorrect.selected-option { background: hsl(var(--incorrect-color)); color: white; border-color: hsl(var(--incorrect-color)); }
         .option.correct input[type="radio"], .option.correct input[type="checkbox"], .option.incorrect.selected-option input[type="radio"], .option.incorrect.selected-option input[type="checkbox"] { accent-color: white; }
-
         .theme-toggle, .logout-button { position: fixed; bottom: 1rem; padding: 0.75rem; border-radius: 50%; background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); cursor: pointer; transition: all 0.3s ease; box-shadow: 0 2px 5px rgba(0,0,0,0.2); z-index: 50; border: none; }
         .theme-toggle { right: 1rem; }
         .logout-button { left: 1rem; background: hsl(var(--secondary)); color: hsl(var(--secondary-foreground)); }
         .logout-button:hover:not(:disabled) { background: hsl(var(--secondary-foreground)); color: hsl(var(--secondary)); }
         .theme-toggle:hover:not(:disabled), .logout-button:hover:not(:disabled) { transform: scale(1.1); }
         .theme-toggle:disabled, .logout-button:disabled { cursor: not-allowed; opacity: 0.8; }
-
-        .login-form { max-width: 450px; /* Slightly wider for rules */ margin: 1.5rem auto; padding: 1.5rem; background: hsl(var(--card)); border-radius: var(--radius); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); text-align: center; }
+        .login-form { max-width: 450px; margin: 1.5rem auto; padding: 1.5rem; background: hsl(var(--card)); border-radius: var(--radius); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); text-align: center; }
         .form-input { width: 100%; padding: 0.75rem; margin: 0.5rem 0; border: 1px solid hsl(var(--border)); border-radius: var(--radius); background: hsl(var(--input)); color: hsl(var(--foreground)); font-family: var(--font-sans);}
         .btn { font-family: var(--font-sans); display: inline-block; padding: 0.75rem 1.5rem; background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); border-radius: var(--radius); cursor: pointer; transition: all 0.3s ease; border: none; font-weight: 500; text-align: center; width: auto; }
         .btn.w-full { width: 100%; }
         .btn:hover:not(:disabled) { opacity: 0.9; transform: translateY(-1px); }
         .btn:disabled { background-color: hsl(var(--muted)); color: hsl(var(--muted-foreground)); cursor: not-allowed; transform: none; opacity: 0.8; }
-
         .leaderboard { margin-top: 1.5rem; }
         .leaderboard-item { display: flex; justify-content: space-between; align-items: center; padding: 0.75rem; border-bottom: 1px solid hsl(var(--border)); font-family: var(--font-sans); }
         .leaderboard-item:last-child { border-bottom: none; }
-
         .stats-card { background: hsl(var(--card)); border: 1px solid hsl(var(--border)); border-radius: var(--radius); padding: 1rem; margin: 1rem 0; text-align: center; }
         .stats-number { font-family: var(--font-mono); font-size: 1.75rem; font-weight: bold; color: hsl(var(--primary)); }
         @media (min-width: 640px) { .stats-number { font-size: 2rem; } }
         .score-detail { font-size: 0.9rem; color: hsl(var(--muted-foreground)); margin-top: 0.5rem; }
-
         .question-number { font-family: var(--font-sans); font-weight: bold; color: hsl(var(--primary)); margin-bottom: 0.5rem; font-size: 1.05em; }
         .question-points { font-size: 0.9em; font-weight: normal; color: hsl(var(--muted-foreground)); margin-left: 0.5em; }
-        .question-text { margin-bottom: 1rem; /* Increased margin */ font-size: 1.05rem; /* Slightly larger text */ }
-        .question-text ul { list-style-type: disc; padding-left: 1.5rem; margin: 0.5rem 0;} /* For bullet points in questions */
+        .question-text { margin-bottom: 1rem; font-size: 1.05rem; }
+        .question-text ul { list-style-type: disc; padding-left: 1.5rem; margin: 0.5rem 0;}
         .question-text .formula { font-family: var(--font-mono); font-weight: 500; color: hsl(var(--primary)); background-color: hsl(var(--muted)); padding: 0.1em 0.3em; border-radius: 0.2em; }
         .question-text .data-block { font-size: 0.95rem; color: hsl(var(--muted-foreground)); margin-top: 0.5rem; padding: 0.5rem; border-left: 3px solid hsl(var(--border)); background-color: hsl(var(--secondary)); border-radius: 0 var(--radius) var(--radius) 0;}
-
-
         .calculation-step-container { margin-top: 1rem; }
-        .calculation-step { display: flex; flex-wrap: wrap; align-items: center; margin-bottom: 0.75rem; padding: 0.75rem; /* Increased padding */ border: 1px solid hsl(var(--border)); border-radius: var(--radius); }
-        .calculation-step label { flex-basis: 100%; margin-bottom: 0.35rem; /* Increased margin */ font-size: 0.95rem; /* Slightly larger */ color: hsl(var(--foreground)); }
-        @media (min-width: 600px) {
-            .calculation-step label { flex-basis: 60%; margin-bottom: 0; padding-right: 0.5rem; }
-        }
-        .calculation-step input[type="number"], .calculation-step input[type="text"] {
-            flex-grow: 1; padding: 0.6rem; /* Increased padding */ border: 1px solid hsl(var(--border)); border-radius: var(--radius); background: hsl(var(--input)); color: hsl(var(--foreground)); font-family: var(--font-mono); font-size:0.95rem; /* Slightly larger */
-            min-width: 100px; /* Ensure input is not too small */
-        }
-        .calculation-step .unit { margin-left: 0.5rem; font-size: 0.95rem; /* Slightly larger */ color: hsl(var(--muted-foreground)); }
-
-        /* Correction for calculation steps */
+        .calculation-step { display: flex; flex-wrap: wrap; align-items: center; margin-bottom: 0.75rem; padding: 0.75rem; border: 1px solid hsl(var(--border)); border-radius: var(--radius); }
+        .calculation-step label { flex-basis: 100%; margin-bottom: 0.35rem; font-size: 0.95rem; color: hsl(var(--foreground)); }
+        @media (min-width: 600px) { .calculation-step label { flex-basis: 60%; margin-bottom: 0; padding-right: 0.5rem; } }
+        .calculation-step input[type="number"], .calculation-step input[type="text"] { flex-grow: 1; padding: 0.6rem; border: 1px solid hsl(var(--border)); border-radius: var(--radius); background: hsl(var(--input)); color: hsl(var(--foreground)); font-family: var(--font-mono); font-size:0.95rem; min-width: 100px; }
+        .calculation-step .unit { margin-left: 0.5rem; font-size: 0.95rem; color: hsl(var(--muted-foreground)); }
         .calculation-step.correct input { border-color: hsl(var(--correct-color)) !important; background-color: hsla(var(--correct-color), 0.1) !important; }
         .calculation-step.incorrect input { border-color: hsl(var(--incorrect-color)) !important; background-color: hsla(var(--incorrect-color), 0.1) !important; }
         .calculation-step.tolerance input { border-color: hsl(var(--tolerance-color)) !important; background-color: hsla(var(--tolerance-color), 0.1) !important; }
-        .calculation-step .correction-details {
-            flex-basis: 100%; font-size: 0.9rem; /* Slightly larger */ margin-top: 0.35rem; /* Increased margin */ padding-left: 0.25rem;
-        }
+        .calculation-step .correction-details { flex-basis: 100%; font-size: 0.9rem; margin-top: 0.35rem; padding-left: 0.25rem; }
         .calculation-step .correction-details .correct-value { color: hsl(var(--correct-color)); font-weight: bold; }
         .calculation-step .correction-details .user-value.incorrect { color: hsl(var(--incorrect-color)); }
         .calculation-step .correction-details .user-value.tolerance { color: hsl(var(--tolerance-color)); }
-
-
         .text-input { width: 100%; padding: 0.75rem; margin-top: 1rem; border: 1px solid hsl(var(--border)); border-radius: var(--radius); background: hsl(var(--input)); color: hsl(var(--foreground)); font-family: var(--font-sans); font-size: 0.9rem; resize: vertical; }
         .text-input::placeholder { color: hsl(var(--muted-foreground)); opacity: 1; }
-
         .progress-bar { width: 100%; height: 0.5rem; background: hsl(var(--muted)); border-radius: var(--radius); overflow: hidden; margin: 1rem 0; }
         .progress-fill { height: 100%; background: hsl(var(--primary)); transition: width 0.3s ease; }
-
         .rules-container { background: hsl(var(--card)); border: 1px solid hsl(var(--border)); border-radius: var(--radius); padding: 1.5rem; margin: 1.5rem 0; }
         .rules-title { font-family: var(--font-sans); font-size: 1.25rem; font-weight: bold; margin-bottom: 1rem; color: hsl(var(--primary)); }
         @media (min-width: 640px) { .rules-title { font-size: 1.5rem; } }
         .rules-list { list-style-type: disc; padding-left: 1.25rem; margin: 1rem 0; font-size: 0.95rem; }
         .rules-list li { margin: 0.4rem 0; }
-
         .correction-item { border-bottom: 1px solid hsl(var(--border)); padding: 1rem 0; }
         .correction-item:last-child { border-bottom: none; }
         .correction-item .question-text { margin-bottom: 0.5rem; font-weight: 500; font-size: 1.05rem; }
@@ -207,21 +154,8 @@
         .correction-item .text-correction .user-answer.correct { color: hsl(var(--correct-color)); }
         .correction-item .text-correction .user-answer.unanswered { color: hsl(var(--muted-foreground)); font-weight: normal; font-style: italic; }
         .correction-item .manual-grade-note { font-size: 0.85rem; color: hsl(var(--manual-color)); margin-top: 0.75rem; font-weight: 500; }
-
-        .feedback-motif {
-            margin-top: 1.5rem;
-            padding: 1rem;
-            background-color: hsl(var(--secondary));
-            border: 1px solid hsl(var(--border));
-            border-radius: var(--radius);
-        }
-        .feedback-motif h4 {
-            font-family: var(--font-sans);
-            font-weight: 600;
-            color: hsl(var(--primary));
-            margin-bottom: 0.5rem;
-        }
-
+        .feedback-motif { margin-top: 1.5rem; padding: 1rem; background-color: hsl(var(--secondary)); border: 1px solid hsl(var(--border)); border-radius: var(--radius); }
+        .feedback-motif h4 { font-family: var(--font-sans); font-weight: 600; color: hsl(var(--primary)); margin-bottom: 0.5rem; }
     </style>
 </head>
 <body>
@@ -234,7 +168,6 @@
         <h2 class="text-2xl font-bold mb-1">Simulateur d'Examen</h2>
         <p class="text-xl mb-2 text-primary font-semibold">Thermodynamique (Chimie 2)</p>
         <p class="text-sm mb-4 text-muted-foreground">ST LMD - Campus El-Kseur</p>
-
 
         <div class="rules-container text-left">
             <div class="rules-title">Règlement de l'examen simulé</div>
@@ -251,7 +184,7 @@
 
         <div class="stats-card">
             <div class="stats-number" id="registeredCount">0</div>
-            <div>Participants enregistrés (Thermodynamique)</div>
+            <div>Participants enregistrés (Total)</div> <!-- Changed from Thermodynamique to Total -->
         </div>
 
         <form id="loginForm">
@@ -294,7 +227,7 @@
 
         <div class="stats-card">
             <div class="stats-number" id="submittedCount">0</div>
-            <div>Participants ayant soumis (Thermodynamique)</div>
+            <div>Participants ayant soumis (Total)</div> <!-- Changed from Thermodynamique to Total -->
         </div>
 
          <div id="correctionSection" class="correction-section mt-4 mb-8 hidden">
@@ -326,16 +259,18 @@
     import { getFirestore, doc, getDoc, setDoc, collection, addDoc, getDocs, query, orderBy, limit, serverTimestamp, onSnapshot, where, increment } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
     // IMPORTANT: Replace with your actual Firebase configuration
+    // This is the OLD configuration as requested
     const firebaseConfig = {
-        apiKey: "YOUR_API_KEY",
-        authDomain: "YOUR_AUTH_DOMAIN",
-        databaseURL: "YOUR_DATABASE_URL",
-        projectId: "YOUR_PROJECT_ID",
-        storageBucket: "YOUR_STORAGE_BUCKET",
-        messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-        appId: "YOUR_APP_ID",
-        measurementId: "YOUR_MEASUREMENT_ID" // Optional
+        apiKey: "AIzaSyB5XYqWKhHdiVDXJx4iOwtpxD8eUCPRfKU",
+        authDomain: "universite-de-bejaia-547fc.firebaseapp.com",
+        databaseURL: "https://universite-de-bejaia-547fc-default-rtdb.europe-west1.firebasedatabase.app",
+        projectId: "universite-de-bejaia-547fc",
+        storageBucket: "universite-de-bejaia-547fc.appspot.com", // .appspot.com is common
+        messagingSenderId: "517622731583",
+        appId: "1:517622731583:web:25453d5e01226585bf798a",
+        measurementId: "G-SQ0WWSCS7B"
     };
+
 
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
@@ -368,14 +303,12 @@
 
 
     // --- THERMODYNAMIQUE QUESTIONS ---
-    // Total points: 20
     const questions = [
         // Exercice 1 (04 points): Mélange gazeux
         {
             id: 'exo1',
             exerciseTitle: 'Exercice 1 : Mélange Gazeux',
             type: 'calculationStep',
-            // Replaced LaTeX-like syntax with plain text and HTML for simple formatting
             text: `Soit une masse de 80g de mélange gazeux d'azote (N<sub>2</sub>) et de méthane (CH<sub>4</sub>), formée de 31,14% en poids d'azote et occupant un volume de 0,995 litres à 150°C.
                    <div class="data-block">Données: M(H)=1 g/mol; M(C)=12 g/mol; M(N)=14 g/mol; R=0,082 L.atm.K<sup>-1</sup>.mol<sup>-1</sup>.</div>`,
             points: 4,
@@ -405,7 +338,7 @@
                    <div class="data-block">Données: R=8,31 J/mol.K; γ=1,4; C<sub>p</sub>=29,09 J/mol.K; C<sub>v</sub>=20,8 J/mol.K.</div>`,
             points: 8,
             steps: [
-                { id: 'Pc', prompt: "2.1. Pression P<sub>C</sub> (Pour B→C isotherme: <span class='formula'>P<sub>B</sub>V<sub>B</sub> = P<sub>C</sub>V<sub>C</sub></span>, avec P<sub>B</sub>=P<sub>A</sub>, V<sub>B</sub>=2V<sub>A</sub>, V<sub>C</sub>=V<sub>A</sub>)", unit: "atm", correctAnswer: 5.0, tolerance: 0.1, points: 0.5 },
+                { id: 'Pc', prompt: "2.1. Pression P<sub>C</sub> (Pour B→C isotherme: <span class='formula'>P<sub>B</sub>V<sub>B</sub> = P<sub>C</sub>V<sub>C</sub></span>)", unit: "atm", correctAnswer: 5.0, tolerance: 0.1, points: 0.5 },
                 { id: 'W_AB', prompt: "2.2. Travail W<sub>AB</sub> (<span class='formula'>W = -PΔV</span>, 1 L.atm = 101.3 J)", unit: "kJ", correctAnswer: -2.659, tolerance: 0.05, points: 0.75 },
                 { id: 'Q_AB', prompt: "2.3. Chaleur Q<sub>AB</sub> (<span class='formula'>Q<sub>p</sub> = nC<sub>p</sub>ΔT</span>)", unit: "kJ", correctAnswer: 9.308, tolerance: 0.1, points: 0.75 },
                 { id: 'DeltaU_AB', prompt: "2.4. ΔU<sub>AB</sub> (<span class='formula'>ΔU = nC<sub>v</sub>ΔT</span>)", unit: "kJ", correctAnswer: 6.656, tolerance: 0.1, points: 0.75 },
@@ -413,11 +346,11 @@
                 { id: 'DeltaS_AB', prompt: "2.6. ΔS<sub>AB</sub> (<span class='formula'>ΔS = nC<sub>p</sub> ln(T<sub>B</sub>/T<sub>A</sub>)</span>)", unit: "J/K", correctAnswer: 20.16, tolerance: 0.2, points: 0.75 },
                 { id: 'W_BC', prompt: "2.7. Travail W<sub>BC</sub> (<span class='formula'>W = -nRT ln(V<sub>C</sub>/V<sub>B</sub>)</span>, T<sub>B</sub>=640K)", unit: "kJ", correctAnswer: 3.686, tolerance: 0.05, points: 0.75 },
                 { id: 'Q_BC', prompt: "2.8. Chaleur Q<sub>BC</sub> (<span class='formula'>Q = -W</span> pour isotherme)", unit: "kJ", correctAnswer: -3.686, tolerance: 0.05, points: 0.5 },
-                { id: 'DeltaU_BC', prompt: "2.9. ΔU<sub>BC</sub>", unit: "kJ", correctAnswer: 0, tolerance: 0.001, points: 0.25 }, // Tolerance for exact zero
+                { id: 'DeltaU_BC', prompt: "2.9. ΔU<sub>BC</sub>", unit: "kJ", correctAnswer: 0, tolerance: 0.001, points: 0.25 },
                 { id: 'DeltaH_BC', prompt: "2.10. ΔH<sub>BC</sub>", unit: "kJ", correctAnswer: 0, tolerance: 0.001, points: 0.25 },
                 { id: 'DeltaS_BC', prompt: "2.11. ΔS<sub>BC</sub> (<span class='formula'>ΔS = nR ln(V<sub>C</sub>/V<sub>B</sub>)</span>)", unit: "J/K", correctAnswer: -5.76, tolerance: 0.1, points: 0.75 },
                 { id: 'W_CA', prompt: "2.12. Travail W<sub>CA</sub>", unit: "kJ", correctAnswer: 0, tolerance: 0.001, points: 0.25 },
-                { id: 'Q_CA', prompt: "2.13. Chaleur Q<sub>CA</sub> (<span class='formula'>Q<sub>v</sub> = nC<sub>v</sub>ΔT</span>, T<sub>A</sub>-T<sub>C</sub>)", unit: "kJ", correctAnswer: -6.656, tolerance: 0.1, points: 0.75 },
+                { id: 'Q_CA', prompt: "2.13. Chaleur Q<sub>CA</sub> (<span class='formula'>Q<sub>v</sub> = nC<sub>v</sub>ΔT</span>)", unit: "kJ", correctAnswer: -6.656, tolerance: 0.1, points: 0.75 },
                 { id: 'DeltaU_CA', prompt: "2.14. ΔU<sub>CA</sub> (<span class='formula'>ΔU = nC<sub>v</sub>ΔT</span>)", unit: "kJ", correctAnswer: -6.656, tolerance: 0.1, points: 0.5 },
                 { id: 'DeltaH_CA', prompt: "2.15. ΔH<sub>CA</sub> (<span class='formula'>ΔH = nC<sub>p</sub>ΔT</span>)", unit: "kJ", correctAnswer: -9.308, tolerance: 0.1, points: 0.5 },
                 { id: 'DeltaS_CA', prompt: "2.16. ΔS<sub>CA</sub> (<span class='formula'>ΔS = nC<sub>v</sub> ln(T<sub>A</sub>/T<sub>C</sub>)</span>)", unit: "J/K", correctAnswer: -14.41, tolerance: 0.2, points: 0.75 },
@@ -427,30 +360,38 @@
         {
             id: 'exo3',
             exerciseTitle: 'Exercice 3 : Enthalpie de Réaction',
+            type: 'exercise', // This is a container for sub-questions
             text: `Réaction: CH<sub>4</sub>(g) + 4Cl<sub>2</sub>(g) → CCl<sub>4</sub>(g) + 4HCl(g), <span class='formula'>ΔH°<sub>R,298K</sub> = -401,08 kJ</span>.
                    <div class="data-block">Données C<sub>p</sub>(J/mol.K): CCl<sub>4</sub>(g)=83,51; HCl(g)=29,12; CH<sub>4</sub>(g)=35,71; Cl<sub>2</sub>(g)=33,93.<br>
                    ΔH°<sub>sub</sub>(C,s)=716,7 kJ/mol; ΔH<sub>liaison</sub>(Cl-Cl)=242,6 kJ/mol (énergie pour ROMPRE); ΔH°<sub>f</sub>(CCl<sub>4</sub>,g)=-106,48 kJ/mol.</div>`,
             points: 4, // Total points for the exercise, sum of sub-questions
-            questions: [ // Sub-questions within the exercise
+            questions: [
                 {
-                    id: 'exo3_q1', type: 'trueFalse', text: "3.1. L'enthalpie de la réaction à 25°C (<span class='formula'>ΔH°<sub>R,298K</sub> = -401,08 kJ</span>) indique qu'elle est:",
-                    options: ['Exothermique', 'Endothermique'], answer: 'true', // 'true' corresponds to 'Exothermique'
+                    id: 'exo3_q1_tf', // Unique ID for this sub-question
+                    type: 'trueFalse',
+                    text: "3.1. L'enthalpie de la réaction à 25°C (<span class='formula'>ΔH°<sub>R,298K</sub> = -401,08 kJ</span>) indique qu'elle est:",
+                    options: ['Exothermique', 'Endothermique'],
+                    answer: 'true', // 'true' corresponds to 'Exothermique'
                     points: 0.5
                 },
                 {
-                    id: 'exo3_q2_calc', type: 'calculationStep', text: "3.2. Calculs pour l'enthalpie à 500K:",
-                    points: 1.5,
+                    id: 'exo3_q2_calc', // Unique ID
+                    type: 'calculationStep',
+                    text: "3.2. Calculs pour l'enthalpie de la réaction à 500K:",
+                    points: 1.5, // Points for these calculation steps, sums up to parent exercise points
                     steps: [
-                        { id: 'deltaCp', prompt: "ΔC<sub>p</sub> de la réaction", unit: "J/K.mol", correctAnswer: 28.56, tolerance: 0.1, points: 0.75 },
-                        { id: 'deltaH_500K', prompt: "ΔH°<sub>R</sub> à 500K (<span class='formula'>ΔH(T<sub>2</sub>)=ΔH(T<sub>1</sub>)+ΔC<sub>p</sub>(T<sub>2</sub>-T<sub>1</sub>)</span>)", unit: "kJ", correctAnswer: -395.31, tolerance: 0.2, points: 0.75 },
+                        { id: 'deltaCp_exo3', prompt: "ΔC<sub>p</sub> de la réaction", unit: "J/K.mol", correctAnswer: 28.56, tolerance: 0.1, points: 0.75 },
+                        { id: 'deltaH_500K_exo3', prompt: "ΔH°<sub>R</sub> à 500K (<span class='formula'>ΔH(T<sub>2</sub>)=ΔH(T<sub>1</sub>)+ΔC<sub>p</sub>(T<sub>2</sub>-T<sub>1</sub>)</span>)", unit: "kJ", correctAnswer: -395.31, tolerance: 0.2, points: 0.75 },
                     ]
                 },
                 {
-                    id: 'exo3_q3_calc', type: 'calculationStep', text: "3.3. Calcul de l'énergie de liaison C-Cl (kJ/mol).<br>Formule issue du corrigé: E(C-Cl) = [-ΔH°<sub>f</sub>(CCl<sub>4</sub>,g) + ΔH°<sub>sub</sub>(C,s) + 2*ΔH<sub>liaison_rupture</sub>(Cl-Cl)] / 4.",
+                    id: 'exo3_q3_calc_bond', // Unique ID
+                    type: 'calculationStep',
+                    text: "3.3. Calcul de l'énergie de liaison C-Cl (kJ/mol).<br>Formule (issue du corrigé pour arriver à la valeur positive de l'énergie de liaison):<br><span class='formula'>E(C-Cl) = [-ΔH°<sub>f</sub>(CCl<sub>4</sub>,g) + ΔH°<sub>sub</sub>(C,s) + 2*ΔH<sub>liaison_rupture</sub>(Cl-Cl)] / 4</span>.",
                     points: 2,
                     steps: [
-                        { id: 'num_bond', prompt: "Calcul intermédiaire: <span class='formula'>-ΔH°<sub>f</sub>(CCl<sub>4</sub>,g) + ΔH°<sub>sub</sub>(C,s) + 2*ΔH<sub>liaison</sub>(Cl-Cl)</span>", unit: "kJ", correctAnswer: 1308.38, tolerance: 1.0, points: 1.0 },
-                        { id: 'E_C_Cl', prompt: "Énergie de liaison C-Cl", unit: "kJ/mol", correctAnswer: 327.1, tolerance: 0.5, points: 1.0 },
+                        { id: 'num_bond_exo3', prompt: "Calcul intermédiaire: <span class='formula'>-ΔH°<sub>f</sub>(CCl<sub>4</sub>,g) + ΔH°<sub>sub</sub>(C,s) + 2*ΔH<sub>liaison_rupture</sub>(Cl-Cl)</span>", unit: "kJ", correctAnswer: 1308.38, tolerance: 1.0, points: 1.0 },
+                        { id: 'E_C_Cl_exo3', prompt: "Énergie de liaison C-Cl", unit: "kJ/mol", correctAnswer: 327.1, tolerance: 0.5, points: 1.0 },
                     ]
                 }
             ]
@@ -474,7 +415,6 @@
         }
     ];
 
-    // Recalculate TOTAL_POSSIBLE_POINTS (already correct from previous version)
     const TOTAL_POSSIBLE_POINTS = questions.reduce((sum, q) => {
         if (q.type === 'calculationStep' && q.steps) {
             return sum + q.steps.reduce((stepSum, step) => stepSum + (step.points || 0), 0);
@@ -486,17 +426,21 @@
                  return subQSum + (subQ.points || 0);
             },0);
         }
-        return sum + (q.points || 0);
+        // For top-level MC/TF if any (none in this set)
+        // else if (q.type === 'trueFalse' || q.type === 'multiple') {
+        //    return sum + (q.points || 0);
+        // }
+        return sum; // Should not happen with current structure if all exercises have points
     }, 0);
     console.log("Total possible points calculated:", TOTAL_POSSIBLE_POINTS);
 
 
-    const subjectPrefix = 'thermodynamique_';
-    const registeredCounterRef = doc(db, 'counters', subjectPrefix + 'registered');
-    const examResultsCollection = collection(db, subjectPrefix + 'examResults');
-    const localStorageStartTimeKey = subjectPrefix + 'examStartTime';
-    const localStorageUserKey = subjectPrefix + 'examUser';
-    const localStorageAnswersKey = subjectPrefix + 'examAnswers';
+    // Reverted to old Firebase collection names and localStorage keys
+    const registeredCounterRef = doc(db, 'counters', 'informatique2_registered');
+    const examResultsCollection = collection(db, 'examResults_informatique2');
+    const localStorageStartTimeKey = 'examStartTime_informatique2';
+    const localStorageUserKey = 'examUser_informatique2';
+    const localStorageAnswersKey = 'examAnswers_informatique2';
 
 
     // --- Initialize counter ---
@@ -643,7 +587,7 @@
                 } else {
                     userResultSummaryElement.innerHTML = `<div class="stats-card"><p>Aucun résultat soumis trouvé pour "${userData.pseudo}".</p></div>`;
                     userResultSummaryElement.classList.remove('hidden');
-                    displayCorrection(null, true);
+                    displayCorrection(null, true); // Show generic correction if no result
                 }
             } catch (error) {
                 console.error("Error fetching user result:", error);
@@ -652,7 +596,7 @@
                 displayCorrection(null, true);
             }
         } else {
-             displayCorrection(null, true);
+             displayCorrection(null, true); // Generic correction if no user
         }
         await updateSubmittedCount();
         await updateLeaderboard();
@@ -683,7 +627,7 @@
         const existingSubmission = await checkExistingSubmission(pseudo);
         if (existingSubmission) {
             alert(`Un résultat existe déjà pour "${pseudo}".`);
-            const userData = { pseudo: pseudo, pin: pin };
+            const userData = { pseudo: pseudo, pin: pin }; // Store to show their result
             localStorage.setItem(localStorageUserKey, JSON.stringify(userData));
             showResults(userData);
             return;
@@ -710,7 +654,7 @@
         localStorage.removeItem(localStorageAnswersKey);
         localStorage.removeItem(localStorageStartTimeKey);
         stopExamTimer();
-        stopRegisteredCounterListener();
+        stopRegisteredCounterListener(); // Stop listener before showing login
         showLogin();
         alert("Vous avez été déconnecté.");
     }
@@ -718,57 +662,36 @@
     // --- MODIFIED Exam Logic ---
     function displayQuestions() {
         questionsContainer.innerHTML = '';
-        let currentExerciseTitle = "";
-        let mainQuestionCounter = 0; // Counter for main questions/exercises
+        let mainQuestionCounter = 0;
 
-        questions.forEach((question, qIndex) => { // qIndex is the index in the main `questions` array
-            if (question.exerciseTitle && question.exerciseTitle !== currentExerciseTitle) {
-                mainQuestionCounter++;
-                currentExerciseTitle = question.exerciseTitle;
-                const exerciseHeader = document.createElement('h3');
-                exerciseHeader.className = 'exercise-title';
-                let exerciseTotalPoints = 0;
-                if (question.type === 'calculationStep') {
-                    exerciseTotalPoints = question.steps.reduce((acc, step) => acc + (step.points || 0), 0);
-                } else if (question.type === 'exercise' && question.questions) {
-                    exerciseTotalPoints = question.questions.reduce((acc, subQ) => {
-                        if (subQ.type === 'calculationStep' && subQ.steps) {
-                           return acc + subQ.steps.reduce((sAcc, s) => sAcc + (s.points || 0), 0);
-                        }
-                        return acc + (subQ.points || 0);
-                   },0);
-                } else {
-                     exerciseTotalPoints = question.points || 0;
-                }
-                exerciseHeader.innerHTML = `${mainQuestionCounter}. ${currentExerciseTitle} <span class="exercise-points-summary">(${exerciseTotalPoints.toFixed(2)} pts)</span>`;
-                questionsContainer.appendChild(exerciseHeader);
+        questions.forEach((question) => {
+            mainQuestionCounter++;
+            const exerciseHeader = document.createElement('h3');
+            exerciseHeader.className = 'exercise-title';
+            let exerciseTotalPoints = 0;
+            if (question.type === 'calculationStep' && question.steps) {
+                exerciseTotalPoints = question.steps.reduce((acc, step) => acc + (step.points || 0), 0);
+            } else if (question.type === 'exercise' && question.questions) {
+                exerciseTotalPoints = question.questions.reduce((acc, subQ) => {
+                    if (subQ.type === 'calculationStep' && subQ.steps) {
+                       return acc + subQ.steps.reduce((sAcc, s) => sAcc + (s.points || 0), 0);
+                    }
+                    return acc + (subQ.points || 0);
+               },0);
             }
+            exerciseHeader.innerHTML = `${mainQuestionCounter}. ${question.exerciseTitle} <span class="exercise-points-summary">(${exerciseTotalPoints.toFixed(2)} pts)</span>`;
+            questionsContainer.appendChild(exerciseHeader);
 
             const questionElement = document.createElement('div');
             questionElement.className = 'mb-8 exam-question';
-            questionElement.setAttribute('data-question-id', question.id); // Use question.id for unique identification
-            // data-question-index is still useful for some logic that might rely on array index
+            questionElement.setAttribute('data-question-id', question.id);
 
             let questionIntroText = `<div class="question-text">${question.text}</div>`;
-            if (question.type !== 'exercise') { // For exercises, the title is the main intro
-                 // No individual "Question X" for steps, they are part of the exercise.
-            }
-
-
             let questionInteractiveContent = '';
 
-            if (question.type === 'trueFalse' || question.type === 'multiple') {
-                // Using question.id for name to ensure uniqueness if multiple MCQs were standalone
-                questionInteractiveContent += `<div class="options-grid">
-                    ${question.options.map((option, optIndex) => `
-                        <label class="option" data-q-id="${question.id}" data-value="${question.type === 'trueFalse' ? (option === 'Exothermique' || option === 'Vrai' ? 'true' : 'false') : optIndex}">
-                            <input type="${question.type === 'trueFalse' ? 'radio' : 'checkbox'}" name="${question.id}" value="${question.type === 'trueFalse' ? (option === 'Exothermique' || option === 'Vrai' ? 'true' : 'false') : optIndex}" ${question.type === 'trueFalse' ? 'required' : ''}>
-                            <span>${option}</span>
-                        </label>`).join('')}
-                </div>`;
-            } else if (question.type === 'calculationStep') {
+            if (question.type === 'calculationStep' && question.steps) {
                 questionInteractiveContent += '<div class="calculation-step-container">';
-                question.steps.forEach((step, stepIndex) => {
+                question.steps.forEach((step) => {
                     questionInteractiveContent += `
                         <div class="calculation-step">
                             <label for="${question.id}_step_${step.id}">${step.prompt} <span class="question-points">(${step.points || 0} pts)</span></label>
@@ -777,22 +700,22 @@
                         </div>`;
                 });
                 questionInteractiveContent += '</div>';
-            } else if (question.type === 'exercise' && question.questions) { // For nested questions like Exo3
-                question.questions.forEach((subQ, subQIndex) => {
-                    const subQFullId = `${question.id}_${subQ.id}`; // Unique ID for sub-question inputs
-                    questionInteractiveContent += `<div class="mt-6 mb-4" data-subquestion-id="${subQ.id}">`; // Increased top margin
+            } else if (question.type === 'exercise' && question.questions) {
+                question.questions.forEach((subQ) => {
+                    const subQFullId = `${question.id}_${subQ.id}`;
+                    questionInteractiveContent += `<div class="mt-6 mb-4" data-subquestion-id="${subQ.id}">`;
                     questionInteractiveContent += `<div class="question-number">${subQ.text} <span class="question-points">(${subQ.points || 0} pts)</span></div>`;
-                    if (subQ.type === 'trueFalse') {
+                    if (subQ.type === 'trueFalse' && subQ.options) {
                          questionInteractiveContent += `<div class="options-grid">
-                            ${subQ.options.map((option, optIdx) => `
+                            ${subQ.options.map((option) => `
                                 <label class="option" data-q-id="${subQFullId}" data-value="${option === 'Exothermique' || option === 'Vrai' ? 'true' : 'false'}">
                                     <input type="radio" name="${subQFullId}" value="${option === 'Exothermique' || option === 'Vrai' ? 'true' : 'false'}" required>
                                     <span>${option}</span>
                                 </label>`).join('')}
                         </div>`;
-                    } else if (subQ.type === 'calculationStep') {
+                    } else if (subQ.type === 'calculationStep' && subQ.steps) {
                         questionInteractiveContent += '<div class="calculation-step-container">';
-                        subQ.steps.forEach((step, stepIdx) => {
+                        subQ.steps.forEach((step) => {
                             questionInteractiveContent += `
                                 <div class="calculation-step">
                                     <label for="${subQFullId}_step_${step.id}">${step.prompt} <span class="question-points">(${step.points || 0} pts)</span></label>
@@ -841,17 +764,11 @@
 
     function saveAnswers() {
         const answers = {};
-        questions.forEach((question) => { // qIndex removed as we use question.id
+        questions.forEach((question) => {
             const questionElement = questionsContainer.querySelector(`.exam-question[data-question-id="${question.id}"]`);
             if (!questionElement) return;
 
-            if (question.type === 'trueFalse' || question.type === 'multiple') {
-                const selectedInputs = questionElement.querySelectorAll(`input[name="${question.id}"]:checked`);
-                if (selectedInputs.length > 0) {
-                    if (question.type === 'trueFalse') answers[question.id] = selectedInputs[0].value;
-                    else answers[question.id] = Array.from(selectedInputs).map(input => parseInt(input.value));
-                }
-            } else if (question.type === 'calculationStep') {
+            if (question.type === 'calculationStep' && question.steps) {
                 answers[question.id] = {};
                 let hasStepAnswer = false;
                 question.steps.forEach((step) => {
@@ -873,7 +790,7 @@
                             answers[question.id][subQ.id] = selectedInput.value;
                             hasSubQAnswer = true;
                         }
-                    } else if (subQ.type === 'calculationStep') {
+                    } else if (subQ.type === 'calculationStep' && subQ.steps) {
                         answers[question.id][subQ.id] = {};
                         let hasSubStepAnswer = false;
                         subQ.steps.forEach(step => {
@@ -881,13 +798,13 @@
                             if (inputElem && inputElem.value.trim() !== '') {
                                 answers[question.id][subQ.id][step.id] = parseFloat(inputElem.value);
                                 hasSubStepAnswer = true;
-                                hasSubQAnswer = true;
+                                hasSubQAnswer = true; // Mark parent as answered if a sub-step is answered
                             }
                         });
-                        if (!hasSubStepAnswer) delete answers[question.id][subQ.id];
+                        if (!hasSubStepAnswer) delete answers[question.id][subQ.id]; // Delete specific step collection if empty
                     }
                 });
-                if (!hasSubQAnswer) delete answers[question.id];
+                if (!hasSubQAnswer) delete answers[question.id]; // Delete main exercise answer if no sub-q answered
             }
         });
         localStorage.setItem(localStorageAnswersKey, JSON.stringify(answers));
@@ -898,30 +815,20 @@
         if (savedAnswers) {
             try {
                 const answers = JSON.parse(savedAnswers);
-                questions.forEach((question) => { // qIndex removed
+                questions.forEach((question) => {
                     const questionElement = questionsContainer.querySelector(`.exam-question[data-question-id="${question.id}"]`);
                     if (!questionElement) return;
                     const userAnswer = answers[question.id];
                     if (userAnswer === undefined) return;
 
-                    if (question.type === 'trueFalse' || question.type === 'multiple') {
-                        if (question.type === 'trueFalse') {
-                            const input = questionElement.querySelector(`input[name="${question.id}"][value="${userAnswer}"]`);
-                            if (input) input.checked = true;
-                        } else if (Array.isArray(userAnswer)) {
-                            userAnswer.forEach(optIndex => {
-                                const input = questionElement.querySelector(`input[name="${question.id}"][value="${optIndex}"]`);
-                                if (input) input.checked = true;
-                            });
-                        }
-                    } else if (question.type === 'calculationStep' && typeof userAnswer === 'object') {
+                    if (question.type === 'calculationStep' && question.steps && typeof userAnswer === 'object' && userAnswer !== null) {
                         question.steps.forEach((step) => {
                             const inputElement = questionElement.querySelector(`input[data-q-id="${question.id}"][data-step-id="${step.id}"]`);
                             if (inputElement && userAnswer[step.id] !== undefined) {
                                 inputElement.value = userAnswer[step.id];
                             }
                         });
-                    } else if (question.type === 'exercise' && question.questions && typeof userAnswer === 'object') {
+                    } else if (question.type === 'exercise' && question.questions && typeof userAnswer === 'object' && userAnswer !== null) {
                          question.questions.forEach((subQ) => {
                             const subQFullId = `${question.id}_${subQ.id}`;
                             const subQAnswer = userAnswer[subQ.id];
@@ -930,7 +837,7 @@
                             if (subQ.type === 'trueFalse' && typeof subQAnswer === 'string') {
                                 const input = questionElement.querySelector(`input[name="${subQFullId}"][value="${subQAnswer}"]`);
                                 if (input) input.checked = true;
-                            } else if (subQ.type === 'calculationStep' && typeof subQAnswer === 'object') {
+                            } else if (subQ.type === 'calculationStep' && subQ.steps && typeof subQAnswer === 'object' && subQAnswer !== null) {
                                 subQ.steps.forEach(step => {
                                     const inputElem = questionElement.querySelector(`input[data-q-id="${question.id}"][data-subq-id="${subQ.id}"][data-step-id="${step.id}"]`);
                                     if (inputElem && subQAnswer[step.id] !== undefined) {
@@ -952,18 +859,13 @@
 
     function updateProgress() {
         let answeredCount = 0;
-        let totalInteractiveElements = 0; // Count actual input fields (steps, options)
+        let totalInteractiveElements = 0;
 
         questions.forEach((question) => {
             const questionElement = questionsContainer.querySelector(`.exam-question[data-question-id="${question.id}"]`);
             if (!questionElement) return;
 
-            if (question.type === 'trueFalse' || question.type === 'multiple') {
-                totalInteractiveElements++; // Each MC/TF question is one "progress unit"
-                if (questionElement.querySelector(`input[name="${question.id}"]:checked`)) {
-                    answeredCount++;
-                }
-            } else if (question.type === 'calculationStep') {
+            if (question.type === 'calculationStep' && question.steps) {
                 question.steps.forEach(step => {
                     totalInteractiveElements++;
                     const inputElement = questionElement.querySelector(`input[data-q-id="${question.id}"][data-step-id="${step.id}"]`);
@@ -977,7 +879,7 @@
                     if (subQ.type === 'trueFalse') {
                         totalInteractiveElements++;
                         if (questionElement.querySelector(`input[name="${subQFullId}"]:checked`)) answeredCount++;
-                    } else if (subQ.type === 'calculationStep') {
+                    } else if (subQ.type === 'calculationStep' && subQ.steps) {
                         subQ.steps.forEach(step => {
                             totalInteractiveElements++;
                             const inputElem = questionElement.querySelector(`input[data-q-id="${question.id}"][data-subq-id="${subQ.id}"][data-step-id="${step.id}"]`);
@@ -996,28 +898,16 @@
 
     function calculateAutomaticScore(userAnswersObject) {
         let score = 0;
-        questions.forEach((question) => {
-            const userAnswerForQuestion = userAnswersObject?.[question.id];
-            if (userAnswerForQuestion === undefined && question.type !== 'exercise') return;
+        if (!userAnswersObject) return 0; // Handle case where no answers are saved
 
-            if (question.type === 'trueFalse') {
-                // Ensure question.answer is a string for comparison, e.g. 'true' or 'false'
-                if (userAnswerForQuestion === String(question.answer)) {
-                    score += question.points;
-                }
-            } else if (question.type === 'multiple') {
-                if (Array.isArray(userAnswerForQuestion) && Array.isArray(question.answer)) {
-                    const sortedUser = [...userAnswerForQuestion].sort((a,b) => a-b);
-                    const sortedCorrect = [...question.answer].sort((a,b) => a-b);
-                    if (JSON.stringify(sortedUser) === JSON.stringify(sortedCorrect)) {
-                        score += question.points;
-                    }
-                }
-            } else if (question.type === 'calculationStep') {
+        questions.forEach((question) => {
+            const userAnswerForQuestion = userAnswersObject[question.id]; // Use question.id
+
+            if (question.type === 'calculationStep' && question.steps) {
                 if (typeof userAnswerForQuestion === 'object' && userAnswerForQuestion !== null) {
                     question.steps.forEach(step => {
                         const userStepAnswer = userAnswerForQuestion[step.id];
-                        if (userStepAnswer !== undefined) {
+                        if (userStepAnswer !== undefined) { // Check if the step was answered
                             const diff = Math.abs(userStepAnswer - step.correctAnswer);
                             if (diff <= step.tolerance) {
                                 score += step.points;
@@ -1029,11 +919,11 @@
                  if (typeof userAnswerForQuestion === 'object' && userAnswerForQuestion !== null) {
                      question.questions.forEach(subQ => {
                         const userSubQAnswer = userAnswerForQuestion[subQ.id];
-                        if (userSubQAnswer === undefined) return;
+                        if (userSubQAnswer === undefined && subQ.type !== 'exercise') return;
 
                         if (subQ.type === 'trueFalse') {
                             if (userSubQAnswer === String(subQ.answer)) score += subQ.points;
-                        } else if (subQ.type === 'calculationStep') {
+                        } else if (subQ.type === 'calculationStep' && subQ.steps) {
                             if (typeof userSubQAnswer === 'object' && userSubQAnswer !== null) {
                                 subQ.steps.forEach(step => {
                                     const userStepAns = userSubQAnswer[step.id];
@@ -1060,14 +950,14 @@
         if (submitExamButton.disabled) return;
         submitExamButton.disabled = true;
         submitExamButton.textContent = 'Soumission en cours...';
-        saveAnswers();
+        saveAnswers(); // Ensure latest answers are saved before calculating score
         const userAnswers = JSON.parse(localStorage.getItem(localStorageAnswersKey)) || {};
         const automaticScore = calculateAutomaticScore(userAnswers);
         const userData = JSON.parse(localStorage.getItem(localStorageUserKey));
 
         if (!userData || !userData.pseudo) {
             alert("Erreur de session. Veuillez vous reconnecter.");
-            submitExamButton.disabled = false; // Re-enable for potential retry after login
+            submitExamButton.disabled = false;
             submitExamButton.textContent = "Soumettre l'examen";
             showLogin();
             return;
@@ -1076,25 +966,25 @@
             const existingSubmission = await checkExistingSubmission(userData.pseudo);
             if (existingSubmission) {
                 alert(`Résultat déjà soumis pour "${userData.pseudo}".`);
-                showResults({ pseudo: userData.pseudo });
+                showResults({ pseudo: userData.pseudo }); // Show existing result
             } else {
                 await addDoc(examResultsCollection, {
                     pseudo: userData.pseudo,
                     score: automaticScore,
-                    userAnswers: userAnswers,
+                    userAnswers: userAnswers, // Save all answers for detailed correction
                     timestamp: serverTimestamp()
                 });
                 alert(`Examen soumis ! Score auto: ${automaticScore.toFixed(2)}/${TOTAL_POSSIBLE_POINTS.toFixed(2)}.`);
-                localStorage.removeItem(localStorageUserKey);
+                localStorage.removeItem(localStorageUserKey); // Log out after successful submission
                 localStorage.removeItem(localStorageAnswersKey);
                 localStorage.removeItem(localStorageStartTimeKey);
                 stopExamTimer();
-                await updateSubmittedCount();
-                showResults({ pseudo: userData.pseudo });
+                await updateSubmittedCount(); // Update general stats
+                showResults({ pseudo: userData.pseudo }); // Show newly submitted result
             }
         } catch (error) {
             console.error("Erreur soumission:", error);
-            alert("Erreur lors de la soumission. Vérifiez votre connexion.");
+            alert("Erreur lors de la soumission. Vérifiez votre connexion et réessayez.");
             submitExamButton.disabled = false;
             submitExamButton.textContent = "Soumettre l'examen";
         }
@@ -1108,7 +998,7 @@
             const snapshot = await getDocs(q);
             leaderboardListElement.innerHTML = '';
             if (snapshot.empty) {
-                leaderboardListElement.innerHTML = '<div class="text-center p-4 text-muted-foreground">Aucun résultat.</div>';
+                leaderboardListElement.innerHTML = '<div class="text-center p-4 text-muted-foreground">Aucun résultat disponible.</div>';
             } else {
                 snapshot.forEach((doc, index) => {
                     const data = doc.data();
@@ -1127,6 +1017,7 @@
 
     async function updateSubmittedCount() {
         try {
+            // This will count all documents in 'examResults_informatique2', effectively becoming a total submitted count for that old collection
             const snapshot = await getDocs(examResultsCollection);
             submittedCountElement.textContent = snapshot.size;
         } catch (error) {
@@ -1140,76 +1031,31 @@
         correctionTitleElement.textContent = isGenericView ? "Correction de l'Examen" : 'Votre Correction';
         correctionSectionElement.classList.remove('hidden');
 
-        let currentExerciseTitle = "";
         let mainQuestionCounter = 0;
 
-
-        questions.forEach((q, qIndex) => {
-            if (q.exerciseTitle && q.exerciseTitle !== currentExerciseTitle) {
-                mainQuestionCounter++;
-                currentExerciseTitle = q.exerciseTitle;
-                const exerciseHeader = document.createElement('h3');
-                exerciseHeader.className = 'exercise-title text-lg';
-                exerciseHeader.textContent = `${mainQuestionCounter}. ${currentExerciseTitle}`;
-                correctionListElement.appendChild(exerciseHeader);
-            }
+        questions.forEach((q) => {
+            mainQuestionCounter++;
+            const exerciseHeader = document.createElement('h3');
+            exerciseHeader.className = 'exercise-title text-lg';
+            exerciseHeader.innerHTML = `${mainQuestionCounter}. ${q.exerciseTitle}`;
+            correctionListElement.appendChild(exerciseHeader);
 
             const userAnswerForQuestion = userAnswersObject ? userAnswersObject[q.id] : undefined;
-            const isAnsweredOverall = userAnswerForQuestion !== undefined;
 
             const correctionItem = document.createElement('div');
             correctionItem.className = 'correction-item';
-            let correctionContent = `<div class="question-text">${q.text}</div>`; // Main text only for the item
+            let correctionContent = `<div class="question-text">${q.text}</div>`;
 
-            if (q.type === 'trueFalse' || q.type === 'multiple') {
-                // ... (previous MC/TF correction logic, adapted for question.id and question.answer format)
-                const isCorrect = (q.type === 'trueFalse' && userAnswerForQuestion === String(q.answer)) ||
-                                  (q.type === 'multiple' && Array.isArray(userAnswerForQuestion) && Array.isArray(q.answer) && JSON.stringify([...userAnswerForQuestion].sort((a,b)=>a-b)) === JSON.stringify([...q.answer].sort((a,b)=>a-b)));
-                let userAnswerText = 'Non répondu';
-                if (isAnsweredOverall) {
-                    if (q.type === 'trueFalse') userAnswerText = userAnswerForQuestion === 'true' ? (q.options[0] || 'Vrai') : (q.options[1] || 'Faux');
-                    else if (q.type === 'multiple' && Array.isArray(userAnswerForQuestion)) {
-                        userAnswerText = userAnswerForQuestion.map(idx => q.options[idx]).join(', ') || 'Aucune option';
-                    } else userAnswerText = "Format invalide";
-                }
-                const correctAnswerText = q.type === 'trueFalse' ? (q.answer ? (q.options[0]||'Vrai') : (q.options[1]||'Faux'))
-                                         : (Array.isArray(q.answer) ? q.answer.map(idx => q.options[idx]).join(', ') : 'N/A');
-
-                correctionContent += `<div class="text-sm mt-1 text-correction">
-                                          <span class="correct-answer">Correcte : ${correctAnswerText}</span>
-                                          ${!isGenericView ? `<br><span class="user-answer ${isAnsweredOverall ? (isCorrect ? 'correct' : 'incorrect') : 'unanswered'}">Votre réponse : ${userAnswerText}</span>` : ''}
-                                      </div>`;
-                 if (Array.isArray(q.options)) {
-                     const optionsGrid = document.createElement('div');
-                     optionsGrid.className = 'options-grid mt-2';
-                     q.options.forEach((optionText, optIndex) => {
-                         const optionValue = q.type === 'trueFalse' ? (optionText === 'Exothermique' || optionText === 'Vrai' ? 'true' : 'false') : optIndex;
-                         const isCorrectOption = q.type === 'trueFalse' ? (String(q.answer) === optionValue) : (Array.isArray(q.answer) ? q.answer.includes(optIndex) : false);
-                         let isUserSelected = false;
-                         if (!isGenericView && isAnsweredOverall) {
-                             if (q.type === 'trueFalse') isUserSelected = (userAnswerForQuestion === optionValue);
-                             else if (q.type === 'multiple' && Array.isArray(userAnswerForQuestion)) isUserSelected = userAnswerForQuestion.includes(optIndex);
-                         }
-                         const optionLabel = document.createElement('label');
-                         optionLabel.className = `option disabled-option ${isCorrectOption ? 'correct' : ''} ${isUserSelected && !isCorrectOption ? 'incorrect selected-option' : ''} ${isUserSelected && isCorrectOption ? 'selected-option' : ''}`;
-                         optionLabel.innerHTML = `<input type="${q.type === 'trueFalse' ? 'radio' : 'checkbox'}" disabled ${isUserSelected ? 'checked' : ''}> <span>${optionText}</span>`;
-                         optionsGrid.appendChild(optionLabel);
-                     });
-                     correctionContent += optionsGrid.outerHTML;
-                 }
-
-
-            } else if (q.type === 'calculationStep') {
+            if (q.type === 'calculationStep' && q.steps) {
                 correctionContent += '<div class="calculation-step-container mt-2">';
                 q.steps.forEach(step => {
-                    const userStepAnswer = (isAnsweredOverall && typeof userAnswerForQuestion === 'object' && userAnswerForQuestion !== null) ? userAnswerForQuestion[step.id] : undefined;
+                    const userStepAnswer = (userAnswerForQuestion && typeof userAnswerForQuestion === 'object' && userAnswerForQuestion !== null) ? userAnswerForQuestion[step.id] : undefined;
                     const isStepAnswered = userStepAnswer !== undefined;
                     let stepClass = '';
-                    let diff = Infinity;
                     if (isStepAnswered) {
-                        diff = Math.abs(userStepAnswer - step.correctAnswer);
+                        const diff = Math.abs(userStepAnswer - step.correctAnswer);
                         if (diff <= step.tolerance) stepClass = 'correct';
-                        else stepClass = 'incorrect'; // Could add 'tolerance' class if diff is small but not zero
+                        else stepClass = 'incorrect';
                     }
 
                     correctionContent += `
@@ -1228,13 +1074,13 @@
                 correctionContent += `<div class="mt-2">`;
                 q.questions.forEach(subQ => {
                     correctionContent += `<div class="mt-4" data-subquestion-id="${subQ.id}">`;
-                    correctionContent += `<div class="question-number">${subQ.text} <span class="question-points">(${subQ.points || 0} pts)</span></div>`; // Using question-number class for consistency
-                    const userSubQAnswer = (isAnsweredOverall && typeof userAnswerForQuestion === 'object' && userAnswerForQuestion !== null) ? userAnswerForQuestion[subQ.id] : undefined;
+                    correctionContent += `<div class="question-number">${subQ.text} <span class="question-points">(${subQ.points || 0} pts)</span></div>`;
+                    const userSubQAnswer = (userAnswerForQuestion && typeof userAnswerForQuestion === 'object' && userAnswerForQuestion !== null) ? userAnswerForQuestion[subQ.id] : undefined;
 
-                    if (subQ.type === 'trueFalse') {
+                    if (subQ.type === 'trueFalse' && subQ.options) {
                          const isSubQCorrect = userSubQAnswer === String(subQ.answer);
                          const subQUserAnsText = userSubQAnswer === 'true' ? (subQ.options[0]||'Vrai') : (subQ.options[1]||'Faux');
-                         const subQCorrAnsText = subQ.answer ? (subQ.options[0]||'Vrai') : (subQ.options[1]||'Faux');
+                         const subQCorrAnsText = subQ.answer ? (subQ.options[0]||'Vrai') : (subQ.options[1]||'Faux'); // Assumes 'true' is first option
                          correctionContent += `<div class="text-sm mt-1 text-correction">
                                           <span class="correct-answer">Correcte : ${subQCorrAnsText}</span>
                                           ${!isGenericView && userSubQAnswer!==undefined ? `<br><span class="user-answer ${isSubQCorrect ? 'correct' : 'incorrect'}">Votre réponse : ${subQUserAnsText}</span>` : (!isGenericView ? '<br><span class="user-answer unanswered">Non répondu</span>' : '')}
@@ -1257,7 +1103,7 @@
                             correctionContent += optionsGrid.outerHTML;
                         }
 
-                    } else if (subQ.type === 'calculationStep') {
+                    } else if (subQ.type === 'calculationStep' && subQ.steps) {
                         correctionContent += '<div class="calculation-step-container mt-2">';
                         subQ.steps.forEach(step => {
                             const userStepAns = (userSubQAnswer && typeof userSubQAnswer === 'object' && userSubQAnswer !== null) ? userSubQAnswer[step.id] : undefined;
@@ -1304,13 +1150,13 @@
             motif = "Excellents résultats ! Vous semblez avoir une très bonne maîtrise de la thermodynamique. Continuez sur cette lancée !";
         }
 
-        let weakExercises = [];
+        let weakExercisesTitles = []; // Store titles of weak exercises
         questions.forEach(q => {
             let exerciseScore = 0;
             let exerciseMaxPoints = 0;
             const userAnswerForExercise = userAnswersObject ? userAnswersObject[q.id] : undefined;
 
-            if (q.type === 'calculationStep') {
+            if (q.type === 'calculationStep' && q.steps) {
                 exerciseMaxPoints = q.steps.reduce((sum, step) => sum + step.points, 0);
                 if (userAnswerForExercise && typeof userAnswerForExercise === 'object' && userAnswerForExercise !== null) {
                     q.steps.forEach(step => {
@@ -1326,7 +1172,7 @@
                     if (subQ.type === 'trueFalse') {
                         exerciseMaxPoints += subQ.points;
                         if (userSubQAnswer === String(subQ.answer)) exerciseScore += subQ.points;
-                    } else if (subQ.type === 'calculationStep') {
+                    } else if (subQ.type === 'calculationStep' && subQ.steps) {
                         subQ.steps.forEach(step => {
                             exerciseMaxPoints += step.points;
                             const userStepAns = (userSubQAnswer && typeof userSubQAnswer === 'object' && userSubQAnswer !== null) ? userSubQAnswer[step.id] : undefined;
@@ -1338,13 +1184,13 @@
                  });
             }
 
-            if (exerciseMaxPoints > 0 && (exerciseScore / exerciseMaxPoints) < 0.6) {
-                weakExercises.push(q.exerciseTitle || `Question ${q.id}`);
+            if (exerciseMaxPoints > 0 && (exerciseScore / exerciseMaxPoints) < 0.6) { // If less than 60% on an exercise
+                weakExercisesTitles.push(q.exerciseTitle || `Question ${q.id}`);
             }
         });
 
-        if (weakExercises.length > 0) {
-            motif += `<br><br>Focus particulier suggéré sur : ${weakExercises.join(', ')}.`;
+        if (weakExercisesTitles.length > 0) {
+            motif += `<br><br>Focus particulier suggéré sur : ${weakExercisesTitles.join(', ')}.`;
         }
 
         feedbackMotifText.innerHTML = motif;
@@ -1371,15 +1217,16 @@
     // --- Initialization on Page Load ---
     window.addEventListener('load', async () => {
         loadTheme();
-        await initializeRegisteredCounter();
-        startRegisteredCounterListener();
+        await initializeRegisteredCounter(); // Initialize counter for 'informatique2_registered'
+        startRegisteredCounterListener(); // Start listener for 'informatique2_registered'
 
-        const savedUser = localStorage.getItem(localStorageUserKey);
-        const savedStartTimeStr = localStorage.getItem(localStorageStartTimeKey);
+        const savedUser = localStorage.getItem(localStorageUserKey); // Uses 'examUser_informatique2'
+        const savedStartTimeStr = localStorage.getItem(localStorageStartTimeKey); // Uses 'examStartTime_informatique2'
         const now = getClientTime().getTime();
 
         if (savedUser) {
             const userData = JSON.parse(savedUser);
+            // Check against 'examResults_informatique2'
             const existingSubmission = await checkExistingSubmission(userData.pseudo);
             if (existingSubmission) {
                 localStorage.removeItem(localStorageUserKey);
@@ -1401,7 +1248,7 @@
             } else {
                 const startTime = getClientTime().getTime();
                 localStorage.setItem(localStorageStartTimeKey, startTime.toString());
-                localStorage.removeItem(localStorageAnswersKey);
+                localStorage.removeItem(localStorageAnswersKey); // Clear any old answers for 'examAnswers_informatique2'
                 startExam(userData);
             }
         } else {
@@ -1415,7 +1262,7 @@
     window.addEventListener('beforeunload', () => {
         stopExamTimer();
         if (!examSection.classList.contains('hidden')) {
-             saveAnswers();
+             saveAnswers(); // Saves to 'examAnswers_informatique2'
         }
     });
 
