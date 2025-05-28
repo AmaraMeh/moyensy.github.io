@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Simulateur d'Examen - Thermodynamique (Chimie 2)</title>
-    <meta name="description" content="Simulateur d'examen pour la révision des étudiants en Thermodynamique (Chimie 2) - ST LMD Campus El-Kseur">
+    <meta name="description" content="Simulateur d'examen interactif pour la révision en Thermodynamique (Chimie 2) - ST LMD Campus El-Kseur">
     <meta name="author" content="El-Kseur ST LMD Helper">
     <link rel="icon" type="image/png" href="assets/img/icon.png"> <!-- Make sure you have this icon or update path -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
@@ -12,6 +12,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- KaTeX for LaTeX rendering -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbDevelopmentDiJJYqKEIXyQBogUSrpm" crossorigin="anonymous"></script>
+
 
     <!-- Vercel Analytics -->
     <script>
@@ -93,18 +99,26 @@
         .question-container { margin: 1.5rem 0; }
 
         .exercise-title {
-            font-size: 1.25rem;
+            font-size: 1.35rem; /* Slightly larger */
             font-weight: 600;
             color: hsl(var(--primary));
-            margin-top: 2rem;
-            margin-bottom: 1rem;
+            margin-top: 2.5rem; /* More spacing */
+            margin-bottom: 1.25rem;
             border-bottom: 2px solid hsl(var(--primary));
-            padding-bottom: 0.5rem;
+            padding-bottom: 0.75rem;
         }
          .exercise-points-summary {
-             font-size: 0.9rem;
+             font-size: 0.95rem; /* Slightly larger */
              color: hsl(var(--muted-foreground));
-             margin-left: 0.5rem;
+             margin-left: 0.75rem;
+         }
+        .exam-question { /* Add some top margin to separate from exercise title */
+            margin-top: 1rem; /* This will be the container for each top-level question/exercise block */
+        }
+         .sub-question-block { /* Container for sub-questions within an exercise */
+            margin-top: 1.5rem;
+            padding-left: 1rem;
+            border-left: 2px solid hsl(var(--accent));
          }
 
 
@@ -129,7 +143,7 @@
         .theme-toggle:hover:not(:disabled), .logout-button:hover:not(:disabled) { transform: scale(1.1); }
         .theme-toggle:disabled, .logout-button:disabled { cursor: not-allowed; opacity: 0.8; }
 
-        .login-form { max-width: 400px; margin: 1.5rem auto; padding: 1.5rem; background: hsl(var(--card)); border-radius: var(--radius); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); text-align: center; }
+        .login-form { max-width: 450px; /* Slightly wider for rules */ margin: 1.5rem auto; padding: 1.5rem; background: hsl(var(--card)); border-radius: var(--radius); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); text-align: center; }
         .form-input { width: 100%; padding: 0.75rem; margin: 0.5rem 0; border: 1px solid hsl(var(--border)); border-radius: var(--radius); background: hsl(var(--input)); color: hsl(var(--foreground)); }
         .btn { display: inline-block; padding: 0.75rem 1.5rem; background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); border-radius: var(--radius); cursor: pointer; transition: all 0.3s ease; border: none; font-weight: 500; text-align: center; width: auto; }
         .btn.w-full { width: 100%; }
@@ -145,32 +159,38 @@
         @media (min-width: 640px) { .stats-number { font-size: 2rem; } }
         .score-detail { font-size: 0.9rem; color: hsl(var(--muted-foreground)); margin-top: 0.5rem; }
 
-        .question-number { font-weight: bold; color: hsl(var(--primary)); margin-bottom: 0.5rem; }
+        .question-number { font-weight: bold; color: hsl(var(--primary)); margin-bottom: 0.5rem; font-size: 1.05rem; }
         .question-points { font-size: 0.9em; font-weight: normal; color: hsl(var(--muted-foreground)); margin-left: 0.5em; }
-        .question-text { margin-bottom: 0.75rem; }
+        .question-text { margin-bottom: 1rem; line-height: 1.7; } /* Increased line height for readability of math */
+        .question-text p { margin-bottom: 0.75rem; } /* Spacing for paragraphs within question text */
+        .question-text ul { list-style-type: disc; margin-left: 1.5rem; margin-bottom: 0.75rem;}
+        .question-text ul li { margin-bottom: 0.25rem; }
+
 
         .calculation-step-container { margin-top: 1rem; }
-        .calculation-step { display: flex; flex-wrap: wrap; align-items: center; margin-bottom: 0.75rem; padding: 0.5rem; border: 1px solid hsl(var(--border)); border-radius: var(--radius); }
-        .calculation-step label { flex-basis: 100%; margin-bottom: 0.25rem; font-size: 0.9rem; color: hsl(var(--foreground)); }
-        @media (min-width: 600px) {
-            .calculation-step label { flex-basis: 60%; margin-bottom: 0; padding-right: 0.5rem; }
+        .calculation-step { display: flex; flex-wrap: wrap; align-items: center; margin-bottom: 0.75rem; padding: 0.75rem; border: 1px solid hsl(var(--border)); border-radius: var(--radius); background-color: hsla(var(--muted), 0.5); /* Subtle background for each step */ }
+        .calculation-step label { flex-basis: 100%; margin-bottom: 0.35rem; font-size: 0.95rem; color: hsl(var(--foreground)); line-height: 1.6; } /* Increased line height for KaTeX */
+        @media (min-width: 768px) { /* Apply for medium screens and up */
+            .calculation-step label { flex-basis: calc(70% - 1rem); margin-bottom: 0; padding-right: 1rem; }
         }
+        .calculation-step .input-wrapper { display: flex; align-items: center; flex-grow: 1; }
         .calculation-step input[type="number"], .calculation-step input[type="text"] {
-            flex-grow: 1; padding: 0.5rem; border: 1px solid hsl(var(--border)); border-radius: var(--radius); background: hsl(var(--input)); color: hsl(var(--foreground)); font-family: 'Roboto Mono', monospace; font-size:0.9rem;
-            min-width: 80px; /* Ensure input is not too small */
+            flex-grow: 1; padding: 0.6rem; border: 1px solid hsl(var(--border)); border-radius: var(--radius); background: hsl(var(--input)); color: hsl(var(--foreground)); font-family: 'Roboto Mono', monospace; font-size:0.95rem;
+            min-width: 100px; /* Ensure input is not too small */
         }
-        .calculation-step .unit { margin-left: 0.5rem; font-size: 0.9rem; color: hsl(var(--muted-foreground)); }
+        .calculation-step .unit { margin-left: 0.75rem; font-size: 0.95rem; color: hsl(var(--muted-foreground)); font-family: 'Roboto Mono', monospace; }
 
         /* Correction for calculation steps */
-        .calculation-step.correct input { border-color: hsl(var(--correct-color)) !important; background-color: hsla(var(--correct-color), 0.1) !important; }
-        .calculation-step.incorrect input { border-color: hsl(var(--incorrect-color)) !important; background-color: hsla(var(--incorrect-color), 0.1) !important; }
-        .calculation-step.tolerance input { border-color: hsl(var(--tolerance-color)) !important; background-color: hsla(var(--tolerance-color), 0.1) !important; }
+        .calculation-step.correct .input-wrapper input { border-color: hsl(var(--correct-color)) !important; background-color: hsla(var(--correct-color), 0.1) !important; }
+        .calculation-step.incorrect .input-wrapper input { border-color: hsl(var(--incorrect-color)) !important; background-color: hsla(var(--incorrect-color), 0.1) !important; }
+        .calculation-step.tolerance .input-wrapper input { border-color: hsl(var(--tolerance-color)) !important; background-color: hsla(var(--tolerance-color), 0.1) !important; }
         .calculation-step .correction-details {
-            flex-basis: 100%; font-size: 0.85rem; margin-top: 0.25rem; padding-left: 0.25rem;
+            flex-basis: 100%; font-size: 0.9rem; margin-top: 0.35rem; padding-left: 0.25rem; line-height: 1.6;
         }
         .calculation-step .correction-details .correct-value { color: hsl(var(--correct-color)); font-weight: bold; }
         .calculation-step .correction-details .user-value.incorrect { color: hsl(var(--incorrect-color)); }
         .calculation-step .correction-details .user-value.tolerance { color: hsl(var(--tolerance-color)); }
+        .calculation-step .correction-details .user-value.unanswered { color: hsl(var(--muted-foreground)); font-style: italic; }
 
 
         .text-input { width: 100%; padding: 0.75rem; margin-top: 1rem; border: 1px solid hsl(var(--border)); border-radius: var(--radius); background: hsl(var(--input)); color: hsl(var(--foreground)); font-family: 'Poppins', sans-serif; font-size: 0.9rem; resize: vertical; }
@@ -185,9 +205,9 @@
         .rules-list { list-style-type: disc; padding-left: 1.25rem; margin: 1rem 0; font-size: 0.95rem; }
         .rules-list li { margin: 0.4rem 0; }
 
-        .correction-item { border-bottom: 1px solid hsl(var(--border)); padding: 1rem 0; }
+        .correction-item { border-bottom: 1px solid hsl(var(--border)); padding: 1.5rem 0; } /* More padding */
         .correction-item:last-child { border-bottom: none; }
-        .correction-item .question-text { margin-bottom: 0.5rem; font-weight: 500; }
+        .correction-item .question-text { margin-bottom: 0.75rem; font-weight: 500; }
         .correction-item .text-correction .correct-answer { color: hsl(var(--correct-color)); font-weight: bold; font-size: 0.9rem; margin-top: 0.5rem; }
         .correction-item .text-correction .user-answer { color: hsl(var(--incorrect-color)); font-weight: bold; font-size: 0.9rem; margin-top: 0.2rem; }
         .correction-item .text-correction .user-answer.correct { color: hsl(var(--correct-color)); }
@@ -206,6 +226,9 @@
             color: hsl(var(--primary));
             margin-bottom: 0.5rem;
         }
+        /* KaTeX specific styling if needed for better alignment with Poppins */
+        .katex { font-size: 1.05em; /* Adjust KaTeX size to better match Poppins */ }
+        .katex-display { margin: 0.5em 0; } /* Add some margin to display math */
 
     </style>
 </head>
@@ -226,8 +249,8 @@
             <ul class="rules-list">
                  <li>L'examen est disponible **24h/24, 7j/7**.</li>
                 <li>Une fois l'examen démarré, vous disposez de **1h30** pour le compléter.</li>
-                <li>L'examen est basé sur des sujets types de Thermodynamique et noté sur **20 points**.</li>
-                <li>Les questions à choix multiples (QCM/VF) et les calculs par étapes sont notées automatiquement.</li>
+                <li>L'examen est basé sur des sujets types de Thermodynamique et noté sur **20 points**. Les points par exercice et par question sont indiqués.</li>
+                <li>Les questions à choix multiples (QCM/VF) et les calculs par étapes sont notées automatiquement. Les formules mathématiques sont affichées en utilisant LaTeX.</li>
                 <li>Votre score calculé automatiquement et la correction détaillée seront affichés **immédiatement après la soumission**.</li>
                 <li>Vos réponses sont sauvegardées localement dans votre navigateur pendant la session active (1h30).</li>
                 <li>Vous ne pouvez soumettre l'examen **qu'une seule fois** par pseudo.</li>
@@ -251,7 +274,7 @@
             <div class="timer mb-4 sm:mb-0" id="timer">01:30:00</div>
             <div class="stats-card w-full sm:w-auto">
                 <div class="stats-number" id="questionProgress">0/0</div>
-                <div>Questions répondues</div>
+                <div>Étapes répondues</div>
             </div>
         </div>
         <div class="progress-bar">
@@ -305,28 +328,27 @@
     <i class="fas fa-moon"></i>
 </button>
 
-<!-- Firebase SDK (Modular style using gstatic URLs) -->
+<!-- Firebase SDK -->
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
     import { getFirestore, doc, getDoc, setDoc, collection, addDoc, getDocs, query, orderBy, limit, serverTimestamp, onSnapshot, where, increment } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-    // IMPORTANT: Replace with your actual Firebase configuration
     const firebaseConfig = {
-        apiKey: "YOUR_API_KEY",
-        authDomain: "YOUR_AUTH_DOMAIN",
-        databaseURL: "YOUR_DATABASE_URL",
-        projectId: "YOUR_PROJECT_ID",
-        storageBucket: "YOUR_STORAGE_BUCKET",
-        messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-        appId: "YOUR_APP_ID",
-        measurementId: "YOUR_MEASUREMENT_ID" // Optional
+        apiKey: "AIzaSyB5XYqWKhHdiVDXJx4iOwtpxD8eUCPRfKU",
+        authDomain: "universite-de-bejaia-547fc.firebaseapp.com",
+        databaseURL: "https://universite-de-bejaia-547fc-default-rtdb.europe-west1.firebasedatabase.app",
+        projectId: "universite-de-bejaia-547fc",
+        storageBucket: "universite-de-bejaia-547fc.appspot.com",
+        messagingSenderId: "517622731583",
+        appId: "1:517622731583:web:25453d5e01226585bf798a",
+        measurementId: "G-SQ0WWSCS7B"
     };
 
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
     function getClientTime() { return new Date(); }
-    const SESSION_DURATION_MS = 90 * 60 * 1000;
+    const SESSION_DURATION_MS = 90 * 60 * 1000; // 1h30
 
     const loginSection = document.getElementById('loginSection');
     const examSection = document.getElementById('examSection');
@@ -343,7 +365,6 @@
     const progressFillElement = document.getElementById('progressFill');
     const submitExamButton = document.getElementById('submitExam');
     const userResultSummaryElement = document.getElementById('userResultSummary');
-    // const userScoreElement = document.getElementById('userScore'); // Removed, integrated into userResultSummary
     const leaderboardListElement = document.getElementById('leaderboardList');
     const correctionSectionElement = document.getElementById('correctionSection');
     const correctionListElement = document.getElementById('correctionList');
@@ -352,141 +373,137 @@
     const feedbackMotifContainer = document.getElementById('feedbackMotifContainer');
     const feedbackMotifText = document.getElementById('feedbackMotifText');
 
+    const katexRenderOptions = {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "$", right: "$", display: false},
+            {left: "\\(", right: "\\)", display: false},
+            {left: "\\[", right: "\\]", display: true}
+        ],
+        throwOnError : false // Don't stop rendering on KaTeX errors
+    };
 
     // --- THERMODYNAMIQUE QUESTIONS ---
-    // Based on "Examen de rattrapage de Chimie 2"
-    // Total points: 20
+    // (Content from your previous well-defined 'questions' array)
     const questions = [
         // Exercice 1 (04 points): Mélange gazeux
         {
             id: 'exo1',
             exerciseTitle: 'Exercice 1 : Mélange Gazeux',
             type: 'calculationStep',
-            text: "Soit une masse de 80g de mélange gazeux d'azote (N2) et de méthane (CH4), formée de 31,14% en poids d'azote et occupant un volume de 0,995 litres à 150°C. Données: M(H)=1g/mol; M(C)=12g/mol; M(N)=14g/mol; R=0,082 L.atm.K⁻¹.mol⁻¹.",
-            points: 4, // Total points for the exercise
+            text: "<p>Soit une masse de 80g de mélange gazeux d'azote ($N_2$) et de méthane ($CH_4$), formée de 31,14% en poids d'azote et occupant un volume de $0,995 \\text{ litres}$ à $150°C$.</p><p>Données: $M(H)=1 \\text{ g/mol}$; $M(C)=12 \\text{ g/mol}$; $M(N)=14 \\text{ g/mol}$; $R=0,082 \\text{ L.atm.K}^{-1}\\text{.mol}^{-1}$.</p>",
+            points: 4, // Total points for the exercise (sum of steps)
             steps: [
-                { id: 'm_n2', prompt: "1.1. Masse de N2 (g)", unit: "g", correctAnswer: 24.912, tolerance: 0.01, points: 0.5 },
-                { id: 'm_ch4', prompt: "1.2. Masse de CH4 (g)", unit: "g", correctAnswer: 55.088, tolerance: 0.01, points: 0.5 },
-                { id: 'n_n2', prompt: "1.3. Moles de N2 (M(N2)=28g/mol)", unit: "mol", correctAnswer: 0.889, tolerance: 0.005, points: 0.5 },
-                { id: 'n_ch4', prompt: "1.4. Moles de CH4 (M(CH4)=16g/mol)", unit: "mol", correctAnswer: 3.443, tolerance: 0.005, points: 0.5 },
-                { id: 'n_tot', prompt: "1.5. Moles totales du mélange", unit: "mol", correctAnswer: 4.332, tolerance: 0.01, points: 0.5 },
-                { id: 'T_K', prompt: "1.6. Température en Kelvin (150°C)", unit: "K", correctAnswer: 423.15, tolerance: 0.5, points: 0.25 }, // Allow 423 too
-                { id: 'P_tot', prompt: "1.7. Pression totale (PV=nRT)", unit: "atm", correctAnswer: 151.0, tolerance: 2.0, points: 0.5 }, // Rounded in solution
-                { id: 'P_n2', prompt: "1.8. Pression partielle de N2 (Pi=Xi*Ptot)", unit: "atm", correctAnswer: 31.0, tolerance: 1.0, points: 0.375 },
-                { id: 'P_ch4', prompt: "1.9. Pression partielle de CH4", unit: "atm", correctAnswer: 120.0, tolerance: 2.0, points: 0.375 }
+                { id: 'm_n2', prompt: "1.1. Masse de $N_2$", unit: "g", correctAnswer: 24.912, tolerance: 0.015, points: 0.5 },
+                { id: 'm_ch4', prompt: "1.2. Masse de $CH_4$", unit: "g", correctAnswer: 55.088, tolerance: 0.015, points: 0.5 },
+                { id: 'n_n2', prompt: "1.3. Moles de $N_2$ ($M(N_2)=28 \\text{ g/mol}$)", unit: "mol", correctAnswer: 0.889, tolerance: 0.005, points: 0.5 },
+                { id: 'n_ch4', prompt: "1.4. Moles de $CH_4$ ($M(CH_4)=16 \\text{ g/mol}$)", unit: "mol", correctAnswer: 3.443, tolerance: 0.005, points: 0.5 },
+                { id: 'n_tot', prompt: "1.5. Moles totales du mélange ($n_{tot} = n_{N_2} + n_{CH_4}$)", unit: "mol", correctAnswer: 4.332, tolerance: 0.01, points: 0.5 },
+                { id: 'T_K', prompt: "1.6. Température en Kelvin ($T(K) = T(°C) + 273.15$)", unit: "K", correctAnswer: 423.15, tolerance: 0.5, points: 0.25 },
+                { id: 'P_tot', prompt: "1.7. Pression totale ($P_{tot}V=n_{tot}RT$)", unit: "atm", correctAnswer: 151.0, tolerance: 2.0, points: 0.5 },
+                { id: 'P_n2', prompt: "1.8. Pression partielle de $N_2$ ($P_{N_2}=X_{N_2} \\cdot P_{tot}$)", unit: "atm", correctAnswer: 31.0, tolerance: 1.5, points: 0.375 },
+                { id: 'P_ch4', prompt: "1.9. Pression partielle de $CH_4$ ($P_{CH_4}=X_{CH_4} \\cdot P_{tot}$)", unit: "atm", correctAnswer: 120.0, tolerance: 2.5, points: 0.375 }
             ]
         },
-        // Exercice 2 (08 points): Cycle thermodynamique
         {
             id: 'exo2',
             exerciseTitle: 'Exercice 2 : Cycle Thermodynamique',
             type: 'calculationStep',
-            text: "Une mole d'un gaz supposé parfait, initialement à l'état A (PA=2,5 atm, VA=10,5 L, TA=320 K), subit les transformations réversibles suivantes:\n A->B: Détente isobare, VB=2VA, TB=640K.\n B->C: Compression isotherme, ramène à son volume initial (VC=VA).\n C->A: Refroidissement isochore, ramène à l'état initial.\n Données: R=8,31 J/mol.K; γ=1,4; Cp=29,09 J/mol.K; Cv=20,8 J/mol.K.",
+            text: "<p>Une mole d'un gaz supposé parfait, initialement à l'état A ($P_A=2,5 \\text{ atm}$, $V_A=10,5 \\text{ L}$, $T_A=320 \\text{ K}$), subit les transformations réversibles suivantes:</p><ul><li>A $\\rightarrow$ B: Détente isobare, $V_B=2V_A$, $T_B=640 \\text{ K}$.</li><li>B $\\rightarrow$ C: Compression isotherme, ramène à son volume initial ($V_C=V_A$).</li><li>C $\\rightarrow$ A: Refroidissement isochore, ramène à l'état initial.</li></ul><p>Données: $R=8,31 \\text{ J/mol.K}$; $\\gamma=1,4$; $C_p=29,09 \\text{ J/mol.K}$; $C_v=20,8 \\text{ J/mol.K}$. (Utiliser $1 \\text{ L.atm} = 101.3 \\text{ J}$ pour conversions)</p>",
             points: 8,
             steps: [
-                { id: 'Pc', prompt: "2.1. Pression Pc (atm) (Pour B->C isotherme: PBVB = PcVC, avec PB=PA, VB=2VA, VC=VA)", unit: "atm", correctAnswer: 5.0, tolerance: 0.1, points: 0.5 },
-                // A -> B (isobare)
-                { id: 'W_AB', prompt: "2.2. Travail W_AB (kJ) (W = -PΔV, 1 L.atm = 101.3 J)", unit: "kJ", correctAnswer: -2.659, tolerance: 0.05, points: 0.75 },
-                { id: 'Q_AB', prompt: "2.3. Chaleur Q_AB (kJ) (Qp = nCpΔT)", unit: "kJ", correctAnswer: 9.308, tolerance: 0.1, points: 0.75 },
-                { id: 'DeltaU_AB', prompt: "2.4. ΔU_AB (kJ) (ΔU = nCvΔT)", unit: "kJ", correctAnswer: 6.656, tolerance: 0.1, points: 0.75 },
-                { id: 'DeltaH_AB', prompt: "2.5. ΔH_AB (kJ) (ΔH = nCpΔT)", unit: "kJ", correctAnswer: 9.308, tolerance: 0.1, points: 0.5 }, // Redundant with Q_AB here
-                { id: 'DeltaS_AB', prompt: "2.6. ΔS_AB (J/K) (ΔS = nCp ln(TB/TA))", unit: "J/K", correctAnswer: 20.16, tolerance: 0.2, points: 0.75 },
-                // B -> C (isotherme)
-                { id: 'W_BC', prompt: "2.7. Travail W_BC (kJ) (W = -nRT ln(VC/VB))", unit: "kJ", correctAnswer: 3.686, tolerance: 0.05, points: 0.75 }, // TB=640K
-                { id: 'Q_BC', prompt: "2.8. Chaleur Q_BC (kJ) (Q = -W pour isotherme)", unit: "kJ", correctAnswer: -3.686, tolerance: 0.05, points: 0.5 },
-                { id: 'DeltaU_BC', prompt: "2.9. ΔU_BC (kJ)", unit: "kJ", correctAnswer: 0, tolerance: 0, points: 0.25 },
-                { id: 'DeltaH_BC', prompt: "2.10. ΔH_BC (kJ)", unit: "kJ", correctAnswer: 0, tolerance: 0, points: 0.25 },
-                { id: 'DeltaS_BC', prompt: "2.11. ΔS_BC (J/K) (ΔS = nR ln(VC/VB))", unit: "J/K", correctAnswer: -5.76, tolerance: 0.1, points: 0.75 },
-                // C -> A (isochore)
-                { id: 'W_CA', prompt: "2.12. Travail W_CA (kJ)", unit: "kJ", correctAnswer: 0, tolerance: 0, points: 0.25 },
-                { id: 'Q_CA', prompt: "2.13. Chaleur Q_CA (kJ) (Qv = nCvΔT)", unit: "kJ", correctAnswer: -6.656, tolerance: 0.1, points: 0.75 }, // TA-TC
-                { id: 'DeltaU_CA', prompt: "2.14. ΔU_CA (kJ) (ΔU = nCvΔT)", unit: "kJ", correctAnswer: -6.656, tolerance: 0.1, points: 0.5 }, // Redundant
-                { id: 'DeltaH_CA', prompt: "2.15. ΔH_CA (kJ) (ΔH = nCpΔT)", unit: "kJ", correctAnswer: -9.308, tolerance: 0.1, points: 0.5 },
-                { id: 'DeltaS_CA', prompt: "2.16. ΔS_CA (J/K) (ΔS = nCv ln(TA/TC))", unit: "J/K", correctAnswer: -14.41, tolerance: 0.2, points: 0.75 },
+                { id: 'Pc', prompt: "2.1. Pression $P_C$ (Pour B$\\rightarrow$C isotherme: $P_B V_B = P_C V_C$, avec $P_B=P_A, V_B=2V_A, V_C=V_A$)", unit: "atm", correctAnswer: 5.0, tolerance: 0.1, points: 0.5 },
+                { id: 'W_AB', prompt: "2.2. A$\\rightarrow$B (isobare): Travail $W_{AB}$ ($W = -P\\Delta V$)", unit: "kJ", correctAnswer: -2.659, tolerance: 0.05, points: 0.75 },
+                { id: 'Q_AB', prompt: "2.3. A$\\rightarrow$B: Chaleur $Q_{AB}$ ($Q_p = nC_p\\Delta T$)", unit: "kJ", correctAnswer: 9.308, tolerance: 0.1, points: 0.75 },
+                { id: 'DeltaU_AB', prompt: "2.4. A$\\rightarrow$B: $\\Delta U_{AB}$ ($\\Delta U = nC_v\\Delta T$ ou $\\Delta U = Q_{AB}+W_{AB}$)", unit: "kJ", correctAnswer: 6.656, tolerance: 0.1, points: 0.75 },
+                { id: 'DeltaH_AB', prompt: "2.5. A$\\rightarrow$B: $\\Delta H_{AB}$ ($\\Delta H = nC_p\\Delta T = Q_p$)", unit: "kJ", correctAnswer: 9.308, tolerance: 0.1, points: 0.5 },
+                { id: 'DeltaS_AB', prompt: "2.6. A$\\rightarrow$B: $\\Delta S_{AB}$ ($\\Delta S = nC_p \\ln(T_B/T_A)$)", unit: "J/K", correctAnswer: 20.16, tolerance: 0.2, points: 0.75 },
+                { id: 'W_BC', prompt: "2.7. B$\\rightarrow$C (isotherme $T_B=640K$): Travail $W_{BC}$ ($W = -nRT_B \\ln(V_C/V_B)$)", unit: "kJ", correctAnswer: 3.686, tolerance: 0.05, points: 0.75 },
+                { id: 'Q_BC', prompt: "2.8. B$\\rightarrow$C: Chaleur $Q_{BC}$ ($Q = -W_{BC}$ pour isotherme)", unit: "kJ", correctAnswer: -3.686, tolerance: 0.05, points: 0.5 },
+                { id: 'DeltaU_BC', prompt: "2.9. B$\\rightarrow$C: $\\Delta U_{BC}$", unit: "kJ", correctAnswer: 0, tolerance: 0.001, points: 0.25 },
+                { id: 'DeltaH_BC', prompt: "2.10. B$\\rightarrow$C: $\\Delta H_{BC}$", unit: "kJ", correctAnswer: 0, tolerance: 0.001, points: 0.25 },
+                { id: 'DeltaS_BC', prompt: "2.11. B$\\rightarrow$C: $\\Delta S_{BC}$ ($\\Delta S = nR \\ln(V_C/V_B)$)", unit: "J/K", correctAnswer: -5.76, tolerance: 0.1, points: 0.75 },
+                { id: 'W_CA', prompt: "2.12. C$\\rightarrow$A (isochore): Travail $W_{CA}$", unit: "kJ", correctAnswer: 0, tolerance: 0.001, points: 0.25 },
+                { id: 'Q_CA', prompt: "2.13. C$\\rightarrow$A: Chaleur $Q_{CA}$ ($Q_v = nC_v\\Delta T = \\Delta U_{CA}$ avec $\\Delta T = T_A - T_C$ et $T_C=T_B$)", unit: "kJ", correctAnswer: -6.656, tolerance: 0.1, points: 0.75 },
+                { id: 'DeltaU_CA', prompt: "2.14. C$\\rightarrow$A: $\\Delta U_{CA}$", unit: "kJ", correctAnswer: -6.656, tolerance: 0.1, points: 0.5 },
+                { id: 'DeltaH_CA', prompt: "2.15. C$\\rightarrow$A: $\\Delta H_{CA}$ ($\\Delta H = nC_p\\Delta T$)", unit: "kJ", correctAnswer: -9.308, tolerance: 0.1, points: 0.5 },
+                { id: 'DeltaS_CA', prompt: "2.16. C$\\rightarrow$A: $\\Delta S_{CA}$ ($\\Delta S = nC_v \\ln(T_A/T_C)$)", unit: "J/K", correctAnswer: -14.41, tolerance: 0.2, points: 0.75 },
             ]
         },
-        // Exercice 3 (04 points): Enthalpie de Réaction
         {
             id: 'exo3',
             exerciseTitle: 'Exercice 3 : Enthalpie de Réaction',
-            text: "Réaction: CH4(g) + 4Cl2(g) -> CCl4(g) + 4HCl(g), ΔH°R,298K = -401,08 kJ.\nDonnées Cp(J/mol.K): CCl4(g)=83,51; HCl(g)=29,12; CH4(g)=35,71; Cl2(g)=33,93.\nΔH°sub(C,s)=716,7 kJ/mol; ΔH_liaison(Cl-Cl)=242,6 kJ/mol (énergie pour ROMPRE); ΔH°f(CCl4,g)=-106,48 kJ/mol.",
-            points: 4,
-            questions: [ // Sub-questions within the exercise
+            type: 'exercise', // This main question is a container for sub-questions
+            text: "<p>On obtient le tétrachlorure de carbone ($CCl_4$) à partir du méthane et du chlore selon la réaction suivante:</p><p style='text-align:center;'>$CH_4(g) + 4Cl_2(g) \\rightarrow CCl_4(g) + 4HCl(g)$</p><p>avec $\\Delta H^{\\circ}_{R,298K} = -401,08 \\text{ kJ}$.</p><p>Données $C_p (\\text{J.mol}^{-1}\\text{K}^{-1})$: $CCl_4(g)=83,51$; $HCl(g)=29,12$; $CH_4(g)=35,71$; $Cl_2(g)=33,93$.</p><p>Autres données: $\\Delta H^{\\circ}_{sub}(C,s)=716,7 \\text{ kJ/mol}$; $BE(Cl-Cl)=242,6 \\text{ kJ/mol}$ (énergie de liaison positive pour rupture); $\\Delta H^{\\circ}_f(CCl_4,g)=-106,48 \\text{ kJ/mol}$.</p>",
+            points: 4, // Total for Exo 3 (0.5 + 1.5 + 2)
+            questions: [
                 {
-                    id: 'exo3_q1', type: 'trueFalse', text: "3.1. L'enthalpie de la réaction à 25°C (ΔH°R,298K = -401,08 kJ) indique qu'elle est:",
+                    id: 'exo3_q1_tf', type: 'trueFalse', text: "3.1. L'enthalpie de la réaction à $25°C$ ($\\Delta H^{\\circ}_{R,298K} = -401,08 \\text{ kJ}$) indique qu'elle est:",
                     options: ['Exothermique', 'Endothermique'], answer: 'true', // 'true' corresponds to 'Exothermique'
                     points: 0.5
                 },
                 {
-                    id: 'exo3_q2_calc', type: 'calculationStep', text: "3.2. Calculs pour l'enthalpie à 500K:",
-                    points: 1.5, // Points for these calculation steps
+                    id: 'exo3_q2_kirchhoff', type: 'calculationStep', text: "3.2. Calculer l'enthalpie de la réaction à $T=500K$ (Loi de Kirchhoff) :",
+                    points: 1.5,
                     steps: [
-                        { id: 'deltaCp', prompt: "ΔCp de la réaction (J/K.mol)", unit: "J/K.mol", correctAnswer: 28.56, tolerance: 0.1, points: 0.75 },
-                        { id: 'deltaH_500K', prompt: "ΔH°R à 500K (kJ) (ΔH(T2)=ΔH(T1)+ΔCp(T2-T1))", unit: "kJ", correctAnswer: -395.31, tolerance: 0.2, points: 0.75 },
+                        { id: 'deltaCp_exo3', prompt: "Calcul de $\\Delta C_p = \\sum \\nu_i C_p(\\text{produits}) - \\sum \\nu_j C_p(\\text{réactifs})$", unit: "J/K.mol", correctAnswer: 28.56, tolerance: 0.1, points: 0.75 },
+                        { id: 'deltaH_500K_exo3', prompt: "Calcul de $\\Delta H^{\\circ}_R(500K) = \\Delta H^{\\circ}_R(298K) + \\int_{298}^{500} \\Delta C_p dT$ (supposant $\\Delta C_p$ constant)", unit: "kJ/mol", correctAnswer: -395.31, tolerance: 0.2, points: 0.75 },
                     ]
                 },
                 {
-                    id: 'exo3_q3_calc', type: 'calculationStep', text: "3.3. Calcul de l'énergie de liaison C-Cl (kJ/mol) en utilisant la formule dérivée du cycle de Hess fourni dans la solution: E(C-Cl) = [ΔH°f(CCl4,g) - ΔH°sub(C,s) - 2*ΔH_liaison(Cl-Cl) + 4*E_liaison_C_H_approx_pour_CH4_vers_atomes_C_et_H ] / 4. Simplification :  E(C-Cl) = [ΔH°f(CCl4,g) - ΔH°sub(C,s) - 2*ΔH_liaison_rupture(Cl-Cl)] / 4, en supposant que la formation de CCl4 à partir de C(g) et 4Cl(g) est -4*E(C-Cl). La solution du rattrapage utilise E_C-Cl = [-106.48 - 716.7 + 2*(-242.6)] / 4. Nous utiliserons cette formule directe issue du corrigé. L'énergie de liaison est généralement positive (énergie à fournir). Le résultat du corrigé est positif (327.1 kJ/mol), ce qui implique une erreur de signe dans leur formule intermédiaire si ΔH(Cl-Cl) est une enthalpie de liaison. On va utiliser la formule qui mène au résultat positif : E(C-Cl) = [-ΔH°f(CCl4,g) + ΔH°sub(C,s) + 2*ΔH_liaison(Cl-Cl)] / 4 ",
-                    points: 2, // Points for bond energy calculation
+                    id: 'exo3_q3_bond_energy', type: 'calculationStep', text: "3.3. Calculer l'énergie de liaison $C-Cl$ dans $CCl_4$. En utilisant la formule du corrigé pour le cycle de Hess : $4 \\cdot BE(C-Cl) = -\\Delta H^{\\circ}_f(CCl_4,g) + \\Delta H^{\\circ}_{sub}(C,s) + 2 \\cdot BE(Cl-Cl)$. L'énergie de liaison ($BE$) est l'énergie requise pour rompre une liaison, donc positive.",
+                    points: 2,
                     steps: [
-                        // Using the formula that gives positive bond energy as per general chemistry principles and magnitude from solution.
-                        // E(C-Cl) = (ΔH°sub(C,s) + 2*BE(Cl-Cl) - ΔH°f(CCl4,g)_from_elements - ΔH°f(CH4,g)_from_elements + 4*BE(C-H) - ΔH_reaction ) / 4 ... this is too complex for direct steps.
-                        // Let's use the formula from the provided solution's calculation steps:
-                        // ΔH_liaison(C-Cl) = [-106.48 (ΔHf CCl4) - 716.7 (ΔHsub C) + 2*(-242.6) (2*ΔH Cl-Cl, where -242.6 is some given Cl-Cl term)] / 4
-                        // The result is -327.1 in the solution which should be +327.1 for bond energy.
-                        // Let's assume the question implies that the values should lead to the magnitude 327.1.
-                        // E(C-Cl) = ( -ΔH°f(CCl4,g) + ΔH°sub(C,s) + 2*ΔH_liaison_rupture(Cl-Cl) ) / 4 for C(s) + 2Cl2(g) -> CCl4(g)
-                        // E(C-Cl) = ( -(-106.48) + 716.7 + 2*242.6 ) / 4 = (106.48 + 716.7 + 485.2) / 4 = 1308.38 / 4 = 327.095
-                        { id: 'num_bond', prompt: "Calcul intermédiaire: -ΔH°f(CCl4,g) + ΔH°sub(C,s) + 2*ΔH_liaison(Cl-Cl)", unit: "kJ", correctAnswer: 1308.38, tolerance: 1.0, points: 1.0 },
-                        { id: 'E_C_Cl', prompt: "Énergie de liaison C-Cl (kJ/mol)", unit: "kJ/mol", correctAnswer: 327.1, tolerance: 0.5, points: 1.0 },
+                        { id: 'numerator_bond_exo3', prompt: "Calcul du terme $: -\\Delta H^{\\circ}_f(CCl_4,g) + \\Delta H^{\\circ}_{sub}(C,s) + 2 \\cdot BE(Cl-Cl)$", unit: "kJ", correctAnswer: 1308.38, tolerance: 1.0, points: 1.0 }, // (-(-106.48) + 716.7 + 2*242.6)
+                        { id: 'E_C_Cl_exo3', prompt: "Énergie de liaison $BE(C-Cl)$ (diviser le résultat précédent par 4)", unit: "kJ/mol", correctAnswer: 327.1, tolerance: 0.5, points: 1.0 }, // 1308.38 / 4
                     ]
                 }
             ]
         },
-        // Exercice 4 (04 points): Changements d'état
         {
             id: 'exo4',
             exerciseTitle: "Exercice 4 : Changements d'état",
             type: 'calculationStep',
-            text: "Il faut fournir 7,3 Kcal pour transformer 10 g de glace à -20°C en vapeur d'eau à 100°C. Calculer la chaleur massique de vaporisation de l'eau (Lvap).\nDonnées: ΔHfus(glace)=80 cal/g; Tfus=273K; Cp(eau liquide)=1 cal/g.K; Cp(glace)=0,5 cal/g.K. (Note: 1 Kcal = 1000 cal)",
+            text: "<p>Il faut fournir $7,3 \\text{ Kcal}$ pour transformer $10 \\text{ g}$ de glace à $-20°C$ en vapeur d'eau à $100°C$. Calculer la chaleur massique de vaporisation de l'eau ($L_{vap}$).</p><p>Données: $\\Delta H_{fus}(\\text{glace})=80 \\text{ cal/g}$; $T_{fus}=273K$; $C_p(\\text{eau liquide})=1 \\text{ cal/g.K}$; $C_p(\\text{glace})=0,5 \\text{ cal/g.K}$. (Rappel: $1 \\text{ Kcal} = 1000 \\text{ cal}$)</p>",
             points: 4,
             steps: [
-                { id: 'Q_total_cal', prompt: "4.1. Chaleur totale fournie (cal)", unit: "cal", correctAnswer: 7300, tolerance: 0, points: 0.5 },
-                { id: 'Q1_ice_heat', prompt: "4.2. Chaleur pour chauffer la glace de -20°C à 0°C (Q1 = m.Cp_glace.ΔT)", unit: "cal", correctAnswer: 100, tolerance: 1, points: 0.75 }, // 10*0.5*20
-                { id: 'Q2_ice_melt', prompt: "4.3. Chaleur pour fondre la glace à 0°C (Q2 = m.ΔHfus)", unit: "cal", correctAnswer: 800, tolerance: 1, points: 0.75 }, // 10*80
-                { id: 'Q3_water_heat', prompt: "4.4. Chaleur pour chauffer l'eau de 0°C à 100°C (Q3 = m.Cp_eau.ΔT)", unit: "cal", correctAnswer: 1000, tolerance: 1, points: 0.75 }, // 10*1*100
-                { id: 'Q4_vaporize', prompt: "4.5. Chaleur utilisée pour la vaporisation (Q4 = Q_tot - (Q1+Q2+Q3))", unit: "cal", correctAnswer: 5400, tolerance: 5, points: 0.75 },
-                { id: 'L_vap', prompt: "4.6. Chaleur massique de vaporisation (Lvap = Q4/m)", unit: "cal/g", correctAnswer: 540, tolerance: 1, points: 0.5 }
+                { id: 'Q_total_cal_exo4', prompt: "4.1. Chaleur totale fournie $Q_{tot}$ en calories", unit: "cal", correctAnswer: 7300, tolerance: 0, points: 0.5 },
+                { id: 'Q1_ice_heat_exo4', prompt: "4.2. $Q_1$: Chaleur pour chauffer la glace de $-20°C$ à $0°C$ ($Q_1 = m \\cdot C_{p,glace} \\cdot \\Delta T$)", unit: "cal", correctAnswer: 100, tolerance: 1, points: 0.75 },
+                { id: 'Q2_ice_melt_exo4', prompt: "4.3. $Q_2$: Chaleur pour fondre la glace à $0°C$ ($Q_2 = m \\cdot \\Delta H_{fus}$)", unit: "cal", correctAnswer: 800, tolerance: 1, points: 0.75 },
+                { id: 'Q3_water_heat_exo4', prompt: "4.4. $Q_3$: Chaleur pour chauffer l'eau liquide de $0°C$ à $100°C$ ($Q_3 = m \\cdot C_{p,eau} \\cdot \\Delta T$)", unit: "cal", correctAnswer: 1000, tolerance: 1, points: 0.75 },
+                { id: 'Q4_vaporize_exo4', prompt: "4.5. $Q_4$: Chaleur utilisée pour la vaporisation à $100°C$ ($Q_4 = Q_{tot} - (Q_1+Q_2+Q_3)$)", unit: "cal", correctAnswer: 5400, tolerance: 5, points: 0.75 },
+                { id: 'L_vap_exo4', prompt: "4.6. Chaleur massique de vaporisation $L_{vap}$ ($L_{vap} = Q_4/m$)", unit: "cal/g", correctAnswer: 540, tolerance: 1, points: 0.5 }
             ]
         }
     ];
 
+    // Calculate total points, considering nested structures
     const TOTAL_POSSIBLE_POINTS = questions.reduce((sum, q) => {
+        let qPoints = 0;
         if (q.type === 'calculationStep' && q.steps) {
-            return sum + q.steps.reduce((stepSum, step) => stepSum + (step.points || 0), 0);
-        } else if (q.type === 'exercise' && q.questions) { // For exercises with sub-questions
-            return sum + q.questions.reduce((subQSum, subQ) => {
+            qPoints = q.steps.reduce((stepSum, step) => stepSum + (step.points || 0), 0);
+        } else if (q.type === 'exercise' && q.questions) {
+            qPoints = q.questions.reduce((subQSum, subQ) => {
                  if (subQ.type === 'calculationStep' && subQ.steps) {
                     return subQSum + subQ.steps.reduce((stepSum, step) => stepSum + (step.points || 0), 0);
                  }
                  return subQSum + (subQ.points || 0);
             },0);
+        } else { // For simple MC/TF at top level if any (none in this set)
+             qPoints = q.points || 0;
         }
-        return sum + (q.points || 0);
+        return sum + qPoints;
     }, 0);
-    console.log("Total possible points calculated:", TOTAL_POSSIBLE_POINTS);
+    console.log("Total possible points calculated:", TOTAL_POSSIBLE_POINTS.toFixed(2));
 
 
-    const subjectPrefix = 'thermodynamique_';
+    const subjectPrefix = 'thermodynamique_v2_'; // Changed prefix to avoid conflict with old thermo data
     const registeredCounterRef = doc(db, 'counters', subjectPrefix + 'registered');
     const examResultsCollection = collection(db, subjectPrefix + 'examResults');
     const localStorageStartTimeKey = subjectPrefix + 'examStartTime';
     const localStorageUserKey = subjectPrefix + 'examUser';
     const localStorageAnswersKey = subjectPrefix + 'examAnswers';
 
-    // ... (rest of the JavaScript code from the original, with 'informatique2' replaced by subjectPrefix or 'thermodynamique' where appropriate)
-    // IMPORTANT: The functions displayQuestions, saveAnswers, loadSavedAnswers, calculateAutomaticScore, displayCorrection
-    // will need significant changes to handle the new `calculationStep` type and the nested structure of Exercise 3.
 
     // --- Initialize counter ---
     const initializeRegisteredCounter = async () => {
@@ -543,7 +560,7 @@
 
          if (remainingTimeMs <= 0) {
              examTimerElement.textContent = "00:00:00";
-             setTimeout(submitExam, 50);
+             setTimeout(submitExam, 50); // Auto-submit if time already up
              return;
          }
          examTimerElement.textContent = formatTime(remainingTimeMs);
@@ -553,7 +570,7 @@
                  clearInterval(examTimerInterval);
                  examTimerInterval = null;
                  examTimerElement.textContent = "00:00:00";
-                 submitExam();
+                 submitExam(); // Time's up, submit
                  alert("Votre temps est écoulé ! L'examen a été soumis automatiquement.");
                  return;
              }
@@ -583,6 +600,9 @@
          startRegisteredCounterListener();
          loginForm.classList.remove('hidden');
          loginButton.disabled = false;
+         if (window.renderMathInElement) { // Render LaTeX on login page if any
+            renderMathInElement(loginSection, katexRenderOptions);
+        }
     }
 
     function startExam(userData) {
@@ -609,7 +629,6 @@
         leaderboardListElement.innerHTML = '<div class="text-center p-4 text-muted-foreground">Chargement du classement...</div>';
         feedbackMotifContainer.classList.add('hidden');
 
-
         let userResult = null;
         let userCalculatedScore = 0;
 
@@ -623,7 +642,7 @@
                     userCalculatedScore = userResult.score;
                     userResultSummaryElement.innerHTML = `
                         <div class="stats-card">
-                            <div class="stats-number">${userCalculatedScore.toFixed(2)}/${TOTAL_POSSIBLE_POINTS.toFixed(2)}</div>
+                            <div class="stats-number">${userCalculatedScore.toFixed(2)} / ${TOTAL_POSSIBLE_POINTS.toFixed(2)}</div>
                             <div>Votre score (calculé automatiquement)</div>
                         </div>`;
                     userResultSummaryElement.classList.remove('hidden');
@@ -632,19 +651,22 @@
                 } else {
                     userResultSummaryElement.innerHTML = `<div class="stats-card"><p>Aucun résultat soumis trouvé pour "${userData.pseudo}".</p></div>`;
                     userResultSummaryElement.classList.remove('hidden');
-                    displayCorrection(null, true);
+                    displayCorrection(null, true); // Show generic correction
                 }
             } catch (error) {
                 console.error("Error fetching user result:", error);
                 userResultSummaryElement.innerHTML = `<div class="stats-card"><p>Erreur lors du chargement de vos résultats.</p></div>`;
                 userResultSummaryElement.classList.remove('hidden');
-                displayCorrection(null, true);
+                displayCorrection(null, true); // Show generic correction on error
             }
-        } else {
+        } else { // Not logged in, show generic correction and leaderboard
              displayCorrection(null, true);
         }
         await updateSubmittedCount();
         await updateLeaderboard();
+         if (window.renderMathInElement) { // Render LaTeX on results page if any
+            renderMathInElement(resultsSection, katexRenderOptions);
+        }
     }
 
     async function checkExistingSubmission(pseudo) {
@@ -655,7 +677,7 @@
             return !snapshot.empty;
         } catch (error) {
             console.error("Error checking for existing submission:", error);
-            alert("Erreur de connexion. Veuillez réessayer.");
+            alert("Erreur de connexion lors de la vérification de votre pseudo. Veuillez réessayer.");
             return false;
         }
     }
@@ -665,36 +687,47 @@
         e.preventDefault();
         const pseudo = pseudoInput.value.trim();
         const pin = pinInput.value;
-        if (!pseudo || !/^[0-9]{4}$/.test(pin)) {
-            alert("Pseudo ou PIN invalide.");
-            return;
-        }
+        if (!pseudo) { alert("Veuillez entrer un Pseudo."); return; }
+        if (!/^[0-9]{4}$/.test(pin)) { alert("Le Code PIN doit être composé de 4 chiffres."); return; }
+
+        loginButton.disabled = true;
+        loginButton.textContent = "Vérification...";
+
         const existingSubmission = await checkExistingSubmission(pseudo);
         if (existingSubmission) {
-            alert(`Un résultat existe déjà pour "${pseudo}".`);
+            alert(`Un résultat existe déjà pour le pseudo "${pseudo}". Vous ne pouvez soumettre l'examen qu'une seule fois.`);
             const userData = { pseudo: pseudo, pin: pin };
             localStorage.setItem(localStorageUserKey, JSON.stringify(userData));
             showResults(userData);
+            loginButton.disabled = false;
+            loginButton.textContent = "Commencer l'examen";
             return;
         }
+
         const userData = { pseudo: pseudo, pin: pin };
         localStorage.setItem(localStorageUserKey, JSON.stringify(userData));
         const startTime = getClientTime().getTime();
         localStorage.setItem(localStorageStartTimeKey, startTime.toString());
+        localStorage.removeItem(localStorageAnswersKey); // Clear old answers for a fresh start
+
         try {
             await setDoc(registeredCounterRef, { count: increment(1) }, { merge: true });
-        } catch (error) { console.error("Error incrementing counter:", error); }
+        } catch (error) { console.error("Error incrementing registered counter:", error); }
+
         startExam(userData);
+        // No need to re-enable loginButton here as we are navigating away
     });
 
     logoutBtn.addEventListener('click', handleLogout);
     function handleLogout() {
         const inExam = !examSection.classList.contains('hidden');
         const confirmMsg = inExam ?
-            "Vous êtes en train de passer l'examen. Si vous vous déconnectez, votre progression locale sera perdue et votre examen ne sera pas soumis. Voulez-vous continuer ?" :
+            "Vous êtes en train de passer l'examen. Si vous vous déconnectez, votre progression locale sera perdue et votre examen ne sera pas soumis. Voulez-vous continuer la déconnexion ?" :
             "Voulez-vous vraiment vous déconnecter ?";
-        if (!confirm(confirmMsg)) return;
 
+        if (!confirm(confirmMsg)) {
+            return;
+        }
         localStorage.removeItem(localStorageUserKey);
         localStorage.removeItem(localStorageAnswersKey);
         localStorage.removeItem(localStorageStartTimeKey);
@@ -704,97 +737,100 @@
         alert("Vous avez été déconnecté.");
     }
 
-    // --- MODIFIED Exam Logic ---
+    // --- MODIFIED Exam Logic (displayQuestions, saveAnswers, loadSavedAnswers, updateProgress, calculateAutomaticScore, displayCorrection) ---
+    // These functions have been updated in the previous long response to handle KaTeX and the new question structure.
+    // I will ensure they are correctly placed and called.
+
     function displayQuestions() {
         questionsContainer.innerHTML = '';
         let currentExerciseTitle = "";
+        let overallQuestionIndex = 0; // For unique names for radio buttons if needed across exercises
 
-        questions.forEach((question, qIndex) => {
+        questions.forEach((question) => {
             if (question.exerciseTitle && question.exerciseTitle !== currentExerciseTitle) {
                 currentExerciseTitle = question.exerciseTitle;
                 const exerciseHeader = document.createElement('h3');
                 exerciseHeader.className = 'exercise-title';
                 let exerciseTotalPoints = 0;
-                if (question.type === 'calculationStep') exerciseTotalPoints = question.steps.reduce((acc, step) => acc + (step.points || 0), 0);
-                else if (question.type === 'exercise' && question.questions) {
+                if (question.type === 'calculationStep') {
+                    exerciseTotalPoints = question.steps.reduce((acc, step) => acc + (step.points || 0), 0);
+                } else if (question.type === 'exercise' && question.questions) {
                     exerciseTotalPoints = question.questions.reduce((acc, subQ) => {
-                        if (subQ.type === 'calculationStep') return acc + subQ.steps.reduce((sAcc, s) => sAcc + (s.points || 0), 0);
-                        return acc + (subQ.points || 0);
+                         if (subQ.type === 'calculationStep') return acc + subQ.steps.reduce((sAcc, s) => sAcc + (s.points || 0), 0);
+                         return acc + (subQ.points || 0);
                     },0);
                 } else {
                     exerciseTotalPoints = question.points || 0;
                 }
-
                 exerciseHeader.innerHTML = `${currentExerciseTitle} <span class="exercise-points-summary">(${exerciseTotalPoints.toFixed(2)} pts)</span>`;
                 questionsContainer.appendChild(exerciseHeader);
             }
 
             const questionElement = document.createElement('div');
-            questionElement.className = 'mb-8 exam-question';
+            questionElement.className = 'mb-8 exam-question'; // Main container for this question/exercise block
             questionElement.setAttribute('data-question-id', question.id);
-            questionElement.setAttribute('data-question-index', qIndex); // For saving/loading main question index
 
-            let questionNumberText = `${qIndex + 1}`;
-            if (question.exerciseTitle) { // If it's part of a larger exercise structure
-                 // We might not need individual question numbers if steps are numbered like 1.1, 1.2
-            }
+            let questionHTML = `<div class="question-text">${question.text || ''}</div>`;
 
-            let questionContent = `<div class="question-number">Question ${questionNumberText} <span class="question-points">(${question.points || 'N/A'} pts)</span></div>`;
-            questionContent += `<div class="question-text">${question.text}</div>`;
-
-            if (question.type === 'trueFalse' || question.type === 'multiple') {
-                questionContent += `<div class="options-grid">
-                    ${question.options.map((option, optIndex) => `
-                        <label class="option" data-q="${qIndex}" data-value="${question.type === 'trueFalse' ? (option === 'Exothermique' || option === 'Vrai' ? 'true' : 'false') : optIndex}">
-                            <input type="${question.type === 'trueFalse' ? 'radio' : 'checkbox'}" name="q${qIndex}" value="${question.type === 'trueFalse' ? (option === 'Exothermique' || option === 'Vrai' ? 'true' : 'false') : optIndex}" ${question.type === 'trueFalse' ? 'required' : ''}>
-                            <span>${option}</span>
-                        </label>`).join('')}
-                </div>`;
-            } else if (question.type === 'calculationStep') {
-                questionContent += '<div class="calculation-step-container">';
-                question.steps.forEach((step, stepIndex) => {
-                    questionContent += `
+            if (question.type === 'calculationStep') {
+                questionHTML += '<div class="calculation-step-container">';
+                question.steps.forEach((step) => {
+                    questionHTML += `
                         <div class="calculation-step">
-                            <label for="q${qIndex}_step${stepIndex}">${step.prompt} <span class="question-points">(${step.points || 0} pts)</span></label>
-                            <input type="number" step="any" id="q${qIndex}_step${stepIndex}" data-q-index="${qIndex}" data-step-id="${step.id}" placeholder="Réponse">
-                            ${step.unit ? `<span class="unit">${step.unit}</span>` : ''}
+                            <label for="step_${question.id}_${step.id}">${step.prompt} <span class="question-points">(${step.points || 0} pts)</span></label>
+                            <div class="input-wrapper">
+                                <input type="number" step="any" id="step_${question.id}_${step.id}" data-q-id="${question.id}" data-step-id="${step.id}" placeholder="Valeur numérique">
+                                ${step.unit ? `<span class="unit">${step.unit}</span>` : ''}
+                            </div>
                         </div>`;
                 });
-                questionContent += '</div>';
-            } else if (question.type === 'exercise' && question.questions) { // For nested questions like Exo3
-                questionContent = `<div class="question-text">${question.text}</div>`; // Main text already added by exercise title
-                question.questions.forEach((subQ, subQIndex) => {
-                    const subQId = `q${qIndex}_sub${subQIndex}`;
-                    questionContent += `<div class="mt-4" data-subquestion-id="${subQ.id}">`;
-                    questionContent += `<div class="question-number">${subQ.text} <span class="question-points">(${subQ.points || 0} pts)</span></div>`;
+                questionHTML += '</div>';
+            } else if (question.type === 'exercise' && question.questions) {
+                question.questions.forEach((subQ) => {
+                    const subQuestionBlock = document.createElement('div');
+                    subQuestionBlock.className = 'sub-question-block';
+                    subQuestionBlock.setAttribute('data-subquestion-id', subQ.id);
+
+                    let subQContent = `<div class="question-number">${subQ.text} <span class="question-points">(${subQ.points || 0} pts)</span></div>`;
                     if (subQ.type === 'trueFalse') {
-                         questionContent += `<div class="options-grid">
-                            ${subQ.options.map((option, optIdx) => `
-                                <label class="option" data-q="${subQId}" data-value="${option === 'Exothermique' ? 'true' : 'false'}">
-                                    <input type="radio" name="${subQId}" value="${option === 'Exothermique' ? 'true' : 'false'}" required>
+                         subQContent += `<div class="options-grid">
+                            ${subQ.options.map((option) => {
+                                const optionValue = (option === 'Exothermique' || option === 'Vrai' ? 'true' : 'false');
+                                // Unique name for radio button group within this sub-question
+                                const radioName = `subq_radio_${question.id}_${subQ.id}`;
+                                return `
+                                <label class="option" data-q-id="${question.id}" data-subq-id="${subQ.id}" data-value="${optionValue}">
+                                    <input type="radio" name="${radioName}" value="${optionValue}" required>
                                     <span>${option}</span>
-                                </label>`).join('')}
+                                </label>`;
+                            }).join('')}
                         </div>`;
                     } else if (subQ.type === 'calculationStep') {
-                        questionContent += '<div class="calculation-step-container">';
-                        subQ.steps.forEach((step, stepIdx) => {
-                            questionContent += `
+                        subQContent += '<div class="calculation-step-container">';
+                        subQ.steps.forEach((step) => {
+                            subQContent += `
                                 <div class="calculation-step">
-                                    <label for="${subQId}_step${stepIdx}">${step.prompt} <span class="question-points">(${step.points || 0} pts)</span></label>
-                                    <input type="number" step="any" id="${subQId}_step${stepIdx}" data-q-index="${qIndex}" data-subq-id="${subQ.id}" data-step-id="${step.id}" placeholder="Réponse">
-                                    ${step.unit ? `<span class="unit">${step.unit}</span>` : ''}
+                                    <label for="step_${question.id}_${subQ.id}_${step.id}">${step.prompt} <span class="question-points">(${step.points || 0} pts)</span></label>
+                                     <div class="input-wrapper">
+                                        <input type="number" step="any" id="step_${question.id}_${subQ.id}_${step.id}" data-q-id="${question.id}" data-subq-id="${subQ.id}" data-step-id="${step.id}" placeholder="Valeur numérique">
+                                        ${step.unit ? `<span class="unit">${step.unit}</span>` : ''}
+                                    </div>
                                 </div>`;
                         });
-                        questionContent += '</div>';
+                        subQContent += '</div>';
                     }
-                    questionContent += `</div>`;
+                    subQuestionBlock.innerHTML = subQContent;
+                    questionElement.appendChild(subQuestionBlock);
                 });
             }
-            // Add other types if needed (e.g., textInput)
-
-            questionElement.innerHTML = questionContent;
+            // Prepend the main question text to the element, then append children (sub-questions)
+            questionElement.innerHTML = questionHTML + questionElement.innerHTML;
             questionsContainer.appendChild(questionElement);
         });
+
+        if (window.renderMathInElement) {
+            renderMathInElement(questionsContainer, katexRenderOptions);
+        }
 
         questionsContainer.removeEventListener('change', handleAnswerChange);
         questionsContainer.removeEventListener('input', handleAnswerChange);
@@ -802,211 +838,226 @@
         questionsContainer.addEventListener('input', handleAnswerChange);
     }
 
+
     function handleAnswerChange(e) {
         const input = e.target;
         if (input.matches('input[type="radio"], input[type="checkbox"], input[type="number"], input[type="text"], textarea')) {
             saveAnswers();
             updateProgress();
             if (input.matches('input[type="radio"], input[type="checkbox"]')) {
-                 updateOptionClasses();
+                 // Find the closest container for the option group to update classes
+                 const optionContainer = input.closest('.options-grid');
+                 if(optionContainer) {
+                    optionContainer.querySelectorAll('.option').forEach(label => {
+                        const radioOrCheckbox = label.querySelector('input');
+                        if (radioOrCheckbox && radioOrCheckbox.checked) {
+                            label.classList.add('selected-option');
+                        } else {
+                            label.classList.remove('selected-option');
+                        }
+                    });
+                 }
             }
         }
     }
-    function updateOptionClasses() { /* ... same as before ... */ }
+    // updateOptionClasses is now handled inside handleAnswerChange for targeted updates.
 
 
-    function saveAnswers() {
+    function saveAnswers() { // Logic to save answers based on new structure
         const answers = {};
-        questions.forEach((question, qIndex) => {
+        questions.forEach((question) => {
             const questionElement = questionsContainer.querySelector(`.exam-question[data-question-id="${question.id}"]`);
             if (!questionElement) return;
 
-            if (question.type === 'trueFalse' || question.type === 'multiple') {
-                const selectedInputs = questionElement.querySelectorAll(`input[name="q${qIndex}"]:checked`);
-                if (selectedInputs.length > 0) {
-                    if (question.type === 'trueFalse') answers[question.id] = selectedInputs[0].value;
-                    else answers[question.id] = Array.from(selectedInputs).map(input => parseInt(input.value));
-                }
-            } else if (question.type === 'calculationStep') {
-                answers[question.id] = {};
+            if (question.type === 'calculationStep') {
+                const stepAnswers = {};
+                let hasStepAnswer = false;
                 question.steps.forEach((step) => {
-                    const inputElement = questionElement.querySelector(`input[data-step-id="${step.id}"]`);
+                    const inputElement = questionElement.querySelector(`input[data-q-id="${question.id}"][data-step-id="${step.id}"]`);
                     if (inputElement && inputElement.value.trim() !== '') {
-                        answers[question.id][step.id] = parseFloat(inputElement.value);
+                        stepAnswers[step.id] = parseFloat(inputElement.value);
+                        hasStepAnswer = true;
                     }
                 });
-                 if (Object.keys(answers[question.id]).length === 0) delete answers[question.id]; // Remove if no steps answered
-            } else if (question.type === 'exercise' && question.questions) { // For Exercise 3 like structure
-                answers[question.id] = {};
-                question.questions.forEach((subQ, subQIndex) => {
-                    const subQId = `q${qIndex}_sub${subQIndex}`;
+                 if (hasStepAnswer) answers[question.id] = stepAnswers;
+            } else if (question.type === 'exercise' && question.questions) {
+                const exerciseAnswers = {};
+                let hasExerciseAnswer = false;
+                question.questions.forEach((subQ) => {
+                    const subQuestionElement = questionElement.querySelector(`.sub-question-block[data-subquestion-id="${subQ.id}"]`);
+                    if (!subQuestionElement) return;
+
                     if (subQ.type === 'trueFalse') {
-                        const selectedInput = questionElement.querySelector(`input[name="${subQId}"]:checked`);
-                        if (selectedInput) answers[question.id][subQ.id] = selectedInput.value;
+                        const radioName = `subq_radio_${question.id}_${subQ.id}`;
+                        const selectedInput = subQuestionElement.querySelector(`input[name="${radioName}"]:checked`);
+                        if (selectedInput) {
+                            exerciseAnswers[subQ.id] = selectedInput.value;
+                            hasExerciseAnswer = true;
+                        }
                     } else if (subQ.type === 'calculationStep') {
-                        answers[question.id][subQ.id] = {};
+                        const subQStepAnswers = {};
+                        let hasSubQStepAnswer = false;
                         subQ.steps.forEach(step => {
-                            const inputElem = questionElement.querySelector(`input[data-subq-id="${subQ.id}"][data-step-id="${step.id}"]`);
+                            const inputElem = subQuestionElement.querySelector(`input[data-q-id="${question.id}"][data-subq-id="${subQ.id}"][data-step-id="${step.id}"]`);
                             if (inputElem && inputElem.value.trim() !== '') {
-                                answers[question.id][subQ.id][step.id] = parseFloat(inputElem.value);
+                                subQStepAnswers[step.id] = parseFloat(inputElem.value);
+                                hasSubQStepAnswer = true;
                             }
                         });
-                        if (Object.keys(answers[question.id][subQ.id]).length === 0) delete answers[question.id][subQ.id];
+                        if (hasSubQStepAnswer) {
+                             exerciseAnswers[subQ.id] = subQStepAnswers;
+                             hasExerciseAnswer = true;
+                        }
                     }
                 });
-                if (Object.keys(answers[question.id]).length === 0) delete answers[question.id];
+                if (hasExerciseAnswer) answers[question.id] = exerciseAnswers;
             }
         });
         localStorage.setItem(localStorageAnswersKey, JSON.stringify(answers));
     }
 
-    function loadSavedAnswers() {
+    function loadSavedAnswers() { // Logic to load answers based on new structure
         const savedAnswers = localStorage.getItem(localStorageAnswersKey);
         if (savedAnswers) {
             try {
                 const answers = JSON.parse(savedAnswers);
-                questions.forEach((question, qIndex) => {
+                questions.forEach((question) => {
                     const questionElement = questionsContainer.querySelector(`.exam-question[data-question-id="${question.id}"]`);
                     if (!questionElement) return;
-                    const userAnswer = answers[question.id];
-                    if (userAnswer === undefined) return;
+                    const userAnswerForQuestion = answers[question.id];
+                    if (userAnswerForQuestion === undefined) return;
 
-                    if (question.type === 'trueFalse' || question.type === 'multiple') {
-                        if (question.type === 'trueFalse') {
-                            const input = questionElement.querySelector(`input[name="q${qIndex}"][value="${userAnswer}"]`);
-                            if (input) input.checked = true;
-                        } else if (Array.isArray(userAnswer)) {
-                            userAnswer.forEach(optIndex => {
-                                const input = questionElement.querySelector(`input[name="q${qIndex}"][value="${optIndex}"]`);
-                                if (input) input.checked = true;
-                            });
-                        }
-                    } else if (question.type === 'calculationStep' && typeof userAnswer === 'object') {
+                    if (question.type === 'calculationStep' && typeof userAnswerForQuestion === 'object') {
                         question.steps.forEach((step) => {
-                            const inputElement = questionElement.querySelector(`input[data-step-id="${step.id}"]`);
-                            if (inputElement && userAnswer[step.id] !== undefined) {
-                                inputElement.value = userAnswer[step.id];
+                            const inputElement = questionElement.querySelector(`input[data-q-id="${question.id}"][data-step-id="${step.id}"]`);
+                            if (inputElement && userAnswerForQuestion[step.id] !== undefined) {
+                                inputElement.value = userAnswerForQuestion[step.id];
                             }
                         });
-                    } else if (question.type === 'exercise' && question.questions && typeof userAnswer === 'object') {
-                         question.questions.forEach((subQ, subQIndex) => {
-                            const subQId = `q${qIndex}_sub${subQIndex}`;
-                            const subQAnswer = userAnswer[subQ.id];
-                            if (subQAnswer === undefined) return;
+                    } else if (question.type === 'exercise' && question.questions && typeof userAnswerForQuestion === 'object') {
+                         question.questions.forEach((subQ) => {
+                            const subQuestionElement = questionElement.querySelector(`.sub-question-block[data-subquestion-id="${subQ.id}"]`);
+                            if (!subQuestionElement) return;
+                            const userAnswerForSubQ = userAnswerForQuestion[subQ.id];
+                            if (userAnswerForSubQ === undefined) return;
 
-                            if (subQ.type === 'trueFalse' && typeof subQAnswer === 'string') {
-                                const input = questionElement.querySelector(`input[name="${subQId}"][value="${subQAnswer}"]`);
+                            if (subQ.type === 'trueFalse' && typeof userAnswerForSubQ === 'string') {
+                                const radioName = `subq_radio_${question.id}_${subQ.id}`;
+                                const input = subQuestionElement.querySelector(`input[name="${radioName}"][value="${userAnswerForSubQ}"]`);
                                 if (input) input.checked = true;
-                            } else if (subQ.type === 'calculationStep' && typeof subQAnswer === 'object') {
+                            } else if (subQ.type === 'calculationStep' && typeof userAnswerForSubQ === 'object') {
                                 subQ.steps.forEach(step => {
-                                    const inputElem = questionElement.querySelector(`input[data-subq-id="${subQ.id}"][data-step-id="${step.id}"]`);
-                                    if (inputElem && subQAnswer[step.id] !== undefined) {
-                                        inputElem.value = subQAnswer[step.id];
+                                    const inputElem = subQuestionElement.querySelector(`input[data-q-id="${question.id}"][data-subq-id="${subQ.id}"][data-step-id="${step.id}"]`);
+                                    if (inputElem && userAnswerForSubQ[step.id] !== undefined) {
+                                        inputElem.value = userAnswerForSubQ[step.id];
                                     }
                                 });
                             }
                         });
                     }
                 });
-                updateOptionClasses();
+                // Update visual selection for all radio/checkboxes at once after loading
+                questionsContainer.querySelectorAll('.options-grid').forEach(grid => {
+                    grid.querySelectorAll('.option').forEach(label => {
+                        const input = label.querySelector('input');
+                        if (input && input.checked) label.classList.add('selected-option');
+                        else label.classList.remove('selected-option');
+                    });
+                });
+
             } catch (e) {
                 console.error("Failed to load saved answers:", e);
                 localStorage.removeItem(localStorageAnswersKey);
-                localStorage.removeItem(localStorageStartTimeKey);
+                // localStorage.removeItem(localStorageStartTimeKey); // Optionally clear start time if answers are corrupt
                 // alert("Erreur au chargement des réponses sauvegardées.");
             }
         }
     }
 
-    function updateProgress() {
-        let answeredCount = 0;
-        let totalQuestionsOrSteps = 0;
 
-        questions.forEach((question, qIndex) => {
+    function updateProgress() {
+        let answeredStepsCount = 0;
+        let totalSteps = 0;
+
+        questions.forEach((question) => {
             const questionElement = questionsContainer.querySelector(`.exam-question[data-question-id="${question.id}"]`);
             if (!questionElement) return;
 
-            if (question.type === 'trueFalse' || question.type === 'multiple') {
-                totalQuestionsOrSteps++;
-                if (questionElement.querySelector(`input[name="q${qIndex}"]:checked`)) {
-                    answeredCount++;
-                }
-            } else if (question.type === 'calculationStep') {
+            if (question.type === 'calculationStep') {
                 question.steps.forEach(step => {
-                    totalQuestionsOrSteps++;
-                    const inputElement = questionElement.querySelector(`input[data-step-id="${step.id}"]`);
+                    totalSteps++;
+                    const inputElement = questionElement.querySelector(`input[data-q-id="${question.id}"][data-step-id="${step.id}"]`);
                     if (inputElement && inputElement.value.trim() !== '') {
-                        answeredCount++;
+                        answeredStepsCount++;
                     }
                 });
             } else if (question.type === 'exercise' && question.questions) {
-                question.questions.forEach((subQ, subQIndex) => {
-                    const subQId = `q${qIndex}_sub${subQIndex}`;
+                question.questions.forEach((subQ) => {
+                    const subQuestionElement = questionElement.querySelector(`.sub-question-block[data-subquestion-id="${subQ.id}"]`);
+                    if (!subQuestionElement) return;
+
                     if (subQ.type === 'trueFalse') {
-                        totalQuestionsOrSteps++;
-                        if (questionElement.querySelector(`input[name="${subQId}"]:checked`)) answeredCount++;
+                        totalSteps++;
+                        const radioName = `subq_radio_${question.id}_${subQ.id}`;
+                        if (subQuestionElement.querySelector(`input[name="${radioName}"]:checked`)) {
+                            answeredStepsCount++;
+                        }
                     } else if (subQ.type === 'calculationStep') {
                         subQ.steps.forEach(step => {
-                            totalQuestionsOrSteps++;
-                            const inputElem = questionElement.querySelector(`input[data-subq-id="${subQ.id}"][data-step-id="${step.id}"]`);
-                            if (inputElem && inputElem.value.trim() !== '') answeredCount++;
+                            totalSteps++;
+                            const inputElem = subQuestionElement.querySelector(`input[data-q-id="${question.id}"][data-subq-id="${subQ.id}"][data-step-id="${step.id}"]`);
+                            if (inputElem && inputElem.value.trim() !== '') {
+                                answeredStepsCount++;
+                            }
                         });
                     }
                 });
             }
         });
 
-        questionProgressElement.textContent = `${answeredCount}/${totalQuestionsOrSteps}`;
-        const progressPercentage = totalQuestionsOrSteps > 0 ? (answeredCount / totalQuestionsOrSteps) * 100 : 0;
+        questionProgressElement.textContent = `${answeredStepsCount}/${totalSteps}`;
+        const progressPercentage = totalSteps > 0 ? (answeredStepsCount / totalSteps) * 100 : 0;
         progressFillElement.style.width = `${progressPercentage}%`;
     }
 
 
-    function calculateAutomaticScore(userAnswersObject) {
+    function calculateAutomaticScore(userAnswersObject) { // Recalculates score based on new structure
         let score = 0;
         questions.forEach((question) => {
             const userAnswerForQuestion = userAnswersObject?.[question.id];
-            if (userAnswerForQuestion === undefined && question.type !== 'exercise') return;
 
-            if (question.type === 'trueFalse') {
-                if (userAnswerForQuestion === String(question.answer)) { // answer is 'true' or 'false'
-                    score += question.points;
-                }
-            } else if (question.type === 'multiple') {
-                if (Array.isArray(userAnswerForQuestion) && Array.isArray(question.answer)) {
-                    const sortedUser = [...userAnswerForQuestion].sort();
-                    const sortedCorrect = [...question.answer].sort();
-                    if (JSON.stringify(sortedUser) === JSON.stringify(sortedCorrect)) {
-                        score += question.points;
-                    }
-                }
-            } else if (question.type === 'calculationStep') {
+            if (question.type === 'calculationStep') {
                 if (typeof userAnswerForQuestion === 'object') {
                     question.steps.forEach(step => {
                         const userStepAnswer = userAnswerForQuestion[step.id];
-                        if (userStepAnswer !== undefined) {
+                        if (userStepAnswer !== undefined) { // Check if user answered this step
                             const diff = Math.abs(userStepAnswer - step.correctAnswer);
                             if (diff <= step.tolerance) {
-                                score += step.points;
+                                score += (step.points || 0);
                             }
                         }
                     });
                 }
-            } else if (question.type === 'exercise' && question.questions) { // For Exercise 3
+            } else if (question.type === 'exercise' && question.questions) {
                  if (typeof userAnswerForQuestion === 'object') {
                      question.questions.forEach(subQ => {
-                        const userSubQAnswer = userAnswerForQuestion[subQ.id];
-                        if (userSubQAnswer === undefined) return;
+                        const userAnswerForSubQ = userAnswerForQuestion[subQ.id];
+                        if (userAnswerForSubQ === undefined && subQ.type !== 'calculationStep') return; // Skip if not answered for TF/MC
 
                         if (subQ.type === 'trueFalse') {
-                            if (userSubQAnswer === String(subQ.answer)) score += subQ.points;
+                            // Ensure userAnswerForSubQ is compared as string to string 'true'/'false'
+                            if (String(userAnswerForSubQ) === String(subQ.answer)) {
+                                score += (subQ.points || 0);
+                            }
                         } else if (subQ.type === 'calculationStep') {
-                            if (typeof userSubQAnswer === 'object') {
+                            if (typeof userAnswerForSubQ === 'object') {
                                 subQ.steps.forEach(step => {
-                                    const userStepAns = userSubQAnswer[step.id];
-                                    if (userStepAns !== undefined) {
+                                    const userStepAns = userAnswerForSubQ[step.id];
+                                    if (userStepAns !== undefined) { // Check if user answered this step
                                         const diff = Math.abs(userStepAns - step.correctAnswer);
-                                        if (diff <= step.tolerance) score += step.points;
+                                        if (diff <= step.tolerance) {
+                                            score += (step.points || 0);
+                                        }
                                     }
                                 });
                             }
@@ -1027,21 +1078,23 @@
         if (submitExamButton.disabled) return;
         submitExamButton.disabled = true;
         submitExamButton.textContent = 'Soumission en cours...';
-        saveAnswers();
+        saveAnswers(); // Ensure latest answers are saved
         const userAnswers = JSON.parse(localStorage.getItem(localStorageAnswersKey)) || {};
         const automaticScore = calculateAutomaticScore(userAnswers);
         const userData = JSON.parse(localStorage.getItem(localStorageUserKey));
 
         if (!userData || !userData.pseudo) {
-            alert("Erreur de session. Veuillez vous reconnecter.");
+            alert("Erreur de session : Pseudo non trouvé. Veuillez vous reconnecter.");
             showLogin();
+            submitExamButton.disabled = false; // Re-enable
+            submitExamButton.textContent = "Soumettre l'examen";
             return;
         }
         try {
             const existingSubmission = await checkExistingSubmission(userData.pseudo);
             if (existingSubmission) {
-                alert(`Résultat déjà soumis pour "${userData.pseudo}".`);
-                showResults({ pseudo: userData.pseudo });
+                alert(`Un résultat existe déjà pour le pseudo "${userData.pseudo}". Vous ne pouvez soumettre l'examen qu'une seule fois.`);
+                showResults({ pseudo: userData.pseudo }); // Show existing result
             } else {
                 await addDoc(examResultsCollection, {
                     pseudo: userData.pseudo,
@@ -1049,48 +1102,53 @@
                     userAnswers: userAnswers,
                     timestamp: serverTimestamp()
                 });
-                alert(`Examen soumis ! Score auto: ${automaticScore.toFixed(2)}/${TOTAL_POSSIBLE_POINTS.toFixed(2)}.`);
-                localStorage.removeItem(localStorageUserKey);
+                alert(`Votre examen a été soumis avec succès ! Votre score automatique est de ${automaticScore.toFixed(2)} / ${TOTAL_POSSIBLE_POINTS.toFixed(2)}.`);
+                localStorage.removeItem(localStorageUserKey); // Clear user session for this exam
                 localStorage.removeItem(localStorageAnswersKey);
                 localStorage.removeItem(localStorageStartTimeKey);
                 stopExamTimer();
-                await updateSubmittedCount();
-                showResults({ pseudo: userData.pseudo });
+                await updateSubmittedCount(); // Update general stats
+                showResults({ pseudo: userData.pseudo }); // Show newly submitted result
             }
         } catch (error) {
-            console.error("Erreur soumission:", error);
-            alert("Erreur lors de la soumission. Vérifiez votre connexion.");
-            submitExamButton.disabled = false;
-            submitExamButton.textContent = "Soumettre l'examen";
+            console.error("Erreur lors de la soumission de l'examen:", error);
+            alert("Une erreur est survenue lors de la soumission. Vérifiez votre connexion et réessayez.");
+            // Don't clear local storage on submit error, user might retry
+        } finally {
+            // Re-enable button unless redirected to results for existing submission
+            if (!(await checkExistingSubmission(userData.pseudo))) {
+                 submitExamButton.disabled = false;
+                 submitExamButton.textContent = "Soumettre l'examen";
+            }
         }
     }
 
 
     // --- MODIFIED Results Logic ---
-    async function updateLeaderboard() {
+    async function updateLeaderboard() { // Same as before, uses score from DB
         try {
             const q = query(examResultsCollection, orderBy('score', 'desc'), orderBy('timestamp', 'asc'));
             const snapshot = await getDocs(q);
             leaderboardListElement.innerHTML = '';
             if (snapshot.empty) {
-                leaderboardListElement.innerHTML = '<div class="text-center p-4 text-muted-foreground">Aucun résultat.</div>';
+                leaderboardListElement.innerHTML = '<div class="text-center p-4 text-muted-foreground">Aucun résultat disponible pour le moment.</div>';
             } else {
                 snapshot.forEach((doc, index) => {
                     const data = doc.data();
                     const item = document.createElement('div');
                     item.className = 'leaderboard-item';
                     item.innerHTML = `<span>${index + 1}. ${data.pseudo}</span>
-                                      <span>${data.score.toFixed(2)}/${TOTAL_POSSIBLE_POINTS.toFixed(2)}</span>`;
+                                      <span>${data.score.toFixed(2)} / ${TOTAL_POSSIBLE_POINTS.toFixed(2)}</span>`;
                     leaderboardListElement.appendChild(item);
                 });
             }
         } catch (error) {
             console.error("Error fetching leaderboard:", error);
-            leaderboardListElement.innerHTML = '<div class="text-center p-4 text-muted-foreground">Erreur chargement classement.</div>';
+            leaderboardListElement.innerHTML = '<div class="text-center p-4 text-muted-foreground">Erreur lors du chargement du classement.</div>';
         }
     }
 
-    async function updateSubmittedCount() {
+    async function updateSubmittedCount() { // Same as before
         try {
             const snapshot = await getDocs(examResultsCollection);
             submittedCountElement.textContent = snapshot.size;
@@ -1100,75 +1158,30 @@
         }
     }
 
-    function displayCorrection(userAnswersObject, isGenericView = false) {
+    function displayCorrection(userAnswersObject, isGenericView = false) { // Updated for new structure
         correctionListElement.innerHTML = '';
         correctionTitleElement.textContent = isGenericView ? "Correction de l'Examen" : 'Votre Correction';
         correctionSectionElement.classList.remove('hidden');
-
         let currentExerciseTitle = "";
 
-        questions.forEach((q, qIndex) => {
+        questions.forEach((q) => {
             if (q.exerciseTitle && q.exerciseTitle !== currentExerciseTitle) {
                 currentExerciseTitle = q.exerciseTitle;
                 const exerciseHeader = document.createElement('h3');
-                exerciseHeader.className = 'exercise-title text-lg'; // Smaller for correction
-                exerciseHeader.textContent = currentExerciseTitle;
+                exerciseHeader.className = 'exercise-title text-lg';
+                exerciseHeader.innerHTML = currentExerciseTitle; // KaTeX will render this
                 correctionListElement.appendChild(exerciseHeader);
             }
 
             const userAnswerForQuestion = userAnswersObject ? userAnswersObject[q.id] : undefined;
-            const isAnsweredOverall = userAnswerForQuestion !== undefined;
-
             const correctionItem = document.createElement('div');
             correctionItem.className = 'correction-item';
-            let correctionContent = `<div class="font-bold">Question ${qIndex + 1} <span class="question-points">(${q.points || 'N/A'} pts)</span></div>`;
-            correctionContent += `<div class="question-text">${q.text}</div>`;
+            let correctionContent = `<div class="question-text">${q.text || ''}</div>`; // Main text for exercise
 
-            if (q.type === 'trueFalse' || q.type === 'multiple') {
-                // ... (similar to old correction for MC/TF, but adapt to question.id based answers)
-                // For brevity, this part would be similar to the original but use userAnswerForQuestion
-                // Ensure to compare userAnswerForQuestion with q.answer
-                const isCorrect = (q.type === 'trueFalse' && userAnswerForQuestion === String(q.answer)) ||
-                                  (q.type === 'multiple' && Array.isArray(userAnswerForQuestion) && Array.isArray(q.answer) && JSON.stringify([...userAnswerForQuestion].sort()) === JSON.stringify([...q.answer].sort()));
-                let userAnswerText = 'Non répondu';
-                if (isAnsweredOverall) {
-                    if (q.type === 'trueFalse') userAnswerText = userAnswerForQuestion === 'true' ? (q.options[0] || 'Vrai') : (q.options[1] || 'Faux');
-                    else if (q.type === 'multiple' && Array.isArray(userAnswerForQuestion)) {
-                        userAnswerText = userAnswerForQuestion.map(idx => q.options[idx]).join(', ') || 'Aucune option';
-                    } else userAnswerText = "Format invalide";
-                }
-                const correctAnswerText = q.type === 'trueFalse' ? (q.answer ? (q.options[0]||'Vrai') : (q.options[1]||'Faux'))
-                                         : (Array.isArray(q.answer) ? q.answer.map(idx => q.options[idx]).join(', ') : 'N/A');
-
-                correctionContent += `<div class="text-sm mt-1 text-correction">
-                                          <span class="correct-answer">Correcte : ${correctAnswerText}</span>
-                                          ${!isGenericView ? `<br><span class="user-answer ${isAnsweredOverall ? (isCorrect ? 'correct' : 'incorrect') : 'unanswered'}">Votre réponse : ${userAnswerText}</span>` : ''}
-                                      </div>`;
-                 // Display options with highlighting
-                 if (Array.isArray(q.options)) {
-                     const optionsGrid = document.createElement('div');
-                     optionsGrid.className = 'options-grid mt-2';
-                     q.options.forEach((optionText, optIndex) => {
-                         const optionValue = q.type === 'trueFalse' ? (optionText === 'Exothermique' || optionText === 'Vrai' ? 'true' : 'false') : optIndex;
-                         const isCorrectOption = q.type === 'trueFalse' ? (String(q.answer) === optionValue) : (Array.isArray(q.answer) ? q.answer.includes(optIndex) : false);
-                         let isUserSelected = false;
-                         if (!isGenericView && isAnsweredOverall) {
-                             if (q.type === 'trueFalse') isUserSelected = (userAnswerForQuestion === optionValue);
-                             else if (q.type === 'multiple' && Array.isArray(userAnswerForQuestion)) isUserSelected = userAnswerForQuestion.includes(optIndex);
-                         }
-                         const optionLabel = document.createElement('label');
-                         optionLabel.className = `option disabled-option ${isCorrectOption ? 'correct' : ''} ${isUserSelected && !isCorrectOption ? 'incorrect selected-option' : ''} ${isUserSelected && isCorrectOption ? 'selected-option' : ''}`;
-                         optionLabel.innerHTML = `<input type="${q.type === 'trueFalse' ? 'radio' : 'checkbox'}" disabled ${isUserSelected ? 'checked' : ''}> <span>${optionText}</span>`;
-                         optionsGrid.appendChild(optionLabel);
-                     });
-                     correctionItem.innerHTML += optionsGrid.outerHTML;
-                 }
-
-
-            } else if (q.type === 'calculationStep') {
+            if (q.type === 'calculationStep') {
                 correctionContent += '<div class="calculation-step-container mt-2">';
                 q.steps.forEach(step => {
-                    const userStepAnswer = (isAnsweredOverall && typeof userAnswerForQuestion === 'object') ? userAnswerForQuestion[step.id] : undefined;
+                    const userStepAnswer = (userAnswerForQuestion && typeof userAnswerForQuestion === 'object') ? userAnswerForQuestion[step.id] : undefined;
                     const isStepAnswered = userStepAnswer !== undefined;
                     let stepClass = '';
                     let diff = Infinity;
@@ -1181,145 +1194,152 @@
                     correctionContent += `
                         <div class="calculation-step ${stepClass}">
                             <label>${step.prompt} <span class="question-points">(${step.points || 0} pts)</span></label>
-                            <input type="text" value="${isStepAnswered ? userStepAnswer : 'Non répondu'}" disabled>
-                            ${step.unit ? `<span class="unit">${step.unit}</span>` : ''}
+                            <div class="input-wrapper">
+                                <input type="text" value="${isStepAnswered ? userStepAnswer : 'Non répondu'}" disabled class="${!isStepAnswered ? 'text-muted-foreground italic' : ''}">
+                                ${step.unit ? `<span class="unit">${step.unit}</span>` : ''}
+                            </div>
                             <div class="correction-details">
-                                <span class="correct-value">Correct : ${step.correctAnswer} ${step.unit || ''}</span>
+                                <span class="correct-value">Attendu : ${step.correctAnswer} ${step.unit || ''}</span>
                                 ${isStepAnswered && stepClass === 'incorrect' ? `<br><span class="user-value incorrect">(Votre: ${userStepAnswer})</span>` : ''}
+                                ${isStepAnswered && stepClass === 'correct' && diff > 0.0001 ? `<br><span class="user-value tolerance">(Votre: ${userStepAnswer} - OK avec tolérance)</span>` : ''}
                             </div>
                         </div>`;
                 });
                 correctionContent += '</div>';
-            } else if (q.type === 'exercise' && q.questions) { // For Exercise 3 structure
-                correctionContent += `<div class="mt-2">`; // Container for sub-questions
+            } else if (q.type === 'exercise' && q.questions) {
                 q.questions.forEach(subQ => {
-                    correctionContent += `<div class="mt-4" data-subquestion-id="${subQ.id}">`;
-                    correctionContent += `<div class="font-semibold">${subQ.text} <span class="question-points">(${subQ.points || 0} pts)</span></div>`;
-                    const userSubQAnswer = (isAnsweredOverall && typeof userAnswerForQuestion === 'object') ? userAnswerForQuestion[subQ.id] : undefined;
+                    const subQuestionBlock = document.createElement('div');
+                    subQuestionBlock.className = 'sub-question-block'; // Use new class for styling
+                    subQuestionBlock.setAttribute('data-subquestion-id', subQ.id);
+                    let subQHTML = `<div class="question-number">${subQ.text} <span class="question-points">(${subQ.points || 0} pts)</span></div>`;
+                    const userAnswerForSubQ = (userAnswerForQuestion && typeof userAnswerForQuestion === 'object') ? userAnswerForQuestion[subQ.id] : undefined;
 
                     if (subQ.type === 'trueFalse') {
-                         const isSubQCorrect = userSubQAnswer === String(subQ.answer);
-                         const subQUserAnsText = userSubQAnswer === 'true' ? (subQ.options[0]||'Vrai') : (subQ.options[1]||'Faux');
-                         const subQCorrAnsText = subQ.answer ? (subQ.options[0]||'Vrai') : (subQ.options[1]||'Faux');
-                         correctionContent += `<div class="text-sm mt-1 text-correction">
-                                          <span class="correct-answer">Correcte : ${subQCorrAnsText}</span>
-                                          ${!isGenericView && userSubQAnswer!==undefined ? `<br><span class="user-answer ${isSubQCorrect ? 'correct' : 'incorrect'}">Votre réponse : ${subQUserAnsText}</span>` : (!isGenericView ? '<br><span class="user-answer unanswered">Non répondu</span>' : '')}
-                                      </div>`;
-                        // Display options for true/false
+                        const isSubQCorrect = String(userAnswerForSubQ) === String(subQ.answer);
+                        const subQUserAnsText = userAnswerForSubQ !== undefined ? (userAnswerForSubQ === 'true' ? (subQ.options[0]||'Exothermique') : (subQ.options[1]||'Endothermique')) : 'Non répondu';
+                        const subQCorrAnsText = subQ.answer ? (subQ.options[0]||'Exothermique') : (subQ.options[1]||'Endothermique');
+
+                        subQHTML += `<div class="text-sm mt-1 text-correction">
+                                      <span class="correct-answer">Attendu : ${subQCorrAnsText}</span>
+                                      ${!isGenericView ? `<br><span class="user-answer ${userAnswerForSubQ !== undefined ? (isSubQCorrect ? 'correct' : 'incorrect') : 'unanswered'}">Votre réponse : ${subQUserAnsText}</span>` : ''}
+                                  </div>`;
                         if (Array.isArray(subQ.options)) {
-                            const optionsGrid = document.createElement('div');
-                            optionsGrid.className = 'options-grid mt-2';
+                            let optionsDisplay = '<div class="options-grid mt-2">';
                             subQ.options.forEach((optionText) => {
                                 const optionValue = (optionText === 'Exothermique' || optionText === 'Vrai' ? 'true' : 'false');
                                 const isCorrectOption = (String(subQ.answer) === optionValue);
                                 let isUserSelected = false;
-                                if (!isGenericView && userSubQAnswer !== undefined) {
-                                    isUserSelected = (userSubQAnswer === optionValue);
+                                if (!isGenericView && userAnswerForSubQ !== undefined) {
+                                    isUserSelected = (String(userAnswerForSubQ) === optionValue);
                                 }
-                                const optionLabel = document.createElement('label');
-                                optionLabel.className = `option disabled-option ${isCorrectOption ? 'correct' : ''} ${isUserSelected && !isCorrectOption ? 'incorrect selected-option' : ''} ${isUserSelected && isCorrectOption ? 'selected-option' : ''}`;
-                                optionLabel.innerHTML = `<input type="radio" disabled ${isUserSelected ? 'checked' : ''}> <span>${optionText}</span>`;
-                                optionsGrid.appendChild(optionLabel);
+                                optionsDisplay += `<label class="option disabled-option ${isCorrectOption ? 'correct' : ''} ${isUserSelected && !isCorrectOption ? 'incorrect selected-option' : ''} ${isUserSelected && isCorrectOption ? 'selected-option' : ''}">
+                                    <input type="radio" disabled ${isUserSelected ? 'checked' : ''}> <span>${optionText}</span></label>`;
                             });
-                            correctionContent += optionsGrid.outerHTML;
+                            optionsDisplay += '</div>';
+                            subQHTML += optionsDisplay;
                         }
 
                     } else if (subQ.type === 'calculationStep') {
-                        correctionContent += '<div class="calculation-step-container mt-2">';
+                        subQHTML += '<div class="calculation-step-container mt-2">';
                         subQ.steps.forEach(step => {
-                            const userStepAns = (userSubQAnswer && typeof userSubQAnswer === 'object') ? userSubQAnswer[step.id] : undefined;
+                            const userStepAns = (userAnswerForSubQ && typeof userAnswerForSubQ === 'object') ? userAnswerForSubQ[step.id] : undefined;
                             const isStepAns = userStepAns !== undefined;
                             let stepCls = '';
                             if (isStepAns) {
                                 if (Math.abs(userStepAns - step.correctAnswer) <= step.tolerance) stepCls = 'correct';
                                 else stepCls = 'incorrect';
                             }
-                             correctionContent += `
+                             subQHTML += `
                                 <div class="calculation-step ${stepCls}">
                                     <label>${step.prompt} <span class="question-points">(${step.points || 0} pts)</span></label>
-                                    <input type="text" value="${isStepAns ? userStepAns : 'Non répondu'}" disabled>
-                                    ${step.unit ? `<span class="unit">${step.unit}</span>` : ''}
+                                    <div class="input-wrapper">
+                                        <input type="text" value="${isStepAns ? userStepAns : 'Non répondu'}" disabled class="${!isStepAns ? 'text-muted-foreground italic' : ''}">
+                                        ${step.unit ? `<span class="unit">${step.unit}</span>` : ''}
+                                    </div>
                                     <div class="correction-details">
-                                        <span class="correct-value">Correct : ${step.correctAnswer} ${step.unit || ''}</span>
-                                        ${isStepAns && stepCls === 'incorrect' ? `<br><span class="user-value incorrect">(Votre: ${userStepAns})</span>` : ''}
+                                        <span class="correct-value">Attendu : ${step.correctAnswer} ${step.unit || ''}</span>
+                                         ${isStepAns && stepCls === 'incorrect' ? `<br><span class="user-value incorrect">(Votre: ${userStepAns})</span>` : ''}
+                                         ${isStepAns && stepCls === 'correct' && Math.abs(userStepAns - step.correctAnswer) > 0.0001 ? `<br><span class="user-value tolerance">(Votre: ${userStepAns} - OK avec tolérance)</span>` : ''}
                                     </div>
                                 </div>`;
                         });
-                        correctionContent += '</div>';
+                        subQHTML += '</div>';
                     }
-                    correctionContent += `</div>`; // End subQ
+                    subQuestionBlock.innerHTML = subQHTML;
+                    correctionItem.appendChild(subQuestionBlock);
                 });
-                correctionContent += `</div>`; // End sub-questions container
             }
-
-            correctionItem.innerHTML = correctionContent;
+            // Prepend main text, then add children for exercise type
+            correctionItem.innerHTML = `<div class="question-text">${q.text || ''}</div>` + correctionItem.innerHTML;
             correctionListElement.appendChild(correctionItem);
         });
+        if (window.renderMathInElement) {
+            renderMathInElement(correctionListElement, katexRenderOptions);
+        }
     }
+
 
     function generateFeedbackMotif(score, userAnswersObject) {
         let motif = "";
         const percentage = (score / TOTAL_POSSIBLE_POINTS) * 100;
 
         if (percentage < 50) {
-            motif = "Vos résultats indiquent des lacunes importantes. Une révision approfondie de tous les chapitres de thermodynamique est fortement conseillée. Concentrez-vous sur la compréhension des définitions, des lois fondamentales et la résolution d'exercices types.";
+            motif = "Vos résultats indiquent des lacunes importantes. Une révision approfondie de tous les chapitres de thermodynamique est fortement conseillée. Concentrez-vous sur la compréhension des définitions, des lois fondamentales (Premier et Second Principe), des cycles thermodynamiques, et la calorimétrie. La résolution d'exercices types est cruciale.";
         } else if (percentage < 70) {
-            motif = "Vos résultats sont moyens. Vous avez une base, mais des erreurs persistent. Identifiez les exercices où vous avez perdu le plus de points et revoyez spécifiquement ces notions. Pratiquez davantage pour améliorer votre précision et votre rapidité.";
+            motif = "Vos résultats sont moyens. Vous avez une base, mais des erreurs persistent, notamment dans l'application des formules ou la compréhension des transformations. Identifiez les exercices où vous avez perdu le plus de points et revoyez spécifiquement ces notions. Pratiquez davantage pour améliorer votre précision et votre rapidité.";
         } else if (percentage < 85) {
-            motif = "Bons résultats ! Vous maîtrisez une bonne partie du programme. Pour exceller, analysez vos erreurs, même mineures, et cherchez à comprendre parfaitement les concepts sous-jacents. Quelques révisions ciblées devraient suffire.";
+            motif = "Bons résultats ! Vous maîtrisez une bonne partie du programme de thermodynamique. Pour exceller, analysez vos erreurs, même mineures (par exemple, erreurs de signe, unités, application de Kirchhoff). Cherchez à comprendre parfaitement les concepts sous-jacents. Quelques révisions ciblées devraient suffire.";
         } else {
-            motif = "Excellents résultats ! Vous semblez avoir une très bonne maîtrise de la thermodynamique. Continuez sur cette lancée !";
+            motif = "Excellents résultats ! Vous semblez avoir une très bonne maîtrise de la thermodynamique. Continuez sur cette lancée et approfondissez avec des problèmes plus complexes si vous le souhaitez !";
         }
 
-        // Add more specific feedback based on exercises if possible
-        let weakExercises = [];
+        let weakExercisesTitles = [];
         questions.forEach(q => {
-            if (q.type === 'exercise' || q.type === 'calculationStep') { // Check main exercises
-                let exerciseScore = 0;
-                let exerciseMaxPoints = 0;
-                const userAnswerForExercise = userAnswersObject ? userAnswersObject[q.id] : undefined;
+            let exerciseScore = 0;
+            let exerciseMaxPoints = 0;
+            const userAnswerForExercise = userAnswersObject ? userAnswersObject[q.id] : undefined;
 
-                if (q.type === 'calculationStep') {
-                    exerciseMaxPoints = q.steps.reduce((sum, step) => sum + step.points, 0);
-                    if (userAnswerForExercise && typeof userAnswerForExercise === 'object') {
-                        q.steps.forEach(step => {
-                            const userStepAnswer = userAnswerForExercise[step.id];
-                            if (userStepAnswer !== undefined && Math.abs(userStepAnswer - step.correctAnswer) <= step.tolerance) {
-                                exerciseScore += step.points;
-                            }
-                        });
-                    }
-                } else if (q.type === 'exercise' && q.questions) {
-                    q.questions.forEach(subQ => {
-                        exerciseMaxPoints += subQ.points;
-                         const userSubQAnswer = (userAnswerForExercise && typeof userAnswerForExercise === 'object') ? userAnswerForExercise[subQ.id] : undefined;
-                        if (subQ.type === 'trueFalse' && userSubQAnswer === String(subQ.answer)) {
-                            exerciseScore += subQ.points;
-                        } else if (subQ.type === 'calculationStep' && userSubQAnswer && typeof userSubQAnswer === 'object') {
-                            subQ.steps.forEach(step => {
-                                exerciseMaxPoints -= subQ.points; // Remove parent points for subQ and add step points
-                                exerciseMaxPoints += step.points;
-                                const userStepAns = userSubQAnswer[step.id];
-                                if (userStepAns !== undefined && Math.abs(userStepAns - step.correctAnswer) <= step.tolerance) {
-                                    exerciseScore += step.points;
-                                }
-                            });
+            if (q.type === 'calculationStep') {
+                exerciseMaxPoints = q.steps.reduce((sum, step) => sum + (step.points || 0), 0);
+                if (userAnswerForExercise && typeof userAnswerForExercise === 'object') {
+                    q.steps.forEach(step => {
+                        const userStepAnswer = userAnswerForExercise[step.id];
+                        if (userStepAnswer !== undefined && Math.abs(userStepAnswer - step.correctAnswer) <= step.tolerance) {
+                            exerciseScore += (step.points || 0);
                         }
                     });
                 }
+            } else if (q.type === 'exercise' && q.questions) {
+                q.questions.forEach(subQ => {
+                    let subQMaxPoints = 0;
+                    if (subQ.type === 'calculationStep') subQMaxPoints = subQ.steps.reduce((s, st) => s + (st.points || 0), 0);
+                    else subQMaxPoints = subQ.points || 0;
+                    exerciseMaxPoints += subQMaxPoints;
 
+                    const userAnswerForSubQ = (userAnswerForExercise && typeof userAnswerForExercise === 'object') ? userAnswerForExercise[subQ.id] : undefined;
+                    if (subQ.type === 'trueFalse' && String(userAnswerForSubQ) === String(subQ.answer)) {
+                        exerciseScore += (subQ.points || 0);
+                    } else if (subQ.type === 'calculationStep' && userAnswerForSubQ && typeof userAnswerForSubQ === 'object') {
+                        subQ.steps.forEach(step => {
+                            const userStepAns = userAnswerForSubQ[step.id];
+                            if (userStepAns !== undefined && Math.abs(userStepAns - step.correctAnswer) <= step.tolerance) {
+                                exerciseScore += (step.points || 0);
+                            }
+                        });
+                    }
+                });
+            }
 
-                if (exerciseMaxPoints > 0 && (exerciseScore / exerciseMaxPoints) < 0.6) { // If less than 60% on an exercise
-                    weakExercises.push(q.exerciseTitle || `Question ${q.id}`);
-                }
+            if (exerciseMaxPoints > 0 && (exerciseScore / exerciseMaxPoints) < 0.6) { // If less than 60% on an exercise
+                weakExercisesTitles.push(q.exerciseTitle || `Question ${q.id}`);
             }
         });
 
-        if (weakExercises.length > 0) {
-            motif += `<br><br>Focus particulier suggéré sur : ${weakExercises.join(', ')}.`;
+        if (weakExercisesTitles.length > 0) {
+            motif += `<br><br><strong>Focus particulier suggéré sur :</strong> ${weakExercisesTitles.join(', ')}. Refaites les calculs pas à pas pour ces sections.`;
         }
 
-        feedbackMotifText.innerHTML = motif; // Use innerHTML if motif contains <br>
+        feedbackMotifText.innerHTML = motif;
         feedbackMotifContainer.classList.remove('hidden');
     }
 
@@ -1344,7 +1364,7 @@
     window.addEventListener('load', async () => {
         loadTheme();
         await initializeRegisteredCounter();
-        startRegisteredCounterListener(); // Start it initially
+        // startRegisteredCounterListener(); // Moved to showLogin and showResults to avoid multiple listeners
 
         const savedUser = localStorage.getItem(localStorageUserKey);
         const savedStartTimeStr = localStorage.getItem(localStorageStartTimeKey);
@@ -1353,31 +1373,32 @@
         if (savedUser) {
             const userData = JSON.parse(savedUser);
             const existingSubmission = await checkExistingSubmission(userData.pseudo);
+
             if (existingSubmission) {
-                localStorage.removeItem(localStorageUserKey);
+                localStorage.removeItem(localStorageUserKey); // Log them out locally if already submitted
                 localStorage.removeItem(localStorageAnswersKey);
                 localStorage.removeItem(localStorageStartTimeKey);
-                showResults({ pseudo: userData.pseudo });
+                showResults({ pseudo: userData.pseudo }); // Show their existing result
             } else if (savedStartTimeStr) {
                 const startTime = parseInt(savedStartTimeStr);
                 const timeElapsed = now - startTime;
-                if (timeElapsed >= SESSION_DURATION_MS) {
+                if (timeElapsed >= SESSION_DURATION_MS) { // Session expired
                     localStorage.removeItem(localStorageUserKey);
                     localStorage.removeItem(localStorageAnswersKey);
                     localStorage.removeItem(localStorageStartTimeKey);
-                    alert("Votre session précédente a expiré. Reconnectez-vous.");
+                    alert("Votre session d'examen précédente a expiré. Vous devez vous reconnecter pour commencer une nouvelle tentative.");
                     showLogin();
-                } else {
+                } else { // Resume active session
                     startExam(userData);
                 }
-            } else { // User exists but no start time -> treat as new attempt
+            } else { // User key exists, but no start time (e.g. error during prev session start) -> Treat as new attempt
                 const startTime = getClientTime().getTime();
                 localStorage.setItem(localStorageStartTimeKey, startTime.toString());
-                localStorage.removeItem(localStorageAnswersKey); // Clear any old answers
+                localStorage.removeItem(localStorageAnswersKey); // Clear any orphaned answers
                 startExam(userData);
             }
-        } else {
-            localStorage.removeItem(localStorageUserKey); // ensure clean state
+        } else { // No user data in localStorage
+            localStorage.removeItem(localStorageUserKey); // Ensure clean state
             localStorage.removeItem(localStorageAnswersKey);
             localStorage.removeItem(localStorageStartTimeKey);
             showLogin();
@@ -1386,8 +1407,8 @@
 
     window.addEventListener('beforeunload', () => {
         stopExamTimer();
-        if (!examSection.classList.contains('hidden')) {
-             saveAnswers();
+        if (!examSection.classList.contains('hidden')) { // If in exam section
+             saveAnswers(); // Save progress before leaving
         }
     });
 
