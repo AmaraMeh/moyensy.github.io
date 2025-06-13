@@ -701,108 +701,63 @@
         function calculateResults() {
             const specialty = document.getElementById('specialty').value;
             const moyenneS1 = parseFloat(document.getElementById('moyenneS1').value);
-            const creditsS1 = parseInt(document.getElementById('creditsS1').value);
             const moyenneS2 = parseFloat(document.getElementById('moyenneS2').value);
+            const creditsS1 = parseInt(document.getElementById('creditsS1').value);
             const creditsS2 = parseInt(document.getElementById('creditsS2').value);
-            const moyenneS1Rattrapage = document.getElementById('moyenneS1Rattrapage').value && !document.getElementById('noRattrapageS1Checkbox').checked ? 
-                parseFloat(document.getElementById('moyenneS1Rattrapage').value) : null;
-            
-            // Si moyenne ≥ 10, on considère que tous les crédits sont validés
+            const moyenneS1Rattrapage = parseFloat(document.getElementById('moyenneS1Rattrapage').value) || 0;
+
+            // Calculate effective credits based on averages
             const effectiveCreditsS1 = moyenneS1 >= 10 ? 30 : creditsS1;
             const effectiveCreditsS2 = moyenneS2 >= 10 ? 30 : creditsS2;
-            
-            const totalCredits = effectiveCreditsS1 + effectiveCreditsS2;
-            const moyenneAnnuelle = ((moyenneS1 * effectiveCreditsS1) + (moyenneS2 * effectiveCreditsS2)) / totalCredits;
-            
-            let result = '';
-            let resultClass = '';
-            let details = [];
 
+            const totalCredits = effectiveCreditsS1 + effectiveCreditsS2;
+            const annualAverage = ((moyenneS1 * effectiveCreditsS1) + (moyenneS2 * effectiveCreditsS2)) / totalCredits;
+
+            let decision = '';
+            let details = '';
+            let status = '';
+
+            if (annualAverage >= 10) {
+                decision = 'Admis';
+                status = 'success';
+                details = `Moyenne annuelle : ${annualAverage.toFixed(2)}<br>Crédits validés : ${totalCredits}`;
+            } else if (annualAverage >= 8) {
+                decision = 'Ajourné ou rachat';
+                status = 'warning';
+                details = `Moyenne annuelle : ${annualAverage.toFixed(2)}<br>Crédits obtenus : ${totalCredits}`;
+            } else {
+                decision = 'Redoublement';
+                status = 'error';
+                details = `Moyenne annuelle : ${annualAverage.toFixed(2)}<br>Crédits obtenus : ${totalCredits}`;
+            }
+
+            // Add specific conditions for different specialties
             if (specialty.includes('ING')) {
                 if (hasModuleEliminatoire) {
-                    result = 'Rattrapage obligatoire';
-                    resultClass = 'error';
-                    details.push('Vous devez passer le rattrapage du module éliminatoire même si vous avez validé le semestre.');
-                } else if (moyenneAnnuelle >= 10) {
-                    result = 'Admis';
-                    resultClass = 'success';
-                } else {
-                    result = 'Ajourné';
-                    resultClass = 'error';
-                    details.push('Vous devez passer le rattrapage S2 pour avoir droit au rachat.');
-                    if (!hasPassedRattrapageS1) {
-                        details.push('Vous devez d\'abord passer le rattrapage S1.');
-                    }
-                }
-            } else { // LMD
-                if (moyenneAnnuelle >= 10) {
-                    result = 'Admis';
-                    resultClass = 'success';
-                    details.push('Tous les crédits sont automatiquement validés car votre moyenne est supérieure ou égale à 10.');
-                } else {
-                    if (totalCredits >= 30) {
-                        if (specialty === 'ST_LMD') {
-                            if (effectiveCreditsS1 >= 10 && effectiveCreditsS2 >= 10) {
-                                result = 'Admis avec dettes';
-                                resultClass = 'warning';
-                                if (moyenneS1 < 10 || moyenneS2 < 10) {
-                                    details.push('Vous devez passer le rattrapage du semestre non validé.');
-                                }
-                            } else {
-                                result = 'Ajourné';
-                                resultClass = 'error';
-                                details.push('Crédits insuffisants dans un semestre (minimum 10 crédits par semestre requis).');
-                            }
-                        } else {
-                            result = 'Admis avec dettes';
-                            resultClass = 'warning';
-                            if (moyenneS1 < 10 || moyenneS2 < 10) {
-                                details.push('Vous devez passer le rattrapage du semestre non validé.');
-                            }
-                        }
-                    } else {
-                        result = 'Ajourné';
-                        resultClass = 'error';
-                        details.push('Crédits annuels insuffisants (minimum 30 crédits requis).');
-                    }
-
-                    // Ajout des conditions pour le rachat
-                    if (result === 'Ajourné') {
-                        if (hasPassedRattrapageS1) {
-                            details.push('Vous avez une chance de rachat car vous avez passé le rattrapage S1.');
-                            details.push('Vous devez passer le rattrapage S2.');
-                        } else {
-                            details.push('Pour avoir une chance de rachat, vous devez passer le rattrapage S1.');
-                            details.push('Ensuite, vous devrez passer le rattrapage S2.');
-                        }
-                    }
+                    details += '<br><br><strong>Attention :</strong> Présence d\'un module éliminatoire - Rattrapage obligatoire';
                 }
             }
 
-            // Display results with animation
-            const resultContent = document.getElementById('resultContent');
-            resultContent.className = `result-box ${resultClass}`;
-            let html = `
-                <p class="text-2xl font-bold mb-4">Décision: ${result}</p>
-                <p class="text-lg mb-2">Moyenne annuelle: ${moyenneAnnuelle.toFixed(2)}</p>
-                <p class="text-lg mb-4">Crédits totaux: ${totalCredits}</p>
-                ${moyenneS1 >= 10 ? '<p class="text-sm text-green-600 mb-2">S1: Tous les crédits validés (moyenne ≥ 10)</p>' : ''}
-                ${moyenneS2 >= 10 ? '<p class="text-sm text-green-600 mb-2">S2: Tous les crédits validés (moyenne ≥ 10)</p>' : ''}
+            if (specialty.includes('LMD')) {
+                if (moyenneS1 < 10 && !hasPassedRattrapageS1) {
+                    details += '<br><br><strong>Attention :</strong> Échec au rattrapage S1';
+                }
+            }
+
+            // Show results with animation
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = `
+                <div class="bg-white/10 backdrop-blur-lg rounded-xl p-6 shadow-xl border border-white/20 transform transition-all duration-500 hover:scale-[1.02]">
+                    <h3 class="text-xl font-bold mb-4 text-${status === 'success' ? 'green' : status === 'warning' ? 'yellow' : 'red'}-400">
+                        ${decision}
+                    </h3>
+                    <div class="space-y-2 text-gray-200">
+                        ${details}
+                    </div>
+                </div>
             `;
-            
-            if (details.length > 0) {
-                html += '<div class="mt-6 space-y-2">';
-                details.forEach(detail => {
-                    html += `<p class="text-sm">${detail}</p>`;
-                });
-                html += '</div>';
-            }
-
-            resultContent.innerHTML = html;
-            document.getElementById('results').classList.remove('hidden');
-            resultContent.style.animation = 'none';
-            resultContent.offsetHeight; // Trigger reflow
-            resultContent.style.animation = 'slideIn 0.5s ease-out';
+            resultsDiv.classList.remove('hidden');
+            resultsDiv.scrollIntoView({ behavior: 'smooth' });
         }
 
         // Optimize touch interactions
