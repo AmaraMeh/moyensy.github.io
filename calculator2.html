@@ -581,10 +581,12 @@
                     </div>
                 </div>
 
-                <button type="submit" class="w-full bg-blue-600 text-white hover:bg-blue-700 py-3 rounded-xl text-base md:text-lg font-medium" 
-                        data-aos="fade-up" data-aos-delay="600">
-                    Calculer
-                </button>
+                <div class="flex justify-center mt-8">
+                    <button id="calculateButton" onclick="calculateResults()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                        <i class="fas fa-calculator mr-2"></i>
+                        Calculer
+                    </button>
+                </div>
             </form>
 
             <!-- Results Section -->
@@ -611,11 +613,12 @@
         // Initialize AOS
         AOS.init({
             duration: 800,
+            easing: 'ease-out',
             once: true
         });
 
         let hasModuleEliminatoire = false;
-        let hasPassedRattrapageS1 = true;
+        let hasPassedRattrapageS1 = false;
         let isDarkMode = true; // Default to dark mode
 
         // Theme Toggle
@@ -682,7 +685,7 @@
             const specialty = this.value;
             const rattrapageS1Section = document.getElementById('rattrapageS1Section');
             const moduleEliminatoireSection = document.getElementById('moduleEliminatoireSection');
-            const moyenneS1 = parseFloat(document.getElementById('moyenneS1').value);
+            const moyenneS1 = parseFloat(document.getElementById('moyenneS1').value) || 0;
             
             if ((specialty.includes('LMD') || specialty.includes('ING')) && moyenneS1 < 10) {
                 rattrapageS1Section.classList.remove('hidden');
@@ -701,13 +704,16 @@
 
         function calculateResults() {
             const specialty = document.getElementById('specialty').value;
-            const moyenneS1 = parseFloat(document.getElementById('moyenneS1').value);
-            const moyenneS2 = parseFloat(document.getElementById('moyenneS2').value);
-            const creditsS1 = parseInt(document.getElementById('creditsS1').value);
-            const creditsS2 = parseInt(document.getElementById('creditsS2').value);
+            const moyenneS1 = parseFloat(document.getElementById('moyenneS1').value) || 0;
+            const moyenneS2 = parseFloat(document.getElementById('moyenneS2').value) || 0;
+            const creditsS1 = parseInt(document.getElementById('creditsS1').value) || 0;
+            const creditsS2 = parseInt(document.getElementById('creditsS2').value) || 0;
             const moyenneS1Rattrapage = parseFloat(document.getElementById('moyenneS1Rattrapage').value) || 0;
             const noRattrapageS1 = document.getElementById('noRattrapageS1Checkbox').checked;
-            const hasEliminatoryModule = document.getElementById('eliminatoryModuleCheckbox').checked;
+            const hasEliminatoryModule = document.getElementById('moduleEliminatoireCheckbox').checked;
+
+            // Update hasPassedRattrapageS1 based on input
+            hasPassedRattrapageS1 = !noRattrapageS1 && moyenneS1Rattrapage > 0;
 
             // Calculate effective credits based on averages
             const effectiveCreditsS1 = moyenneS1 >= 10 ? 30 : creditsS1;
@@ -733,16 +739,28 @@
 
             // Check for eliminatory module first
             if (hasEliminatoryModule) {
-                result = 'Redoublement';
-                resultClass = 'error';
-                details.push(`Moyenne annuelle : ${annualAverage.toFixed(2)}`);
-                if (!noRattrapageS1 && moyenneS1Rattrapage > 0) {
-                    details.push(`Moyenne S1 après rattrapage : ${moyenneS1Rattrapage.toFixed(2)}`);
-                }
-                details.push(`Crédits obtenus : ${totalCredits}`);
-                details.push('Vous avez un module éliminatoire');
                 if (specialty.includes('ING')) {
-                    details.push('En ING, un module éliminatoire entraîne automatiquement le redoublement');
+                    result = 'Ajourné';
+                    resultClass = 'warning';
+                    details.push(`Moyenne annuelle : ${annualAverage.toFixed(2)}`);
+                    if (!noRattrapageS1 && moyenneS1Rattrapage > 0) {
+                        details.push(`Moyenne S1 après rattrapage : ${moyenneS1Rattrapage.toFixed(2)}`);
+                    }
+                    details.push(`Crédits obtenus : ${totalCredits}`);
+                    details.push('En ING, un module éliminatoire oblige à passer le rattrapage');
+                    if (moyenneS2 < 10) {
+                        details.push('Vous devez passer le rattrapage S2');
+                        details.push(`Pour être admis, vous devez avoir ${requiredS2Makeup.toFixed(2)} au rattrapage S2`);
+                    }
+                } else {
+                    result = 'Redoublement';
+                    resultClass = 'error';
+                    details.push(`Moyenne annuelle : ${annualAverage.toFixed(2)}`);
+                    if (!noRattrapageS1 && moyenneS1Rattrapage > 0) {
+                        details.push(`Moyenne S1 après rattrapage : ${moyenneS1Rattrapage.toFixed(2)}`);
+                    }
+                    details.push(`Crédits obtenus : ${totalCredits}`);
+                    details.push('Vous avez un module éliminatoire');
                 }
             } else if (annualAverage >= 10) {
                 result = 'Admis';
