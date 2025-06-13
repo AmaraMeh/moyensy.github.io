@@ -465,20 +465,6 @@
             </p>
         </div>
         <div class="relative z-10 text-center px-4 py-12" data-aos="fade-up">
-            <!-- Instagram Links -->
-            <div class="flex justify-center space-x-4 mb-8" data-aos="fade-down">
-                <a href="https://www.instagram.com/amaramehdipersonal" target="_blank" 
-                   class="group flex items-center space-x-2 bg-gradient-to-r from-purple-500/20 to-pink-500/20 backdrop-blur-sm px-6 py-3 rounded-full border border-white/10 hover:border-blue-400/50 transition-all duration-300">
-                    <i class="fab fa-instagram text-xl text-pink-400 group-hover:scale-110 transition-transform"></i>
-                    <span class="text-gray-200 group-hover:text-blue-400 transition-colors">@amaramehdipersonal</span>
-                </a>
-                <a href="https://www.instagram.com/spot_campuselkseur" target="_blank" 
-                   class="group flex items-center space-x-2 bg-gradient-to-r from-blue-500/20 to-purple-500/20 backdrop-blur-sm px-6 py-3 rounded-full border border-white/10 hover:border-blue-400/50 transition-all duration-300">
-                    <i class="fab fa-instagram text-xl text-blue-400 group-hover:scale-110 transition-transform"></i>
-                    <span class="text-gray-200 group-hover:text-blue-400 transition-colors">@spot_campuselkseur</span>
-                </a>
-            </div>
-
             <h1 class="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent animate-float">
                 Calculateur de Résultats
             </h1>
@@ -591,8 +577,21 @@
     </button>
 
     <!-- Footer -->
-    <footer class="fixed bottom-0 left-0 right-0 bg-black/50 backdrop-blur-lg text-white py-4 text-center">
+    <footer class="fixed bottom-0 left-0 right-0 bg-black/50 backdrop-blur-lg text-white py-6 text-center">
         <div class="container mx-auto px-4">
+            <!-- Instagram Links -->
+            <div class="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-6 mb-4">
+                <a href="https://www.instagram.com/amaramehdipersonal" target="_blank" 
+                   class="group flex items-center space-x-2 bg-gradient-to-r from-purple-500/20 to-pink-500/20 backdrop-blur-sm px-6 py-3 rounded-full border border-white/10 hover:border-blue-400/50 transition-all duration-300 active:scale-95">
+                    <i class="fab fa-instagram text-xl text-pink-400 group-hover:scale-110 transition-transform"></i>
+                    <span class="text-gray-200 group-hover:text-blue-400 transition-colors">@amaramehdipersonal</span>
+                </a>
+                <a href="https://www.instagram.com/spot_campuselkseur" target="_blank" 
+                   class="group flex items-center space-x-2 bg-gradient-to-r from-blue-500/20 to-purple-500/20 backdrop-blur-sm px-6 py-3 rounded-full border border-white/10 hover:border-blue-400/50 transition-all duration-300 active:scale-95">
+                    <i class="fab fa-instagram text-xl text-blue-400 group-hover:scale-110 transition-transform"></i>
+                    <span class="text-gray-200 group-hover:text-blue-400 transition-colors">@spot_campuselkseur</span>
+                </a>
+            </div>
             <p class="text-sm">Made in University of Bejaia</p>
         </div>
     </footer>
@@ -788,6 +787,78 @@
             resultContent.offsetHeight; // Trigger reflow
             resultContent.style.animation = 'slideIn 0.5s ease-out';
         }
+
+        // Optimize touch interactions
+        document.querySelectorAll('button, input[type="checkbox"], select').forEach(element => {
+            element.addEventListener('touchstart', function() {
+                this.style.transform = 'scale(0.98)';
+            });
+            element.addEventListener('touchend', function() {
+                this.style.transform = 'scale(1)';
+            });
+        });
+
+        // Add ripple effect to buttons
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                const ripple = document.createElement('span');
+                ripple.classList.add('ripple');
+                this.appendChild(ripple);
+
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                ripple.style.width = ripple.style.height = `${size}px`;
+
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                ripple.style.left = `${x}px`;
+                ripple.style.top = `${y}px`;
+
+                ripple.classList.add('active');
+                setTimeout(() => ripple.remove(), 600);
+            });
+        });
+
+        // Add styles for ripple effect
+        const style = document.createElement('style');
+        style.textContent = `
+            .ripple {
+                position: absolute;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.3);
+                transform: scale(0);
+                animation: ripple 0.6s linear;
+                pointer-events: none;
+            }
+
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+
+            button {
+                position: relative;
+                overflow: hidden;
+            }
+
+            /* Optimize mobile interactions */
+            @media (max-width: 640px) {
+                input, select, button {
+                    -webkit-tap-highlight-color: transparent;
+                }
+
+                .form-container {
+                    padding: 1.5rem;
+                }
+
+                .footer {
+                    padding: 1rem;
+                }
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
 </html> 
