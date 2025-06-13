@@ -736,7 +736,7 @@
                     details.push(`Moyenne S1 après rattrapage : ${moyenneS1Rattrapage.toFixed(2)}`);
                 }
                 details.push(`Crédits validés : 60 (validation automatique)`);
-            } else if (annualAverage >= 8 || hasPassedRattrapageS1) {
+            } else if (annualAverage >= 8) {
                 if (totalCredits >= 30) {
                     if (specialty === 'ST_LMD') {
                         if (effectiveCreditsS1 >= 10 && effectiveCreditsS2 >= 10) {
@@ -751,8 +751,8 @@
                                 details.push('Vous devez passer le rattrapage du semestre non validé');
                             }
                         } else {
-                            result = 'Ajourné ou rachat';
-                            resultClass = 'warning';
+                            result = 'Ajourné';
+                            resultClass = 'error';
                             details.push(`Moyenne annuelle : ${annualAverage.toFixed(2)}`);
                             if (!noRattrapageS1 && moyenneS1Rattrapage > 0) {
                                 details.push(`Moyenne S1 après rattrapage : ${moyenneS1Rattrapage.toFixed(2)}`);
@@ -764,63 +764,38 @@
                             }
                         }
                     } else {
-                        if (hasPassedRattrapageS1) {
-                            result = 'Ajourné ou rachat';
-                            resultClass = 'warning';
-                            details.push(`Moyenne annuelle : ${annualAverage.toFixed(2)}`);
-                            if (!noRattrapageS1 && moyenneS1Rattrapage > 0) {
-                                details.push(`Moyenne S1 après rattrapage : ${moyenneS1Rattrapage.toFixed(2)}`);
-                            }
-                            details.push(`Crédits obtenus : ${totalCredits}`);
-                            details.push('Vous avez une chance de rachat car vous avez passé le rattrapage S1');
-                            if (moyenneS2 < 10) {
-                                details.push('Vous devez passer le rattrapage S2');
-                            }
-                        } else {
-                            result = 'Admis avec dettes';
-                            resultClass = 'warning';
-                            details.push(`Moyenne annuelle : ${annualAverage.toFixed(2)}`);
-                            details.push(`Crédits obtenus : ${totalCredits}`);
-                            if (effectiveMoyenneS1 < 10 || moyenneS2 < 10) {
-                                details.push('Vous devez passer le rattrapage du semestre non validé');
-                            }
-                        }
-                    }
-                } else {
-                    if (hasPassedRattrapageS1) {
-                        result = 'Ajourné ou rachat';
+                        result = 'Admis avec dettes';
                         resultClass = 'warning';
                         details.push(`Moyenne annuelle : ${annualAverage.toFixed(2)}`);
                         if (!noRattrapageS1 && moyenneS1Rattrapage > 0) {
                             details.push(`Moyenne S1 après rattrapage : ${moyenneS1Rattrapage.toFixed(2)}`);
                         }
                         details.push(`Crédits obtenus : ${totalCredits}`);
-                        details.push('Vous avez une chance de rachat car vous avez passé le rattrapage S1');
-                        if (moyenneS2 < 10) {
-                            details.push('Vous devez passer le rattrapage S2');
+                        if (effectiveMoyenneS1 < 10 || moyenneS2 < 10) {
+                            details.push('Vous devez passer le rattrapage du semestre non validé');
                         }
-                    } else {
-                        result = 'Ajourné';
-                        resultClass = 'error';
-                        details.push('Crédits annuels insuffisants (minimum 30 crédits requis)');
                     }
+                } else {
+                    result = 'Ajourné';
+                    resultClass = 'error';
+                    details.push(`Moyenne annuelle : ${annualAverage.toFixed(2)}`);
+                    if (!noRattrapageS1 && moyenneS1Rattrapage > 0) {
+                        details.push(`Moyenne S1 après rattrapage : ${moyenneS1Rattrapage.toFixed(2)}`);
+                    }
+                    details.push(`Crédits obtenus : ${totalCredits}`);
+                    details.push('Crédits annuels insuffisants (minimum 30 crédits requis)');
                 }
-
-                if (result === 'Ajourné') {
-                    if (specialty.includes('ING')) {
-                        if (hasModuleEliminatoire) {
-                            details.push('Présence d\'un module éliminatoire - Rattrapage obligatoire');
-                        }
-                        if (!hasPassedRattrapageS1) {
-                            details.push('Vous devez d\'abord passer le rattrapage S1');
-                        }
-                        details.push('Vous devez passer le rattrapage S2 pour avoir droit au rachat');
-                    } else { // LMD
-                        if (!hasPassedRattrapageS1) {
-                            details.push('Pour avoir une chance de rachat, vous devez passer le rattrapage S1');
-                            details.push('Ensuite, vous devrez passer le rattrapage S2');
-                        }
-                    }
+            } else if (hasPassedRattrapageS1) {
+                result = 'Ajourné ou rachat';
+                resultClass = 'warning';
+                details.push(`Moyenne annuelle : ${annualAverage.toFixed(2)}`);
+                if (!noRattrapageS1 && moyenneS1Rattrapage > 0) {
+                    details.push(`Moyenne S1 après rattrapage : ${moyenneS1Rattrapage.toFixed(2)}`);
+                }
+                details.push(`Crédits obtenus : ${totalCredits}`);
+                details.push('Vous avez une chance de rachat car vous avez passé le rattrapage S1');
+                if (moyenneS2 < 10) {
+                    details.push('Vous devez passer le rattrapage S2');
                 }
             } else {
                 result = 'Redoublement';
