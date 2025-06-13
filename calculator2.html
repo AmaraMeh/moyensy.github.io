@@ -713,51 +713,96 @@
             const totalCredits = effectiveCreditsS1 + effectiveCreditsS2;
             const annualAverage = ((moyenneS1 * effectiveCreditsS1) + (moyenneS2 * effectiveCreditsS2)) / totalCredits;
 
-            let decision = '';
-            let details = '';
-            let status = '';
+            let result = '';
+            let resultClass = '';
+            let details = [];
 
+            // Si moyenne annuelle ≥ 10, tous les crédits sont automatiquement validés
             if (annualAverage >= 10) {
-                decision = 'Admis';
-                status = 'success';
-                details = `Moyenne annuelle : ${annualAverage.toFixed(2)}<br>Crédits validés : ${totalCredits}`;
+                result = 'Admis';
+                resultClass = 'success';
+                details.push('Tous les crédits sont automatiquement validés car votre moyenne est supérieure ou égale à 10.');
+                details.push(`Moyenne annuelle : ${annualAverage.toFixed(2)}`);
+                details.push(`Crédits validés : 60 (validation automatique)`);
             } else if (annualAverage >= 8) {
-                decision = 'Ajourné ou rachat';
-                status = 'warning';
-                details = `Moyenne annuelle : ${annualAverage.toFixed(2)}<br>Crédits obtenus : ${totalCredits}`;
+                if (totalCredits >= 30) {
+                    if (specialty === 'ST_LMD') {
+                        if (effectiveCreditsS1 >= 10 && effectiveCreditsS2 >= 10) {
+                            result = 'Admis avec dettes';
+                            resultClass = 'warning';
+                            details.push(`Moyenne annuelle : ${annualAverage.toFixed(2)}`);
+                            details.push(`Crédits obtenus : ${totalCredits}`);
+                            if (moyenneS1 < 10 || moyenneS2 < 10) {
+                                details.push('Vous devez passer le rattrapage du semestre non validé');
+                            }
+                        } else {
+                            result = 'Ajourné';
+                            resultClass = 'error';
+                            details.push('Crédits insuffisants dans un semestre (minimum 10 crédits par semestre requis)');
+                        }
+                    } else {
+                        result = 'Admis avec dettes';
+                        resultClass = 'warning';
+                        details.push(`Moyenne annuelle : ${annualAverage.toFixed(2)}`);
+                        details.push(`Crédits obtenus : ${totalCredits}`);
+                        if (moyenneS1 < 10 || moyenneS2 < 10) {
+                            details.push('Vous devez passer le rattrapage du semestre non validé');
+                        }
+                    }
+                } else {
+                    result = 'Ajourné';
+                    resultClass = 'error';
+                    details.push('Crédits annuels insuffisants (minimum 30 crédits requis)');
+                }
+
+                if (result === 'Ajourné') {
+                    if (specialty.includes('ING')) {
+                        if (hasModuleEliminatoire) {
+                            details.push('Présence d\'un module éliminatoire - Rattrapage obligatoire');
+                        }
+                        if (!hasPassedRattrapageS1) {
+                            details.push('Vous devez d\'abord passer le rattrapage S1');
+                        }
+                        details.push('Vous devez passer le rattrapage S2 pour avoir droit au rachat');
+                    } else { // LMD
+                        if (!hasPassedRattrapageS1) {
+                            details.push('Pour avoir une chance de rachat, vous devez passer le rattrapage S1');
+                            details.push('Ensuite, vous devrez passer le rattrapage S2');
+                        }
+                    }
+                }
             } else {
-                decision = 'Redoublement';
-                status = 'error';
-                details = `Moyenne annuelle : ${annualAverage.toFixed(2)}<br>Crédits obtenus : ${totalCredits}`;
+                result = 'Redoublement';
+                resultClass = 'error';
+                details.push(`Moyenne annuelle : ${annualAverage.toFixed(2)}`);
+                details.push(`Crédits obtenus : ${totalCredits}`);
+                details.push('Moyenne annuelle insuffisante pour le rachat (minimum 8 requis)');
             }
 
-            // Add specific conditions for different specialties
-            if (specialty.includes('ING')) {
-                if (hasModuleEliminatoire) {
-                    details += '<br><br><strong>Attention :</strong> Présence d\'un module éliminatoire - Rattrapage obligatoire';
-                }
-            }
-
-            if (specialty.includes('LMD')) {
-                if (moyenneS1 < 10 && !hasPassedRattrapageS1) {
-                    details += '<br><br><strong>Attention :</strong> Échec au rattrapage S1';
-                }
-            }
-
-            // Show results with animation
-            const resultsDiv = document.getElementById('results');
-            resultsDiv.innerHTML = `
-                <div class="bg-white/10 backdrop-blur-lg rounded-xl p-6 shadow-xl border border-white/20 transform transition-all duration-500 hover:scale-[1.02]">
-                    <h3 class="text-xl font-bold mb-4 text-${status === 'success' ? 'green' : status === 'warning' ? 'yellow' : 'red'}-400">
-                        ${decision}
-                    </h3>
-                    <div class="space-y-2 text-gray-200">
-                        ${details}
-                    </div>
-                </div>
+            // Display results with animation
+            const resultContent = document.getElementById('resultContent');
+            resultContent.className = `result-box ${resultClass}`;
+            let html = `
+                <p class="text-2xl font-bold mb-4">Décision: ${result}</p>
+                <p class="text-lg mb-2">Moyenne annuelle: ${annualAverage.toFixed(2)}</p>
+                <p class="text-lg mb-4">Crédits totaux: ${annualAverage >= 10 ? '60 (validation automatique)' : totalCredits}</p>
+                ${moyenneS1 >= 10 ? '<p class="text-sm text-green-600 mb-2">S1: Tous les crédits validés (moyenne ≥ 10)</p>' : ''}
+                ${moyenneS2 >= 10 ? '<p class="text-sm text-green-600 mb-2">S2: Tous les crédits validés (moyenne ≥ 10)</p>' : ''}
             `;
-            resultsDiv.classList.remove('hidden');
-            resultsDiv.scrollIntoView({ behavior: 'smooth' });
+            
+            if (details.length > 0) {
+                html += '<div class="mt-6 space-y-2">';
+                details.forEach(detail => {
+                    html += `<p class="text-sm">${detail}</p>`;
+                });
+                html += '</div>';
+            }
+
+            resultContent.innerHTML = html;
+            document.getElementById('results').classList.remove('hidden');
+            resultContent.style.animation = 'none';
+            resultContent.offsetHeight; // Trigger reflow
+            resultContent.style.animation = 'slideIn 0.5s ease-out';
         }
 
         // Optimize touch interactions
