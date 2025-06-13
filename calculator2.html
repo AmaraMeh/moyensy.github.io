@@ -722,6 +722,9 @@
             // Calculate annual average as simple average of S1 and S2
             const annualAverage = (effectiveMoyenneS1 + moyenneS2) / 2;
 
+            // Calculate required S2 makeup average to reach 10
+            const requiredS2Makeup = (10 * 2) - effectiveMoyenneS1;
+
             let result = '';
             let resultClass = '';
             let details = [];
@@ -749,6 +752,7 @@
                             details.push(`Crédits obtenus : ${totalCredits}`);
                             if (effectiveMoyenneS1 < 10 || moyenneS2 < 10) {
                                 details.push('Vous devez passer le rattrapage du semestre non validé');
+                                details.push(`Pour être admis sans dettes, vous devez avoir ${requiredS2Makeup.toFixed(2)} au rattrapage S2`);
                             }
                         } else {
                             result = 'Ajourné';
@@ -761,9 +765,11 @@
                             details.push('Pour ST LMD, vous devez avoir au moins 10 crédits dans chaque semestre');
                             if (moyenneS2 < 10) {
                                 details.push('Vous devez passer le rattrapage S2');
+                                details.push(`Pour être admis sans dettes, vous devez avoir ${requiredS2Makeup.toFixed(2)} au rattrapage S2`);
                             }
                         }
                     } else {
+                        // Pour toutes les autres spécialités
                         result = 'Admis avec dettes';
                         resultClass = 'warning';
                         details.push(`Moyenne annuelle : ${annualAverage.toFixed(2)}`);
@@ -773,6 +779,7 @@
                         details.push(`Crédits obtenus : ${totalCredits}`);
                         if (effectiveMoyenneS1 < 10 || moyenneS2 < 10) {
                             details.push('Vous devez passer le rattrapage du semestre non validé');
+                            details.push(`Pour être admis sans dettes, vous devez avoir ${requiredS2Makeup.toFixed(2)} au rattrapage S2`);
                         }
                     }
                 } else {
@@ -796,6 +803,7 @@
                 details.push('Vous avez une chance de rachat car vous avez passé le rattrapage S1');
                 if (moyenneS2 < 10) {
                     details.push('Vous devez passer le rattrapage S2');
+                    details.push(`Pour être admis sans dettes, vous devez avoir ${requiredS2Makeup.toFixed(2)} au rattrapage S2`);
                 }
             } else {
                 result = 'Redoublement';
