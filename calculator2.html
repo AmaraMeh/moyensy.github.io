@@ -612,11 +612,18 @@
         document.getElementById('moyenneS1').addEventListener('input', function() {
             const moyenne = parseFloat(this.value);
             const creditsInput = document.getElementById('creditsS1');
+            const rattrapageSection = document.getElementById('rattrapageS1Section');
+            
             if (moyenne >= 10) {
                 creditsInput.value = 30;
                 creditsInput.disabled = true;
+                rattrapageSection.classList.add('hidden');
             } else {
                 creditsInput.disabled = false;
+                if (document.getElementById('specialty').value.includes('LMD') || 
+                    document.getElementById('specialty').value.includes('ING')) {
+                    rattrapageSection.classList.remove('hidden');
+                }
             }
         });
 
@@ -655,8 +662,9 @@
             const specialty = this.value;
             const rattrapageS1Section = document.getElementById('rattrapageS1Section');
             const moduleEliminatoireSection = document.getElementById('moduleEliminatoireSection');
+            const moyenneS1 = parseFloat(document.getElementById('moyenneS1').value);
             
-            if (specialty.includes('LMD') || specialty.includes('ING')) {
+            if ((specialty.includes('LMD') || specialty.includes('ING')) && moyenneS1 < 10) {
                 rattrapageS1Section.classList.remove('hidden');
                 if (specialty.includes('ING')) {
                     moduleEliminatoireSection.classList.remove('hidden');
