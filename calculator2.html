@@ -719,7 +719,8 @@
                 effectiveMoyenneS1 = moyenneS1Rattrapage;
             }
             
-            const annualAverage = ((effectiveMoyenneS1 * effectiveCreditsS1) + (moyenneS2 * effectiveCreditsS2)) / totalCredits;
+            // Calculate annual average as simple average of S1 and S2
+            const annualAverage = (effectiveMoyenneS1 + moyenneS2) / 2;
 
             let result = '';
             let resultClass = '';
@@ -757,7 +758,7 @@
                                 details.push(`Moyenne S1 après rattrapage : ${moyenneS1Rattrapage.toFixed(2)}`);
                             }
                             details.push(`Crédits obtenus : ${totalCredits}`);
-                            details.push('Vous avez une chance de rachat car vous avez passé le rattrapage S1');
+                            details.push('Pour ST LMD, vous devez avoir au moins 10 crédits dans chaque semestre');
                             if (moyenneS2 < 10) {
                                 details.push('Vous devez passer le rattrapage S2');
                             }
