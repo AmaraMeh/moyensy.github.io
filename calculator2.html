@@ -768,6 +768,19 @@
                                 details.push(`Pour être admis sans dettes, vous devez avoir ${requiredS2Makeup.toFixed(2)} au rattrapage S2`);
                             }
                         }
+                    } else if (specialty.includes('ING')) {
+                        // Pour les spécialités ING
+                        result = 'Ajourné ou rachat';
+                        resultClass = 'warning';
+                        details.push(`Moyenne annuelle : ${annualAverage.toFixed(2)}`);
+                        if (!noRattrapageS1 && moyenneS1Rattrapage > 0) {
+                            details.push(`Moyenne S1 après rattrapage : ${moyenneS1Rattrapage.toFixed(2)}`);
+                        }
+                        details.push(`Crédits obtenus : ${totalCredits}`);
+                        if (effectiveMoyenneS1 < 10 || moyenneS2 < 10) {
+                            details.push('Vous devez passer le rattrapage du semestre non validé');
+                            details.push(`Pour être admis, vous devez avoir ${requiredS2Makeup.toFixed(2)} au rattrapage S2`);
+                        }
                     } else {
                         // Pour toutes les autres spécialités
                         result = 'Admis avec dettes';
