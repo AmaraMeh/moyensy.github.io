@@ -755,8 +755,8 @@
                                 details.push(`Pour être admis sans dettes, vous devez avoir ${requiredS2Makeup.toFixed(2)} au rattrapage S2`);
                             }
                         } else {
-                            result = 'Ajourné';
-                            resultClass = 'error';
+                            result = 'Ajourné ou rachat';
+                            resultClass = 'warning';
                             details.push(`Moyenne annuelle : ${annualAverage.toFixed(2)}`);
                             if (!noRattrapageS1 && moyenneS1Rattrapage > 0) {
                                 details.push(`Moyenne S1 après rattrapage : ${moyenneS1Rattrapage.toFixed(2)}`);
