@@ -1,21 +1,21 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>E-Campus - Votre Compagnon Universitaire Ultime</title>
-    <meta name="description" content="E-Campus est la plateforme tout-en-un pour les étudiants de l'Université de Bejaia et d'Algérie. Accédez à vos ressources, outils, et rejoignez une communauté de plus de 13,000 étudiants. Lancement officiel le 27 Juillet.">
+    <title>E-Campus - Votre Écosystème Académique Complet</title>
+    <meta name="description" content="E-Campus centralise votre vie étudiante. Outils, ressources, et communauté de 13,000+ étudiants. Découvrez nos plans et préparez-vous pour le lancement officiel le 27 Juillet.">
     <meta name="author" content="Amara Mehdi">
     <link rel="icon" type="image/png" href="assets/img/icon.png">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
         :root {
-            --background: 0 0% 100%;
+            --background: 220 20% 99%;
             --foreground: 222.2 84% 4.9%;
             --card: 0 0% 100%;
             --card-foreground: 222.2 84% 4.9%;
@@ -28,8 +28,7 @@
             --accent: 210 40% 96.1%;
             --accent-foreground: 222.2 47.4% 11.2%;
             --border: 214.3 31.8% 91.4%;
-            --input: 214.3 31.8% 91.4%;
-            --ring: 221.2 83.2% 53.3%;
+            --ring: 262.1 83.3% 57.8%;
             --radius: 0.75rem;
         }
 
@@ -47,411 +46,293 @@
             --accent: 217.2 32.6% 17.5%;
             --accent-foreground: 210 40% 98%;
             --border: 217.2 32.6% 20%;
-            --input: 217.2 32.6% 17.5%;
-            --ring: 224.3 76.3% 48%;
+            --ring: 262.1 83.3% 57.8%;
         }
 
         body {
             font-family: 'Poppins', sans-serif;
             background: hsl(var(--background));
             color: hsl(var(--foreground));
-            min-height: 100vh;
-            -webkit-tap-highlight-color: transparent;
-            transition: background-color 0.3s ease, color 0.3s ease;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
 
-        .hero-bg {
+        .aurora-bg {
             position: absolute;
             inset: 0;
             z-index: -10;
             overflow: hidden;
         }
+        .aurora-blob { position: absolute; filter: blur(100px); opacity: 0.2; }
+        .aurora-blob-1 { top: -20%; left: -10%; width: 50vw; height: 50vw; background: hsl(var(--primary)); animation: blob-anim-1 20s infinite alternate; }
+        .aurora-blob-2 { bottom: -20%; right: -10%; width: 40vw; height: 40vw; background: hsl(var(--ring)); animation: blob-anim-2 25s infinite alternate; }
+        @keyframes blob-anim-1 { from { transform: translate(-20%, 10%) scale(1) rotate(0deg); } to { transform: translate(20%, -10%) scale(1.2) rotate(30deg); } }
+        @keyframes blob-anim-2 { from { transform: translate(10%, -20%) scale(1) rotate(0deg); } to { transform: translate(-10%, 20%) scale(0.8) rotate(-40deg); } }
 
-        .gradient-blob {
-            position: absolute;
-            border-radius: 9999px;
-            filter: blur(80px);
-            opacity: 0.3;
-            z-index: -1;
-        }
+        .text-gradient { background: linear-gradient(90deg, hsl(var(--primary)), hsl(var(--ring))); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-fill-color: transparent; }
 
-        .gradient-blob-1 { top: -20%; left: -10%; width: 50vw; height: 50vw; background: hsl(var(--primary)); animation: blob-anim-1 15s infinite alternate; }
-        .gradient-blob-2 { bottom: -20%; right: -10%; width: 40vw; height: 40vw; background: hsl(var(--ring)); animation: blob-anim-2 18s infinite alternate; }
-
-        @keyframes blob-anim-1 { from { transform: translate(-20%, 10%) scale(1); } to { transform: translate(20%, -10%) scale(1.2); } }
-        @keyframes blob-anim-2 { from { transform: translate(10%, -20%) scale(1); } to { transform: translate(-10%, 20%) scale(0.8); } }
-
-        .service-card {
-            background: hsl(var(--card) / 0.5);
-            backdrop-filter: blur(16px);
-            border: 1px solid hsl(var(--border));
-            border-radius: var(--radius);
-            padding: 2rem;
-            text-align: center;
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,.1), 0 2px 4px -2px rgba(0,0,0,.1);
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
-            display: block;
-            text-decoration: none;
-            color: hsl(var(--card-foreground));
-        }
-
-        .service-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 25px -5px rgba(0,0,0,.1), 0 8px 10px -6px rgba(0,0,0,.1);
-            border-color: hsl(var(--primary));
-        }
+        .btn-primary { background: linear-gradient(90deg, hsl(var(--primary)), hsl(var(--ring))); color: hsl(var(--primary-foreground)); }
+        .btn-primary:hover { box-shadow: 0 0 25px hsl(var(--primary) / 0.5), 0 0 25px hsl(var(--ring) / 0.5); }
         
-        .service-card-icon {
-            margin: 0 auto 1.5rem;
-            width: 80px;
-            height: 80px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--ring)));
-            border-radius: 50%;
-            color: hsl(var(--primary-foreground));
-            transition: transform 0.3s ease;
-            box-shadow: 0 8px 16px hsl(var(--primary) / 0.25);
-        }
-
-        .service-card:hover .service-card-icon {
-            transform: scale(1.1) rotate(5deg);
-        }
-
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            padding: 0.5rem 1rem;
-            border-radius: 9999px;
-            font-size: 0.875rem;
-            font-weight: 500;
-            background: hsl(var(--primary) / 0.1);
-            color: hsl(var(--primary));
-            border: 1px solid hsl(var(--primary) / 0.2);
-        }
-
-        .theme-toggle {
-            position: fixed;
-            bottom: 1.5rem;
-            right: 1.5rem;
-            z-index: 50;
-            width: 3rem;
-            height: 3rem;
-            border-radius: 9999px;
-            background: hsl(var(--background) / 0.8);
-            backdrop-filter: blur(8px);
-            border: 1px solid hsl(var(--border));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        .theme-toggle:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 20px hsl(var(--primary) / 0.5);
-        }
-        .theme-toggle i { font-size: 1.25rem; color: hsl(var(--primary)); }
+        .glass-card { background: hsl(var(--card) / 0.5); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid hsl(var(--border)); }
         
-        #countdown {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-        #countdown > div {
-            background: hsl(var(--card) / 0.7);
-            padding: 1rem 1.5rem;
-            border-radius: var(--radius);
-            border: 1px solid hsl(var(--border));
-            text-align: center;
-            width: 100px;
-        }
-        #countdown span {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: hsl(var(--primary));
-            display: block;
-        }
-        #countdown p {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: hsl(var(--muted-foreground));
-        }
+        .pricing-card { transition: all 0.3s ease; }
+        .pricing-card:hover { transform: translateY(-10px) scale(1.03); border-color: hsl(var(--primary)); }
 
-        .text-gradient {
-            background: linear-gradient(90deg, hsl(var(--primary)), hsl(var(--ring)));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-fill-color: transparent;
-        }
+        #countdown > div { text-align: center; }
+        #countdown span { display: block; font-size: 2.5rem; font-weight: 700; color: hsl(var(--foreground)); }
+        #countdown p { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; color: hsl(var(--muted-foreground)); }
+
+        .theme-toggle:hover { transform: scale(1.1); box-shadow: 0 0 20px hsl(var(--primary) / 0.5); }
     </style>
 </head>
 <body class="min-h-screen">
 
-    <!-- Background Elements -->
-    <div class="hero-bg">
-        <div class="gradient-blob gradient-blob-1"></div>
-        <div class="gradient-blob gradient-blob-2"></div>
+    <!-- Background -->
+    <div class="aurora-bg">
+        <div class="aurora-blob aurora-blob-1"></div>
+        <div class="aurora-blob aurora-blob-2"></div>
     </div>
-
+    
     <!-- Theme Toggle -->
-    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">
-        <i class="fas fa-moon"></i>
+    <button class="theme-toggle fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full bg-card/80 backdrop-blur-sm border border-border flex items-center justify-center cursor-pointer transition-all duration-300" onclick="toggleTheme()" aria-label="Toggle dark mode">
+        <i class="fas fa-moon text-primary text-xl"></i>
     </button>
 
     <!-- Header -->
     <header class="sticky top-0 z-40 bg-background/80 backdrop-blur-sm border-b border-border/50">
         <div class="container mx-auto px-4 py-4 flex justify-between items-center">
             <a href="#" class="text-2xl font-bold text-gradient">E-Campus</a>
-            <div class="hidden md:flex items-center space-x-4">
+            <nav class="hidden md:flex items-center space-x-6">
+                <a href="#tools" class="text-muted-foreground hover:text-primary transition-colors">Outils</a>
                 <a href="#features" class="text-muted-foreground hover:text-primary transition-colors">Fonctionnalités</a>
-                <a href="#community" class="text-muted-foreground hover:text-primary transition-colors">Communauté</a>
-            </div>
+                <a href="#pricing" class="text-muted-foreground hover:text-primary transition-colors">Tarifs</a>
+            </nav>
+            <a href="#pricing" class="btn-primary font-semibold py-2 px-5 rounded-full transition-all duration-300 transform hover:scale-105">Commencer</a>
         </div>
     </header>
 
-    <!-- Main Content -->
     <main class="container mx-auto px-4 py-12 md:py-20">
 
         <!-- Hero Section -->
         <section class="text-center py-16 md:py-24">
             <div data-aos="fade-up">
-                <div class="badge mb-4">
-                    <i class="fas fa-rocket mr-2"></i>
+                <div class="inline-flex items-center bg-primary/10 text-primary text-sm font-semibold py-1 px-3 rounded-full mb-4 border border-primary/20">
+                    <i class="fas fa-rocket mr-2 animate-pulse"></i>
                     Lancement Officiel le 27 Juillet
                 </div>
-                <h1 class="text-4xl md:text-6xl font-extrabold mb-4 leading-tight">
-                    Le <span class="text-gradient">Super-App</span> Qui Révolutionne <br> Votre Vie Étudiante.
+                <h1 class="text-4xl md:text-6xl font-extrabold mb-6 leading-tight">
+                    Votre <span class="text-gradient">Écosystème Académique</span> Complet.
                 </h1>
-                <p class="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
-                    Centralisez vos études, accédez à des outils exclusifs et rejoignez la plus grande communauté étudiante. Tout ce dont vous avez besoin, en un seul endroit.
+                <p class="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
+                    La première Super-App pour les étudiants algériens. Centralisez vos études, accédez à des outils exclusifs et rejoignez une communauté de plus de 13,000 membres.
                 </p>
-                <div id="countdown" data-aos="fade-up" data-aos-delay="200"></div>
-            </div>
-        </section>
-
-        <!-- Problem/Solution Section -->
-        <section class="py-16" id="why-ecampus">
-             <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold" data-aos="fade-up">Fini l'information éparpillée.</h2>
-                <p class="text-lg text-muted-foreground mt-2" data-aos="fade-up" data-aos-delay="100">E-Campus unifie votre expérience académique.</p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-                <div data-aos="fade-up">
-                    <div class="p-6 bg-card/50 border border-border rounded-lg">
-                        <i class="fas fa-sitemap text-3xl text-primary mb-4"></i>
-                        <h3 class="text-xl font-semibold mb-2">Informations Centralisées</h3>
-                        <p class="text-muted-foreground text-sm">Emplois du temps, notes, et annonces au même endroit.</p>
-                    </div>
-                </div>
-                <div data-aos="fade-up" data-aos-delay="150">
-                    <div class="p-6 bg-card/50 border border-border rounded-lg">
-                        <i class="fas fa-tools text-3xl text-primary mb-4"></i>
-                        <h3 class="text-xl font-semibold mb-2">Outils Intelligents</h3>
-                        <p class="text-muted-foreground text-sm">Calcul de moyenne, planificateur, et rappels pour ne rien oublier.</p>
-                    </div>
-                </div>
-                <div data-aos="fade-up" data-aos-delay="300">
-                    <div class="p-6 bg-card/50 border border-border rounded-lg">
-                        <i class="fas fa-users text-3xl text-primary mb-4"></i>
-                        <h3 class="text-xl font-semibold mb-2">Communauté Connectée</h3>
-                        <p class="text-muted-foreground text-sm">Accès direct aux groupes, clubs et services étudiants.</p>
-                    </div>
-                </div>
+                <div id="countdown" class="flex justify-center gap-4 md:gap-8" data-aos="fade-up" data-aos-delay="200"></div>
             </div>
         </section>
 
         <!-- Core Tools Section -->
-        <section class="py-16">
+        <section id="tools" class="py-16">
             <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold" data-aos="fade-up">Vos Outils Essentiels, Toujours Gratuits.</h2>
-                <p class="text-lg text-muted-foreground mt-2" data-aos="fade-up" data-aos-delay="100">Commencez avec des fonctionnalités puissantes pour réussir vos études.</p>
+                <h2 class="text-3xl md:text-4xl font-bold" data-aos="fade-up">Commencez dès maintenant</h2>
+                <p class="text-lg text-muted-foreground mt-2" data-aos="fade-up" data-aos-delay="100">Les outils essentiels qui font déjà la différence pour des milliers d'étudiants.</p>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <!-- Calculator Card -->
-                <a href="calculator.html" class="service-card" data-aos="fade-right" id="calculator-card">
-                    <div class="service-card-icon">
-                        <i class="fas fa-calculator text-4xl"></i>
+                <a href="calculator.html" class="glass-card rounded-xl p-8 group transition-all duration-300 hover:border-primary hover:-translate-y-2" data-aos="fade-right" id="calculator-card">
+                    <div class="mb-4">
+                        <i class="fas fa-calculator text-5xl text-primary transition-transform duration-300 group-hover:scale-110"></i>
                     </div>
-                    <h3 class="text-2xl font-semibold mb-2 text-gradient">Calculatrice de Moyenne</h3>
-                    <p class="text-muted-foreground">Anticipez vos résultats, simulez vos notes et planifiez votre succès académique avec précision.</p>
+                    <h3 class="text-2xl font-bold mb-3">Calculatrice de Moyenne</h3>
+                    <p class="text-muted-foreground mb-6">Simulez vos notes, anticipez votre moyenne générale et planifiez votre réussite académique avec une précision inégalée.</p>
+                    <span class="font-semibold text-primary group-hover:underline">Accéder à l'outil <i class="fas fa-arrow-right ml-1"></i></span>
                 </a>
-
-                <!-- Bibliothèque Card -->
-                <a href="bib.html" class="service-card" data-aos="fade-left" data-aos-delay="150">
-                    <div class="service-card-icon">
-                        <i class="fas fa-book-open-reader text-4xl"></i>
+                <!-- Library Card -->
+                <a href="bib.html" class="glass-card rounded-xl p-8 group transition-all duration-300 hover:border-ring hover:-translate-y-2" data-aos="fade-left" data-aos-delay="150">
+                    <div class="mb-4">
+                        <i class="fas fa-book-open-reader text-5xl text-ring transition-transform duration-300 group-hover:scale-110"></i>
                     </div>
-                    <h3 class="text-2xl font-semibold mb-2 text-gradient">Bibliothèque Numérique</h3>
-                    <p class="text-muted-foreground">Explorez des milliers de cours, résumés et examens passés partagés par la communauté.</p>
+                    <h3 class="text-2xl font-bold mb-3">Bibliothèque Numérique</h3>
+                    <p class="text-muted-foreground mb-6">Explorez des milliers de cours, résumés, TDs, et examens passés. La plus grande collection de ressources, à portée de main.</p>
+                    <span class="font-semibold text-ring group-hover:underline">Explorer les ressources <i class="fas fa-arrow-right ml-1"></i></span>
                 </a>
             </div>
         </section>
 
-        <!-- Features Teaser Section -->
-        <section class="py-16" id="features">
+        <!-- Pricing Section -->
+        <section id="pricing" class="py-16">
             <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold" data-aos="fade-up">Un Écosystème Complet à Venir.</h2>
-                <p class="text-lg text-muted-foreground mt-2" data-aos="fade-up" data-aos-delay="100">Découvrez les fonctionnalités premium qui transformeront votre parcours.</p>
+                <h2 class="text-3xl md:text-4xl font-bold" data-aos="fade-up">Des plans pour chaque étudiant</h2>
+                <p class="text-lg text-muted-foreground mt-2" data-aos="fade-up" data-aos-delay="100">Débloquez votre plein potentiel avec nos offres flexibles.</p>
             </div>
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 max-w-6xl mx-auto">
-                <div class="p-4 text-center" data-aos="zoom-in"><i class="fas fa-robot text-primary text-2xl mb-2"></i><p>Assistant IA</p></div>
-                <div class="p-4 text-center" data-aos="zoom-in" data-aos-delay="50"><i class="fas fa-bell text-primary text-2xl mb-2"></i><p>Alertes Personnalisées</p></div>
-                <div class="p-4 text-center" data-aos="zoom-in" data-aos-delay="100"><i class="fas fa-file-signature text-primary text-2xl mb-2"></i><p>Générateur de CV</p></div>
-                <div class="p-4 text-center" data-aos="zoom-in" data-aos-delay="150"><i class="fas fa-key text-primary text-2xl mb-2"></i><p>Banques d'Exams Privées</p></div>
-                <div class="p-4 text-center" data-aos="zoom-in" data-aos-delay="200"><i class="fas fa-calendar-check text-primary text-2xl mb-2"></i><p>Planificateur Avancé</p></div>
-                <div class="p-4 text-center" data-aos="zoom-in" data-aos-delay="250"><i class="fas fa-briefcase text-primary text-2xl mb-2"></i><p>Hub de Stages</p></div>
-                <div class="p-4 text-center" data-aos="zoom-in" data-aos-delay="300"><i class="fas fa-building text-primary text-2xl mb-2"></i><p>Annonces Logement</p></div>
-                <div class="p-4 text-center" data-aos="zoom-in" data-aos-delay="350"><i class="fas fa-chart-line text-primary text-2xl mb-2"></i><p>Suivi de Progrès</p></div>
-            </div>
-        </section>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <!-- Free Plan -->
+                <div class="pricing-card glass-card rounded-xl p-8 flex flex-col" data-aos="fade-up">
+                    <h3 class="text-2xl font-bold mb-2">Gratuit</h3>
+                    <p class="text-muted-foreground mb-6">Les bases pour bien démarrer.</p>
+                    <p class="text-4xl font-bold mb-6">0 <span class="text-lg font-medium text-muted-foreground">DA/pour toujours</span></p>
+                    <ul class="space-y-4 text-left mb-8 flex-grow">
+                        <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-3"></i> Outils de base (Calculatrice, etc.)</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-3"></i> Accès aux ressources publiques</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-3"></i> Groupes Telegram & alertes</li>
+                    </ul>
+                    <button class="w-full mt-auto bg-primary/20 text-primary font-semibold py-3 rounded-lg border border-primary/30 hover:bg-primary/30 transition-colors">Votre Plan Actuel</button>
+                </div>
+                
+                <!-- Semester Plan -->
+                <div class="pricing-card relative glass-card rounded-xl p-8 flex flex-col border-2 border-primary" data-aos="fade-up" data-aos-delay="150">
+                    <div class="absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground text-sm font-bold py-1 px-4 rounded-full">LE PLUS POPULAIRE</div>
+                    <h3 class="text-2xl font-bold mb-2">Semestriel</h3>
+                    <p class="text-muted-foreground mb-6">L'essentiel pour un semestre réussi.</p>
+                    <p class="text-4xl font-bold mb-6">700 <span class="text-lg font-medium text-muted-foreground">DA/semestre</span></p>
+                    <ul class="space-y-4 text-left mb-8 flex-grow">
+                        <li class="flex items-center"><i class="fas fa-check-circle text-primary mr-3"></i> <strong>Tout du plan Gratuit, plus :</strong></li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-primary mr-3"></i> Assistant IA & Générateur de CV</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-primary mr-3"></i> Alertes personnalisées (notes, emploi du temps)</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-primary mr-3"></i> Accès aux banques d'examens privées</li>
+                    </ul>
+                    <button class="w-full mt-auto btn-primary font-semibold py-3 rounded-lg transition-all duration-300 transform hover:scale-105">Choisir ce Plan</button>
+                </div>
 
-         <!-- Community Section -->
-        <section class="py-16" id="community">
-            <div class="bg-card/50 border border-border rounded-lg p-12 text-center max-w-4xl mx-auto" data-aos="fade-up">
-                <h2 class="text-3xl font-bold mb-4">Rejoignez une Communauté de <span class="text-gradient">13,000+</span> Étudiants</h2>
-                <p class="text-muted-foreground mb-8">Restez connecté, partagez des ressources et ne manquez aucune information importante sur nos canaux officiels.</p>
-                <div class="flex justify-center space-x-4">
-                    <a href="https://t.me/spot_campuselkseur" target="_blank" class="bg-blue-500 text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-600 transition-all transform hover:scale-105 flex items-center">
-                        <i class="fab fa-telegram-plane mr-2"></i> Rejoindre sur Telegram
-                    </a>
-                    <a href="https://www.instagram.com/spot_campuselkseur/" target="_blank" class="bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 text-white font-bold py-3 px-6 rounded-lg hover:opacity-90 transition-all transform hover:scale-105 flex items-center">
-                        <i class="fab fa-instagram mr-2"></i> Suivre sur Instagram
-                    </a>
+                <!-- Yearly Plan -->
+                <div class="pricing-card glass-card rounded-xl p-8 flex flex-col" data-aos="fade-up" data-aos-delay="300">
+                    <h3 class="text-2xl font-bold mb-2">Annuel</h3>
+                    <p class="text-muted-foreground mb-6">L'expérience complète, meilleur prix.</p>
+                    <p class="text-4xl font-bold mb-6">1200 <span class="text-lg font-medium text-muted-foreground">DA/an</span></p>
+                    <ul class="space-y-4 text-left mb-8 flex-grow">
+                        <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-3"></i> <strong>Tout du plan Semestriel, plus :</strong></li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-3"></i> Hub de stages & offres d'emploi</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-3"></i> Planificateur de révision avancé</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-3"></i> Accès aux annonces de logement</li>
+                    </ul>
+                    <button class="w-full mt-auto bg-foreground/10 text-foreground font-semibold py-3 rounded-lg border border-border hover:bg-foreground/20 transition-colors">Choisir ce Plan</button>
                 </div>
             </div>
         </section>
+
+        <!-- Features Section -->
+        <section id="features" class="py-16">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold" data-aos="fade-up">Une plateforme, des possibilités infinies</h2>
+                <p class="text-lg text-muted-foreground mt-2" data-aos="fade-up" data-aos-delay="100">Nous construisons l'avenir de l'expérience étudiante.</p>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-5xl mx-auto text-center">
+                <div data-aos="zoom-in"><i class="fas fa-robot text-3xl text-primary mb-3"></i><h4 class="font-semibold">Assistant IA</h4><p class="text-sm text-muted-foreground">Pour résoudre vos exercices</p></div>
+                <div data-aos="zoom-in" data-aos-delay="100"><i class="fas fa-file-signature text-3xl text-primary mb-3"></i><h4 class="font-semibold">Générateur de CV</h4><p class="text-sm text-muted-foreground">Créez un CV pro en 5 min</p></div>
+                <div data-aos="zoom-in" data-aos-delay="200"><i class="fas fa-briefcase text-3xl text-primary mb-3"></i><h4 class="font-semibold">Hub de Stages</h4><p class="text-sm text-muted-foreground">Trouvez votre première expérience</p></div>
+                <div data-aos="zoom-in" data-aos-delay="300"><i class="fas fa-building text-3xl text-primary mb-3"></i><h4 class="font-semibold">Annonces Logement</h4><p class="text-sm text-muted-foreground">Un espace sécurisé et vérifié</p></div>
+            </div>
+        </section>
+        
     </main>
 
     <!-- Footer -->
-    <footer class="border-t border-border/50 py-8">
-        <div class="container mx-auto px-4 text-center">
-            <p class="text-muted-foreground">
-                © 2024 E-Campus. Développé avec ❤️ par Amara Mehdi.<br>
-                Université de Bejaia - Tous droits réservés.
-            </p>
+    <footer class="bg-card/30 border-t border-border mt-20">
+        <div class="container mx-auto px-4 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- Brand Info -->
+                <div class="col-span-1 md:col-span-2">
+                    <h3 class="text-xl font-bold text-gradient mb-2">E-Campus</h3>
+                    <p class="text-muted-foreground max-w-sm">Le compagnon numérique qui simplifie la vie des étudiants algériens. Développé par un étudiant, pour les étudiants.</p>
+                </div>
+                <!-- Navigation Links -->
+                <div>
+                    <h4 class="font-semibold mb-3">Navigation</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#tools" class="text-muted-foreground hover:text-primary">Outils</a></li>
+                        <li><a href="#features" class="text-muted-foreground hover:text-primary">Fonctionnalités</a></li>
+                        <li><a href="#pricing" class="text-muted-foreground hover:text-primary">Tarifs</a></li>
+                    </ul>
+                </div>
+                <!-- Social Links -->
+                <div>
+                    <h4 class="font-semibold mb-3">Rejoignez-nous</h4>
+                    <div class="flex space-x-4">
+                        <a href="https://t.me/spot_campuselkseur" target="_blank" class="text-muted-foreground hover:text-blue-500 transition-colors text-2xl"><i class="fab fa-telegram-plane"></i></a>
+                        <a href="https://www.instagram.com/spot_campuselkseur/" target="_blank" class="text-muted-foreground hover:text-pink-500 transition-colors text-2xl"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-border mt-8 pt-6 text-center text-muted-foreground text-sm">
+                <p>© 2025 E-Campus. Développé avec ❤️ par Amara Mehdi. Tous droits réservés.</p>
+            </div>
         </div>
     </footer>
 
-    <!-- AOS Script -->
+    <!-- Scripts -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({
-            duration: 800,
-            once: true,
-        });
-    </script>
-    
-    <!-- Vercel Analytics -->
-    <script>
-        window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-    </script>
-    <script defer src="/_vercel/insights/script.js"></script>
+        AOS.init({ duration: 800, once: true, offset: 50 });
 
-    <!-- App Logic Scripts -->
-    <script>
-        // Theme toggle functionality
-        function toggleTheme() {
-            const body = document.body;
-            const themeToggleIcon = document.querySelector('.theme-toggle i');
-            
-            if (body.classList.contains('dark')) {
-                body.classList.remove('dark');
-                themeToggleIcon.classList.remove('fa-sun');
-                themeToggleIcon.classList.add('fa-moon');
-                localStorage.setItem('theme', 'light');
-            } else {
-                body.classList.add('dark');
-                themeToggleIcon.classList.remove('fa-moon');
-                themeToggleIcon.classList.add('fa-sun');
+        // Theme Toggle
+        const themeToggleBtn = document.querySelector('.theme-toggle');
+        const themeIcon = themeToggleBtn.querySelector('i');
+        function setTheme(theme) {
+            if (theme === 'dark') {
+                document.documentElement.classList.add('dark');
+                themeIcon.classList.replace('fa-moon', 'fa-sun');
                 localStorage.setItem('theme', 'dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+                themeIcon.classList.replace('fa-sun', 'fa-moon');
+                localStorage.setItem('theme', 'light');
             }
         }
+        themeToggleBtn.addEventListener('click', () => {
+            const currentTheme = localStorage.getItem('theme') || 'light';
+            setTheme(currentTheme === 'light' ? 'dark' : 'light');
+        });
+        setTheme(localStorage.getItem('theme') || 'light');
 
-        // Apply saved theme on load
-        (function() {
-            const savedTheme = localStorage.getItem('theme');
-            if (savedTheme === 'dark') {
-                document.body.classList.add('dark');
-                document.querySelector('.theme-toggle i').classList.replace('fa-moon', 'fa-sun');
-            }
-        })();
-
-        // Countdown Timer Logic
-        (function() {
-            const countdownElement = document.getElementById('countdown');
-            if (!countdownElement) return;
-
+        // Countdown Timer
+        const countdownElement = document.getElementById('countdown');
+        if (countdownElement) {
             const launchDate = new Date('2024-07-27T00:00:00').getTime();
-
-            const interval = setInterval(function() {
+            const interval = setInterval(() => {
                 const now = new Date().getTime();
                 const distance = launchDate - now;
 
                 if (distance < 0) {
                     clearInterval(interval);
-                    countdownElement.innerHTML = `<div class="col-span-full text-center"><h3 class="text-2xl font-bold text-gradient">E-Campus est lancé !</h3></div>`;
+                    countdownElement.innerHTML = `<h3 class="text-2xl font-bold text-gradient">E-Campus est lancé !</h3>`;
                     return;
                 }
-
-                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
+                const d = Math.floor(distance / (1000*60*60*24));
+                const h = Math.floor((distance % (1000*60*60*24)) / (1000*60*60));
+                const m = Math.floor((distance % (1000*60*60)) / (1000*60));
+                const s = Math.floor((distance % (1000*60)) / 1000);
                 countdownElement.innerHTML = `
-                    <div><span>${days}</span><p>Jours</p></div>
-                    <div><span>${hours}</span><p>Heures</p></div>
-                    <div><span>${minutes}</span><p>Minutes</p></div>
-                    <div><span>${seconds}</span><p>Secondes</p></div>
+                    <div><span>${d}</span><p>Jours</p></div>
+                    <div><span>${h}</span><p>Heures</p></div>
+                    <div><span>${m}</span><p>Minutes</p></div>
+                    <div><span>${s}</span><p>Secondes</p></div>
                 `;
             }, 1000);
-        })();
+        }
     </script>
+    
+    <!-- Vercel Analytics -->
+    <script> window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); }; </script>
+    <script defer src="/_vercel/insights/script.js"></script>
 
     <!-- Firebase SDK & Tracking -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
     <script>
-        const firebaseConfig = {
-            apiKey: "AIzaSyB5XYqWKhHdiVDXJx4iOwtpxD8eUCPRfKU",
-            authDomain: "universite-de-bejaia-547fc.firebaseapp.com",
-            projectId: "universite-de-bejaia-547fc",
-            storageBucket: "universite-de-bejaia-547fc.appspot.com",
-            messagingSenderId: "517622731583",
-            appId: "1:517622731583:web:25453d5e01226585bf798a",
-            measurementId: "G-SQ0WWSCS7B",
-            databaseURL: "https://universite-de-bejaia-547fc-default-rtdb.firebaseio.com"
-        };
-        firebase.initializeApp(firebaseConfig);
-        const database = firebase.database();
-
-        // Track clicks for calculator
-        const calculatorCard = document.getElementById('calculator-card');
-        if (calculatorCard) {
-            calculatorCard.addEventListener('click', function() {
-                const statsRef = database.ref('stats/modules/bibCalculator');
-                statsRef.transaction((current) => (current || 0) + 1);
-            });
+        const firebaseConfig = { /* ... Votre config Firebase ... */ };
+        try {
+            firebase.initializeApp(firebaseConfig);
+            const database = firebase.database();
+            const calculatorCard = document.getElementById('calculator-card');
+            if (calculatorCard) {
+                calculatorCard.addEventListener('click', () => {
+                    database.ref('stats/modules/bibCalculatorClicks').transaction((current) => (current || 0) + 1);
+                });
+            }
+        } catch (e) {
+            console.error("Firebase initialization failed: ", e);
         }
-        // Note: You can add tracking for the library card in a similar way if needed.
     </script>
-    
-    <!-- Ad Network Script (optional, as in original) -->
-    <script type="text/javascript">
-        // Uncomment if you are using this ad network
-        // aclib.runAutoTag({
-        //     zoneId: '747hk1i2j2',
-        // });
-    </script>
+
 </body>
 </html>
