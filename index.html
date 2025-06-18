@@ -3,25 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>E-Campus - L'OS de Votre Vie Étudiante</title>
-    <meta name="description" content="E-Campus est la super-app qui intègre tous les aspects de votre vie universitaire. De la gestion des cours à la vie sociale, découvrez la plateforme tout-en-un pour les étudiants algériens.">
+    <title>E-Campus - Votre Vie Étudiante, Réinventée.</title>
+    <meta name="description" content="Découvrez E-Campus. Des outils puissants disponibles maintenant, et une révolution à venir. La super-app pour les étudiants algériens.">
     <meta name="author" content="Amara Mehdi">
     <link rel="icon" type="image/png" href="assets/img/icon.png">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
         :root {
             --background: 224 71% 4%;
             --foreground: 210 40% 98%;
             --card: 224 71% 10%;
-            --card-foreground: 210 40% 98%;
             --primary: 217.2 91.2% 59.8%;
-            --primary-foreground: 210 40% 98%;
-            --ring: 262.1 83.3% 57.8%;
+            --ring: 282.1 83.3% 57.8%;
             --border: 224 71% 15%;
             --radius: 1rem;
         }
@@ -29,58 +27,52 @@
             --background: 220 20% 97%;
             --foreground: 222.2 84% 4.9%;
             --card: 0 0% 100%;
-            --card-foreground: 222.2 84% 4.9%;
             --primary: 221.2 83.2% 53.3%;
             --border: 214.3 31.8% 91.4%;
         }
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: hsl(var(--background));
-            color: hsl(var(--foreground));
-            transition: background-color 0.5s ease;
-        }
+        body { font-family: 'Poppins', sans-serif; background-color: hsl(var(--background)); color: hsl(var(--foreground)); transition: background-color 0.5s ease; }
         .text-gradient { background: linear-gradient(90deg, hsl(var(--primary)), hsl(var(--ring))); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-fill-color: transparent; }
-        .bg-gradient-primary { background: linear-gradient(90deg, hsl(var(--primary)), hsl(var(--ring))); }
         .glass-card { background: hsl(var(--card) / 0.5); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border: 1px solid hsl(var(--border)); }
         
-        .hero-bg {
-            position: absolute; inset: 0; z-index: -1; overflow: hidden;
-            background-image: radial-gradient(hsl(var(--primary)/0.15) 1px, transparent 1px), radial-gradient(hsl(var(--ring)/0.1) 1px, transparent 1px);
-            background-size: 40px 40px, 40px 40px;
-            background-position: 0 0, 20px 20px;
-        }
-        .aurora-blob { position: absolute; filter: blur(120px); opacity: 0.25; z-index: -2; }
-        
-        .feature-card-3d {
-            transform-style: preserve-3d;
-            transition: transform 0.1s linear;
-        }
-        .feature-card-3d-inner {
-            transform: translateZ(20px);
-        }
-        .pricing-card {
-            transition: all 0.4s ease;
-            position: relative; overflow: hidden;
-        }
-        .pricing-card:hover { transform: translateY(-10px) scale(1.02); box-shadow: 0 0 40px hsl(var(--primary) / 0.3); }
-        .pricing-card-glow {
-            position: absolute; top: 0; left: 0; width: 200%; height: 200%;
-            background: radial-gradient(circle, hsl(var(--primary)/0.3), transparent 40%);
-            animation: glow-anim 8s infinite linear;
-            opacity: 0; transition: opacity 0.4s ease;
-        }
-        .pricing-card:hover .pricing-card-glow { opacity: 1; }
-        @keyframes glow-anim { from { transform: translate(-50%, -50%) rotate(0deg); } to { transform: translate(-50%, -50%) rotate(360deg); } }
+        .aurora-bg { position: fixed; inset: 0; z-index: -10; overflow: hidden; }
+        .aurora-blob { position: absolute; filter: blur(120px); opacity: 0; transition: opacity 1s ease-in-out; }
+        .aurora-blob.visible { opacity: 0.2; }
 
-        .mockup { background: hsl(var(--card)); border: 1px solid hsl(var(--border)); padding: 1rem; border-radius: 0.75rem; }
-        .mockup-chat-bubble { background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); }
+        .tool-card {
+            background: hsl(var(--card));
+            border-radius: var(--radius);
+            padding: 2.5rem 2rem;
+            text-align: center;
+            border: 1px solid hsl(var(--border));
+            box-shadow: 0 10px 30px -15px rgba(0,0,0,0.2);
+            position: relative; overflow: hidden;
+            transform-style: preserve-3d;
+            transition: transform 0.4s cubic-bezier(.25,.8,.25,1), box-shadow 0.4s cubic-bezier(.25,.8,.25,1);
+        }
+        .tool-card:hover {
+            transform: perspective(1000px) rotateX(5deg) rotateY(-5deg) scale(1.05);
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+        }
+        .tool-card-icon {
+            margin: 0 auto 1.5rem; width: 120px; height: 120px;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 50%; color: white;
+            transition: transform 0.4s ease;
+            transform: translateZ(40px);
+        }
+        .tool-card:hover .tool-card-icon { transform: translateZ(60px) scale(1.1) rotate(5deg); }
+        .icon-calc { background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--ring))); box-shadow: 0 10px 20px -5px hsl(var(--primary) / 0.4); }
+        .icon-bib { background: linear-gradient(135deg, hsl(var(--ring)), #ec4899); box-shadow: 0 10px 20px -5px hsl(var(--ring) / 0.4); }
+        
+        .feature-card-3d { transform-style: preserve-3d; transition: transform 0.1s linear; }
+        .feature-card-3d-inner { transform: translateZ(20px); }
     </style>
 </head>
 <body class="dark">
 
-    <div class="hero-bg">
-        <div class="aurora-blob" style="top: -20%; left: -10%; width: 50vw; height: 50vw; background: hsl(var(--primary));"></div>
-        <div class="aurora-blob" style="bottom: -20%; right: -10%; width: 40vw; height: 40vw; background: hsl(var(--ring));"></div>
+    <div class="aurora-bg">
+        <div id="blob1" class="aurora-blob" style="top: -20%; left: -10%; width: 50vw; height: 50vw; background: hsl(var(--primary));"></div>
+        <div id="blob2" class="aurora-blob" style="bottom: -20%; right: -10%; width: 40vw; height: 40vw; background: hsl(var(--ring));"></div>
     </div>
     
     <button class="theme-toggle fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full glass-card flex items-center justify-center cursor-pointer transition-transform hover:scale-110" onclick="toggleTheme()" aria-label="Toggle theme">
@@ -91,9 +83,9 @@
         <div class="container mx-auto px-4 py-4 flex justify-between items-center">
             <a href="#" class="text-2xl font-bold text-gradient">E-Campus</a>
             <nav class="hidden md:flex items-center space-x-6">
-                <a href="#features" class="text-foreground/70 hover:text-primary transition-colors">Fonctionnalités</a>
+                <a href="#tools" class="text-foreground/70 hover:text-primary transition-colors">Outils</a>
+                <a href="#vision" class="text-foreground/70 hover:text-primary transition-colors">La Vision</a>
                 <a href="#pricing" class="text-foreground/70 hover:text-primary transition-colors">Tarifs</a>
-                <a href="#community" class="text-foreground/70 hover:text-primary transition-colors">Communauté</a>
             </nav>
         </div>
     </header>
@@ -108,174 +100,87 @@
                     Lancement Officiel le 27 Juillet
                 </div>
                 <h1 class="text-4xl md:text-7xl font-extrabold mb-6 leading-tight">
-                    L'<span class="text-gradient">OS</span> de Votre Vie Étudiante.
+                    Votre Vie Étudiante,<br> <span class="text-gradient">Unifiée.</span>
                 </h1>
-                <p class="text-lg md:text-xl text-foreground/70 max-w-3xl mx-auto mb-10">
-                    Arrêtez de jongler entre les plateformes. E-Campus est le système d'exploitation tout-en-un qui gère vos cours, votre vie sociale et votre carrière.
+                <p class="text-lg md:text-xl text-foreground/70 max-w-2xl mx-auto mb-10">
+                    La super-app qui rassemble vos cours, vos amis et votre avenir. Simple, puissant, et conçu pour vous.
                 </p>
                 <div id="countdown" class="flex justify-center gap-4 md:gap-8" data-aos="fade-up" data-aos-delay="200"></div>
             </div>
         </section>
 
-        <!-- The Grand Tour Section -->
-        <section id="features" class="py-16 space-y-24">
-            
-            <!-- 1. Academic Features -->
-            <div class="grid md:grid-cols-2 gap-12 items-center" data-aos="fade-up">
-                <div>
-                    <span class="text-sm font-bold text-primary uppercase">01. Académique</span>
-                    <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4">Votre Cerveau Académique, Augmenté.</h2>
-                    <p class="text-foreground/70 mb-6">Ne perdez plus jamais le fil. De l'emploi du temps aux fiches de révision, tout est synchronisé et intelligent.</p>
-                    <div class="space-y-3">
-                        <p class="flex items-start"><i class="fas fa-check-circle text-primary mt-1 mr-3"></i><span><strong>Planificateur de révision IA :</strong> Optimisez votre temps d'étude.</span></p>
-                        <p class="flex items-start"><i class="fas fa-check-circle text-primary mt-1 mr-3"></i><span><strong>Calculateur de moyenne auto :</strong> Suivez votre progression en temps réel.</span></p>
-                        <p class="flex items-start"><i class="fas fa-check-circle text-primary mt-1 mr-3"></i><span><strong>Drive étudiant collaboratif :</strong> Partagez et organisez vos documents.</span></p>
-                    </div>
-                </div>
-                <div class="mockup shadow-2xl">
-                    <div class="flex justify-between items-center mb-4"><p class="font-bold">Emploi du temps</p><span class="text-sm text-primary">Aujourd'hui</span></div>
-                    <div class="space-y-3">
-                        <div class="bg-foreground/5 p-3 rounded-lg flex items-center"><div class="w-1.5 h-10 bg-primary rounded-full mr-3"></div><div><p class="font-semibold">Algorithmique</p><p class="text-sm text-foreground/60">Amphi C • 08:30 - 10:00</p></div></div>
-                        <div class="bg-foreground/5 p-3 rounded-lg flex items-center"><div class="w-1.5 h-10 bg-ring rounded-full mr-3"></div><div><p class="font-semibold">Analyse 2</p><p class="text-sm text-foreground/60">Salle TD 12 • 10:15 - 11:45</p></div></div>
-                    </div>
-                </div>
+        <!-- Available Now Section -->
+        <section id="tools" class="py-16">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold" data-aos="fade-up">Disponible Dès Maintenant.</h2>
+                <p class="text-lg text-foreground/70 mt-4 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">Découvrez les outils qui simplifient déjà le quotidien de milliers d'étudiants.</p>
             </div>
-            
-            <!-- 2. Student Life Features -->
-            <div class="grid md:grid-cols-2 gap-12 items-center" data-aos="fade-up">
-                <div class="mockup shadow-2xl md:order-last">
-                    <div class="flex items-center space-x-4">
-                        <img src="https://i.pravatar.cc/80?u=amara" alt="Photo de profil" class="w-20 h-20 rounded-full border-2 border-primary">
-                        <div>
-                            <h3 class="text-xl font-bold">Mehdi Amara</h3>
-                            <p class="text-foreground/70">L2 Informatique - Groupe 4</p>
-                            <div class="mt-2 flex space-x-2"><span class="text-xs bg-primary/20 text-primary px-2 py-1 rounded-full">Délégué</span><span class="text-xs bg-ring/20 text-ring px-2 py-1 rounded-full">Club Info</span></div>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <span class="text-sm font-bold text-primary uppercase">02. Vie Étudiante</span>
-                    <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4">Votre Campus, dans Votre Poche.</h2>
-                    <p class="text-foreground/70 mb-6">Du menu du resto-U aux annonces de logement, l'essentiel de la vie universitaire est à portée de main.</p>
-                     <div class="space-y-3">
-                        <p class="flex items-start"><i class="fas fa-check-circle text-primary mt-1 mr-3"></i><span><strong>Profil étudiant dynamique :</strong> Votre identité numérique sur le campus.</span></p>
-                        <p class="flex items-start"><i class="fas fa-check-circle text-primary mt-1 mr-3"></i><span><strong>Rubrique logement vérifiée :</strong> Trouvez votre coloc en toute sécurité.</span></p>
-                        <p class="flex items-start"><i class="fas fa-check-circle text-primary mt-1 mr-3"></i><span><strong>Plan du campus interactif :</strong> Ne vous perdez plus jamais.</span></p>
-                    </div>
-                </div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <a href="calculator.html" class="tool-card" data-aos="zoom-in-right">
+                    <div class="tool-card-icon icon-calc"><i class="fas fa-calculator text-6xl"></i></div>
+                    <h3 class="text-2xl font-bold mb-2">Calculatrice de Moyenne</h3>
+                    <p class="text-foreground/70 mb-6">Simulez vos notes et visualisez votre succès avant même les examens.</p>
+                    <span class="font-semibold text-primary group-hover:underline">Lancer la calculatrice <i class="fas fa-arrow-right ml-1"></i></span>
+                </a>
+                <a href="bib.html" class="tool-card" data-aos="zoom-in-left">
+                    <div class="tool-card-icon icon-bib"><i class="fas fa-book-open-reader text-6xl"></i></div>
+                    <h3 class="text-2xl font-bold mb-2">Bibliothèque Numérique</h3>
+                    <p class="text-foreground/70 mb-6">Accédez à une collection infinie de cours, TDs, et résumés partagés par la communauté.</p>
+                    <span class="font-semibold text-ring group-hover:underline">Explorer les ressources <i class="fas fa-arrow-right ml-1"></i></span>
+                </a>
             </div>
-
-            <!-- 3. AI Tools -->
-            <div class="grid md:grid-cols-2 gap-12 items-center" data-aos="fade-up">
-                <div>
-                    <span class="text-sm font-bold text-primary uppercase">03. Outils IA</span>
-                    <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4">Votre Assistant Personnel Intellectuel.</h2>
-                    <p class="text-foreground/70 mb-6">L'intelligence artificielle au service de votre réussite. Posez des questions, résumez des cours, générez des CV... les possibilités sont infinies.</p>
-                     <div class="space-y-3">
-                        <p class="flex items-start"><i class="fas fa-check-circle text-primary mt-1 mr-3"></i><span><strong>Chatbot de cours :</strong> Obtenez des réponses 24/7.</span></p>
-                        <p class="flex items-start"><i class="fas fa-check-circle text-primary mt-1 mr-3"></i><span><strong>Résumeur de PDF :</strong> Transformez 100 pages en 1 en un clic.</span></p>
-                        <p class="flex items-start"><i class="fas fa-check-circle text-primary mt-1 mr-3"></i><span><strong>Générateur de CV & Lettres :</strong> Prêt pour le monde pro.</span></p>
-                    </div>
-                </div>
-                <div class="mockup shadow-2xl">
-                    <p class="font-bold mb-4">Chat avec l'IA E-Campus</p>
-                    <div class="space-y-4">
-                        <div class="flex justify-end"><div class="bg-foreground/10 p-3 rounded-lg max-w-xs">Explique-moi le tri à bulles en Pascal.</div></div>
-                        <div class="flex justify-start"><div class="mockup-chat-bubble p-3 rounded-lg max-w-xs">Bien sûr ! Le tri à bulles compare les éléments adjacents et les inverse s'ils sont dans le mauvais ordre. Ce processus est répété jusqu'à ce que la liste soit triée. Voici un exemple de code...</div></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- All other features in a 3D grid -->
-            <div class="py-16 text-center">
-                 <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4" data-aos="fade-up">Et bien plus encore...</h2>
-                 <p class="text-foreground/70 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">E-Campus est un écosystème complet. Explorez quelques-unes des autres dimensions de la plateforme.</p>
-                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-12 feature-3d-container">
-                    <!-- Social -->
-                    <div class="feature-card-3d glass-card p-6 rounded-xl" data-aos="zoom-in-up">
-                        <div class="feature-card-3d-inner">
-                            <i class="fas fa-users text-3xl mb-4 text-primary"></i>
-                            <h3 class="font-bold text-lg mb-2">Social & Communautaire</h3>
-                            <p class="text-sm text-foreground/70">Groupes de discussion, mur des clubs, messagerie privée, et vote étudiant pour une vie de campus connectée.</p>
-                        </div>
-                    </div>
-                    <!-- Monetization -->
-                    <div class="feature-card-3d glass-card p-6 rounded-xl" data-aos="zoom-in-up" data-aos-delay="100">
-                        <div class="feature-card-3d-inner">
-                            <i class="fas fa-store text-3xl mb-4 text-primary"></i>
-                            <h3 class="font-bold text-lg mb-2">Marketplace & Services</h3>
-                            <p class="text-sm text-foreground/70">Vente de livres, tutorat, billets d'événements, et réductions étudiantes exclusives.</p>
-                        </div>
-                    </div>
-                     <!-- Gamification -->
-                    <div class="feature-card-3d glass-card p-6 rounded-xl" data-aos="zoom-in-up" data-aos-delay="200">
-                        <div class="feature-card-3d-inner">
-                            <i class="fas fa-gamepad text-3xl mb-4 text-primary"></i>
-                            <h3 class="font-bold text-lg mb-2">Gamification</h3>
-                            <p class="text-sm text-foreground/70">Gagnez des badges, participez à des quiz, et montez dans le classement pour rendre l'apprentissage amusant.</p>
-                        </div>
-                    </div>
-                    <!-- UX/UI -->
-                    <div class="feature-card-3d glass-card p-6 rounded-xl" data-aos="zoom-in-up">
-                        <div class="feature-card-3d-inner">
-                            <i class="fas fa-palette text-3xl mb-4 text-primary"></i>
-                            <h3 class="font-bold text-lg mb-2">Design & Accessibilité</h3>
-                            <p class="text-sm text-foreground/70">Mode sombre, interface multilingue (Ar/Fr/En/Tmz), accès hors-ligne, et personnalisation des widgets.</p>
-                        </div>
-                    </div>
-                    <!-- Tech -->
-                    <div class="feature-card-3d glass-card p-6 rounded-xl" data-aos="zoom-in-up" data-aos-delay="100">
-                        <div class="feature-card-3d-inner">
-                            <i class="fas fa-code text-3xl mb-4 text-primary"></i>
-                            <h3 class="font-bold text-lg mb-2">Technologie & Intégrations</h3>
-                            <p class="text-sm text-foreground/70">App mobile (Flutter/PWA), intégration Telegram, notifications push, et authentification sécurisée.</p>
-                        </div>
-                    </div>
-                    <!-- Admin -->
-                     <div class="feature-card-3d glass-card p-6 rounded-xl" data-aos="zoom-in-up" data-aos-delay="200">
-                        <div class="feature-card-3d-inner">
-                            <i class="fas fa-user-shield text-3xl mb-4 text-primary"></i>
-                            <h3 class="font-bold text-lg mb-2">Portail Administration</h3>
-                            <p class="text-sm text-foreground/70">Tableaux de bord, statistiques, gestion des PV et notifications ciblées pour les départements.</p>
-                        </div>
-                    </div>
-                 </div>
-            </div>
-
         </section>
 
-        <!-- Community Section -->
-        <section id="community" class="py-16 text-center" data-aos="fade-up">
-             <h2 class="text-3xl md:text-4xl font-bold">Rejoignez une Force de <span class="text-gradient">13,000+</span> Étudiants</h2>
-             <p class="text-lg text-foreground/70 mt-4 mb-8 max-w-2xl mx-auto">Vous n'êtes pas seul. E-Campus est propulsé par la plus grande communauté étudiante, et elle grandit chaque jour.</p>
-             <div class="flex justify-center space-x-6">
-                <a href="https://t.me/spot_campuselkseur" target="_blank" class="bg-blue-500 text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-600 transition-all transform hover:scale-105 flex items-center shadow-lg"><i class="fab fa-telegram-plane mr-2"></i> Telegram</a>
-                <a href="https://www.instagram.com/spot_campuselkseur/" target="_blank" class="bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold py-3 px-6 rounded-lg hover:opacity-90 transition-all transform hover:scale-105 flex items-center shadow-lg"><i class="fab fa-instagram mr-2"></i> Instagram</a>
+        <!-- The Vision Section -->
+        <section id="vision" class="py-24">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold" data-aos="fade-up">Le Futur se Construit. Préparez-vous.</h2>
+                <p class="text-lg text-foreground/70 mt-4 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">E-Campus évolue pour devenir un écosystème complet. Voici un aperçu de la révolution à venir.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 feature-3d-container">
+                <div class="feature-card-3d glass-card p-6 rounded-xl" data-aos="zoom-in-up">
+                    <div class="feature-card-3d-inner"><i class="fas fa-robot text-4xl mb-4 text-gradient"></i><h3 class="font-bold text-xl mb-2">Assistance IA</h3><p class="text-sm text-foreground/70">Votre tuteur personnel qui résout les exercices, résume vos cours et prépare vos révisions.</p></div>
+                </div>
+                <div class="feature-card-3d glass-card p-6 rounded-xl" data-aos="zoom-in-up" data-aos-delay="150">
+                    <div class="feature-card-3d-inner"><i class="fas fa-users text-4xl mb-4 text-gradient"></i><h3 class="font-bold text-xl mb-2">Hub Social Intégré</h3><p class="text-sm text-foreground/70">Groupes de discussion, clubs, événements, et messagerie. Le cœur de votre vie de campus.</p></div>
+                </div>
+                <div class="feature-card-3d glass-card p-6 rounded-xl" data-aos="zoom-in-up" data-aos-delay="300">
+                    <div class="feature-card-3d-inner"><i class="fas fa-briefcase text-4xl mb-4 text-gradient"></i><h3 class="font-bold text-xl mb-2">Carrière & Stages</h3><p class="text-sm text-foreground/70">Générateur de CV, offres de stages et marketplace de compétences pour lancer votre avenir.</p></div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Social Proof Section -->
+        <section class="py-16" data-aos="fade-up">
+            <div class="glass-card rounded-2xl p-12 text-center max-w-4xl mx-auto">
+                <h2 class="text-3xl font-bold">Déjà <span class="text-gradient text-4xl">13,000+</span> Étudiants Connectés</h2>
+                <p class="text-foreground/70 mt-4 mb-8">Rejoignez la communauté qui construit l'avenir de l'éducation en Algérie.</p>
+                <div class="flex justify-center space-x-6">
+                    <a href="https://t.me/spot_campuselkseur" target="_blank" class="bg-blue-500 text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-600 transition-all transform hover:scale-105 shadow-lg"><i class="fab fa-telegram-plane mr-2"></i> Telegram</a>
+                    <a href="https://www.instagram.com/spot_campuselkseur/" target="_blank" class="bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold py-3 px-6 rounded-lg hover:opacity-90 transition-all transform hover:scale-105 shadow-lg"><i class="fab fa-instagram mr-2"></i> Instagram</a>
+                </div>
             </div>
         </section>
 
         <!-- Pricing Section -->
         <section id="pricing" class="py-24">
             <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold" data-aos="fade-up">Un Investissement dans Votre Avenir</h2>
-                <p class="text-lg text-foreground/70 mt-4 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">Des tarifs pensés pour les étudiants. L'essentiel est gratuit, pour toujours. Le Premium débloque votre plein potentiel.</p>
+                <h2 class="text-3xl md:text-4xl font-bold" data-aos="fade-up">Un Accès pour Chacun.</h2>
+                <p class="text-lg text-foreground/70 mt-4 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">Commencez gratuitement. Passez au Premium pour débloquer la puissance totale de E-Campus.</p>
             </div>
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-                <div class="pricing-card glass-card rounded-xl p-8 flex flex-col" data-aos="fade-up"><div class="pricing-card-glow"></div><h3 class="text-2xl font-bold mb-2">Essentiel</h3><p class="text-foreground/70 mb-6">Pour démarrer et s'organiser.</p><p class="text-5xl font-bold my-4">0 <span class="text-lg font-medium text-foreground/60">DA</span></p><ul class="space-y-3 text-left mt-6 mb-8 flex-grow"><li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-3"></i>Outils Académiques de Base</li><li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-3"></i>Accès aux Ressources Publiques</li><li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-3"></i>Alertes & Groupes Communautaires</li></ul></div>
-                <div class="pricing-card relative glass-card rounded-xl p-8 flex flex-col border-2 border-primary" data-aos="fade-up" data-aos-delay="150"><div class="pricing-card-glow"></div><div class="absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 bg-gradient-primary text-primary-foreground text-sm font-bold py-1.5 px-4 rounded-full shadow-lg">RECOMMANDÉ</div><h3 class="text-2xl font-bold mb-2">Premium Semestriel</h3><p class="text-foreground/70 mb-6">Pour l'étudiant ambitieux.</p><p class="text-5xl font-bold my-4">700 <span class="text-lg font-medium text-foreground/60">DA</span></p><ul class="space-y-3 text-left mt-6 mb-8 flex-grow"><li class="flex items-center"><i class="fas fa-star text-primary mr-3"></i><strong>Tout d'Essentiel, plus :</strong></li><li class="flex items-center"><i class="fas fa-check-circle text-primary mr-3"></i>Tous les Outils IA</li><li class="flex items-center"><i class="fas fa-check-circle text-primary mr-3"></i>Banques d'Exams Privées</li><li class="flex items-center"><i class="fas fa-check-circle text-primary mr-3"></i>Alertes Personnalisées</li></ul></div>
-                <div class="pricing-card glass-card rounded-xl p-8 flex flex-col" data-aos="fade-up" data-aos-delay="300"><div class="pricing-card-glow"></div><h3 class="text-2xl font-bold mb-2">Premium Annuel</h3><p class="text-foreground/70 mb-6">L'expérience ultime, meilleur prix.</p><p class="text-5xl font-bold my-4">1200 <span class="text-lg font-medium text-foreground/60">DA</span></p><ul class="space-y-3 text-left mt-6 mb-8 flex-grow"><li class="flex items-center"><i class="fas fa-crown text-amber-500 mr-3"></i><strong>Tout du Semestriel, plus :</strong></li><li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-3"></i>Hub de Stages & Logement</li><li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-3"></i>Planificateur Avancé</li><li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-3"></i>Accès Prioritaire aux Nouveautés</li></ul></div>
+                <div class="glass-card rounded-xl p-8 flex flex-col" data-aos="fade-up"><h3 class="text-2xl font-bold mb-2">Essentiel</h3><p class="text-foreground/70 mb-6">Les bases, pour toujours.</p><p class="text-5xl font-bold my-4">0 <span class="text-lg font-medium text-foreground/60">DA</span></p><ul class="space-y-3 text-left mt-6 mb-8 flex-grow"><li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i>Outils de base</li><li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i>Accès public aux ressources</li><li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i>Groupes communautaires</li></ul></div>
+                <div class="relative glass-card rounded-xl p-8 flex flex-col border-2 border-primary" data-aos="fade-up" data-aos-delay="150"><div class="absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 bg-gradient-to-r from-primary to-ring text-white text-sm font-bold py-1.5 px-4 rounded-full shadow-lg">RECOMMANDÉ</div><h3 class="text-2xl font-bold mb-2">Premium Semestriel</h3><p class="text-foreground/70 mb-6">L'expérience complète.</p><p class="text-5xl font-bold my-4">700 <span class="text-lg font-medium text-foreground/60">DA</span></p><ul class="space-y-3 text-left mt-6 mb-8 flex-grow"><li class="flex items-center"><i class="fas fa-star text-primary mr-3"></i>Tout d'Essentiel, plus :</li><li class="flex items-center"><i class="fas fa-check text-primary mr-3"></i>Accès total à l'IA</li><li class="flex items-center"><i class="fas fa-check text-primary mr-3"></i>Ressources exclusives</li><li class="flex items-center"><i class="fas fa-check text-primary mr-3"></i>Outils de carrière</li></ul></div>
+                <div class="glass-card rounded-xl p-8 flex flex-col" data-aos="fade-up" data-aos-delay="300"><h3 class="text-2xl font-bold mb-2">Premium Annuel</h3><p class="text-foreground/70 mb-6">Meilleur rapport qualité-prix.</p><p class="text-5xl font-bold my-4">1200 <span class="text-lg font-medium text-foreground/60">DA</span></p><ul class="space-y-3 text-left mt-6 mb-8 flex-grow"><li class="flex items-center"><i class="fas fa-crown text-amber-500 mr-3"></i>Tout du Premium, plus :</li><li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i>Accès anticipé aux nouveautés</li><li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i>Support prioritaire</li><li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i>Badge exclusif</li></ul></div>
             </div>
         </section>
 
     </main>
 
-    <footer class="border-t border-border mt-20">
+    <footer class="border-t border-border mt-16">
         <div class="container mx-auto px-4 py-12 text-center">
-             <h3 class="text-2xl font-bold text-gradient mb-4">Prêt à transformer votre vie étudiante ?</h3>
-             <p class="text-foreground/70 mb-8">E-Campus arrive le 27 Juillet. Suivez-nous pour ne rien manquer.</p>
-             <div class="border-t border-border mt-12 pt-8">
-                <p class="text-foreground/60">© 2025 E-Campus. Conçu et développé avec passion par Amara Mehdi.</p>
-             </div>
+             <h3 class="text-2xl font-bold text-gradient mb-4">L'aventure ne fait que commencer.</h3>
+             <p class="text-foreground/70">© 2025 E-Campus. Développé avec ❤️ par Amara Mehdi.</p>
         </div>
     </footer>
 
@@ -295,9 +200,38 @@
         }
         themeToggleBtn.addEventListener('click', () => setTheme(localStorage.getItem('theme') === 'dark' ? 'light' : 'dark'));
         const savedTheme = localStorage.getItem('theme');
-        setTheme(savedTheme ? savedTheme : 'dark'); // Default to dark
+        setTheme(savedTheme ? savedTheme : 'dark');
 
         // Countdown Timer
+        (function() { /* Countdown logic from previous version */ })();
+
+        // 3D Card Interaction
+        const container = document.querySelector('.feature-3d-container');
+        if (container) {
+            container.addEventListener('mousemove', e => {
+                document.querySelectorAll('.feature-card-3d').forEach(card => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left, y = e.clientY - rect.top;
+                    const { width, height } = rect;
+                    const rotateX = (y / height - 0.5) * -15;
+                    const rotateY = (x / width - 0.5) * 15;
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
+                });
+            });
+            container.addEventListener('mouseleave', () => {
+                 document.querySelectorAll('.feature-card-3d').forEach(card => {
+                    card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+                 });
+            });
+        }
+        
+        // Background Blobs visibility
+        window.addEventListener('load', () => {
+            document.getElementById('blob1').classList.add('visible');
+            document.getElementById('blob2').classList.add('visible');
+        });
+
+        // Full Countdown Logic for completeness
         (function() {
             const el = document.getElementById('countdown');
             if (!el) return;
@@ -310,26 +244,6 @@
             }, 1000);
         })();
 
-        // 3D Interactive Cards
-        const container = document.querySelector('.feature-3d-container');
-        if (container) {
-            container.addEventListener('mousemove', e => {
-                document.querySelectorAll('.feature-card-3d').forEach(card => {
-                    const rect = card.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-                    const { width, height } = rect;
-                    const rotateX = (y / height - 0.5) * -20;
-                    const rotateY = (x / width - 0.5) * 20;
-                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
-                });
-            });
-            container.addEventListener('mouseleave', () => {
-                 document.querySelectorAll('.feature-card-3d').forEach(card => {
-                    card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
-                 });
-            });
-        }
     </script>
 </body>
 </html>
