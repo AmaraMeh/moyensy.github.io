@@ -3,27 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <!-- SEO Title -->
-    <title>E-Campus Platform - Maintenance | Université de Bejaia - Calculateur & Bibliothèque Universitaire</title>
-    <!-- SEO Description -->
-    <meta name="description" content="E-Campus Platform, votre portail étudiant non officiel pour l'Université de Bejaia (Campus El-Kseur), est actuellement en maintenance pour une mise à jour majeure. Découvrez son histoire, ses statistiques d'utilisation impressionnantes, un aperçu des futures fonctionnalités et accédez temporairement au Calculateur de Moyenne Universitaire et à la Bibliothèque Universitaire. Retour prévu le 20 Juillet 2025.">
-    <!-- SEO Keywords (Mix of French, Arabic, English) -->
-    <meta name="keywords" content="Université de Bejaia, campus El-Kseur, calculateur moyenne universitaire, bibliothèque universitaire, portail étudiant, étudiants Algérie, calcul moyenne LMD, ressources universitaires, Spot Campus El Kseur, جامعة بجاية, حاسبة المعدل الجامعي, مكتبة جامعية, بوابة الطالب, University of Bejaia, GPA calculator, university library, student portal Algeria, exam calculator, university resources, Bejaia student life">
+    <title>E-Campus Platform - Maintenance</title>
+    <meta name="description" content="Le portail E-Campus est actuellement en maintenance. Nous serons de retour bientôt. La calculatrice est accessible.">
     <meta name="author" content="Amara Mehdi">
-    <!-- Open Graph (for social media sharing) -->
-    <meta property="og:title" content="E-Campus Platform - Maintenance">
-    <meta property="og:description" content="Votre portail étudiant pour l'Université de Bejaia est en maintenance pour une grande mise à jour. Accès temporaire au Calculateur et à la Bibliothèque.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="[Your Website URL Here]"> <!-- Replace with your actual URL -->
-    <meta property="og:image" content="[URL to your logo/icon image]"> <!-- Replace with URL to your icon.png or a preview image -->
-    <meta property="og:locale" content="fr_DZ"> <!-- Specify locale, Algerian French -->
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="E-Campus Platform - Maintenance">
-    <meta name="twitter:description" content="Votre portail étudiant pour l'Université de Bejaia est en maintenance pour une grande mise à jour. Accès temporaire au Calculateur et à la Bibliothèque.">
-    <meta name="twitter:image" content="[URL to your logo/icon image]"> <!-- Replace with URL to your icon.png or a preview image -->
-
-
     <link rel="icon" type="image/png" href="assets/img/icon.png">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -31,17 +13,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
-
     <style>
-        /* --- Color Variables --- */
         :root {
             --background: 0 0% 100%;
             --foreground: 222.2 84% 4.9%;
             --card: 0 0% 100%;
             --card-foreground: 222.2 84% 4.9%;
-            --primary: 221.2 83.2% 53.3%; /* Blue */
+            --primary: 221.2 83.2% 53.3%; /* Original Primary Blue */
             --primary-foreground: 210 40% 98%;
             --secondary: 210 40% 96.1%;
             --secondary-foreground: 222.2 47.4% 11.2%;
@@ -51,15 +29,11 @@
             --accent-foreground: 222.2 47.4% 11.2%;
             --border: 214.3 31.8% 91.4%;
             --input: 214.3 31.8% 91.4%;
-            --ring: 221.2 83.2% 53.3%; /* Blue */
-
-            /* Custom Accent Colors for Charts/Gradient - Consistent HSL values */
-            --color-blue: 221.2 83.2% 53.3%;
-            --color-purple: 258 75% 60%;
-            --color-green: 142 71% 45%;
-            --color-amber: 36 90% 52%;
-             --color-red: 348 83% 47%;
-             --color-indigo: 249 65% 53%;
+            --ring: 221.2 83.2% 53.3%; /* Original Ring Blue */
+            --radius: 0.5rem;
+            /* Maintenance Theme Colors */
+            --maintenance-icon-color: 24.9 95% 53.1%; /* Orange/Amber for caution/work */
+            --maintenance-text-color: 142.1 76.2% 36.3%; /* Green for 'coming back' */
         }
 
         .dark {
@@ -67,7 +41,7 @@
             --foreground: 210 40% 98%;
             --card: 222.2 84% 4.9%;
             --card-foreground: 210 40% 98%;
-            --primary: 217.2 91.2% 59.8%; /* Lighter Blue */
+            --primary: 217.2 91.2% 59.8%; /* Original Dark Primary Blue */
             --primary-foreground: 222.2 47.4% 11.2%;
             --secondary: 217.2 32.6% 17.5%;
             --secondary-foreground: 210 40% 98%;
@@ -77,100 +51,198 @@
             --accent-foreground: 210 40% 98%;
             --border: 217.2 32.6% 17.5%;
             --input: 217.2 32.6% 17.5%;
-            --ring: 224.3 76.3% 48%; /* Darker Blue */
-
-             /* Custom Accent Colors for Charts/Gradient - Consistent HSL values */
-             --color-blue: 217.2 91.2% 59.8%;
-            --color-purple: 262 80% 75%;
-            --color-green: 149 71% 65%;
-            --color-amber: 43 94% 65%;
-             --color-red: 356 85% 68%;
-             --color-indigo: 245 80% 78%;
+            --ring: 224.3 76.3% 48%; /* Original Dark Ring Blue */
+            /* Maintenance Theme Colors */
+            --maintenance-icon-color: 30 85% 60%; /* Darker Orange */
+            --maintenance-text-color: 152.1 76.2% 46.3%; /* Darker Green */
         }
 
-        /* --- Base Styles --- */
         body {
             font-family: 'Poppins', sans-serif;
             background: hsl(var(--background));
             color: hsl(var(--foreground));
             min-height: 100vh;
             -webkit-tap-highlight-color: transparent;
-            transition: background-color 0.8s ease, color 0.8s ease; /* Smoother transition */
+            transition: background-color 0.3s ease, color 0.3s ease;
+            display: flex;
+            flex-direction: column;
         }
 
-        /* --- Background Elements --- */
         .hero-bg {
-            position: fixed; /* Use fixed for better coverage during scroll */
+            position: absolute;
             inset: 0;
             z-index: -10;
             overflow: hidden;
-            /* Add a subtle background animation container */
-             animation: bgFadeIn 1.5s ease-out forwards; /* Use forwards to keep final state */
         }
-
-         @keyframes bgFadeIn {
-             0% { opacity: 0.5; filter: blur(20px); }
-             100% { opacity: 1; filter: blur(0); }
-         }
-
 
         .gradient-blob {
             position: absolute;
             border-radius: 9999px;
-            filter: blur(120px); /* More blur */
-            opacity: 0.3; /* Less opaque */
-            transition: background 0.8s ease, opacity 0.8s ease; /* Transition colors and opacity */
+            filter: blur(80px); /* Increased blur */
+            opacity: 0.4; /* Slightly less opaque */
+            animation: blob-float 15s infinite ease-in-out alternate; /* Add blob movement */
         }
 
         .gradient-blob-1 {
             top: 0;
             left: 0;
             right: 0;
-            height: 800px; /* Taller */
-            background: linear-gradient(to bottom right, hsl(var(--color-blue) / 0.3), hsl(var(--ring) / 0.15), hsl(var(--color-purple) / 0.05)); /* Use accent colors */
-            transform: translateY(-50%); /* Less shift */
-            animation: floatBlob1 25s ease-in-out infinite alternate; /* Slower animation */
+            height: 600px; /* Larger blob */
+            background: linear-gradient(to bottom right,
+                hsl(var(--primary) / 0.3),
+                hsl(var(--ring) / 0.2),
+                hsl(var(--accent) / 0.1));
+            transform: translateY(-60%);
+            animation-delay: 1s;
         }
-
-         @keyframes floatBlob1 {
-             0% { transform: translateY(-50%) translateX(0%); }
-             100% { transform: translateY(-40%) translateX(15%); } /* Larger movement */
-         }
-
 
         .gradient-blob-2 {
             bottom: 0;
             right: 0;
-            width: 800px; /* Larger */
-            height: 800px;
-            background: linear-gradient(to top right, hsl(var(--color-amber) / 0.25), hsl(var(--color-green) / 0.15), transparent); /* Use accent colors */
-             animation: floatBlob2 28s ease-in-out infinite alternate; /* Slower animation */
+            width: 600px; /* Larger blob */
+            height: 600px;
+            background: linear-gradient(to top right,
+                hsl(var(--ring) / 0.25),
+                hsl(var(--maintenance-icon-color) / 0.2), /* Use a maintenance color */
+                transparent);
+            animation-delay: 3s;
         }
-         @keyframes floatBlob2 {
-             0% { transform: translateY(0%) translateX(0%); }
-             100% { transform: translateY(15%) translateX(-15%); } /* Larger movement */
-         }
 
+         @keyframes blob-float {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(20px, 30px) scale(1.05); }
+        }
 
         .floating-dot {
             position: absolute;
             border-radius: 9999px;
-            opacity: 0.7; /* Higher base opacity */
-            animation: pulse 2s infinite ease-in-out alternate, floatDot 25s linear infinite; /* Slower float animation */
-             transition: background-color 0.8s ease; /* Transition colors */
+            animation: pulse-float 3s infinite ease-in-out alternate; /* Combined pulse and float */
+            opacity: 0.6;
         }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 0.7; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.2); } /* More pulse */
-        }
-         @keyframes floatDot {
-             0% { transform: translate(0, 0); }
-             25% { transform: translate(var(--x-move), var(--y-move)); }
-             50% { transform: translate(0, 0); }
-             75% { transform: translate(var(--x-move-alt), var(--y-move-alt)); }
-             100% { transform: translate(0, 0); }
+         @keyframes pulse-float {
+            0% { opacity: 0.6; transform: scale(1) translate(0,0); }
+            50% { opacity: 0.9; transform: scale(1.1) translate(10px, 10px); }
+            100% { opacity: 0.6; transform: scale(1) translate(0,0); }
          }
+
+
+        .service-card {
+            background: hsl(var(--card));
+            backdrop-filter: blur(12px); /* Increased blur */
+            border: 1px solid hsl(var(--border));
+            border-radius: var(--radius);
+            padding: 2.5rem;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Adjusted shadow */
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            display: block;
+            text-decoration: none;
+            color: hsl(var(--card-foreground));
+            transform: translateY(0);
+        }
+
+        .service-card:hover {
+            transform: translateY(-12px); /* Slightly more pronounced hover */
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.2); /* More pronounced shadow */
+             border-color: hsl(var(--primary));
+        }
+
+        .service-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(45deg,
+                hsl(var(--primary) / 0.1),
+                hsl(var(--ring) / 0.1),
+                hsl(var(--accent) / 0.1)
+            );
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .service-card:hover::after {
+            opacity: 1;
+        }
+
+        .service-icon {
+            margin: 0 auto 2rem;
+            width: 100px; /* Slightly smaller icon */
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--ring)));
+            border-radius: 50%;
+            color: hsl(var(--primary-foreground));
+            transition: all 0.3s ease;
+            position: relative;
+            box-shadow: 0 8px 16px hsl(var(--primary) / 0.2);
+        }
+
+        .service-icon i {
+             font-size: 4rem; /* Adjust icon size within circle */
+        }
+
+
+        .service-icon::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: inherit;
+            filter: blur(20px);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .service-card:hover .service-icon::after {
+            opacity: 0.5;
+        }
+
+        .service-card:hover .service-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+
+        .theme-toggle {
+            position: fixed;
+            bottom: 1rem;
+            right: 1rem;
+            z-index: 50;
+            width: 3.5rem; /* Slightly larger toggle */
+            height: 3.5rem;
+            border-radius: 9999px;
+            background: hsl(var(--background) / 0.9); /* Less transparent */
+            backdrop-filter: blur(10px); /* Increased blur */
+            border: 1px solid hsl(var(--border));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.05); /* Scale effect on hover */
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .theme-toggle i {
+            font-size: 1.5rem; /* Slightly larger icon */
+            color: hsl(var(--primary));
+            transition: transform 0.3s ease;
+        }
+
+        .theme-toggle:hover i {
+            transform: rotate(15deg); /* Rotate icon on hover */
+        }
+
 
         .floating-particles {
             position: absolute;
@@ -183,372 +255,176 @@
         .particle {
             position: absolute;
             border-radius: 50%;
-            opacity: 0.6; /* Base opacity */
-            animation: float 20s infinite ease-in-out alternate; /* Slower float animation */
-             transition: background-color 0.8s ease; /* Transition colors */
+            opacity: 0; /* Start hidden */
+            animation: float-fade 10s infinite ease-in-out;
         }
 
-        @keyframes float {
-            0%, 100% {
-                transform: translate(0, 0) scale(1);
-                opacity: 0.6; /* Match base opacity */
+        @keyframes float-fade {
+            0% {
+                transform: translate(0, 0) scale(0.5);
+                opacity: 0;
             }
+             20% {
+                opacity: 0.7; /* Fade in */
+             }
             50% {
-                transform: translate(var(--x), var(--y)) scale(1.3); /* More scale */
-                opacity: 1; /* Full opacity in middle */
+                transform: translate(var(--x), var(--y)) scale(1.2);
+                opacity: 1; /* Full opacity and scale */
+            }
+            80% {
+                 opacity: 0.7; /* Fade out */
+            }
+            100% {
+                transform: translate(0, 0) scale(0.5);
+                opacity: 0; /* End hidden */
             }
         }
 
 
-        /* --- Theme Toggle --- */
-        .theme-toggle {
-            position: fixed;
-            bottom: 1.5rem;
-            right: 1.5rem;
-            z-index: 50;
-            width: 3.5rem;
-            height: 3.5rem;
-            border-radius: 9999px;
-            background: hsl(var(--card) / 0.9);
-            backdrop-filter: blur(15px);
-            border: 1px solid hsl(var(--border));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            color: hsl(var(--foreground));
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
+        @media (max-width: 640px) {
+            .service-card {
+                padding: 1.5rem;
+                margin: 0 auto;
+                max-width: 300px;
+            }
 
-        .theme-toggle:hover {
-            transform: scale(1.1);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-            border-color: hsl(var(--primary));
-        }
-
-        .theme-toggle i {
-            font-size: 1.5rem;
-            color: hsl(var(--primary));
-            transition: color 0.3s ease;
-             animation: pulseIcon 1.5s infinite ease-in-out alternate;
-        }
-         @keyframes pulseIcon {
-             0%, 100% { transform: scale(1); }
-             50% { transform: scale(1.1); }
-         }
-
-
-        /* --- Card Styles for Temporary Access Links --- */
-         .service-card {
-            background: hsl(var(--card));
-            backdrop-filter: blur(10px);
-            border: 1px solid hsl(var(--border));
-            border-radius: var(--radius);
-            padding: 2rem;
-            text-align: center;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-decoration: none;
-            color: hsl(var(--card-foreground));
-            transform: translateY(0);
-             z-index: 10;
-         }
-
-        .service-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-            border-color: hsl(var(--primary));
-        }
-
-         .service-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg,
-                hsl(var(--primary) / 0.1),
-                hsl(var(--ring) / 0.08),
-                hsl(var(--color-purple) / 0.05)
-            );
-            opacity: 0;
-            transition: opacity 0.4s ease;
-             pointer-events: none;
-             z-index: 1;
-        }
-         .service-card:hover::before {
-             opacity: 1;
-         }
-
-         .service-card > * {
-             position: relative;
-             z-index: 2;
-         }
-
-
-        .service-icon {
-            margin: 0 auto 1.5rem;
-            width: 100px;
-            height: 100px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--ring)));
-            border-radius: 50%;
-            color: hsl(var(--primary-foreground));
-            transition: all 0.4s ease;
-            position: relative;
-            box-shadow: 0 8px 20px hsl(var(--primary) / 0.25);
-        }
-         .service-icon i {
-             font-size: 3rem;
-         }
-
-        .service-card:hover .service-icon {
-            transform: scale(1.15) rotate(3deg);
-            box-shadow: 0 12px 24px hsl(var(--primary) / 0.35);
+            .service-icon {
+                width: 80px; /* Adjust size */
+                height: 80px;
+                margin-bottom: 1rem; /* Adjust margin */
+            }
+             .service-icon i {
+                 font-size: 3rem; /* Adjust icon size within circle */
+             }
+             .maintenance-message h2 {
+                 font-size: 3rem !important; /* Adjust heading size */
+             }
+             .maintenance-message p {
+                 font-size: 1rem; /* Adjust paragraph size */
+             }
+             .maintenance-icon {
+                 font-size: 5rem !important; /* Adjust icon size */
+             }
         }
 
         .service-card h3 {
-             font-size: 1.8rem;
-             margin-bottom: 0.75rem;
-             background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--ring)));
+            background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--ring)));
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
         }
 
-         .service-card p {
-             font-size: 1.1rem;
-              color: hsl(var(--muted-foreground));
-              margin-bottom: 1rem;
-         }
-
-         .service-card .expiry-note {
-             font-size: 0.9rem;
-             color: hsl(var(--muted-foreground));
-             margin-top: auto;
-              min-height: 1.1em;
-         }
-
-
-        .service-card.disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            pointer-events: none;
-            transform: translateY(0px) !important;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.05) !important;
-            border-color: hsl(var(--border)) !important;
-         }
-          .service-card.disabled::before { opacity: 0 !important; }
-         .service-card.disabled .service-icon {
-            transform: none !important;
-            box-shadow: none !important;
-             background: hsl(var(--secondary));
-             color: hsl(var(--secondary-foreground));
-          }
-         .service-card.disabled h3 {
-             background: none;
-             -webkit-background-clip: border-box;
-             background-clip: border-content;
-             color: hsl(var(--muted-foreground)) !important;
-         }
-         .service-card.disabled p,
-         .service-card.disabled .expiry-note {
-            color: hsl(var(--muted-foreground)) !important;
-         }
-
-
-        /* --- Maintenance Specific Section Styles --- */
-         .card-section {
-             background: hsl(var(--card));
-             backdrop-filter: blur(10px);
-             border: 1px solid hsl(var(--border));
-             border-radius: var(--radius);
-             padding: 2rem;
-             margin-bottom: 2rem;
-             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-         }
-
-         .countdown-item {
-             text-align: center;
-         }
-
-         .countdown-value {
-             font-size: 3rem;
-             font-weight: 700;
-             line-height: 1;
-             color: hsl(var(--primary));
-              font-variant-numeric: tabular-nums;
-         }
-
-         .countdown-label {
-             font-size: 1rem;
-             text-transform: uppercase;
-             color: hsl(var(--muted-foreground));
-         }
-
-        /* --- Chart Specific Styles --- */
-         .chart-container {
-             position: relative;
-             height: 350px;
-             width: 100%;
-             margin-bottom: 1.5rem;
-         }
-          .dark canvas {
-            filter: invert(1) hue-rotate(180deg);
-            transition: filter 0.6s ease;
+        .maintenance-message {
+            margin-bottom: 3rem; /* Add space below message */
         }
 
-         .total-stats {
-             display: grid;
-             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-             gap: 1rem;
-             margin-top: 1rem;
-             margin-bottom: 2rem;
-             text-align: center;
-         }
-         .total-stat-item {
-             padding: 1rem;
-             border: 1px solid hsl(var(--border));
-             border-radius: var(--radius);
-             background: hsl(var(--secondary));
-             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-             transition: transform 0.3s ease, box-shadow 0.3s ease;
-             cursor: help;
-         }
-          .total-stat-item:hover {
-              transform: translateY(-4px);
-              box-shadow: 0 6px 12px rgba(0,0,0,0.1);
-          }
-         .total-stat-value {
-             font-size: 1.5rem;
-             font-weight: 700;
-             color: hsl(var(--primary));
-             margin-bottom: 0.25rem;
-             font-variant-numeric: tabular-nums;
-         }
-         .total-stat-label {
-             font-size: 0.9rem;
-             color: hsl(var(--muted-foreground));
-         }
-
-
-         .feature-list li {
-            display: flex;
-            align-items: flex-start;
+        .maintenance-message h2 {
+             /* Gradient using theme colors + maintenance accent */
+            background: linear-gradient(to right,
+                 hsl(var(--primary)),
+                 hsl(var(--maintenance-text-color)),
+                 hsl(var(--ring))
+            );
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-size: 4rem; /* Larger heading */
+            font-weight: 700;
             margin-bottom: 1rem;
-            font-size: 1.1rem;
-            color: hsl(var(--foreground));
-         }
-
-         .feature-list li i {
-             color: hsl(var(--primary));
-             margin-right: 0.75rem;
-             font-size: 1.2rem;
-             width: 24px;
-             text-align: center;
-             flex-shrink: 0;
-         }
-
-         /* --- Footer Styles --- */
-         footer {
-             font-size: 0.9rem;
-             line-height: 1.6;
-             color: hsl(var(--muted-foreground));
-         }
-         footer h4 {
-             font-size: 1.3rem;
-             font-weight: 600;
-             margin-bottom: 0.75rem;
-             color: hsl(var(--foreground));
-         }
-         footer a {
-             color: hsl(var(--primary));
-             text-decoration: none;
-             transition: color 0.3s ease;
-         }
-         footer a:hover {
-             color: hsl(var(--primary) / 0.8);
-             text-decoration: underline;
-         }
-         footer .social-links a {
-             font-size: 1.8rem;
-             margin: 0 0.75rem;
-             color: hsl(var(--muted-foreground));
-             transition: color 0.3s ease, transform 0.3s ease;
-         }
-          footer .social-links a:hover {
-              color: hsl(var(--primary));
-              transform: translateY(-3px);
-          }
-
-         /* --- Responsive Adjustments --- */
-        @media (max-width: 768px) { /* Tailwind's md breakpoint */
-            .service-card { padding: 1.5rem; }
-            .service-icon { width: 80px; height: 80px; margin-bottom: 1rem; }
-             .service-icon i { font-size: 2.5rem; }
-            .service-card h3 { font-size: 1.5rem; }
-             .service-card p { font-size: 1rem; }
-            .service-card .expiry-note { font-size: 0.85rem; }
-            .countdown-value { font-size: 2.2rem; }
-            .countdown-label { font-size: 0.85rem; }
-            .feature-list li { font-size: 1rem; }
-            .feature-list li i { font-size: 1rem; width: 20px; }
-             .chart-container { height: 300px; }
-             .total-stats { grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 0.75rem; }
-              .total-stat-value { font-size: 1.3rem; }
-             .total-stat-label { font-size: 0.8rem; }
-             footer { text-align: center; }
-              footer .social-links { justify-content: center; }
-             h2.text-5xl { font-size: 3.5rem; } /* Slightly larger on mobile */
-              h3.text-3xl { font-size: 2.2rem; }
+             animation: text-pop-up 0.6s cubic-bezier(0.250, 0.460, 0.450, 0.940) both; /* Add animation */
         }
-         @media (max-width: 640px) { /* Tailwind's sm breakpoint */
-             .grid-cols-1.sm\\:grid-cols-2 { grid-template-columns: 1fr; }
-              .grid-cols-1.sm\\:grid-cols-2 > * { margin-left: auto; margin-right: auto; max-width: 95%; }
-              h1.text-3xl { font-size: 1.8rem; }
-              h2.text-5xl { font-size: 2.8rem; }
-              h3.text-3xl { font-size: 1.8rem; }
-               .service-card { max-width: 90%; padding: 1rem;}
-              .service-icon { width: 70px; height: 70px; margin-bottom: 0.75rem;}
-              .service-icon i { font-size: 2.2rem; }
-              .service-card h3 { font-size: 1.4rem; margin-bottom: 0.5rem; }
-              .service-card p { font-size: 0.9rem; margin-bottom: 0.5rem;}
-              .service-card .expiry-note { font-size: 0.7rem; }
-               .total-stats { grid-template-columns: repeat(2, 1fr); }
+
+         @keyframes text-pop-up {
+            0% {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
          }
-          @media (max-width: 480px) {
-               h2.text-5xl { font-size: 2.2rem; }
-               h3.text-3xl { font-size: 1.6rem; }
-                .countdown-value { font-size: 1.8rem; }
-                 .countdown-label { font-size: 0.7rem; }
-          }
 
 
+        .maintenance-message p {
+            font-size: 1.25rem; /* Larger paragraph text */
+            color: hsl(var(--muted-foreground));
+            line-height: 1.6;
+             animation: fade-in-up 0.6s cubic-bezier(0.390, 0.575, 0.565, 1.000) both; /* Add animation */
+             animation-delay: 0.3s; /* Delay animation */
+        }
+
+        .maintenance-message p:nth-of-type(2) {
+             animation-delay: 0.5s; /* Further delay for the second paragraph */
+        }
+
+
+        .maintenance-icon-container {
+             display: flex;
+             justify-content: center;
+             align-items: center;
+             margin-bottom: 2rem; /* Space below icon */
+             animation: fade-in-down 0.8s ease-out both; /* Add animation */
+        }
+
+        @keyframes fade-in-down {
+            0% {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+
+        .maintenance-icon {
+            font-size: 8rem; /* Much larger icon */
+            color: hsl(var(--maintenance-icon-color)); /* Use maintenance icon color */
+            animation: spin-pulse 4s ease-in-out infinite; /* Combined spin and pulse */
+            text-shadow: 0 0 20px hsl(var(--maintenance-icon-color) / 0.4); /* Subtle glow */
+        }
+
+         @keyframes spin-pulse {
+            0% { transform: rotate(0deg) scale(1); opacity: 1; }
+            50% { transform: rotate(180deg) scale(1.1); opacity: 0.9; }
+            100% { transform: rotate(360deg) scale(1); opacity: 1; }
+         }
+
+
+         /* Ensure main content is centered vertically when height is less than viewport */
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+        main {
+            flex-grow: 1; /* Allow main content to take up available space */
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Center vertically */
+            align-items: center; /* Center horizontally */
+            padding-top: 4rem; /* Add some top padding */
+            padding-bottom: 4rem; /* Add some bottom padding */
+        }
+
+        footer {
+            margin-top: auto; /* Push footer to the bottom */
+        }
     </style>
 </head>
 <body class="min-h-screen">
-     <!-- Hero Background -->
+    <!-- Hero Background -->
     <div class="hero-bg">
         <div class="gradient-blob gradient-blob-1"></div>
         <div class="gradient-blob gradient-blob-2"></div>
-         <!-- Floating dots with random positions and animation properties -->
-         <div class="floating-dot w-4 h-4 bg-blue-500 top-1/4 left-1/4" style="--x-move: 30px; --y-move: 40px; --x-move-alt: -10px; --y-move-alt: 20px; animation-delay: 0s; animation-duration: 18s;"></div>
-        <div class="floating-dot w-3 h-3 bg-purple-500 top-1/3 right-1/4" style="--x-move: -40px; --y-move: -20px; --x-move-alt: 15px; --y-move-alt: -30px; animation-delay: 0.5s; animation-duration: 22s;"></div>
-        <div class="floating-dot w-2 h-2 bg-green-500 bottom-1/4 left-1/3" style="--x-move: 20px; --y-move: -30px; --x-move-alt: -5px; --y-move-alt: -10px; animation-delay: 1s; animation-duration: 20s;"></div>
-        <div class="floating-dot w-3 h-3 bg-amber-500 top-2/3 right-1/3" style="--x-move: -30px; --y-move: 25px; --x-move-alt: 10px; --y-move-alt: 5px; animation-delay: 1.5s; animation-duration: 19s;"></div>
-        <div class="floating-dot w-4 h-4 bg-red-500 bottom-1/3 left-2/3" style="--x-move: 30px; --y-move: 10px; --x-move-alt: -20px; --y-move-alt: -5px; animation-delay: 2s; animation-duration: 21s;"></div>
-         <div class="floating-dot w-3 h-3 bg-indigo-500 top-1/2 left-1/2" style="--x-move: 15px; --y-move: -15px; --x-move-alt: -10px; --y-move-alt: 10px; animation-delay: 2.5s; animation-duration: 23s;"></div>
-         <div class="floating-dot w-5 h-5 bg-pink-500 top-1/5 right-1/5" style="--x-move: -20px; --y-move: 30px; --x-move-alt: 5px; --y-move-alt: -10px; animation-delay: 3s; animation-duration: 25s;"></div>
+        <!-- Floating Dots using theme colors -->
+        <div class="floating-dot w-5 h-5 top-1/4 left-1/4 bg-blue-500"></div>
+        <div class="floating-dot w-4 h-4 top-1/3 right-1/4 bg-purple-500"></div>
+        <div class="floating-dot w-3 h-3 bottom-1/4 left-1/3 bg-green-500"></div>
+        <div class="floating-dot w-4 h-4 top-2/3 right-1/3 bg-amber-500"></div>
+         <div class="floating-dot w-3 h-3 top-1/2 left-1/2 bg-pink-500 animation-delay: 2s;"></div>
+         <div class="floating-dot w-5 h-5 bottom-1/3 left-1/5 bg-teal-500 animation-delay: 1s;"></div>
     </div>
 
     <!-- Floating Particles -->
@@ -560,198 +436,57 @@
     </button>
 
     <!-- Header -->
-    <header class="bg-background/80 backdrop-blur-sm shadow-lg py-6 relative z-10"> <!-- Increased z-index -->
-        <div class="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
-            <h1 class="text-3xl font-bold mb-4 md:mb-0" data-aos="fade-down">E-Campus Platform</h1>
-             <!-- Instagram Link at top -->
-            <div class="social-links flex items-center" data-aos="fade-down" data-aos-delay="200">
-                 <span class="text-muted-foreground mr-3 hidden md:inline">Suivez-nous :</span>
-                 <a href="https://www.instagram.com/Spot_campuselkseur/" target="_blank" aria-label="Instagram Spot Campus El Kseur" class="text-purple-accent hover:opacity-80 transition-opacity duration-300 text-2xl">
-                     <i class="fab fa-instagram"></i>
-                 </a>
+    <header class="bg-background/80 backdrop-blur-sm shadow-lg py-6">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col items-center">
+                <h1 class="text-3xl font-bold text-center text-foreground" data-aos="fade-down">E-Campus Platform</h1>
             </div>
         </div>
     </header>
 
     <!-- Main Content -->
-    <main class="container mx-auto px-4 py-8 max-w-6xl relative z-10">
-
-        <!-- Maintenance Message -->
-        <section class="text-center mb-12" data-aos="fade-up">
-            <h2 class="text-5xl md:text-6xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600">
-                Site en Maintenance
-            </h2>
-            <p class="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
-                 Le site E-Campus Platform est actuellement en cours de transformation pour une mise à jour majeure.
-            </p>
-             <p class="text-lg font-medium text-muted-foreground mb-6">
-                 Accès temporaire aux outils essentiels.
-             </p>
-        </section>
-
-        <!-- Temporary Access Links Section -->
-         <section class="mb-12" data-aos="fade-up" data-aos-delay="100">
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-3xl mx-auto">
-                   <!-- Calculator Card -->
-                    <a href="calculator.html" class="service-card group" id="calculator-card" data-aos="fade-right" data-aos-delay="200">
-                        <div class="service-icon">
-                            <i class="fas fa-calculator"></i>
-                        </div>
-                        <h3>Calculatrice</h3>
-                        <p>Calculez votre moyenne.</p>
-                         <div class="expiry-note" id="calc-expiry"></div>
-                    </a>
-
-                    <!-- Bibliothèque Card -->
-                    <a href="bib.html" class="service-card group" id="bib-card" data-aos="fade-left" data-aos-delay="300">
-                        <div class="service-icon">
-                            <i class="fas fa-book"></i>
-                        </div>
-                        <h3>Bibliothèque</h3>
-                        <p>Accédez aux ressources.</p>
-                         <div class="expiry-note" id="bib-expiry"></div>
-                    </a>
-              </div>
-              <p class="mt-6 text-sm text-muted-foreground italic text-center" data-aos="fade-up" data-aos-delay="400">
-                 Ces outils resteront accessibles jusqu'à leur date d'expiration respective avant le lancement de la nouvelle plateforme.
-              </p>
-         </section>
-
-         <!-- Countdown Section -->
-        <section class="text-center mb-12" data-aos="fade-up" data-aos-delay="500">
-            <h3 class="text-3xl font-semibold mb-6">Retour Prévu Le <span class="text-primary">20 Juillet 2025</span></h3>
-             <div class="card-section">
-                <div class="grid grid-cols-4 gap-4 items-center" id="countdown" data-aos="zoom-in" data-aos-delay="600">
-                     <div class="countdown-item">
-                         <div class="countdown-value" id="days">00</div>
-                         <div class="countdown-label">Jours</div>
-                     </div>
-                      <div class="countdown-item">
-                         <div class="countdown-value" id="hours">00</div>
-                         <div class="countdown-label">Heures</div>
-                     </div>
-                      <div class="countdown-item">
-                         <div class="countdown-value" id="minutes">00</div>
-                         <div class="countdown-label">Minutes</div>
-                     </div>
-                      <div class="countdown-item">
-                         <div class="countdown-value" id="seconds">00</div>
-                         <div class="countdown-label">Secondes</div>
-                     </div>
-                </div>
-             </div>
-        </section>
-
-        <!-- Statistics Section -->
-        <section class="mb-12" data-aos="fade-up" data-aos-delay="700">
-             <h3 class="text-3xl font-semibold mb-6 text-center">Nos Statistiques (Février - Juin 2025)</h3>
-             <div class="card-section">
-                 <p class="text-muted-foreground text-center mb-6">
-                    Merci pour votre incroyable engagement ! Voici un aperçu de l'impact de la plateforme depuis son lancement.
+    <main class="container mx-auto px-4 flex flex-col items-center justify-center">
+        <!-- Maintenance Section -->
+        <section class="relative text-center max-w-3xl w-full">
+            <div class="maintenance-icon-container">
+                 <i class="fas fa-tools maintenance-icon"></i>
+            </div>
+            <div data-aos="fade-up" data-aos-delay="200" class="maintenance-message">
+                <h2 class="font-bold mb-4">
+                    Maintenance en cours
+                </h2>
+                <p class="text-xl text-muted-foreground mb-4" data-aos="fade-up" data-aos-delay="400">
+                    Le portail E-Campus est actuellement en maintenance pour des améliorations importantes.
+                </p>
+                <p class="text-lg text-muted-foreground" data-aos="fade-up" data-aos-delay="600">
+                    Nous travaillons dur pour revenir en ligne rapidement.
+                </p>
+                <p class="text-xl mt-6 font-semibold" data-aos="fade-up" data-aos-delay="800" style="color: hsl(var(--maintenance-text-color));">
+                     Nous serons de retour bientôt !
                  </p>
-                 <!-- Total Stats Display -->
-                 <div class="total-stats mb-8" data-aos="fade-up" data-aos-delay="800">
-                     <div class="total-stat-item" title="Nombre total d'utilisateurs uniques ayant visité le site.">
-                         <div class="total-stat-value" id="total-users">0</div>
-                         <div class="total-stat-label">Utilisateurs Uniques</div>
-                     </div>
-                      <div class="total-stat-item" title="Nombre total de pages vues sur le site.">
-                         <div class="total-stat-value" id="total-views">0</div>
-                         <div class="total-stat-label">Pages Vues</div>
-                     </div>
-                      <div class="total-stat-item" title="Nombre total de fichiers téléchargés depuis la bibliothèque.">
-                         <div class="total-stat-value" id="total-downloads">0</div>
-                         <div class="total-stat-label">Téléchargements</div>
-                     </div>
-                      <div class="total-stat-item" title="Nombre total de calculs de moyenne effectués.">
-                         <div class="total-stat-value" id="total-calculations">0</div>
-                         <div class="total-stat-label">Calculs de Moyenne</div>
-                     </div>
-                 </div>
-                 <!-- Individual Chart Containers -->
-                  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                       <div class="chart-container" data-aos="zoom-in" data-aos-delay="900">
-                            <canvas id="usersChart"></canvas>
-                       </div>
-                        <div class="chart-container" data-aos="zoom-in" data-aos-delay="1000">
-                            <canvas id="viewsChart"></canvas>
-                       </div>
-                       <div class="chart-container" data-aos="zoom-in" data-aos-delay="1100">
-                            <canvas id="downloadsChart"></canvas>
-                       </div>
-                       <div class="chart-container" data-aos="zoom-in" data-aos-delay="1200">
-                            <canvas id="calculationsChart"></canvas>
-                       </div>
-                  </div>
-             </div>
+            </div>
         </section>
 
-         <!-- Features Coming Soon Section -->
-        <section class="mb-12" data-aos="fade-up" data-aos-delay="1300">
-             <h3 class="text-3xl font-semibold mb-6 text-center">Fonctionnalités à Venir</h3>
-             <div class="card-section">
-                  <p class="text-muted-foreground text-center mb-6">
-                     La prochaine version sera beaucoup plus riche et couvrira de nouveaux besoins pour les étudiants universitaires et les futurs bacheliers 2026.
-                  </p>
-                  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 feature-list">
-                    <div data-aos="fade-right" data-aos-delay="1400"><i class="fas fa-chalkboard-teacher"></i> Plateforme d'apprentissage en ligne avec cours interactifs</div>
-                    <div data-aos="fade-left" data-aos-delay="1450"><i class="fas fa-users"></i> Forum étudiant avec modération automatique</div>
-                    <div data-aos="fade-right" data-aos-delay="1500"><i class="fas fa-chart-line"></i> Suivi de progression académique</div>
-                    <div data-aos="fade-left" data-aos-delay="1550"><i class="fas fa-mobile-alt"></i> Application mobile native</div>
-                    <div data-aos="fade-right" data-aos-delay="1600"><i class="fas fa-comments"></i> Chat en temps réel entre étudiants</div>
-                    <div data-aos="fade-left" data-aos-delay="1650"><i class="fas fa-question-circle"></i> Quiz interactifs par matière</div>
-                    <div data-aos="fade-right" data-aos-delay="1700"><i class="fas fa-laptop-code"></i> Simulateurs d'examens</div>
-                    <div data-aos="fade-left" data-aos-delay="1750"><i class="fas fa-database"></i> Base de données de sujets d'examens</div>
-                    <div data-aos="fade-right" data-aos-delay="1800"><i class="fas fa-redo-alt"></i> Système de révision par flashcards</div>
-                    <div data-aos="fade-left" data-aos-delay="1850"><i class="fas fa-pencil-alt"></i> Outil de création de fiches de révision</div>
-                    <div data-aos="fade-right" data-aos-delay="1900"><i class="fas fa-share-alt"></i> Plateforme de partage de documents</div>
-                    <div data-aos="fade-left" data-aos-delay="1950"><i class="fas fa-calculator"></i> Calculateur de moyenne avancé</div>
-                    <div data-aos="fade-right" data-aos-delay="2000"><i class="fas fa-bus"></i> Guide des transports universitaires</div>
-                    <div data-aos="fade-left" data-aos-delay="2050"><i class="fas fa-book-open"></i> Plateforme de partage de cours</div>
-                    <div data-aos="fade-right" data-aos-delay="2100"><i class="fas fa-graduation-cap"></i> Système de gestion des examens</div>
-                    <div data-aos="fade-left" data-aos-delay="2150"><i class="fas fa-building"></i> Portail des services administratifs</div>
-                  </div>
-             </div>
-        </section>
-
+        <!-- Calculator Card (Only one visible) -->
+        <div class="w-full max-w-sm md:max-w-md lg:max-w-sm mx-auto mt-8"> <!-- Added top margin -->
+            <a href="calculator.html" class="service-card group" data-aos="zoom-in" data-aos-delay="1000" id="calculator-card">
+                <div class="service-icon group-hover:scale-110 transition-transform duration-300">
+                    <i class="fas fa-calculator"></i>
+                </div>
+                <h3 class="text-2xl font-semibold mb-4">Calculatrice</h3>
+                <p class="text-muted-foreground">Calculez votre moyenne même pendant la maintenance.</p>
+            </a>
+        </div>
     </main>
 
     <!-- Footer -->
-    <footer class="bg-background/80 backdrop-blur-sm py-8 mt-12 relative z-10">
+    <footer class="bg-background/80 backdrop-blur-sm py-8 mt-12">
         <div class="container mx-auto px-4">
-             <!-- Detailed History in Footer -->
-             <div class="card-section text-left mb-8" data-aos="fade-up">
-                 <h4>Notre Parcours</h4>
-                  <p class="mb-4 text-muted-foreground">
-                     Lancé le 1er Février 2025 avec l'unique fonctionnalité d'un calculateur de moyenne pour les étudiants de l'Université de Bejaia - Campus El-Kseur, ce projet est né d'un besoin simple : faciliter le calcul des moyennes semestrielles et annuelles. L'objectif initial était de fournir un outil rapide et fiable, accessible à tous, un premier pas vers une plateforme plus complète.
-                  </p>
-                  <p class="mb-4 text-muted-foreground">
-                      En Avril 2025, face à un accueil très positif et aux retours constants de la communauté étudiante, E-Campus Platform s'est enrichi pour devenir un véritable portail de ressources non officiel. Nous avons ajouté une bibliothèque numérique permettant d'accéder facilement à des cours, TD, annales, et autres documents partagés par et pour les étudiants. Cette expansion a transformé le site en une plateforme d'échange et de soutien académique, démontrant le potentiel d'une communauté connectée.
-                  </p>
-                   <p class="mb-4 text-muted-foreground">
-                      Aujourd'hui, le site entre en maintenance pour une refonte profonde. Cette pause est nécessaire pour préparer une plateforme nouvelle génération, plus stable, plus rapide et surtout, beaucoup plus riche en fonctionnalités. L'expérience utilisateur et l'interface visent un standard élevé pour rendre votre navigation et votre accès aux ressources plus fluides et agréables que jamais.
-                   </p>
-                    <p class="mb-4 text-muted-foreground">
-                        Cette mise à jour vise à transformer E-Campus Platform en l'une des plateformes éducatives étudiantes les plus complètes d'Algérie, non seulement pour les étudiants universitaires actuels à Bejaia mais aussi pour accompagner les futurs bacheliers de 2026 dans leur transition vers l'enseignement supérieur en leur offrant des outils adaptés et des ressources pertinentes dès la fin de leurs examens.
-                    </p>
-                     <p class="mb-4 text-muted-foreground font-semibold">
-                        Merci encore pour votre confiance et votre fidélité. Chaque visite, chaque calcul, chaque téléchargement nous a motivés à aller plus loin et à investir dans cette évolution majeure. Rendez-vous le 20 Juillet 2025 pour découvrir la nouvelle version !
-                     </p>
-             </div>
-            <div class="text-center">
-                <p class="mb-4">
-                    Créé par <span class="text-foreground font-semibold">Amara Mehdi</span><br>
-                    Étudiant en ST LMD<br>
+            <div class="text-center text-muted-foreground">
+                <p>
+                    © 2025 Développé par Amara Mehdi<br>
                     Université de Bejaia
                 </p>
-                 <!-- Social Links in Footer -->
-                 <div class="social-links flex justify-center items-center mb-4">
-                     <a href="https://www.instagram.com/Spot_campuselkseur/" target="_blank" aria-label="Instagram Spot Campus El Kseur">
-                         <i class="fab fa-instagram"></i>
-                     </a>
-                     <!-- Add other social links if you have them -->
-                 </div>
-                <p>© 2025 E-Campus Platform. Tous droits réservés.</p>
             </div>
         </div>
     </footer>
@@ -760,19 +495,11 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({
-             duration: 1200, // Increased animation duration
-             once: true,
-             easing: 'ease-in-out-back', // Slightly more dynamic easing
-             delay: 50, // Initial delay
-             disable: 'mobile' // Optional: Disable AOS on mobile for performance
+            duration: 1000, // Increased animation duration
+            easing: 'ease-out-cubic', // Smoother easing
+            once: true,    // Whether animation should happen only once - while scrolling down
         });
     </script>
-     <!-- Vercel Insights Script -->
-     <script>
-        window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-    </script>
-    <script defer src="/_vercel/insights/script.js"></script>
-
 
     <!-- Theme toggle functionality -->
     <script>
@@ -792,21 +519,29 @@
                 themeToggleIcon.classList.add('fa-sun');
                 localStorage.setItem('theme', 'dark');
             }
-             // Update chart colors after theme change transition
-             // Use a slight delay to ensure CSS variables are updated
-             setTimeout(updateChartColors, 850); // Match transition duration + a little buffer
+            // Recreate particles to ensure they pick up new theme colors immediately
+             createParticles();
         }
 
-        // Check for saved theme preference
+        // Check for saved theme preference on load
         const savedTheme = localStorage.getItem('theme');
         if (savedTheme === 'dark') {
             document.body.classList.add('dark');
-            document.querySelector('.theme-toggle i').classList.replace('fa-moon', 'fa-sun');
+        } else if (savedTheme === 'light') {
+             document.body.classList.remove('dark');
         } else {
-             // Default to light if no theme saved or saved theme is light
-            document.body.classList.remove('dark');
-            document.querySelector('.theme-toggle i').classList.replace('fa-sun', 'fa-moon');
+            // Default to light theme if no preference saved
+             document.body.classList.remove('dark');
         }
+
+         // Set initial icon after theme is applied
+        const themeToggleIcon = document.querySelector('.theme-toggle i');
+        if (document.body.classList.contains('dark')) {
+             if (themeToggleIcon) themeToggleIcon.classList.replace('fa-moon', 'fa-sun');
+        } else {
+             if (themeToggleIcon) themeToggleIcon.classList.replace('fa-sun', 'fa-moon');
+        }
+
     </script>
 
     <!-- Create floating particles -->
@@ -814,40 +549,39 @@
         // Create floating particles
         function createParticles() {
             const particlesContainer = document.getElementById('particles');
-             if (!particlesContainer) return;
+            // Clear existing particles before adding new ones (for theme change)
+             particlesContainer.innerHTML = '';
 
+            // Get theme colors using CSS variables
+             const style = getComputedStyle(document.documentElement);
             const colors = [
-                'hsl(var(--color-blue))',
-                'hsl(var(--color-purple))',
-                'hsl(var(--color-green))',
-                'hsl(var(--color-amber))',
-                'hsl(var(--color-red))',
-                'hsl(var(--color-indigo))'
-            ]; // Use HSL colors from CSS variables
-            const numberOfParticles = 60; // Increased particle count for more density
+                style.getPropertyValue('--primary').trim(),
+                style.getPropertyValue('--ring').trim(),
+                style.getPropertyValue('--maintenance-icon-color').trim(),
+                style.getPropertyValue('--maintenance-text-color').trim(),
+                 style.getPropertyValue('--secondary').trim()
+            ];
 
-            for (let i = 0; i < numberOfParticles; i++) {
+            for (let i = 0; i < 50; i++) { // Increased particle count
                 const particle = document.createElement('div');
                 particle.className = 'particle';
 
-                // Random position across the screen
-                const x = Math.random() * 100;
-                const y = Math.random() * 100;
+                // Random position within a slightly larger range
+                const x = Math.random() * 120 - 10;
+                const y = Math.random() * 120 - 10;
 
                 // Random size
-                const size = Math.random() * 8 + 3; // Range 3px to 11px
+                const size = Math.random() * 8 + 4; // Larger particles
 
                 // Random color
                 const color = colors[Math.floor(Math.random() * colors.length)];
+                 // Ensure color is just the HSL values (e.g., "221.2 83.2% 53.3%")
+                const colorValue = color.split('/')[0].trim();
 
-                // Random movement range (pixels)
-                const moveRange = 80;
-                const moveX = (Math.random() - 0.5) * moveRange;
-                const moveY = (Math.random() - 0.5) * moveRange;
 
-                // Random animation duration and delay
-                const duration = Math.random() * 10 + 15; // Duration between 15s and 25s (slower)
-                const delay = Math.random() * 8; // Delay up to 8s
+                // Random movement
+                const moveX = (Math.random() - 0.5) * 80; // Larger movement
+                const moveY = (Math.random() - 0.5) * 80;
 
                 // Set styles
                 particle.style.cssText = `
@@ -855,424 +589,32 @@
                     top: ${y}%;
                     width: ${size}px;
                     height: ${size}px;
-                    background-color: ${color};
+                    background-color: hsl(${colorValue}); /* Use HSL color value */
                     --x: ${moveX}px;
                     --y: ${moveY}px;
-                    animation-duration: ${duration}s;
-                    animation-delay: ${delay}s;
+                    animation-delay: ${Math.random() * 7}s; /* Vary animation delay */
+                    animation-duration: ${Math.random() * 10 + 10}s; /* Vary animation duration */
                 `;
 
                 particlesContainer.appendChild(particle);
             }
         }
 
-        // Initialize particles
-        createParticles();
-    </script>
+        // Initialize particles when the DOM is fully loaded
+        document.addEventListener('DOMContentLoaded', createParticles);
 
-     <!-- Temporary Access Logic -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const calcCard = document.getElementById('calculator-card');
-            const bibCard = document.getElementById('bib-card');
-            const calcExpiryDiv = document.getElementById('calc-expiry');
-            const bibExpiryDiv = document.getElementById('bib-expiry');
-            const today = new Date();
-            const currentYear = today.getFullYear();
-
-            // Define cutoff dates (adjust time if needed, here set to end of the day)
-            const calcCutoff = new Date(currentYear, 5, 30, 23, 59, 59); // Month is 0-indexed (5 = June)
-            const bibCutoff = new Date(currentYear, 5, 24, 23, 59, 59); // Month is 0-indexed (5 = June)
-
-            // Handle Calculator Access
-            if (calcCard) {
-                if (today > calcCutoff) {
-                   calcCard.classList.add('disabled');
-                   calcCard.removeAttribute('href');
-                   if(calcExpiryDiv) calcExpiryDiv.textContent = "Accès terminé depuis le 30 Juin.";
-                } else {
-                   if(calcExpiryDiv) calcExpiryDiv.textContent = "Disponible jusqu'au 30 Juin inclus.";
-                }
-            }
-
-            // Handle Library Access
-            if (bibCard) {
-                if (today > bibCutoff) {
-                    bibCard.classList.add('disabled');
-                    bibCard.removeAttribute('href');
-                    if(bibExpiryDiv) bibExpiryDiv.textContent = "Accès terminé depuis le 24 Juin.";
-                } else {
-                    if(bibExpiryDiv) bibExpiryDiv.textContent = "Disponible jusqu'au 24 Juin inclus.";
-                }
+        // Recreate particles when theme changes
+        document.body.addEventListener('transitionend', function(e) {
+            // Check if the transition is on a property likely changed by theme toggle (like background-color)
+            if (e.propertyName === 'background-color') {
+                 createParticles();
             }
         });
-    </script>
 
-    <!-- Countdown Timer Logic -->
-    <script>
-        const countdownDate = new Date("July 20, 2025 00:00:00").getTime();
-
-        const countdownInterval = setInterval(function() {
-            const now = new Date().getTime();
-            const distance = countdownDate - now;
-
-            const days = Math.max(0, Math.floor(distance / (1000 * 60 * 60 * 24)));
-            const hours = Math.max(0, Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)));
-            const minutes = Math.max(0, Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)));
-            const seconds = Math.max(0, Math.floor((distance % (1000 * 60)) / 1000));
-
-            const daysEl = document.getElementById("days");
-            const hoursEl = document.getElementById("hours");
-            const minutesEl = document.getElementById("minutes");
-            const secondsEl = document.getElementById("seconds");
-
-            if (daysEl) daysEl.innerText = days.toString().padStart(2, '0');
-            if (hoursEl) hoursEl.innerText = hours.toString().padStart(2, '0');
-            if (minutesEl) minutesEl.innerText = minutes.toString().padStart(2, '0');
-            if (secondsEl) secondsEl.innerText = seconds.toString().padStart(2, '0');
-
-
-            if (distance < 0) {
-                clearInterval(countdownInterval);
-                 const countdownEl = document.getElementById("countdown");
-                 if (countdownEl) {
-                     countdownEl.innerHTML = "<div class='col-span-4 text-2xl font-bold text-primary'>Le site est de retour !</div>";
-                 }
-                 // Optional: Hide the countdown section or replace it with a "Welcome Back" message
-            }
-        }, 1000);
-    </script>
-
-    <!-- Chart.js Statistics & Total Stats Display -->
-    <script>
-        let statsCharts = {}; // Object to store chart instances
-
-         // Function to get color from CSS variable
-         function getCssVarColor(varName) {
-             const style = getComputedStyle(document.body);
-             const hsl = style.getPropertyValue(varName).trim();
-             return `hsl(${hsl})`; // Return HSL string for Chart.js
-         }
-
-        function renderCharts() {
-             // Data provided by the user - calculate totals cumulatively
-            const statsData = [
-                { date: "01 Fév 25", users: 860, views: 1150, downloads: 0, calculations: 574 },
-                { date: "15 Fév 25", users: 1251, views: 2510, downloads: 0, calculations: 1201 },
-                { date: "01 Mars 25", users: 2256, views: 4900, downloads: 391, calculations: 3270 },
-                { date: "15 Mars 25", users: 3108, views: 7570, downloads: 455, calculations: 3282 },
-                { date: "01 Avril 25", users: 4064, views: 12710, downloads: 2818, calculations: 9482 },
-                { date: "15 Avril 25", users: 4688, views: 18652, downloads: 6450, calculations: 11227 },
-                { date: "01 Mai 25", users: 5009, views: 31522, downloads: 9555, calculations: 16226 },
-                { date: "15 Mai 25", users: 13520, views: 256842, downloads: 183568, calculations: 29525 },
-                { date: "01 Juin 25", users: 15236, views: 425793, downloads: 294854, calculations: 42658 },
-                // Updated last data point
-                { date: "13 Juin 25", users: 21357, views: 540942, downloads: 298984, calculations: 64250 }
-            ];
-
-             // Prepare data for Chart.js
-            const labels = statsData.map(d => d.date);
-
-            const datasetsConfig = {
-                users: { label: 'Utilisateurs Uniques', data: statsData.map(d => d.users), colorVar: '--color-blue' },
-                views: { label: 'Pages Vues', data: statsData.map(d => d.views), colorVar: '--color-purple' },
-                downloads: { label: 'Téléchargements', data: statsData.map(d => d.downloads), colorVar: '--color-green' },
-                calculations: { label: 'Calculs de Moyenne', data: statsData.map(d => d.calculations), colorVar: '--color-amber' }
-            };
-
-             // Function to get text color based on theme
-             function getTextColor() { return getCssVarColor('--foreground'); }
-             // Function to get muted text color based on theme
-             function getMutedTextColor() { return getCssVarColor('--muted-foreground'); }
-             // Function to get grid line color based on theme
-             function getGridColor() { return getCssVarColor('--border').replace(')', ' / 0.5)'); } // Add transparency
-              // Function to get tooltip background color based on theme
-             function getTooltipBgColor() { return getCssVarColor('--card').replace(')', ' / 0.95)'); } // Add transparency
-
-             // Destroy existing charts if they exist
-             for (const chartKey in statsCharts) {
-                 if (statsCharts[chartKey]) {
-                     statsCharts[chartKey].destroy();
-                     statsCharts[chartKey] = null;
-                 }
-             }
-
-            // Create charts
-            for (const key in datasetsConfig) {
-                const datasetConfig = datasetsConfig[key];
-                const ctx = document.getElementById(`${key}Chart`);
-                if (!ctx) continue;
-
-                const datasetColor = getCssVarColor(datasetConfig.colorVar);
-                const backgroundColor = datasetColor.replace(')', ' / 0.15)'); // Add transparency
-
-                statsCharts[key] = new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                        labels: labels,
-                        datasets: [{
-                            label: datasetConfig.label,
-                            data: datasetConfig.data,
-                            borderColor: datasetColor,
-                            backgroundColor: backgroundColor,
-                            tension: 0.4,
-                            fill: true,
-                            pointRadius: 5, // Slightly larger points
-                            pointBackgroundColor: datasetColor,
-                            borderWidth: 2,
-                            pointHoverRadius: 7, // Larger hover points
-                             pointHitRadius: 12
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                         hover: {
-                            mode: 'nearest',
-                            intersect: true
-                         },
-                         animation: { // Add chart animation on load
-                              duration: 2000, // Animation duration
-                              easing: 'easeOutQuart' // Easing function
-                         },
-                        plugins: {
-                             legend: {
-                                 display: true,
-                                 labels: { color: getTextColor() }
-                             },
-                            tooltip: {
-                                mode: 'index',
-                                intersect: false,
-                                backgroundColor: getTooltipBgColor(),
-                                titleColor: getTextColor(),
-                                bodyColor: getTextColor(),
-                                borderColor: getGridColor(),
-                                borderWidth: 1,
-                                cornerRadius: 4,
-                                displayColors: true,
-                                boxPadding: 4,
-                                titleFont: { weight: 'bold' },
-                                bodyFont: { weight: 'normal' },
-                                callbacks: {
-                                     // Custom label formatter for tooltips (e.g., add units like ' users', ' views')
-                                     label: function(context) {
-                                         let label = context.dataset.label || '';
-                                         if (label) {
-                                             label += ': ';
-                                         }
-                                         if (context.raw !== null) {
-                                              const value = context.raw;
-                                             let formattedValue;
-                                             if (value >= 1000000) formattedValue = (value / 1000000).toFixed(1) + ' M';
-                                             else if (value >= 1000) formattedValue = (value / 1000).toFixed(0) + ' k';
-                                             else formattedValue = value;
-
-                                             label += formattedValue;
-
-                                              // Add unit based on dataset label
-                                              if (datasetConfig.label.includes('Utilisateurs')) label += ' utilisateurs';
-                                              else if (datasetConfig.label.includes('Pages')) label += ' vues';
-                                              else if (datasetConfig.label.includes('Téléchargements')) label += ' téléchargements';
-                                              else if (datasetConfig.label.includes('Calculs')) label += ' calculs';
-                                         }
-                                         return label;
-                                     }
-                                }
-                            },
-                             datalabels: {
-                                 align: 'end',
-                                 anchor: 'end',
-                                 color: getTextColor(),
-                                 font: {
-                                     weight: 'bold',
-                                     size: 10
-                                 },
-                                 formatter: function(value, context) {
-                                     // Only show label for the last point
-                                     if (context.dataIndex === context.dataset.data.length - 1) {
-                                          if (value >= 1000000) return (value / 1000000).toFixed(1) + 'M';
-                                         if (value >= 1000) return (value / 1000).toFixed(0) + 'k';
-                                         return value;
-                                     }
-                                     return null;
-                                 }
-                             }
-                        },
-                        scales: {
-                            x: {
-                                ticks: { color: getMutedTextColor() },
-                                grid: { color: getGridColor() },
-                                 border: { display: false }
-                            },
-                            y: {
-                                beginAtZero: true,
-                                grace: '5%',
-                                ticks: {
-                                    color: getMutedTextColor(),
-                                     callback: function(value) {
-                                        if (value >= 1000000) return value / 1000000 + 'M';
-                                        if (value >= 1000) return value / 1000 + 'k';
-                                        return value;
-                                     }
-                                },
-                                grid: { color: getGridColor() },
-                                 border: { display: false }
-                            }
-                        }
-                    },
-                     plugins: [ChartDataLabels]
-                });
-            }
-        }
-
-         // Function to update chart colors without redrawing
-         function updateChartColors() {
-             const getTextColor = () => getCssVarColor('--foreground');
-             const getMutedTextColor = () => getCssVarColor('--muted-foreground');
-             const getGridColor = () => getCssVarColor('--border').replace(')', ' / 0.5)');
-             const getTooltipBgColor = () => getCssVarColor('--card').replace(')', ' / 0.95)');
-
-
-             const datasetsConfig = { // Define colors again to map keys to vars
-                 users: { colorVar: '--color-blue' },
-                 views: { colorVar: '--color-purple' },
-                 downloads: { colorVar: '--color-green' },
-                 calculations: { colorVar: '--color-amber' }
-             };
-
-
-             for (const key in statsCharts) {
-                 const chart = statsCharts[key];
-                 if (chart) {
-                      const datasetColor = getCssVarColor(datasetsConfig[key].colorVar);
-                      const backgroundColor = datasetColor.replace(')', ' / 0.15)');
-
-                     chart.options.plugins.legend.labels.color = getTextColor();
-                     chart.options.plugins.tooltip.titleColor = getTextColor();
-                     chart.options.plugins.tooltip.bodyColor = getTextColor();
-                     chart.options.plugins.tooltip.backgroundColor = getTooltipBgColor(); // Update tooltip background
-                     chart.options.plugins.tooltip.borderColor = getGridColor(); // Also update tooltip border
-                     chart.options.plugins.datalabels.color = getTextColor();
-                     chart.options.scales.x.ticks.color = getMutedTextColor();
-                     chart.options.scales.y.ticks.color = getMutedTextColor();
-                     chart.options.scales.x.grid.color = getGridColor();
-                     chart.options.scales.y.grid.color = getGridColor();
-
-                      // Update dataset colors
-                     chart.data.datasets.forEach(dataset => {
-                          dataset.borderColor = datasetColor;
-                         dataset.backgroundColor = backgroundColor;
-                          dataset.pointBackgroundColor = datasetColor;
-                     });
-
-                     chart.update();
-                 }
-             }
-         }
-
-        // Function to display total stats directly
-        function displayTotalStats() {
-             const statsData = [
-                // Updated last data point
-                { date: "13 Juin 25", users: 21357, views: 540942, downloads: 298984, calculations: 64250 }
-             ];
-             const finalStats = statsData[statsData.length - 1];
-             const formatNumber = (num) => num.toLocaleString('fr-FR'); // Use French locale for commas
-
-            const totalUsersEl = document.getElementById('total-users');
-            const totalViewsEl = document.getElementById('total-views');
-            const totalDownloadsEl = document.getElementById('total-downloads');
-            const totalCalculationsEl = document.getElementById('total-calculations');
-
-             if (totalUsersEl) totalUsersEl.innerText = formatNumber(finalStats.users);
-             if (totalViewsEl) totalViewsEl.innerText = formatNumber(finalStats.views);
-             if (totalDownloadsEl) totalDownloadsEl.innerText = formatNumber(finalStats.downloads);
-             if (totalCalculationsEl) totalCalculationsEl.innerText = formatNumber(finalStats.calculations);
-         }
-
-
-        document.addEventListener('DOMContentLoaded', function() {
-             displayTotalStats(); // Display total stats on load directly
-             renderCharts(); // Render charts on page load
-
-             // Listen for theme transition end to update chart colors smoothly
-            document.body.addEventListener('transitionend', (event) => {
-                 // Check if the background-color transition specifically ended
-                if (event.propertyName === 'background-color' || event.target === document.body) {
-                    updateChartColors();
-                }
-            });
-        });
 
     </script>
 
+    <!-- Removed Firebase and aclib scripts -->
 
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
-    <script>
-        // Firebase Configuration (Keep if you still want to track clicks during this period)
-        const firebaseConfig = {
-            apiKey: "AIzaSyB5XYqWKhHdiVDXJx4iOwtpxD8eUCPRfKU",
-            authDomain: "universite-de-bejaia-547fc.firebaseapp.com",
-            projectId: "universite-de-bejaia-547fc",
-            storageBucket: "universite-de-bejaia-547fc.appspot.com",
-            messagingSenderId: "517622731583",
-            appId: "1:517622731583:web:25453d5e01226585bf798a",
-            measurementId: "G-SQ0WWSCS7B",
-            databaseURL: "https://universite-de-bejaia-547fc-default-rtdb.firebaseio.com"
-        };
-        // Initialize Firebase (only if not already initialized)
-        if (!firebase.apps.length) {
-            firebase.initializeApp(firebaseConfig);
-             console.log("Firebase initialized.");
-        }
-        const database = firebase.database();
-
-        // Track clicks for the remaining links
-        document.addEventListener('DOMContentLoaded', function() {
-            const calcCard = document.getElementById('calculator-card');
-            const bibCard = document.getElementById('bib-card');
-            const today = new Date();
-            const currentYear = today.getFullYear();
-            const calcCutoff = new Date(currentYear, 5, 30, 23, 59, 59); // Month is 0-indexed (5 = June)
-            const bibCutoff = new Date(currentYear, 5, 24, 23, 59, 59); // Month is 0-indexed (5 = June)
-
-            // Add click listener only if the card is NOT disabled
-            if (calcCard && today <= calcCutoff) {
-                calcCard.addEventListener('click', function() {
-                    console.log("Calculator clicked, logging to Firebase...");
-                    const statsRef = database.ref('stats/modules/calculatorClicks');
-                    statsRef.transaction((current) => (current || 0) + 1)
-                        .then(() => console.log("Calculator click logged successfully"))
-                        .catch(error => console.error("Firebase logging error:", error));
-                });
-            } else if (calcCard) {
-                 console.log("Calculator card disabled, no click listener added.");
-            }
-
-
-            if (bibCard && today <= bibCutoff) {
-                 bibCard.addEventListener('click', function() {
-                     console.log("Library clicked, logging to Firebase...");
-                    const statsRef = database.ref('stats/modules/libraryClicks');
-                    statsRef.transaction((current) => (current || 0) + 1)
-                         .then(() => console.log("Library click logged successfully"))
-                         .catch(error => console.error("Firebase logging error:", error));
-                });
-            } else if (bibCard) {
-                 console.log("Library card disabled, no click listener added.");
-            }
-             // Note: Ensure your Firebase rules allow writing to these paths
-        });
-
-    </script>
-
-    <!-- Ad System Script (Keep if needed) -->
-    <script type="text/javascript">
-        aclib.runAutoTag({
-            zoneId: '747hk1i2j2',
-        });
-    </script>
 </body>
 </html>
