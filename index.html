@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>E-Campus Platform - Maintenance</title>
-    <meta name="description" content="Le portail E-Campus est actuellement en maintenance. Nous serons de retour bientôt. La calculatrice est accessible.">
+    <title>Goodbye BejaiaHub, Welcome E-Campus</title>
+    <meta name="description" content="BejaiaHub devient E-Campus. Notre nouveau site est disponible. Visitez campusdz.vercel.app">
     <meta name="author" content="Amara Mehdi">
-    <link rel="icon" type="image/png" href="assets/img/icon.png">
+    <link rel="icon" type="image/png" href="assets/img/icon.png"> <!-- Assuming you still want this icon -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,6 +14,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
+        /* Using original theme variables and slightly adjusting maintenance ones for generic use */
         :root {
             --background: 0 0% 100%;
             --foreground: 222.2 84% 4.9%;
@@ -31,9 +32,9 @@
             --input: 214.3 31.8% 91.4%;
             --ring: 221.2 83.2% 53.3%; /* Original Ring Blue */
             --radius: 0.5rem;
-            /* Maintenance Theme Colors */
-            --maintenance-icon-color: 24.9 95% 53.1%; /* Orange/Amber for caution/work */
-            --maintenance-text-color: 142.1 76.2% 36.3%; /* Green for 'coming back' */
+            /* Keep some accent colors derived from maintenance for particles/blobs if desired */
+            --accent-color-1: 24.9 95% 53.1%; /* Orange/Amber */
+            --accent-color-2: 142.1 76.2% 36.3%; /* Green */
         }
 
         .dark {
@@ -52,9 +53,9 @@
             --border: 217.2 32.6% 17.5%;
             --input: 217.2 32.6% 17.5%;
             --ring: 224.3 76.3% 48%; /* Original Dark Ring Blue */
-            /* Maintenance Theme Colors */
-            --maintenance-icon-color: 30 85% 60%; /* Darker Orange */
-            --maintenance-text-color: 152.1 76.2% 46.3%; /* Darker Green */
+             /* Keep some accent colors derived from maintenance for particles/blobs if desired */
+            --accent-color-1: 30 85% 60%; /* Darker Orange */
+            --accent-color-2: 152.1 76.2% 46.3%; /* Darker Green */
         }
 
         body {
@@ -103,7 +104,7 @@
             height: 600px;
             background: linear-gradient(to top right,
                 hsl(var(--ring) / 0.25),
-                hsl(var(--maintenance-icon-color) / 0.2), /* Use a maintenance color */
+                hsl(var(--accent-color-1) / 0.2), /* Using a general accent color */
                 transparent);
             animation-delay: 3s;
         }
@@ -125,89 +126,6 @@
             50% { opacity: 0.9; transform: scale(1.1) translate(10px, 10px); }
             100% { opacity: 0.6; transform: scale(1) translate(0,0); }
          }
-
-
-        .service-card {
-            background: hsl(var(--card));
-            backdrop-filter: blur(12px); /* Increased blur */
-            border: 1px solid hsl(var(--border));
-            border-radius: var(--radius);
-            padding: 2.5rem;
-            text-align: center;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Adjusted shadow */
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
-            display: block;
-            text-decoration: none;
-            color: hsl(var(--card-foreground));
-            transform: translateY(0);
-        }
-
-        .service-card:hover {
-            transform: translateY(-12px); /* Slightly more pronounced hover */
-            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.2); /* More pronounced shadow */
-             border-color: hsl(var(--primary));
-        }
-
-        .service-card::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(45deg,
-                hsl(var(--primary) / 0.1),
-                hsl(var(--ring) / 0.1),
-                hsl(var(--accent) / 0.1)
-            );
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .service-card:hover::after {
-            opacity: 1;
-        }
-
-        .service-icon {
-            margin: 0 auto 2rem;
-            width: 100px; /* Slightly smaller icon */
-            height: 100px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--ring)));
-            border-radius: 50%;
-            color: hsl(var(--primary-foreground));
-            transition: all 0.3s ease;
-            position: relative;
-            box-shadow: 0 8px 16px hsl(var(--primary) / 0.2);
-        }
-
-        .service-icon i {
-             font-size: 4rem; /* Adjust icon size within circle */
-        }
-
-
-        .service-icon::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: inherit;
-            filter: blur(20px);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .service-card:hover .service-icon::after {
-            opacity: 0.5;
-        }
-
-        .service-card:hover .service-icon {
-            transform: scale(1.1) rotate(5deg);
-        }
-
 
         .theme-toggle {
             position: fixed;
@@ -280,61 +198,8 @@
             }
         }
 
-
-        @media (max-width: 640px) {
-            .service-card {
-                padding: 1.5rem;
-                margin: 0 auto;
-                max-width: 300px;
-            }
-
-            .service-icon {
-                width: 80px; /* Adjust size */
-                height: 80px;
-                margin-bottom: 1rem; /* Adjust margin */
-            }
-             .service-icon i {
-                 font-size: 3rem; /* Adjust icon size within circle */
-             }
-             .maintenance-message h2 {
-                 font-size: 3rem !important; /* Adjust heading size */
-             }
-             .maintenance-message p {
-                 font-size: 1rem; /* Adjust paragraph size */
-             }
-             .maintenance-icon {
-                 font-size: 5rem !important; /* Adjust icon size */
-             }
-        }
-
-        .service-card h3 {
-            background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--ring)));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-
-        .maintenance-message {
-            margin-bottom: 3rem; /* Add space below message */
-        }
-
-        .maintenance-message h2 {
-             /* Gradient using theme colors + maintenance accent */
-            background: linear-gradient(to right,
-                 hsl(var(--primary)),
-                 hsl(var(--maintenance-text-color)),
-                 hsl(var(--ring))
-            );
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            font-size: 4rem; /* Larger heading */
-            font-weight: 700;
-            margin-bottom: 1rem;
-             animation: text-pop-up 0.6s cubic-bezier(0.250, 0.460, 0.450, 0.940) both; /* Add animation */
-        }
-
-         @keyframes text-pop-up {
+        /* Animations for the new message */
+        @keyframes text-pop-up {
             0% {
                 transform: scale(0.8);
                 opacity: 0;
@@ -345,55 +210,18 @@
             }
          }
 
-
-        .maintenance-message p {
-            font-size: 1.25rem; /* Larger paragraph text */
-            color: hsl(var(--muted-foreground));
-            line-height: 1.6;
-             animation: fade-in-up 0.6s cubic-bezier(0.390, 0.575, 0.565, 1.000) both; /* Add animation */
-             animation-delay: 0.3s; /* Delay animation */
-        }
-
-        .maintenance-message p:nth-of-type(2) {
-             animation-delay: 0.5s; /* Further delay for the second paragraph */
-        }
-
-
-        .maintenance-icon-container {
-             display: flex;
-             justify-content: center;
-             align-items: center;
-             margin-bottom: 2rem; /* Space below icon */
-             animation: fade-in-down 0.8s ease-out both; /* Add animation */
-        }
-
-        @keyframes fade-in-down {
+         @keyframes fade-in-up {
             0% {
-                transform: translateY(-20px);
+                transform: translateY(20px);
                 opacity: 0;
             }
             100% {
                 transform: translateY(0);
                 opacity: 1;
             }
-        }
-
-
-        .maintenance-icon {
-            font-size: 8rem; /* Much larger icon */
-            color: hsl(var(--maintenance-icon-color)); /* Use maintenance icon color */
-            animation: spin-pulse 4s ease-in-out infinite; /* Combined spin and pulse */
-            text-shadow: 0 0 20px hsl(var(--maintenance-icon-color) / 0.4); /* Subtle glow */
-        }
-
-         @keyframes spin-pulse {
-            0% { transform: rotate(0deg) scale(1); opacity: 1; }
-            50% { transform: rotate(180deg) scale(1.1); opacity: 0.9; }
-            100% { transform: rotate(360deg) scale(1); opacity: 1; }
          }
 
-
-         /* Ensure main content is centered vertically when height is less than viewport */
+        /* Ensure main content is centered vertically */
         body {
             display: flex;
             flex-direction: column;
@@ -411,6 +239,62 @@
         footer {
             margin-top: auto; /* Push footer to the bottom */
         }
+
+        /* Specific styles for the transition message */
+        .transition-message h2 {
+             font-size: 3rem; /* Base size */
+             font-weight: 700;
+             margin-bottom: 1rem;
+             line-height: 1.2;
+        }
+         .transition-message h2:first-child {
+              animation: text-pop-up 0.6s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+         }
+         .transition-message h2:last-of-type {
+              margin-bottom: 2rem; /* More space below the second heading */
+               animation: text-pop-up 0.6s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+               animation-delay: 0.2s;
+         }
+         .transition-message p {
+             font-size: 1.25rem;
+             line-height: 1.6;
+             color: hsl(var(--muted-foreground));
+             animation: fade-in-up 0.6s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+             animation-delay: 0.4s;
+         }
+         .transition-message .cta-button {
+             margin-top: 2.5rem; /* Space above button */
+             animation: fade-in-up 0.6s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+             animation-delay: 0.6s;
+         }
+         .transition-message .icon-placeholder {
+             margin-top: 3rem; /* Space above icon */
+              animation: zoom-in 0.8s ease-out both;
+              animation-delay: 1s;
+              color: hsl(var(--primary)); /* Use primary color for icon */
+              opacity: 0.8;
+         }
+
+        @media (min-width: 768px) { /* Adjust for medium screens and up */
+            .transition-message h2 {
+                 font-size: 4rem;
+            }
+             .transition-message h2:last-of-type {
+                  margin-bottom: 3rem;
+             }
+            .transition-message p {
+                font-size: 1.5rem;
+            }
+            .transition-message .cta-button {
+                 font-size: 1.25rem;
+                 padding: 1rem 2.5rem;
+            }
+             .transition-message .icon-placeholder {
+                 font-size: 8rem;
+             }
+        }
+
+
     </style>
 </head>
 <body class="min-h-screen">
@@ -419,12 +303,12 @@
         <div class="gradient-blob gradient-blob-1"></div>
         <div class="gradient-blob gradient-blob-2"></div>
         <!-- Floating Dots using theme colors -->
-        <div class="floating-dot w-5 h-5 top-1/4 left-1/4 bg-blue-500"></div>
-        <div class="floating-dot w-4 h-4 top-1/3 right-1/4 bg-purple-500"></div>
-        <div class="floating-dot w-3 h-3 bottom-1/4 left-1/3 bg-green-500"></div>
-        <div class="floating-dot w-4 h-4 top-2/3 right-1/3 bg-amber-500"></div>
-         <div class="floating-dot w-3 h-3 top-1/2 left-1/2 bg-pink-500 animation-delay: 2s;"></div>
-         <div class="floating-dot w-5 h-5 bottom-1/3 left-1/5 bg-teal-500 animation-delay: 1s;"></div>
+        <div class="floating-dot w-5 h-5 top-1/4 left-1/4" style="background-color: hsl(var(--primary));"></div>
+        <div class="floating-dot w-4 h-4 top-1/3 right-1/4" style="background-color: hsl(var(--accent-color-1));"></div>
+        <div class="floating-dot w-3 h-3 bottom-1/4 left-1/3" style="background-color: hsl(var(--accent-color-2));"></div>
+        <div class="floating-dot w-4 h-4 top-2/3 right-1/3" style="background-color: hsl(var(--ring));"></div>
+         <div class="floating-dot w-3 h-3 top-1/2 left-1/2" style="background-color: hsl(var(--secondary)); animation-delay: 2s;"></div>
+         <div class="floating-dot w-5 h-5 bottom-1/3 left-1/5" style="background-color: hsl(var(--primary)); animation-delay: 1s;"></div>
     </div>
 
     <!-- Floating Particles -->
@@ -445,38 +329,35 @@
     </header>
 
     <!-- Main Content -->
-    <main class="container mx-auto px-4 flex flex-col items-center justify-center">
-        <!-- Maintenance Section -->
-        <section class="relative text-center max-w-3xl w-full">
-            <div class="maintenance-icon-container">
-                 <i class="fas fa-tools maintenance-icon"></i>
-            </div>
-            <div data-aos="fade-up" data-aos-delay="200" class="maintenance-message">
-                <h2 class="font-bold mb-4">
-                    Maintenance en cours
+    <main class="container mx-auto px-4 flex flex-col items-center justify-center text-center">
+        <section class="relative max-w-3xl w-full">
+             <!-- New Welcome/Transition Message -->
+            <div class="transition-message">
+                <h2 class="font-bold text-foreground">
+                     Bye bye BejaiaHub
                 </h2>
-                <p class="text-xl text-muted-foreground mb-4" data-aos="fade-up" data-aos-delay="400">
-                    Le portail E-Campus est actuellement en maintenance pour des améliorations importantes.
+                 <h2 class="font-bold text-foreground">
+                    Welcome to E-campus!
+                 </h2>
+                <p class="mb-6 text-muted-foreground" data-aos-delay="400">
+                    Notre nouveau site E-Campus est désormais disponible.
                 </p>
-                <p class="text-lg text-muted-foreground" data-aos="fade-up" data-aos-delay="600">
-                    Nous travaillons dur pour revenir en ligne rapidement.
-                </p>
-                <p class="text-xl mt-6 font-semibold" data-aos="fade-up" data-aos-delay="800" style="color: hsl(var(--maintenance-text-color));">
-                     Nous serons de retour bientôt !
-                 </p>
+                <div class="cta-button">
+                    <a href="https://campusdz.vercel.app"
+                       class="inline-block px-8 py-4 rounded-lg font-semibold transition-transform transform hover:scale-105 shadow-lg"
+                       target="_blank" rel="noopener noreferrer"
+                       style="background-color: hsl(var(--primary)); color: hsl(var(--primary-foreground));">
+                        Visiter le nouveau site
+                        <i class="fas fa-external-link-alt ml-2"></i>
+                    </a>
+                </div>
+                 <!-- Optional: Add a small icon or graphic -->
+                 <div class="icon-placeholder">
+                      <i class="fas fa-graduation-cap"></i> <!-- Example icon -->
+                 </div>
             </div>
         </section>
-
-        <!-- Calculator Card (Only one visible) -->
-        <div class="w-full max-w-sm md:max-w-md lg:max-w-sm mx-auto mt-8"> <!-- Added top margin -->
-            <a href="calculator.html" class="service-card group" data-aos="zoom-in" data-aos-delay="1000" id="calculator-card">
-                <div class="service-icon group-hover:scale-110 transition-transform duration-300">
-                    <i class="fas fa-calculator"></i>
-                </div>
-                <h3 class="text-2xl font-semibold mb-4">Calculatrice</h3>
-                <p class="text-muted-foreground">Calculez votre moyenne même pendant la maintenance.</p>
-            </a>
-        </div>
+        <!-- The calculator card div has been removed -->
     </main>
 
     <!-- Footer -->
@@ -484,7 +365,7 @@
         <div class="container mx-auto px-4">
             <div class="text-center text-muted-foreground">
                 <p>
-                    © 2025 Développé par Amara Mehdi<br>
+                    Made by heart by Amara Mehdi<br>
                     Université de Bejaia
                 </p>
             </div>
@@ -510,13 +391,11 @@
 
             if (body.classList.contains('dark')) {
                 body.classList.remove('dark');
-                themeToggleIcon.classList.remove('fa-sun');
-                themeToggleIcon.classList.add('fa-moon');
+                themeToggleIcon.classList.replace('fa-sun', 'fa-moon'); // Use replace for robustness
                 localStorage.setItem('theme', 'light');
             } else {
                 body.classList.add('dark');
-                themeToggleIcon.classList.remove('fa-moon');
-                themeToggleIcon.classList.add('fa-sun');
+                themeToggleIcon.classList.replace('fa-moon', 'fa-sun'); // Use replace for robustness
                 localStorage.setItem('theme', 'dark');
             }
             // Recreate particles to ensure they pick up new theme colors immediately
@@ -530,18 +409,19 @@
         } else if (savedTheme === 'light') {
              document.body.classList.remove('dark');
         } else {
-            // Default to light theme if no preference saved
+            // Default to light theme if no preference saved (or could check system preference)
              document.body.classList.remove('dark');
         }
 
          // Set initial icon after theme is applied
         const themeToggleIcon = document.querySelector('.theme-toggle i');
-        if (document.body.classList.contains('dark')) {
-             if (themeToggleIcon) themeToggleIcon.classList.replace('fa-moon', 'fa-sun');
-        } else {
-             if (themeToggleIcon) themeToggleIcon.classList.replace('fa-sun', 'fa-moon');
+        if (themeToggleIcon) { // Check if element exists
+            if (document.body.classList.contains('dark')) {
+                 themeToggleIcon.classList.replace('fa-moon', 'fa-sun');
+            } else {
+                 themeToggleIcon.classList.replace('fa-sun', 'fa-moon');
+            }
         }
-
     </script>
 
     <!-- Create floating particles -->
@@ -552,17 +432,18 @@
             // Clear existing particles before adding new ones (for theme change)
              particlesContainer.innerHTML = '';
 
-            // Get theme colors using CSS variables
+            // Get theme colors using CSS variables (including the accent colors)
              const style = getComputedStyle(document.documentElement);
             const colors = [
                 style.getPropertyValue('--primary').trim(),
                 style.getPropertyValue('--ring').trim(),
-                style.getPropertyValue('--maintenance-icon-color').trim(),
-                style.getPropertyValue('--maintenance-text-color').trim(),
-                 style.getPropertyValue('--secondary').trim()
+                style.getPropertyValue('--accent-color-1').trim(),
+                style.getPropertyValue('--accent-color-2').trim(),
+                 style.getPropertyValue('--secondary').trim(),
+                 style.getPropertyValue('--muted').trim() // Add muted for variety
             ];
 
-            for (let i = 0; i < 50; i++) { // Increased particle count
+            for (let i = 0; i < 60; i++) { // Increased particle count slightly
                 const particle = document.createElement('div');
                 particle.className = 'particle';
 
@@ -580,8 +461,8 @@
 
 
                 // Random movement
-                const moveX = (Math.random() - 0.5) * 80; // Larger movement
-                const moveY = (Math.random() - 0.5) * 80;
+                const moveX = (Math.random() - 0.5) * 100; // Larger movement range
+                const moveY = (Math.random() - 0.5) * 100;
 
                 // Set styles
                 particle.style.cssText = `
@@ -592,8 +473,8 @@
                     background-color: hsl(${colorValue}); /* Use HSL color value */
                     --x: ${moveX}px;
                     --y: ${moveY}px;
-                    animation-delay: ${Math.random() * 7}s; /* Vary animation delay */
-                    animation-duration: ${Math.random() * 10 + 10}s; /* Vary animation duration */
+                    animation-delay: ${Math.random() * 8}s; /* Vary animation delay */
+                    animation-duration: ${Math.random() * 12 + 10}s; /* Vary animation duration */
                 `;
 
                 particlesContainer.appendChild(particle);
@@ -603,18 +484,10 @@
         // Initialize particles when the DOM is fully loaded
         document.addEventListener('DOMContentLoaded', createParticles);
 
-        // Recreate particles when theme changes
-        document.body.addEventListener('transitionend', function(e) {
-            // Check if the transition is on a property likely changed by theme toggle (like background-color)
-            if (e.propertyName === 'background-color') {
-                 createParticles();
-            }
-        });
-
-
+        // Note: The theme toggle function already calls createParticles(), which is sufficient.
+        // The transitionend listener is generally not needed for this specific use case if
+        // createParticles is called directly in toggleTheme.
     </script>
-
-    <!-- Removed Firebase and aclib scripts -->
 
 </body>
 </html>
